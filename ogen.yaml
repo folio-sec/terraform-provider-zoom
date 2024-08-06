@@ -1,0 +1,6 @@
+generator:
+  features:
+    disable:
+      - paths/server
+  ignore_not_implemented: ["complex uniqueItems", "discriminator inference"]
+
