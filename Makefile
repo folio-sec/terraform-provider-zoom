@@ -1,7 +1,10 @@
 TEST?=$$(go list ./... |grep -v 'vendor')
 DEV      := folio-sec
 PROVIDER := zoom
+# VERSION  := $(shell git describe --abbrev=0 --tags --match "v*")
+VERSION := v0.0.1
 PLUGINS  := ${HOME}/bin/plugins/registry.terraform.io/${DEV}/${PROVIDER}
+BIN      := terraform-provider-zoom_${VERSION}
 
 define TERRAFORMRC
 

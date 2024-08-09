@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
-	"github.com/folio-sec/terraform-provider-zoom/internal/provider/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	autoreceptionist2 "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/ogen-go/ogen/ogenerrors"
 )
 
 // Ensure zoomProvider satisfies various provider interfaces.
@@ -38,7 +37,7 @@ type clientSecurity struct {
 }
 
 func (c clientSecurity) OpenapiAuthorization(_ context.Context, _ string) (zoomphone.OpenapiAuthorization, error) {
-	return zoomphone.OpenapiAuthorization{}, ogenerrors.ErrSkipClientSecurity
+	return zoomphone.OpenapiAuthorization{}, nil
 }
 func (c clientSecurity) OpenapiOAuth(_ context.Context, _ string) (zoomphone.OpenapiOAuth, error) {
 	return zoomphone.OpenapiOAuth{Token: c.AccessToken}, nil
@@ -92,7 +91,7 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 	accountID := os.Getenv("ZOOM_ACCOUNT_ID")
 	clientID := os.Getenv("ZOOM_CLIENT_ID")
-	clientSecret := os.Getenv("ZOOM_CLIENT_SECRET")
+	clientSecret := os.Getenv("ZOOM_CLIENT_ID")
 
 	if !config.AccountID.IsNull() || !config.AccountID.IsUnknown() {
 		accountID = config.AccountID.ValueString()
@@ -184,13 +183,13 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		autoreceptionist.NewPhoneReceptionistResource,
+		autoreceptionist2.NewPhoneReceptionistResource,
 	}
 }
 
 func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		autoreceptionist.NewPhoneAutoReceptionistDataSource,
+		autoreceptionist2.NewPhoneAutoReceptionistDataSource,
 	}
 }
 

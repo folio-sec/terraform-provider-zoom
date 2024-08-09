@@ -1,0 +1,256 @@
+package autoreceptionist
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
+)
+
+var (
+	_ resource.Resource                = &phoneAutoReceptionistResource{}
+	_ resource.ResourceWithConfigure   = &phoneAutoReceptionistResource{}
+	_ resource.ResourceWithImportState = &phoneAutoReceptionistResource{}
+)
+
+func NewPhoneReceptionistResource() resource.Resource {
+	return &phoneAutoReceptionistResource{}
+}
+
+type phoneAutoReceptionistResource struct {
+	crud *phoneAutoReceptionistCrud
+}
+
+func (r *phoneAutoReceptionistResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	if req.ProviderData == nil {
+		return
+	}
+	data, ok := req.ProviderData.(*shared.ProviderData)
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected ProviderData Source Configure Type",
+			fmt.Sprintf("Expected *provider.ProviderData, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+		return
+	}
+	r.crud = NewPhoneReceptionistCrud(data.PhoneMasterClient)
+}
+
+func (r *phoneAutoReceptionistResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_phone_auto_receptionist"
+}
+
+func (r *phoneAutoReceptionistResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		MarkdownDescription: "Information on a specific auto receptionist",
+		Attributes: map[string]schema.Attribute{
+			"auto_receptionist_id": schema.StringAttribute{
+				Computed:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+			},
+			"cost_center": schema.StringAttribute{
+				Optional: true,
+			},
+			"department": schema.StringAttribute{
+				Optional: true,
+			},
+			"extension_number": schema.Int64Attribute{
+				Optional:      true,
+				Computed:      true,
+				PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()},
+			},
+			"name": schema.StringAttribute{
+				Required: true,
+			},
+			"timezone": schema.StringAttribute{
+				Optional:      true,
+				Computed:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+			},
+			"audio_prompt_language": schema.StringAttribute{
+				Optional:      true,
+				Computed:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+			},
+		},
+	}
+}
+
+type phoneAutoReceptionistResourceModel struct {
+	AutoReceptionistID  types.String `tfsdk:"auto_receptionist_id"`
+	CostCenter          types.String `tfsdk:"cost_center"`
+	Department          types.String `tfsdk:"department"`
+	ExtensionNumber     types.Int64  `tfsdk:"extension_number"`
+	Name                types.String `tfsdk:"name"`
+	Timezone            types.String `tfsdk:"timezone"`
+	AudioPromptLanguage types.String `tfsdk:"audio_prompt_language"`
+}
+
+func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var state phoneAutoReceptionistResourceModel
+	diags := req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	output, err := r.read(ctx, state.AutoReceptionistID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
+		return
+	}
+
+	diags = resp.State.Set(ctx, &output)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+}
+
+func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptionistId string) (*phoneAutoReceptionistResourceModel, error) {
+	dto, err := r.crud.Read(ctx, autoReceptionistId)
+	if err != nil {
+		return nil, fmt.Errorf("error read: %v", err)
+	}
+
+	return &phoneAutoReceptionistResourceModel{
+		AutoReceptionistID:  dto.autoReceptionistID,
+		CostCenter:          dto.costCenter,
+		Department:          dto.department,
+		ExtensionNumber:     dto.extensionNumber,
+		Name:                dto.name,
+		Timezone:            dto.timezone,
+		AudioPromptLanguage: dto.audioPromptLanguage,
+	}, nil
+}
+
+func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var plan phoneAutoReceptionistResourceModel
+	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	ret, err := r.crud.Create(ctx, createDto{
+		name: plan.Name,
+	})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error creating phone auto receptionist",
+			err.Error(),
+		)
+		return
+	}
+	err = r.crud.Update(ctx, updateDto{
+		autoReceptionistID:  ret.autoReceptionistID,
+		costCenter:          plan.CostCenter,
+		department:          plan.Department,
+		extensionNumber:     ret.extensionNumber,
+		name:                ret.name,
+		timezone:            plan.Timezone,
+		audioPromptLanguage: plan.AudioPromptLanguage,
+	})
+	if err != nil {
+		// TODO mark resource as taint
+		resp.Diagnostics.AddError(
+			"Error creating phone auto receptionist on updating",
+			err.Error(),
+		)
+		return
+	}
+
+	output, err := r.read(ctx, ret.autoReceptionistID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
+		return
+	}
+
+	diags = resp.State.Set(ctx, output)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+}
+
+func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var plan phoneAutoReceptionistResourceModel
+	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		resp.Diagnostics.AddError(
+			"Error getting phone auto receptionist",
+			"Error getting phone auto receptionist",
+		)
+		return
+	}
+
+	if err := r.crud.Update(ctx, updateDto{
+		autoReceptionistID:  plan.AutoReceptionistID,
+		costCenter:          plan.CostCenter,
+		department:          plan.Department,
+		extensionNumber:     plan.ExtensionNumber,
+		name:                plan.Name,
+		timezone:            plan.Timezone,
+		audioPromptLanguage: plan.AudioPromptLanguage,
+	}); err != nil {
+		resp.Diagnostics.AddError(
+			"Error updating phone auto receptionist",
+			fmt.Sprintf(
+				"Could not update phone auto receptionist %s, unexpected error: %s",
+				plan.AutoReceptionistID.ValueString(),
+				err,
+			),
+		)
+		return
+	}
+
+	output, err := r.read(ctx, plan.AutoReceptionistID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
+		return
+	}
+
+	diags = resp.State.Set(ctx, output)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+}
+
+func (r *phoneAutoReceptionistResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var state phoneAutoReceptionistResourceModel
+	diags := req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if err := r.crud.Delete(ctx, state.AutoReceptionistID.ValueString()); err != nil {
+		resp.Diagnostics.AddError(
+			"Error deleting phone auto receptionist",
+			fmt.Sprintf(
+				"Could not delete phone auto receptionist %s, unexpected error: %s",
+				state.AutoReceptionistID.ValueString(),
+				err,
+			),
+		)
+		return
+	}
+
+	tflog.Info(ctx, "deleted phone auto receptionist", map[string]interface{}{
+		"auto_receptionist_id": state.AutoReceptionistID.ValueString(),
+	})
+}
+
+func (r *phoneAutoReceptionistResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("auto_receptionist_id"), req, resp)
+}

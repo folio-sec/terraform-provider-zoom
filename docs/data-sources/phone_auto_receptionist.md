@@ -18,3 +18,12 @@ Information on a specific auto receptionist
 ### Required
 
 - `auto_receptionist_id` (String) Auto receptionist ID. The unique identifier of the auto receptionist
+
+### Read-Only
+
+- `audio_prompt_language` (String)
+- `cost_center` (String)
+- `department` (String)
+- `extension_number` (Number)
+- `name` (String)
+- `timezone` (String)

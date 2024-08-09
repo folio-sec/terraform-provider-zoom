@@ -7,7 +7,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func FromOptString(o zoomphone.OptString) types.String {
+type OptValue[A any] interface {
+	Get() (v A, ok bool)
+}
+
+func FromOptString(o OptValue[string]) types.String {
 	v, ok := o.Get()
 	if !ok {
 		return types.StringNull()
@@ -22,7 +26,7 @@ func ToOptString(o types.String) zoomphone.OptString {
 	return zoomphone.NewOptString(o.ValueString())
 }
 
-func FromOptInt64(o zoomphone.OptInt64) types.Int64 {
+func FromOptInt64(o OptValue[int64]) types.Int64 {
 	v, ok := o.Get()
 	if !ok {
 		return types.Int64Null()
@@ -37,7 +41,7 @@ func ToOptInt64(o types.Int64) zoomphone.OptInt64 {
 	return zoomphone.NewOptInt64(o.ValueInt64())
 }
 
-func FromOptDateTime(o zoomphone.OptDateTime) types.String {
+func FromOptDateTime(o OptValue[time.Time]) types.String {
 	v, ok := o.Get()
 	if !ok {
 		return types.StringNull()

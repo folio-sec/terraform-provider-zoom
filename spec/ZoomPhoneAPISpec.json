@@ -1956,7 +1956,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -2156,7 +2155,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -2215,7 +2213,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -2265,7 +2262,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -2544,7 +2540,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -2752,7 +2747,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -3015,7 +3009,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -3065,7 +3058,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -3237,7 +3229,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -3361,7 +3352,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.8.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read",
@@ -3412,7 +3402,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write",
@@ -3482,7 +3471,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write",
@@ -3559,7 +3547,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read",
@@ -3662,7 +3649,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write",
@@ -3776,7 +3762,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write",
@@ -3795,7 +3780,7 @@
           "Auto Receptionists"
         ],
         "summary": "List auto receptionists",
-        "description": "Use this API to list auto receptionists.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_auto_receptionists:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Returns a list of auto receptionists.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_auto_receptionists:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
         "operationId": "listAutoReceptionists",
         "parameters": [
           {
@@ -3813,7 +3798,7 @@
           {
             "name": "next_page_token",
             "in": "query",
-            "description": "The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
             "required": false,
             "schema": {
               "type": "string",
@@ -3973,7 +3958,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -3987,7 +3971,7 @@
           "Auto Receptionists"
         ],
         "summary": "Add an auto receptionist",
-        "description": "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system. Use this API to add an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) to a Zoom Phone\n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Adds an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) to a Zoom Phone. Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system. \n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
         "operationId": "addAutoReceptionist",
         "requestBody": {
           "content": {
@@ -4043,7 +4027,7 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           }
         },
         "security": [
@@ -4056,7 +4040,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4072,7 +4055,7 @@
           "Auto Receptionists"
         ],
         "summary": "Get an auto receptionist",
-        "description": "Use this API to get information on a specific auto receptionist.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Returns information on a specific auto receptionist.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
         "operationId": "getAutoReceptionistDetail",
         "parameters": [
           {
@@ -4087,7 +4070,7 @@
         ],
         "responses": {
           "200": {
-            "description": "**HTTP Status Code:** `200` **OK**  \n \nAuto receptionist detail successfully retrieved.",
+            "description": "**HTTP Status Code:** `200` **OK**  \n \nSuccessfully get an auto receptionist detail.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4126,8 +4109,25 @@
                     },
                     "audio_prompt_language": {
                       "type": "string",
-                      "description": "Audio prompt language.",
-                      "example": "en-US"
+                      "description": "The language for all default audio prompts for the auto receptionist. \n* `en-US` : English (US) \n* `en-GB` : English (UK) \n* `es-US` : Spanish (US) \n* `fr-CA` : French (Canada) \n* `da-DK` : Danish (Denmark) \n* `de-DE` : German (Germany) \n* `es-ES` : Spanish (Spain) \n* `fr-FR` : French (France) \n* `it-IT` : Italian (Italy) \n* `nl-NL` : Dutch (Netherlands) \n* `pt-PT` : Portuguese (Portugal) \n* `ja` : Japanese \n* `ko-KR` : Korean (Korea) \n* `pt-BR` : Portuguese (Brazil) \n* `zh-CN` : Chinese (PRC)",
+                      "example": "en-US",
+                      "enum": [
+                        "en-US",
+                        "en-GB",
+                        "es-US",
+                        "fr-CA",
+                        "da-DK",
+                        "de-DE",
+                        "es-ES",
+                        "fr-FR",
+                        "it-IT",
+                        "nl-NL",
+                        "pt-PT",
+                        "ja",
+                        "ko-KR",
+                        "pt-BR",
+                        "zh-CN"
+                      ]
                     },
                     "holiday_hours": {
                       "type": "array",
@@ -4192,6 +4192,28 @@
                           "example": "jamietestsite"
                         }
                       }
+                    },
+                    "recording_storage_location": {
+                      "type": "string",
+                      "description": "Determine where recording will be stored. Recording includes Phone recordings, voicemail, voicemail transcripts, and custom greeting prompts. \n* `US` : United States \n* `AU` : Australia \n* `CA` : Canada \n* `DE` : Germany \n* `IN` : India \n* `JP` : Japan \n* `SG` : Singapore \n* `BR` : Brazil \n* `CN` : China \n* `MX` : Mexico \n\n<b>Note:</b> \n* If the setting is locked at the Account level, it can't be updated.",
+                      "example": "US",
+                      "enum": [
+                        "US",
+                        "AU",
+                        "CA",
+                        "DE",
+                        "IN",
+                        "JP",
+                        "SG",
+                        "BR",
+                        "CN",
+                        "MX"
+                      ]
+                    },
+                    "own_storage_name": {
+                      "type": "string",
+                      "description": "The name of your own storage. Use your own storage provided by Oracle Cloud Infrastructure (OCI) to store Zoom Phone recordings, voicemails, and voicemail transcripts, and custom greeting prompts.",
+                      "example": "us-oracle-storage"
                     }
                   }
                 }
@@ -4209,7 +4231,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -4223,7 +4245,7 @@
           "Auto Receptionists"
         ],
         "summary": "Delete a non-primary auto receptionist",
-        "description": "An auto receptionist answers calls with a personalized recording and routes calls to a phone user, call queue, common area (phone), or to a voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.\nUse this API to [delete a non-primary auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3).\n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "[Deletes a non-primary auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3).\n\nAn auto receptionist answers calls with a personalized recording and routes calls to a phone user, call queue, common area (phone), or to a voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.\n\n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
         "operationId": "deleteAutoReceptionist",
         "parameters": [
           {
@@ -4242,7 +4264,7 @@
             "description": "**HTTP Status Code:** `204`  \n  **No Content**  \n \nAuto Receptionist deleted successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nUnable to delete main Auto receptionist.<br><br>\n\n**Error Code:** `404` <br>\nAutoReceptionist does not exist: {autoReceptionistId}.\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Unable to delete main Auto receptionist.<br><br> <br>\n**Error Code:** `404` <br>\n AutoReceptionist does not exist: {autoReceptionistId}. <br>\n"
           }
         },
         "security": [
@@ -4255,7 +4277,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4269,7 +4290,7 @@
           "Auto Receptionists"
         ],
         "summary": "Update an auto receptionist",
-        "description": "An auto receptionist answers calls with a personalized recording and routes calls to a phone user, call queue, common area, or voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.\nUse this API to [change information](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3) such as the display name and extension number assigned to the main auto receptionist.\n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "[Changes information](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3) such as the display name and the extension number assigned to the main auto receptionist.\n\nAn auto receptionist answers calls with a personalized recording. And it routes calls to a phone user, call queue, common area, or voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.\n\n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "updateAutoReceptionist",
         "parameters": [
           {
@@ -4313,13 +4334,47 @@
                   },
                   "audio_prompt_language": {
                     "type": "string",
-                    "description": "Audio prompt language.",
-                    "example": "en-US"
+                    "description": "The language for all default audio prompts for the auto receptionist. \n* `en-US` : English (US) \n* `en-GB` : English (UK) \n* `es-US` : Spanish (US) \n* `fr-CA` : French (Canada) \n* `da-DK` : Danish (Denmark) \n* `de-DE` : German (Germany) \n* `es-ES` : Spanish (Spain) \n* `fr-FR` : French (France) \n* `it-IT` : Italian (Italy) \n* `nl-NL` : Dutch (Netherlands) \n* `pt-PT` : Portuguese (Portugal) \n* `ja` : Japanese \n* `ko-KR` : Korean (Korea) \n* `pt-BR` : Portuguese (Brazil) \n* `zh-CN` : Chinese (PRC)",
+                    "example": "en-US",
+                    "enum": [
+                      "en-US",
+                      "en-GB",
+                      "es-US",
+                      "fr-CA",
+                      "da-DK",
+                      "de-DE",
+                      "es-ES",
+                      "fr-FR",
+                      "it-IT",
+                      "nl-NL",
+                      "pt-PT",
+                      "ja",
+                      "ko-KR",
+                      "pt-BR",
+                      "zh-CN"
+                    ]
                   },
                   "timezone": {
                     "type": "string",
                     "description": "[Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.",
                     "example": "Pacific/Midway"
+                  },
+                  "recording_storage_location": {
+                    "type": "string",
+                    "description": "Determine where recording will be stored. Recording includes Phone recordings, voicemail, voicemail transcripts, and custom greeting prompts. \n* `US` : United States \n* `AU` : Australia \n* `CA` : Canada \n* `DE` : Germany \n* `IN` : India \n* `JP` : Japan \n* `SG` : Singapore \n* `BR` : Brazil \n* `CN` : China \n* `MX` : Mexico \n\n<b>Note:</b> \n* If the setting is locked at the Account level, it can't be updated.",
+                    "example": "US",
+                    "enum": [
+                      "US",
+                      "AU",
+                      "CA",
+                      "DE",
+                      "IN",
+                      "JP",
+                      "SG",
+                      "BR",
+                      "CN",
+                      "MX"
+                    ]
                   }
                 }
               }
@@ -4331,7 +4386,7 @@
             "description": "**HTTP Status Code:** `204`  \n  **No Content**  \n \nAuto Receptionist details updated sucessfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nExtension Number must be {min} to {max} digits<br>\nValidation Failed. AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionistId}<br>\nAudio prompt language is invalid:{0}<br>\nTime zone is invalid:{0}<br>\n\n**Error Code:** `400` <br>\nInvalid short number length.<br>\nInvalid full extension number length.<br><br>\n\n**Error Code:** `10001` <br>\nNumber {extensionNumber} is a reserved extension number.<br>\nExtension number {extensionNumber} is already used.<br>\nLanguage setting is invalid.\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Extension Number must be {min} to {max} digits<br>\nValidation Failed. AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionistId}<br>\nAudio prompt language is invalid:{0}<br>\nTime zone is invalid:{0}<br> <br>\n**Error Code:** `400` <br>\n Invalid short number length.<br>\nInvalid full extension number length.<br><br> <br>\n**Error Code:** `10001` <br>\n Number {extensionNumber} is a reserved extension number.<br>\nExtension number {extensionNumber} is already used.<br>\nLanguage setting is invalid. <br>\n"
           }
         },
         "security": [
@@ -4344,7 +4399,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4360,7 +4415,7 @@
           "Auto Receptionists"
         ],
         "summary": "Assign phone numbers",
-        "description": "Assign available phone numbers to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). The available numbers can be retrieved using the List Phone Numbers API with `type` query parameter set to &quot;unassigned&quot;.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Assigns available phone numbers to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). The available numbers can be retrieved using the List Phone Numbers API with `type` query parameter set to &quot;unassigned&quot;.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
         "operationId": "assignPhoneNumbersAutoReceptionist",
         "parameters": [
           {
@@ -4409,10 +4464,10 @@
             "description": "**HTTP Status Code:** `204` **No Content**  \n \nPhone numbers assigned successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nUnable to update this number as it is used for outbound caller ID to public safety answering point.<br>\nPhone number does not exist, phonenumberId:{phonenumberId}<br>\nphoneNumber is used, phonenumberId:{phonenumberId}\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Unable to update this number as it is used for outbound caller ID to public safety answering point.<br>\nPhone number does not exist, phonenumberId:{phonenumberId}<br>\nphoneNumber is used, phonenumberId:{phonenumberId} <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nAutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}.\n\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}. <br>\n"
           }
         },
         "security": [
@@ -4425,7 +4480,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4439,7 +4493,7 @@
           "Auto Receptionists"
         ],
         "summary": "Unassign all phone numbers",
-        "description": "Unassign all phone numbers that were previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Unassigns all phone numbers that were previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "unassignAllPhoneNumsAutoReceptionist",
         "parameters": [
           {
@@ -4457,7 +4511,7 @@
             "description": "**HTTP Status Code:** `204` **No Content**  \n \nPhone numbers unassigned successfully."
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nAutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}\n\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId} <br>\n"
           }
         },
         "security": [
@@ -4470,7 +4524,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4486,7 +4540,7 @@
           "Auto Receptionists"
         ],
         "summary": "Unassign a phone number",
-        "description": "Unassign a specific phone number that was previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Unassigns a specific phone number that was previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
         "operationId": "unassignAPhoneNumAutoReceptionist",
         "parameters": [
           {
@@ -4515,10 +4569,10 @@
             "description": "**HTTP Status Code:** `204` **No Content**  \n \nPhone number unassigned successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPhone number does not belong to auto receptionist.\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Phone number does not belong to auto receptionist. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nAutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}.\n\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}. <br>\n"
           }
         },
         "security": [
@@ -4531,7 +4585,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4547,7 +4600,7 @@
           "Auto Receptionists"
         ],
         "summary": "Get an auto receptionist policy",
-        "description": "Use this API to get the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-).\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Returns the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-).\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
         "operationId": "getAutoReceptionistsPolicy",
         "parameters": [
           {
@@ -4723,7 +4776,7 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           }
         },
         "security": [
@@ -4736,7 +4789,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -4750,7 +4802,7 @@
           "Auto Receptionists"
         ],
         "summary": "Update an auto receptionist policy",
-        "description": "Use this API to update the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Updates the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
         "operationId": "updateAutoReceptionistPolicy",
         "parameters": [
           {
@@ -4768,6 +4820,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "type": "object",
                 "properties": {
                   "voicemail_transcription": {
                     "type": "object",
@@ -4852,7 +4905,7 @@
             "description": "**HTTP Status Code:** `204`  \n  **No Content**  \n \nAuto receptionist policy updated successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           }
         },
         "security": [
@@ -4865,7 +4918,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -4880,8 +4932,8 @@
         "tags": [
           "Auto Receptionists"
         ],
-        "summary": "Add a policy setting",
-        "description": "Use this API to add a policy sub-setting according to the policy type for a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). For example, you can set up shared access members.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "summary": "Add a policy subsetting",
+        "description": "Adds a policy subsetting for a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to set up shared access members.<br><br>**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "AddPolicy",
         "parameters": [
           {
@@ -4916,7 +4968,7 @@
                     "properties": {
                       "access_user_id": {
                         "type": "string",
-                        "description": "The user allowed to access voicemail messages for the extension.",
+                        "description": "The user that is allowed to access voicemail messages for the extension.",
                         "example": "w0RChiauQeqRlv5fgxYULQ"
                       },
                       "delete": {
@@ -4975,7 +5027,7 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `429` <br>\nYou can only add up to {0} {1} to access your voicemail.<br>\n\nUser does not exist: {0}.\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n**Error Code:** `429` <br>\n You can only add up to {0} {1} to access your voicemail.<br>\n\nUser does not exist: {0}. <br>\n"
           }
         },
         "security": [
@@ -4988,7 +5040,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -5001,14 +5053,14 @@
         "tags": [
           "Auto Receptionists"
         ],
-        "summary": "Delete a policy setting",
-        "description": "Use this API to remove the policy sub-setting of a [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). For example, you can remove shared access members.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "summary": "Delete a policy subsetting",
+        "description": "Removes the policy subsetting for a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to remove shared access members.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "DeletePolicy",
         "parameters": [
           {
             "name": "autoReceptionistId",
             "in": "path",
-            "description": "The unique identifier of the auto receptionist. It can be retrieved from the [List auto receptionists API](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listAutoReceptionists).",
+            "description": "The unique identifier of the auto receptionist. It can be retrieved from the [List auto receptionists](https://developers.zoom.us/docs/api/rest/reference/phone/methods/#operation/listAutoReceptionists) API.",
             "required": true,
             "schema": {
               "type": "string",
@@ -5018,7 +5070,7 @@
           {
             "name": "policyType",
             "in": "path",
-            "description": "Corresponds to the policy item you wish to remove. Allowed values: `voice_mail`",
+            "description": "This field corresponds to the policy item you wish to remove. \n\nAllowed values: `voice_mail`",
             "required": true,
             "schema": {
               "type": "string",
@@ -5028,7 +5080,7 @@
           {
             "name": "shared_ids",
             "in": "query",
-            "description": "Unique identifier of the voicemail that the user can access. Required only for `voice_mail` policy type.",
+            "description": "The unique identifier of the voicemail that the user can access. It's required only for `voice_mail` policy type.",
             "required": true,
             "schema": {
               "type": "array",
@@ -5044,7 +5096,7 @@
             "description": "**HTTP Status Code:** `204` **No Content**\n\nAuto receptionist policy successfully deleted."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           }
         },
         "security": [
@@ -5057,7 +5109,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -5070,14 +5122,14 @@
         "tags": [
           "Auto Receptionists"
         ],
-        "summary": "Update a policy setting",
-        "description": "Use this API to update the policy sub-setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the policy type. For example, you can update shared access members.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "summary": "Update a policy subsetting",
+        "description": "Updates the policy subsetting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to update shared access members.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "updatePolicy",
         "parameters": [
           {
             "name": "autoReceptionistId",
             "in": "path",
-            "description": "The unique identifier of the auto receptionist. It can be retrieved from the [List auto receptionists API](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listAutoReceptionists).",
+            "description": "The unique identifier of the auto receptionist. It can be retrieved from the [List auto receptionists ](https://developers.zoom.us/docs/api/rest/reference/phone/methods/#operation/listAutoReceptionists) API.",
             "required": true,
             "schema": {
               "type": "string",
@@ -5087,7 +5139,7 @@
           {
             "name": "policyType",
             "in": "path",
-            "description": "Corresponds to the policy item you wish to modify. Allowed values: `voice_mail`",
+            "description": "This field corresponds to the policy item you wish to modify. \n\nAllowed values: `voice_mail`",
             "required": true,
             "schema": {
               "type": "string",
@@ -5111,21 +5163,21 @@
                       },
                       "delete": {
                         "type": "boolean",
-                        "description": "Specify whether the user has delete permissions. The default is **false**.",
+                        "description": "This field specifies whether the user has delete permissions. The default is **false**.",
                         "example": false
                       },
                       "download": {
                         "type": "boolean",
-                        "description": "Specify whether the user has download permissions. The default is **false**.",
+                        "description": "This field specifies whether the user has download permissions. The default is **false**.",
                         "example": false
                       },
                       "shared_id": {
                         "type": "string",
-                        "description": "The unique identifier of the shared voicemail that the user can access.",
+                        "description": "This field is an unique identifier of the shared voicemail that the user can access.",
                         "example": "--e8ugg0SeS-9clgrDkn2w"
                       }
                     },
-                    "description": "The voicemail access members setting."
+                    "description": "The setting for voicemail access members."
                   }
                 }
               }
@@ -5137,7 +5189,7 @@
             "description": "**HTTP Status Code:** `204`  \n  **No Content**  \n \n Auto receptionist policy updated successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           }
         },
         "security": [
@@ -5150,7 +5202,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -5211,7 +5262,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -5278,7 +5328,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -5414,7 +5463,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -5522,12 +5570,157 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
           "x-granular-scopes": [
             "phone:write:blocked_list:admin"
+          ]
+        }
+      }
+    },
+    "/phone/blocked_list/{blockedListId}": {
+      "get": {
+        "tags": [
+          "Blocked List"
+        ],
+        "summary": "Get blocked list details",
+        "description": "A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.\nUse this API to get information about a specific blocked list.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "operationId": "getABlockedList",
+        "parameters": [
+          {
+            "name": "blockedListId",
+            "in": "path",
+            "description": "Unique identifier of the blocked list.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2ypsHHwTTFK-fzZJkudYwA"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` **OK**\n\nBlocked list retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "block_type": {
+                      "type": "string",
+                      "description": "Block type.\n\n* `inbound`: The blocked number or numbers with the specifie prefix are prevented from calling in to phone users.\n\n* `outbound`: The phone users  are prevented from calling the blocked number or numbers with the specified prefix.",
+                      "example": "inbound",
+                      "enum": [
+                        "inbound",
+                        "outbound",
+                        "threat"
+                      ]
+                    },
+                    "comment": {
+                      "maxLength": 255,
+                      "type": "string",
+                      "description": "Provide a comment to help you identify the blocked number or prefix.",
+                      "example": "test"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Unique identifier of the blocked list.",
+                      "example": "2ypsHHwTTFK-fzZJkudYwA"
+                    },
+                    "match_type": {
+                      "type": "string",
+                      "description": "Indicates the match type for the blocked list. The values can be one of the following:\n\n* `phoneNumber`: Indicates that only a specific phone number that is shown in the `phone_number` field is blocked.\n\n* `prefix`: Indicates that all numbers starting with prefix that is shown in the `phone_number` field are blocked.",
+                      "example": "prefix",
+                      "enum": [
+                        "phoneNumber",
+                        "prefix"
+                      ]
+                    },
+                    "phone_number": {
+                      "maxLength": 50,
+                      "type": "string",
+                      "description": "The phone number or the prefix number that is blocked based on the `match_type`. Displayed in E164 format.",
+                      "example": "+12055558945"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "Indicates whether the blocking is active or inactive.\n\n*n`active`: The blocked list is active.\n\n* `inactive`: The blocked list is inactive.",
+                      "example": "active",
+                      "enum": [
+                        "active",
+                        "inactive"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nBlocked number (Id: {blockedListId}) does not exist.\n\n"
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:blocked_list:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:blocked_list:admin"
+          ]
+        }
+      },
+      "delete": {
+        "tags": [
+          "Blocked List"
+        ],
+        "summary": "Delete a blocked list",
+        "description": "A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers).\n\nUse this API to delete a blocked list and therefore removing the associated number from the blocked list. The number will be unblocked after the deletion.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "operationId": "deleteABlockedList",
+        "parameters": [
+          {
+            "name": "blockedListId",
+            "in": "path",
+            "description": "Unique identifier of the blocked list. This can be retrieved from the List Blocked List API.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2ypsHHwTTFK-fzZJkudYwA"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` **No Content**\n\nBlocked list deleted successfully."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Blocked number (Id: {blockedListId}) does not exist.\n\n"
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:write:admin",
+              "phone:delete:blocked_list:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-macro-scopes": [
+            "phone:write:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:delete:blocked_list:admin"
           ]
         }
       }
@@ -6961,7 +7154,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -7139,7 +7331,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -7221,7 +7412,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -7740,7 +7930,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -8018,7 +8207,7 @@
             "schema": {
               "type": "string",
               "example": "recorded",
-              "default": "",
+              "default": "recorded",
               "enum": [
                 "recorded",
                 "non_recorded"
@@ -8391,7 +8580,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -9008,7 +9196,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -9462,7 +9649,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "doc-fix-deprecate",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -9835,7 +10021,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "doc-fix-deprecate",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -9904,7 +10089,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -10420,7 +10604,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read",
@@ -10869,7 +11052,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -10937,7 +11119,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin",
@@ -11134,7 +11315,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -11284,7 +11464,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -11537,7 +11716,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -11584,7 +11762,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -11688,7 +11865,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -11795,7 +11971,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -11896,7 +12071,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -11941,7 +12115,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -12002,7 +12175,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -12154,7 +12326,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -12226,7 +12397,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -12337,7 +12507,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -12534,7 +12703,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -12700,7 +12868,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -12763,7 +12930,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -12811,7 +12977,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -12859,7 +13024,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -13076,7 +13240,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.11.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -13183,7 +13346,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -13321,7 +13483,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -13647,7 +13808,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.11.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -13694,7 +13854,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -13823,7 +13982,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -13943,7 +14101,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14011,7 +14168,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14118,7 +14274,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14176,7 +14331,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14280,7 +14434,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -14381,7 +14534,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14447,7 +14599,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14540,7 +14691,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -14819,7 +14969,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -15109,7 +15258,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -15343,7 +15491,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -15592,7 +15739,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -15959,7 +16105,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -16113,7 +16258,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone:read"
@@ -16195,7 +16339,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -16345,7 +16488,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -16409,7 +16551,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -16471,7 +16612,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -16629,7 +16769,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -16702,7 +16841,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -16774,7 +16912,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -17031,7 +17168,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -17237,7 +17373,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -17395,7 +17530,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -17442,7 +17576,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -17644,7 +17777,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -17861,7 +17993,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -18117,7 +18248,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-0706",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -18236,7 +18366,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -18450,7 +18579,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -18496,7 +18624,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -18626,7 +18753,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -18754,7 +18880,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -18866,7 +18991,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -18966,7 +19090,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -19012,7 +19135,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -19114,7 +19236,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -19232,7 +19353,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -19329,7 +19449,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -19409,7 +19528,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -19473,7 +19591,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -19563,7 +19680,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -19684,7 +19800,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -19855,7 +19970,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -20007,7 +20121,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -20163,7 +20276,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -20208,7 +20320,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -20342,7 +20453,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -20494,7 +20604,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -20559,7 +20668,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -20615,7 +20723,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -22267,7 +22374,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -22473,7 +22579,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -22606,7 +22711,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -22789,7 +22893,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -22903,7 +23006,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -22967,7 +23069,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -23142,7 +23243,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -23192,7 +23292,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -23251,7 +23350,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -23448,7 +23546,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -23559,7 +23656,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -23609,7 +23705,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -23720,7 +23815,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.1.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -23856,7 +23950,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone:read"
@@ -23980,7 +24073,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -24042,7 +24134,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -24226,7 +24317,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.4.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -24331,7 +24421,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.4.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -24455,7 +24544,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.4.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -24502,7 +24590,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -24588,7 +24675,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -24729,7 +24815,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -24808,7 +24893,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -24868,7 +24952,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -24940,7 +25023,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -25060,13 +25142,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
           }
         },
         "security": [
@@ -25079,7 +25161,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -25153,13 +25234,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
           }
         },
         "security": [
@@ -25172,7 +25253,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -25353,13 +25433,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13000` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13000` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
           }
         },
         "security": [
@@ -25372,7 +25452,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -25477,13 +25556,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
           }
         },
         "security": [
@@ -25496,7 +25575,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -25537,28 +25615,18 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        },
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204` **No Content**  \n \n"
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
           }
         },
         "security": [
@@ -25571,7 +25639,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -25672,13 +25739,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
           }
         },
         "security": [
@@ -25691,7 +25758,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -25818,7 +25884,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -25896,7 +25961,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26083,7 +26147,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -26192,7 +26255,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26223,28 +26285,18 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        },
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204` **No Content**  \n \n"
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
           }
         },
         "security": [
@@ -26257,7 +26309,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26364,7 +26415,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26485,13 +26535,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
           }
         },
         "security": [
@@ -26504,7 +26554,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -26578,13 +26627,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
           }
         },
         "security": [
@@ -26597,7 +26646,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26797,7 +26845,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -26902,13 +26949,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
           }
         },
         "security": [
@@ -26921,7 +26968,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -26962,28 +27008,18 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        },
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204` **No Content**  \n \n"
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
           }
         },
         "security": [
@@ -26996,7 +27032,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -27097,13 +27132,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
           }
         },
         "security": [
@@ -27116,7 +27151,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -27237,13 +27271,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
           }
         },
         "security": [
@@ -27256,7 +27290,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -27330,13 +27363,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
           }
         },
         "security": [
@@ -27349,7 +27382,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -27549,7 +27581,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -27654,13 +27685,13 @@
             }
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
           }
         },
         "security": [
@@ -27673,7 +27704,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -27714,28 +27744,18 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        },
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204` **No Content**  \n \n"
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n**Error Code:** `13508` <br>\n The exception rule ID has one more record in the DB: {exceptionRuleId}. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
           }
         },
         "security": [
@@ -27748,7 +27768,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -27849,13 +27868,13 @@
             "description": "**HTTP Status Code:** `204`  \n \nNo Content  \n "
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `13504` <br>\n You do not enable the outbound calling policy setting. <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
           }
         },
         "security": [
@@ -27868,7 +27887,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.10.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -28170,7 +28188,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -28286,7 +28303,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -28350,7 +28366,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -28623,7 +28638,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -28669,7 +28683,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -28752,7 +28765,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -28831,7 +28843,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -28889,7 +28900,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -28953,7 +28963,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -29001,7 +29010,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -29108,7 +29116,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -29455,7 +29462,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -29505,7 +29511,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -29573,7 +29578,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -29868,7 +29872,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -29952,7 +29955,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -30062,7 +30064,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin"
@@ -30124,7 +30125,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin"
@@ -30211,7 +30211,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -30314,7 +30313,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -30393,7 +30391,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -30476,7 +30473,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -30555,7 +30551,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -30601,7 +30596,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -30668,7 +30662,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -30785,7 +30778,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -30867,7 +30859,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -30926,7 +30917,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -31068,7 +31058,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone_peering:read:admin"
@@ -31211,7 +31200,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone_peering:read:admin"
@@ -31330,7 +31318,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone_peering:write:admin"
@@ -31418,7 +31405,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone_peering:write:admin"
@@ -31535,7 +31521,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone_peering:write:admin"
@@ -31645,7 +31630,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -31729,7 +31713,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -31808,7 +31791,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -31854,7 +31836,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -31927,7 +31908,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -32194,7 +32174,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.4.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -32250,7 +32229,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read",
             "phone:read:admin",
@@ -32636,7 +32614,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4897b-LS",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -32693,7 +32670,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -32767,7 +32743,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -32846,7 +32821,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEV-4272",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -33109,7 +33083,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone_recording:read:admin",
@@ -33382,7 +33355,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4735",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -33561,7 +33533,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-dev-4598",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -33779,7 +33750,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": " Zoom Phone-Web-5.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -33898,7 +33868,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4721",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -33997,7 +33966,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4721",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -34112,7 +34080,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4721",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -34158,7 +34125,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4721",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -34250,7 +34216,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-DEVELOPERS-4721",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -34479,7 +34444,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.12.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -34774,7 +34738,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -35005,7 +34968,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -35282,7 +35244,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone:read",
@@ -35512,7 +35473,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -35853,7 +35813,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -35986,7 +35945,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -36168,7 +36126,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -36274,7 +36231,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -36331,7 +36287,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -36467,7 +36422,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -36568,7 +36522,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-dev-4277",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -37236,7 +37189,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -37835,7 +37787,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -37976,7 +37927,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone_peering:read:admin"
@@ -38165,7 +38115,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone_peering:read:admin"
@@ -38289,7 +38238,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "hotfix-ZOOM-613573",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -38397,7 +38345,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "doc-hotfix-403-error-code",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -38522,7 +38469,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -38637,7 +38583,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -38798,7 +38743,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -38962,7 +38906,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -39052,7 +38995,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -39303,7 +39245,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -39350,7 +39291,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -39441,7 +39381,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -39514,7 +39453,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.3.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -39683,7 +39621,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -39755,7 +39692,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -39864,7 +39800,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -40013,7 +39948,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -40188,7 +40122,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.9.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -41589,7 +41522,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-dev-4598",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -41649,7 +41581,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -42766,7 +42697,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "docfix-dev-4598",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -42976,7 +42906,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -43047,7 +42976,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -43107,7 +43035,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -43961,7 +43888,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -44103,7 +44029,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -44183,7 +44108,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -44842,7 +44766,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -45106,7 +45029,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.6.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -45176,7 +45098,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -45351,7 +45272,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -46623,7 +46543,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -47306,7 +47225,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin"
@@ -47385,7 +47303,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -47468,7 +47385,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -47682,7 +47598,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin",
             "phone:read"
@@ -47757,7 +47672,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -47821,7 +47735,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -48317,7 +48230,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -48401,7 +48313,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin"
@@ -48804,7 +48715,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -48907,7 +48817,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -49238,7 +49147,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin",
             "phone:write"
@@ -49431,7 +49339,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read",
             "phone:read:admin",
@@ -49676,7 +49583,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read",
@@ -49884,7 +49790,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-6.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -50156,7 +50061,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -50339,7 +50243,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin",
@@ -50408,7 +50311,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "documents-hotfix-0615",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin",
@@ -50616,7 +50518,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "ZoomPhone-Web-5.5.0",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
@@ -50690,7 +50591,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -50782,7 +50682,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -51007,7 +50906,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -51052,7 +50950,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51154,7 +51051,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51235,7 +51131,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51302,7 +51197,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51384,7 +51278,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51442,265 +51335,11 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
           "x-granular-scopes": [
             "phone:delete:room_phone_number:admin"
-          ]
-        }
-      }
-    },
-    "/phone/blocked_list/{blockedListId}": {
-      "get": {
-        "tags": [
-          "Blocked List"
-        ],
-        "summary": "Get blocked list details",
-        "description": "A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.\nUse this API to get information about a specific blocked list.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
-        "operationId": "getABlockedList",
-        "parameters": [
-          {
-            "name": "blockedListId",
-            "in": "path",
-            "description": "Unique identifier of the blocked list.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "2ypsHHwTTFK-fzZJkudYwA"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "**HTTP Status Code:** `200` **OK**\n\nBlocked list retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "block_type": {
-                      "type": "string",
-                      "description": "Block type.\n\n* `inbound`: The blocked number or numbers with the specifie prefix are prevented from calling in to phone users.\n\n* `outbound`: The phone users  are prevented from calling the blocked number or numbers with the specified prefix.",
-                      "example": "inbound",
-                      "enum": [
-                        "inbound",
-                        "outbound",
-                        "threat"
-                      ]
-                    },
-                    "comment": {
-                      "maxLength": 255,
-                      "type": "string",
-                      "description": "Provide a comment to help you identify the blocked number or prefix.",
-                      "example": "test"
-                    },
-                    "id": {
-                      "type": "string",
-                      "description": "Unique identifier of the blocked list.",
-                      "example": "2ypsHHwTTFK-fzZJkudYwA"
-                    },
-                    "match_type": {
-                      "type": "string",
-                      "description": "Indicates the match type for the blocked list. The values can be one of the following:\n\n* `phoneNumber`: Indicates that only a specific phone number that is shown in the `phone_number` field is blocked.\n\n* `prefix`: Indicates that all numbers starting with prefix that is shown in the `phone_number` field are blocked.",
-                      "example": "prefix",
-                      "enum": [
-                        "phoneNumber",
-                        "prefix"
-                      ]
-                    },
-                    "phone_number": {
-                      "maxLength": 50,
-                      "type": "string",
-                      "description": "The phone number or the prefix number that is blocked based on the `match_type`. Displayed in E164 format.",
-                      "example": "+12055558945"
-                    },
-                    "status": {
-                      "type": "string",
-                      "description": "Indicates whether the blocking is active or inactive.\n\n*n`active`: The blocked list is active.\n\n* `inactive`: The blocked list is inactive.",
-                      "example": "active",
-                      "enum": [
-                        "active",
-                        "inactive"
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nBlocked number (Id: {blockedListId}) does not exist.\n\n"
-          }
-        },
-        "security": [
-          {
-            "openapi_oauth": [
-              "phone:read:admin",
-              "phone:read:blocked_list:admin"
-            ],
-            "openapi_authorization": []
-          }
-        ],
-        "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
-          "x-macro-scopes": [
-            "phone:read:admin"
-          ],
-          "x-granular-scopes": [
-            "phone:read:blocked_list:admin"
-          ]
-        }
-      },
-      "delete": {
-        "tags": [
-          "Blocked List"
-        ],
-        "summary": "Delete a blocked list",
-        "description": "A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers).\n\nUse this API to delete a blocked list and therefore removing the associated number from the blocked list. The number will be unblocked after the deletion.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
-        "operationId": "deleteABlockedList",
-        "parameters": [
-          {
-            "name": "blockedListId",
-            "in": "path",
-            "description": "Unique identifier of the blocked list. This can be retrieved from the List Blocked List API.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "2ypsHHwTTFK-fzZJkudYwA"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "**HTTP Status Code:** `204` **No Content**\n\nBlocked list deleted successfully."
-          },
-          "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Blocked number (Id: {blockedListId}) does not exist.\n\n"
-          }
-        },
-        "security": [
-          {
-            "openapi_oauth": [
-              "phone:write:admin",
-              "phone:delete:blocked_list:admin"
-            ],
-            "openapi_authorization": []
-          }
-        ],
-        "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
-          "x-macro-scopes": [
-            "phone:write:admin"
-          ],
-          "x-granular-scopes": [
-            "phone:delete:blocked_list:admin"
-          ]
-        }
-      },
-      "patch": {
-        "tags": [
-          "Blocked List"
-        ],
-        "summary": "Update a blocked list",
-        "description": "A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.\nUse this API to update the information on the blocked list.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
-        "operationId": "updateBlockedList",
-        "parameters": [
-          {
-            "name": "blockedListId",
-            "in": "path",
-            "description": "Unique identifier of the blocked list.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "2ypsHHwTTFK-fzZJkudYwA"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "block_type": {
-                    "type": "string",
-                    "description": "State whether you want the block type to be inbound or outbound.\n`inbound`: Pass this value to prevent the blocked number or prefix from calling in to phone users.\n`outbound`: Pass this value to prevent phone users from calling the blocked number or prefix.",
-                    "example": "outbound",
-                    "enum": [
-                      "inbound",
-                      "outbound"
-                    ]
-                  },
-                  "comment": {
-                    "maxLength": 255,
-                    "type": "string",
-                    "description": "Provide a comment to help you identify the blocked number or prefix.",
-                    "example": "testComment"
-                  },
-                  "country": {
-                    "maxLength": 50,
-                    "type": "string",
-                    "description": "The country information. For example, entering US or CH.",
-                    "example": "CH"
-                  },
-                  "match_type": {
-                    "type": "string",
-                    "description": "Specify the match type for the blocked list:\n\n* `phoneNumber`: Choose this option (Phone Number Match) if you want to block a specific phone number. Provide the phone number in the `phone_number` field and the country code in the `country` field.\n\n* `prefix`: Choose this option (Prefix Match) if you want to block all numbers with a specific country or an area code. Enter a phone number in the `phone_number` field and in the `country` field, enter a country code as part of the prefix.",
-                    "example": "prefix",
-                    "enum": [
-                      "phoneNumber",
-                      "prefix"
-                    ]
-                  },
-                  "phone_number": {
-                    "maxLength": 50,
-                    "type": "string",
-                    "description": "The phone number to be blocked if you passed `phoneNumber` as the value for the `match_type` field. If you passed `prefix` as the value for the `match_type` field, provide the prefix of the phone number in the `country` field.",
-                    "example": "113"
-                  },
-                  "status": {
-                    "type": "string",
-                    "description": "Enable or disable the blocking:\n* `active`: Keep the blocking active.\n* `inactive`: Disable the blocking.",
-                    "example": "inactive",
-                    "enum": [
-                      "active",
-                      "inactive"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "**HTTP Status Code:** `204` **No Content**\n\nBlocked list updated successfully.\n"
-          },
-          "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nInvalid country.\n\n"
-          },
-          "409": {
-            "description": "**HTTP Status Code:** `409` <br>\n Conflict\n\n"
-          }
-        },
-        "security": [
-          {
-            "openapi_oauth": [
-              "phone:write:admin",
-              "phone:update:blocked_list:admin"
-            ],
-            "openapi_authorization": []
-          }
-        ],
-        "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
-          "x-macro-scopes": [
-            "phone:write:admin"
-          ],
-          "x-granular-scopes": [
-            "phone:update:blocked_list:admin"
           ]
         }
       }
@@ -51770,7 +51409,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51816,7 +51454,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51877,7 +51514,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -51893,17 +51529,17 @@
           "Shared Line Group"
         ],
         "summary": "Add members to a shared line group",
-        "description": "[Adds members](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups#h_7cb42370-48f6-4a8f-84f4-c6eee4d9f0ca) to a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail.  Note that a member can only be added to one shared line group. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:shared_line_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "[Adds members](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups#h_7cb42370-48f6-4a8f-84f4-c6eee4d9f0ca) to a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail.  Note that a member can only be added to one shared line group. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:shared_line_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "addMembersToSharedLineGroup",
         "parameters": [
           {
-            "name": "sharedLineGroupId",
+            "name": "slgId",
             "in": "path",
-            "description": "The unique identifier of the shared line group.",
+            "description": "The shared line group ID.",
             "required": true,
             "schema": {
               "type": "string",
-              "example": "461Q60CsT7eSvEWyuiDFHw"
+              "example": "uvsOCaiDQR2M-NviKFHo0w"
             }
           }
         ],
@@ -51953,18 +51589,13 @@
         },
         "responses": {
           "201": {
-            "description": "**HTTP Status Code:** `201` **Created** \nMembers added successfully.",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+            "description": "**HTTP Status Code:** `201` **Created** \nMembers added successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
           },
           "404": {
-            "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser not found: {userId}.\n\n"
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User not found: {userId}. <br>\n"
           }
         },
         "security": [
@@ -51977,7 +51608,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -52023,7 +51654,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -52082,7 +51712,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -52163,7 +51792,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -52177,17 +51805,17 @@
           "Shared Line Group"
         ],
         "summary": "Unassign all phone numbers",
-        "description": "Unassigns all the phone numbers that have been assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:** \n\n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Unassigns all the phone numbers that have been assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:** \n\n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "deletePhoneNumbersSLG",
         "parameters": [
           {
-            "name": "sharedLineGroupId",
+            "name": "slgId",
             "in": "path",
-            "description": "The unique identifier of the Shared Line Group.",
+            "description": "The shared line group ID.",
             "required": true,
             "schema": {
               "type": "string",
-              "example": "461Q60CsT7eSvEWyuiDFHw"
+              "example": "uvsOCaiDQR2M-NviKFHo0w"
             }
           }
         ],
@@ -52196,10 +51824,10 @@
             "description": "**HTTP Status Code:** `204` **No Content**\n\nPhone Numbers unassigned successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPhone number does not exist\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Phone number does not exist <br>\n**Error Code:** `300` <br>\n  <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized\n\n**Error Code:** `124` <br>\nPhone number does not belong to this account\n\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Phone number does not belong to this account <br>\n"
           }
         },
         "security": [
@@ -52212,7 +51840,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
@@ -52229,17 +51856,15 @@
           "Shared Line Group"
         ],
         "summary": "Unassign a phone number",
-        "description": "Unassigns a specific phone number that was assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n**Prerequisites:** \n\n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Unassigns a specific phone number that was assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid shared line group\n* Account owner or admin privileges\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "deleteAPhoneNumberSLG",
         "parameters": [
           {
-            "name": "sharedLineGroupId",
+            "name": "slgId",
             "in": "path",
-            "description": "The unique identifier of the shared line group from which you would like to unassign a phone number.",
             "required": true,
             "schema": {
-              "type": "string",
-              "example": "461Q60CsT7eSvEWyuiDFHw"
+              "type": "string"
             }
           },
           {
@@ -52255,13 +51880,13 @@
         ],
         "responses": {
           "204": {
-            "description": "**HTTP Status Code:** `204` **No Content**\n\nPhone Numbers unassigned successfully."
+            "description": "**HTTP Status Code:** `204` **No Content**  \n \nPhone Numbers unassigned successfully."
           },
           "400": {
-            "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPhone number does not exist\n\n**Error Code:** `300` <br>\n\n\n"
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Phone number does not exist<br><br> <br>\n**Error Code:** `300` <br>\n  <br>\n"
           },
           "401": {
-            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized\n\n**Error Code:** `124` <br>\nPhone number does not belong to this account\n\n"
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Phone number does not belong to this account <br>\n"
           }
         },
         "security": [
@@ -52274,7 +51899,7 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -52343,7 +51968,6 @@
           }
         ],
         "x-extensions": {
-          "x-fixVersion": "InitFixVersion",
           "x-macro-scopes": [
             "phone:write",
             "phone:write:admin"
@@ -52375,31 +51999,31 @@
               "phone:read:list_account_settings:admin": "phone:read:list_account_settings:admin",
               "phone:write:admin": "phone:write:admin",
               "phone:write:customized_number:admin": "phone:write:customized_number:admin",
-              "phone:delete:customized_number:admin": "phone:delete:customized_number:admin",
               "phone:read:list_customized_number:admin": "phone:read:list_customized_number:admin",
+              "phone:delete:customized_number:admin": "phone:delete:customized_number:admin",
               "phone:write:alert_setting:admin": "phone:write:alert_setting:admin",
               "phone:read:list_alert_settings:admin": "phone:read:list_alert_settings:admin",
-              "phone:delete:alert_setting:admin": "phone:delete:alert_setting:admin",
-              "phone:patch:alert_setting:admin": "phone:patch:alert_setting:admin",
               "phone:read:alert_setting:admin": "phone:read:alert_setting:admin",
+              "phone:patch:alert_setting:admin": "phone:patch:alert_setting:admin",
+              "phone:delete:alert_setting:admin": "phone:delete:alert_setting:admin",
               "phone:read": "phone:read",
               "phone:read:audio": "phone:read:audio",
               "phone:read:audio:admin": "phone:read:audio:admin",
               "phone:write": "phone:write",
-              "phone:update:audio": "phone:update:audio",
-              "phone:update:audio:admin": "phone:update:audio:admin",
               "phone:delete:audio": "phone:delete:audio",
               "phone:delete:audio:admin": "phone:delete:audio:admin",
+              "phone:update:audio": "phone:update:audio",
+              "phone:update:audio:admin": "phone:update:audio:admin",
               "phone:read:list_audios": "phone:read:list_audios",
               "phone:read:list_audios:admin": "phone:read:list_audios:admin",
               "phone:write:audio": "phone:write:audio",
               "phone:write:audio:admin": "phone:write:audio:admin",
               "phone:write:batch_audios": "phone:write:batch_audios",
               "phone:write:batch_audios:admin": "phone:write:batch_audios:admin",
-              "phone:write:auto_receptionist:admin": "phone:write:auto_receptionist:admin",
               "phone:read:list_auto_receptionists:admin": "phone:read:list_auto_receptionists:admin",
-              "phone:update:auto_receptionist:admin": "phone:update:auto_receptionist:admin",
+              "phone:write:auto_receptionist:admin": "phone:write:auto_receptionist:admin",
               "phone:delete:auto_receptionist:admin": "phone:delete:auto_receptionist:admin",
+              "phone:update:auto_receptionist:admin": "phone:update:auto_receptionist:admin",
               "phone:read:auto_receptionist:admin": "phone:read:auto_receptionist:admin",
               "phone:delete:auto_receptionist_number:admin": "phone:delete:auto_receptionist_number:admin",
               "phone:write:auto_receptionist_number:admin": "phone:write:auto_receptionist_number:admin",
@@ -52411,13 +52035,13 @@
               "phone:read:billing_account:admin": "phone:read:billing_account:admin",
               "phone:write:blocked_list:admin": "phone:write:blocked_list:admin",
               "phone:read:list_blocked_lists:admin": "phone:read:list_blocked_lists:admin",
-              "phone:update:blocked_list:admin": "phone:update:blocked_list:admin",
-              "phone:read:blocked_list:admin": "phone:read:blocked_list:admin",
               "phone:delete:blocked_list:admin": "phone:delete:blocked_list:admin",
+              "phone:read:blocked_list:admin": "phone:read:blocked_list:admin",
+              "phone:update:blocked_list:admin": "phone:update:blocked_list:admin",
               "phone:read:list_call_handling_settings:admin": "phone:read:list_call_handling_settings:admin",
+              "phone:update:call_handling_setting:admin": "phone:update:call_handling_setting:admin",
               "phone:delete:call_handling_setting:admin": "phone:delete:call_handling_setting:admin",
               "phone:write:call_handling_setting:admin": "phone:write:call_handling_setting:admin",
-              "phone:update:call_handling_setting:admin": "phone:update:call_handling_setting:admin",
               "phone_call_log:read:admin": "phone_call_log:read:admin",
               "phone:read:list_call_logs:admin": "phone:read:list_call_logs:admin",
               "phone:read:call_log:admin": "phone:read:call_log:admin",
@@ -52428,75 +52052,75 @@
               "phone_call_log:write:admin": "phone_call_log:write:admin",
               "phone:delete:call_log": "phone:delete:call_log",
               "phone:delete:call_log:admin": "phone:delete:call_log:admin",
-              "phone:read:list_call_queues:admin": "phone:read:list_call_queues:admin",
               "phone:write:call_queue:admin": "phone:write:call_queue:admin",
+              "phone:read:list_call_queues:admin": "phone:read:list_call_queues:admin",
+              "phone:delete:call_queue:admin": "phone:delete:call_queue:admin",
               "phone:update:call_queue:admin": "phone:update:call_queue:admin",
               "phone:read:call_queue:admin": "phone:read:call_queue:admin",
-              "phone:delete:call_queue:admin": "phone:delete:call_queue:admin",
-              "phone:delete:call_queue_member:admin": "phone:delete:call_queue_member:admin",
               "phone:write:call_queue_member:admin": "phone:write:call_queue_member:admin",
+              "phone:delete:call_queue_member:admin": "phone:delete:call_queue_member:admin",
               "phone:read:list_call_queue_members:admin": "phone:read:list_call_queue_members:admin",
               "phone:write:call_queue_policy:admin": "phone:write:call_queue_policy:admin",
-              "phone:update:call_queue_policy:admin": "phone:update:call_queue_policy:admin",
               "phone:delete:call_queue_policy:admin": "phone:delete:call_queue_policy:admin",
+              "phone:update:call_queue_policy:admin": "phone:update:call_queue_policy:admin",
               "phone:read:list_call_queue_recordings:admin": "phone:read:list_call_queue_recordings:admin",
               "phone:write:call_queue_number:admin": "phone:write:call_queue_number:admin",
               "phone:delete:call_queue_number:admin": "phone:delete:call_queue_number:admin",
-              "phone:write:carrier_number:admin": "phone:write:carrier_number:admin",
               "phone:update:carrier_number:admin": "phone:update:carrier_number:admin",
+              "phone:write:carrier_number:admin": "phone:write:carrier_number:admin",
               "phone:read:list_carrier_numbers:admin": "phone:read:list_carrier_numbers:admin",
               "phone:delete:carrier_number:admin": "phone:delete:carrier_number:admin",
-              "phone:read:common_area:admin": "phone:read:common_area:admin",
               "phone:write:common_area:admin": "phone:write:common_area:admin",
+              "phone:read:common_area:admin": "phone:read:common_area:admin",
               "phone:read:list_common_area_activation_codes:admin": "phone:read:list_common_area_activation_codes:admin",
-              "phone:update:common_area:admin": "phone:update:common_area:admin",
               "phone:delete:common_area:admin": "phone:delete:common_area:admin",
+              "phone:update:common_area:admin": "phone:update:common_area:admin",
               "phone:write:common_area_calling_plan:admin": "phone:write:common_area_calling_plan:admin",
               "phone:delete:common_area_calling_plan:admin": "phone:delete:common_area_calling_plan:admin",
               "phone:write:common_area_number:admin": "phone:write:common_area_number:admin",
               "phone:delete:common_area_number:admin": "phone:delete:common_area_number:admin",
               "phone:read:list_common_area_settings:admin": "phone:read:list_common_area_settings:admin",
+              "phone:update:common_area_setting:admin": "phone:update:common_area_setting:admin",
               "phone:delete:common_area_setting:admin": "phone:delete:common_area_setting:admin",
               "phone:write:common_area_setting:admin": "phone:write:common_area_setting:admin",
-              "phone:update:common_area_setting:admin": "phone:update:common_area_setting:admin",
               "phone:read:call_qos:admin": "phone:read:call_qos:admin",
               "phone:read:list_tracked_locations:admin": "phone:read:list_tracked_locations:admin",
-              "phone:read:device_line_keys": "phone:read:device_line_keys",
-              "phone:read:device_line_keys:admin": "phone:read:device_line_keys:admin",
               "phone:update:device_line_keys": "phone:update:device_line_keys",
               "phone:update:device_line_keys:admin": "phone:update:device_line_keys:admin",
+              "phone:read:device_line_keys": "phone:read:device_line_keys",
+              "phone:read:device_line_keys:admin": "phone:read:device_line_keys:admin",
               "phone:delete:directory:admin": "phone:delete:directory:admin",
-              "phone:write:directory:admin": "phone:write:directory:admin",
               "phone:read:directory:admin": "phone:read:directory:admin",
+              "phone:write:directory:admin": "phone:write:directory:admin",
               "phone:write:emergency_address:admin": "phone:write:emergency_address:admin",
               "phone:read:list_emergency_addresses:admin": "phone:read:list_emergency_addresses:admin",
               "phone:read:emergency_address:admin": "phone:read:emergency_address:admin",
               "phone:delete:emergency_address:admin": "phone:delete:emergency_address:admin",
               "phone:update:emergency_address:admin": "phone:update:emergency_address:admin",
               "phone:write:batch_emergency_locations:admin": "phone:write:batch_emergency_locations:admin",
-              "phone:write:emergency_location:admin": "phone:write:emergency_location:admin",
               "phone:read:list_emergency_locations:admin": "phone:read:list_emergency_locations:admin",
-              "phone:delete:emergency_location:admin": "phone:delete:emergency_location:admin",
-              "phone:update:emergency_location:admin": "phone:update:emergency_location:admin",
+              "phone:write:emergency_location:admin": "phone:write:emergency_location:admin",
               "phone:read:emergency_location:admin": "phone:read:emergency_location:admin",
-              "phone:read:list_external_contacts:admin": "phone:read:list_external_contacts:admin",
+              "phone:update:emergency_location:admin": "phone:update:emergency_location:admin",
+              "phone:delete:emergency_location:admin": "phone:delete:emergency_location:admin",
               "phone:write:external_contact:admin": "phone:write:external_contact:admin",
+              "phone:read:list_external_contacts:admin": "phone:read:list_external_contacts:admin",
               "phone:delete:external_contact:admin": "phone:delete:external_contact:admin",
               "phone:read:external_contact:admin": "phone:read:external_contact:admin",
               "phone:update:external_contact:admin": "phone:update:external_contact:admin",
               "phone:read:list_firmware_update_rules:admin": "phone:read:list_firmware_update_rules:admin",
               "phone:write:firmware_update_rule:admin": "phone:write:firmware_update_rule:admin",
-              "phone:read:firmware_update_rule:admin": "phone:read:firmware_update_rule:admin",
               "phone:delete:firmware_update_rule:admin": "phone:delete:firmware_update_rule:admin",
               "phone:update:firmware_update_rule:admin": "phone:update:firmware_update_rule:admin",
+              "phone:read:firmware_update_rule:admin": "phone:read:firmware_update_rule:admin",
               "phone:read:list_firmwares:admin": "phone:read:list_firmwares:admin",
               "phone:read:list_call_pickup_groups:admin": "phone:read:list_call_pickup_groups:admin",
               "phone:write:call_pickup_group:admin": "phone:write:call_pickup_group:admin",
-              "phone:update:call_pickup_group:admin": "phone:update:call_pickup_group:admin",
               "phone:read:call_pickup_group:admin": "phone:read:call_pickup_group:admin",
+              "phone:update:call_pickup_group:admin": "phone:update:call_pickup_group:admin",
               "phone:delete:call_pickup_group:admin": "phone:delete:call_pickup_group:admin",
-              "phone:read:call_pickup_group_member:admin": "phone:read:call_pickup_group_member:admin",
               "phone:write:call_pickup_group_member:admin": "phone:write:call_pickup_group_member:admin",
+              "phone:read:call_pickup_group_member:admin": "phone:read:call_pickup_group_member:admin",
               "phone:delete:call_pickup_group_member:admin": "phone:delete:call_pickup_group_member:admin",
               "phone:read:group_setting:admin": "phone:read:group_setting:admin",
               "phone:read:auto_receptionist_ivr:admin": "phone:read:auto_receptionist_ivr:admin",
@@ -52510,9 +52134,9 @@
               "phone:delete:extension_inbound_block_rule_stat:admin": "phone:delete:extension_inbound_block_rule_stat:admin",
               "phone:read:list_extension_inbound_block_rules_stat:admin": "phone:read:list_extension_inbound_block_rules_stat:admin",
               "phone:update:inbound_blocked_for_all:admin": "phone:update:inbound_blocked_for_all:admin",
+              "phone:delete:inbound_block_rule:admin": "phone:delete:inbound_block_rule:admin",
               "phone:read:list_inbound_block_rules:admin": "phone:read:list_inbound_block_rules:admin",
               "phone:write:inbound_block_rule:admin": "phone:write:inbound_block_rule:admin",
-              "phone:delete:inbound_block_rule:admin": "phone:delete:inbound_block_rule:admin",
               "phone:update:inbound_block_rule:admin": "phone:update:inbound_block_rule:admin",
               "phone:update:line_keys": "phone:update:line_keys",
               "phone:update:line_keys:admin": "phone:update:line_keys:admin",
@@ -52522,34 +52146,34 @@
               "phone:delete:line_keys:admin": "phone:delete:line_keys:admin",
               "phone:read:list_monitoring_groups:admin": "phone:read:list_monitoring_groups:admin",
               "phone:write:monitoring_group:admin": "phone:write:monitoring_group:admin",
-              "phone:update:monitoring_group:admin": "phone:update:monitoring_group:admin",
               "phone:delete:monitoring_group:admin": "phone:delete:monitoring_group:admin",
+              "phone:update:monitoring_group:admin": "phone:update:monitoring_group:admin",
               "phone:read:monitoring_group:admin": "phone:read:monitoring_group:admin",
-              "phone:delete:monitoring_group_member:admin": "phone:delete:monitoring_group_member:admin",
               "phone:read:list_monitoring_group_members:admin": "phone:read:list_monitoring_group_members:admin",
               "phone:write:monitoring_group_member:admin": "phone:write:monitoring_group_member:admin",
+              "phone:delete:monitoring_group_member:admin": "phone:delete:monitoring_group_member:admin",
               "phone:read:common_area_outbound_calling_rule:admin": "phone:read:common_area_outbound_calling_rule:admin",
               "phone:update:common_area_outbound_calling_rule:admin": "phone:update:common_area_outbound_calling_rule:admin",
               "phone:write:common_area_outbound_calling_rule:admin": "phone:write:common_area_outbound_calling_rule:admin",
               "phone:delete:common_area_outbound_calling_rule:admin": "phone:delete:common_area_outbound_calling_rule:admin",
-              "phone:update:outbound_calling_rule:admin": "phone:update:outbound_calling_rule:admin",
               "phone:read:list_outbound_calling_rules:admin": "phone:read:list_outbound_calling_rules:admin",
+              "phone:update:outbound_calling_rule:admin": "phone:update:outbound_calling_rule:admin",
               "phone:write:outbound_calling_rule:admin": "phone:write:outbound_calling_rule:admin",
               "phone:delete:outbound_calling_rule:admin": "phone:delete:outbound_calling_rule:admin",
               "phone:update:site_outbound_calling_rule:admin": "phone:update:site_outbound_calling_rule:admin",
               "phone:read:site_outbound_calling_rule:admin": "phone:read:site_outbound_calling_rule:admin",
               "phone:write:site_outbound_calling_rule:admin": "phone:write:site_outbound_calling_rule:admin",
               "phone:delete:site_outbound_calling_rule:admin": "phone:delete:site_outbound_calling_rule:admin",
-              "phone:read:user_outbound_calling_rule:admin": "phone:read:user_outbound_calling_rule:admin",
               "phone:update:user_outbound_calling_rule:admin": "phone:update:user_outbound_calling_rule:admin",
+              "phone:read:user_outbound_calling_rule:admin": "phone:read:user_outbound_calling_rule:admin",
               "phone:write:user_outbound_calling_rule:admin": "phone:write:user_outbound_calling_rule:admin",
               "phone:delete:user_outbound_calling_rule:admin": "phone:delete:user_outbound_calling_rule:admin",
-              "phone:write:device:admin": "phone:write:device:admin",
               "phone:read:list_devices:admin": "phone:read:list_devices:admin",
+              "phone:write:device:admin": "phone:write:device:admin",
               "phone:write:sync_device:admin": "phone:write:sync_device:admin",
+              "phone:update:device:admin": "phone:update:device:admin",
               "phone:delete:device:admin": "phone:delete:device:admin",
               "phone:read:device:admin": "phone:read:device:admin",
-              "phone:update:device:admin": "phone:update:device:admin",
               "phone:write:device_extension:admin": "phone:write:device_extension:admin",
               "phone:delete:device_extension:admin": "phone:delete:device_extension:admin",
               "phone:update:device_provision_template:admin": "phone:update:device_provision_template:admin",
@@ -52558,8 +52182,8 @@
               "phone:delete:number:admin": "phone:delete:number:admin",
               "phone:read:list_numbers:admin": "phone:read:list_numbers:admin",
               "phone:update:site_number:admin": "phone:update:site_number:admin",
-              "phone:update:number:admin": "phone:update:number:admin",
               "phone:read:numbers:admin": "phone:read:numbers:admin",
+              "phone:update:number:admin": "phone:update:number:admin",
               "phone:write:user_number": "phone:write:user_number",
               "phone:write:user_number:admin": "phone:write:user_number:admin",
               "phone:delete:user_number": "phone:delete:user_number",
@@ -52567,23 +52191,23 @@
               "phone:read:list_calling_plans:admin": "phone:read:list_calling_plans:admin",
               "phone:read:list_roles:admin": "phone:read:list_roles:admin",
               "phone:write:role:admin": "phone:write:role:admin",
-              "phone:read:role:admin": "phone:read:role:admin",
               "phone:update:role:admin": "phone:update:role:admin",
+              "phone:read:role:admin": "phone:read:role:admin",
               "phone:delete:role:admin": "phone:delete:role:admin",
-              "phone:delete:role_member:admin": "phone:delete:role_member:admin",
               "phone:read:role_member:admin": "phone:read:role_member:admin",
               "phone:write:role_member:admin": "phone:write:role_member:admin",
+              "phone:delete:role_member:admin": "phone:delete:role_member:admin",
               "phone_peering:read:admin": "phone_peering:read:admin",
               "phone:read:list_peering_numbers:admin": "phone:read:list_peering_numbers:admin",
               "phone_peering:write:admin": "phone_peering:write:admin",
-              "phone:update:peering_number:admin": "phone:update:peering_number:admin",
               "phone:write:peering_number:admin": "phone:write:peering_number:admin",
               "phone:delete:peering_number:admin": "phone:delete:peering_number:admin",
+              "phone:update:peering_number:admin": "phone:update:peering_number:admin",
               "phone:write:provision_template:admin": "phone:write:provision_template:admin",
               "phone:read:list_provision_templates:admin": "phone:read:list_provision_templates:admin",
+              "phone:update:provision_template:admin": "phone:update:provision_template:admin",
               "phone:read:provision_template:admin": "phone:read:provision_template:admin",
               "phone:delete:provision_template:admin": "phone:delete:provision_template:admin",
-              "phone:update:provision_template:admin": "phone:update:provision_template:admin",
               "phone_recording:read": "phone_recording:read",
               "phone_recording:read:admin": "phone_recording:read:admin",
               "phone:read:call_recording": "phone:read:call_recording",
@@ -52604,9 +52228,9 @@
               "phone:read:sms_charges:admin": "phone:read:sms_charges:admin",
               "phone:read:list_routing_rules:admin": "phone:read:list_routing_rules:admin",
               "phone:write:routing_rule:admin": "phone:write:routing_rule:admin",
+              "phone:update:routing_rule:admin": "phone:update:routing_rule:admin",
               "phone:read:routing_rule:admin": "phone:read:routing_rule:admin",
               "phone:delete:routing_rule:admin": "phone:delete:routing_rule:admin",
-              "phone:update:routing_rule:admin": "phone:update:routing_rule:admin",
               "phone_sms:read:admin": "phone_sms:read:admin",
               "phone_sms:read": "phone_sms:read",
               "phone:read:list_sms_sessions": "phone:read:list_sms_sessions",
@@ -52619,10 +52243,10 @@
               "phone:read:sms_campaign:admin": "phone:read:sms_campaign:admin",
               "phone:write:sms_campaign_number:admin": "phone:write:sms_campaign_number:admin",
               "phone:delete:sms_campaign_number:admin": "phone:delete:sms_campaign_number:admin",
-              "phone:read:list_setting_templates:admin": "phone:read:list_setting_templates:admin",
               "phone:write:setting_template:admin": "phone:write:setting_template:admin",
-              "phone:read:setting_template:admin": "phone:read:setting_template:admin",
+              "phone:read:list_setting_templates:admin": "phone:read:list_setting_templates:admin",
               "phone:update:setting_template:admin": "phone:update:setting_template:admin",
+              "phone:read:setting_template:admin": "phone:read:setting_template:admin",
               "phone:read:list_ported_numbers:admin": "phone:read:list_ported_numbers:admin",
               "phone:read:ported_number:admin": "phone:read:ported_number:admin",
               "phone:update:settings:admin": "phone:update:settings:admin",
@@ -52630,11 +52254,11 @@
               "phone:read:list_sip_groups:admin": "phone:read:list_sip_groups:admin",
               "phone:read:list_sip_trunks:admin": "phone:read:list_sip_trunks:admin",
               "phone:read:list_shared_line_appearances:admin": "phone:read:list_shared_line_appearances:admin",
-              "phone:write:shared_line_group:admin": "phone:write:shared_line_group:admin",
               "phone:read:list_shared_line_groups:admin": "phone:read:list_shared_line_groups:admin",
+              "phone:write:shared_line_group:admin": "phone:write:shared_line_group:admin",
               "phone:read:shared_line_group:admin": "phone:read:shared_line_group:admin",
-              "phone:update:shared_line_group_policy:admin": "phone:update:shared_line_group_policy:admin",
               "phone:read:shared_line_group_policy:admin": "phone:read:shared_line_group_policy:admin",
+              "phone:update:shared_line_group_policy:admin": "phone:update:shared_line_group_policy:admin",
               "phone:update:shared_line_group:admin": "phone:update:shared_line_group:admin",
               "phone:delete:shared_line_group:admin": "phone:delete:shared_line_group:admin",
               "phone:delete:shared_line_member:admin": "phone:delete:shared_line_member:admin",
@@ -52645,43 +52269,43 @@
               "phone:write:shared_line_group_policy:admin": "phone:write:shared_line_group_policy:admin",
               "phone:read:list_sites:admin": "phone:read:list_sites:admin",
               "phone:write:site:admin": "phone:write:site:admin",
-              "phone:update:site:admin": "phone:update:site:admin",
-              "phone:delete:site:admin": "phone:delete:site:admin",
               "phone:read:site:admin": "phone:read:site:admin",
-              "phone:write:site_customized_number:admin": "phone:write:site_customized_number:admin",
+              "phone:delete:site:admin": "phone:delete:site:admin",
+              "phone:update:site:admin": "phone:update:site:admin",
               "phone:read:list_site_customized_number:admin": "phone:read:list_site_customized_number:admin",
               "phone:delete:site_customized_number:admin": "phone:delete:site_customized_number:admin",
-              "phone:write:site_setting:admin": "phone:write:site_setting:admin",
-              "phone:update:site_setting:admin": "phone:update:site_setting:admin",
+              "phone:write:site_customized_number:admin": "phone:write:site_customized_number:admin",
               "phone:read:site_setting:admin": "phone:read:site_setting:admin",
+              "phone:write:site_setting:admin": "phone:write:site_setting:admin",
               "phone:delete:site_setting:admin": "phone:delete:site_setting:admin",
+              "phone:update:site_setting:admin": "phone:update:site_setting:admin",
               "phone:read:list_users:admin": "phone:read:list_users:admin",
-              "phone:update:batch_users:admin": "phone:update:batch_users:admin",
               "phone:write:batch_users:admin": "phone:write:batch_users:admin",
-              "phone:update:user": "phone:update:user",
-              "phone:update:user:admin": "phone:update:user:admin",
+              "phone:update:batch_users:admin": "phone:update:batch_users:admin",
               "phone:read:user": "phone:read:user",
               "phone:read:user:admin": "phone:read:user:admin",
-              "phone:update:calling_plan": "phone:update:calling_plan",
-              "phone:update:calling_plan:admin": "phone:update:calling_plan:admin",
+              "phone:update:user": "phone:update:user",
+              "phone:update:user:admin": "phone:update:user:admin",
               "phone:write:calling_plan": "phone:write:calling_plan",
               "phone:write:calling_plan:admin": "phone:write:calling_plan:admin",
+              "phone:update:calling_plan": "phone:update:calling_plan",
+              "phone:update:calling_plan:admin": "phone:update:calling_plan:admin",
               "phone:delete:users_calling_plan": "phone:delete:users_calling_plan",
               "phone:delete:users_calling_plan:admin": "phone:delete:users_calling_plan:admin",
               "phone:read:list_user_customized_number": "phone:read:list_user_customized_number",
               "phone:read:list_user_customized_number:admin": "phone:read:list_user_customized_number:admin",
-              "phone:delete:user_customized_number": "phone:delete:user_customized_number",
-              "phone:delete:user_customized_number:admin": "phone:delete:user_customized_number:admin",
               "phone:write:user_customized_number": "phone:write:user_customized_number",
               "phone:write:user_customized_number:admin": "phone:write:user_customized_number:admin",
-              "phone:update:user_setting": "phone:update:user_setting",
-              "phone:update:user_setting:admin": "phone:update:user_setting:admin",
+              "phone:delete:user_customized_number": "phone:delete:user_customized_number",
+              "phone:delete:user_customized_number:admin": "phone:delete:user_customized_number:admin",
               "phone:read:user_setting:admin": "phone:read:user_setting:admin",
               "phone:read:user_setting": "phone:read:user_setting",
-              "phone:write:shared_setting": "phone:write:shared_setting",
-              "phone:write:shared_setting:admin": "phone:write:shared_setting:admin",
+              "phone:update:user_setting": "phone:update:user_setting",
+              "phone:update:user_setting:admin": "phone:update:user_setting:admin",
               "phone:update:shared_setting": "phone:update:shared_setting",
               "phone:update:shared_setting:admin": "phone:update:shared_setting:admin",
+              "phone:write:shared_setting": "phone:write:shared_setting",
+              "phone:write:shared_setting:admin": "phone:write:shared_setting:admin",
               "phone:delete:shared_setting": "phone:delete:shared_setting",
               "phone:delete:shared_setting:admin": "phone:delete:shared_setting:admin",
               "phone_voicemail:read": "phone_voicemail:read",
@@ -52694,11 +52318,11 @@
               "phone_voicemail:write:admin": "phone_voicemail:write:admin",
               "phone:update:voicemail": "phone:update:voicemail",
               "phone:update:voicemail:admin": "phone:update:voicemail:admin",
-              "phone:write:room:admin": "phone:write:room:admin",
               "phone:read:list_rooms:admin": "phone:read:list_rooms:admin",
+              "phone:write:room:admin": "phone:write:room:admin",
+              "phone:read:room:admin": "phone:read:room:admin",
               "phone:delete:room:admin": "phone:delete:room:admin",
               "phone:update:room:admin": "phone:update:room:admin",
-              "phone:read:room:admin": "phone:read:room:admin",
               "phone:write:room_calling_plan:admin": "phone:write:room_calling_plan:admin",
               "phone:delete:room_calling_plan:admin": "phone:delete:room_calling_plan:admin",
               "phone:write:room_phone_number:admin": "phone:write:room_phone_number:admin",
