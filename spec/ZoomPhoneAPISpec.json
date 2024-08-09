@@ -4623,7 +4623,7 @@
                   "type": "object",
                   "properties": {
                     "voicemail_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "Shared voicemail access member list.",
                       "items": {
@@ -7205,76 +7205,19 @@
               "schema": {
                 "oneOf": [
                   {
-                    "title": "Call forwarding settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "holiday_id": {
-                            "type": "string",
-                            "description": "The holiday's ID. This field is only required for the `call_forwarding` sub-setting.",
-                            "example": "qPvrfrrcrf843cdfvbDRDg"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "The external phone number's description. This field is only required for the `call_forwarding` sub-setting.",
-                            "example": "testDescription"
-                          },
-                          "phone_number": {
-                            "type": "string",
-                            "description": "The external phone number, in [E.164 format](https://en.wikipedia.org/wiki/E.164). This field is only required for the `call_forwarding` sub-setting.",
-                            "example": "+12058945795"
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `call_forwarding`",
-                        "example": "call_forwarding",
-                        "enum": [
-                          "call_forwarding"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/post_call_forwarding"
                   },
                   {
-                    "title": "Holiday settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "description": "The name of the holiday. This field is only required for the `holiday` sub-setting.",
-                            "example": "test"
-                          },
-                          "from": {
-                            "type": "string",
-                            "description": "The holiday's start date and time, in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. This field is only required for the `holiday` sub-setting.",
-                            "format": "date-time",
-                            "example": "2022-03-05T00:00:00Z"
-                          },
-                          "to": {
-                            "type": "string",
-                            "description": "The holiday's end date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's only required for the `holiday` sub-setting.",
-                            "format": "date-time",
-                            "example": "2022-03-06T00:00:00Z"
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `holiday`",
-                        "example": "holiday",
-                        "enum": [
-                          "holiday"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/post_holiday"
                   }
-                ]
+                ],
+                "discriminator": {
+                  "propertyName": "sub_setting_type",
+                  "mapping": {
+                    "call_forwarding": "#/components/schemas/post_call_forwarding",
+                    "holiday": "#/components/schemas/post_holiday"
+                  }
+                }
               }
             }
           }
@@ -7461,450 +7404,27 @@
               "schema": {
                 "oneOf": [
                   {
-                    "title": "Call forwarding settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "call_forwarding_settings": {
-                            "type": "array",
-                            "description": "The call forwarding settings. It's only required for the `call_forwarding` sub-setting.",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "description": {
-                                  "type": "string",
-                                  "description": "The external phone number's description.",
-                                  "example": "testDescription"
-                                },
-                                "enable": {
-                                  "type": "boolean",
-                                  "description": "Whether to receive a call.",
-                                  "example": true
-                                },
-                                "id": {
-                                  "type": "string",
-                                  "description": "The call forwarding's ID.",
-                                  "example": "qPvrfrrcrf843cdfvbDRDg"
-                                },
-                                "phone_number": {
-                                  "type": "string",
-                                  "description": "The external phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format.",
-                                  "example": "+12058945527"
-                                },
-                                "external_contact": {
-                                  "type": "object",
-                                  "properties": {
-                                    "external_contact_id": {
-                                      "type": "string",
-                                      "description": "The external contact's ID. It updates the external contact's `call_forwarding` sub-setting to where the call will be forwarded.",
-                                      "example": "OJGi5xOFQPmrJbKg68-iWg"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "require_press_1_before_connecting": {
-                            "type": "boolean",
-                            "description": "When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot; before the call connects. Enable this option to ensure missed calls do not reach to your personal voicemail. It's required for the `call_forwarding` sub-setting.\n\nPress 1 is always enabled and is required for `callQueue` type extension calls.",
-                            "example": true
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `call_forwarding`",
-                        "example": "call_forwarding",
-                        "enum": [
-                          "call_forwarding"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/patch_call_forwarding"
                   },
                   {
-                    "title": "Holiday settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "from": {
-                            "type": "string",
-                            "description": "The holiday's start date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's required for the `holiday` sub-setting.",
-                            "format": "date-time",
-                            "example": "2022-05-01T00:00:00Z"
-                          },
-                          "holiday_id": {
-                            "type": "string",
-                            "description": "The holiday's ID. It's required for the `holiday` sub-setting.",
-                            "example": "qPvrfrrcrf843cdfvbDRDg"
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "The name of the holiday. It's required for the `holiday` sub-setting.",
-                            "example": "Default"
-                          },
-                          "to": {
-                            "type": "string",
-                            "description": "The holiday's end date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's required for the `holiday` sub-setting.",
-                            "format": "date-time",
-                            "example": "2022-05-01T00:00:00Z"
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `holiday`",
-                        "example": "holiday",
-                        "enum": [
-                          "holiday"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/patch_holiday"
                   },
                   {
-                    "title": "Custom hours settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "allow_members_to_reset": {
-                            "type": "boolean",
-                            "description": "This field allows queue members to set their own business hours. This field allows queue members' business hours to override the default hours of the call queue.\n\nOnly required for `Call Queue custom_hours` sub-setting.",
-                            "example": true
-                          },
-                          "custom_hours_settings": {
-                            "type": "array",
-                            "description": "The custom hours settings. It's only required for the `custom_hours` sub-setting.",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "from": {
-                                  "type": "string",
-                                  "description": "The custom hours start time `HH:mm` format.",
-                                  "example": "09:00"
-                                },
-                                "to": {
-                                  "type": "string",
-                                  "description": "The custom hours end time in `HH:mm` format.",
-                                  "example": "18:00"
-                                },
-                                "type": {
-                                  "type": "integer",
-                                  "description": "The type of custom hours: \n* `0` &mdash; Disabled. \n* `1` &mdash; 24 hours. \n* `2` &mdash; Customized hours.",
-                                  "example": 1,
-                                  "enum": [
-                                    0,
-                                    1,
-                                    2
-                                  ]
-                                },
-                                "weekday": {
-                                  "type": "integer",
-                                  "description": "The day of the week: \n* `1` &mdash; Sunday \n* `2` &mdash; Monday \n* `3` &mdash; Tuesday \n* `4` &mdash; Wednesday \n* `5` &mdash; Thursday \n* `6` &mdash; Friday \n* `7` &mdash; Saturday",
-                                  "example": 7,
-                                  "enum": [
-                                    1,
-                                    2,
-                                    3,
-                                    4,
-                                    5,
-                                    6,
-                                    7
-                                  ]
-                                }
-                              }
-                            }
-                          },
-                          "type": {
-                            "type": "integer",
-                            "description": "The type of custom hours: \n* `1` &mdash; 24 hours, 7 days a week. \n* `2` &mdash; Custom hours. \n\nThis is only required for the `custom_hours` sub-setting.",
-                            "example": 2,
-                            "enum": [
-                              1,
-                              2
-                            ]
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `custom_hours`",
-                        "example": "custom_hours",
-                        "enum": [
-                          "custom_hours"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/patch_custom_hours"
                   },
                   {
-                    "title": "Call handling settings",
-                    "type": "object",
-                    "properties": {
-                      "settings": {
-                        "type": "object",
-                        "properties": {
-                          "allow_callers_check_voicemail": {
-                            "type": "boolean",
-                            "description": "Whether to allow the callers to check voicemails over a phone. It's required only when the `call_not_answer_action` setting is set to `1` (Forward to a voicemail).",
-                            "example": true
-                          },
-                          "allow_members_to_reset": {
-                            "type": "boolean",
-                            "description": "This field allows queue members to set their own business hours. This field allows queue members' business Hours to override the default hours of the call queue.\n\nOnly required for `Call Queue custom_hours` sub-setting.",
-                            "example": true
-                          },
-                          "audio_while_connecting_id": {
-                            "type": "string",
-                            "description": "The audio while connecting the prompt ID. This option can select the audio played for the inbound callers when they are waiting to be routed to the next available call queue member.\n\n Options: empty char - default and `0` - disable \n\nThis is only required for the `Call Queue` `call_handling` sub-setting.",
-                            "example": "qPwtDrrcSua8O0_n0bDRDg"
-                          },
-                          "call_distribution": {
-                            "type": "object",
-                            "properties": {
-                              "handle_multiple_calls": {
-                                "type": "boolean",
-                                "description": "The maximum number of calls that can be handled simultaneously is less than half of the total amount of available call queue members. Note that the first incoming call may not be answered first.\n\nRequired except for `simultaneous` ring mode.",
-                                "example": true
-                              },
-                              "ring_duration": {
-                                "type": "integer",
-                                "description": "The ringing duration for each member:\n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n\nRequired except for `simultaneous` ring mode.",
-                                "example": 10,
-                                "enum": [
-                                  10,
-                                  15,
-                                  20,
-                                  25,
-                                  30,
-                                  35,
-                                  40,
-                                  45,
-                                  50,
-                                  55,
-                                  60
-                                ]
-                              },
-                              "ring_mode": {
-                                "type": "string",
-                                "description": "The call distribution ring mode: \n* `simultaneous` \n* `sequential` \n* `rotating` \n* `longest_idle`.",
-                                "example": "rotating",
-                                "enum": [
-                                  "simultaneous",
-                                  "sequential",
-                                  "rotating",
-                                  "longest_idle"
-                                ]
-                              },
-                              "skip_offline_device_phone_number": {
-                                "type": "boolean",
-                                "description": "1. Devices with Zoom app or client not launched and mobile phone with screen locked will be skipped. \n\n2. Phone numbers added to user's call handling settings will be skipped.\n\nRequired except for `simultaneous` ring mode.",
-                                "example": true
-                              }
-                            },
-                            "description": "This option distributes incoming calls.\n\nIf `Sequential` or `Rotating` is selected, calls will ring for a specific time before trying the next available queue member. \n\nThis is only required for the `call_handling` sub-setting."
-                          },
-                          "call_not_answer_action": {
-                            "type": "integer",
-                            "description": "The action to take when a call is not answered: \n* `1` &mdash; Forward to a voicemail. \n* `2` &mdash; Forward to the user. \n* `4` &mdash; Forward to the common area. \n* `6` &mdash; Forward to the auto receptionist. \n* `7` &mdash; Forward to a call queue. \n* `8` &mdash; Forward to a shared line group. \n* `9` &mdash; Forward to an external contact. \n* `10` - Forward to a phone number. \n* `11` &mdash; Disconnect. \n* `12` &mdash; Play a message, then disconnect. \n* `13` - Forward to a message. \n* `14` - Forward to an interactive voice response (IVR). \n\nThis is only required for the `call_handling` sub-setting.",
-                            "example": 4,
-                            "enum": [
-                              1,
-                              2,
-                              4,
-                              6,
-                              7,
-                              8,
-                              9,
-                              10,
-                              11,
-                              12,
-                              13,
-                              14
-                            ]
-                          },
-                          "busy_on_another_call_action": {
-                            "type": "integer",
-                            "description": "The action to take when the user is busy on another call: \n* `1` &mdash; Forward to a voicemail. \n* `2` &mdash; Forward to the user. \n* `4` &mdash; Forward to the common area. \n* `6` &mdash; Forward to the auto receptionist. \n* `7` &mdash; Forward to a call queue. \n* `8` &mdash; Forward to a shared line group. \n* `9` &mdash; Forward to an external contact. \n* `10` - Forward to a phone number. \n* `12` &mdash; Play a message, then disconnect. \n* `21` &mdash; Call waiting. \n* `22` &mdash; Play a busy signal. \n\nOnly required for the `call_handling` sub-setting.",
-                            "example": 4,
-                            "enum": [
-                              1,
-                              2,
-                              4,
-                              6,
-                              7,
-                              8,
-                              9,
-                              10,
-                              12,
-                              21,
-                              22
-                            ]
-                          },
-                          "busy_require_press_1_before_connecting": {
-                            "type": "boolean",
-                            "description": "When one is busy on another call, the receiver needs to press 1 before connecting the call for it to be forwarded to an external contact or a number. This option ensures that forwarded calls won't reach the voicemail box for the external contact or a number.",
-                            "example": true
-                          },
-                          "un_answered_require_press_1_before_connecting": {
-                            "type": "boolean",
-                            "description": "When a call is unanswered, press 1 before connecting the call to forward to an external contact or a number. This option ensures that forwarded calls won't reach the voicemail box for the external contact or a number.",
-                            "example": true
-                          },
-                          "overflow_play_callee_voicemail_greeting": {
-                            "type": "boolean",
-                            "description": "Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding sequence. \n\nIt displays when `call_not_answer_action` is set to: `2` - Forward to the user, `4` - Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.",
-                            "example": true
-                          },
-                          "play_callee_voicemail_greeting": {
-                            "type": "boolean",
-                            "description": "Whether to play callee's voicemail greeting when the caller reaches the end of forwarding sequence. It displays when `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a voicemail.",
-                            "example": true
-                          },
-                          "busy_play_callee_voicemail_greeting": {
-                            "type": "boolean",
-                            "description": "Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding sequence. \n\nIt displays when `busy_on_another_call_action` action is set to `2` - Forward to the user, `4` - Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.",
-                            "example": true
-                          },
-                          "phone_number": {
-                            "type": "string",
-                            "description": "The extension's phone number or forward to an external number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. It's required when `call_not_answer_action` action is set to `10` - Forward to an external number.",
-                            "example": "+18889843519"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "(Optional) This field forwards to an external number description. \n\nAdd this field when `call_not_answer_action` is set to `10` - Forward to an external number.",
-                            "example": "forward to phone number +18889843519."
-                          },
-                          "busy_phone_number": {
-                            "type": "string",
-                            "description": "The extension's phone number or forward to an external number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. \n\nIt sets when `busy_on_another_call_action` action is set to `10` - Forward to an external number.",
-                            "example": "+18889843519"
-                          },
-                          "busy_description": {
-                            "type": "string",
-                            "description": "This field forwards to an external number description (optional). It sets when `busy_on_another_call_action` action is set to `10` - Forward to an external number.",
-                            "example": "forward to phone number +18889843519."
-                          },
-                          "connect_to_operator": {
-                            "type": "boolean",
-                            "description": "Whether to allow callers to reach an operator. It's required only when the `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail).",
-                            "example": true
-                          },
-                          "forward_to_extension_id": {
-                            "type": "string",
-                            "description": "The forwarding extension ID that's required only when call_not_answer_action setting is set to: 2 - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist. 7 - Forward to a call queue. 8 - Forward to a shared line group. or 9 - forward to an external contact.",
-                            "example": "qPvrfrrcrf843cdfvbDRDg"
-                          },
-                          "busy_forward_to_extension_id": {
-                            "type": "string",
-                            "description": "The forwarding extension ID that's required only when busy_on_another_call_action setting is set to: 2 - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist. 7 - Forward to a call queue. 8 - Forward to a shared line group. or 9 - forward to an external contact.",
-                            "example": "qPvrfrrcrf843cdfvbDRDg"
-                          },
-                          "greeting_prompt_id": {
-                            "type": "string",
-                            "description": "The greeting audio prompt ID. \n\nOptions: empty char - default and `0` - disable \n\nThis is only required for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.",
-                            "example": "qPwe233-f34cdfv45RDg"
-                          },
-                          "max_call_in_queue": {
-                            "type": "integer",
-                            "description": "The maximum number of calls in queue.\nSpecify the maximum number of callers to place in the queue. When this number is exceeded, callers will be routed based on the overflow option. Up to 60.\n\nIt's required for the `Call Queue` `call_handling` sub-setting.",
-                            "example": 7
-                          },
-                          "max_wait_time": {
-                            "type": "integer",
-                            "description": "The maximum wait time, in seconds, for `simultaneous` ring mode or the ring duration for each device for `sequential` ring mode: \n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n\nSpecify how long a caller will wait in the queue. Once the wait time is exceeded, the caller will be rerouted based on the overflow option for `Call Queue`:\n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n* `120` \n* `180` \n* `240` \n* `300` \n* `600` \n* `900` \n* `1200` \n* `1500` \n* `1800`  \n\nThis is only required for the `call_handling` sub-setting.",
-                            "example": 20,
-                            "enum": [
-                              10,
-                              15,
-                              20,
-                              25,
-                              30,
-                              35,
-                              40,
-                              45,
-                              50,
-                              55,
-                              60,
-                              120,
-                              180,
-                              240,
-                              300,
-                              600,
-                              900,
-                              1200,
-                              1500,
-                              1800
-                            ]
-                          },
-                          "music_on_hold_id": {
-                            "type": "string",
-                            "description": "The music on hold prompt ID. This field is an option to choose music for inbound callers when they're placed on hold by a call queue member.\n\n Options: empty char - default and `0` - disable \n\nOnly required for the `Call Queue` `call_handling` sub-setting.",
-                            "example": "fdsij3he89qj2-23uie"
-                          },
-                          "operator_extension_id": {
-                            "type": "string",
-                            "description": "The extension ID of the operator to whom the call is being forwarded. It's required only when `call_not_answer_action` is set to `1` (Forward to a voicemail) and `connect_to_operator` is set to `true`.",
-                            "example": "qPvrfrrcrf843cdfvbDRDg"
-                          },
-                          "receive_call": {
-                            "type": "boolean",
-                            "description": "This field receives calls while on a call. When enabled, call queue members can receive new incoming calls notification even on the call. \n\nIt's required for the `Call Queue call handling` sub-setting.",
-                            "example": true
-                          },
-                          "ring_mode": {
-                            "type": "string",
-                            "description": "The call handling ring mode: \n* `simultaneous` \n* `sequential`. For user business hours, `ring_mode` needs to be set with `max_wait_time`.",
-                            "example": "sequential",
-                            "enum": [
-                              "simultaneous",
-                              "sequential"
-                            ]
-                          },
-                          "voicemail_greeting_id": {
-                            "type": "string",
-                            "description": "The voicemail greeting prompt ID. It's required when `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail).\nRequired only for `call_handling` subsettings of `Call Queue`, `Auto Receptionist` or `User`.",
-                            "example": "qPwtDrrcSua8O0_n0bDRDg"
-                          },
-                          "wrap_up_time": {
-                            "type": "integer",
-                            "description": "The wrap up time in seconds. \nSpecify the duration before the next queue call is routed to a member in call queue:\n* `0` \n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n* `120` \n* `180` \n* `240` \n* `300`\n\nThis is only required for the `call_handling` sub-setting.",
-                            "example": 25,
-                            "enum": [
-                              10,
-                              15,
-                              20,
-                              25,
-                              30,
-                              35,
-                              40,
-                              45,
-                              50,
-                              55,
-                              60,
-                              120,
-                              180,
-                              240,
-                              300
-                            ]
-                          }
-                        }
-                      },
-                      "sub_setting_type": {
-                        "type": "string",
-                        "description": "The type of sub-setting: \n* `call_handling`",
-                        "example": "call_handling",
-                        "enum": [
-                          "call_handling"
-                        ]
-                      }
-                    }
+                    "$ref": "#/components/schemas/patch_call_handling"
                   }
-                ]
+                ],
+                "discriminator": {
+                  "propertyName": "sub_setting_type",
+                  "mapping": {
+                    "call_forwarding": "#/components/schemas/patch_call_forwarding",
+                    "holiday": "#/components/schemas/patch_holiday",
+                    "custom_hours": "#/components/schemas/patch_custom_hours",
+                    "call_handling": "#/components/schemas/patch_call_handling"
+                  }
+                }
               }
             }
           }
@@ -11651,7 +11171,7 @@
                     "policy": {
                       "properties": {
                         "voicemail_access_members": {
-                          "uniqueItems": true,
+                          "uniqueItems": false,
                           "type": "array",
                           "description": "The shared voicemail access member list.",
                           "items": {
@@ -12221,7 +11741,7 @@
                 "type": "object",
                 "properties": {
                   "voicemail_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared voicemail access member list. The number is limited to the minimum value of 10 or the number of allowed access members account setting",
                     "items": {
@@ -12264,7 +11784,7 @@
                   "type": "object",
                   "properties": {
                     "voicemail_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared access member list.",
                       "items": {
@@ -39165,7 +38685,7 @@
                       "type": "object",
                       "properties": {
                         "voicemail_access_members": {
-                          "uniqueItems": true,
+                          "uniqueItems": false,
                           "type": "array",
                           "description": "The shared voicemail access member list.",
                           "items": {
@@ -39498,7 +39018,7 @@
                 "type": "object",
                 "properties": {
                   "voicemail_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared voicemail access member list.",
                     "items": {
@@ -39541,7 +39061,7 @@
                   "type": "object",
                   "properties": {
                     "voicemail_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared access member list.",
                       "items": {
@@ -45516,7 +45036,7 @@
                           "description": "A list of ad hoc call recording settings."
                         },
                         "ad_hoc_call_recording_access_members": {
-                          "uniqueItems": true,
+                          "uniqueItems": false,
                           "type": "array",
                           "description": "The shared ad hoc call recording access member list.",
                           "items": {
@@ -45663,7 +45183,7 @@
                           "description": "A list of the user's automatic call recording settings."
                         },
                         "auto_call_recording_access_members": {
-                          "uniqueItems": true,
+                          "uniqueItems": false,
                           "type": "array",
                           "description": "The shared automatic call recording access member list.",
                           "items": {
@@ -47018,7 +46538,7 @@
                         }
                       },
                       "voicemail_access_members": {
-                        "uniqueItems": true,
+                        "uniqueItems": false,
                         "type": "array",
                         "description": "This field updates a voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will completely deprecate this property in a future release. Use `Add/Update/Delete a user's shared access setting` API instead, with settingType 'voice-mail' to manage the voicemail access members.",
                         "items": {
@@ -48131,7 +47651,7 @@
                       }
                     },
                     "auto_call_recording_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared automatic call recording access member list. &lt;b&gt;Deprecated&lt;/b&gt;, we will completely deprecate this property in a future release. Instead use policy.auto_call_recording_access_members property from 'Get a user's profile' API.",
                       "items": {
@@ -48170,7 +47690,7 @@
                       }
                     },
                     "ad_hoc_call_recording_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared ad hoc call recording access member list. &lt;b&gt;Deprecated&lt;/b&gt;, we will completely deprecate this property in a future release. Instead use policy.ad_hoc_call_recording_access_members property from 'Get a user's profile' API.",
                       "items": {
@@ -48392,7 +47912,7 @@
                     "description": "This field updates the voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will completely deprecate this property in a future release. Use property `voicemail_access_members` instead. "
                   },
                   "voicemail_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared voicemail access member list.",
                     "items": {
@@ -48422,7 +47942,7 @@
                     }
                   },
                   "auto_call_recording_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared automatic call recording access member list.",
                     "items": {
@@ -48447,7 +47967,7 @@
                     }
                   },
                   "ad_hoc_call_recording_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared ad hoc call recording access member list.",
                     "items": {
@@ -48570,7 +48090,7 @@
                       "description": "This field adds a voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will completely deprecate this property in a future release. Use property `voicemail_access_members` instead."
                     },
                     "voicemail_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared voicemail access member list.",
                       "items": {
@@ -48614,7 +48134,7 @@
                       }
                     },
                     "auto_call_recording_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared automatic call recording access member list.",
                       "items": {
@@ -48653,7 +48173,7 @@
                       }
                     },
                     "ad_hoc_call_recording_access_members": {
-                      "uniqueItems": true,
+                      "uniqueItems": false,
                       "type": "array",
                       "description": "The shared ad hoc call recording access member list.",
                       "items": {
@@ -48998,7 +48518,7 @@
                     "description": "This field updates the intercom setting."
                   },
                   "voicemail_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared voicemail access member list.",
                     "items": {
@@ -49042,7 +48562,7 @@
                     }
                   },
                   "auto_call_recording_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared automatic call recording access member list.",
                     "items": {
@@ -49081,7 +48601,7 @@
                     }
                   },
                   "ad_hoc_call_recording_access_members": {
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "type": "array",
                     "description": "The shared ad hoc call recording access member list.",
                     "items": {
@@ -51533,7 +51053,7 @@
         "operationId": "addMembersToSharedLineGroup",
         "parameters": [
           {
-            "name": "slgId",
+            "name": "sharedLineGroupId",
             "in": "path",
             "description": "The shared line group ID.",
             "required": true,
@@ -51809,7 +51329,7 @@
         "operationId": "deletePhoneNumbersSLG",
         "parameters": [
           {
-            "name": "slgId",
+            "name": "sharedLineGroupId",
             "in": "path",
             "description": "The shared line group ID.",
             "required": true,
@@ -51860,7 +51380,7 @@
         "operationId": "deleteAPhoneNumberSLG",
         "parameters": [
           {
-            "name": "slgId",
+            "name": "sharedLineGroupId",
             "in": "path",
             "required": true,
             "schema": {
@@ -52328,6 +51848,522 @@
               "phone:write:room_phone_number:admin": "phone:write:room_phone_number:admin",
               "phone:delete:room_phone_number:admin": "phone:delete:room_phone_number:admin"
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "post_call_forwarding": {
+        "title": "Call forwarding settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "holiday_id": {
+                "type": "string",
+                "description": "The holiday's ID. This field is only required for the `call_forwarding` sub-setting.",
+                "example": "qPvrfrrcrf843cdfvbDRDg"
+              },
+              "description": {
+                "type": "string",
+                "description": "The external phone number's description. This field is only required for the `call_forwarding` sub-setting.",
+                "example": "testDescription"
+              },
+              "phone_number": {
+                "type": "string",
+                "description": "The external phone number, in [E.164 format](https://en.wikipedia.org/wiki/E.164). This field is only required for the `call_forwarding` sub-setting.",
+                "example": "+12058945795"
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `call_forwarding`",
+            "example": "call_forwarding",
+            "enum": [
+              "call_forwarding"
+            ]
+          }
+        }
+      },
+      "post_holiday": {
+        "title": "Holiday settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the holiday. This field is only required for the `holiday` sub-setting.",
+                "example": "test"
+              },
+              "from": {
+                "type": "string",
+                "description": "The holiday's start date and time, in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. This field is only required for the `holiday` sub-setting.",
+                "format": "date-time",
+                "example": "2022-03-05T00:00:00Z"
+              },
+              "to": {
+                "type": "string",
+                "description": "The holiday's end date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's only required for the `holiday` sub-setting.",
+                "format": "date-time",
+                "example": "2022-03-06T00:00:00Z"
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `holiday`",
+            "example": "holiday",
+            "enum": [
+              "holiday"
+            ]
+          }
+        }
+      },
+      "patch_call_forwarding": {
+        "title": "Call forwarding settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "call_forwarding_settings": {
+                "type": "array",
+                "description": "The call forwarding settings. It's only required for the `call_forwarding` sub-setting.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "description": "The external phone number's description.",
+                      "example": "testDescription"
+                    },
+                    "enable": {
+                      "type": "boolean",
+                      "description": "Whether to receive a call.",
+                      "example": true
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The call forwarding's ID.",
+                      "example": "qPvrfrrcrf843cdfvbDRDg"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "description": "The external phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format.",
+                      "example": "+12058945527"
+                    },
+                    "external_contact": {
+                      "type": "object",
+                      "properties": {
+                        "external_contact_id": {
+                          "type": "string",
+                          "description": "The external contact's ID. It updates the external contact's `call_forwarding` sub-setting to where the call will be forwarded.",
+                          "example": "OJGi5xOFQPmrJbKg68-iWg"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "require_press_1_before_connecting": {
+                "type": "boolean",
+                "description": "When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot; before the call connects. Enable this option to ensure missed calls do not reach to your personal voicemail. It's required for the `call_forwarding` sub-setting.\n\nPress 1 is always enabled and is required for `callQueue` type extension calls.",
+                "example": true
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `call_forwarding`",
+            "example": "call_forwarding",
+            "enum": [
+              "call_forwarding"
+            ]
+          }
+        }
+      },
+      "patch_holiday": {
+        "title": "Holiday settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "The holiday's start date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's required for the `holiday` sub-setting.",
+                "format": "date-time",
+                "example": "2022-05-01T00:00:00Z"
+              },
+              "holiday_id": {
+                "type": "string",
+                "description": "The holiday's ID. It's required for the `holiday` sub-setting.",
+                "example": "qPvrfrrcrf843cdfvbDRDg"
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the holiday. It's required for the `holiday` sub-setting.",
+                "example": "Default"
+              },
+              "to": {
+                "type": "string",
+                "description": "The holiday's end date and time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. It's required for the `holiday` sub-setting.",
+                "format": "date-time",
+                "example": "2022-05-01T00:00:00Z"
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `holiday`",
+            "example": "holiday",
+            "enum": [
+              "holiday"
+            ]
+          }
+        }
+      },
+      "patch_custom_hours": {
+        "title": "Custom hours settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "allow_members_to_reset": {
+                "type": "boolean",
+                "description": "This field allows queue members to set their own business hours. This field allows queue members' business hours to override the default hours of the call queue.\n\nOnly required for `Call Queue custom_hours` sub-setting.",
+                "example": true
+              },
+              "custom_hours_settings": {
+                "type": "array",
+                "description": "The custom hours settings. It's only required for the `custom_hours` sub-setting.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "description": "The custom hours start time `HH:mm` format.",
+                      "example": "09:00"
+                    },
+                    "to": {
+                      "type": "string",
+                      "description": "The custom hours end time in `HH:mm` format.",
+                      "example": "18:00"
+                    },
+                    "type": {
+                      "type": "integer",
+                      "description": "The type of custom hours: \n* `0` &mdash; Disabled. \n* `1` &mdash; 24 hours. \n* `2` &mdash; Customized hours.",
+                      "example": 1,
+                      "enum": [
+                        0,
+                        1,
+                        2
+                      ]
+                    },
+                    "weekday": {
+                      "type": "integer",
+                      "description": "The day of the week: \n* `1` &mdash; Sunday \n* `2` &mdash; Monday \n* `3` &mdash; Tuesday \n* `4` &mdash; Wednesday \n* `5` &mdash; Thursday \n* `6` &mdash; Friday \n* `7` &mdash; Saturday",
+                      "example": 7,
+                      "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                      ]
+                    }
+                  }
+                }
+              },
+              "type": {
+                "type": "integer",
+                "description": "The type of custom hours: \n* `1` &mdash; 24 hours, 7 days a week. \n* `2` &mdash; Custom hours. \n\nThis is only required for the `custom_hours` sub-setting.",
+                "example": 2,
+                "enum": [
+                  1,
+                  2
+                ]
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `custom_hours`",
+            "example": "custom_hours",
+            "enum": [
+              "custom_hours"
+            ]
+          }
+        }
+      },
+      "patch_call_handling": {
+        "title": "Call handling settings",
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "allow_callers_check_voicemail": {
+                "type": "boolean",
+                "description": "Whether to allow the callers to check voicemails over a phone. It's required only when the `call_not_answer_action` setting is set to `1` (Forward to a voicemail).",
+                "example": true
+              },
+              "allow_members_to_reset": {
+                "type": "boolean",
+                "description": "This field allows queue members to set their own business hours. This field allows queue members' business Hours to override the default hours of the call queue.\n\nOnly required for `Call Queue custom_hours` sub-setting.",
+                "example": true
+              },
+              "audio_while_connecting_id": {
+                "type": "string",
+                "description": "The audio while connecting the prompt ID. This option can select the audio played for the inbound callers when they are waiting to be routed to the next available call queue member.\n\n Options: empty char - default and `0` - disable \n\nThis is only required for the `Call Queue` `call_handling` sub-setting.",
+                "example": "qPwtDrrcSua8O0_n0bDRDg"
+              },
+              "call_distribution": {
+                "type": "object",
+                "properties": {
+                  "handle_multiple_calls": {
+                    "type": "boolean",
+                    "description": "The maximum number of calls that can be handled simultaneously is less than half of the total amount of available call queue members. Note that the first incoming call may not be answered first.\n\nRequired except for `simultaneous` ring mode.",
+                    "example": true
+                  },
+                  "ring_duration": {
+                    "type": "integer",
+                    "description": "The ringing duration for each member:\n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n\nRequired except for `simultaneous` ring mode.",
+                    "example": 10,
+                    "enum": [
+                      10,
+                      15,
+                      20,
+                      25,
+                      30,
+                      35,
+                      40,
+                      45,
+                      50,
+                      55,
+                      60
+                    ]
+                  },
+                  "ring_mode": {
+                    "type": "string",
+                    "description": "The call distribution ring mode: \n* `simultaneous` \n* `sequential` \n* `rotating` \n* `longest_idle`.",
+                    "example": "rotating",
+                    "enum": [
+                      "simultaneous",
+                      "sequential",
+                      "rotating",
+                      "longest_idle"
+                    ]
+                  },
+                  "skip_offline_device_phone_number": {
+                    "type": "boolean",
+                    "description": "1. Devices with Zoom app or client not launched and mobile phone with screen locked will be skipped. \n\n2. Phone numbers added to user's call handling settings will be skipped.\n\nRequired except for `simultaneous` ring mode.",
+                    "example": true
+                  }
+                },
+                "description": "This option distributes incoming calls.\n\nIf `Sequential` or `Rotating` is selected, calls will ring for a specific time before trying the next available queue member. \n\nThis is only required for the `call_handling` sub-setting."
+              },
+              "call_not_answer_action": {
+                "type": "integer",
+                "description": "The action to take when a call is not answered: \n* `1` &mdash; Forward to a voicemail. \n* `2` &mdash; Forward to the user. \n* `4` &mdash; Forward to the common area. \n* `6` &mdash; Forward to the auto receptionist. \n* `7` &mdash; Forward to a call queue. \n* `8` &mdash; Forward to a shared line group. \n* `9` &mdash; Forward to an external contact. \n* `10` - Forward to a phone number. \n* `11` &mdash; Disconnect. \n* `12` &mdash; Play a message, then disconnect. \n* `13` - Forward to a message. \n* `14` - Forward to an interactive voice response (IVR). \n\nThis is only required for the `call_handling` sub-setting.",
+                "example": 4,
+                "enum": [
+                  1,
+                  2,
+                  4,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+                ]
+              },
+              "busy_on_another_call_action": {
+                "type": "integer",
+                "description": "The action to take when the user is busy on another call: \n* `1` &mdash; Forward to a voicemail. \n* `2` &mdash; Forward to the user. \n* `4` &mdash; Forward to the common area. \n* `6` &mdash; Forward to the auto receptionist. \n* `7` &mdash; Forward to a call queue. \n* `8` &mdash; Forward to a shared line group. \n* `9` &mdash; Forward to an external contact. \n* `10` - Forward to a phone number. \n* `12` &mdash; Play a message, then disconnect. \n* `21` &mdash; Call waiting. \n* `22` &mdash; Play a busy signal. \n\nOnly required for the `call_handling` sub-setting.",
+                "example": 4,
+                "enum": [
+                  1,
+                  2,
+                  4,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  12,
+                  21,
+                  22
+                ]
+              },
+              "busy_require_press_1_before_connecting": {
+                "type": "boolean",
+                "description": "When one is busy on another call, the receiver needs to press 1 before connecting the call for it to be forwarded to an external contact or a number. This option ensures that forwarded calls won't reach the voicemail box for the external contact or a number.",
+                "example": true
+              },
+              "un_answered_require_press_1_before_connecting": {
+                "type": "boolean",
+                "description": "When a call is unanswered, press 1 before connecting the call to forward to an external contact or a number. This option ensures that forwarded calls won't reach the voicemail box for the external contact or a number.",
+                "example": true
+              },
+              "overflow_play_callee_voicemail_greeting": {
+                "type": "boolean",
+                "description": "Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding sequence. \n\nIt displays when `call_not_answer_action` is set to: `2` - Forward to the user, `4` - Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.",
+                "example": true
+              },
+              "play_callee_voicemail_greeting": {
+                "type": "boolean",
+                "description": "Whether to play callee's voicemail greeting when the caller reaches the end of forwarding sequence. It displays when `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a voicemail.",
+                "example": true
+              },
+              "busy_play_callee_voicemail_greeting": {
+                "type": "boolean",
+                "description": "Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding sequence. \n\nIt displays when `busy_on_another_call_action` action is set to `2` - Forward to the user, `4` - Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.",
+                "example": true
+              },
+              "phone_number": {
+                "type": "string",
+                "description": "The extension's phone number or forward to an external number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. It's required when `call_not_answer_action` action is set to `10` - Forward to an external number.",
+                "example": "+18889843519"
+              },
+              "description": {
+                "type": "string",
+                "description": "(Optional) This field forwards to an external number description. \n\nAdd this field when `call_not_answer_action` is set to `10` - Forward to an external number.",
+                "example": "forward to phone number +18889843519."
+              },
+              "busy_phone_number": {
+                "type": "string",
+                "description": "The extension's phone number or forward to an external number in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. \n\nIt sets when `busy_on_another_call_action` action is set to `10` - Forward to an external number.",
+                "example": "+18889843519"
+              },
+              "busy_description": {
+                "type": "string",
+                "description": "This field forwards to an external number description (optional). It sets when `busy_on_another_call_action` action is set to `10` - Forward to an external number.",
+                "example": "forward to phone number +18889843519."
+              },
+              "connect_to_operator": {
+                "type": "boolean",
+                "description": "Whether to allow callers to reach an operator. It's required only when the `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail).",
+                "example": true
+              },
+              "forward_to_extension_id": {
+                "type": "string",
+                "description": "The forwarding extension ID that's required only when call_not_answer_action setting is set to: 2 - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist. 7 - Forward to a call queue. 8 - Forward to a shared line group. or 9 - forward to an external contact.",
+                "example": "qPvrfrrcrf843cdfvbDRDg"
+              },
+              "busy_forward_to_extension_id": {
+                "type": "string",
+                "description": "The forwarding extension ID that's required only when busy_on_another_call_action setting is set to: 2 - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist. 7 - Forward to a call queue. 8 - Forward to a shared line group. or 9 - forward to an external contact.",
+                "example": "qPvrfrrcrf843cdfvbDRDg"
+              },
+              "greeting_prompt_id": {
+                "type": "string",
+                "description": "The greeting audio prompt ID. \n\nOptions: empty char - default and `0` - disable \n\nThis is only required for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.",
+                "example": "qPwe233-f34cdfv45RDg"
+              },
+              "max_call_in_queue": {
+                "type": "integer",
+                "description": "The maximum number of calls in queue.\nSpecify the maximum number of callers to place in the queue. When this number is exceeded, callers will be routed based on the overflow option. Up to 60.\n\nIt's required for the `Call Queue` `call_handling` sub-setting.",
+                "example": 7
+              },
+              "max_wait_time": {
+                "type": "integer",
+                "description": "The maximum wait time, in seconds, for `simultaneous` ring mode or the ring duration for each device for `sequential` ring mode: \n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n\nSpecify how long a caller will wait in the queue. Once the wait time is exceeded, the caller will be rerouted based on the overflow option for `Call Queue`:\n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n* `120` \n* `180` \n* `240` \n* `300` \n* `600` \n* `900` \n* `1200` \n* `1500` \n* `1800`  \n\nThis is only required for the `call_handling` sub-setting.",
+                "example": 20,
+                "enum": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55,
+                  60,
+                  120,
+                  180,
+                  240,
+                  300,
+                  600,
+                  900,
+                  1200,
+                  1500,
+                  1800
+                ]
+              },
+              "music_on_hold_id": {
+                "type": "string",
+                "description": "The music on hold prompt ID. This field is an option to choose music for inbound callers when they're placed on hold by a call queue member.\n\n Options: empty char - default and `0` - disable \n\nOnly required for the `Call Queue` `call_handling` sub-setting.",
+                "example": "fdsij3he89qj2-23uie"
+              },
+              "operator_extension_id": {
+                "type": "string",
+                "description": "The extension ID of the operator to whom the call is being forwarded. It's required only when `call_not_answer_action` is set to `1` (Forward to a voicemail) and `connect_to_operator` is set to `true`.",
+                "example": "qPvrfrrcrf843cdfvbDRDg"
+              },
+              "receive_call": {
+                "type": "boolean",
+                "description": "This field receives calls while on a call. When enabled, call queue members can receive new incoming calls notification even on the call. \n\nIt's required for the `Call Queue call handling` sub-setting.",
+                "example": true
+              },
+              "ring_mode": {
+                "type": "string",
+                "description": "The call handling ring mode: \n* `simultaneous` \n* `sequential`. For user business hours, `ring_mode` needs to be set with `max_wait_time`.",
+                "example": "sequential",
+                "enum": [
+                  "simultaneous",
+                  "sequential"
+                ]
+              },
+              "voicemail_greeting_id": {
+                "type": "string",
+                "description": "The voicemail greeting prompt ID. It's required when `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail).\nRequired only for `call_handling` subsettings of `Call Queue`, `Auto Receptionist` or `User`.",
+                "example": "qPwtDrrcSua8O0_n0bDRDg"
+              },
+              "wrap_up_time": {
+                "type": "integer",
+                "description": "The wrap up time in seconds. \nSpecify the duration before the next queue call is routed to a member in call queue:\n* `0` \n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n* `120` \n* `180` \n* `240` \n* `300`\n\nThis is only required for the `call_handling` sub-setting.",
+                "example": 25,
+                "enum": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55,
+                  60,
+                  120,
+                  180,
+                  240,
+                  300
+                ]
+              }
+            }
+          },
+          "sub_setting_type": {
+            "type": "string",
+            "description": "The type of sub-setting: \n* `call_handling`",
+            "example": "call_handling",
+            "enum": [
+              "call_handling"
+            ]
           }
         }
       }

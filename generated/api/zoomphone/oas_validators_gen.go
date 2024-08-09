@@ -1913,6 +1913,36 @@ func (s *AddBYOCNumberReq) Validate() error {
 	return nil
 }
 
+func (s AddCallHandlingReq) Validate() error {
+	switch s.Type {
+	case PostCallForwardingAddCallHandlingReq:
+		if err := s.PostCallForwarding.Validate(); err != nil {
+			return err
+		}
+		return nil
+	case PostHolidayAddCallHandlingReq:
+		if err := s.PostHoliday.Validate(); err != nil {
+			return err
+		}
+		return nil
+	default:
+		return errors.Errorf("invalid type %q", s.Type)
+	}
+}
+
+func (s AddCallHandlingSettingType) Validate() error {
+	switch s {
+	case "business_hours":
+		return nil
+	case "closed_hours":
+		return nil
+	case "holiday_hours":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
 func (s *AddCommonAreaOutboundCallingExceptionRuleReq) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -2874,6 +2904,84 @@ func (s AddRoutingRuleReqType) Validate() error {
 	}
 }
 
+func (s *AddSLGPolicySubSettingCreated) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.VoicemailAccessMembers {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_access_members",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *AddSLGPolicySubSettingCreatedVoicemailAccessMembersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.AccessUserType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "access_user_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s AddSLGPolicySubSettingCreatedVoicemailAccessMembersItemAccessUserType) Validate() error {
+	switch s {
+	case "user":
+		return nil
+	case "commonArea":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
 func (s *AddSiteOutboundCallerNumbersReq) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -3197,6 +3305,86 @@ func (s AddUserOutboundCallingExceptionRuleReqExceptionRuleStatus) Validate() er
 	case "active":
 		return nil
 	case "inactive":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *AddUserSettingCreated) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Delegation.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "delegation",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *AddUserSettingCreatedDelegation) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Privileges {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "privileges",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s AddUserSettingCreatedDelegationPrivilegesItem) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -4811,6 +4999,143 @@ func (s GetADeviceOKStatus) Validate() error {
 	case "online":
 		return nil
 	case "offline":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *GetASharedLineGroupOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Policy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "policy",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *GetASharedLineGroupOKPolicy) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.VoicemailAccessMembers {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_access_members",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *GetASharedLineGroupOKPolicyVoicemailAccessMembersItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.AccessUserType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "access_user_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s GetASharedLineGroupOKPolicyVoicemailAccessMembersItemAccessUserType) Validate() error {
+	switch s {
+	case "user":
+		return nil
+	case "commonArea":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s GetASharedLineGroupOKStatus) Validate() error {
+	switch s {
+	case "active":
+		return nil
+	case "inactive":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -7796,6 +8121,118 @@ func (s GetAudioItemOKVoiceLanguage) Validate() error {
 	}
 }
 
+func (s *GetAutoReceptionistDetailOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.AudioPromptLanguage.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "audio_prompt_language",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RecordingStorageLocation.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "recording_storage_location",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s GetAutoReceptionistDetailOKAudioPromptLanguage) Validate() error {
+	switch s {
+	case "en-US":
+		return nil
+	case "en-GB":
+		return nil
+	case "es-US":
+		return nil
+	case "fr-CA":
+		return nil
+	case "da-DK":
+		return nil
+	case "de-DE":
+		return nil
+	case "es-ES":
+		return nil
+	case "fr-FR":
+		return nil
+	case "it-IT":
+		return nil
+	case "nl-NL":
+		return nil
+	case "pt-PT":
+		return nil
+	case "ja":
+		return nil
+	case "ko-KR":
+		return nil
+	case "pt-BR":
+		return nil
+	case "zh-CN":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s GetAutoReceptionistDetailOKRecordingStorageLocation) Validate() error {
+	switch s {
+	case "US":
+		return nil
+	case "AU":
+		return nil
+	case "CA":
+		return nil
+	case "DE":
+		return nil
+	case "IN":
+		return nil
+	case "JP":
+		return nil
+	case "SG":
+		return nil
+	case "BR":
+		return nil
+	case "CN":
+		return nil
+	case "MX":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
 func (s *GetAutoReceptionistIVROK) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -7863,6 +8300,201 @@ func (s GetAutoReceptionistIVROKCallerEntersNoActionAudioPromptRepeat) Validate(
 	case 2:
 		return nil
 	case 3:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *GetAutoReceptionistsPolicyOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.VoicemailTranscription.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_transcription",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.VoicemailNotificationByEmail.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_notification_by_email",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SMS.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sms",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *GetAutoReceptionistsPolicyOKSMS) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s GetAutoReceptionistsPolicyOKSMSLockedBy) Validate() error {
+	switch s {
+	case "invalid":
+		return nil
+	case "account":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *GetAutoReceptionistsPolicyOKVoicemailNotificationByEmail) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s GetAutoReceptionistsPolicyOKVoicemailNotificationByEmailLockedBy) Validate() error {
+	switch s {
+	case "invalid":
+		return nil
+	case "account":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *GetAutoReceptionistsPolicyOKVoicemailTranscription) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s GetAutoReceptionistsPolicyOKVoicemailTranscriptionLockedBy) Validate() error {
+	switch s {
+	case "invalid":
+		return nil
+	case "account":
+		return nil
+	case "site":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -27005,6 +27637,713 @@ func (s *ListZoomRoomsOK) Validate() error {
 	return nil
 }
 
+func (s *PatchCallForwarding) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PatchCallForwardingSubSettingType) Validate() error {
+	switch s {
+	case "call_forwarding":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PatchCallHandling) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Settings.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "settings",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PatchCallHandlingSettings) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallDistribution.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_distribution",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallNotAnswerAction.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_not_answer_action",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.BusyOnAnotherCallAction.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "busy_on_another_call_action",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.MaxWaitTime.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "max_wait_time",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RingMode.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "ring_mode",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.WrapUpTime.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "wrap_up_time",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PatchCallHandlingSettingsBusyOnAnotherCallAction) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 4:
+		return nil
+	case 6:
+		return nil
+	case 7:
+		return nil
+	case 8:
+		return nil
+	case 9:
+		return nil
+	case 10:
+		return nil
+	case 12:
+		return nil
+	case 21:
+		return nil
+	case 22:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PatchCallHandlingSettingsCallDistribution) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.RingDuration.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "ring_duration",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RingMode.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "ring_mode",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PatchCallHandlingSettingsCallDistributionRingDuration) Validate() error {
+	switch s {
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 35:
+		return nil
+	case 40:
+		return nil
+	case 45:
+		return nil
+	case 50:
+		return nil
+	case 55:
+		return nil
+	case 60:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSettingsCallDistributionRingMode) Validate() error {
+	switch s {
+	case "simultaneous":
+		return nil
+	case "sequential":
+		return nil
+	case "rotating":
+		return nil
+	case "longest_idle":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSettingsCallNotAnswerAction) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 4:
+		return nil
+	case 6:
+		return nil
+	case 7:
+		return nil
+	case 8:
+		return nil
+	case 9:
+		return nil
+	case 10:
+		return nil
+	case 11:
+		return nil
+	case 12:
+		return nil
+	case 13:
+		return nil
+	case 14:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSettingsMaxWaitTime) Validate() error {
+	switch s {
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 35:
+		return nil
+	case 40:
+		return nil
+	case 45:
+		return nil
+	case 50:
+		return nil
+	case 55:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	case 180:
+		return nil
+	case 240:
+		return nil
+	case 300:
+		return nil
+	case 600:
+		return nil
+	case 900:
+		return nil
+	case 1200:
+		return nil
+	case 1500:
+		return nil
+	case 1800:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSettingsRingMode) Validate() error {
+	switch s {
+	case "simultaneous":
+		return nil
+	case "sequential":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSettingsWrapUpTime) Validate() error {
+	switch s {
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 35:
+		return nil
+	case 40:
+		return nil
+	case 45:
+		return nil
+	case 50:
+		return nil
+	case 55:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	case 180:
+		return nil
+	case 240:
+		return nil
+	case 300:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCallHandlingSubSettingType) Validate() error {
+	switch s {
+	case "call_handling":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PatchCustomHours) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Settings.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "settings",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PatchCustomHoursSettings) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.CustomHoursSettings {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "custom_hours_settings",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Type.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PatchCustomHoursSettingsCustomHoursSettingsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Type.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "type",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Weekday.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "weekday",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PatchCustomHoursSettingsCustomHoursSettingsItemType) Validate() error {
+	switch s {
+	case 0:
+		return nil
+	case 1:
+		return nil
+	case 2:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCustomHoursSettingsCustomHoursSettingsItemWeekday) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	case 5:
+		return nil
+	case 6:
+		return nil
+	case 7:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCustomHoursSettingsType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PatchCustomHoursSubSettingType) Validate() error {
+	switch s {
+	case "custom_hours":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PatchHoliday) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PatchHolidaySubSettingType) Validate() error {
+	switch s {
+	case "holiday":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
 func (s *PhoneUserCallLogsOK) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -27292,6 +28631,1830 @@ func (s PhoneUserCallLogsType) Validate() error {
 	}
 }
 
+func (s *PhoneUserOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.EmergencyAddress.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "emergency_address",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Policy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "policy",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserOKEmergencyAddress) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Country.Get(); ok {
+			if err := func() error {
+				if err := (validate.String{
+					MinLength:    2,
+					MinLengthSet: true,
+					MaxLength:    2,
+					MaxLengthSet: true,
+					Email:        false,
+					Hostname:     false,
+					Regex:        nil,
+				}).Validate(string(value)); err != nil {
+					return errors.Wrap(err, "string")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "country",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserOKPolicy) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.AdHocCallRecording.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "ad_hoc_call_recording",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.AutoCallRecording.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "auto_call_recording",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallOverflow.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_overflow",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallPark.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_park",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallTransferring.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_transferring",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallHandlingForwardingToOtherUsers.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_handling_forwarding_to_other_users",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.HandOffToRoom.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "hand_off_to_room",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.MobileSwitchToCarrier.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "mobile_switch_to_carrier",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SelectOutboundCallerID.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "select_outbound_caller_id",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SMS.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sms",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.ZoomPhoneOnMobile.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "zoom_phone_on_mobile",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PersonalAudioLibrary.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "personal_audio_library",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.VoicemailTranscription.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_transcription",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.VoicemailNotificationByEmail.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "voicemail_notification_by_email",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SharedVoicemailNotificationByEmail.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "shared_voicemail_notification_by_email",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CheckVoicemailsOverPhone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "check_voicemails_over_phone",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.AudioIntercom.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "audio_intercom",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PeerToPeerMedia.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "peer_to_peer_media",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.E2eEncryption.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "e2e_encryption",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserOKPolicyAdHocCallRecording) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayRecordingBeepTone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_recording_beep_tone",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyAdHocCallRecordingLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyAdHocCallRecordingPlayRecordingBeepTone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayBeepVolume.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_volume",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepTimeInterval.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_time_interval",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepMember.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_member",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepMember) Validate() error {
+	switch s {
+	case "allMember":
+		return nil
+	case "recordingSide":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepTimeInterval) Validate() error {
+	switch s {
+	case 5:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepVolume) Validate() error {
+	switch s {
+	case 0:
+		return nil
+	case 20:
+		return nil
+	case 40:
+		return nil
+	case 60:
+		return nil
+	case 80:
+		return nil
+	case 100:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyAudioIntercom) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyAudioIntercomLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyAutoCallRecording) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RecordingCalls.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "recording_calls",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayRecordingBeepTone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_recording_beep_tone",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyAutoCallRecordingLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayBeepVolume.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_volume",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepTimeInterval.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_time_interval",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepMember.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_member",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepMember) Validate() error {
+	switch s {
+	case "allMember":
+		return nil
+	case "recordingSide":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepTimeInterval) Validate() error {
+	switch s {
+	case 5:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepVolume) Validate() error {
+	switch s {
+	case 0:
+		return nil
+	case 20:
+		return nil
+	case 40:
+		return nil
+	case 60:
+		return nil
+	case 80:
+		return nil
+	case 100:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyAutoCallRecordingRecordingCalls) Validate() error {
+	switch s {
+	case "inbound":
+		return nil
+	case "outbound":
+		return nil
+	case "both":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCallHandlingForwardingToOtherUsers) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallForwardingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_forwarding_type",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCallHandlingForwardingToOtherUsersCallForwardingType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyCallHandlingForwardingToOtherUsersLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCallOverflow) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallOverflowType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_overflow_type",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCallOverflowCallOverflowType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyCallOverflowLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCallPark) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.ExpirationPeriod.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "expiration_period",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.ForwardTo.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "forward_to",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCallParkExpirationPeriod) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	case 5:
+		return nil
+	case 6:
+		return nil
+	case 7:
+		return nil
+	case 8:
+		return nil
+	case 9:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 35:
+		return nil
+	case 40:
+		return nil
+	case 45:
+		return nil
+	case 50:
+		return nil
+	case 55:
+		return nil
+	case 60:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCallParkForwardTo) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.ExtensionType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "extension_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCallParkForwardToExtensionType) Validate() error {
+	switch s {
+	case "user":
+		return nil
+	case "zoomRoom":
+		return nil
+	case "commonArea":
+		return nil
+	case "ciscoRoom/polycomRoom":
+		return nil
+	case "autoReceptionist":
+		return nil
+	case "callQueue":
+		return nil
+	case "sharedLineGroup":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyCallParkLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCallTransferring) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallTransferringType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_transferring_type",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCallTransferringCallTransferringType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKPolicyCallTransferringLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyCheckVoicemailsOverPhone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyCheckVoicemailsOverPhoneLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyE2eEncryption) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyE2eEncryptionLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyHandOffToRoom) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyHandOffToRoomLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyMobileSwitchToCarrier) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyMobileSwitchToCarrierLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyPeerToPeerMedia) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyPeerToPeerMediaLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyPersonalAudioLibrary) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyPersonalAudioLibraryLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicySMS) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicySMSLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicySelectOutboundCallerID) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicySelectOutboundCallerIDLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicySharedVoicemailNotificationByEmail) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicySharedVoicemailNotificationByEmailLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyVoicemailNotificationByEmail) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyVoicemailNotificationByEmailLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyVoicemailTranscription) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyVoicemailTranscriptionLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserOKPolicyZoomPhoneOnMobile) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.LockedBy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "locked_by",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserOKPolicyZoomPhoneOnMobileLockedBy) Validate() error {
+	switch s {
+	case "account":
+		return nil
+	case "user_group":
+		return nil
+	case "site":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserOKStatus) Validate() error {
+	switch s {
+	case "activate":
+		return nil
+	case "deactivate":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
 func (s *PhoneUserRecordingsOK) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -27395,6 +30558,490 @@ func (s PhoneUserRecordingsOKRecordingsItemCallerNumberType) Validate() error {
 	case 1:
 		return nil
 	case 2:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserSettingsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Delegation.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "delegation",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.DeskPhone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "desk_phone",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Intercom.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "intercom",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserSettingsOKDelegation) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Privileges {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "privileges",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserSettingsOKDelegationPrivilegesItem) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserSettingsOKDeskPhone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Devices {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "devices",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Policy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "policy",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItemPolicy) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallControl.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_control",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.HotDesking.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "hot_desking",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItemPolicyCallControl) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserSettingsOKDeskPhoneDevicesItemPolicyCallControlStatus) Validate() error {
+	switch s {
+	case "unsupported":
+		return nil
+	case "on":
+		return nil
+	case "off":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItemPolicyHotDesking) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserSettingsOKDeskPhoneDevicesItemPolicyHotDeskingStatus) Validate() error {
+	switch s {
+	case "unsupported":
+		return nil
+	case "on":
+		return nil
+	case "off":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserSettingsOKDeskPhoneDevicesItemStatus) Validate() error {
+	switch s {
+	case "online":
+		return nil
+	case "offline":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PhoneUserSettingsOKIntercom) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.AudioIntercoms {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "audio_intercoms",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *PhoneUserSettingsOKIntercomAudioIntercomsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.DeviceStatus.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "device_status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PhoneUserSettingsOKIntercomAudioIntercomsItemDeviceStatus) Validate() error {
+	switch s {
+	case "online":
+		return nil
+	case "offline":
+		return nil
+	case "no device":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserSettingsOKIntercomAudioIntercomsItemStatus) Validate() error {
+	switch s {
+	case "active":
+		return nil
+	case "pending":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s PhoneUserSettingsOKStatus) Validate() error {
+	switch s {
+	case "Active":
+		return nil
+	case "Inactive":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -27546,6 +31193,84 @@ func (s PhoneUserVoiceMailsStatus) Validate() error {
 	case "read":
 		return nil
 	case "unread":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PostCallForwarding) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PostCallForwardingSubSettingType) Validate() error {
+	switch s {
+	case "call_forwarding":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *PostHoliday) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.SubSettingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sub_setting_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s PostHolidaySubSettingType) Validate() error {
+	switch s {
+	case "holiday":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -29591,20 +33316,8 @@ func (s *UpdateAutoReceptionistReq) Validate() error {
 			Error: err,
 		})
 	}
-	if len(failures) > 0 {
-		return &validate.Error{Fields: failures}
-	}
-	return nil
-}
-
-func (s *UpdateBlockedListReq) Validate() error {
-	if s == nil {
-		return validate.ErrNilPointer
-	}
-
-	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.BlockType.Get(); ok {
+		if value, ok := s.AudioPromptLanguage.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -29617,64 +33330,12 @@ func (s *UpdateBlockedListReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "block_type",
+			Name:  "audio_prompt_language",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Comment.Get(); ok {
-			if err := func() error {
-				if err := (validate.String{
-					MinLength:    0,
-					MinLengthSet: false,
-					MaxLength:    255,
-					MaxLengthSet: true,
-					Email:        false,
-					Hostname:     false,
-					Regex:        nil,
-				}).Validate(string(value)); err != nil {
-					return errors.Wrap(err, "string")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "comment",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.Country.Get(); ok {
-			if err := func() error {
-				if err := (validate.String{
-					MinLength:    0,
-					MinLengthSet: false,
-					MaxLength:    50,
-					MaxLengthSet: true,
-					Email:        false,
-					Hostname:     false,
-					Regex:        nil,
-				}).Validate(string(value)); err != nil {
-					return errors.Wrap(err, "string")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "country",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.MatchType.Get(); ok {
+		if value, ok := s.RecordingStorageLocation.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -29687,51 +33348,7 @@ func (s *UpdateBlockedListReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "match_type",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.PhoneNumber.Get(); ok {
-			if err := func() error {
-				if err := (validate.String{
-					MinLength:    0,
-					MinLengthSet: false,
-					MaxLength:    50,
-					MaxLengthSet: true,
-					Email:        false,
-					Hostname:     false,
-					Regex:        nil,
-				}).Validate(string(value)); err != nil {
-					return errors.Wrap(err, "string")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "phone_number",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.Status.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "status",
+			Name:  "recording_storage_location",
 			Error: err,
 		})
 	}
@@ -29741,33 +33358,104 @@ func (s *UpdateBlockedListReq) Validate() error {
 	return nil
 }
 
-func (s UpdateBlockedListReqBlockType) Validate() error {
+func (s UpdateAutoReceptionistReqAudioPromptLanguage) Validate() error {
 	switch s {
-	case "inbound":
+	case "en-US":
 		return nil
-	case "outbound":
+	case "en-GB":
+		return nil
+	case "es-US":
+		return nil
+	case "fr-CA":
+		return nil
+	case "da-DK":
+		return nil
+	case "de-DE":
+		return nil
+	case "es-ES":
+		return nil
+	case "fr-FR":
+		return nil
+	case "it-IT":
+		return nil
+	case "nl-NL":
+		return nil
+	case "pt-PT":
+		return nil
+	case "ja":
+		return nil
+	case "ko-KR":
+		return nil
+	case "pt-BR":
+		return nil
+	case "zh-CN":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
 	}
 }
 
-func (s UpdateBlockedListReqMatchType) Validate() error {
+func (s UpdateAutoReceptionistReqRecordingStorageLocation) Validate() error {
 	switch s {
-	case "phoneNumber":
+	case "US":
 		return nil
-	case "prefix":
+	case "AU":
+		return nil
+	case "CA":
+		return nil
+	case "DE":
+		return nil
+	case "IN":
+		return nil
+	case "JP":
+		return nil
+	case "SG":
+		return nil
+	case "BR":
+		return nil
+	case "CN":
+		return nil
+	case "MX":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
 	}
 }
 
-func (s UpdateBlockedListReqStatus) Validate() error {
-	switch s {
-	case "active":
+func (s UpdateCallHandlingReq) Validate() error {
+	switch s.Type {
+	case PatchCallForwardingUpdateCallHandlingReq:
+		if err := s.PatchCallForwarding.Validate(); err != nil {
+			return err
+		}
 		return nil
-	case "inactive":
+	case PatchHolidayUpdateCallHandlingReq:
+		if err := s.PatchHoliday.Validate(); err != nil {
+			return err
+		}
+		return nil
+	case PatchCustomHoursUpdateCallHandlingReq:
+		if err := s.PatchCustomHours.Validate(); err != nil {
+			return err
+		}
+		return nil
+	case PatchCallHandlingUpdateCallHandlingReq:
+		if err := s.PatchCallHandling.Validate(); err != nil {
+			return err
+		}
+		return nil
+	default:
+		return errors.Errorf("invalid type %q", s.Type)
+	}
+}
+
+func (s UpdateCallHandlingSettingType) Validate() error {
+	switch s {
+	case "business_hours":
+		return nil
+	case "closed_hours":
+		return nil
+	case "holiday_hours":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
@@ -33312,6 +37000,992 @@ func (s UpdateUserOutboundCallingExceptionRuleReqExceptionRuleStatus) Validate()
 	case "active":
 		return nil
 	case "inactive":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReq) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Policy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "policy",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserProfileReqPolicy) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.AdHocCallRecording.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "ad_hoc_call_recording",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.AutoCallRecording.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "auto_call_recording",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallOverflow.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_overflow",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallPark.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_park",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallTransferring.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_transferring",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.CallHandlingForwardingToOtherUsers.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_handling_forwarding_to_other_users",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserProfileReqPolicyAdHocCallRecording) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayRecordingBeepTone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_recording_beep_tone",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserProfileReqPolicyAdHocCallRecordingPlayRecordingBeepTone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayBeepVolume.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_volume",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepTimeInterval.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_time_interval",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepMember.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_member",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepMember) Validate() error {
+	switch s {
+	case "allMember":
+		return nil
+	case "recordingSide":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s UpdateUserProfileReqPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepTimeInterval) Validate() error {
+	switch s {
+	case 5:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s UpdateUserProfileReqPolicyAdHocCallRecordingPlayRecordingBeepTonePlayBeepVolume) Validate() error {
+	switch s {
+	case 0:
+		return nil
+	case 20:
+		return nil
+	case 40:
+		return nil
+	case 60:
+		return nil
+	case 80:
+		return nil
+	case 100:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReqPolicyAutoCallRecording) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.RecordingCalls.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "recording_calls",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayRecordingBeepTone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_recording_beep_tone",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.PlayBeepVolume.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_volume",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepTimeInterval.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_time_interval",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PlayBeepMember.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "play_beep_member",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepMember) Validate() error {
+	switch s {
+	case "allMember":
+		return nil
+	case "recordingSide":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s UpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepTimeInterval) Validate() error {
+	switch s {
+	case 5:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 60:
+		return nil
+	case 120:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s UpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTonePlayBeepVolume) Validate() error {
+	switch s {
+	case 0:
+		return nil
+	case 20:
+		return nil
+	case 40:
+		return nil
+	case 60:
+		return nil
+	case 80:
+		return nil
+	case 100:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s UpdateUserProfileReqPolicyAutoCallRecordingRecordingCalls) Validate() error {
+	switch s {
+	case "inbound":
+		return nil
+	case "outbound":
+		return nil
+	case "both":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReqPolicyCallHandlingForwardingToOtherUsers) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallForwardingType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_forwarding_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyCallHandlingForwardingToOtherUsersCallForwardingType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReqPolicyCallOverflow) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallOverflowType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_overflow_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyCallOverflowCallOverflowType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReqPolicyCallPark) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.ExpirationPeriod.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "expiration_period",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyCallParkExpirationPeriod) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	case 5:
+		return nil
+	case 6:
+		return nil
+	case 7:
+		return nil
+	case 8:
+		return nil
+	case 9:
+		return nil
+	case 10:
+		return nil
+	case 15:
+		return nil
+	case 20:
+		return nil
+	case 25:
+		return nil
+	case 30:
+		return nil
+	case 35:
+		return nil
+	case 40:
+		return nil
+	case 45:
+		return nil
+	case 50:
+		return nil
+	case 55:
+		return nil
+	case 60:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserProfileReqPolicyCallTransferring) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallTransferringType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_transferring_type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserProfileReqPolicyCallTransferringCallTransferringType) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	case 4:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserSettingReq) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Delegation.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "delegation",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.DeskPhone.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "desk_phone",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserSettingReqDelegation) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Privileges {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "privileges",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserSettingReqDelegationPrivilegesItem) Validate() error {
+	switch s {
+	case 1:
+		return nil
+	case 2:
+		return nil
+	case 3:
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserSettingReqDeskPhone) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Devices {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "devices",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserSettingReqDeskPhoneDevicesItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Policy.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "policy",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserSettingReqDeskPhoneDevicesItemPolicy) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.CallControl.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "call_control",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.HotDesking.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "hot_desking",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UpdateUserSettingReqDeskPhoneDevicesItemPolicyCallControl) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserSettingReqDeskPhoneDevicesItemPolicyCallControlStatus) Validate() error {
+	switch s {
+	case "on":
+		return nil
+	case "off":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *UpdateUserSettingReqDeskPhoneDevicesItemPolicyHotDesking) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.Status.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s UpdateUserSettingReqDeskPhoneDevicesItemPolicyHotDeskingStatus) Validate() error {
+	switch s {
+	case "on":
+		return nil
+	case "off":
 		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)

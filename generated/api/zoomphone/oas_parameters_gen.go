@@ -156,6 +156,26 @@ type AddAudioItemParams struct {
 	UserId string
 }
 
+// AddCQPolicySubSettingParams is parameters of addCQPolicySubSetting operation.
+type AddCQPolicySubSettingParams struct {
+	// The call queue ID, retrievable the [List Call Queues](https://marketplace.zoom.
+	// us/docs/api-reference/phone/methods#tag/Call-Queues/operation/listCallQueues) API.
+	CallQueueId string
+	// The policy sub-setting item that you wish to add. Allowed values: `voice_mail`.
+	PolicyType string
+}
+
+// AddCallHandlingParams is parameters of addCallHandling operation.
+type AddCallHandlingParams struct {
+	// The extension ID.
+	ExtensionId string
+	// The call handling setting type:
+	// * `business_hours`
+	// * `closed_hours`
+	// * `holiday_hours`.
+	SettingType AddCallHandlingSettingType
+}
+
 // AddClientCodeToCallLogParams is parameters of addClientCodeToCallLog operation.
 type AddClientCodeToCallLogParams struct {
 	// Unique identifier of the call log.
@@ -209,7 +229,7 @@ type AddMembersToCallQueueParams struct {
 
 // AddMembersToSharedLineGroupParams is parameters of addMembersToSharedLineGroup operation.
 type AddMembersToSharedLineGroupParams struct {
-	// The unique identifier of the shared line group.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -228,6 +248,13 @@ type AddRoleMembersParams struct {
 	// Unique identifier of the [role](https://support.zoom.
 	// us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management) assigned to the user.
 	RoleId string
+}
+
+// AddSLGPolicySubSettingParams is parameters of addSLGPolicySubSetting operation.
+type AddSLGPolicySubSettingParams struct {
+	SlgId string
+	// This setting corresponds to tbe policy item you wish to add. Allowed values: `voice_mail`.
+	PolicyType string
 }
 
 // AddSiteOutboundCallerNumbersParams is parameters of addSiteOutboundCallerNumbers operation.
@@ -262,6 +289,15 @@ type AddUserOutboundCallerNumbersParams struct {
 type AddUserOutboundCallingExceptionRuleParams struct {
 	// The ID of the user.
 	UserId string
+}
+
+// AddUserSettingParams is parameters of addUserSetting operation.
+type AddUserSettingParams struct {
+	// The unique identifier of the user.
+	UserId string
+	// Corresponds to the setting item you wish to modify. Allowed values: `voice_mail`, `delegation`,
+	// `desk_phone`, `intercom`, `auto_call_recording`,`ad_hoc_call_recording`.
+	SettingType string
 }
 
 // AddUsersToDirectoryBySiteParams is parameters of AddUsersToDirectoryBySite operation.
@@ -383,8 +419,6 @@ type DeleteAMemberSLGParams struct {
 
 // DeleteAPhoneNumberSLGParams is parameters of deleteAPhoneNumberSLG operation.
 type DeleteAPhoneNumberSLGParams struct {
-	// The unique identifier of the shared line group from which you would like to unassign a phone
-	// number.
 	SharedLineGroupId string
 	// The unique identifier of the phone number which is to be unassigned. This can be retrieved from
 	// Get a Shared Line Group API.
@@ -569,7 +603,7 @@ type DeleteOutboundCallerNumbersParams struct {
 
 // DeletePhoneNumbersSLGParams is parameters of deletePhoneNumbersSLG operation.
 type DeletePhoneNumbersSLGParams struct {
-	// The unique identifier of the Shared Line Group.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -592,13 +626,14 @@ type DeletePhoneSiteParams struct {
 // DeletePolicyParams is parameters of DeletePolicy operation.
 type DeletePolicyParams struct {
 	// The unique identifier of the auto receptionist. It can be retrieved from the [List auto
-	// receptionists API](https://marketplace.zoom.
-	// us/docs/api-reference/phone/methods#operation/listAutoReceptionists).
+	// receptionists](https://developers.zoom.
+	// us/docs/api/rest/reference/phone/methods/#operation/listAutoReceptionists) API.
 	AutoReceptionistId string
-	// Corresponds to the policy item you wish to remove. Allowed values: `voice_mail`.
+	// This field corresponds to the policy item you wish to remove.
+	// Allowed values: `voice_mail`.
 	PolicyType string
-	// Unique identifier of the voicemail that the user can access. Required only for `voice_mail` policy
-	// type.
+	// The unique identifier of the voicemail that the user can access. It's required only for
+	// `voice_mail` policy type.
 	SharedIds []string
 }
 
@@ -745,6 +780,12 @@ type GetAExternalContactParams struct {
 	ExternalContactId string
 }
 
+// GetASharedLineGroupParams is parameters of getASharedLineGroup operation.
+type GetASharedLineGroupParams struct {
+	// The unique identifier of the shared line group.
+	SharedLineGroupId string
+}
+
 // GetASiteParams is parameters of getASite operation.
 type GetASiteParams struct {
 	// The unique identifier of the site.
@@ -787,6 +828,14 @@ type GetAutoReceptionistIVRParams struct {
 	// The auto receptionist holiday hours ID. If both `holiday_id` and `hours_type` are passed,
 	// `holiday_id` has a high priority and `hours_type` is invalid.
 	HolidayID OptString
+}
+
+// GetAutoReceptionistsPolicyParams is parameters of getAutoReceptionistsPolicy operation.
+type GetAutoReceptionistsPolicyParams struct {
+	// The unique identifier of the auto receptionist. It can be retrieved from the [List auto
+	// receptionists API](https://marketplace.zoom.
+	// us/docs/api-reference/phone/methods#operation/listAutoReceptionists).
+	AutoReceptionistId string
 }
 
 // GetCallChargesUsageReportParams is parameters of GetCallChargesUsageReport operation.
@@ -1355,9 +1404,9 @@ type ListAudioItemsParams struct {
 type ListAutoReceptionistsParams struct {
 	// The total number of records returned from a single API call.
 	PageSize OptInt
-	// The next page token paginates through a large set of results. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token is used to paginate through large result sets. A next page token will be
+	// returned whenever the set of available results exceeds the current page size. The expiration
+	// period for this token is 15 minutes.
 	NextPageToken OptString
 }
 
@@ -2062,6 +2111,12 @@ type PhoneDownloadRecordingTranscriptParams struct {
 	RecordingId string
 }
 
+// PhoneUserParams is parameters of phoneUser operation.
+type PhoneUserParams struct {
+	// The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
+	UserId string
+}
+
 // PhoneUserCallLogsParams is parameters of phoneUserCallLogs operation.
 type PhoneUserCallLogsParams struct {
 	// The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
@@ -2107,6 +2162,12 @@ type PhoneUserRecordingsParams struct {
 	// **Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or
 	// **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as the `from` parameter.
 	To OptDate
+}
+
+// PhoneUserSettingsParams is parameters of phoneUserSettings operation.
+type PhoneUserSettingsParams struct {
+	// The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
+	UserId string
 }
 
 // PhoneUserVoiceMailsParams is parameters of phoneUserVoiceMails operation.
@@ -2413,12 +2474,6 @@ type UpdateAutoReceptionistPolicyParams struct {
 	AutoReceptionistId string
 }
 
-// UpdateBlockedListParams is parameters of updateBlockedList operation.
-type UpdateBlockedListParams struct {
-	// Unique identifier of the blocked list.
-	BlockedListId string
-}
-
 // UpdateCQPolicySubSettingParams is parameters of updateCQPolicySubSetting operation.
 type UpdateCQPolicySubSettingParams struct {
 	// The call queue ID, retrievable from the [List Call Queues](https://marketplace.zoom.
@@ -2426,6 +2481,17 @@ type UpdateCQPolicySubSettingParams struct {
 	CallQueueId string
 	// Corresponds to the policy sub-setting item you wish to update. Allowed values: `voice_mail`.
 	PolicyType string
+}
+
+// UpdateCallHandlingParams is parameters of updateCallHandling operation.
+type UpdateCallHandlingParams struct {
+	// The extension ID.
+	ExtensionId string
+	// The call handling setting type:
+	// * `business_hours`
+	// * `closed_hours`
+	// * `holiday_hours`.
+	SettingType UpdateCallHandlingSettingType
 }
 
 // UpdateCallQueueParams is parameters of updateCallQueue operation.
@@ -2516,10 +2582,11 @@ type UpdatePhoneRoleParams struct {
 // UpdatePolicyParams is parameters of updatePolicy operation.
 type UpdatePolicyParams struct {
 	// The unique identifier of the auto receptionist. It can be retrieved from the [List auto
-	// receptionists API](https://marketplace.zoom.
-	// us/docs/api-reference/phone/methods#operation/listAutoReceptionists).
+	// receptionists ](https://developers.zoom.
+	// us/docs/api/rest/reference/phone/methods/#operation/listAutoReceptionists) API.
 	AutoReceptionistId string
-	// Corresponds to the policy item you wish to modify. Allowed values: `voice_mail`.
+	// This field corresponds to the policy item you wish to modify.
+	// Allowed values: `voice_mail`.
 	PolicyType string
 }
 
@@ -2620,6 +2687,21 @@ type UpdateUserOutboundCallingExceptionRuleParams struct {
 	UserId string
 	// The exception rule ID.
 	ExceptionRuleId string
+}
+
+// UpdateUserProfileParams is parameters of updateUserProfile operation.
+type UpdateUserProfileParams struct {
+	// The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
+	UserId string
+}
+
+// UpdateUserSettingParams is parameters of updateUserSetting operation.
+type UpdateUserSettingParams struct {
+	// Corresponds to the setting item you wish to modify. Allowed values: `voice_mail`, `delegation`,
+	// `desk_phone`, `intercom`, `auto_call_recording`,`ad_hoc_call_recording`.
+	SettingType string
+	// The unique identifier of the user.
+	UserId string
 }
 
 // UpdateUserSettingsParams is parameters of updateUserSettings operation.

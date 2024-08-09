@@ -191,6 +191,46 @@ func encodeAddBYOCNumberRequest(
 	return nil
 }
 
+func encodeAddCQPolicySubSettingRequest(
+	req OptAddCQPolicySubSettingReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeAddCallHandlingRequest(
+	req OptAddCallHandlingReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeAddClientCodeToCallLogRequest(
 	req OptAddClientCodeToCallLogReq,
 	r *http.Request,
@@ -631,6 +671,26 @@ func encodeAddRoutingRuleRequest(
 	return nil
 }
 
+func encodeAddSLGPolicySubSettingRequest(
+	req OptAddSLGPolicySubSettingReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeAddSettingTemplateRequest(
 	req OptAddSettingTemplateReq,
 	r *http.Request,
@@ -733,6 +793,26 @@ func encodeAddUserOutboundCallerNumbersRequest(
 
 func encodeAddUserOutboundCallingExceptionRuleRequest(
 	req OptAddUserOutboundCallingExceptionRuleReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeAddUserSettingRequest(
+	req OptAddUserSettingReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -1191,38 +1271,6 @@ func encodeCreatePhoneSiteRequest(
 	return nil
 }
 
-func encodeDeleteAccountOutboundCallingExceptionRuleRequest(
-	req *DeleteAccountOutboundCallingExceptionRuleReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		if req != nil {
-			req.Encode(e)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeDeleteCommonAreaOutboundCallingExceptionRuleRequest(
-	req *DeleteCommonAreaOutboundCallingExceptionRuleReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		if req != nil {
-			req.Encode(e)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
 func encodeDeletePeeringPhoneNumbersRequest(
 	req OptDeletePeeringPhoneNumbersReq,
 	r *http.Request,
@@ -1235,38 +1283,6 @@ func encodeDeletePeeringPhoneNumbersRequest(
 	e := new(jx.Encoder)
 	{
 		if req.Set {
-			req.Encode(e)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeDeleteSiteOutboundCallingExceptionRuleRequest(
-	req *DeleteSiteOutboundCallingExceptionRuleReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		if req != nil {
-			req.Encode(e)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeDeleteUserOutboundCallingExceptionRuleRequest(
-	req *DeleteUserOutboundCallingExceptionRuleReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		if req != nil {
 			req.Encode(e)
 		}
 	}
@@ -1516,23 +1532,7 @@ func encodeUpdateAutoReceptionistIVRRequest(
 }
 
 func encodeUpdateAutoReceptionistPolicyRequest(
-	req jx.Raw,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		if len(req) != 0 {
-			e.Raw(req)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeUpdateBlockedListRequest(
-	req OptUpdateBlockedListReq,
+	req OptUpdateAutoReceptionistPolicyReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -1553,6 +1553,26 @@ func encodeUpdateBlockedListRequest(
 
 func encodeUpdateCQPolicySubSettingRequest(
 	req OptUpdateCQPolicySubSettingReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateCallHandlingRequest(
+	req OptUpdateCallHandlingReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -2173,6 +2193,46 @@ func encodeUpdateUserOutboundCallingCountriesOrRegionsRequest(
 
 func encodeUpdateUserOutboundCallingExceptionRuleRequest(
 	req OptUpdateUserOutboundCallingExceptionRuleReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateUserProfileRequest(
+	req OptUpdateUserProfileReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateUserSettingRequest(
+	req OptUpdateUserSettingReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"

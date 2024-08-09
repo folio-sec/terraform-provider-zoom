@@ -20,6 +20,9 @@ import (
 // can be customized.
 //go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-name zoom
 
+// Generate OpenAPI Clients
+//go:generate go run github.com/ogen-go/ogen/cmd/ogen --target generated/api/zoomphone -package zoomphone --clean spec/ZoomPhoneAPISpec.json
+
 //go:embed version
 var version string
 

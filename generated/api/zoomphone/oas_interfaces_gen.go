@@ -53,6 +53,14 @@ type AddBYOCNumberRes interface {
 	addBYOCNumberRes()
 }
 
+type AddCQPolicySubSettingRes interface {
+	addCQPolicySubSettingRes()
+}
+
+type AddCallHandlingRes interface {
+	addCallHandlingRes()
+}
+
 type AddClientCodeToCallLogRes interface {
 	addClientCodeToCallLogRes()
 }
@@ -141,6 +149,10 @@ type AddRoutingRuleRes interface {
 	addRoutingRuleRes()
 }
 
+type AddSLGPolicySubSettingRes interface {
+	addSLGPolicySubSettingRes()
+}
+
 type AddSettingTemplateRes interface {
 	addSettingTemplateRes()
 }
@@ -163,6 +175,10 @@ type AddUserOutboundCallerNumbersRes interface {
 
 type AddUserOutboundCallingExceptionRuleRes interface {
 	addUserOutboundCallingExceptionRuleRes()
+}
+
+type AddUserSettingRes interface {
+	addUserSettingRes()
 }
 
 type AddUsersToDirectoryBySiteRes interface {
@@ -481,6 +497,10 @@ type GetAutoReceptionistIVRRes interface {
 	getAutoReceptionistIVRRes()
 }
 
+type GetAutoReceptionistsPolicyRes interface {
+	getAutoReceptionistsPolicyRes()
+}
+
 type GetCallChargesUsageReportRes interface {
 	getCallChargesUsageReportRes()
 }
@@ -677,6 +697,14 @@ type PhoneUserRecordingsRes interface {
 	phoneUserRecordingsRes()
 }
 
+type PhoneUserRes interface {
+	phoneUserRes()
+}
+
+type PhoneUserSettingsRes interface {
+	phoneUserSettingsRes()
+}
+
 type PhoneUserVoiceMailsRes interface {
 	phoneUserVoiceMailsRes()
 }
@@ -821,12 +849,12 @@ type UpdateAutoReceptionistRes interface {
 	updateAutoReceptionistRes()
 }
 
-type UpdateBlockedListRes interface {
-	updateBlockedListRes()
-}
-
 type UpdateCQPolicySubSettingRes interface {
 	updateCQPolicySubSettingRes()
+}
+
+type UpdateCallHandlingRes interface {
+	updateCallHandlingRes()
 }
 
 type UpdateCallQueueRes interface {
@@ -951,6 +979,14 @@ type UpdateUserOutboundCallingCountriesOrRegionsRes interface {
 
 type UpdateUserOutboundCallingExceptionRuleRes interface {
 	updateUserOutboundCallingExceptionRuleRes()
+}
+
+type UpdateUserProfileRes interface {
+	updateUserProfileRes()
+}
+
+type UpdateUserSettingRes interface {
+	updateUserSettingRes()
 }
 
 type UpdateUsersPropertiesInBatchRes interface {

@@ -612,6 +612,97 @@ func decodeAddBYOCNumberResponse(resp *http.Response) (res AddBYOCNumberRes, _ e
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
 
+func decodeAddCQPolicySubSettingResponse(resp *http.Response) (res AddCQPolicySubSettingRes, _ error) {
+	switch resp.StatusCode {
+	case 201:
+		// Code 201.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response AddCQPolicySubSettingCreated
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 400:
+		// Code 400.
+		return &AddCQPolicySubSettingBadRequest{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeAddCallHandlingResponse(resp *http.Response) (res AddCallHandlingRes, _ error) {
+	switch resp.StatusCode {
+	case 201:
+		// Code 201.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response AddCallHandlingCreated
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 400:
+		// Code 400.
+		return &AddCallHandlingBadRequest{}, nil
+	case 404:
+		// Code 404.
+		return &AddCallHandlingNotFound{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
 func decodeAddClientCodeToCallLogResponse(resp *http.Response) (res AddClientCodeToCallLogRes, _ error) {
 	switch resp.StatusCode {
 	case 204:
@@ -1195,39 +1286,7 @@ func decodeAddMembersToSharedLineGroupResponse(resp *http.Response) (res AddMemb
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf, err := io.ReadAll(resp.Body)
-			if err != nil {
-				return res, err
-			}
-			d := jx.DecodeBytes(buf)
-
-			var response AddMembersToSharedLineGroupCreatedApplicationJSON
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				if err := d.Skip(); err != io.EOF {
-					return errors.New("unexpected trailing data")
-				}
-				return nil
-			}(); err != nil {
-				err = &ogenerrors.DecodeBodyError{
-					ContentType: ct,
-					Body:        buf,
-					Err:         err,
-				}
-				return res, err
-			}
-			return &response, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
+		return &AddMembersToSharedLineGroupCreated{}, nil
 	case 400:
 		// Code 400.
 		return &AddMembersToSharedLineGroupBadRequest{}, nil
@@ -1517,6 +1576,59 @@ func decodeAddRoutingRuleResponse(resp *http.Response) (res AddRoutingRuleRes, _
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
 
+func decodeAddSLGPolicySubSettingResponse(resp *http.Response) (res AddSLGPolicySubSettingRes, _ error) {
+	switch resp.StatusCode {
+	case 201:
+		// Code 201.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response AddSLGPolicySubSettingCreated
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 400:
+		// Code 400.
+		return &AddSLGPolicySubSettingBadRequest{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
 func decodeAddSettingTemplateResponse(resp *http.Response) (res AddSettingTemplateRes, _ error) {
 	switch resp.StatusCode {
 	case 201:
@@ -1792,6 +1904,62 @@ func decodeAddUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res
 	case 404:
 		// Code 404.
 		return &AddUserOutboundCallingExceptionRuleNotFound{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeAddUserSettingResponse(resp *http.Response) (res AddUserSettingRes, _ error) {
+	switch resp.StatusCode {
+	case 201:
+		// Code 201.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response AddUserSettingCreated
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 400:
+		// Code 400.
+		return &AddUserSettingBadRequest{}, nil
+	case 404:
+		// Code 404.
+		return &AddUserSettingNotFound{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
@@ -3535,6 +3703,56 @@ func decodeGetAExternalContactResponse(resp *http.Response) (res GetAExternalCon
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
 
+func decodeGetASharedLineGroupResponse(resp *http.Response) (res *GetASharedLineGroupOK, _ error) {
+	switch resp.StatusCode {
+	case 200:
+		// Code 200.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response GetASharedLineGroupOK
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
 func decodeGetASiteResponse(resp *http.Response) (res GetASiteRes, _ error) {
 	switch resp.StatusCode {
 	case 200:
@@ -3783,6 +4001,15 @@ func decodeGetAutoReceptionistDetailResponse(resp *http.Response) (res *GetAutoR
 				}
 				return res, err
 			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
 			return &response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
@@ -3840,6 +4067,59 @@ func decodeGetAutoReceptionistIVRResponse(resp *http.Response) (res GetAutoRecep
 	case 400:
 		// Code 400.
 		return &GetAutoReceptionistIVRBadRequest{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeGetAutoReceptionistsPolicyResponse(resp *http.Response) (res GetAutoReceptionistsPolicyRes, _ error) {
+	switch resp.StatusCode {
+	case 200:
+		// Code 200.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response GetAutoReceptionistsPolicyOK
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 400:
+		// Code 400.
+		return &GetAutoReceptionistsPolicyBadRequest{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
@@ -8566,6 +8846,59 @@ func decodePhoneSettingResponse(resp *http.Response) (res PhoneSettingRes, _ err
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
 
+func decodePhoneUserResponse(resp *http.Response) (res PhoneUserRes, _ error) {
+	switch resp.StatusCode {
+	case 200:
+		// Code 200.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response PhoneUserOK
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 404:
+		// Code 404.
+		return &PhoneUserNotFound{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
 func decodePhoneUserCallLogsResponse(resp *http.Response) (res PhoneUserCallLogsRes, _ error) {
 	switch resp.StatusCode {
 	case 200:
@@ -8668,6 +9001,59 @@ func decodePhoneUserRecordingsResponse(resp *http.Response) (res PhoneUserRecord
 	case 404:
 		// Code 404.
 		return &PhoneUserRecordingsNotFound{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodePhoneUserSettingsResponse(resp *http.Response) (res PhoneUserSettingsRes, _ error) {
+	switch resp.StatusCode {
+	case 200:
+		// Code 200.
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return res, err
+			}
+			d := jx.DecodeBytes(buf)
+
+			var response PhoneUserSettingsOK
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				if err := d.Skip(); err != io.EOF {
+					return errors.New("unexpected trailing data")
+				}
+				return nil
+			}(); err != nil {
+				err = &ogenerrors.DecodeBodyError{
+					ContentType: ct,
+					Body:        buf,
+					Err:         err,
+				}
+				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	case 404:
+		// Code 404.
+		return &PhoneUserSettingsNotFound{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
@@ -9345,21 +9731,6 @@ func decodeUpdateAutoReceptionistPolicyResponse(resp *http.Response) (res Update
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
 
-func decodeUpdateBlockedListResponse(resp *http.Response) (res UpdateBlockedListRes, _ error) {
-	switch resp.StatusCode {
-	case 204:
-		// Code 204.
-		return &UpdateBlockedListNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateBlockedListBadRequest{}, nil
-	case 409:
-		// Code 409.
-		return &UpdateBlockedListConflict{}, nil
-	}
-	return res, validate.UnexpectedStatusCode(resp.StatusCode)
-}
-
 func decodeUpdateCQPolicySubSettingResponse(resp *http.Response) (res UpdateCQPolicySubSettingRes, _ error) {
 	switch resp.StatusCode {
 	case 204:
@@ -9368,6 +9739,21 @@ func decodeUpdateCQPolicySubSettingResponse(resp *http.Response) (res UpdateCQPo
 	case 400:
 		// Code 400.
 		return &UpdateCQPolicySubSettingBadRequest{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeUpdateCallHandlingResponse(resp *http.Response) (res UpdateCallHandlingRes, _ error) {
+	switch resp.StatusCode {
+	case 204:
+		// Code 204.
+		return &UpdateCallHandlingNoContent{}, nil
+	case 400:
+		// Code 400.
+		return &UpdateCallHandlingBadRequest{}, nil
+	case 404:
+		// Code 404.
+		return &UpdateCallHandlingNotFound{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
@@ -9876,6 +10262,33 @@ func decodeUpdateUserOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	case 404:
 		// Code 404.
 		return &UpdateUserOutboundCallingExceptionRuleNotFound{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeUpdateUserProfileResponse(resp *http.Response) (res UpdateUserProfileRes, _ error) {
+	switch resp.StatusCode {
+	case 204:
+		// Code 204.
+		return &UpdateUserProfileNoContent{}, nil
+	case 400:
+		// Code 400.
+		return &UpdateUserProfileBadRequest{}, nil
+	}
+	return res, validate.UnexpectedStatusCode(resp.StatusCode)
+}
+
+func decodeUpdateUserSettingResponse(resp *http.Response) (res UpdateUserSettingRes, _ error) {
+	switch resp.StatusCode {
+	case 204:
+		// Code 204.
+		return &UpdateUserSettingNoContent{}, nil
+	case 400:
+		// Code 400.
+		return &UpdateUserSettingBadRequest{}, nil
+	case 404:
+		// Code 404.
+		return &UpdateUserSettingNotFound{}, nil
 	}
 	return res, validate.UnexpectedStatusCode(resp.StatusCode)
 }
