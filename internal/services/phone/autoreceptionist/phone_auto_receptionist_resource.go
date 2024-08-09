@@ -41,7 +41,7 @@ func (r *phoneAutoReceptionistResource) Configure(_ context.Context, req resourc
 		)
 		return
 	}
-	r.crud = NewPhoneReceptionistCrud(data.PhoneMasterClient)
+	r.crud = newPhoneReceptionistCrud(data.PhoneMasterClient)
 }
 
 func (r *phoneAutoReceptionistResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -50,35 +50,44 @@ func (r *phoneAutoReceptionistResource) Metadata(_ context.Context, req resource
 
 func (r *phoneAutoReceptionistResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Information on a specific auto receptionist",
+		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
 			"auto_receptionist_id": schema.StringAttribute{
-				Computed:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				Computed:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist.",
 			},
 			"cost_center": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Cost center name.",
 			},
 			"department": schema.StringAttribute{
-				Optional: true,
+				Optional:            true,
+				MarkdownDescription: "Department name.",
 			},
 			"extension_number": schema.Int64Attribute{
-				Optional:      true,
-				Computed:      true,
-				PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()},
+				Optional:            true,
+				Computed:            true,
+				PlanModifiers:       []planmodifier.Int64{int64planmodifier.UseStateForUnknown()},
+				MarkdownDescription: "Extension number of the auto receptionist.",
 			},
 			"name": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Name of the auto receptionist.",
 			},
 			"timezone": schema.StringAttribute{
-				Optional:      true,
-				Computed:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				Optional:            true,
+				Computed:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				MarkdownDescription: "[Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.",
 			},
 			"audio_prompt_language": schema.StringAttribute{
 				Optional:      true,
 				Computed:      true,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				MarkdownDescription: `The language for all default audio prompts for the auto receptionist.
+  - Allowed: en-US┃en-GB┃es-US┃fr-CA┃da-DK┃de-DE┃es-ES┃fr-FR┃it-IT┃nl-NL┃pt-PT┃ja┃ko-KR┃pt-BR┃zh-CN
+`,
 			},
 		},
 	}
@@ -116,7 +125,7 @@ func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.R
 }
 
 func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptionistId string) (*phoneAutoReceptionistResourceModel, error) {
-	dto, err := r.crud.Read(ctx, autoReceptionistId)
+	dto, err := r.crud.read(ctx, autoReceptionistId)
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
 	}
@@ -140,7 +149,7 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 		return
 	}
 
-	ret, err := r.crud.Create(ctx, createDto{
+	ret, err := r.crud.create(ctx, createDto{
 		name: plan.Name,
 	})
 	if err != nil {
@@ -150,7 +159,7 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 		)
 		return
 	}
-	err = r.crud.Update(ctx, updateDto{
+	err = r.crud.update(ctx, updateDto{
 		autoReceptionistID:  ret.autoReceptionistID,
 		costCenter:          plan.CostCenter,
 		department:          plan.Department,
@@ -193,7 +202,7 @@ func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource
 		return
 	}
 
-	if err := r.crud.Update(ctx, updateDto{
+	if err := r.crud.update(ctx, updateDto{
 		autoReceptionistID:  plan.AutoReceptionistID,
 		costCenter:          plan.CostCenter,
 		department:          plan.Department,
@@ -234,7 +243,7 @@ func (r *phoneAutoReceptionistResource) Delete(ctx context.Context, req resource
 		return
 	}
 
-	if err := r.crud.Delete(ctx, state.AutoReceptionistID.ValueString()); err != nil {
+	if err := r.crud.delete(ctx, state.AutoReceptionistID.ValueString()); err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone auto receptionist",
 			fmt.Sprintf(

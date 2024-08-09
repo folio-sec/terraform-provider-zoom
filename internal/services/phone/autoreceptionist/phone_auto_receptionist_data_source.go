@@ -36,7 +36,7 @@ func (d *phoneAutoReceptionistDataSource) Configure(_ context.Context, req datas
 		)
 		return
 	}
-	d.crud = NewPhoneReceptionistCrud(data.PhoneMasterClient)
+	d.crud = newPhoneReceptionistCrud(data.PhoneMasterClient)
 }
 
 func (d *phoneAutoReceptionistDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -45,29 +45,35 @@ func (d *phoneAutoReceptionistDataSource) Metadata(_ context.Context, req dataso
 
 func (d *phoneAutoReceptionistDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Information on a specific auto receptionist",
+		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
 			"auto_receptionist_id": schema.StringAttribute{
-				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist",
 				Required:            true,
+				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist.",
 			},
 			"cost_center": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "Cost center name.",
 			},
 			"department": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "Department name.",
 			},
 			"extension_number": schema.Int64Attribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "Extension number of the auto receptionist.",
 			},
 			"name": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "Name of the auto receptionist.",
 			},
 			"timezone": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: "[Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.",
 			},
 			"audio_prompt_language": schema.StringAttribute{
-				Computed: true,
+				Computed:            true,
+				MarkdownDescription: `The language for all default audio prompts for the auto receptionist.`,
 			},
 		},
 	}
@@ -90,7 +96,7 @@ func (d *phoneAutoReceptionistDataSource) Read(ctx context.Context, req datasour
 		return
 	}
 
-	dto, err := d.crud.Read(ctx, data.AutoReceptionistID.ValueString())
+	dto, err := d.crud.read(ctx, data.AutoReceptionistID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
 		return

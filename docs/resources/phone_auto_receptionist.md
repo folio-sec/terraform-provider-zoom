@@ -3,12 +3,12 @@
 page_title: "zoom_phone_auto_receptionist Resource - zoom"
 subcategory: ""
 description: |-
-  Information on a specific auto receptionist
+  Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
 ---
 
 # zoom_phone_auto_receptionist (Resource)
 
-Information on a specific auto receptionist
+Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
 
 
 
@@ -17,16 +17,17 @@ Information on a specific auto receptionist
 
 ### Required
 
-- `name` (String)
+- `name` (String) Name of the auto receptionist.
 
 ### Optional
 
-- `audio_prompt_language` (String)
-- `cost_center` (String)
-- `department` (String)
-- `extension_number` (Number)
-- `timezone` (String)
+- `audio_prompt_language` (String) The language for all default audio prompts for the auto receptionist.
+  - Allowed: en-US┃en-GB┃es-US┃fr-CA┃da-DK┃de-DE┃es-ES┃fr-FR┃it-IT┃nl-NL┃pt-PT┃ja┃ko-KR┃pt-BR┃zh-CN
+- `cost_center` (String) Cost center name.
+- `department` (String) Department name.
+- `extension_number` (Number) Extension number of the auto receptionist.
+- `timezone` (String) [Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.
 
 ### Read-Only
 
-- `auto_receptionist_id` (String)
+- `auto_receptionist_id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
