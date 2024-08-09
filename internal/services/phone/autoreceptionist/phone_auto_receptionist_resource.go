@@ -179,7 +179,7 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 
 	output, err := r.read(ctx, ret.autoReceptionistID.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
+		resp.Diagnostics.AddError("Error creating phone auto receptionist on reading", err.Error())
 		return
 	}
 
@@ -196,8 +196,8 @@ func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
-			"Error getting phone auto receptionist",
-			"Error getting phone auto receptionist",
+			"Error updating phone auto receptionist",
+			"Error updating phone auto receptionist",
 		)
 		return
 	}
@@ -224,7 +224,7 @@ func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource
 
 	output, err := r.read(ctx, plan.AutoReceptionistID.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
+		resp.Diagnostics.AddError("Error updating phone auto receptionist", err.Error())
 		return
 	}
 
