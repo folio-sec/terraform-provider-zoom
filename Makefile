@@ -1,4 +1,19 @@
 TEST?=$$(go list ./... |grep -v 'vendor')
+DEV      := folio-sec
+PROVIDER := zoom
+PLUGINS  := ${HOME}/bin/plugins/registry.terraform.io/${DEV}/${PROVIDER}
+
+define TERRAFORMRC
+
+add the following config to ~/.terraformrc to enable override:
+```
+provider_installation {
+  dev_overrides {
+    "${DEV}/${PROVIDER}" = "${PLUGINS}"
+  }
+}
+```
+endef
 
 .PHONY: tools
 tools:
@@ -36,3 +51,20 @@ testacc:
 .PHONY: generate
 generate:
 	@go generate ./...
+
+# Run go build. Output to dist/.
+.PHONY: build
+build:
+	@mkdir -p dist
+	go build -o dist/${BIN} .
+
+# Run go build. Output to dist/.
+.PHONY: build_override
+build_override: build
+	mkdir -p ${PLUGINS}
+	mv dist/${BIN} ${PLUGINS}/${BIN}
+
+# Run go build. Move artifact to terraform plugins dir. Output override config for ~/.terraformrc
+.PHONY: install
+local_install: build_override
+	$(info ${TERRAFORMRC})

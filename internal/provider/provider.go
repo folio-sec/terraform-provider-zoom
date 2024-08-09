@@ -3,10 +3,11 @@ package provider
 import (
 	"context"
 	"fmt"
-	"github.com/ogen-go/ogen/ogenerrors"
 	"os"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/phone/autoreceptionist"
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -16,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/ogen-go/ogen/ogenerrors"
 )
 
 // Ensure zoomProvider satisfies various provider interfaces.
@@ -29,11 +31,6 @@ type zoomProviderModel struct {
 	AccountID    types.String `tfsdk:"account_id"`
 	ClientID     types.String `tfsdk:"client_id"`
 	ClientSecret types.String `tfsdk:"client_secret"`
-}
-
-// Data is the data that is passed to objects for provider.
-type Data struct {
-	PhoneMasterClient *zoomphone.Client
 }
 
 type clientSecurity struct {
@@ -177,7 +174,7 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		return
 	}
 
-	providerData := &Data{
+	providerData := &shared.ProviderData{
 		PhoneMasterClient: zoomPhoneMasterClient,
 	}
 
@@ -185,12 +182,16 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 	resp.ResourceData = providerData
 }
 
-func (p *zoomProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{}
+func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
+	return []func() resource.Resource{
+		autoreceptionist.NewPhoneReceptionistResource,
+	}
 }
 
-func (p *zoomProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
+	return []func() datasource.DataSource{
+		autoreceptionist.NewPhoneAutoReceptionistDataSource,
+	}
 }
 
 func New(version string) func() provider.Provider {
