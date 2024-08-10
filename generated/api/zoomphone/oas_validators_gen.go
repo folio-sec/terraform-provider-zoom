@@ -1915,13 +1915,13 @@ func (s *AddBYOCNumberReq) Validate() error {
 
 func (s AddCallHandlingReq) Validate() error {
 	switch s.Type {
-	case PostCallForwardingAddCallHandlingReq:
-		if err := s.PostCallForwarding.Validate(); err != nil {
+	case PostCallHandlingSettingsCallForwardingAddCallHandlingReq:
+		if err := s.PostCallHandlingSettingsCallForwarding.Validate(); err != nil {
 			return err
 		}
 		return nil
-	case PostHolidayAddCallHandlingReq:
-		if err := s.PostHoliday.Validate(); err != nil {
+	case PostCallHandlingSettingsHolidayAddCallHandlingReq:
+		if err := s.PostCallHandlingSettingsHoliday.Validate(); err != nil {
 			return err
 		}
 		return nil
@@ -3484,14 +3484,6 @@ func (s *BatchAddLocationsReq) Validate() error {
 	}
 	if len(failures) > 0 {
 		return &validate.Error{Fields: failures}
-	}
-	return nil
-}
-
-func (s BatchAddUsersCreatedApplicationJSON) Validate() error {
-	alias := ([]BatchAddUsersCreatedItem)(s)
-	if alias == nil {
-		return errors.New("nil is invalid value")
 	}
 	return nil
 }
@@ -27637,7 +27629,7 @@ func (s *ListZoomRoomsOK) Validate() error {
 	return nil
 }
 
-func (s *PatchCallForwarding) Validate() error {
+func (s *PatchCallHandlingSettingsCallForwarding) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -27667,7 +27659,7 @@ func (s *PatchCallForwarding) Validate() error {
 	return nil
 }
 
-func (s PatchCallForwardingSubSettingType) Validate() error {
+func (s PatchCallHandlingSettingsCallForwardingSubSettingType) Validate() error {
 	switch s {
 	case "call_forwarding":
 		return nil
@@ -27676,7 +27668,7 @@ func (s PatchCallForwardingSubSettingType) Validate() error {
 	}
 }
 
-func (s *PatchCallHandling) Validate() error {
+func (s *PatchCallHandlingSettingsCallHandling) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -27724,7 +27716,7 @@ func (s *PatchCallHandling) Validate() error {
 	return nil
 }
 
-func (s *PatchCallHandlingSettings) Validate() error {
+func (s *PatchCallHandlingSettingsCallHandlingSettings) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -27844,7 +27836,7 @@ func (s *PatchCallHandlingSettings) Validate() error {
 	return nil
 }
 
-func (s PatchCallHandlingSettingsBusyOnAnotherCallAction) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsBusyOnAnotherCallAction) Validate() error {
 	switch s {
 	case 1:
 		return nil
@@ -27873,7 +27865,7 @@ func (s PatchCallHandlingSettingsBusyOnAnotherCallAction) Validate() error {
 	}
 }
 
-func (s *PatchCallHandlingSettingsCallDistribution) Validate() error {
+func (s *PatchCallHandlingSettingsCallHandlingSettingsCallDistribution) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -27921,7 +27913,7 @@ func (s *PatchCallHandlingSettingsCallDistribution) Validate() error {
 	return nil
 }
 
-func (s PatchCallHandlingSettingsCallDistributionRingDuration) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsCallDistributionRingDuration) Validate() error {
 	switch s {
 	case 10:
 		return nil
@@ -27950,7 +27942,7 @@ func (s PatchCallHandlingSettingsCallDistributionRingDuration) Validate() error 
 	}
 }
 
-func (s PatchCallHandlingSettingsCallDistributionRingMode) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsCallDistributionRingMode) Validate() error {
 	switch s {
 	case "simultaneous":
 		return nil
@@ -27965,7 +27957,7 @@ func (s PatchCallHandlingSettingsCallDistributionRingMode) Validate() error {
 	}
 }
 
-func (s PatchCallHandlingSettingsCallNotAnswerAction) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsCallNotAnswerAction) Validate() error {
 	switch s {
 	case 1:
 		return nil
@@ -27996,7 +27988,7 @@ func (s PatchCallHandlingSettingsCallNotAnswerAction) Validate() error {
 	}
 }
 
-func (s PatchCallHandlingSettingsMaxWaitTime) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsMaxWaitTime) Validate() error {
 	switch s {
 	case 10:
 		return nil
@@ -28043,7 +28035,7 @@ func (s PatchCallHandlingSettingsMaxWaitTime) Validate() error {
 	}
 }
 
-func (s PatchCallHandlingSettingsRingMode) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsRingMode) Validate() error {
 	switch s {
 	case "simultaneous":
 		return nil
@@ -28054,7 +28046,7 @@ func (s PatchCallHandlingSettingsRingMode) Validate() error {
 	}
 }
 
-func (s PatchCallHandlingSettingsWrapUpTime) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSettingsWrapUpTime) Validate() error {
 	switch s {
 	case 10:
 		return nil
@@ -28091,7 +28083,7 @@ func (s PatchCallHandlingSettingsWrapUpTime) Validate() error {
 	}
 }
 
-func (s PatchCallHandlingSubSettingType) Validate() error {
+func (s PatchCallHandlingSettingsCallHandlingSubSettingType) Validate() error {
 	switch s {
 	case "call_handling":
 		return nil
@@ -28100,7 +28092,7 @@ func (s PatchCallHandlingSubSettingType) Validate() error {
 	}
 }
 
-func (s *PatchCustomHours) Validate() error {
+func (s *PatchCallHandlingSettingsCustomHours) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -28148,7 +28140,7 @@ func (s *PatchCustomHours) Validate() error {
 	return nil
 }
 
-func (s *PatchCustomHoursSettings) Validate() error {
+func (s *PatchCallHandlingSettingsCustomHoursSettings) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -28203,7 +28195,7 @@ func (s *PatchCustomHoursSettings) Validate() error {
 	return nil
 }
 
-func (s *PatchCustomHoursSettingsCustomHoursSettingsItem) Validate() error {
+func (s *PatchCallHandlingSettingsCustomHoursSettingsCustomHoursSettingsItem) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -28251,7 +28243,7 @@ func (s *PatchCustomHoursSettingsCustomHoursSettingsItem) Validate() error {
 	return nil
 }
 
-func (s PatchCustomHoursSettingsCustomHoursSettingsItemType) Validate() error {
+func (s PatchCallHandlingSettingsCustomHoursSettingsCustomHoursSettingsItemType) Validate() error {
 	switch s {
 	case 0:
 		return nil
@@ -28264,7 +28256,7 @@ func (s PatchCustomHoursSettingsCustomHoursSettingsItemType) Validate() error {
 	}
 }
 
-func (s PatchCustomHoursSettingsCustomHoursSettingsItemWeekday) Validate() error {
+func (s PatchCallHandlingSettingsCustomHoursSettingsCustomHoursSettingsItemWeekday) Validate() error {
 	switch s {
 	case 1:
 		return nil
@@ -28285,7 +28277,7 @@ func (s PatchCustomHoursSettingsCustomHoursSettingsItemWeekday) Validate() error
 	}
 }
 
-func (s PatchCustomHoursSettingsType) Validate() error {
+func (s PatchCallHandlingSettingsCustomHoursSettingsType) Validate() error {
 	switch s {
 	case 1:
 		return nil
@@ -28296,7 +28288,7 @@ func (s PatchCustomHoursSettingsType) Validate() error {
 	}
 }
 
-func (s PatchCustomHoursSubSettingType) Validate() error {
+func (s PatchCallHandlingSettingsCustomHoursSubSettingType) Validate() error {
 	switch s {
 	case "custom_hours":
 		return nil
@@ -28305,7 +28297,7 @@ func (s PatchCustomHoursSubSettingType) Validate() error {
 	}
 }
 
-func (s *PatchHoliday) Validate() error {
+func (s *PatchCallHandlingSettingsHoliday) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -28335,7 +28327,7 @@ func (s *PatchHoliday) Validate() error {
 	return nil
 }
 
-func (s PatchHolidaySubSettingType) Validate() error {
+func (s PatchCallHandlingSettingsHolidaySubSettingType) Validate() error {
 	switch s {
 	case "holiday":
 		return nil
@@ -31199,7 +31191,7 @@ func (s PhoneUserVoiceMailsStatus) Validate() error {
 	}
 }
 
-func (s *PostCallForwarding) Validate() error {
+func (s *PostCallHandlingSettingsCallForwarding) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -31229,7 +31221,7 @@ func (s *PostCallForwarding) Validate() error {
 	return nil
 }
 
-func (s PostCallForwardingSubSettingType) Validate() error {
+func (s PostCallHandlingSettingsCallForwardingSubSettingType) Validate() error {
 	switch s {
 	case "call_forwarding":
 		return nil
@@ -31238,7 +31230,7 @@ func (s PostCallForwardingSubSettingType) Validate() error {
 	}
 }
 
-func (s *PostHoliday) Validate() error {
+func (s *PostCallHandlingSettingsHoliday) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -31268,7 +31260,7 @@ func (s *PostHoliday) Validate() error {
 	return nil
 }
 
-func (s PostHolidaySubSettingType) Validate() error {
+func (s PostCallHandlingSettingsHolidaySubSettingType) Validate() error {
 	switch s {
 	case "holiday":
 		return nil
@@ -33424,23 +33416,23 @@ func (s UpdateAutoReceptionistReqRecordingStorageLocation) Validate() error {
 
 func (s UpdateCallHandlingReq) Validate() error {
 	switch s.Type {
-	case PatchCallForwardingUpdateCallHandlingReq:
-		if err := s.PatchCallForwarding.Validate(); err != nil {
+	case PatchCallHandlingSettingsCallForwardingUpdateCallHandlingReq:
+		if err := s.PatchCallHandlingSettingsCallForwarding.Validate(); err != nil {
 			return err
 		}
 		return nil
-	case PatchHolidayUpdateCallHandlingReq:
-		if err := s.PatchHoliday.Validate(); err != nil {
+	case PatchCallHandlingSettingsHolidayUpdateCallHandlingReq:
+		if err := s.PatchCallHandlingSettingsHoliday.Validate(); err != nil {
 			return err
 		}
 		return nil
-	case PatchCustomHoursUpdateCallHandlingReq:
-		if err := s.PatchCustomHours.Validate(); err != nil {
+	case PatchCallHandlingSettingsCustomHoursUpdateCallHandlingReq:
+		if err := s.PatchCallHandlingSettingsCustomHours.Validate(); err != nil {
 			return err
 		}
 		return nil
-	case PatchCallHandlingUpdateCallHandlingReq:
-		if err := s.PatchCallHandling.Validate(); err != nil {
+	case PatchCallHandlingSettingsCallHandlingUpdateCallHandlingReq:
+		if err := s.PatchCallHandlingSettingsCallHandling.Validate(); err != nil {
 			return err
 		}
 		return nil

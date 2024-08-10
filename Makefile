@@ -68,6 +68,13 @@ build_override: build
 	mv dist/${BIN} ${PLUGINS}/${BIN}
 
 # Run go build. Move artifact to terraform plugins dir. Output override config for ~/.terraformrc
-.PHONY: install
+.PHONY: local_install
 local_install: build_override
 	$(info ${TERRAFORMRC})
+
+.PHONY: updatespec
+updatespec: updatespec/phone
+
+.PHONY: updatespec/phone
+updatespec/phone:
+	@curl -sfL https://developers.zoom.us/api-specs/phone/methods/ZoomPhoneAPI-spec.json | ./scripts/patchSpec.js > spec/ZoomPhoneAPISpec.json

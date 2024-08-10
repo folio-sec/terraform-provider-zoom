@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/go-faster/jx"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
@@ -39,7 +40,7 @@ type Invoker interface {
 	// `HEAVY`.
 	//
 	// GET /phone/call_history
-	AccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (AccountCallHistoryRes, error)
+	AccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (*AccountCallHistoryOK, error)
 	// AccountCallLogs invokes accountCallLogs operation.
 	//
 	// Returns an account's [call logs](https://support.zoom.
@@ -57,7 +58,7 @@ type Invoker interface {
 	// Deprecated: schema marks this operation as deprecated.
 	//
 	// GET /phone/call_logs
-	AccountCallLogs(ctx context.Context, params AccountCallLogsParams) (AccountCallLogsRes, error)
+	AccountCallLogs(ctx context.Context, params AccountCallLogsParams) (*AccountCallLogsOK, error)
 	// AccountSmsSession invokes accountSmsSession operation.
 	//
 	// Returns details about SMS sessions for an account.
@@ -70,7 +71,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/sms/sessions
-	AccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (AccountSmsSessionRes, error)
+	AccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (*AccountSmsSessionOK, error)
 	// AccountVoiceMails invokes accountVoiceMails operation.
 	//
 	// Use this API to get a user's Zoom Phone voicemails.
@@ -83,7 +84,7 @@ type Invoker interface {
 	// `Heavy`.
 	//
 	// GET /phone/voice_mails
-	AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (AccountVoiceMailsRes, error)
+	AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (*AccountVoiceMailsOK, error)
 	// ActiveCRPhoneNumbers invokes activeCRPhoneNumbers operation.
 	//
 	// Use this API to change phone number status to 'active' in a carrier reseller's master account. Up
@@ -97,7 +98,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/carrier_reseller/numbers
-	ActiveCRPhoneNumbers(ctx context.Context, request []string) (ActiveCRPhoneNumbersRes, error)
+	ActiveCRPhoneNumbers(ctx context.Context, request []string) error
 	// AddAccountLevelInboundBlockRules invokes AddAccountLevelInboundBlockRules operation.
 	//
 	// Adds an account level block rule for inbound calls and messaging from a phone number. As a result,
@@ -111,7 +112,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/inbound_blocked/rules
-	AddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (AddAccountLevelInboundBlockRulesRes, error)
+	AddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (*AddAccountLevelInboundBlockRulesCreated, error)
 	// AddAccountOutboundCallingExceptionRule invokes AddAccountOutboundCallingExceptionRule operation.
 	//
 	// Adds the account level outbound calling policy exception rule for country region.
@@ -124,7 +125,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/outbound_calling/exception_rules
-	AddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (AddAccountOutboundCallingExceptionRuleRes, error)
+	AddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (*AddAccountOutboundCallingExceptionRuleCreated, error)
 	// AddAnAlertSetting invokes AddAnAlertSetting operation.
 	//
 	// [Adds an alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).
@@ -137,7 +138,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/alert_settings
-	AddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (AddAnAlertSettingRes, error)
+	AddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (*AddAnAlertSettingCreated, error)
 	// AddAnAudio invokes AddAnAudio operation.
 	//
 	// Adds an audio item for [text-to-speech conversion](https://support.zoom.
@@ -151,7 +152,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/audios
-	AddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (AddAnAudioRes, error)
+	AddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (*AddAnAudioCreated, error)
 	// AddAnumberToBlockedList invokes addAnumberToBlockedList operation.
 	//
 	// A Zoom account owner or a user with the admin privilege can block phone numbers for phone users in
@@ -167,7 +168,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/blocked_list
-	AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (AddAnumberToBlockedListRes, error)
+	AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (*AddAnumberToBlockedListCreated, error)
 	// AddAudioItem invokes AddAudioItem operation.
 	//
 	// Adds the audio items. You can only upload voice files at this time. Only the admin or user can add
@@ -184,7 +185,7 @@ type Invoker interface {
 	// `HEAVY`.
 	//
 	// POST /phone/users/{userId}/audios/batch
-	AddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (AddAudioItemRes, error)
+	AddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (*AddAudioItemCreated, error)
 	// AddAutoReceptionist invokes addAutoReceptionist operation.
 	//
 	// Adds an [auto receptionist](https://support.zoom.
@@ -200,7 +201,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/auto_receptionists
-	AddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (AddAutoReceptionistRes, error)
+	AddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (*AddAutoReceptionistCreated, error)
 	// AddBYOCNumber invokes addBYOCNumber operation.
 	//
 	// Use this API to add BYOC (Bring Your Own Carrier) phone numbers to Zoom Phone.
@@ -213,7 +214,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/byoc_numbers
-	AddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (AddBYOCNumberRes, error)
+	AddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (*AddBYOCNumberCreated, error)
 	// AddCQPolicySubSetting invokes addCQPolicySubSetting operation.
 	//
 	// Use this API to add the policy sub-setting for a specific [call queue](https://support.zoom.
@@ -228,7 +229,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/call_queues/{callQueueId}/policies/{policyType}
-	AddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (AddCQPolicySubSettingRes, error)
+	AddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (*AddCQPolicySubSettingCreated, error)
 	// AddCallHandling invokes addCallHandling operation.
 	//
 	// Adds Zoom Phone call handling subsettings for your phone system. Call handling settings allow you
@@ -247,7 +248,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/extension/{extensionId}/call_handling/settings/{settingType}
-	AddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (AddCallHandlingRes, error)
+	AddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (AddCallHandlingCreated, error)
 	// AddClientCodeToCallLog invokes addClientCodeToCallLog operation.
 	//
 	// Adds a client code to a [call log](https://support.zoom.
@@ -262,7 +263,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PUT /phone/call_logs/{callLogId}/client_code
-	AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) (AddClientCodeToCallLogRes, error)
+	AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) error
 	// AddCommonArea invokes addCommonArea operation.
 	//
 	// Use this API to add an instance of common area. Configure devices shared by users and deployed in
@@ -277,7 +278,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/common_areas
-	AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (AddCommonAreaRes, error)
+	AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (*AddCommonAreaCreated, error)
 	// AddCommonAreaOutboundCallingExceptionRule invokes AddCommonAreaOutboundCallingExceptionRule operation.
 	//
 	// Adds the common area level outbound calling policy exception rule for the country region.
@@ -290,7 +291,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
-	AddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (AddCommonAreaOutboundCallingExceptionRuleRes, error)
+	AddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (*AddCommonAreaOutboundCallingExceptionRuleCreated, error)
 	// AddCommonAreaSetting invokes AddCommonAreaSetting operation.
 	//
 	// Use this API to add the common area setting according to the setting type, specifically for desk
@@ -305,7 +306,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/common_areas/{commonAreaId}/settings/{settingType}
-	AddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (AddCommonAreaSettingRes, error)
+	AddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (*AddCommonAreaSettingCreated, error)
 	// AddEmergencyAddress invokes addEmergencyAddress operation.
 	//
 	// Adds an emergency address. If the address provided is not an exact match, the system generated
@@ -319,7 +320,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/emergency_addresses
-	AddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (AddEmergencyAddressRes, error)
+	AddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (*AddEmergencyAddressCreated, error)
 	// AddExtensionsToADevice invokes addExtensionsToADevice operation.
 	//
 	// By default, all Zoom Phone users can make and receive calls using the Zoom desktop and mobile
@@ -337,7 +338,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/devices/{deviceId}/extensions
-	AddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (AddExtensionsToADeviceRes, error)
+	AddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (jx.Raw, error)
 	// AddExtensiontLevelInboundBlockRules invokes AddExtensiontLevelInboundBlockRules operation.
 	//
 	// Adds the given extension's block rule for inbound calls and messaging.
@@ -352,7 +353,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/extension/{extensionId}/inbound_blocked/rules
-	AddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (AddExtensiontLevelInboundBlockRulesRes, error)
+	AddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (*AddExtensiontLevelInboundBlockRulesCreated, error)
 	// AddExternalContact invokes addExternalContact operation.
 	//
 	// Adds an external contact.
@@ -365,7 +366,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/external_contacts
-	AddExternalContact(ctx context.Context, request OptAddExternalContactReq) (AddExternalContactRes, error)
+	AddExternalContact(ctx context.Context, request OptAddExternalContactReq) (*AddExternalContactCreated, error)
 	// AddFirmwareRule invokes AddFirmwareRule operation.
 	//
 	// Use this API to add a [firmware update rule](https://support.zoom.
@@ -379,7 +380,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/firmware_update_rules
-	AddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (AddFirmwareRuleRes, error)
+	AddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (*AddFirmwareRuleCreated, error)
 	// AddGCP invokes addGCP operation.
 	//
 	// Use this API to add a [Group Call Pickup](https://support.zoom.
@@ -394,7 +395,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/group_call_pickup
-	AddGCP(ctx context.Context, request OptAddGCPReq) (AddGCPRes, error)
+	AddGCP(ctx context.Context, request OptAddGCPReq) (*AddGCPCreated, error)
 	// AddGCPMembers invokes addGCPMembers operation.
 	//
 	// Use this API to add members to the specified [Group Call Pickup](https://support.zoom.
@@ -408,7 +409,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/group_call_pickup/{groupId}/members
-	AddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) (AddGCPMembersRes, error)
+	AddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) error
 	// AddLocation invokes addLocation operation.
 	//
 	// Adds an emergency service location.
@@ -421,7 +422,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/locations
-	AddLocation(ctx context.Context, request OptAddLocationReq) (AddLocationRes, error)
+	AddLocation(ctx context.Context, request OptAddLocationReq) (*AddLocationCreated, error)
 	// AddMembers invokes addMembers operation.
 	//
 	// Use this API to add members to a [Monitoring Group](https://support.zoom.
@@ -435,7 +436,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-	AddMembers(ctx context.Context, request []string, params AddMembersParams) (AddMembersRes, error)
+	AddMembers(ctx context.Context, request []string, params AddMembersParams) (jx.Raw, error)
 	// AddMembersToCallQueue invokes addMembersToCallQueue operation.
 	//
 	// Add phone users and/or [common areas](https://support.zoom.us/hc/articles/4481136653709) as
@@ -449,7 +450,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/call_queues/{callQueueId}/members
-	AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) (AddMembersToCallQueueRes, error)
+	AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) error
 	// AddMembersToSharedLineGroup invokes addMembersToSharedLineGroup operation.
 	//
 	// [Adds members](https://support.zoom.
@@ -464,7 +465,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/shared_line_groups/{sharedLineGroupId}/members
-	AddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) (AddMembersToSharedLineGroupRes, error)
+	AddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) error
 	// AddOutboundCallerNumbers invokes addOutboundCallerNumbers operation.
 	//
 	// Adds the `account-level` customized outbound caller ID phone numbers. Note that when multiple
@@ -479,7 +480,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/outbound_caller_id/customized_numbers
-	AddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (AddOutboundCallerNumbersRes, error)
+	AddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (jx.Raw, error)
 	// AddPeeringPhoneNumbers invokes addPeeringPhoneNumbers operation.
 	//
 	// Adds phone numbers to Zoom through the Provider Exchange.
@@ -495,7 +496,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/peering/numbers
-	AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (AddPeeringPhoneNumbersRes, error)
+	AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (*AddPeeringPhoneNumbersCreated, error)
 	// AddPhoneDevice invokes addPhoneDevice operation.
 	//
 	// [Adda a desk phone and assigns it](https://support.zoom.
@@ -514,7 +515,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/devices
-	AddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (AddPhoneDeviceRes, error)
+	AddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (*AddPhoneDeviceCreated, error)
 	// AddPolicy invokes AddPolicy operation.
 	//
 	// Adds a policy subsetting for a specific [auto receptionist](https://support.zoom.
@@ -529,7 +530,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-	AddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (AddPolicyRes, error)
+	AddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (*AddPolicyCreated, error)
 	// AddProvisionTemplate invokes addProvisionTemplate operation.
 	//
 	// Use this API to [create a provision template](https://support.zoom.
@@ -543,7 +544,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/provision_templates
-	AddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (AddProvisionTemplateRes, error)
+	AddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (*AddProvisionTemplateCreated, error)
 	// AddRoleMembers invokes AddRoleMembers operation.
 	//
 	// Use this API to add members to [roles](https://support.zoom.
@@ -557,7 +558,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/roles/{roleId}/members
-	AddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) (AddRoleMembersRes, error)
+	AddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) error
 	// AddRoutingRule invokes addRoutingRule operation.
 	//
 	// Creates a directory backup routing rule.
@@ -574,7 +575,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/routing_rules
-	AddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (AddRoutingRuleRes, error)
+	AddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (*AddRoutingRuleCreated, error)
 	// AddSLGPolicySubSetting invokes addSLGPolicySubSetting operation.
 	//
 	// Adds the policy sub-setting for a specific [shared line group](https://support.zoom.
@@ -587,7 +588,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// POST /phone/shared_line_groups/{slgId}/policies/{policyType}
-	AddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (AddSLGPolicySubSettingRes, error)
+	AddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (*AddSLGPolicySubSettingCreated, error)
 	// AddSettingTemplate invokes addSettingTemplate operation.
 	//
 	// Creates a Zoom Phone setting template for an account. After creating a phone template, the defined
@@ -601,7 +602,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/setting_templates
-	AddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (AddSettingTemplateRes, error)
+	AddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (*AddSettingTemplateCreated, error)
 	// AddSiteOutboundCallerNumbers invokes addSiteOutboundCallerNumbers operation.
 	//
 	// Use this API to add the `site-level` customized outbound caller ID phone numbers.
@@ -616,7 +617,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/sites/{siteId}/outbound_caller_id/customized_numbers
-	AddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (AddSiteOutboundCallerNumbersRes, error)
+	AddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (jx.Raw, error)
 	// AddSiteOutboundCallingExceptionRule invokes AddSiteOutboundCallingExceptionRule operation.
 	//
 	// Adds the site level outbound calling policy exception rule for the country region.
@@ -629,7 +630,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/sites/{siteId}/outbound_calling/exception_rules
-	AddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (AddSiteOutboundCallingExceptionRuleRes, error)
+	AddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (*AddSiteOutboundCallingExceptionRuleCreated, error)
 	// AddSiteSetting invokes addSiteSetting operation.
 	//
 	// Sites allow you to organize Zoom Phone users in your organization. Use this API to add a site
@@ -645,7 +646,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/sites/{siteId}/settings/{settingType}
-	AddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (AddSiteSettingRes, error)
+	AddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (*AddSiteSettingCreated, error)
 	// AddUserOutboundCallerNumbers invokes addUserOutboundCallerNumbers operation.
 	//
 	// Adds users' customized outbound caller ID phone numbers.
@@ -659,7 +660,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/users/{userId}/outbound_caller_id/customized_numbers
-	AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (AddUserOutboundCallerNumbersRes, error)
+	AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (jx.Raw, error)
 	// AddUserOutboundCallingExceptionRule invokes AddUserOutboundCallingExceptionRule operation.
 	//
 	// Adds an user level outbound calling policy exception rule for the country region.
@@ -672,7 +673,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/outbound_calling/exception_rules
-	AddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (AddUserOutboundCallingExceptionRuleRes, error)
+	AddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (*AddUserOutboundCallingExceptionRuleCreated, error)
 	// AddUserSetting invokes addUserSetting operation.
 	//
 	// Adds the user setting according to the setting type, specifically for delegation, intercom and
@@ -693,7 +694,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/users/{userId}/settings/{settingType}
-	AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (AddUserSettingRes, error)
+	AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (*AddUserSettingCreated, error)
 	// AddUsersToDirectory invokes AddUsersToDirectory operation.
 	//
 	// Use this API to add users to a [directory](https://support.zoom.
@@ -707,7 +708,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/dial_by_name_directory/extensions
-	AddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) (AddUsersToDirectoryRes, error)
+	AddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) error
 	// AddUsersToDirectoryBySite invokes AddUsersToDirectoryBySite operation.
 	//
 	// Use this API to add users to a [directory](https://support.zoom.
@@ -721,7 +722,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/sites/{siteId}/dial_by_name_directory/extensions
-	AddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) (AddUsersToDirectoryBySiteRes, error)
+	AddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) error
 	// AddZoomRoom invokes addZoomRoom operation.
 	//
 	// Use this API to associate a [Zoom Room](https://support.zoom.
@@ -736,7 +737,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/rooms
-	AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (AddZoomRoomRes, error)
+	AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (jx.Raw, error)
 	// AssignCallingPlan invokes assignCallingPlan operation.
 	//
 	// Assigns a [calling plan](https://marketplace.zoom.
@@ -753,7 +754,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/users/{userId}/calling_plans
-	AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (AssignCallingPlanRes, error)
+	AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (jx.Raw, error)
 	// AssignCallingPlanToRoom invokes assignCallingPlanToRoom operation.
 	//
 	// Use this API to assign [calling plans](https://marketplace.zoom.
@@ -770,7 +771,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/rooms/{roomId}/calling_plans
-	AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (AssignCallingPlanToRoomRes, error)
+	AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (jx.Raw, error)
 	// AssignCallingPlansToCommonArea invokes assignCallingPlansToCommonArea operation.
 	//
 	// Use this API to assign calling plans to a common area.
@@ -784,7 +785,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/common_areas/{commonAreaId}/calling_plans
-	AssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (AssignCallingPlansToCommonAreaRes, error)
+	AssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (*AssignCallingPlansToCommonAreaCreated, error)
 	// AssignCampaignPhoneNumbers invokes assignCampaignPhoneNumbers operation.
 	//
 	// Use this API to [assign a phone number to the SMS campaign](https://support.zoom.
@@ -798,7 +799,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/sms_campaigns/{smsCampaignId}/phone_numbers
-	AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (AssignCampaignPhoneNumbersRes, error)
+	AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (*AssignCampaignPhoneNumbersCreated, error)
 	// AssignPhoneNumber invokes assignPhoneNumber operation.
 	//
 	// Assigns a [phone number](https://support.zoom.
@@ -813,7 +814,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/users/{userId}/phone_numbers
-	AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (AssignPhoneNumberRes, error)
+	AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberOK, error)
 	// AssignPhoneNumberToZoomRoom invokes assignPhoneNumberToZoomRoom operation.
 	//
 	// Use this API to [assign phone numbers to a Zoom Room](https://support.zoom.
@@ -827,7 +828,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/rooms/{roomId}/phone_numbers
-	AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (AssignPhoneNumberToZoomRoomRes, error)
+	AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (jx.Raw, error)
 	// AssignPhoneNumbersAutoReceptionist invokes assignPhoneNumbersAutoReceptionist operation.
 	//
 	// Assigns available phone numbers to an [auto receptionist](https://support.zoom.
@@ -843,7 +844,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
-	AssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) (AssignPhoneNumbersAutoReceptionistRes, error)
+	AssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) error
 	// AssignPhoneNumbersSLG invokes assignPhoneNumbersSLG operation.
 	//
 	// Assigns phone numbers to a shared line groups. These direct phone numbers will be shared among
@@ -859,7 +860,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
-	AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) (AssignPhoneNumbersSLGRes, error)
+	AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) error
 	// AssignPhoneNumbersToCommonArea invokes assignPhoneNumbersToCommonArea operation.
 	//
 	// Assign phone numbers to a common area.
@@ -873,7 +874,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/common_areas/{commonAreaId}/phone_numbers
-	AssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (AssignPhoneNumbersToCommonAreaRes, error)
+	AssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (*AssignPhoneNumbersToCommonAreaCreated, error)
 	// AssignPhoneToCallQueue invokes assignPhoneToCallQueue operation.
 	//
 	// After [buying phone number(s)](https://support.zoom.
@@ -903,7 +904,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/batch_locations
-	BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (BatchAddLocationsRes, error)
+	BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (*BatchAddLocationsCreated, error)
 	// BatchAddUsers invokes batchAddUsers operation.
 	//
 	// Adds phone users in batch. You can add up to 10 users at a time.
@@ -918,7 +919,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// POST /phone/users/batch
-	BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) (BatchAddUsersRes, error)
+	BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) ([]BatchAddUsersCreatedItem, error)
 	// BatchUpdateDeviceLineKeySetting invokes batchUpdateDeviceLineKeySetting operation.
 	//
 	// Use this API to batch update the Zoom Phone device [line key position](https://support.zoom.
@@ -932,7 +933,7 @@ type Invoker interface {
 	// `Heavy`.
 	//
 	// PATCH /phone/devices/{deviceId}/line_keys
-	BatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) (BatchUpdateDeviceLineKeySettingRes, error)
+	BatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) error
 	// BatchUpdateLineKeySetting invokes BatchUpdateLineKeySetting operation.
 	//
 	// Use this API to batch update the Zoom Phone [line key settings](https://support.zoom.
@@ -946,7 +947,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/extension/{extensionId}/line_keys
-	BatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) (BatchUpdateLineKeySettingRes, error)
+	BatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) error
 	// CreateASharedLineGroup invokes createASharedLineGroup operation.
 	//
 	// Creates a shared line group. A [shared line group](https://support.zoom.
@@ -960,7 +961,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/shared_line_groups
-	CreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (CreateASharedLineGroupRes, error)
+	CreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (*CreateASharedLineGroupCreated, error)
 	// CreateCRPhoneNumbers invokes createCRPhoneNumbers operation.
 	//
 	// Use this API to add phone numbers to a carrier reseller (master) account. Up to 200 numbers at a
@@ -974,7 +975,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/carrier_reseller/numbers
-	CreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) (CreateCRPhoneNumbersRes, error)
+	CreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) error
 	// CreateCallQueue invokes createCallQueue operation.
 	//
 	// [Creates a call queue](https://support.zoom.
@@ -993,7 +994,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/call_queues
-	CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (CreateCallQueueRes, error)
+	CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (*CreateCallQueueCreated, error)
 	// CreateMonitoringGroup invokes createMonitoringGroup operation.
 	//
 	// Creates a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711).
@@ -1006,7 +1007,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/monitoring_groups
-	CreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (CreateMonitoringGroupRes, error)
+	CreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (*CreateMonitoringGroupCreated, error)
 	// CreatePhoneSite invokes createPhoneSite operation.
 	//
 	// Creates a [site](https://support.zoom.us/hc/en-us/articles/360020809672) that allows you to
@@ -1021,7 +1022,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// POST /phone/sites
-	CreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (CreatePhoneSiteRes, error)
+	CreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (*CreatePhoneSiteCreated, error)
 	// DelRoleMembers invokes DelRoleMembers operation.
 	//
 	// Use this API to delete member(s) in a [role](https://support.zoom.
@@ -1035,7 +1036,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/roles/{roleId}/members
-	DelRoleMembers(ctx context.Context, params DelRoleMembersParams) (DelRoleMembersRes, error)
+	DelRoleMembers(ctx context.Context, params DelRoleMembersParams) error
 	// DeleteABlockedList invokes deleteABlockedList operation.
 	//
 	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
@@ -1051,7 +1052,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/blocked_list/{blockedListId}
-	DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) (DeleteABlockedListRes, error)
+	DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) error
 	// DeleteACallQueue invokes deleteACallQueue operation.
 	//
 	// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
@@ -1068,7 +1069,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}
-	DeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) (DeleteACallQueueRes, error)
+	DeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) error
 	// DeleteADevice invokes deleteADevice operation.
 	//
 	// Remove a [desk phone device or ATA (Analog Telephone Adapter)](https://support.zoom.
@@ -1083,7 +1084,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/devices/{deviceId}
-	DeleteADevice(ctx context.Context, params DeleteADeviceParams) (DeleteADeviceRes, error)
+	DeleteADevice(ctx context.Context, params DeleteADeviceParams) error
 	// DeleteAExternalContact invokes deleteAExternalContact operation.
 	//
 	// Removes an external contact.
@@ -1096,7 +1097,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/external_contacts/{externalContactId}
-	DeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) (DeleteAExternalContactRes, error)
+	DeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) error
 	// DeleteAMemberSLG invokes deleteAMemberSLG operation.
 	//
 	// Unassigns **a specific member** from a shared line group. Members of the [shared line
@@ -1112,7 +1113,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}
-	DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) (DeleteAMemberSLGRes, error)
+	DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) error
 	// DeleteAPhoneNumberSLG invokes deleteAPhoneNumberSLG operation.
 	//
 	// Unassigns a specific phone number that was assigned to the [shared line group](https://support.
@@ -1127,7 +1128,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers/{phoneNumberId}
-	DeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) (DeleteAPhoneNumberSLGRes, error)
+	DeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) error
 	// DeleteASharedLineGroup invokes deleteASharedLineGroup operation.
 	//
 	// Deletes a shared line group. A [shared line group](https://support.zoom.
@@ -1142,7 +1143,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}
-	DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) (DeleteASharedLineGroupRes, error)
+	DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) error
 	// DeleteAccountLevelInboundBlockRules invokes DeleteAccountLevelInboundBlockRules operation.
 	//
 	// Deletes the account level blocked rule for inbound calls and messaging.
@@ -1155,7 +1156,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/inbound_blocked/rules
-	DeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) (DeleteAccountLevelInboundBlockRulesRes, error)
+	DeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) error
 	// DeleteAccountLevelInboundBlockedStatistics invokes DeleteAccountLevelInboundBlockedStatistics operation.
 	//
 	// Deletes the statistic of extensions blocked rule for inbound calls and messaging. (e.g. Call Queue,
@@ -1169,7 +1170,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/inbound_blocked/extension_rules/statistics
-	DeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) (DeleteAccountLevelInboundBlockedStatisticsRes, error)
+	DeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) error
 	// DeleteAccountOutboundCallingExceptionRule invokes deleteAccountOutboundCallingExceptionRule operation.
 	//
 	// Deletes the account level outbound calling exception rule.
@@ -1182,7 +1183,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/outbound_calling/exception_rules/{exceptionRuleId}
-	DeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) (DeleteAccountOutboundCallingExceptionRuleRes, error)
+	DeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) error
 	// DeleteAnAlertSetting invokes DeleteAnAlertSetting operation.
 	//
 	// Deletes an [alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).
@@ -1195,7 +1196,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/alert_settings/{alertSettingId}
-	DeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) (DeleteAnAlertSettingRes, error)
+	DeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) error
 	// DeleteAudioItem invokes DeleteAudioItem operation.
 	//
 	// Deletes an audio item. Only the admin or user can delete your audio.
@@ -1208,7 +1209,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/audios/{audioId}
-	DeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) (DeleteAudioItemRes, error)
+	DeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) error
 	// DeleteAutoReceptionist invokes deleteAutoReceptionist operation.
 	//
 	// [Deletes a non-primary auto receptionist](https://support.zoom.
@@ -1225,7 +1226,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/auto_receptionists/{autoReceptionistId}
-	DeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) (DeleteAutoReceptionistRes, error)
+	DeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) error
 	// DeleteCRPhoneNumber invokes deleteCRPhoneNumber operation.
 	//
 	// Use this API to delete or unassign a phone number from a carrier reseller account.
@@ -1238,7 +1239,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/carrier_reseller/numbers/{number}
-	DeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) (DeleteCRPhoneNumberRes, error)
+	DeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) error
 	// DeleteCallHandling invokes deleteCallHandling operation.
 	//
 	// Deletes a Zoom Phone's call handling settings. Call handling settings let you control how your
@@ -1256,7 +1257,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/extension/{extensionId}/call_handling/settings/{settingType}
-	DeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) (DeleteCallHandlingRes, error)
+	DeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) error
 	// DeleteCallLog invokes deleteCallLog operation.
 	//
 	// Deletes a user's [call log](https://support.zoom.
@@ -1272,7 +1273,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/users/{userId}/call_logs/{callLogId}
-	DeleteCallLog(ctx context.Context, params DeleteCallLogParams) (DeleteCallLogRes, error)
+	DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error
 	// DeleteCallRecording invokes deleteCallRecording operation.
 	//
 	// Deletes a call recording.
@@ -1285,7 +1286,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/recordings/{recordingId}
-	DeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) (DeleteCallRecordingRes, error)
+	DeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) error
 	// DeleteCommonArea invokes deleteCommonArea operation.
 	//
 	// Use this API to remove the common area.
@@ -1299,7 +1300,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/common_areas/{commonAreaId}
-	DeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) (DeleteCommonAreaRes, error)
+	DeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) error
 	// DeleteCommonAreaOutboundCallingExceptionRule invokes deleteCommonAreaOutboundCallingExceptionRule operation.
 	//
 	// Deletes the common area level outbound calling exception rule.
@@ -1312,7 +1313,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
-	DeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) (DeleteCommonAreaOutboundCallingExceptionRuleRes, error)
+	DeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) error
 	// DeleteCommonAreaSetting invokes deleteCommonAreaSetting operation.
 	//
 	// Use this API to remove the common area subsetting from desk phones.
@@ -1326,7 +1327,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/common_areas/{commonAreaId}/settings/{settingType}
-	DeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) (DeleteCommonAreaSettingRes, error)
+	DeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) error
 	// DeleteEmergencyAddress invokes deleteEmergencyAddress operation.
 	//
 	// Removes an emergency address.
@@ -1339,7 +1340,7 @@ type Invoker interface {
 	// `Heavy`.
 	//
 	// DELETE /phone/emergency_addresses/{emergencyAddressId}
-	DeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) (DeleteEmergencyAddressRes, error)
+	DeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) error
 	// DeleteExtensionFromADevice invokes deleteExtensionFromADevice operation.
 	//
 	// Use this API to unassign a specific assignee from the device.
@@ -1352,7 +1353,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/devices/{deviceId}/extensions/{extensionId}
-	DeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) (DeleteExtensionFromADeviceRes, error)
+	DeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) error
 	// DeleteExtensiontLevelInboundBlockRules invokes DeleteExtensiontLevelInboundBlockRules operation.
 	//
 	// Deletes the given extension's blocked rule for inbound calls and messaging.
@@ -1367,7 +1368,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/extension/{extensionId}/inbound_blocked/rules
-	DeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) (DeleteExtensiontLevelInboundBlockRulesRes, error)
+	DeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) error
 	// DeleteFirmwareUpdateRule invokes DeleteFirmwareUpdateRule operation.
 	//
 	// Use this API to delete the [firmware update rule](https://support.zoom.
@@ -1381,7 +1382,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/firmware_update_rules/{ruleId}
-	DeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) (DeleteFirmwareUpdateRuleRes, error)
+	DeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) error
 	// DeleteGCP invokes deleteGCP operation.
 	//
 	// Use this API to remove a [Group Call Pickup](https://support.zoom.
@@ -1395,7 +1396,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/group_call_pickup/{groupId}
-	DeleteGCP(ctx context.Context, params DeleteGCPParams) (DeleteGCPRes, error)
+	DeleteGCP(ctx context.Context, params DeleteGCPParams) error
 	// DeleteLineKey invokes DeleteLineKey operation.
 	//
 	// Use this API to delete the Zoom Phone [line key settings](https://support.zoom.
@@ -1409,7 +1410,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/extension/{extensionId}/line_keys/{lineKeyId}
-	DeleteLineKey(ctx context.Context, params DeleteLineKeyParams) (DeleteLineKeyRes, error)
+	DeleteLineKey(ctx context.Context, params DeleteLineKeyParams) error
 	// DeleteLocation invokes deleteLocation operation.
 	//
 	// Removes an emergency location.
@@ -1422,7 +1423,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/locations/{locationId}
-	DeleteLocation(ctx context.Context, params DeleteLocationParams) (DeleteLocationRes, error)
+	DeleteLocation(ctx context.Context, params DeleteLocationParams) error
 	// DeleteMembersOfSLG invokes deleteMembersOfSLG operation.
 	//
 	// Unassigns **all** existing members from a Shared Line Group.Members of the [shared line
@@ -1438,7 +1439,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/members
-	DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) (DeleteMembersOfSLGRes, error)
+	DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) error
 	// DeleteMonitoringGroup invokes deleteMonitoringGroup operation.
 	//
 	// Use this API to delete a [Monitoring Group](https://support.zoom.
@@ -1452,7 +1453,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/monitoring_groups/{monitoringGroupId}
-	DeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) (DeleteMonitoringGroupRes, error)
+	DeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) error
 	// DeleteOutboundCallerNumbers invokes deleteOutboundCallerNumbers operation.
 	//
 	// Deletes the `account-level` customized outbound caller ID phone numbers. Note that when multiple
@@ -1467,7 +1468,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/outbound_caller_id/customized_numbers
-	DeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) (DeleteOutboundCallerNumbersRes, error)
+	DeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) error
 	// DeletePeeringPhoneNumbers invokes deletePeeringPhoneNumbers operation.
 	//
 	// Removes phone numbers added to Zoom through the Provider Exchange.
@@ -1483,7 +1484,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/peering/numbers
-	DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (DeletePeeringPhoneNumbersRes, error)
+	DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (*DeletePeeringPhoneNumbersOK, error)
 	// DeletePhoneNumbersSLG invokes deletePhoneNumbersSLG operation.
 	//
 	// Unassigns all the phone numbers that have been assigned to the [shared line group](https://support.
@@ -1498,7 +1499,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
-	DeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) (DeletePhoneNumbersSLGRes, error)
+	DeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) error
 	// DeletePhoneRole invokes DeletePhoneRole operation.
 	//
 	// Use this API to delete a phone [role](https://support.zoom.
@@ -1512,7 +1513,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/roles/{roleId}
-	DeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) (DeletePhoneRoleRes, error)
+	DeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) error
 	// DeletePhoneSite invokes deletePhoneSite operation.
 	//
 	// Use this API to delete a specific [site](https://support.zoom.us/hc/en-us/articles/360020809672)
@@ -1529,7 +1530,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/sites/{siteId}
-	DeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) (DeletePhoneSiteRes, error)
+	DeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) error
 	// DeletePolicy invokes DeletePolicy operation.
 	//
 	// Removes the policy subsetting for a specific [auto receptionist](https://support.zoom.
@@ -1544,7 +1545,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-	DeletePolicy(ctx context.Context, params DeletePolicyParams) (DeletePolicyRes, error)
+	DeletePolicy(ctx context.Context, params DeletePolicyParams) error
 	// DeleteProvisionTemplate invokes deleteProvisionTemplate operation.
 	//
 	// Use this API to [delete a provision template](https://support.zoom.
@@ -1558,7 +1559,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/provision_templates/{templateId}
-	DeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) (DeleteProvisionTemplateRes, error)
+	DeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) error
 	// DeleteRoutingRule invokes deleteRoutingRule operation.
 	//
 	// Deletes the directory backup routing rule.
@@ -1575,7 +1576,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/routing_rules/{routingRuleId}
-	DeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) (DeleteRoutingRuleRes, error)
+	DeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) error
 	// DeleteSiteOutboundCallerNumbers invokes deleteSiteOutboundCallerNumbers operation.
 	//
 	// Use this API to remove the `site-level` customized outbound caller ID phone numbers.
@@ -1590,7 +1591,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/sites/{siteId}/outbound_caller_id/customized_numbers
-	DeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) (DeleteSiteOutboundCallerNumbersRes, error)
+	DeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) error
 	// DeleteSiteOutboundCallingExceptionRule invokes deleteSiteOutboundCallingExceptionRule operation.
 	//
 	// Deletes the site level outbound calling exception rule.
@@ -1603,7 +1604,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
-	DeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) (DeleteSiteOutboundCallingExceptionRuleRes, error)
+	DeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) error
 	// DeleteSiteSetting invokes deleteSiteSetting operation.
 	//
 	// Sites allow you to organize Zoom Phone users in your organization. Use this API to delete the site
@@ -1618,7 +1619,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/sites/{siteId}/settings/{settingType}
-	DeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) (DeleteSiteSettingRes, error)
+	DeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) error
 	// DeleteUnassignedPhoneNumbers invokes deleteUnassignedPhoneNumbers operation.
 	//
 	// Deletes unassigned [phone numbers](https://support.zoom.
@@ -1634,7 +1635,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// DELETE /phone/numbers
-	DeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) (DeleteUnassignedPhoneNumbersRes, error)
+	DeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) error
 	// DeleteUserOutboundCallerNumbers invokes deleteUserOutboundCallerNumbers operation.
 	//
 	// Removes the users' customized outbound caller ID phone numbers.
@@ -1648,7 +1649,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/users/{userId}/outbound_caller_id/customized_numbers
-	DeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) (DeleteUserOutboundCallerNumbersRes, error)
+	DeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) error
 	// DeleteUserOutboundCallingExceptionRule invokes deleteUserOutboundCallingExceptionRule operation.
 	//
 	// Deletes the user level outbound calling exception rule.
@@ -1661,7 +1662,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
-	DeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) (DeleteUserOutboundCallingExceptionRuleRes, error)
+	DeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) error
 	// DeleteUserSetting invokes deleteUserSetting operation.
 	//
 	// Removes the user setting according to the setting type, specifically for delegation, intercom and
@@ -1682,7 +1683,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/users/{userId}/settings/{settingType}
-	DeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) (DeleteUserSettingRes, error)
+	DeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) error
 	// DeleteUsersFromDirectory invokes DeleteUsersFromDirectory operation.
 	//
 	// Use this API to delete users from the [directory](https://support.zoom.
@@ -1696,7 +1697,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/dial_by_name_directory/extensions
-	DeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) (DeleteUsersFromDirectoryRes, error)
+	DeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) error
 	// DeleteUsersFromDirectoryBySite invokes DeleteUsersFromDirectoryBySite operation.
 	//
 	// Use this API to delete users from a [directory](https://support.zoom.
@@ -1710,7 +1711,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/sites/{siteId}/dial_by_name_directory/extensions
-	DeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) (DeleteUsersFromDirectoryBySiteRes, error)
+	DeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) error
 	// DuplicatePhoneRole invokes DuplicatePhoneRole operation.
 	//
 	// Use this API to duplicate a phone role.
@@ -1723,7 +1724,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/roles
-	DuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (DuplicatePhoneRoleRes, error)
+	DuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (*DuplicatePhoneRoleCreated, error)
 	// GetABillingAccount invokes GetABillingAccount operation.
 	//
 	// A Zoom account owner or a user with admin privilege can use this API to get information about a
@@ -1736,7 +1737,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/billing_accounts/{billingAccountId}
-	GetABillingAccount(ctx context.Context, params GetABillingAccountParams) (GetABillingAccountRes, error)
+	GetABillingAccount(ctx context.Context, params GetABillingAccountParams) (*GetABillingAccountOK, error)
 	// GetABlockedList invokes getABlockedList operation.
 	//
 	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
@@ -1752,7 +1753,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/blocked_list/{blockedListId}
-	GetABlockedList(ctx context.Context, params GetABlockedListParams) (GetABlockedListRes, error)
+	GetABlockedList(ctx context.Context, params GetABlockedListParams) (*GetABlockedListOK, error)
 	// GetACallQueue invokes getACallQueue operation.
 	//
 	// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
@@ -1769,7 +1770,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/call_queues/{callQueueId}
-	GetACallQueue(ctx context.Context, params GetACallQueueParams) (GetACallQueueRes, error)
+	GetACallQueue(ctx context.Context, params GetACallQueueParams) (*GetACallQueueOK, error)
 	// GetACommonArea invokes getACommonArea operation.
 	//
 	// Use this API to get detailed information on the common area.
@@ -1783,7 +1784,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/common_areas/{commonAreaId}
-	GetACommonArea(ctx context.Context, params GetACommonAreaParams) (GetACommonAreaRes, error)
+	GetACommonArea(ctx context.Context, params GetACommonAreaParams) (*GetACommonAreaOK, error)
 	// GetADevice invokes getADevice operation.
 	//
 	// Gets detailed information about a specific [desk phone device](https://support.zoom.
@@ -1797,7 +1798,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/devices/{deviceId}
-	GetADevice(ctx context.Context, params GetADeviceParams) (GetADeviceRes, error)
+	GetADevice(ctx context.Context, params GetADeviceParams) (*GetADeviceOK, error)
 	// GetAExternalContact invokes getAExternalContact operation.
 	//
 	// Gets an external contact's information.
@@ -1810,7 +1811,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/external_contacts/{externalContactId}
-	GetAExternalContact(ctx context.Context, params GetAExternalContactParams) (GetAExternalContactRes, error)
+	GetAExternalContact(ctx context.Context, params GetAExternalContactParams) (*GetAExternalContactOK, error)
 	// GetASharedLineGroup invokes getASharedLineGroup operation.
 	//
 	// Lists all the shared line groups. A [shared line group](https://support.zoom.
@@ -1841,7 +1842,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/sites/{siteId}
-	GetASite(ctx context.Context, params GetASiteParams) (GetASiteRes, error)
+	GetASite(ctx context.Context, params GetASiteParams) (*GetASiteOK, error)
 	// GetAccountOutboundCallingCountriesAndRegions invokes GetAccountOutboundCallingCountriesAndRegions operation.
 	//
 	// Returns the account level outbound calling countries and regions.
@@ -1854,7 +1855,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/outbound_calling/countries_regions
-	GetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (GetAccountOutboundCallingCountriesAndRegionsRes, error)
+	GetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (*GetAccountOutboundCallingCountriesAndRegionsOK, error)
 	// GetAlertSettingDetails invokes GetAlertSettingDetails operation.
 	//
 	// Gets detailed information about a specific [Alert setting](https://support.zoom.
@@ -1868,7 +1869,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/alert_settings/{alertSettingId}
-	GetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (GetAlertSettingDetailsRes, error)
+	GetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (*GetAlertSettingDetailsOK, error)
 	// GetAudioItem invokes GetAudioItem operation.
 	//
 	// Returns an audio item. Only the admin or user can access your audio.
@@ -1908,7 +1909,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/auto_receptionists/{autoReceptionistId}/ivr
-	GetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (GetAutoReceptionistIVRRes, error)
+	GetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (*GetAutoReceptionistIVROK, error)
 	// GetAutoReceptionistsPolicy invokes getAutoReceptionistsPolicy operation.
 	//
 	// Returns the policy setting of a specific [auto receptionist](https://support.zoom.
@@ -1922,7 +1923,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/auto_receptionists/{autoReceptionistId}/policies
-	GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (GetAutoReceptionistsPolicyRes, error)
+	GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (*GetAutoReceptionistsPolicyOK, error)
 	// GetCallChargesUsageReport invokes GetCallChargesUsageReport operation.
 	//
 	// Retrieves the **Phone Call Charges Report**.
@@ -1939,7 +1940,7 @@ type Invoker interface {
 	// `HEAVY`.
 	//
 	// GET /phone/reports/call_charges
-	GetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (GetCallChargesUsageReportRes, error)
+	GetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (*GetCallChargesUsageReportOK, error)
 	// GetCallHandling invokes getCallHandling operation.
 	//
 	// Returns information about a Zoom Phone's call handling settings. Call handling settings let you
@@ -1997,7 +1998,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/call_history/{callLogId}
-	GetCallPath(ctx context.Context, params GetCallPathParams) (GetCallPathRes, error)
+	GetCallPath(ctx context.Context, params GetCallPathParams) (*GetCallPathOK, error)
 	// GetCallQoS invokes getCallQoS operation.
 	//
 	// Gets the call quality of service (QoS) data for a call made or received by a Zoom phone user in
@@ -2040,7 +2041,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
-	GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (GetCommonAreaOutboundCallingCountriesAndRegionsRes, error)
+	GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (*GetCommonAreaOutboundCallingCountriesAndRegionsOK, error)
 	// GetCommonAreaSettings invokes getCommonAreaSettings operation.
 	//
 	// Use this API to get common area settings.
@@ -2054,7 +2055,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/common_areas/{commonAreaId}/settings
-	GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (GetCommonAreaSettingsRes, error)
+	GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (*GetCommonAreaSettingsOK, error)
 	// GetEmergencyAddress invokes getEmergencyAddress operation.
 	//
 	// Gets the emergency address information.
@@ -2067,7 +2068,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/emergency_addresses/{emergencyAddressId}
-	GetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (GetEmergencyAddressRes, error)
+	GetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (*GetEmergencyAddressOK, error)
 	// GetFirmwareRuleDetail invokes GetFirmwareRuleDetail operation.
 	//
 	// Use this API to get the [firmware update rule](https://support.zoom.
@@ -2081,7 +2082,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/firmware_update_rules/{ruleId}
-	GetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (GetFirmwareRuleDetailRes, error)
+	GetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (*GetFirmwareRuleDetailOK, error)
 	// GetGCP invokes GetGCP operation.
 	//
 	// Use this API to retrieve information on a specific [Group Call Pickup](https://support.zoom.
@@ -2107,7 +2108,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/groups/{groupId}/settings
-	GetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (GetGroupPhoneSettingsRes, error)
+	GetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (*GetGroupPhoneSettingsOK, error)
 	// GetLocation invokes getLocation operation.
 	//
 	// Returns an emergency service location's information.
@@ -2120,7 +2121,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/locations/{locationId}
-	GetLocation(ctx context.Context, params GetLocationParams) (GetLocationRes, error)
+	GetLocation(ctx context.Context, params GetLocationParams) (*GetLocationOK, error)
 	// GetMonitoringGroupById invokes getMonitoringGroupById operation.
 	//
 	// Returns a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711) for the
@@ -2134,7 +2135,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/monitoring_groups/{monitoringGroupId}
-	GetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (GetMonitoringGroupByIdRes, error)
+	GetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (*GetMonitoringGroupByIdOK, error)
 	// GetPSOperationLogs invokes getPSOperationLogs operation.
 	//
 	// Retrieves the phone system operation logs report.
@@ -2152,7 +2153,7 @@ type Invoker interface {
 	// `HEAVY`.
 	//
 	// GET /phone/reports/operationlogs
-	GetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (GetPSOperationLogsRes, error)
+	GetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (*GetPSOperationLogsOK, error)
 	// GetPhoneNumberDetails invokes getPhoneNumberDetails operation.
 	//
 	// Returns information about an account's Zoom Phone number.
@@ -2165,7 +2166,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/numbers/{phoneNumberId}
-	GetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (GetPhoneNumberDetailsRes, error)
+	GetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (*GetPhoneNumberDetailsOK, error)
 	// GetPhoneRecordings invokes getPhoneRecordings operation.
 	//
 	// Returns an account's [call recordings](https://support.zoom.
@@ -2180,7 +2181,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/recordings
-	GetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (GetPhoneRecordingsRes, error)
+	GetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (*GetPhoneRecordingsOK, error)
 	// GetPhoneRecordingsByCallIdOrCallLogId invokes getPhoneRecordingsByCallIdOrCallLogId operation.
 	//
 	// Returns an account's [call recording](https://support.zoom.
@@ -2196,7 +2197,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/call_logs/{id}/recordings
-	GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (GetPhoneRecordingsByCallIdOrCallLogIdRes, error)
+	GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (*GetPhoneRecordingsByCallIdOrCallLogIdOK, error)
 	// GetPhoneUserVoiceMails invokes GetPhoneUserVoiceMails operation.
 	//
 	// Retrieves a user's Zoom Phone voicemails in descending order. For user-level apps, pass [the `me`
@@ -2211,7 +2212,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/voice_mails/sync
-	GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (GetPhoneUserVoiceMailsRes, error)
+	GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (*GetPhoneUserVoiceMailsOK, error)
 	// GetPortedNumbersDetails invokes getPortedNumbersDetails operation.
 	//
 	// Use this API to get details on the ported numbers by specifying `order_id`.
@@ -2224,7 +2225,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/ported_numbers/orders/{orderId}
-	GetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (GetPortedNumbersDetailsRes, error)
+	GetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (*GetPortedNumbersDetailsOK, error)
 	// GetProvisionTemplate invokes GetProvisionTemplate operation.
 	//
 	// Use this API to get a specific [provision template](https://support.zoom.
@@ -2295,7 +2296,7 @@ type Invoker interface {
 	// `HEAVY`.
 	//
 	// GET /phone/reports/sms_charges
-	GetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (GetSMSChargesUsageReportRes, error)
+	GetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (*GetSMSChargesUsageReportOK, error)
 	// GetSettingTemplate invokes getSettingTemplate operation.
 	//
 	// Returns information about an account's phone template.
@@ -2308,7 +2309,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/setting_templates/{templateId}
-	GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (GetSettingTemplateRes, error)
+	GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (*GetSettingTemplateOK, error)
 	// GetSharedLineGroupPolicy invokes getSharedLineGroupPolicy operation.
 	//
 	// Returns the policy setting of a specific [shared line group](https://support.zoom.
@@ -2322,7 +2323,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/shared_line_groups/{sharedLineGroupId}/policies
-	GetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (GetSharedLineGroupPolicyRes, error)
+	GetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (*GetSharedLineGroupPolicyOK, error)
 	// GetSiteOutboundCallingCountriesAndRegions invokes GetSiteOutboundCallingCountriesAndRegions operation.
 	//
 	// Returns the site level outbound calling countries and regions.
@@ -2335,7 +2336,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/sites/{siteId}/outbound_calling/countries_regions
-	GetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (GetSiteOutboundCallingCountriesAndRegionsRes, error)
+	GetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (*GetSiteOutboundCallingCountriesAndRegionsOK, error)
 	// GetSiteSettingForType invokes getSiteSettingForType operation.
 	//
 	// Sites allow you to organize Zoom Phone users in your organization. Use this API to get site
@@ -2351,7 +2352,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/sites/{siteId}/settings/{settingType}
-	GetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (GetSiteSettingForTypeRes, error)
+	GetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (*GetSiteSettingForTypeOK, error)
 	// GetSmsSessions invokes GetSmsSessions operation.
 	//
 	// Retrieves the user's SMS sessions in descending order. Mirrors the ZP client behavior with the
@@ -2365,7 +2366,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/users/{userId}/sms/sessions/sync
-	GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (GetSmsSessionsRes, error)
+	GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (*GetSmsSessionsOK, error)
 	// GetUserOutboundCallingCountriesAndRegions invokes GetUserOutboundCallingCountriesAndRegions operation.
 	//
 	// Returns the user level outbound calling countries and regions.
@@ -2378,7 +2379,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/users/{userId}/outbound_calling/countries_regions
-	GetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (GetUserOutboundCallingCountriesAndRegionsRes, error)
+	GetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (*GetUserOutboundCallingCountriesAndRegionsOK, error)
 	// GetVoicemailDetails invokes getVoicemailDetails operation.
 	//
 	// Use this API to return information about a [voicemail message](https://support.zoom.
@@ -2391,7 +2392,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/voice_mails/{voicemailId}
-	GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (GetVoicemailDetailsRes, error)
+	GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (*GetVoicemailDetailsOK, error)
 	// GetVoicemailDetailsByCallIdOrCallLogId invokes getVoicemailDetailsByCallIdOrCallLogId operation.
 	//
 	// Use this API to return detailed information on a voicemail associated with a call log ID. For
@@ -2406,7 +2407,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/users/{userId}/call_logs/{id}/voice_mail
-	GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (GetVoicemailDetailsByCallIdOrCallLogIdRes, error)
+	GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (*GetVoicemailDetailsByCallIdOrCallLogIdOK, error)
 	// GetZoomRoom invokes getZoomRoom operation.
 	//
 	// Use this API to get a specific [Zoom Room](https://support.zoom.us/hc/en-us/articles/360025153711)
@@ -2433,7 +2434,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/inbound_blocked/rules
-	ListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (ListAccountLevelInboundBlockRulesRes, error)
+	ListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (*ListAccountLevelInboundBlockRulesOK, error)
 	// ListAccountLevelInboundBlockedStatistics invokes ListAccountLevelInboundBlockedStatistics operation.
 	//
 	// Returns the list of the statistics of the extensions blocked rule for inbound calls and messaging.
@@ -2447,7 +2448,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/inbound_blocked/extension_rules/statistics
-	ListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (ListAccountLevelInboundBlockedStatisticsRes, error)
+	ListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (*ListAccountLevelInboundBlockedStatisticsOK, error)
 	// ListAccountOutboundCallingExceptionRule invokes listAccountOutboundCallingExceptionRule operation.
 	//
 	// Lists the account level outbound calling policy exception rules.
@@ -2459,7 +2460,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/outbound_calling/exception_rules
-	ListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (ListAccountOutboundCallingExceptionRuleRes, error)
+	ListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (*ListAccountOutboundCallingExceptionRuleOK, error)
 	// ListAccountPhoneNumbers invokes listAccountPhoneNumbers operation.
 	//
 	// Returns a list all Zoom Phone numbers in a Zoom account.
@@ -2514,7 +2515,7 @@ type Invoker interface {
 	// **Not supported in Gov cluster**.
 	//
 	// GET /phone/common_areas/activation_codes
-	ListActivationCodes(ctx context.Context, params ListActivationCodesParams) (ListActivationCodesRes, error)
+	ListActivationCodes(ctx context.Context, params ListActivationCodesParams) (*ListActivationCodesOK, error)
 	// ListAlertSettingsWithPagingQuery invokes ListAlertSettingsWithPagingQuery operation.
 	//
 	// Gets [alert settings](https://support.zoom.us/hc/en-us/articles/7146944434445) for an account with
@@ -2528,7 +2529,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/alert_settings
-	ListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (ListAlertSettingsWithPagingQueryRes, error)
+	ListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (*ListAlertSettingsWithPagingQueryOK, error)
 	// ListAudioItems invokes ListAudioItems operation.
 	//
 	// Returns personal audios. Only the admin or user can query your audios and directly pass the `me`
@@ -2698,7 +2699,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
-	ListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (ListCommonAreaOutboundCallingExceptionRuleRes, error)
+	ListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (*ListCommonAreaOutboundCallingExceptionRuleOK, error)
 	// ListCommonAreas invokes listCommonAreas operation.
 	//
 	// Lists common areas under an account.
@@ -2755,7 +2756,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/emergency_addresses
-	ListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (ListEmergencyAddressesRes, error)
+	ListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (*ListEmergencyAddressesOK, error)
 	// ListExtensionLevelInboundBlockRules invokes ListExtensionLevelInboundBlockRules operation.
 	//
 	// Returns a list of the given extension's block rule for inbound calls and messaging.
@@ -2770,7 +2771,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/extension/{extensionId}/inbound_blocked/rules
-	ListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (ListExtensionLevelInboundBlockRulesRes, error)
+	ListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (*ListExtensionLevelInboundBlockRulesOK, error)
 	// ListExternalContacts invokes listExternalContacts operation.
 	//
 	// Lists the external contacts.
@@ -2797,7 +2798,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/firmware_update_rules
-	ListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (ListFirmwareRulesRes, error)
+	ListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (*ListFirmwareRulesOK, error)
 	// ListFirmwares invokes ListFirmwares operation.
 	//
 	// Use this API to get updatable [firmwares](https://support.zoom.
@@ -2811,7 +2812,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/firmwares
-	ListFirmwares(ctx context.Context, params ListFirmwaresParams) (ListFirmwaresRes, error)
+	ListFirmwares(ctx context.Context, params ListFirmwaresParams) (*ListFirmwaresOK, error)
 	// ListGCP invokes listGCP operation.
 	//
 	// Use this API to retrieve a list of [Group Call Pickup](https://support.zoom.
@@ -2882,7 +2883,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-	ListMembers(ctx context.Context, params ListMembersParams) (ListMembersRes, error)
+	ListMembers(ctx context.Context, params ListMembersParams) (*ListMembersOK, error)
 	// ListMonitoringGroup invokes listMonitoringGroup operation.
 	//
 	// Returns an account's [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711)
@@ -2896,7 +2897,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/monitoring_groups
-	ListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (ListMonitoringGroupRes, error)
+	ListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (*ListMonitoringGroupOK, error)
 	// ListPastCallMetrics invokes listPastCallMetrics operation.
 	//
 	// Returns all the call logs metrics of the account from the selected time period. The call logs
@@ -2970,7 +2971,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/roles
-	ListPhoneRoles(ctx context.Context) (ListPhoneRolesRes, error)
+	ListPhoneRoles(ctx context.Context) (*ListPhoneRolesOK, error)
 	// ListPhoneSites invokes listPhoneSites operation.
 	//
 	// Sites allow you to organize Zoom Phone users in your organization. Use this API to list all the
@@ -3026,7 +3027,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/roles/{roleId}/members
-	ListRoleMembers(ctx context.Context, params ListRoleMembersParams) (ListRoleMembersRes, error)
+	ListRoleMembers(ctx context.Context, params ListRoleMembersParams) (*ListRoleMembersOK, error)
 	// ListRoutingRule invokes listRoutingRule operation.
 	//
 	// Returns a list of directory backup routing rules. The directory backup routing rules are a series
@@ -3053,7 +3054,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/setting_templates
-	ListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (ListSettingTemplatesRes, error)
+	ListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (*ListSettingTemplatesOK, error)
 	// ListSharedLineAppearances invokes listSharedLineAppearances operation.
 	//
 	// Use this API to list [shared line appearance](https://support.zoom.
@@ -3124,7 +3125,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/sites/{siteId}/outbound_calling/exception_rules
-	ListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (ListSiteOutboundCallingExceptionRuleRes, error)
+	ListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (*ListSiteOutboundCallingExceptionRuleOK, error)
 	// ListTrackedLocations invokes listTrackedLocations operation.
 	//
 	// Lists the tracked locations.
@@ -3177,7 +3178,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/outbound_calling/exception_rules
-	ListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (ListUserOutboundCallingExceptionRuleRes, error)
+	ListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (*ListUserOutboundCallingExceptionRuleOK, error)
 	// ListUsersFromDirectory invokes ListUsersFromDirectory operation.
 	//
 	// Use this API to get users that are in or not in a [directory](https://support.zoom.
@@ -3191,7 +3192,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/dial_by_name_directory/extensions
-	ListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (ListUsersFromDirectoryRes, error)
+	ListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (*ListUsersFromDirectoryOK, error)
 	// ListUsersFromDirectoryBySite invokes ListUsersFromDirectoryBySite operation.
 	//
 	// Use this API to get users that are in or not in a [directory](https://support.zoom.
@@ -3205,7 +3206,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/sites/{siteId}/dial_by_name_directory/extensions
-	ListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (ListUsersFromDirectoryBySiteRes, error)
+	ListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (*ListUsersFromDirectoryBySiteOK, error)
 	// ListZoomPhoneAccountSettings invokes listZoomPhoneAccountSettings operation.
 	//
 	// Returns an account's Zoom phone settings.
@@ -3218,7 +3219,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/account_settings
-	ListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (ListZoomPhoneAccountSettingsRes, error)
+	ListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (*ListZoomPhoneAccountSettingsOK, error)
 	// ListZoomRooms invokes listZoomRooms operation.
 	//
 	// Retrieves a list of [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) under the
@@ -3245,7 +3246,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/inbound_blocked/extension_rules/statistics/blocked_for_all
-	MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) (MarkPhoneNumberAsBlockedForAllExtensionsRes, error)
+	MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) error
 	// PhoneDownloadRecordingTranscript invokes phoneDownloadRecordingTranscript operation.
 	//
 	// Downloads the phone recording transcript.
@@ -3258,7 +3259,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/recording_transcript/download/{recordingId}
-	PhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) (PhoneDownloadRecordingTranscriptRes, error)
+	PhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) error
 	// PhoneSetting invokes phoneSetting operation.
 	//
 	// Returns an account's settings.
@@ -3271,7 +3272,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/settings
-	PhoneSetting(ctx context.Context) (PhoneSettingRes, error)
+	PhoneSetting(ctx context.Context) (*PhoneSettingOK, error)
 	// PhoneUser invokes phoneUser operation.
 	//
 	// Returns a user's [Zoom phone](https://support.zoom.
@@ -3287,7 +3288,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// GET /phone/users/{userId}
-	PhoneUser(ctx context.Context, params PhoneUserParams) (PhoneUserRes, error)
+	PhoneUser(ctx context.Context, params PhoneUserParams) (*PhoneUserOK, error)
 	// PhoneUserCallLogs invokes phoneUserCallLogs operation.
 	//
 	// Returns a user's [Zoom phone](https://support.zoom.
@@ -3303,7 +3304,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/call_logs
-	PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (PhoneUserCallLogsRes, error)
+	PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (*PhoneUserCallLogsOK, error)
 	// PhoneUserRecordings invokes phoneUserRecordings operation.
 	//
 	// Gets a user's [Zoom Phone recordings](https://support.zoom.
@@ -3319,7 +3320,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/users/{userId}/recordings
-	PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (PhoneUserRecordingsRes, error)
+	PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (*PhoneUserRecordingsOK, error)
 	// PhoneUserSettings invokes phoneUserSettings operation.
 	//
 	// Gets the Zoom Phone [profile settings](https://support.zoom.
@@ -3335,7 +3336,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// GET /phone/users/{userId}/settings
-	PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (PhoneUserSettingsRes, error)
+	PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error)
 	// PhoneUserVoiceMails invokes phoneUserVoiceMails operation.
 	//
 	// Use this API to get a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
@@ -3350,7 +3351,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/users/{userId}/voice_mails
-	PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (PhoneUserVoiceMailsRes, error)
+	PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (*PhoneUserVoiceMailsOK, error)
 	// RebootPhoneDevice invokes rebootPhoneDevice operation.
 	//
 	// Use this API to reboot an online zero-touch or assisted-provisioning device. You can only send one
@@ -3364,7 +3365,7 @@ type Invoker interface {
 	// `Heavy`.
 	//
 	// POST /phone/devices/{deviceId}/reboot
-	RebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) (RebootPhoneDeviceRes, error)
+	RebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) error
 	// RemoveCQPolicySubSetting invokes removeCQPolicySubSetting operation.
 	//
 	// Use this API to remove the policy sub-setting for a specific [call queue](https://support.zoom.
@@ -3379,7 +3380,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/policies/{policyType}
-	RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) (RemoveCQPolicySubSettingRes, error)
+	RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) error
 	// RemoveGCPMembers invokes removeGCPMembers operation.
 	//
 	// Use this API to remove member from the [Group Call Pickup](https://support.zoom.
@@ -3393,7 +3394,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/group_call_pickup/{groupId}/members/{extensionId}
-	RemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) (RemoveGCPMembersRes, error)
+	RemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) error
 	// RemoveMember invokes removeMember operation.
 	//
 	// Use this API to remove a member from a [Monitoring Group](https://support.zoom.
@@ -3407,7 +3408,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}
-	RemoveMember(ctx context.Context, params RemoveMemberParams) (RemoveMemberRes, error)
+	RemoveMember(ctx context.Context, params RemoveMemberParams) error
 	// RemoveMembers invokes removeMembers operation.
 	//
 	// Use this API to remove all monitor or monitored members from a [Monitoring Group](https://support.
@@ -3421,7 +3422,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-	RemoveMembers(ctx context.Context, params RemoveMembersParams) (RemoveMembersRes, error)
+	RemoveMembers(ctx context.Context, params RemoveMembersParams) error
 	// RemoveSLGPolicySubSetting invokes removeSLGPolicySubSetting operation.
 	//
 	// Removes the policy sub-setting for a specific [shared line group](https://support.zoom.
@@ -3434,7 +3435,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{slgId}/policies/{policyType}
-	RemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) (RemoveSLGPolicySubSettingRes, error)
+	RemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) error
 	// RemoveZoomRoom invokes RemoveZoomRoom operation.
 	//
 	// Use this API to remove [Zoom Room](https://support.zoom.
@@ -3449,7 +3450,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/rooms/{roomId}
-	RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) (RemoveZoomRoomRes, error)
+	RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) error
 	// SmsByMessageId invokes smsByMessageId operation.
 	//
 	// Gets details about a specific message in an SMS session.
@@ -3462,7 +3463,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/sms/sessions/{sessionId}/messages/{messageId}
-	SmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (SmsByMessageIdRes, error)
+	SmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (*SmsByMessageIdOK, error)
 	// SmsSessionDetails invokes smsSessionDetails operation.
 	//
 	// Get details about an SMS session.
@@ -3475,7 +3476,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/sms/sessions/{sessionId}
-	SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (SmsSessionDetailsRes, error)
+	SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (*SmsSessionDetailsOK, error)
 	// SmsSessionSync invokes smsSessionSync operation.
 	//
 	// Use this API to sync SMS messages in a session.
@@ -3488,7 +3489,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// GET /phone/sms/sessions/{sessionId}/sync
-	SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (SmsSessionSyncRes, error)
+	SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (*SmsSessionSyncOK, error)
 	// SyncPhoneDevice invokes syncPhoneDevice operation.
 	//
 	// Use this API to resync all online zero-touch or assisted-provisioning devices in an account or a
@@ -3502,7 +3503,7 @@ type Invoker interface {
 	// `Heavy`.
 	//
 	// POST /phone/devices/sync
-	SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) (SyncPhoneDeviceRes, error)
+	SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) error
 	// SyncUserCallLogs invokes syncUserCallLogs operation.
 	//
 	// Syncs a user's [Zoom phone](https://support.zoom.
@@ -3518,7 +3519,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/call_logs/sync
-	SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (SyncUserCallLogsRes, error)
+	SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (*SyncUserCallLogsOK, error)
 	// UnAssignPhoneNumCallQueue invokes unAssignPhoneNumCallQueue operation.
 	//
 	// After assigning a phone number, you can unbind it if you don't want it to be assigned to a [Call
@@ -3535,7 +3536,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}
-	UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) (UnAssignPhoneNumCallQueueRes, error)
+	UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) error
 	// UnassignAPhoneNumAutoReceptionist invokes unassignAPhoneNumAutoReceptionist operation.
 	//
 	// Unassigns a specific phone number that was previously assigned to an [auto
@@ -3550,7 +3551,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/auto_receptionists/{autoReceptionistId}/phone_numbers/{phoneNumberId}
-	UnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) (UnassignAPhoneNumAutoReceptionistRes, error)
+	UnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) error
 	// UnassignAPhoneNumCallQueue invokes unassignAPhoneNumCallQueue operation.
 	//
 	// Use this API to unbind all phone numbers that are assigned to a [Call Queue](https://support.zoom.
@@ -3567,7 +3568,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/phone_numbers
-	UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) (UnassignAPhoneNumCallQueueRes, error)
+	UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) error
 	// UnassignAllMembers invokes unassignAllMembers operation.
 	//
 	// Removes all members from a call queue who were previously assigned to that call queue. The members
@@ -3581,7 +3582,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/members
-	UnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) (UnassignAllMembersRes, error)
+	UnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) error
 	// UnassignAllPhoneNumsAutoReceptionist invokes unassignAllPhoneNumsAutoReceptionist operation.
 	//
 	// Unassigns all phone numbers that were previously assigned to an [auto
@@ -3596,7 +3597,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// DELETE /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
-	UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) (UnassignAllPhoneNumsAutoReceptionistRes, error)
+	UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) error
 	// UnassignCallingPlan invokes unassignCallingPlan operation.
 	//
 	// Unassigns a a [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051) user's
@@ -3613,7 +3614,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/users/{userId}/calling_plans/{type}
-	UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) (UnassignCallingPlanRes, error)
+	UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) error
 	// UnassignCallingPlanFromRoom invokes unassignCallingPlanFromRoom operation.
 	//
 	// Use this API to unassign a [calling plan](https://marketplace.zoom.
@@ -3629,7 +3630,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/rooms/{roomId}/calling_plans/{type}
-	UnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) (UnassignCallingPlanFromRoomRes, error)
+	UnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) error
 	// UnassignCallingPlansFromCommonArea invokes unassignCallingPlansFromCommonArea operation.
 	//
 	// Use this API to unassign a calling plan from the common area.
@@ -3643,7 +3644,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/common_areas/{commonAreaId}/calling_plans/{type}
-	UnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) (UnassignCallingPlansFromCommonAreaRes, error)
+	UnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) error
 	// UnassignCampaignPhoneNumber invokes unassignCampaignPhoneNumber operation.
 	//
 	// Use this API to [unassign a phone number from the SMS campaign](https://support.zoom.
@@ -3659,7 +3660,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/sms_campaigns/{smsCampaignId}/phone_numbers/{phoneNumberId}
-	UnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) (UnassignCampaignPhoneNumberRes, error)
+	UnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) error
 	// UnassignMemberFromCallQueue invokes unassignMemberFromCallQueue operation.
 	//
 	// Removes a member who was previously added to a call queue. The member could be a phone user or
@@ -3673,7 +3674,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/members/{memberId}
-	UnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) (UnassignMemberFromCallQueueRes, error)
+	UnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) error
 	// UnassignPhoneNumber invokes UnassignPhoneNumber operation.
 	//
 	// Unassigns Zoom Phone user's [phone number](https://support.zoom.
@@ -3689,7 +3690,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/users/{userId}/phone_numbers/{phoneNumberId}
-	UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) (UnassignPhoneNumberRes, error)
+	UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) error
 	// UnassignPhoneNumberFromZoomRoom invokes UnassignPhoneNumberFromZoomRoom operation.
 	//
 	// Use this API to unassign a [phone number](https://support.zoom.
@@ -3706,7 +3707,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/rooms/{roomId}/phone_numbers/{phoneNumberId}
-	UnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) (UnassignPhoneNumberFromZoomRoomRes, error)
+	UnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) error
 	// UnassignPhoneNumbersFromCommonArea invokes unassignPhoneNumbersFromCommonArea operation.
 	//
 	// Use this API to unassign a phone number from a common area.
@@ -3720,7 +3721,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// DELETE /phone/common_areas/{commonAreaId}/phone_numbers/{phoneNumberId}
-	UnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) (UnassignPhoneNumbersFromCommonAreaRes, error)
+	UnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) error
 	// UpdateADevice invokes updateADevice operation.
 	//
 	// Updates the information of a [desk phone device](https://support.zoom.
@@ -3733,7 +3734,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/devices/{deviceId}
-	UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) (UpdateADeviceRes, error)
+	UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) error
 	// UpdateAccountLevelInboundBlockRule invokes UpdateAccountLevelInboundBlockRule operation.
 	//
 	// Updates the account level block rule for inbound calls and messaging.
@@ -3746,7 +3747,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/inbound_blocked/rules/{blockedRuleId}
-	UpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) (UpdateAccountLevelInboundBlockRuleRes, error)
+	UpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) error
 	// UpdateAccountOutboundCallingCountriesOrRegions invokes UpdateAccountOutboundCallingCountriesOrRegions operation.
 	//
 	// Updates the account level outbound calling policy country or region.
@@ -3758,7 +3759,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/outbound_calling/countries_regions
-	UpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) (UpdateAccountOutboundCallingCountriesOrRegionsRes, error)
+	UpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) error
 	// UpdateAccountOutboundCallingExceptionRule invokes UpdateAccountOutboundCallingExceptionRule operation.
 	//
 	// Updates the account level outbound calling policy for the country region exception rule.
@@ -3771,7 +3772,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/outbound_calling/exception_rules/{exceptionRuleId}
-	UpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) (UpdateAccountOutboundCallingExceptionRuleRes, error)
+	UpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) error
 	// UpdateAnAlertSetting invokes UpdateAnAlertSetting operation.
 	//
 	// Updates information of an [Alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).
@@ -3784,7 +3785,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/alert_settings/{alertSettingId}
-	UpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) (UpdateAnAlertSettingRes, error)
+	UpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) error
 	// UpdateAudioItem invokes UpdateAudioItem operation.
 	//
 	// Updates an audio item. Only the admin or user can update your audio.
@@ -3797,7 +3798,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/audios/{audioId}
-	UpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) (UpdateAudioItemRes, error)
+	UpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) error
 	// UpdateAutoDeleteField invokes UpdateAutoDeleteField operation.
 	//
 	// Updates the auto delete field for recording. It only updates if you enable the **Auto Delete Data
@@ -3811,7 +3812,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/recordings/{recordingId}
-	UpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) (UpdateAutoDeleteFieldRes, error)
+	UpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) error
 	// UpdateAutoReceptionist invokes updateAutoReceptionist operation.
 	//
 	// [Changes information](https://support.zoom.
@@ -3828,7 +3829,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/auto_receptionists/{autoReceptionistId}
-	UpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) (UpdateAutoReceptionistRes, error)
+	UpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) error
 	// UpdateAutoReceptionistIVR invokes updateAutoReceptionistIVR operation.
 	//
 	// Updates the [interactive voice response (IVR) system](https://support.zoom.
@@ -3842,7 +3843,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/auto_receptionists/{autoReceptionistId}/ivr
-	UpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) (UpdateAutoReceptionistIVRRes, error)
+	UpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) error
 	// UpdateAutoReceptionistPolicy invokes updateAutoReceptionistPolicy operation.
 	//
 	// Updates the policy setting of a specific [auto receptionist](https://support.zoom.
@@ -3856,7 +3857,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/auto_receptionists/{autoReceptionistId}/policies
-	UpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) (UpdateAutoReceptionistPolicyRes, error)
+	UpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) error
 	// UpdateCQPolicySubSetting invokes updateCQPolicySubSetting operation.
 	//
 	// Use this API to update the policy sub-setting for a specific [call queue](https://support.zoom.
@@ -3871,7 +3872,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/call_queues/{callQueueId}/policies/{policyType}
-	UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) (UpdateCQPolicySubSettingRes, error)
+	UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) error
 	// UpdateCallHandling invokes updateCallHandling operation.
 	//
 	// Updates a Zoom Phone's call handling setting.
@@ -3890,7 +3891,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/extension/{extensionId}/call_handling/settings/{settingType}
-	UpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) (UpdateCallHandlingRes, error)
+	UpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) error
 	// UpdateCallQueue invokes updateCallQueue operation.
 	//
 	// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
@@ -3907,7 +3908,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/call_queues/{callQueueId}
-	UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) (UpdateCallQueueRes, error)
+	UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) error
 	// UpdateCallingPlan invokes updateCallingPlan operation.
 	//
 	// Switches [calling plans](https://marketplace.zoom.
@@ -3924,7 +3925,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PUT /phone/users/{userId}/calling_plans
-	UpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) (UpdateCallingPlanRes, error)
+	UpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) error
 	// UpdateCommonArea invokes updateCommonArea operation.
 	//
 	// Use this API to update the common area information.
@@ -3938,7 +3939,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/common_areas/{commonAreaId}
-	UpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) (UpdateCommonAreaRes, error)
+	UpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) error
 	// UpdateCommonAreaOutboundCallingCountriesOrRegions invokes UpdateCommonAreaOutboundCallingCountriesOrRegions operation.
 	//
 	// Updates the common area level outbound calling policy country or region.
@@ -3950,7 +3951,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
-	UpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) (UpdateCommonAreaOutboundCallingCountriesOrRegionsRes, error)
+	UpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) error
 	// UpdateCommonAreaOutboundCallingExceptionRule invokes UpdateCommonAreaOutboundCallingExceptionRule operation.
 	//
 	// Updates the common area level outbound calling policy for the country region exception rule.
@@ -3963,7 +3964,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
-	UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) (UpdateCommonAreaOutboundCallingExceptionRuleRes, error)
+	UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) error
 	// UpdateCommonAreaSetting invokes UpdateCommonAreaSetting operation.
 	//
 	// Use this API to update the common area setting according to the setting type, specifically for
@@ -3978,7 +3979,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/common_areas/{commonAreaId}/settings/{settingType}
-	UpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) (UpdateCommonAreaSettingRes, error)
+	UpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) error
 	// UpdateEmergencyAddress invokes updateEmergencyAddress operation.
 	//
 	// Updates an emergency address information. If the address provided is not an exact match, the
@@ -3992,7 +3993,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/emergency_addresses/{emergencyAddressId}
-	UpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (UpdateEmergencyAddressRes, error)
+	UpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (*UpdateEmergencyAddressOK, error)
 	// UpdateExternalContact invokes updateExternalContact operation.
 	//
 	// Updates an external contact's information.
@@ -4005,7 +4006,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/external_contacts/{externalContactId}
-	UpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) (UpdateExternalContactRes, error)
+	UpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) error
 	// UpdateFirmwareRule invokes UpdateFirmwareRule operation.
 	//
 	// Use this API to update a specific [firmware update rule](https://support.zoom.
@@ -4019,7 +4020,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/firmware_update_rules/{ruleId}
-	UpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) (UpdateFirmwareRuleRes, error)
+	UpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) error
 	// UpdateGCP invokes updateGCP operation.
 	//
 	// Use this API to update a specific [Group Call Pickup](https://support.zoom.
@@ -4033,7 +4034,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/group_call_pickup/{groupId}
-	UpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) (UpdateGCPRes, error)
+	UpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) error
 	// UpdateLocation invokes updateLocation operation.
 	//
 	// Updates an emergency location's information.
@@ -4046,7 +4047,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/locations/{locationId}
-	UpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) (UpdateLocationRes, error)
+	UpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) error
 	// UpdateMonitoringGroup invokes updateMonitoringGroup operation.
 	//
 	// Use this API to update a [Monitoring Group](https://support.zoom.
@@ -4060,7 +4061,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/monitoring_groups/{monitoringGroupId}
-	UpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) (UpdateMonitoringGroupRes, error)
+	UpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) error
 	// UpdatePeeringPhoneNumbers invokes updatePeeringPhoneNumbers operation.
 	//
 	// Updates phone numbers to Zoom through the Provider Exchange.
@@ -4076,7 +4077,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/peering/numbers
-	UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (UpdatePeeringPhoneNumbersRes, error)
+	UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (*UpdatePeeringPhoneNumbersOK, error)
 	// UpdatePhoneNumberDetails invokes updatePhoneNumberDetails operation.
 	//
 	// Updates a Zoom Phone number's information.
@@ -4088,7 +4089,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/numbers/{phoneNumberId}
-	UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) (UpdatePhoneNumberDetailsRes, error)
+	UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) error
 	// UpdatePhoneRole invokes UpdatePhoneRole operation.
 	//
 	// Use this API to update a role.
@@ -4101,7 +4102,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/roles/{roleId}
-	UpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) (UpdatePhoneRoleRes, error)
+	UpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) error
 	// UpdatePhoneSettings invokes updatePhoneSettings operation.
 	//
 	// Updates Zoom Phone [account settings](https://support.zoom.us/hc/en-us/articles/360025846692).
@@ -4111,7 +4112,7 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:update:settings:admin`.
 	//
 	// PATCH /phone/settings
-	UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) (UpdatePhoneSettingsRes, error)
+	UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) error
 	// UpdatePolicy invokes updatePolicy operation.
 	//
 	// Updates the policy subsetting of a specific [auto receptionist](https://support.zoom.
@@ -4126,7 +4127,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-	UpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) (UpdatePolicyRes, error)
+	UpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) error
 	// UpdateProvisionTemplate invokes updateProvisionTemplate operation.
 	//
 	// Use this API to update a [provision template](https://support.zoom.
@@ -4140,7 +4141,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/provision_templates/{templateId}
-	UpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) (UpdateProvisionTemplateRes, error)
+	UpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) error
 	// UpdateProvisionTemplateToDevice invokes updateProvisionTemplateToDevice operation.
 	//
 	// Use this API to [assign a provision template to a device](https://support.zoom.
@@ -4158,7 +4159,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PUT /phone/devices/{deviceId}/provision_templates
-	UpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) (UpdateProvisionTemplateToDeviceRes, error)
+	UpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) error
 	// UpdateRecordingStatus invokes UpdateRecordingStatus operation.
 	//
 	// Updates the status of a single recording in account.
@@ -4171,7 +4172,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PUT /phone/recordings/{recordingId}/status
-	UpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) (UpdateRecordingStatusRes, error)
+	UpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) error
 	// UpdateRoutingRule invokes updateRoutingRule operation.
 	//
 	// Updates the directory backup routing rule.
@@ -4188,7 +4189,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/routing_rules/{routingRuleId}
-	UpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) (UpdateRoutingRuleRes, error)
+	UpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) error
 	// UpdateSLGPolicySubSetting invokes updateSLGPolicySubSetting operation.
 	//
 	// Updates the policy sub-setting for a specific [shared line group](https://support.zoom.
@@ -4203,7 +4204,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/shared_line_groups/{slgId}/policies/{policyType}
-	UpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) (UpdateSLGPolicySubSettingRes, error)
+	UpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) error
 	// UpdateSettingTemplate invokes updateSettingTemplate operation.
 	//
 	// Updates or modifies a phone template's settings.
@@ -4216,7 +4217,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/setting_templates/{templateId}
-	UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) (UpdateSettingTemplateRes, error)
+	UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) error
 	// UpdateSharedLineGroupPolicy invokes updateSharedLineGroupPolicy operation.
 	//
 	// Updates the policy setting of a specific [shared line group](https://support.zoom.
@@ -4230,7 +4231,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/shared_line_groups/{sharedLineGroupId}/policies
-	UpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) (UpdateSharedLineGroupPolicyRes, error)
+	UpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) error
 	// UpdateSiteDetails invokes updateSiteDetails operation.
 	//
 	// Updates information about a specific [site](https://support.zoom.
@@ -4244,7 +4245,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/sites/{siteId}
-	UpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) (UpdateSiteDetailsRes, error)
+	UpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) error
 	// UpdateSiteForUnassignedPhoneNumbers invokes updateSiteForUnassignedPhoneNumbers operation.
 	//
 	// Updates a site's unassigned [phone numbers](https://support.zoom.
@@ -4259,7 +4260,7 @@ type Invoker interface {
 	// `Medium`.
 	//
 	// PATCH /phone/numbers/sites/{siteId}
-	UpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) (UpdateSiteForUnassignedPhoneNumbersRes, error)
+	UpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) error
 	// UpdateSiteOutboundCallingCountriesOrRegions invokes UpdateSiteOutboundCallingCountriesOrRegions operation.
 	//
 	// Updates the site level outbound calling policy country or region.
@@ -4271,7 +4272,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/sites/{siteId}/outbound_calling/countries_regions
-	UpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) (UpdateSiteOutboundCallingCountriesOrRegionsRes, error)
+	UpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) error
 	// UpdateSiteOutboundCallingExceptionRule invokes UpdateSiteOutboundCallingExceptionRule operation.
 	//
 	// Updates the site level outbound calling policy for the country region exception rule.
@@ -4284,7 +4285,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
-	UpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) (UpdateSiteOutboundCallingExceptionRuleRes, error)
+	UpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) error
 	// UpdateSiteSetting invokes updateSiteSetting operation.
 	//
 	// Sites allow you to organize Zoom Phone users in your organization. Use this API to update the site
@@ -4300,7 +4301,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/sites/{siteId}/settings/{settingType}
-	UpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) (UpdateSiteSettingRes, error)
+	UpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) error
 	// UpdateUserOutboundCallingCountriesOrRegions invokes UpdateUserOutboundCallingCountriesOrRegions operation.
 	//
 	// Updates the user level outbound calling policy country or region.
@@ -4312,7 +4313,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/users/{userId}/outbound_calling/countries_regions
-	UpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) (UpdateUserOutboundCallingCountriesOrRegionsRes, error)
+	UpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) error
 	// UpdateUserOutboundCallingExceptionRule invokes UpdateUserOutboundCallingExceptionRule operation.
 	//
 	// Updates the user level outbound calling policy for the country region exception rule.
@@ -4325,7 +4326,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
-	UpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) (UpdateUserOutboundCallingExceptionRuleRes, error)
+	UpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) error
 	// UpdateUserProfile invokes updateUserProfile operation.
 	//
 	// Updates a user's [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051-Zoom-Phone)
@@ -4343,7 +4344,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/users/{userId}
-	UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) (UpdateUserProfileRes, error)
+	UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) error
 	// UpdateUserSetting invokes updateUserSetting operation.
 	//
 	// Updates the user setting according to the setting type, specifically for delegation, intercom and
@@ -4364,7 +4365,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/users/{userId}/settings/{settingType}
-	UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) (UpdateUserSettingRes, error)
+	UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) error
 	// UpdateUserSettings invokes updateUserSettings operation.
 	//
 	// Updates the Zoom Phone [profile settings](https://support.zoom.
@@ -4395,7 +4396,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PUT /phone/users/batch
-	UpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) (UpdateUsersPropertiesInBatchRes, error)
+	UpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) error
 	// UpdateVoicemailReadStatus invokes updateVoicemailReadStatus operation.
 	//
 	// Updates the status of [voicemail message](https://support.zoom.
@@ -4409,7 +4410,7 @@ type Invoker interface {
 	// `LIGHT`.
 	//
 	// PATCH /phone/voice_mails/{voicemailId}
-	UpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) (UpdateVoicemailReadStatusRes, error)
+	UpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) error
 	// UpdateZoomRoom invokes updateZoomRoom operation.
 	//
 	// Use this API to update a [Zoom Room](https://support.zoom.us/hc/en-us/articles/360025153711) in an
@@ -4423,7 +4424,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// PATCH /phone/rooms/{roomId}
-	UpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) (UpdateZoomRoomRes, error)
+	UpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) error
 	// UserSmsSession invokes userSmsSession operation.
 	//
 	// Returns details about SMS sessions for a user.
@@ -4438,7 +4439,7 @@ type Invoker interface {
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/sms/sessions
-	UserSmsSession(ctx context.Context, params UserSmsSessionParams) (UserSmsSessionRes, error)
+	UserSmsSession(ctx context.Context, params UserSmsSessionParams) (*UserSmsSessionOK, error)
 }
 
 // Client implements OAS client.
@@ -4502,12 +4503,12 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 // `HEAVY`.
 //
 // GET /phone/call_history
-func (c *Client) AccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (AccountCallHistoryRes, error) {
+func (c *Client) AccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (*AccountCallHistoryOK, error) {
 	res, err := c.sendAccountCallHistory(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (res AccountCallHistoryRes, err error) {
+func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (res *AccountCallHistoryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountCallHistory"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -4995,12 +4996,12 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 // Deprecated: schema marks this operation as deprecated.
 //
 // GET /phone/call_logs
-func (c *Client) AccountCallLogs(ctx context.Context, params AccountCallLogsParams) (AccountCallLogsRes, error) {
+func (c *Client) AccountCallLogs(ctx context.Context, params AccountCallLogsParams) (*AccountCallLogsOK, error) {
 	res, err := c.sendAccountCallLogs(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogsParams) (res AccountCallLogsRes, err error) {
+func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogsParams) (res *AccountCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountCallLogs"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -5275,12 +5276,12 @@ func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogs
 // `MEDIUM`.
 //
 // GET /phone/sms/sessions
-func (c *Client) AccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (AccountSmsSessionRes, error) {
+func (c *Client) AccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (*AccountSmsSessionOK, error) {
 	res, err := c.sendAccountSmsSession(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (res AccountSmsSessionRes, err error) {
+func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (res *AccountSmsSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountSmsSession"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -5521,12 +5522,12 @@ func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSes
 // `Heavy`.
 //
 // GET /phone/voice_mails
-func (c *Client) AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (AccountVoiceMailsRes, error) {
+func (c *Client) AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (*AccountVoiceMailsOK, error) {
 	res, err := c.sendAccountVoiceMails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (res AccountVoiceMailsRes, err error) {
+func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (res *AccountVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountVoiceMails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -5785,12 +5786,12 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 // `Light`.
 //
 // PATCH /phone/carrier_reseller/numbers
-func (c *Client) ActiveCRPhoneNumbers(ctx context.Context, request []string) (ActiveCRPhoneNumbersRes, error) {
-	res, err := c.sendActiveCRPhoneNumbers(ctx, request)
-	return res, err
+func (c *Client) ActiveCRPhoneNumbers(ctx context.Context, request []string) error {
+	_, err := c.sendActiveCRPhoneNumbers(ctx, request)
+	return err
 }
 
-func (c *Client) sendActiveCRPhoneNumbers(ctx context.Context, request []string) (res ActiveCRPhoneNumbersRes, err error) {
+func (c *Client) sendActiveCRPhoneNumbers(ctx context.Context, request []string) (res *ActiveCRPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("activeCRPhoneNumbers"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -5912,12 +5913,12 @@ func (c *Client) sendActiveCRPhoneNumbers(ctx context.Context, request []string)
 // `LIGHT`.
 //
 // POST /phone/inbound_blocked/rules
-func (c *Client) AddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (AddAccountLevelInboundBlockRulesRes, error) {
+func (c *Client) AddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (*AddAccountLevelInboundBlockRulesCreated, error) {
 	res, err := c.sendAddAccountLevelInboundBlockRules(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (res AddAccountLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendAddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (res *AddAccountLevelInboundBlockRulesCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAccountLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6038,12 +6039,12 @@ func (c *Client) sendAddAccountLevelInboundBlockRules(ctx context.Context, reque
 // `LIGHT`.
 //
 // POST /phone/outbound_calling/exception_rules
-func (c *Client) AddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (AddAccountOutboundCallingExceptionRuleRes, error) {
+func (c *Client) AddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (*AddAccountOutboundCallingExceptionRuleCreated, error) {
 	res, err := c.sendAddAccountOutboundCallingExceptionRule(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (res AddAccountOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendAddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (res *AddAccountOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAccountOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6164,12 +6165,12 @@ func (c *Client) sendAddAccountOutboundCallingExceptionRule(ctx context.Context,
 // `LIGHT`.
 //
 // POST /phone/alert_settings
-func (c *Client) AddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (AddAnAlertSettingRes, error) {
+func (c *Client) AddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (*AddAnAlertSettingCreated, error) {
 	res, err := c.sendAddAnAlertSetting(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (res AddAnAlertSettingRes, err error) {
+func (c *Client) sendAddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (res *AddAnAlertSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAnAlertSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6291,12 +6292,12 @@ func (c *Client) sendAddAnAlertSetting(ctx context.Context, request OptAddAnAler
 // `LIGHT`.
 //
 // POST /phone/users/{userId}/audios
-func (c *Client) AddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (AddAnAudioRes, error) {
+func (c *Client) AddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (*AddAnAudioCreated, error) {
 	res, err := c.sendAddAnAudio(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (res AddAnAudioRes, err error) {
+func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (res *AddAnAudioCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAnAudio"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6439,12 +6440,12 @@ func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, p
 // `Light`.
 //
 // POST /phone/blocked_list
-func (c *Client) AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (AddAnumberToBlockedListRes, error) {
+func (c *Client) AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (*AddAnumberToBlockedListCreated, error) {
 	res, err := c.sendAddAnumberToBlockedList(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (res AddAnumberToBlockedListRes, err error) {
+func (c *Client) sendAddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (res *AddAnumberToBlockedListCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addAnumberToBlockedList"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6569,12 +6570,12 @@ func (c *Client) sendAddAnumberToBlockedList(ctx context.Context, request OptAdd
 // `HEAVY`.
 //
 // POST /phone/users/{userId}/audios/batch
-func (c *Client) AddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (AddAudioItemRes, error) {
+func (c *Client) AddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (*AddAudioItemCreated, error) {
 	res, err := c.sendAddAudioItem(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (res AddAudioItemRes, err error) {
+func (c *Client) sendAddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (res *AddAudioItemCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAudioItem"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6717,12 +6718,12 @@ func (c *Client) sendAddAudioItem(ctx context.Context, request OptAddAudioItemRe
 // `Light`.
 //
 // POST /phone/auto_receptionists
-func (c *Client) AddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (AddAutoReceptionistRes, error) {
+func (c *Client) AddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (*AddAutoReceptionistCreated, error) {
 	res, err := c.sendAddAutoReceptionist(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (res AddAutoReceptionistRes, err error) {
+func (c *Client) sendAddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (res *AddAutoReceptionistCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addAutoReceptionist"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6843,12 +6844,12 @@ func (c *Client) sendAddAutoReceptionist(ctx context.Context, request OptAddAuto
 // `Light`.
 //
 // POST /phone/byoc_numbers
-func (c *Client) AddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (AddBYOCNumberRes, error) {
+func (c *Client) AddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (*AddBYOCNumberCreated, error) {
 	res, err := c.sendAddBYOCNumber(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (res AddBYOCNumberRes, err error) {
+func (c *Client) sendAddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (res *AddBYOCNumberCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addBYOCNumber"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -6971,12 +6972,12 @@ func (c *Client) sendAddBYOCNumber(ctx context.Context, request OptAddBYOCNumber
 // `Light`.
 //
 // POST /phone/call_queues/{callQueueId}/policies/{policyType}
-func (c *Client) AddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (AddCQPolicySubSettingRes, error) {
+func (c *Client) AddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (*AddCQPolicySubSettingCreated, error) {
 	res, err := c.sendAddCQPolicySubSetting(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (res AddCQPolicySubSettingRes, err error) {
+func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (res *AddCQPolicySubSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCQPolicySubSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -7140,12 +7141,12 @@ func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQ
 // `LIGHT`.
 //
 // POST /phone/extension/{extensionId}/call_handling/settings/{settingType}
-func (c *Client) AddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (AddCallHandlingRes, error) {
+func (c *Client) AddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (AddCallHandlingCreated, error) {
 	res, err := c.sendAddCallHandling(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (res AddCallHandlingRes, err error) {
+func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (res AddCallHandlingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCallHandling"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -7305,12 +7306,12 @@ func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHand
 // `Light`.
 //
 // PUT /phone/call_logs/{callLogId}/client_code
-func (c *Client) AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) (AddClientCodeToCallLogRes, error) {
-	res, err := c.sendAddClientCodeToCallLog(ctx, request, params)
-	return res, err
+func (c *Client) AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) error {
+	_, err := c.sendAddClientCodeToCallLog(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) (res AddClientCodeToCallLogRes, err error) {
+func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) (res *AddClientCodeToCallLogNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addClientCodeToCallLog"),
 		semconv.HTTPMethodKey.String("PUT"),
@@ -7452,12 +7453,12 @@ func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddC
 // `Light`.
 //
 // POST /phone/common_areas
-func (c *Client) AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (AddCommonAreaRes, error) {
+func (c *Client) AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (*AddCommonAreaCreated, error) {
 	res, err := c.sendAddCommonArea(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (res AddCommonAreaRes, err error) {
+func (c *Client) sendAddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (res *AddCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCommonArea"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -7578,12 +7579,12 @@ func (c *Client) sendAddCommonArea(ctx context.Context, request OptAddCommonArea
 // `LIGHT`.
 //
 // POST /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
-func (c *Client) AddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (AddCommonAreaOutboundCallingExceptionRuleRes, error) {
+func (c *Client) AddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (*AddCommonAreaOutboundCallingExceptionRuleCreated, error) {
 	res, err := c.sendAddCommonAreaOutboundCallingExceptionRule(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (res AddCommonAreaOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendAddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (res *AddCommonAreaOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddCommonAreaOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -7725,12 +7726,12 @@ func (c *Client) sendAddCommonAreaOutboundCallingExceptionRule(ctx context.Conte
 // `Light`.
 //
 // POST /phone/common_areas/{commonAreaId}/settings/{settingType}
-func (c *Client) AddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (AddCommonAreaSettingRes, error) {
+func (c *Client) AddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (*AddCommonAreaSettingCreated, error) {
 	res, err := c.sendAddCommonAreaSetting(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (res AddCommonAreaSettingRes, err error) {
+func (c *Client) sendAddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (res *AddCommonAreaSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddCommonAreaSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -7889,12 +7890,12 @@ func (c *Client) sendAddCommonAreaSetting(ctx context.Context, request OptAddCom
 // `Light`.
 //
 // POST /phone/emergency_addresses
-func (c *Client) AddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (AddEmergencyAddressRes, error) {
+func (c *Client) AddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (*AddEmergencyAddressCreated, error) {
 	res, err := c.sendAddEmergencyAddress(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (res AddEmergencyAddressRes, err error) {
+func (c *Client) sendAddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (res *AddEmergencyAddressCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addEmergencyAddress"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8020,12 +8021,12 @@ func (c *Client) sendAddEmergencyAddress(ctx context.Context, request OptAddEmer
 // `Light`.
 //
 // POST /phone/devices/{deviceId}/extensions
-func (c *Client) AddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (AddExtensionsToADeviceRes, error) {
+func (c *Client) AddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (jx.Raw, error) {
 	res, err := c.sendAddExtensionsToADevice(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (res AddExtensionsToADeviceRes, err error) {
+func (c *Client) sendAddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addExtensionsToADevice"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8167,12 +8168,12 @@ func (c *Client) sendAddExtensionsToADevice(ctx context.Context, request OptAddE
 // `LIGHT`.
 //
 // POST /phone/extension/{extensionId}/inbound_blocked/rules
-func (c *Client) AddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (AddExtensiontLevelInboundBlockRulesRes, error) {
+func (c *Client) AddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (*AddExtensiontLevelInboundBlockRulesCreated, error) {
 	res, err := c.sendAddExtensiontLevelInboundBlockRules(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (res AddExtensiontLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendAddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (res *AddExtensiontLevelInboundBlockRulesCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddExtensiontLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8312,12 +8313,12 @@ func (c *Client) sendAddExtensiontLevelInboundBlockRules(ctx context.Context, re
 // `Light`.
 //
 // POST /phone/external_contacts
-func (c *Client) AddExternalContact(ctx context.Context, request OptAddExternalContactReq) (AddExternalContactRes, error) {
+func (c *Client) AddExternalContact(ctx context.Context, request OptAddExternalContactReq) (*AddExternalContactCreated, error) {
 	res, err := c.sendAddExternalContact(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddExternalContact(ctx context.Context, request OptAddExternalContactReq) (res AddExternalContactRes, err error) {
+func (c *Client) sendAddExternalContact(ctx context.Context, request OptAddExternalContactReq) (res *AddExternalContactCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addExternalContact"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8439,12 +8440,12 @@ func (c *Client) sendAddExternalContact(ctx context.Context, request OptAddExter
 // `Light`.
 //
 // POST /phone/firmware_update_rules
-func (c *Client) AddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (AddFirmwareRuleRes, error) {
+func (c *Client) AddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (*AddFirmwareRuleCreated, error) {
 	res, err := c.sendAddFirmwareRule(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (res AddFirmwareRuleRes, err error) {
+func (c *Client) sendAddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (res *AddFirmwareRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddFirmwareRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8567,12 +8568,12 @@ func (c *Client) sendAddFirmwareRule(ctx context.Context, request OptAddFirmware
 // `Light`.
 //
 // POST /phone/group_call_pickup
-func (c *Client) AddGCP(ctx context.Context, request OptAddGCPReq) (AddGCPRes, error) {
+func (c *Client) AddGCP(ctx context.Context, request OptAddGCPReq) (*AddGCPCreated, error) {
 	res, err := c.sendAddGCP(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddGCP(ctx context.Context, request OptAddGCPReq) (res AddGCPRes, err error) {
+func (c *Client) sendAddGCP(ctx context.Context, request OptAddGCPReq) (res *AddGCPCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addGCP"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8694,12 +8695,12 @@ func (c *Client) sendAddGCP(ctx context.Context, request OptAddGCPReq) (res AddG
 // `Light`.
 //
 // POST /phone/group_call_pickup/{groupId}/members
-func (c *Client) AddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) (AddGCPMembersRes, error) {
-	res, err := c.sendAddGCPMembers(ctx, request, params)
-	return res, err
+func (c *Client) AddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) error {
+	_, err := c.sendAddGCPMembers(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) (res AddGCPMembersRes, err error) {
+func (c *Client) sendAddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) (res *AddGCPMembersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addGCPMembers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8839,12 +8840,12 @@ func (c *Client) sendAddGCPMembers(ctx context.Context, request OptAddGCPMembers
 // `Light`.
 //
 // POST /phone/locations
-func (c *Client) AddLocation(ctx context.Context, request OptAddLocationReq) (AddLocationRes, error) {
+func (c *Client) AddLocation(ctx context.Context, request OptAddLocationReq) (*AddLocationCreated, error) {
 	res, err := c.sendAddLocation(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddLocation(ctx context.Context, request OptAddLocationReq) (res AddLocationRes, err error) {
+func (c *Client) sendAddLocation(ctx context.Context, request OptAddLocationReq) (res *AddLocationCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addLocation"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -8966,12 +8967,12 @@ func (c *Client) sendAddLocation(ctx context.Context, request OptAddLocationReq)
 // `Light`.
 //
 // POST /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-func (c *Client) AddMembers(ctx context.Context, request []string, params AddMembersParams) (AddMembersRes, error) {
+func (c *Client) AddMembers(ctx context.Context, request []string, params AddMembersParams) (jx.Raw, error) {
 	res, err := c.sendAddMembers(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddMembers(ctx context.Context, request []string, params AddMembersParams) (res AddMembersRes, err error) {
+func (c *Client) sendAddMembers(ctx context.Context, request []string, params AddMembersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9130,12 +9131,12 @@ func (c *Client) sendAddMembers(ctx context.Context, request []string, params Ad
 // `Light`.
 //
 // POST /phone/call_queues/{callQueueId}/members
-func (c *Client) AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) (AddMembersToCallQueueRes, error) {
-	res, err := c.sendAddMembersToCallQueue(ctx, request, params)
-	return res, err
+func (c *Client) AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) error {
+	_, err := c.sendAddMembersToCallQueue(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) (res AddMembersToCallQueueRes, err error) {
+func (c *Client) sendAddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) (res *AddMembersToCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembersToCallQueue"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9277,12 +9278,12 @@ func (c *Client) sendAddMembersToCallQueue(ctx context.Context, request OptAddMe
 // `LIGHT`.
 //
 // POST /phone/shared_line_groups/{sharedLineGroupId}/members
-func (c *Client) AddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) (AddMembersToSharedLineGroupRes, error) {
-	res, err := c.sendAddMembersToSharedLineGroup(ctx, request, params)
-	return res, err
+func (c *Client) AddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) error {
+	_, err := c.sendAddMembersToSharedLineGroup(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) (res AddMembersToSharedLineGroupRes, err error) {
+func (c *Client) sendAddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) (res *AddMembersToSharedLineGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembersToSharedLineGroup"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9424,12 +9425,12 @@ func (c *Client) sendAddMembersToSharedLineGroup(ctx context.Context, request Op
 // `Light`.
 //
 // POST /phone/outbound_caller_id/customized_numbers
-func (c *Client) AddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (AddOutboundCallerNumbersRes, error) {
+func (c *Client) AddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (jx.Raw, error) {
 	res, err := c.sendAddOutboundCallerNumbers(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (res AddOutboundCallerNumbersRes, err error) {
+func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9553,12 +9554,12 @@ func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAd
 // `Light`.
 //
 // POST /phone/peering/numbers
-func (c *Client) AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (AddPeeringPhoneNumbersRes, error) {
+func (c *Client) AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (*AddPeeringPhoneNumbersCreated, error) {
 	res, err := c.sendAddPeeringPhoneNumbers(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (res AddPeeringPhoneNumbersRes, err error) {
+func (c *Client) sendAddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (res *AddPeeringPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addPeeringPhoneNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9685,12 +9686,12 @@ func (c *Client) sendAddPeeringPhoneNumbers(ctx context.Context, request OptAddP
 // `LIGHT`.
 //
 // POST /phone/devices
-func (c *Client) AddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (AddPhoneDeviceRes, error) {
+func (c *Client) AddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (*AddPhoneDeviceCreated, error) {
 	res, err := c.sendAddPhoneDevice(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (res AddPhoneDeviceRes, err error) {
+func (c *Client) sendAddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (res *AddPhoneDeviceCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addPhoneDevice"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9813,12 +9814,12 @@ func (c *Client) sendAddPhoneDevice(ctx context.Context, request OptAddPhoneDevi
 // `LIGHT`.
 //
 // POST /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-func (c *Client) AddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (AddPolicyRes, error) {
+func (c *Client) AddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (*AddPolicyCreated, error) {
 	res, err := c.sendAddPolicy(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (res AddPolicyRes, err error) {
+func (c *Client) sendAddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (res *AddPolicyCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddPolicy"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -9977,12 +9978,12 @@ func (c *Client) sendAddPolicy(ctx context.Context, request OptAddPolicyReq, par
 // `Light`.
 //
 // POST /phone/provision_templates
-func (c *Client) AddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (AddProvisionTemplateRes, error) {
+func (c *Client) AddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (*AddProvisionTemplateCreated, error) {
 	res, err := c.sendAddProvisionTemplate(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (res AddProvisionTemplateRes, err error) {
+func (c *Client) sendAddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (res *AddProvisionTemplateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addProvisionTemplate"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10104,12 +10105,12 @@ func (c *Client) sendAddProvisionTemplate(ctx context.Context, request OptAddPro
 // `Light`.
 //
 // POST /phone/roles/{roleId}/members
-func (c *Client) AddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) (AddRoleMembersRes, error) {
-	res, err := c.sendAddRoleMembers(ctx, request, params)
-	return res, err
+func (c *Client) AddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) error {
+	_, err := c.sendAddRoleMembers(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) (res AddRoleMembersRes, err error) {
+func (c *Client) sendAddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) (res *AddRoleMembersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddRoleMembers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10253,12 +10254,12 @@ func (c *Client) sendAddRoleMembers(ctx context.Context, request OptAddRoleMembe
 // `Light`.
 //
 // POST /phone/routing_rules
-func (c *Client) AddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (AddRoutingRuleRes, error) {
+func (c *Client) AddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (*AddRoutingRuleCreated, error) {
 	res, err := c.sendAddRoutingRule(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (res AddRoutingRuleRes, err error) {
+func (c *Client) sendAddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (res *AddRoutingRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addRoutingRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10379,12 +10380,12 @@ func (c *Client) sendAddRoutingRule(ctx context.Context, request OptAddRoutingRu
 // `MEDIUM`.
 //
 // POST /phone/shared_line_groups/{slgId}/policies/{policyType}
-func (c *Client) AddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (AddSLGPolicySubSettingRes, error) {
+func (c *Client) AddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (*AddSLGPolicySubSettingCreated, error) {
 	res, err := c.sendAddSLGPolicySubSetting(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (res AddSLGPolicySubSettingRes, err error) {
+func (c *Client) sendAddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (res *AddSLGPolicySubSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSLGPolicySubSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10543,12 +10544,12 @@ func (c *Client) sendAddSLGPolicySubSetting(ctx context.Context, request OptAddS
 // `Light`.
 //
 // POST /phone/setting_templates
-func (c *Client) AddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (AddSettingTemplateRes, error) {
+func (c *Client) AddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (*AddSettingTemplateCreated, error) {
 	res, err := c.sendAddSettingTemplate(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (res AddSettingTemplateRes, err error) {
+func (c *Client) sendAddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (res *AddSettingTemplateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSettingTemplate"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10671,12 +10672,12 @@ func (c *Client) sendAddSettingTemplate(ctx context.Context, request OptAddSetti
 // `Light`.
 //
 // POST /phone/sites/{siteId}/outbound_caller_id/customized_numbers
-func (c *Client) AddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (AddSiteOutboundCallerNumbersRes, error) {
+func (c *Client) AddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (jx.Raw, error) {
 	res, err := c.sendAddSiteOutboundCallerNumbers(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (res AddSiteOutboundCallerNumbersRes, err error) {
+func (c *Client) sendAddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSiteOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10816,12 +10817,12 @@ func (c *Client) sendAddSiteOutboundCallerNumbers(ctx context.Context, request O
 // `LIGHT`.
 //
 // POST /phone/sites/{siteId}/outbound_calling/exception_rules
-func (c *Client) AddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (AddSiteOutboundCallingExceptionRuleRes, error) {
+func (c *Client) AddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (*AddSiteOutboundCallingExceptionRuleCreated, error) {
 	res, err := c.sendAddSiteOutboundCallingExceptionRule(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (res AddSiteOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendAddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (res *AddSiteOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddSiteOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -10964,12 +10965,12 @@ func (c *Client) sendAddSiteOutboundCallingExceptionRule(ctx context.Context, re
 // `Light`.
 //
 // POST /phone/sites/{siteId}/settings/{settingType}
-func (c *Client) AddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (AddSiteSettingRes, error) {
+func (c *Client) AddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (*AddSiteSettingCreated, error) {
 	res, err := c.sendAddSiteSetting(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (res AddSiteSettingRes, err error) {
+func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (res *AddSiteSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSiteSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11128,12 +11129,12 @@ func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSetti
 // `Light`.
 //
 // POST /phone/users/{userId}/outbound_caller_id/customized_numbers
-func (c *Client) AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (AddUserOutboundCallerNumbersRes, error) {
+func (c *Client) AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (jx.Raw, error) {
 	res, err := c.sendAddUserOutboundCallerNumbers(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (res AddUserOutboundCallerNumbersRes, err error) {
+func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addUserOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11273,12 +11274,12 @@ func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request O
 // `LIGHT`.
 //
 // POST /phone/users/{userId}/outbound_calling/exception_rules
-func (c *Client) AddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (AddUserOutboundCallingExceptionRuleRes, error) {
+func (c *Client) AddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (*AddUserOutboundCallingExceptionRuleCreated, error) {
 	res, err := c.sendAddUserOutboundCallingExceptionRule(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (res AddUserOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (res *AddUserOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUserOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11426,12 +11427,12 @@ func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, re
 // `Light`.
 //
 // POST /phone/users/{userId}/settings/{settingType}
-func (c *Client) AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (AddUserSettingRes, error) {
+func (c *Client) AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (*AddUserSettingCreated, error) {
 	res, err := c.sendAddUserSetting(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (res AddUserSettingRes, err error) {
+func (c *Client) sendAddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (res *AddUserSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addUserSetting"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11590,12 +11591,12 @@ func (c *Client) sendAddUserSetting(ctx context.Context, request OptAddUserSetti
 // `Light`.
 //
 // POST /phone/dial_by_name_directory/extensions
-func (c *Client) AddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) (AddUsersToDirectoryRes, error) {
-	res, err := c.sendAddUsersToDirectory(ctx, request)
-	return res, err
+func (c *Client) AddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) error {
+	_, err := c.sendAddUsersToDirectory(ctx, request)
+	return err
 }
 
-func (c *Client) sendAddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) (res AddUsersToDirectoryRes, err error) {
+func (c *Client) sendAddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) (res *AddUsersToDirectoryCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUsersToDirectory"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11717,12 +11718,12 @@ func (c *Client) sendAddUsersToDirectory(ctx context.Context, request OptAddUser
 // `Light`.
 //
 // POST /phone/sites/{siteId}/dial_by_name_directory/extensions
-func (c *Client) AddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) (AddUsersToDirectoryBySiteRes, error) {
-	res, err := c.sendAddUsersToDirectoryBySite(ctx, request, params)
-	return res, err
+func (c *Client) AddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) error {
+	_, err := c.sendAddUsersToDirectoryBySite(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) (res AddUsersToDirectoryBySiteRes, err error) {
+func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) (res *AddUsersToDirectoryBySiteCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUsersToDirectoryBySite"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11864,12 +11865,12 @@ func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptA
 // `Light`.
 //
 // POST /phone/rooms
-func (c *Client) AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (AddZoomRoomRes, error) {
+func (c *Client) AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (jx.Raw, error) {
 	res, err := c.sendAddZoomRoom(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (res AddZoomRoomRes, err error) {
+func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addZoomRoom"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -11994,12 +11995,12 @@ func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq)
 // `Light`.
 //
 // POST /phone/users/{userId}/calling_plans
-func (c *Client) AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (AssignCallingPlanRes, error) {
+func (c *Client) AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (jx.Raw, error) {
 	res, err := c.sendAssignCallingPlan(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (res AssignCallingPlanRes, err error) {
+func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlan"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12143,12 +12144,12 @@ func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCal
 // `Light`.
 //
 // POST /phone/rooms/{roomId}/calling_plans
-func (c *Client) AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (AssignCallingPlanToRoomRes, error) {
+func (c *Client) AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (jx.Raw, error) {
 	res, err := c.sendAssignCallingPlanToRoom(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (res AssignCallingPlanToRoomRes, err error) {
+func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlanToRoom"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12289,12 +12290,12 @@ func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAss
 // `Light`.
 //
 // POST /phone/common_areas/{commonAreaId}/calling_plans
-func (c *Client) AssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (AssignCallingPlansToCommonAreaRes, error) {
+func (c *Client) AssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (*AssignCallingPlansToCommonAreaCreated, error) {
 	res, err := c.sendAssignCallingPlansToCommonArea(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (res AssignCallingPlansToCommonAreaRes, err error) {
+func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (res *AssignCallingPlansToCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlansToCommonArea"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12435,12 +12436,12 @@ func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request
 // `Light`.
 //
 // POST /phone/sms_campaigns/{smsCampaignId}/phone_numbers
-func (c *Client) AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (AssignCampaignPhoneNumbersRes, error) {
+func (c *Client) AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (*AssignCampaignPhoneNumbersCreated, error) {
 	res, err := c.sendAssignCampaignPhoneNumbers(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (res AssignCampaignPhoneNumbersRes, err error) {
+func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (res *AssignCampaignPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCampaignPhoneNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12582,12 +12583,12 @@ func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request Opt
 // `Light`.
 //
 // POST /phone/users/{userId}/phone_numbers
-func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (AssignPhoneNumberRes, error) {
+func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberOK, error) {
 	res, err := c.sendAssignPhoneNumber(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (res AssignPhoneNumberRes, err error) {
+func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (res *AssignPhoneNumberOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumber"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12728,12 +12729,12 @@ func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPho
 // `Light`.
 //
 // POST /phone/rooms/{roomId}/phone_numbers
-func (c *Client) AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (AssignPhoneNumberToZoomRoomRes, error) {
+func (c *Client) AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (jx.Raw, error) {
 	res, err := c.sendAssignPhoneNumberToZoomRoom(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (res AssignPhoneNumberToZoomRoomRes, err error) {
+func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumberToZoomRoom"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -12878,12 +12879,12 @@ func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request Op
 // `Light`.
 //
 // POST /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
-func (c *Client) AssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) (AssignPhoneNumbersAutoReceptionistRes, error) {
-	res, err := c.sendAssignPhoneNumbersAutoReceptionist(ctx, request, params)
-	return res, err
+func (c *Client) AssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) error {
+	_, err := c.sendAssignPhoneNumbersAutoReceptionist(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) (res AssignPhoneNumbersAutoReceptionistRes, err error) {
+func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) (res *AssignPhoneNumbersAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersAutoReceptionist"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -13026,12 +13027,12 @@ func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, req
 // `Light`.
 //
 // POST /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
-func (c *Client) AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) (AssignPhoneNumbersSLGRes, error) {
-	res, err := c.sendAssignPhoneNumbersSLG(ctx, request, params)
-	return res, err
+func (c *Client) AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) error {
+	_, err := c.sendAssignPhoneNumbersSLG(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) (res AssignPhoneNumbersSLGRes, err error) {
+func (c *Client) sendAssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) (res *AssignPhoneNumbersSLGCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersSLG"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -13172,12 +13173,12 @@ func (c *Client) sendAssignPhoneNumbersSLG(ctx context.Context, request OptAssig
 // `Light`.
 //
 // POST /phone/common_areas/{commonAreaId}/phone_numbers
-func (c *Client) AssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (AssignPhoneNumbersToCommonAreaRes, error) {
+func (c *Client) AssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (*AssignPhoneNumbersToCommonAreaCreated, error) {
 	res, err := c.sendAssignPhoneNumbersToCommonArea(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (res AssignPhoneNumbersToCommonAreaRes, err error) {
+func (c *Client) sendAssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (res *AssignPhoneNumbersToCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersToCommonArea"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -13466,12 +13467,12 @@ func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssi
 // `Light`.
 //
 // POST /phone/batch_locations
-func (c *Client) BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (BatchAddLocationsRes, error) {
+func (c *Client) BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (*BatchAddLocationsCreated, error) {
 	res, err := c.sendBatchAddLocations(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (res BatchAddLocationsRes, err error) {
+func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (res *BatchAddLocationsCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchAddLocations"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -13594,12 +13595,12 @@ func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddL
 // `Medium`.
 //
 // POST /phone/users/batch
-func (c *Client) BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) (BatchAddUsersRes, error) {
+func (c *Client) BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) ([]BatchAddUsersCreatedItem, error) {
 	res, err := c.sendBatchAddUsers(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendBatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) (res BatchAddUsersRes, err error) {
+func (c *Client) sendBatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) (res []BatchAddUsersCreatedItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchAddUsers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -13721,12 +13722,12 @@ func (c *Client) sendBatchAddUsers(ctx context.Context, request OptBatchAddUsers
 // `Heavy`.
 //
 // PATCH /phone/devices/{deviceId}/line_keys
-func (c *Client) BatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) (BatchUpdateDeviceLineKeySettingRes, error) {
-	res, err := c.sendBatchUpdateDeviceLineKeySetting(ctx, request, params)
-	return res, err
+func (c *Client) BatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) error {
+	_, err := c.sendBatchUpdateDeviceLineKeySetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendBatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) (res BatchUpdateDeviceLineKeySettingRes, err error) {
+func (c *Client) sendBatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) (res *BatchUpdateDeviceLineKeySettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchUpdateDeviceLineKeySetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -13867,12 +13868,12 @@ func (c *Client) sendBatchUpdateDeviceLineKeySetting(ctx context.Context, reques
 // `Light`.
 //
 // PATCH /phone/extension/{extensionId}/line_keys
-func (c *Client) BatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) (BatchUpdateLineKeySettingRes, error) {
-	res, err := c.sendBatchUpdateLineKeySetting(ctx, request, params)
-	return res, err
+func (c *Client) BatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) error {
+	_, err := c.sendBatchUpdateLineKeySetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendBatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) (res BatchUpdateLineKeySettingRes, err error) {
+func (c *Client) sendBatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) (res *BatchUpdateLineKeySettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("BatchUpdateLineKeySetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -14013,12 +14014,12 @@ func (c *Client) sendBatchUpdateLineKeySetting(ctx context.Context, request OptB
 // `LIGHT`.
 //
 // POST /phone/shared_line_groups
-func (c *Client) CreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (CreateASharedLineGroupRes, error) {
+func (c *Client) CreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (*CreateASharedLineGroupCreated, error) {
 	res, err := c.sendCreateASharedLineGroup(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendCreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (res CreateASharedLineGroupRes, err error) {
+func (c *Client) sendCreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (res *CreateASharedLineGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createASharedLineGroup"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -14140,12 +14141,12 @@ func (c *Client) sendCreateASharedLineGroup(ctx context.Context, request OptCrea
 // `Light`.
 //
 // POST /phone/carrier_reseller/numbers
-func (c *Client) CreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) (CreateCRPhoneNumbersRes, error) {
-	res, err := c.sendCreateCRPhoneNumbers(ctx, request)
-	return res, err
+func (c *Client) CreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) error {
+	_, err := c.sendCreateCRPhoneNumbers(ctx, request)
+	return err
 }
 
-func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) (res CreateCRPhoneNumbersRes, err error) {
+func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) (res *CreateCRPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createCRPhoneNumbers"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -14272,12 +14273,12 @@ func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateC
 // `Light`.
 //
 // POST /phone/call_queues
-func (c *Client) CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (CreateCallQueueRes, error) {
+func (c *Client) CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (*CreateCallQueueCreated, error) {
 	res, err := c.sendCreateCallQueue(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendCreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (res CreateCallQueueRes, err error) {
+func (c *Client) sendCreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (res *CreateCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createCallQueue"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -14398,12 +14399,12 @@ func (c *Client) sendCreateCallQueue(ctx context.Context, request OptCreateCallQ
 // `LIGHT`.
 //
 // POST /phone/monitoring_groups
-func (c *Client) CreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (CreateMonitoringGroupRes, error) {
+func (c *Client) CreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (*CreateMonitoringGroupCreated, error) {
 	res, err := c.sendCreateMonitoringGroup(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendCreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (res CreateMonitoringGroupRes, err error) {
+func (c *Client) sendCreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (res *CreateMonitoringGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createMonitoringGroup"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -14526,12 +14527,12 @@ func (c *Client) sendCreateMonitoringGroup(ctx context.Context, request OptCreat
 // `LIGHT`.
 //
 // POST /phone/sites
-func (c *Client) CreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (CreatePhoneSiteRes, error) {
+func (c *Client) CreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (*CreatePhoneSiteCreated, error) {
 	res, err := c.sendCreatePhoneSite(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendCreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (res CreatePhoneSiteRes, err error) {
+func (c *Client) sendCreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (res *CreatePhoneSiteCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createPhoneSite"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -14653,12 +14654,12 @@ func (c *Client) sendCreatePhoneSite(ctx context.Context, request OptCreatePhone
 // `Light`.
 //
 // DELETE /phone/roles/{roleId}/members
-func (c *Client) DelRoleMembers(ctx context.Context, params DelRoleMembersParams) (DelRoleMembersRes, error) {
-	res, err := c.sendDelRoleMembers(ctx, params)
-	return res, err
+func (c *Client) DelRoleMembers(ctx context.Context, params DelRoleMembersParams) error {
+	_, err := c.sendDelRoleMembers(ctx, params)
+	return err
 }
 
-func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersParams) (res DelRoleMembersRes, err error) {
+func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersParams) (res *DelRoleMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DelRoleMembers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -14825,12 +14826,12 @@ func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersPa
 // `Light`.
 //
 // DELETE /phone/blocked_list/{blockedListId}
-func (c *Client) DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) (DeleteABlockedListRes, error) {
-	res, err := c.sendDeleteABlockedList(ctx, params)
-	return res, err
+func (c *Client) DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) error {
+	_, err := c.sendDeleteABlockedList(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) (res DeleteABlockedListRes, err error) {
+func (c *Client) sendDeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) (res *DeleteABlockedListNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteABlockedList"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -14970,12 +14971,12 @@ func (c *Client) sendDeleteABlockedList(ctx context.Context, params DeleteABlock
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}
-func (c *Client) DeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) (DeleteACallQueueRes, error) {
-	res, err := c.sendDeleteACallQueue(ctx, params)
-	return res, err
+func (c *Client) DeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) error {
+	_, err := c.sendDeleteACallQueue(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) (res DeleteACallQueueRes, err error) {
+func (c *Client) sendDeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) (res *DeleteACallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteACallQueue"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15113,12 +15114,12 @@ func (c *Client) sendDeleteACallQueue(ctx context.Context, params DeleteACallQue
 // `Light`.
 //
 // DELETE /phone/devices/{deviceId}
-func (c *Client) DeleteADevice(ctx context.Context, params DeleteADeviceParams) (DeleteADeviceRes, error) {
-	res, err := c.sendDeleteADevice(ctx, params)
-	return res, err
+func (c *Client) DeleteADevice(ctx context.Context, params DeleteADeviceParams) error {
+	_, err := c.sendDeleteADevice(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteADevice(ctx context.Context, params DeleteADeviceParams) (res DeleteADeviceRes, err error) {
+func (c *Client) sendDeleteADevice(ctx context.Context, params DeleteADeviceParams) (res *DeleteADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteADevice"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15254,12 +15255,12 @@ func (c *Client) sendDeleteADevice(ctx context.Context, params DeleteADevicePara
 // `Light`.
 //
 // DELETE /phone/external_contacts/{externalContactId}
-func (c *Client) DeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) (DeleteAExternalContactRes, error) {
-	res, err := c.sendDeleteAExternalContact(ctx, params)
-	return res, err
+func (c *Client) DeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) error {
+	_, err := c.sendDeleteAExternalContact(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) (res DeleteAExternalContactRes, err error) {
+func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) (res *DeleteAExternalContactNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAExternalContact"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15398,12 +15399,12 @@ func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAE
 // `Light`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}
-func (c *Client) DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) (DeleteAMemberSLGRes, error) {
-	res, err := c.sendDeleteAMemberSLG(ctx, params)
-	return res, err
+func (c *Client) DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) error {
+	_, err := c.sendDeleteAMemberSLG(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) (res DeleteAMemberSLGRes, err error) {
+func (c *Client) sendDeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) (res *DeleteAMemberSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAMemberSLG"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15560,12 +15561,12 @@ func (c *Client) sendDeleteAMemberSLG(ctx context.Context, params DeleteAMemberS
 // `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers/{phoneNumberId}
-func (c *Client) DeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) (DeleteAPhoneNumberSLGRes, error) {
-	res, err := c.sendDeleteAPhoneNumberSLG(ctx, params)
-	return res, err
+func (c *Client) DeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) error {
+	_, err := c.sendDeleteAPhoneNumberSLG(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) (res DeleteAPhoneNumberSLGRes, err error) {
+func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) (res *DeleteAPhoneNumberSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAPhoneNumberSLG"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15722,12 +15723,12 @@ func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPh
 // `Light`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}
-func (c *Client) DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) (DeleteASharedLineGroupRes, error) {
-	res, err := c.sendDeleteASharedLineGroup(ctx, params)
-	return res, err
+func (c *Client) DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) error {
+	_, err := c.sendDeleteASharedLineGroup(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) (res DeleteASharedLineGroupRes, err error) {
+func (c *Client) sendDeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) (res *DeleteASharedLineGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteASharedLineGroup"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -15863,12 +15864,12 @@ func (c *Client) sendDeleteASharedLineGroup(ctx context.Context, params DeleteAS
 // `LIGHT`.
 //
 // DELETE /phone/inbound_blocked/rules
-func (c *Client) DeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) (DeleteAccountLevelInboundBlockRulesRes, error) {
-	res, err := c.sendDeleteAccountLevelInboundBlockRules(ctx, params)
-	return res, err
+func (c *Client) DeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) error {
+	_, err := c.sendDeleteAccountLevelInboundBlockRules(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) (res DeleteAccountLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendDeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) (res *DeleteAccountLevelInboundBlockRulesNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAccountLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16007,12 +16008,12 @@ func (c *Client) sendDeleteAccountLevelInboundBlockRules(ctx context.Context, pa
 // `LIGHT`.
 //
 // DELETE /phone/inbound_blocked/extension_rules/statistics
-func (c *Client) DeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) (DeleteAccountLevelInboundBlockedStatisticsRes, error) {
-	res, err := c.sendDeleteAccountLevelInboundBlockedStatistics(ctx, params)
-	return res, err
+func (c *Client) DeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) error {
+	_, err := c.sendDeleteAccountLevelInboundBlockedStatistics(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) (res DeleteAccountLevelInboundBlockedStatisticsRes, err error) {
+func (c *Client) sendDeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) (res *DeleteAccountLevelInboundBlockedStatisticsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAccountLevelInboundBlockedStatistics"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16148,12 +16149,12 @@ func (c *Client) sendDeleteAccountLevelInboundBlockedStatistics(ctx context.Cont
 // `LIGHT`.
 //
 // DELETE /phone/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) DeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) (DeleteAccountOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendDeleteAccountOutboundCallingExceptionRule(ctx, params)
-	return res, err
+func (c *Client) DeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendDeleteAccountOutboundCallingExceptionRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) (res DeleteAccountOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendDeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) (res *DeleteAccountOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAccountOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16289,12 +16290,12 @@ func (c *Client) sendDeleteAccountOutboundCallingExceptionRule(ctx context.Conte
 // `LIGHT`.
 //
 // DELETE /phone/alert_settings/{alertSettingId}
-func (c *Client) DeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) (DeleteAnAlertSettingRes, error) {
-	res, err := c.sendDeleteAnAlertSetting(ctx, params)
-	return res, err
+func (c *Client) DeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) error {
+	_, err := c.sendDeleteAnAlertSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) (res DeleteAnAlertSettingRes, err error) {
+func (c *Client) sendDeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) (res *DeleteAnAlertSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAnAlertSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16430,12 +16431,12 @@ func (c *Client) sendDeleteAnAlertSetting(ctx context.Context, params DeleteAnAl
 // `LIGHT`.
 //
 // DELETE /phone/audios/{audioId}
-func (c *Client) DeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) (DeleteAudioItemRes, error) {
-	res, err := c.sendDeleteAudioItem(ctx, params)
-	return res, err
+func (c *Client) DeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) error {
+	_, err := c.sendDeleteAudioItem(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) (res DeleteAudioItemRes, err error) {
+func (c *Client) sendDeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) (res *DeleteAudioItemNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAudioItem"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16575,12 +16576,12 @@ func (c *Client) sendDeleteAudioItem(ctx context.Context, params DeleteAudioItem
 // `Light`.
 //
 // DELETE /phone/auto_receptionists/{autoReceptionistId}
-func (c *Client) DeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) (DeleteAutoReceptionistRes, error) {
-	res, err := c.sendDeleteAutoReceptionist(ctx, params)
-	return res, err
+func (c *Client) DeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) error {
+	_, err := c.sendDeleteAutoReceptionist(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) (res DeleteAutoReceptionistRes, err error) {
+func (c *Client) sendDeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) (res *DeleteAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAutoReceptionist"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16716,12 +16717,12 @@ func (c *Client) sendDeleteAutoReceptionist(ctx context.Context, params DeleteAu
 // `Light`.
 //
 // DELETE /phone/carrier_reseller/numbers/{number}
-func (c *Client) DeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) (DeleteCRPhoneNumberRes, error) {
-	res, err := c.sendDeleteCRPhoneNumber(ctx, params)
-	return res, err
+func (c *Client) DeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) error {
+	_, err := c.sendDeleteCRPhoneNumber(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) (res DeleteCRPhoneNumberRes, err error) {
+func (c *Client) sendDeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) (res *DeleteCRPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCRPhoneNumber"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -16862,12 +16863,12 @@ func (c *Client) sendDeleteCRPhoneNumber(ctx context.Context, params DeleteCRPho
 // `LIGHT`.
 //
 // DELETE /phone/extension/{extensionId}/call_handling/settings/{settingType}
-func (c *Client) DeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) (DeleteCallHandlingRes, error) {
-	res, err := c.sendDeleteCallHandling(ctx, params)
-	return res, err
+func (c *Client) DeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) error {
+	_, err := c.sendDeleteCallHandling(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) (res DeleteCallHandlingRes, err error) {
+func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) (res *DeleteCallHandlingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallHandling"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17063,12 +17064,12 @@ func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHa
 // `Light`.
 //
 // DELETE /phone/users/{userId}/call_logs/{callLogId}
-func (c *Client) DeleteCallLog(ctx context.Context, params DeleteCallLogParams) (DeleteCallLogRes, error) {
-	res, err := c.sendDeleteCallLog(ctx, params)
-	return res, err
+func (c *Client) DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error {
+	_, err := c.sendDeleteCallLog(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCallLog(ctx context.Context, params DeleteCallLogParams) (res DeleteCallLogRes, err error) {
+func (c *Client) sendDeleteCallLog(ctx context.Context, params DeleteCallLogParams) (res *DeleteCallLogNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallLog"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17223,12 +17224,12 @@ func (c *Client) sendDeleteCallLog(ctx context.Context, params DeleteCallLogPara
 // `Light`.
 //
 // DELETE /phone/recordings/{recordingId}
-func (c *Client) DeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) (DeleteCallRecordingRes, error) {
-	res, err := c.sendDeleteCallRecording(ctx, params)
-	return res, err
+func (c *Client) DeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) error {
+	_, err := c.sendDeleteCallRecording(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) (res DeleteCallRecordingRes, err error) {
+func (c *Client) sendDeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) (res *DeleteCallRecordingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallRecording"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17365,12 +17366,12 @@ func (c *Client) sendDeleteCallRecording(ctx context.Context, params DeleteCallR
 // `Light`.
 //
 // DELETE /phone/common_areas/{commonAreaId}
-func (c *Client) DeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) (DeleteCommonAreaRes, error) {
-	res, err := c.sendDeleteCommonArea(ctx, params)
-	return res, err
+func (c *Client) DeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) error {
+	_, err := c.sendDeleteCommonArea(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) (res DeleteCommonAreaRes, err error) {
+func (c *Client) sendDeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) (res *DeleteCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonArea"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17506,12 +17507,12 @@ func (c *Client) sendDeleteCommonArea(ctx context.Context, params DeleteCommonAr
 // `LIGHT`.
 //
 // DELETE /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) DeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) (DeleteCommonAreaOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendDeleteCommonAreaOutboundCallingExceptionRule(ctx, params)
-	return res, err
+func (c *Client) DeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendDeleteCommonAreaOutboundCallingExceptionRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) (res DeleteCommonAreaOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendDeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) (res *DeleteCommonAreaOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonAreaOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17667,12 +17668,12 @@ func (c *Client) sendDeleteCommonAreaOutboundCallingExceptionRule(ctx context.Co
 // `Light`.
 //
 // DELETE /phone/common_areas/{commonAreaId}/settings/{settingType}
-func (c *Client) DeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) (DeleteCommonAreaSettingRes, error) {
-	res, err := c.sendDeleteCommonAreaSetting(ctx, params)
-	return res, err
+func (c *Client) DeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) error {
+	_, err := c.sendDeleteCommonAreaSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) (res DeleteCommonAreaSettingRes, err error) {
+func (c *Client) sendDeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) (res *DeleteCommonAreaSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonAreaSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17845,12 +17846,12 @@ func (c *Client) sendDeleteCommonAreaSetting(ctx context.Context, params DeleteC
 // `Heavy`.
 //
 // DELETE /phone/emergency_addresses/{emergencyAddressId}
-func (c *Client) DeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) (DeleteEmergencyAddressRes, error) {
-	res, err := c.sendDeleteEmergencyAddress(ctx, params)
-	return res, err
+func (c *Client) DeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) error {
+	_, err := c.sendDeleteEmergencyAddress(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) (res DeleteEmergencyAddressRes, err error) {
+func (c *Client) sendDeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) (res *DeleteEmergencyAddressNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteEmergencyAddress"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -17986,12 +17987,12 @@ func (c *Client) sendDeleteEmergencyAddress(ctx context.Context, params DeleteEm
 // `Light`.
 //
 // DELETE /phone/devices/{deviceId}/extensions/{extensionId}
-func (c *Client) DeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) (DeleteExtensionFromADeviceRes, error) {
-	res, err := c.sendDeleteExtensionFromADevice(ctx, params)
-	return res, err
+func (c *Client) DeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) error {
+	_, err := c.sendDeleteExtensionFromADevice(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) (res DeleteExtensionFromADeviceRes, err error) {
+func (c *Client) sendDeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) (res *DeleteExtensionFromADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteExtensionFromADevice"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18148,12 +18149,12 @@ func (c *Client) sendDeleteExtensionFromADevice(ctx context.Context, params Dele
 // `LIGHT`.
 //
 // DELETE /phone/extension/{extensionId}/inbound_blocked/rules
-func (c *Client) DeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) (DeleteExtensiontLevelInboundBlockRulesRes, error) {
-	res, err := c.sendDeleteExtensiontLevelInboundBlockRules(ctx, params)
-	return res, err
+func (c *Client) DeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) error {
+	_, err := c.sendDeleteExtensiontLevelInboundBlockRules(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) (res DeleteExtensiontLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendDeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) (res *DeleteExtensiontLevelInboundBlockRulesNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteExtensiontLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18309,12 +18310,12 @@ func (c *Client) sendDeleteExtensiontLevelInboundBlockRules(ctx context.Context,
 // `Light`.
 //
 // DELETE /phone/firmware_update_rules/{ruleId}
-func (c *Client) DeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) (DeleteFirmwareUpdateRuleRes, error) {
-	res, err := c.sendDeleteFirmwareUpdateRule(ctx, params)
-	return res, err
+func (c *Client) DeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) error {
+	_, err := c.sendDeleteFirmwareUpdateRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) (res DeleteFirmwareUpdateRuleRes, err error) {
+func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) (res *DeleteFirmwareUpdateRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteFirmwareUpdateRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18472,12 +18473,12 @@ func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params Delete
 // `Light`.
 //
 // DELETE /phone/group_call_pickup/{groupId}
-func (c *Client) DeleteGCP(ctx context.Context, params DeleteGCPParams) (DeleteGCPRes, error) {
-	res, err := c.sendDeleteGCP(ctx, params)
-	return res, err
+func (c *Client) DeleteGCP(ctx context.Context, params DeleteGCPParams) error {
+	_, err := c.sendDeleteGCP(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteGCP(ctx context.Context, params DeleteGCPParams) (res DeleteGCPRes, err error) {
+func (c *Client) sendDeleteGCP(ctx context.Context, params DeleteGCPParams) (res *DeleteGCPNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteGCP"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18614,12 +18615,12 @@ func (c *Client) sendDeleteGCP(ctx context.Context, params DeleteGCPParams) (res
 // `Light`.
 //
 // DELETE /phone/extension/{extensionId}/line_keys/{lineKeyId}
-func (c *Client) DeleteLineKey(ctx context.Context, params DeleteLineKeyParams) (DeleteLineKeyRes, error) {
-	res, err := c.sendDeleteLineKey(ctx, params)
-	return res, err
+func (c *Client) DeleteLineKey(ctx context.Context, params DeleteLineKeyParams) error {
+	_, err := c.sendDeleteLineKey(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteLineKey(ctx context.Context, params DeleteLineKeyParams) (res DeleteLineKeyRes, err error) {
+func (c *Client) sendDeleteLineKey(ctx context.Context, params DeleteLineKeyParams) (res *DeleteLineKeyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteLineKey"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18774,12 +18775,12 @@ func (c *Client) sendDeleteLineKey(ctx context.Context, params DeleteLineKeyPara
 // `Light`.
 //
 // DELETE /phone/locations/{locationId}
-func (c *Client) DeleteLocation(ctx context.Context, params DeleteLocationParams) (DeleteLocationRes, error) {
-	res, err := c.sendDeleteLocation(ctx, params)
-	return res, err
+func (c *Client) DeleteLocation(ctx context.Context, params DeleteLocationParams) error {
+	_, err := c.sendDeleteLocation(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationParams) (res DeleteLocationRes, err error) {
+func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationParams) (res *DeleteLocationNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteLocation"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -18918,12 +18919,12 @@ func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationPa
 // `Light`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/members
-func (c *Client) DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) (DeleteMembersOfSLGRes, error) {
-	res, err := c.sendDeleteMembersOfSLG(ctx, params)
-	return res, err
+func (c *Client) DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) error {
+	_, err := c.sendDeleteMembersOfSLG(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) (res DeleteMembersOfSLGRes, err error) {
+func (c *Client) sendDeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) (res *DeleteMembersOfSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteMembersOfSLG"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19061,12 +19062,12 @@ func (c *Client) sendDeleteMembersOfSLG(ctx context.Context, params DeleteMember
 // `Light`.
 //
 // DELETE /phone/monitoring_groups/{monitoringGroupId}
-func (c *Client) DeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) (DeleteMonitoringGroupRes, error) {
-	res, err := c.sendDeleteMonitoringGroup(ctx, params)
-	return res, err
+func (c *Client) DeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) error {
+	_, err := c.sendDeleteMonitoringGroup(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) (res DeleteMonitoringGroupRes, err error) {
+func (c *Client) sendDeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) (res *DeleteMonitoringGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteMonitoringGroup"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19204,12 +19205,12 @@ func (c *Client) sendDeleteMonitoringGroup(ctx context.Context, params DeleteMon
 // `Light`.
 //
 // DELETE /phone/outbound_caller_id/customized_numbers
-func (c *Client) DeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) (DeleteOutboundCallerNumbersRes, error) {
-	res, err := c.sendDeleteOutboundCallerNumbers(ctx, params)
-	return res, err
+func (c *Client) DeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) error {
+	_, err := c.sendDeleteOutboundCallerNumbers(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) (res DeleteOutboundCallerNumbersRes, err error) {
+func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) (res *DeleteOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19360,12 +19361,12 @@ func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params Del
 // `Light`.
 //
 // DELETE /phone/peering/numbers
-func (c *Client) DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (DeletePeeringPhoneNumbersRes, error) {
+func (c *Client) DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (*DeletePeeringPhoneNumbersOK, error) {
 	res, err := c.sendDeletePeeringPhoneNumbers(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (res DeletePeeringPhoneNumbersRes, err error) {
+func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (res *DeletePeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePeeringPhoneNumbers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19488,12 +19489,12 @@ func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptD
 // `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
-func (c *Client) DeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) (DeletePhoneNumbersSLGRes, error) {
-	res, err := c.sendDeletePhoneNumbersSLG(ctx, params)
-	return res, err
+func (c *Client) DeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) error {
+	_, err := c.sendDeletePhoneNumbersSLG(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) (res DeletePhoneNumbersSLGRes, err error) {
+func (c *Client) sendDeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) (res *DeletePhoneNumbersSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePhoneNumbersSLG"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19631,12 +19632,12 @@ func (c *Client) sendDeletePhoneNumbersSLG(ctx context.Context, params DeletePho
 // `Light`.
 //
 // DELETE /phone/roles/{roleId}
-func (c *Client) DeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) (DeletePhoneRoleRes, error) {
-	res, err := c.sendDeletePhoneRole(ctx, params)
-	return res, err
+func (c *Client) DeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) error {
+	_, err := c.sendDeletePhoneRole(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) (res DeletePhoneRoleRes, err error) {
+func (c *Client) sendDeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) (res *DeletePhoneRoleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeletePhoneRole"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19776,12 +19777,12 @@ func (c *Client) sendDeletePhoneRole(ctx context.Context, params DeletePhoneRole
 // `Light`.
 //
 // DELETE /phone/sites/{siteId}
-func (c *Client) DeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) (DeletePhoneSiteRes, error) {
-	res, err := c.sendDeletePhoneSite(ctx, params)
-	return res, err
+func (c *Client) DeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) error {
+	_, err := c.sendDeletePhoneSite(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) (res DeletePhoneSiteRes, err error) {
+func (c *Client) sendDeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) (res *DeletePhoneSiteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePhoneSite"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -19937,12 +19938,12 @@ func (c *Client) sendDeletePhoneSite(ctx context.Context, params DeletePhoneSite
 // `LIGHT`.
 //
 // DELETE /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-func (c *Client) DeletePolicy(ctx context.Context, params DeletePolicyParams) (DeletePolicyRes, error) {
-	res, err := c.sendDeletePolicy(ctx, params)
-	return res, err
+func (c *Client) DeletePolicy(ctx context.Context, params DeletePolicyParams) error {
+	_, err := c.sendDeletePolicy(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeletePolicy(ctx context.Context, params DeletePolicyParams) (res DeletePolicyRes, err error) {
+func (c *Client) sendDeletePolicy(ctx context.Context, params DeletePolicyParams) (res *DeletePolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeletePolicy"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20125,12 +20126,12 @@ func (c *Client) sendDeletePolicy(ctx context.Context, params DeletePolicyParams
 // `Light`.
 //
 // DELETE /phone/provision_templates/{templateId}
-func (c *Client) DeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) (DeleteProvisionTemplateRes, error) {
-	res, err := c.sendDeleteProvisionTemplate(ctx, params)
-	return res, err
+func (c *Client) DeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) error {
+	_, err := c.sendDeleteProvisionTemplate(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) (res DeleteProvisionTemplateRes, err error) {
+func (c *Client) sendDeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) (res *DeleteProvisionTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteProvisionTemplate"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20270,12 +20271,12 @@ func (c *Client) sendDeleteProvisionTemplate(ctx context.Context, params DeleteP
 // `Light`.
 //
 // DELETE /phone/routing_rules/{routingRuleId}
-func (c *Client) DeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) (DeleteRoutingRuleRes, error) {
-	res, err := c.sendDeleteRoutingRule(ctx, params)
-	return res, err
+func (c *Client) DeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) error {
+	_, err := c.sendDeleteRoutingRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) (res DeleteRoutingRuleRes, err error) {
+func (c *Client) sendDeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) (res *DeleteRoutingRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteRoutingRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20413,12 +20414,12 @@ func (c *Client) sendDeleteRoutingRule(ctx context.Context, params DeleteRouting
 // `Light`.
 //
 // DELETE /phone/sites/{siteId}/outbound_caller_id/customized_numbers
-func (c *Client) DeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) (DeleteSiteOutboundCallerNumbersRes, error) {
-	res, err := c.sendDeleteSiteOutboundCallerNumbers(ctx, params)
-	return res, err
+func (c *Client) DeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) error {
+	_, err := c.sendDeleteSiteOutboundCallerNumbers(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) (res DeleteSiteOutboundCallerNumbersRes, err error) {
+func (c *Client) sendDeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) (res *DeleteSiteOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20585,12 +20586,12 @@ func (c *Client) sendDeleteSiteOutboundCallerNumbers(ctx context.Context, params
 // `LIGHT`.
 //
 // DELETE /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) DeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) (DeleteSiteOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendDeleteSiteOutboundCallingExceptionRule(ctx, params)
-	return res, err
+func (c *Client) DeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendDeleteSiteOutboundCallingExceptionRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) (res DeleteSiteOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendDeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) (res *DeleteSiteOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20747,12 +20748,12 @@ func (c *Client) sendDeleteSiteOutboundCallingExceptionRule(ctx context.Context,
 // `Light`.
 //
 // DELETE /phone/sites/{siteId}/settings/{settingType}
-func (c *Client) DeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) (DeleteSiteSettingRes, error) {
-	res, err := c.sendDeleteSiteSetting(ctx, params)
-	return res, err
+func (c *Client) DeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) error {
+	_, err := c.sendDeleteSiteSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) (res DeleteSiteSettingRes, err error) {
+func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) (res *DeleteSiteSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -20948,12 +20949,12 @@ func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSet
 // `Medium`.
 //
 // DELETE /phone/numbers
-func (c *Client) DeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) (DeleteUnassignedPhoneNumbersRes, error) {
-	res, err := c.sendDeleteUnassignedPhoneNumbers(ctx, params)
-	return res, err
+func (c *Client) DeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) error {
+	_, err := c.sendDeleteUnassignedPhoneNumbers(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) (res DeleteUnassignedPhoneNumbersRes, err error) {
+func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) (res *DeleteUnassignedPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUnassignedPhoneNumbers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -21099,12 +21100,12 @@ func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params De
 // `Light`.
 //
 // DELETE /phone/users/{userId}/outbound_caller_id/customized_numbers
-func (c *Client) DeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) (DeleteUserOutboundCallerNumbersRes, error) {
-	res, err := c.sendDeleteUserOutboundCallerNumbers(ctx, params)
-	return res, err
+func (c *Client) DeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) error {
+	_, err := c.sendDeleteUserOutboundCallerNumbers(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) (res DeleteUserOutboundCallerNumbersRes, err error) {
+func (c *Client) sendDeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) (res *DeleteUserOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserOutboundCallerNumbers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -21271,12 +21272,12 @@ func (c *Client) sendDeleteUserOutboundCallerNumbers(ctx context.Context, params
 // `LIGHT`.
 //
 // DELETE /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) DeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) (DeleteUserOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendDeleteUserOutboundCallingExceptionRule(ctx, params)
-	return res, err
+func (c *Client) DeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendDeleteUserOutboundCallingExceptionRule(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) (res DeleteUserOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendDeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) (res *DeleteUserOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -21439,12 +21440,12 @@ func (c *Client) sendDeleteUserOutboundCallingExceptionRule(ctx context.Context,
 // `Light`.
 //
 // DELETE /phone/users/{userId}/settings/{settingType}
-func (c *Client) DeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) (DeleteUserSettingRes, error) {
-	res, err := c.sendDeleteUserSetting(ctx, params)
-	return res, err
+func (c *Client) DeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) error {
+	_, err := c.sendDeleteUserSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) (res DeleteUserSettingRes, err error) {
+func (c *Client) sendDeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) (res *DeleteUserSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -21672,12 +21673,12 @@ func (c *Client) sendDeleteUserSetting(ctx context.Context, params DeleteUserSet
 // `Light`.
 //
 // DELETE /phone/dial_by_name_directory/extensions
-func (c *Client) DeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) (DeleteUsersFromDirectoryRes, error) {
-	res, err := c.sendDeleteUsersFromDirectory(ctx, params)
-	return res, err
+func (c *Client) DeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) error {
+	_, err := c.sendDeleteUsersFromDirectory(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) (res DeleteUsersFromDirectoryRes, err error) {
+func (c *Client) sendDeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) (res *DeleteUsersFromDirectoryNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteUsersFromDirectory"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -21840,12 +21841,12 @@ func (c *Client) sendDeleteUsersFromDirectory(ctx context.Context, params Delete
 // `Light`.
 //
 // DELETE /phone/sites/{siteId}/dial_by_name_directory/extensions
-func (c *Client) DeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) (DeleteUsersFromDirectoryBySiteRes, error) {
-	res, err := c.sendDeleteUsersFromDirectoryBySite(ctx, params)
-	return res, err
+func (c *Client) DeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) error {
+	_, err := c.sendDeleteUsersFromDirectoryBySite(ctx, params)
+	return err
 }
 
-func (c *Client) sendDeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) (res DeleteUsersFromDirectoryBySiteRes, err error) {
+func (c *Client) sendDeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) (res *DeleteUsersFromDirectoryBySiteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteUsersFromDirectoryBySite"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -22029,12 +22030,12 @@ func (c *Client) sendDeleteUsersFromDirectoryBySite(ctx context.Context, params 
 // `Light`.
 //
 // POST /phone/roles
-func (c *Client) DuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (DuplicatePhoneRoleRes, error) {
+func (c *Client) DuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (*DuplicatePhoneRoleCreated, error) {
 	res, err := c.sendDuplicatePhoneRole(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendDuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (res DuplicatePhoneRoleRes, err error) {
+func (c *Client) sendDuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (res *DuplicatePhoneRoleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DuplicatePhoneRole"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -22155,12 +22156,12 @@ func (c *Client) sendDuplicatePhoneRole(ctx context.Context, request OptDuplicat
 // `Light`.
 //
 // GET /phone/billing_accounts/{billingAccountId}
-func (c *Client) GetABillingAccount(ctx context.Context, params GetABillingAccountParams) (GetABillingAccountRes, error) {
+func (c *Client) GetABillingAccount(ctx context.Context, params GetABillingAccountParams) (*GetABillingAccountOK, error) {
 	res, err := c.sendGetABillingAccount(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingAccountParams) (res GetABillingAccountRes, err error) {
+func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingAccountParams) (res *GetABillingAccountOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetABillingAccount"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -22299,12 +22300,12 @@ func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingA
 // `Light`.
 //
 // GET /phone/blocked_list/{blockedListId}
-func (c *Client) GetABlockedList(ctx context.Context, params GetABlockedListParams) (GetABlockedListRes, error) {
+func (c *Client) GetABlockedList(ctx context.Context, params GetABlockedListParams) (*GetABlockedListOK, error) {
 	res, err := c.sendGetABlockedList(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedListParams) (res GetABlockedListRes, err error) {
+func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedListParams) (res *GetABlockedListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getABlockedList"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -22444,12 +22445,12 @@ func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedList
 // `Light`.
 //
 // GET /phone/call_queues/{callQueueId}
-func (c *Client) GetACallQueue(ctx context.Context, params GetACallQueueParams) (GetACallQueueRes, error) {
+func (c *Client) GetACallQueue(ctx context.Context, params GetACallQueueParams) (*GetACallQueueOK, error) {
 	res, err := c.sendGetACallQueue(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetACallQueue(ctx context.Context, params GetACallQueueParams) (res GetACallQueueRes, err error) {
+func (c *Client) sendGetACallQueue(ctx context.Context, params GetACallQueueParams) (res *GetACallQueueOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getACallQueue"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -22586,12 +22587,12 @@ func (c *Client) sendGetACallQueue(ctx context.Context, params GetACallQueuePara
 // `LIGHT`.
 //
 // GET /phone/common_areas/{commonAreaId}
-func (c *Client) GetACommonArea(ctx context.Context, params GetACommonAreaParams) (GetACommonAreaRes, error) {
+func (c *Client) GetACommonArea(ctx context.Context, params GetACommonAreaParams) (*GetACommonAreaOK, error) {
 	res, err := c.sendGetACommonArea(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaParams) (res GetACommonAreaRes, err error) {
+func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaParams) (res *GetACommonAreaOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getACommonArea"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -22728,12 +22729,12 @@ func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaPa
 // `Light`.
 //
 // GET /phone/devices/{deviceId}
-func (c *Client) GetADevice(ctx context.Context, params GetADeviceParams) (GetADeviceRes, error) {
+func (c *Client) GetADevice(ctx context.Context, params GetADeviceParams) (*GetADeviceOK, error) {
 	res, err := c.sendGetADevice(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetADevice(ctx context.Context, params GetADeviceParams) (res GetADeviceRes, err error) {
+func (c *Client) sendGetADevice(ctx context.Context, params GetADeviceParams) (res *GetADeviceOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getADevice"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -22869,12 +22870,12 @@ func (c *Client) sendGetADevice(ctx context.Context, params GetADeviceParams) (r
 // `Light`.
 //
 // GET /phone/external_contacts/{externalContactId}
-func (c *Client) GetAExternalContact(ctx context.Context, params GetAExternalContactParams) (GetAExternalContactRes, error) {
+func (c *Client) GetAExternalContact(ctx context.Context, params GetAExternalContactParams) (*GetAExternalContactOK, error) {
 	res, err := c.sendGetAExternalContact(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetAExternalContact(ctx context.Context, params GetAExternalContactParams) (res GetAExternalContactRes, err error) {
+func (c *Client) sendGetAExternalContact(ctx context.Context, params GetAExternalContactParams) (res *GetAExternalContactOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAExternalContact"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -23156,12 +23157,12 @@ func (c *Client) sendGetASharedLineGroup(ctx context.Context, params GetASharedL
 // `LIGHT`.
 //
 // GET /phone/sites/{siteId}
-func (c *Client) GetASite(ctx context.Context, params GetASiteParams) (GetASiteRes, error) {
+func (c *Client) GetASite(ctx context.Context, params GetASiteParams) (*GetASiteOK, error) {
 	res, err := c.sendGetASite(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetASite(ctx context.Context, params GetASiteParams) (res GetASiteRes, err error) {
+func (c *Client) sendGetASite(ctx context.Context, params GetASiteParams) (res *GetASiteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getASite"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -23297,12 +23298,12 @@ func (c *Client) sendGetASite(ctx context.Context, params GetASiteParams) (res G
 // `LIGHT`.
 //
 // GET /phone/outbound_calling/countries_regions
-func (c *Client) GetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (GetAccountOutboundCallingCountriesAndRegionsRes, error) {
+func (c *Client) GetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (*GetAccountOutboundCallingCountriesAndRegionsOK, error) {
 	res, err := c.sendGetAccountOutboundCallingCountriesAndRegions(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (res GetAccountOutboundCallingCountriesAndRegionsRes, err error) {
+func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (res *GetAccountOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetAccountOutboundCallingCountriesAndRegions"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -23459,12 +23460,12 @@ func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Co
 // `LIGHT`.
 //
 // GET /phone/alert_settings/{alertSettingId}
-func (c *Client) GetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (GetAlertSettingDetailsRes, error) {
+func (c *Client) GetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (*GetAlertSettingDetailsOK, error) {
 	res, err := c.sendGetAlertSettingDetails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (res GetAlertSettingDetailsRes, err error) {
+func (c *Client) sendGetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (res *GetAlertSettingDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetAlertSettingDetails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -23883,12 +23884,12 @@ func (c *Client) sendGetAutoReceptionistDetail(ctx context.Context, params GetAu
 // `Light`.
 //
 // GET /phone/auto_receptionists/{autoReceptionistId}/ivr
-func (c *Client) GetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (GetAutoReceptionistIVRRes, error) {
+func (c *Client) GetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (*GetAutoReceptionistIVROK, error) {
 	res, err := c.sendGetAutoReceptionistIVR(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (res GetAutoReceptionistIVRRes, err error) {
+func (c *Client) sendGetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (res *GetAutoReceptionistIVROK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAutoReceptionistIVR"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -24064,12 +24065,12 @@ func (c *Client) sendGetAutoReceptionistIVR(ctx context.Context, params GetAutoR
 // `Medium`.
 //
 // GET /phone/auto_receptionists/{autoReceptionistId}/policies
-func (c *Client) GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (GetAutoReceptionistsPolicyRes, error) {
+func (c *Client) GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (*GetAutoReceptionistsPolicyOK, error) {
 	res, err := c.sendGetAutoReceptionistsPolicy(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (res GetAutoReceptionistsPolicyRes, err error) {
+func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (res *GetAutoReceptionistsPolicyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAutoReceptionistsPolicy"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -24210,12 +24211,12 @@ func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetA
 // `HEAVY`.
 //
 // GET /phone/reports/call_charges
-func (c *Client) GetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (GetCallChargesUsageReportRes, error) {
+func (c *Client) GetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (*GetCallChargesUsageReportOK, error) {
 	res, err := c.sendGetCallChargesUsageReport(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (res GetCallChargesUsageReportRes, err error) {
+func (c *Client) sendGetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (res *GetCallChargesUsageReportOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetCallChargesUsageReport"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -24869,12 +24870,12 @@ func (c *Client) sendGetCallLogMetricsDetails(ctx context.Context, params GetCal
 // `LIGHT`.
 //
 // GET /phone/call_history/{callLogId}
-func (c *Client) GetCallPath(ctx context.Context, params GetCallPathParams) (GetCallPathRes, error) {
+func (c *Client) GetCallPath(ctx context.Context, params GetCallPathParams) (*GetCallPathOK, error) {
 	res, err := c.sendGetCallPath(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetCallPath(ctx context.Context, params GetCallPathParams) (res GetCallPathRes, err error) {
+func (c *Client) sendGetCallPath(ctx context.Context, params GetCallPathParams) (res *GetCallPathOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallPath"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -25370,12 +25371,12 @@ func (c *Client) sendGetCallQueueRecordings(ctx context.Context, params GetCallQ
 // `LIGHT`.
 //
 // GET /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
-func (c *Client) GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (GetCommonAreaOutboundCallingCountriesAndRegionsRes, error) {
+func (c *Client) GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (*GetCommonAreaOutboundCallingCountriesAndRegionsOK, error) {
 	res, err := c.sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (res GetCommonAreaOutboundCallingCountriesAndRegionsRes, err error) {
+func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (res *GetCommonAreaOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetCommonAreaOutboundCallingCountriesAndRegions"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -25551,12 +25552,12 @@ func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context
 // `Light`.
 //
 // GET /phone/common_areas/{commonAreaId}/settings
-func (c *Client) GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (GetCommonAreaSettingsRes, error) {
+func (c *Client) GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (*GetCommonAreaSettingsOK, error) {
 	res, err := c.sendGetCommonAreaSettings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (res GetCommonAreaSettingsRes, err error) {
+func (c *Client) sendGetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (res *GetCommonAreaSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCommonAreaSettings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -25693,12 +25694,12 @@ func (c *Client) sendGetCommonAreaSettings(ctx context.Context, params GetCommon
 // `Light`.
 //
 // GET /phone/emergency_addresses/{emergencyAddressId}
-func (c *Client) GetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (GetEmergencyAddressRes, error) {
+func (c *Client) GetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (*GetEmergencyAddressOK, error) {
 	res, err := c.sendGetEmergencyAddress(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (res GetEmergencyAddressRes, err error) {
+func (c *Client) sendGetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (res *GetEmergencyAddressOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getEmergencyAddress"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -25835,12 +25836,12 @@ func (c *Client) sendGetEmergencyAddress(ctx context.Context, params GetEmergenc
 // `Light`.
 //
 // GET /phone/firmware_update_rules/{ruleId}
-func (c *Client) GetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (GetFirmwareRuleDetailRes, error) {
+func (c *Client) GetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (*GetFirmwareRuleDetailOK, error) {
 	res, err := c.sendGetFirmwareRuleDetail(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (res GetFirmwareRuleDetailRes, err error) {
+func (c *Client) sendGetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (res *GetFirmwareRuleDetailOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetFirmwareRuleDetail"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26117,12 +26118,12 @@ func (c *Client) sendGetGCP(ctx context.Context, params GetGCPParams) (res *GetG
 // `LIGHT`.
 //
 // GET /phone/groups/{groupId}/settings
-func (c *Client) GetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (GetGroupPhoneSettingsRes, error) {
+func (c *Client) GetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (*GetGroupPhoneSettingsOK, error) {
 	res, err := c.sendGetGroupPhoneSettings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (res GetGroupPhoneSettingsRes, err error) {
+func (c *Client) sendGetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (res *GetGroupPhoneSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getGroupPhoneSettings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26280,12 +26281,12 @@ func (c *Client) sendGetGroupPhoneSettings(ctx context.Context, params GetGroupP
 // `Light`.
 //
 // GET /phone/locations/{locationId}
-func (c *Client) GetLocation(ctx context.Context, params GetLocationParams) (GetLocationRes, error) {
+func (c *Client) GetLocation(ctx context.Context, params GetLocationParams) (*GetLocationOK, error) {
 	res, err := c.sendGetLocation(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetLocation(ctx context.Context, params GetLocationParams) (res GetLocationRes, err error) {
+func (c *Client) sendGetLocation(ctx context.Context, params GetLocationParams) (res *GetLocationOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getLocation"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26422,12 +26423,12 @@ func (c *Client) sendGetLocation(ctx context.Context, params GetLocationParams) 
 // `LIGHT`.
 //
 // GET /phone/monitoring_groups/{monitoringGroupId}
-func (c *Client) GetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (GetMonitoringGroupByIdRes, error) {
+func (c *Client) GetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (*GetMonitoringGroupByIdOK, error) {
 	res, err := c.sendGetMonitoringGroupById(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (res GetMonitoringGroupByIdRes, err error) {
+func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (res *GetMonitoringGroupByIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getMonitoringGroupById"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26568,12 +26569,12 @@ func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonit
 // `HEAVY`.
 //
 // GET /phone/reports/operationlogs
-func (c *Client) GetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (GetPSOperationLogsRes, error) {
+func (c *Client) GetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (*GetPSOperationLogsOK, error) {
 	res, err := c.sendGetPSOperationLogs(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (res GetPSOperationLogsRes, err error) {
+func (c *Client) sendGetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (res *GetPSOperationLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPSOperationLogs"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26780,12 +26781,12 @@ func (c *Client) sendGetPSOperationLogs(ctx context.Context, params GetPSOperati
 // `LIGHT`.
 //
 // GET /phone/numbers/{phoneNumberId}
-func (c *Client) GetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (GetPhoneNumberDetailsRes, error) {
+func (c *Client) GetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (*GetPhoneNumberDetailsOK, error) {
 	res, err := c.sendGetPhoneNumberDetails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (res GetPhoneNumberDetailsRes, err error) {
+func (c *Client) sendGetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (res *GetPhoneNumberDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneNumberDetails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -26923,12 +26924,12 @@ func (c *Client) sendGetPhoneNumberDetails(ctx context.Context, params GetPhoneN
 // `MEDIUM`.
 //
 // GET /phone/recordings
-func (c *Client) GetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (GetPhoneRecordingsRes, error) {
+func (c *Client) GetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (*GetPhoneRecordingsOK, error) {
 	res, err := c.sendGetPhoneRecordings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (res GetPhoneRecordingsRes, err error) {
+func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (res *GetPhoneRecordingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneRecordings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -27206,12 +27207,12 @@ func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneReco
 // `LIGHT`.
 //
 // GET /phone/call_logs/{id}/recordings
-func (c *Client) GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (GetPhoneRecordingsByCallIdOrCallLogIdRes, error) {
+func (c *Client) GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (*GetPhoneRecordingsByCallIdOrCallLogIdOK, error) {
 	res, err := c.sendGetPhoneRecordingsByCallIdOrCallLogId(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (res GetPhoneRecordingsByCallIdOrCallLogIdRes, err error) {
+func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (res *GetPhoneRecordingsByCallIdOrCallLogIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneRecordingsByCallIdOrCallLogId"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -27350,12 +27351,12 @@ func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, 
 // `MEDIUM`.
 //
 // GET /phone/users/{userId}/voice_mails/sync
-func (c *Client) GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (GetPhoneUserVoiceMailsRes, error) {
+func (c *Client) GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (*GetPhoneUserVoiceMailsOK, error) {
 	res, err := c.sendGetPhoneUserVoiceMails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (res GetPhoneUserVoiceMailsRes, err error) {
+func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (res *GetPhoneUserVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetPhoneUserVoiceMails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -27544,12 +27545,12 @@ func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhone
 // `Light`.
 //
 // GET /phone/ported_numbers/orders/{orderId}
-func (c *Client) GetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (GetPortedNumbersDetailsRes, error) {
+func (c *Client) GetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (*GetPortedNumbersDetailsOK, error) {
 	res, err := c.sendGetPortedNumbersDetails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (res GetPortedNumbersDetailsRes, err error) {
+func (c *Client) sendGetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (res *GetPortedNumbersDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPortedNumbersDetails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -28257,12 +28258,12 @@ func (c *Client) sendGetSMSCampaign(ctx context.Context, params GetSMSCampaignPa
 // `HEAVY`.
 //
 // GET /phone/reports/sms_charges
-func (c *Client) GetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (GetSMSChargesUsageReportRes, error) {
+func (c *Client) GetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (*GetSMSChargesUsageReportOK, error) {
 	res, err := c.sendGetSMSChargesUsageReport(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (res GetSMSChargesUsageReportRes, err error) {
+func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (res *GetSMSChargesUsageReportOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSMSChargesUsageReport"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -28469,12 +28470,12 @@ func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMS
 // `Light`.
 //
 // GET /phone/setting_templates/{templateId}
-func (c *Client) GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (GetSettingTemplateRes, error) {
+func (c *Client) GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (*GetSettingTemplateOK, error) {
 	res, err := c.sendGetSettingTemplate(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (res GetSettingTemplateRes, err error) {
+func (c *Client) sendGetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (res *GetSettingTemplateOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSettingTemplate"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -28632,12 +28633,12 @@ func (c *Client) sendGetSettingTemplate(ctx context.Context, params GetSettingTe
 // `LIGHT`.
 //
 // GET /phone/shared_line_groups/{sharedLineGroupId}/policies
-func (c *Client) GetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (GetSharedLineGroupPolicyRes, error) {
+func (c *Client) GetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (*GetSharedLineGroupPolicyOK, error) {
 	res, err := c.sendGetSharedLineGroupPolicy(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (res GetSharedLineGroupPolicyRes, err error) {
+func (c *Client) sendGetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (res *GetSharedLineGroupPolicyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSharedLineGroupPolicy"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -28774,12 +28775,12 @@ func (c *Client) sendGetSharedLineGroupPolicy(ctx context.Context, params GetSha
 // `LIGHT`.
 //
 // GET /phone/sites/{siteId}/outbound_calling/countries_regions
-func (c *Client) GetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (GetSiteOutboundCallingCountriesAndRegionsRes, error) {
+func (c *Client) GetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (*GetSiteOutboundCallingCountriesAndRegionsOK, error) {
 	res, err := c.sendGetSiteOutboundCallingCountriesAndRegions(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (res GetSiteOutboundCallingCountriesAndRegionsRes, err error) {
+func (c *Client) sendGetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (res *GetSiteOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSiteOutboundCallingCountriesAndRegions"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -28957,12 +28958,12 @@ func (c *Client) sendGetSiteOutboundCallingCountriesAndRegions(ctx context.Conte
 // `Light`.
 //
 // GET /phone/sites/{siteId}/settings/{settingType}
-func (c *Client) GetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (GetSiteSettingForTypeRes, error) {
+func (c *Client) GetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (*GetSiteSettingForTypeOK, error) {
 	res, err := c.sendGetSiteSettingForType(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (res GetSiteSettingForTypeRes, err error) {
+func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (res *GetSiteSettingForTypeOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSiteSettingForType"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -29118,12 +29119,12 @@ func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSe
 // `Medium`.
 //
 // GET /phone/users/{userId}/sms/sessions/sync
-func (c *Client) GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (GetSmsSessionsRes, error) {
+func (c *Client) GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (*GetSmsSessionsOK, error) {
 	res, err := c.sendGetSmsSessions(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (res GetSmsSessionsRes, err error) {
+func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (res *GetSmsSessionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSmsSessions"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -29329,12 +29330,12 @@ func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsPa
 // `LIGHT`.
 //
 // GET /phone/users/{userId}/outbound_calling/countries_regions
-func (c *Client) GetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (GetUserOutboundCallingCountriesAndRegionsRes, error) {
+func (c *Client) GetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (*GetUserOutboundCallingCountriesAndRegionsOK, error) {
 	res, err := c.sendGetUserOutboundCallingCountriesAndRegions(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (res GetUserOutboundCallingCountriesAndRegionsRes, err error) {
+func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (res *GetUserOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetUserOutboundCallingCountriesAndRegions"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -29509,12 +29510,12 @@ func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Conte
 // `Light`.
 //
 // GET /phone/voice_mails/{voicemailId}
-func (c *Client) GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (GetVoicemailDetailsRes, error) {
+func (c *Client) GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (*GetVoicemailDetailsOK, error) {
 	res, err := c.sendGetVoicemailDetails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (res GetVoicemailDetailsRes, err error) {
+func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (res *GetVoicemailDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getVoicemailDetails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -29652,12 +29653,12 @@ func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemai
 // `Light`.
 //
 // GET /phone/users/{userId}/call_logs/{id}/voice_mail
-func (c *Client) GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (GetVoicemailDetailsByCallIdOrCallLogIdRes, error) {
+func (c *Client) GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (*GetVoicemailDetailsByCallIdOrCallLogIdOK, error) {
 	res, err := c.sendGetVoicemailDetailsByCallIdOrCallLogId(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (res GetVoicemailDetailsByCallIdOrCallLogIdRes, err error) {
+func (c *Client) sendGetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (res *GetVoicemailDetailsByCallIdOrCallLogIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getVoicemailDetailsByCallIdOrCallLogId"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -29955,12 +29956,12 @@ func (c *Client) sendGetZoomRoom(ctx context.Context, params GetZoomRoomParams) 
 // `MEDIUM`.
 //
 // GET /phone/inbound_blocked/rules
-func (c *Client) ListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (ListAccountLevelInboundBlockRulesRes, error) {
+func (c *Client) ListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (*ListAccountLevelInboundBlockRulesOK, error) {
 	res, err := c.sendListAccountLevelInboundBlockRules(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (res ListAccountLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (res *ListAccountLevelInboundBlockRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAccountLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -30185,12 +30186,12 @@ func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, para
 // `MEDIUM`.
 //
 // GET /phone/inbound_blocked/extension_rules/statistics
-func (c *Client) ListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (ListAccountLevelInboundBlockedStatisticsRes, error) {
+func (c *Client) ListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (*ListAccountLevelInboundBlockedStatisticsOK, error) {
 	res, err := c.sendListAccountLevelInboundBlockedStatistics(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (res ListAccountLevelInboundBlockedStatisticsRes, err error) {
+func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (res *ListAccountLevelInboundBlockedStatisticsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAccountLevelInboundBlockedStatistics"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -30396,12 +30397,12 @@ func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Contex
 // `MEDIUM`.
 //
 // GET /phone/outbound_calling/exception_rules
-func (c *Client) ListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (ListAccountOutboundCallingExceptionRuleRes, error) {
+func (c *Client) ListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (*ListAccountOutboundCallingExceptionRuleOK, error) {
 	res, err := c.sendListAccountOutboundCallingExceptionRule(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (res ListAccountOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (res *ListAccountOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAccountOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -31196,12 +31197,12 @@ func (c *Client) sendListAccountSMSCampaigns(ctx context.Context, params ListAcc
 // **Not supported in Gov cluster**.
 //
 // GET /phone/common_areas/activation_codes
-func (c *Client) ListActivationCodes(ctx context.Context, params ListActivationCodesParams) (ListActivationCodesRes, error) {
+func (c *Client) ListActivationCodes(ctx context.Context, params ListActivationCodesParams) (*ListActivationCodesOK, error) {
 	res, err := c.sendListActivationCodes(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListActivationCodes(ctx context.Context, params ListActivationCodesParams) (res ListActivationCodesRes, err error) {
+func (c *Client) sendListActivationCodes(ctx context.Context, params ListActivationCodesParams) (res *ListActivationCodesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listActivationCodes"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -31358,12 +31359,12 @@ func (c *Client) sendListActivationCodes(ctx context.Context, params ListActivat
 // `MEDIUM`.
 //
 // GET /phone/alert_settings
-func (c *Client) ListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (ListAlertSettingsWithPagingQueryRes, error) {
+func (c *Client) ListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (*ListAlertSettingsWithPagingQueryOK, error) {
 	res, err := c.sendListAlertSettingsWithPagingQuery(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (res ListAlertSettingsWithPagingQueryRes, err error) {
+func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (res *ListAlertSettingsWithPagingQueryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAlertSettingsWithPagingQuery"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -33428,12 +33429,12 @@ func (c *Client) sendListCarrierPeeringPhoneNumbers(ctx context.Context, params 
 // `MEDIUM`.
 //
 // GET /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
-func (c *Client) ListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (ListCommonAreaOutboundCallingExceptionRuleRes, error) {
+func (c *Client) ListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (*ListCommonAreaOutboundCallingExceptionRuleOK, error) {
 	res, err := c.sendListCommonAreaOutboundCallingExceptionRule(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (res ListCommonAreaOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (res *ListCommonAreaOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCommonAreaOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -34213,12 +34214,12 @@ func (c *Client) sendListDeviceLineKeySetting(ctx context.Context, params ListDe
 // `Medium`.
 //
 // GET /phone/emergency_addresses
-func (c *Client) ListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (ListEmergencyAddressesRes, error) {
+func (c *Client) ListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (*ListEmergencyAddressesOK, error) {
 	res, err := c.sendListEmergencyAddresses(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (res ListEmergencyAddressesRes, err error) {
+func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (res *ListEmergencyAddressesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listEmergencyAddresses"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -34461,12 +34462,12 @@ func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmer
 // `MEDIUM`.
 //
 // GET /phone/extension/{extensionId}/inbound_blocked/rules
-func (c *Client) ListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (ListExtensionLevelInboundBlockRulesRes, error) {
+func (c *Client) ListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (*ListExtensionLevelInboundBlockRulesOK, error) {
 	res, err := c.sendListExtensionLevelInboundBlockRules(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (res ListExtensionLevelInboundBlockRulesRes, err error) {
+func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (res *ListExtensionLevelInboundBlockRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListExtensionLevelInboundBlockRules"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -34854,12 +34855,12 @@ func (c *Client) sendListExternalContacts(ctx context.Context, params ListExtern
 // `Light`.
 //
 // GET /phone/firmware_update_rules
-func (c *Client) ListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (ListFirmwareRulesRes, error) {
+func (c *Client) ListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (*ListFirmwareRulesOK, error) {
 	res, err := c.sendListFirmwareRules(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (res ListFirmwareRulesRes, err error) {
+func (c *Client) sendListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (res *ListFirmwareRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListFirmwareRules"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -35033,12 +35034,12 @@ func (c *Client) sendListFirmwareRules(ctx context.Context, params ListFirmwareR
 // `Light`.
 //
 // GET /phone/firmwares
-func (c *Client) ListFirmwares(ctx context.Context, params ListFirmwaresParams) (ListFirmwaresRes, error) {
+func (c *Client) ListFirmwares(ctx context.Context, params ListFirmwaresParams) (*ListFirmwaresOK, error) {
 	res, err := c.sendListFirmwares(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListFirmwares(ctx context.Context, params ListFirmwaresParams) (res ListFirmwaresRes, err error) {
+func (c *Client) sendListFirmwares(ctx context.Context, params ListFirmwaresParams) (res *ListFirmwaresOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListFirmwares"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -35912,12 +35913,12 @@ func (c *Client) sendListLocations(ctx context.Context, params ListLocationsPara
 // `Medium`.
 //
 // GET /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-func (c *Client) ListMembers(ctx context.Context, params ListMembersParams) (ListMembersRes, error) {
+func (c *Client) ListMembers(ctx context.Context, params ListMembersParams) (*ListMembersOK, error) {
 	res, err := c.sendListMembers(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) (res ListMembersRes, err error) {
+func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) (res *ListMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listMembers"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -36107,12 +36108,12 @@ func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) 
 // `MEDIUM`.
 //
 // GET /phone/monitoring_groups
-func (c *Client) ListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (ListMonitoringGroupRes, error) {
+func (c *Client) ListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (*ListMonitoringGroupOK, error) {
 	res, err := c.sendListMonitoringGroup(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (res ListMonitoringGroupRes, err error) {
+func (c *Client) sendListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (res *ListMonitoringGroupOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listMonitoringGroup"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -37255,12 +37256,12 @@ func (c *Client) sendListPhonePlans(ctx context.Context) (res *ListPhonePlansOK,
 // `Medium`.
 //
 // GET /phone/roles
-func (c *Client) ListPhoneRoles(ctx context.Context) (ListPhoneRolesRes, error) {
+func (c *Client) ListPhoneRoles(ctx context.Context) (*ListPhoneRolesOK, error) {
 	res, err := c.sendListPhoneRoles(ctx)
 	return res, err
 }
 
-func (c *Client) sendListPhoneRoles(ctx context.Context) (res ListPhoneRolesRes, err error) {
+func (c *Client) sendListPhoneRoles(ctx context.Context) (res *ListPhoneRolesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListPhoneRoles"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -37967,12 +37968,12 @@ func (c *Client) sendListPortedNumbers(ctx context.Context, params ListPortedNum
 // `Medium`.
 //
 // GET /phone/roles/{roleId}/members
-func (c *Client) ListRoleMembers(ctx context.Context, params ListRoleMembersParams) (ListRoleMembersRes, error) {
+func (c *Client) ListRoleMembers(ctx context.Context, params ListRoleMembersParams) (*ListRoleMembersOK, error) {
 	res, err := c.sendListRoleMembers(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListRoleMembers(ctx context.Context, params ListRoleMembersParams) (res ListRoleMembersRes, err error) {
+func (c *Client) sendListRoleMembers(ctx context.Context, params ListRoleMembersParams) (res *ListRoleMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListRoleMembers"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -38275,12 +38276,12 @@ func (c *Client) sendListRoutingRule(ctx context.Context, params ListRoutingRule
 // `Light`.
 //
 // GET /phone/setting_templates
-func (c *Client) ListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (ListSettingTemplatesRes, error) {
+func (c *Client) ListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (*ListSettingTemplatesOK, error) {
 	res, err := c.sendListSettingTemplates(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (res ListSettingTemplatesRes, err error) {
+func (c *Client) sendListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (res *ListSettingTemplatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSettingTemplates"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -39190,12 +39191,12 @@ func (c *Client) sendListSiteCustomizeOutboundCallerNumbers(ctx context.Context,
 // `MEDIUM`.
 //
 // GET /phone/sites/{siteId}/outbound_calling/exception_rules
-func (c *Client) ListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (ListSiteOutboundCallingExceptionRuleRes, error) {
+func (c *Client) ListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (*ListSiteOutboundCallingExceptionRuleOK, error) {
 	res, err := c.sendListSiteOutboundCallingExceptionRule(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (res ListSiteOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (res *ListSiteOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSiteOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -40026,12 +40027,12 @@ func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context,
 // `MEDIUM`.
 //
 // GET /phone/users/{userId}/outbound_calling/exception_rules
-func (c *Client) ListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (ListUserOutboundCallingExceptionRuleRes, error) {
+func (c *Client) ListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (*ListUserOutboundCallingExceptionRuleOK, error) {
 	res, err := c.sendListUserOutboundCallingExceptionRule(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (res ListUserOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (res *ListUserOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listUserOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -40275,12 +40276,12 @@ func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, p
 // `Medium`.
 //
 // GET /phone/dial_by_name_directory/extensions
-func (c *Client) ListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (ListUsersFromDirectoryRes, error) {
+func (c *Client) ListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (*ListUsersFromDirectoryOK, error) {
 	res, err := c.sendListUsersFromDirectory(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (res ListUsersFromDirectoryRes, err error) {
+func (c *Client) sendListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (res *ListUsersFromDirectoryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListUsersFromDirectory"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -40468,12 +40469,12 @@ func (c *Client) sendListUsersFromDirectory(ctx context.Context, params ListUser
 // `Medium`.
 //
 // GET /phone/sites/{siteId}/dial_by_name_directory/extensions
-func (c *Client) ListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (ListUsersFromDirectoryBySiteRes, error) {
+func (c *Client) ListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (*ListUsersFromDirectoryBySiteOK, error) {
 	res, err := c.sendListUsersFromDirectoryBySite(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (res ListUsersFromDirectoryBySiteRes, err error) {
+func (c *Client) sendListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (res *ListUsersFromDirectoryBySiteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListUsersFromDirectoryBySite"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -40682,12 +40683,12 @@ func (c *Client) sendListUsersFromDirectoryBySite(ctx context.Context, params Li
 // `LIGHT`.
 //
 // GET /phone/account_settings
-func (c *Client) ListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (ListZoomPhoneAccountSettingsRes, error) {
+func (c *Client) ListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (*ListZoomPhoneAccountSettingsOK, error) {
 	res, err := c.sendListZoomPhoneAccountSettings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (res ListZoomPhoneAccountSettingsRes, err error) {
+func (c *Client) sendListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (res *ListZoomPhoneAccountSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listZoomPhoneAccountSettings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -41039,12 +41040,12 @@ func (c *Client) sendListZoomRooms(ctx context.Context, params ListZoomRoomsPara
 // `LIGHT`.
 //
 // PATCH /phone/inbound_blocked/extension_rules/statistics/blocked_for_all
-func (c *Client) MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) (MarkPhoneNumberAsBlockedForAllExtensionsRes, error) {
-	res, err := c.sendMarkPhoneNumberAsBlockedForAllExtensions(ctx, request)
-	return res, err
+func (c *Client) MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) error {
+	_, err := c.sendMarkPhoneNumberAsBlockedForAllExtensions(ctx, request)
+	return err
 }
 
-func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) (res MarkPhoneNumberAsBlockedForAllExtensionsRes, err error) {
+func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) (res *MarkPhoneNumberAsBlockedForAllExtensionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("MarkPhoneNumberAsBlockedForAllExtensions"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -41165,12 +41166,12 @@ func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Contex
 // `Light`.
 //
 // GET /phone/recording_transcript/download/{recordingId}
-func (c *Client) PhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) (PhoneDownloadRecordingTranscriptRes, error) {
-	res, err := c.sendPhoneDownloadRecordingTranscript(ctx, params)
-	return res, err
+func (c *Client) PhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) error {
+	_, err := c.sendPhoneDownloadRecordingTranscript(ctx, params)
+	return err
 }
 
-func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) (res PhoneDownloadRecordingTranscriptRes, err error) {
+func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) (res *PhoneDownloadRecordingTranscriptOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneDownloadRecordingTranscript"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -41306,12 +41307,12 @@ func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, param
 // `Light`.
 //
 // GET /phone/settings
-func (c *Client) PhoneSetting(ctx context.Context) (PhoneSettingRes, error) {
+func (c *Client) PhoneSetting(ctx context.Context) (*PhoneSettingOK, error) {
 	res, err := c.sendPhoneSetting(ctx)
 	return res, err
 }
 
-func (c *Client) sendPhoneSetting(ctx context.Context) (res PhoneSettingRes, err error) {
+func (c *Client) sendPhoneSetting(ctx context.Context) (res *PhoneSettingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneSetting"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -41432,12 +41433,12 @@ func (c *Client) sendPhoneSetting(ctx context.Context) (res PhoneSettingRes, err
 // `LIGHT`.
 //
 // GET /phone/users/{userId}
-func (c *Client) PhoneUser(ctx context.Context, params PhoneUserParams) (PhoneUserRes, error) {
+func (c *Client) PhoneUser(ctx context.Context, params PhoneUserParams) (*PhoneUserOK, error) {
 	res, err := c.sendPhoneUser(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res PhoneUserRes, err error) {
+func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res *PhoneUserOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUser"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -41576,12 +41577,12 @@ func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res
 // `MEDIUM`.
 //
 // GET /phone/users/{userId}/call_logs
-func (c *Client) PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (PhoneUserCallLogsRes, error) {
+func (c *Client) PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (*PhoneUserCallLogsOK, error) {
 	res, err := c.sendPhoneUserCallLogs(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (res PhoneUserCallLogsRes, err error) {
+func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (res *PhoneUserCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserCallLogs"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -41844,12 +41845,12 @@ func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCall
 // `Medium`.
 //
 // GET /phone/users/{userId}/recordings
-func (c *Client) PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (PhoneUserRecordingsRes, error) {
+func (c *Client) PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (*PhoneUserRecordingsOK, error) {
 	res, err := c.sendPhoneUserRecordings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (res PhoneUserRecordingsRes, err error) {
+func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (res *PhoneUserRecordingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserRecordings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -42061,12 +42062,12 @@ func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRe
 // `Light`.
 //
 // GET /phone/users/{userId}/settings
-func (c *Client) PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (PhoneUserSettingsRes, error) {
+func (c *Client) PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error) {
 	res, err := c.sendPhoneUserSettings(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (res PhoneUserSettingsRes, err error) {
+func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (res *PhoneUserSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserSettings"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -42205,12 +42206,12 @@ func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSett
 // `Medium`.
 //
 // GET /phone/users/{userId}/voice_mails
-func (c *Client) PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (PhoneUserVoiceMailsRes, error) {
+func (c *Client) PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (*PhoneUserVoiceMailsOK, error) {
 	res, err := c.sendPhoneUserVoiceMails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (res PhoneUserVoiceMailsRes, err error) {
+func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (res *PhoneUserVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserVoiceMails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -42437,12 +42438,12 @@ func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVo
 // `Heavy`.
 //
 // POST /phone/devices/{deviceId}/reboot
-func (c *Client) RebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) (RebootPhoneDeviceRes, error) {
-	res, err := c.sendRebootPhoneDevice(ctx, params)
-	return res, err
+func (c *Client) RebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) error {
+	_, err := c.sendRebootPhoneDevice(ctx, params)
+	return err
 }
 
-func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) (res RebootPhoneDeviceRes, err error) {
+func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) (res *RebootPhoneDeviceAccepted, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("rebootPhoneDevice"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -42581,12 +42582,12 @@ func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDe
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}/policies/{policyType}
-func (c *Client) RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) (RemoveCQPolicySubSettingRes, error) {
-	res, err := c.sendRemoveCQPolicySubSetting(ctx, params)
-	return res, err
+func (c *Client) RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) error {
+	_, err := c.sendRemoveCQPolicySubSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) (res RemoveCQPolicySubSettingRes, err error) {
+func (c *Client) sendRemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) (res *RemoveCQPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeCQPolicySubSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -42769,12 +42770,12 @@ func (c *Client) sendRemoveCQPolicySubSetting(ctx context.Context, params Remove
 // `Light`.
 //
 // DELETE /phone/group_call_pickup/{groupId}/members/{extensionId}
-func (c *Client) RemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) (RemoveGCPMembersRes, error) {
-	res, err := c.sendRemoveGCPMembers(ctx, params)
-	return res, err
+func (c *Client) RemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) error {
+	_, err := c.sendRemoveGCPMembers(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) (res RemoveGCPMembersRes, err error) {
+func (c *Client) sendRemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) (res *RemoveGCPMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeGCPMembers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -42930,12 +42931,12 @@ func (c *Client) sendRemoveGCPMembers(ctx context.Context, params RemoveGCPMembe
 // `Light`.
 //
 // DELETE /phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}
-func (c *Client) RemoveMember(ctx context.Context, params RemoveMemberParams) (RemoveMemberRes, error) {
-	res, err := c.sendRemoveMember(ctx, params)
-	return res, err
+func (c *Client) RemoveMember(ctx context.Context, params RemoveMemberParams) error {
+	_, err := c.sendRemoveMember(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams) (res RemoveMemberRes, err error) {
+func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams) (res *RemoveMemberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeMember"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -43112,12 +43113,12 @@ func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams
 // `Light`.
 //
 // DELETE /phone/monitoring_groups/{monitoringGroupId}/monitor_members
-func (c *Client) RemoveMembers(ctx context.Context, params RemoveMembersParams) (RemoveMembersRes, error) {
-	res, err := c.sendRemoveMembers(ctx, params)
-	return res, err
+func (c *Client) RemoveMembers(ctx context.Context, params RemoveMembersParams) error {
+	_, err := c.sendRemoveMembers(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersParams) (res RemoveMembersRes, err error) {
+func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersParams) (res *RemoveMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeMembers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -43272,12 +43273,12 @@ func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersPara
 // `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{slgId}/policies/{policyType}
-func (c *Client) RemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) (RemoveSLGPolicySubSettingRes, error) {
-	res, err := c.sendRemoveSLGPolicySubSetting(ctx, params)
-	return res, err
+func (c *Client) RemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) error {
+	_, err := c.sendRemoveSLGPolicySubSetting(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) (res RemoveSLGPolicySubSettingRes, err error) {
+func (c *Client) sendRemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) (res *RemoveSLGPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeSLGPolicySubSetting"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -43461,12 +43462,12 @@ func (c *Client) sendRemoveSLGPolicySubSetting(ctx context.Context, params Remov
 // `Light`.
 //
 // DELETE /phone/rooms/{roomId}
-func (c *Client) RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) (RemoveZoomRoomRes, error) {
-	res, err := c.sendRemoveZoomRoom(ctx, params)
-	return res, err
+func (c *Client) RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) error {
+	_, err := c.sendRemoveZoomRoom(ctx, params)
+	return err
 }
 
-func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) (res RemoveZoomRoomRes, err error) {
+func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) (res *RemoveZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("RemoveZoomRoom"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -43602,12 +43603,12 @@ func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomPa
 // `MEDIUM`.
 //
 // GET /phone/sms/sessions/{sessionId}/messages/{messageId}
-func (c *Client) SmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (SmsByMessageIdRes, error) {
+func (c *Client) SmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (*SmsByMessageIdOK, error) {
 	res, err := c.sendSmsByMessageId(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (res SmsByMessageIdRes, err error) {
+func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (res *SmsByMessageIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsByMessageId"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -43762,12 +43763,12 @@ func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdPa
 // `Medium`.
 //
 // GET /phone/sms/sessions/{sessionId}
-func (c *Client) SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (SmsSessionDetailsRes, error) {
+func (c *Client) SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (*SmsSessionDetailsOK, error) {
 	res, err := c.sendSmsSessionDetails(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (res SmsSessionDetailsRes, err error) {
+func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (res *SmsSessionDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsSessionDetails"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -43992,12 +43993,12 @@ func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDet
 // `Medium`.
 //
 // GET /phone/sms/sessions/{sessionId}/sync
-func (c *Client) SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (SmsSessionSyncRes, error) {
+func (c *Client) SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (*SmsSessionSyncOK, error) {
 	res, err := c.sendSmsSessionSync(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (res SmsSessionSyncRes, err error) {
+func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (res *SmsSessionSyncOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsSessionSync"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -44190,12 +44191,12 @@ func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncPa
 // `Heavy`.
 //
 // POST /phone/devices/sync
-func (c *Client) SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) (SyncPhoneDeviceRes, error) {
-	res, err := c.sendSyncPhoneDevice(ctx, request)
-	return res, err
+func (c *Client) SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) error {
+	_, err := c.sendSyncPhoneDevice(ctx, request)
+	return err
 }
 
-func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) (res SyncPhoneDeviceRes, err error) {
+func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) (res *SyncPhoneDeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("syncPhoneDevice"),
 		semconv.HTTPMethodKey.String("POST"),
@@ -44319,12 +44320,12 @@ func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDe
 // `MEDIUM`.
 //
 // GET /phone/users/{userId}/call_logs/sync
-func (c *Client) SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (SyncUserCallLogsRes, error) {
+func (c *Client) SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (*SyncUserCallLogsOK, error) {
 	res, err := c.sendSyncUserCallLogs(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (res SyncUserCallLogsRes, err error) {
+func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (res *SyncUserCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("syncUserCallLogs"),
 		semconv.HTTPMethodKey.String("GET"),
@@ -44520,12 +44521,12 @@ func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLo
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) (UnAssignPhoneNumCallQueueRes, error) {
-	res, err := c.sendUnAssignPhoneNumCallQueue(ctx, params)
-	return res, err
+func (c *Client) UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) error {
+	_, err := c.sendUnAssignPhoneNumCallQueue(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) (res UnAssignPhoneNumCallQueueRes, err error) {
+func (c *Client) sendUnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) (res *UnAssignPhoneNumCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unAssignPhoneNumCallQueue"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -44682,12 +44683,12 @@ func (c *Client) sendUnAssignPhoneNumCallQueue(ctx context.Context, params UnAss
 // `Light`.
 //
 // DELETE /phone/auto_receptionists/{autoReceptionistId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) (UnassignAPhoneNumAutoReceptionistRes, error) {
-	res, err := c.sendUnassignAPhoneNumAutoReceptionist(ctx, params)
-	return res, err
+func (c *Client) UnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) error {
+	_, err := c.sendUnassignAPhoneNumAutoReceptionist(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) (res UnassignAPhoneNumAutoReceptionistRes, err error) {
+func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) (res *UnassignAPhoneNumAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAPhoneNumAutoReceptionist"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -44846,12 +44847,12 @@ func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, para
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}/phone_numbers
-func (c *Client) UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) (UnassignAPhoneNumCallQueueRes, error) {
-	res, err := c.sendUnassignAPhoneNumCallQueue(ctx, params)
-	return res, err
+func (c *Client) UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) error {
+	_, err := c.sendUnassignAPhoneNumCallQueue(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) (res UnassignAPhoneNumCallQueueRes, err error) {
+func (c *Client) sendUnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) (res *UnassignAPhoneNumCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAPhoneNumCallQueue"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -44989,12 +44990,12 @@ func (c *Client) sendUnassignAPhoneNumCallQueue(ctx context.Context, params Unas
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}/members
-func (c *Client) UnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) (UnassignAllMembersRes, error) {
-	res, err := c.sendUnassignAllMembers(ctx, params)
-	return res, err
+func (c *Client) UnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) error {
+	_, err := c.sendUnassignAllMembers(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) (res UnassignAllMembersRes, err error) {
+func (c *Client) sendUnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) (res *UnassignAllMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAllMembers"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45133,12 +45134,12 @@ func (c *Client) sendUnassignAllMembers(ctx context.Context, params UnassignAllM
 // `LIGHT`.
 //
 // DELETE /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
-func (c *Client) UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) (UnassignAllPhoneNumsAutoReceptionistRes, error) {
-	res, err := c.sendUnassignAllPhoneNumsAutoReceptionist(ctx, params)
-	return res, err
+func (c *Client) UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) error {
+	_, err := c.sendUnassignAllPhoneNumsAutoReceptionist(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) (res UnassignAllPhoneNumsAutoReceptionistRes, err error) {
+func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) (res *UnassignAllPhoneNumsAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAllPhoneNumsAutoReceptionist"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45279,12 +45280,12 @@ func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, p
 // `Light`.
 //
 // DELETE /phone/users/{userId}/calling_plans/{type}
-func (c *Client) UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) (UnassignCallingPlanRes, error) {
-	res, err := c.sendUnassignCallingPlan(ctx, params)
-	return res, err
+func (c *Client) UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) error {
+	_, err := c.sendUnassignCallingPlan(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) (res UnassignCallingPlanRes, err error) {
+func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) (res *UnassignCallingPlanNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlan"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45463,12 +45464,12 @@ func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCal
 // `Light`.
 //
 // DELETE /phone/rooms/{roomId}/calling_plans/{type}
-func (c *Client) UnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) (UnassignCallingPlanFromRoomRes, error) {
-	res, err := c.sendUnassignCallingPlanFromRoom(ctx, params)
-	return res, err
+func (c *Client) UnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) error {
+	_, err := c.sendUnassignCallingPlanFromRoom(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) (res UnassignCallingPlanFromRoomRes, err error) {
+func (c *Client) sendUnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) (res *UnassignCallingPlanFromRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlanFromRoom"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45645,12 +45646,12 @@ func (c *Client) sendUnassignCallingPlanFromRoom(ctx context.Context, params Una
 // `Light`.
 //
 // DELETE /phone/common_areas/{commonAreaId}/calling_plans/{type}
-func (c *Client) UnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) (UnassignCallingPlansFromCommonAreaRes, error) {
-	res, err := c.sendUnassignCallingPlansFromCommonArea(ctx, params)
-	return res, err
+func (c *Client) UnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) error {
+	_, err := c.sendUnassignCallingPlansFromCommonArea(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) (res UnassignCallingPlansFromCommonAreaRes, err error) {
+func (c *Client) sendUnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) (res *UnassignCallingPlansFromCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlansFromCommonArea"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45829,12 +45830,12 @@ func (c *Client) sendUnassignCallingPlansFromCommonArea(ctx context.Context, par
 // `Light`.
 //
 // DELETE /phone/sms_campaigns/{smsCampaignId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) (UnassignCampaignPhoneNumberRes, error) {
-	res, err := c.sendUnassignCampaignPhoneNumber(ctx, params)
-	return res, err
+func (c *Client) UnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) error {
+	_, err := c.sendUnassignCampaignPhoneNumber(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) (res UnassignCampaignPhoneNumberRes, err error) {
+func (c *Client) sendUnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) (res *UnassignCampaignPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCampaignPhoneNumber"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -45990,12 +45991,12 @@ func (c *Client) sendUnassignCampaignPhoneNumber(ctx context.Context, params Una
 // `Light`.
 //
 // DELETE /phone/call_queues/{callQueueId}/members/{memberId}
-func (c *Client) UnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) (UnassignMemberFromCallQueueRes, error) {
-	res, err := c.sendUnassignMemberFromCallQueue(ctx, params)
-	return res, err
+func (c *Client) UnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) error {
+	_, err := c.sendUnassignMemberFromCallQueue(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) (res UnassignMemberFromCallQueueRes, err error) {
+func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) (res *UnassignMemberFromCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignMemberFromCallQueue"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -46153,12 +46154,12 @@ func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params Una
 // `Light`.
 //
 // DELETE /phone/users/{userId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) (UnassignPhoneNumberRes, error) {
-	res, err := c.sendUnassignPhoneNumber(ctx, params)
-	return res, err
+func (c *Client) UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) error {
+	_, err := c.sendUnassignPhoneNumber(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) (res UnassignPhoneNumberRes, err error) {
+func (c *Client) sendUnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) (res *UnassignPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UnassignPhoneNumber"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -46317,12 +46318,12 @@ func (c *Client) sendUnassignPhoneNumber(ctx context.Context, params UnassignPho
 // `Light`.
 //
 // DELETE /phone/rooms/{roomId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) (UnassignPhoneNumberFromZoomRoomRes, error) {
-	res, err := c.sendUnassignPhoneNumberFromZoomRoom(ctx, params)
-	return res, err
+func (c *Client) UnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) error {
+	_, err := c.sendUnassignPhoneNumberFromZoomRoom(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) (res UnassignPhoneNumberFromZoomRoomRes, err error) {
+func (c *Client) sendUnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) (res *UnassignPhoneNumberFromZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UnassignPhoneNumberFromZoomRoom"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -46478,12 +46479,12 @@ func (c *Client) sendUnassignPhoneNumberFromZoomRoom(ctx context.Context, params
 // `Light`.
 //
 // DELETE /phone/common_areas/{commonAreaId}/phone_numbers/{phoneNumberId}
-func (c *Client) UnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) (UnassignPhoneNumbersFromCommonAreaRes, error) {
-	res, err := c.sendUnassignPhoneNumbersFromCommonArea(ctx, params)
-	return res, err
+func (c *Client) UnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) error {
+	_, err := c.sendUnassignPhoneNumbersFromCommonArea(ctx, params)
+	return err
 }
 
-func (c *Client) sendUnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) (res UnassignPhoneNumbersFromCommonAreaRes, err error) {
+func (c *Client) sendUnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) (res *UnassignPhoneNumbersFromCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignPhoneNumbersFromCommonArea"),
 		semconv.HTTPMethodKey.String("DELETE"),
@@ -46638,12 +46639,12 @@ func (c *Client) sendUnassignPhoneNumbersFromCommonArea(ctx context.Context, par
 // `LIGHT`.
 //
 // PATCH /phone/devices/{deviceId}
-func (c *Client) UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) (UpdateADeviceRes, error) {
-	res, err := c.sendUpdateADevice(ctx, request, params)
-	return res, err
+func (c *Client) UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) error {
+	_, err := c.sendUpdateADevice(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) (res UpdateADeviceRes, err error) {
+func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) (res *UpdateADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateADevice"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -46782,12 +46783,12 @@ func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADevice
 // `LIGHT`.
 //
 // PATCH /phone/inbound_blocked/rules/{blockedRuleId}
-func (c *Client) UpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) (UpdateAccountLevelInboundBlockRuleRes, error) {
-	res, err := c.sendUpdateAccountLevelInboundBlockRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) error {
+	_, err := c.sendUpdateAccountLevelInboundBlockRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) (res UpdateAccountLevelInboundBlockRuleRes, err error) {
+func (c *Client) sendUpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) (res *UpdateAccountLevelInboundBlockRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountLevelInboundBlockRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -46925,12 +46926,12 @@ func (c *Client) sendUpdateAccountLevelInboundBlockRule(ctx context.Context, req
 // `LIGHT`.
 //
 // PATCH /phone/outbound_calling/countries_regions
-func (c *Client) UpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) (UpdateAccountOutboundCallingCountriesOrRegionsRes, error) {
-	res, err := c.sendUpdateAccountOutboundCallingCountriesOrRegions(ctx, request)
-	return res, err
+func (c *Client) UpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) error {
+	_, err := c.sendUpdateAccountOutboundCallingCountriesOrRegions(ctx, request)
+	return err
 }
 
-func (c *Client) sendUpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) (res UpdateAccountOutboundCallingCountriesOrRegionsRes, err error) {
+func (c *Client) sendUpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) (res *UpdateAccountOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountOutboundCallingCountriesOrRegions"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47051,12 +47052,12 @@ func (c *Client) sendUpdateAccountOutboundCallingCountriesOrRegions(ctx context.
 // `LIGHT`.
 //
 // PATCH /phone/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) UpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) (UpdateAccountOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendUpdateAccountOutboundCallingExceptionRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendUpdateAccountOutboundCallingExceptionRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) (res UpdateAccountOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendUpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) (res *UpdateAccountOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47195,12 +47196,12 @@ func (c *Client) sendUpdateAccountOutboundCallingExceptionRule(ctx context.Conte
 // `LIGHT`.
 //
 // PATCH /phone/alert_settings/{alertSettingId}
-func (c *Client) UpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) (UpdateAnAlertSettingRes, error) {
-	res, err := c.sendUpdateAnAlertSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) error {
+	_, err := c.sendUpdateAnAlertSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) (res UpdateAnAlertSettingRes, err error) {
+func (c *Client) sendUpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) (res *UpdateAnAlertSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAnAlertSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47339,12 +47340,12 @@ func (c *Client) sendUpdateAnAlertSetting(ctx context.Context, request OptUpdate
 // `LIGHT`.
 //
 // PATCH /phone/audios/{audioId}
-func (c *Client) UpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) (UpdateAudioItemRes, error) {
-	res, err := c.sendUpdateAudioItem(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) error {
+	_, err := c.sendUpdateAudioItem(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) (res UpdateAudioItemRes, err error) {
+func (c *Client) sendUpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) (res *UpdateAudioItemNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAudioItem"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47484,12 +47485,12 @@ func (c *Client) sendUpdateAudioItem(ctx context.Context, request OptUpdateAudio
 // `LIGHT`.
 //
 // PATCH /phone/recordings/{recordingId}
-func (c *Client) UpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) (UpdateAutoDeleteFieldRes, error) {
-	res, err := c.sendUpdateAutoDeleteField(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) error {
+	_, err := c.sendUpdateAutoDeleteField(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) (res UpdateAutoDeleteFieldRes, err error) {
+func (c *Client) sendUpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) (res *UpdateAutoDeleteFieldNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAutoDeleteField"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47632,12 +47633,12 @@ func (c *Client) sendUpdateAutoDeleteField(ctx context.Context, request OptUpdat
 // `LIGHT`.
 //
 // PATCH /phone/auto_receptionists/{autoReceptionistId}
-func (c *Client) UpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) (UpdateAutoReceptionistRes, error) {
-	res, err := c.sendUpdateAutoReceptionist(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) error {
+	_, err := c.sendUpdateAutoReceptionist(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) (res UpdateAutoReceptionistRes, err error) {
+func (c *Client) sendUpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) (res *UpdateAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionist"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47777,12 +47778,12 @@ func (c *Client) sendUpdateAutoReceptionist(ctx context.Context, request OptUpda
 // `Light`.
 //
 // PATCH /phone/auto_receptionists/{autoReceptionistId}/ivr
-func (c *Client) UpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) (UpdateAutoReceptionistIVRRes, error) {
-	res, err := c.sendUpdateAutoReceptionistIVR(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) error {
+	_, err := c.sendUpdateAutoReceptionistIVR(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) (res UpdateAutoReceptionistIVRRes, err error) {
+func (c *Client) sendUpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) (res *UpdateAutoReceptionistIVRNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionistIVR"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -47923,12 +47924,12 @@ func (c *Client) sendUpdateAutoReceptionistIVR(ctx context.Context, request OptU
 // `Light`.
 //
 // PATCH /phone/auto_receptionists/{autoReceptionistId}/policies
-func (c *Client) UpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) (UpdateAutoReceptionistPolicyRes, error) {
-	res, err := c.sendUpdateAutoReceptionistPolicy(ctx, request, params)
-	return res, err
+func (c *Client) UpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) error {
+	_, err := c.sendUpdateAutoReceptionistPolicy(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) (res UpdateAutoReceptionistPolicyRes, err error) {
+func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) (res *UpdateAutoReceptionistPolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionistPolicy"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48070,12 +48071,12 @@ func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request O
 // `Light`.
 //
 // PATCH /phone/call_queues/{callQueueId}/policies/{policyType}
-func (c *Client) UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) (UpdateCQPolicySubSettingRes, error) {
-	res, err := c.sendUpdateCQPolicySubSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) error {
+	_, err := c.sendUpdateCQPolicySubSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) (res UpdateCQPolicySubSettingRes, err error) {
+func (c *Client) sendUpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) (res *UpdateCQPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCQPolicySubSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48239,12 +48240,12 @@ func (c *Client) sendUpdateCQPolicySubSetting(ctx context.Context, request OptUp
 // `LIGHT`.
 //
 // PATCH /phone/extension/{extensionId}/call_handling/settings/{settingType}
-func (c *Client) UpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) (UpdateCallHandlingRes, error) {
-	res, err := c.sendUpdateCallHandling(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) error {
+	_, err := c.sendUpdateCallHandling(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) (res UpdateCallHandlingRes, err error) {
+func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) (res *UpdateCallHandlingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallHandling"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48406,12 +48407,12 @@ func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCa
 // `Light`.
 //
 // PATCH /phone/call_queues/{callQueueId}
-func (c *Client) UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) (UpdateCallQueueRes, error) {
-	res, err := c.sendUpdateCallQueue(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) error {
+	_, err := c.sendUpdateCallQueue(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) (res UpdateCallQueueRes, err error) {
+func (c *Client) sendUpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) (res *UpdateCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallQueue"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48554,12 +48555,12 @@ func (c *Client) sendUpdateCallQueue(ctx context.Context, request OptUpdateCallQ
 // `Light`.
 //
 // PUT /phone/users/{userId}/calling_plans
-func (c *Client) UpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) (UpdateCallingPlanRes, error) {
-	res, err := c.sendUpdateCallingPlan(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) error {
+	_, err := c.sendUpdateCallingPlan(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) (res UpdateCallingPlanRes, err error) {
+func (c *Client) sendUpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) (res *UpdateCallingPlanNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallingPlan"),
 		semconv.HTTPMethodKey.String("PUT"),
@@ -48700,12 +48701,12 @@ func (c *Client) sendUpdateCallingPlan(ctx context.Context, request OptUpdateCal
 // `Light`.
 //
 // PATCH /phone/common_areas/{commonAreaId}
-func (c *Client) UpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) (UpdateCommonAreaRes, error) {
-	res, err := c.sendUpdateCommonArea(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) error {
+	_, err := c.sendUpdateCommonArea(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) (res UpdateCommonAreaRes, err error) {
+func (c *Client) sendUpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) (res *UpdateCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCommonArea"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48843,12 +48844,12 @@ func (c *Client) sendUpdateCommonArea(ctx context.Context, request OptUpdateComm
 // `LIGHT`.
 //
 // PATCH /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
-func (c *Client) UpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) (UpdateCommonAreaOutboundCallingCountriesOrRegionsRes, error) {
-	res, err := c.sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) error {
+	_, err := c.sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) (res UpdateCommonAreaOutboundCallingCountriesOrRegionsRes, err error) {
+func (c *Client) sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) (res *UpdateCommonAreaOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaOutboundCallingCountriesOrRegions"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -48988,12 +48989,12 @@ func (c *Client) sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx conte
 // `LIGHT`.
 //
 // PATCH /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) (UpdateCommonAreaOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendUpdateCommonAreaOutboundCallingExceptionRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendUpdateCommonAreaOutboundCallingExceptionRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) (res UpdateCommonAreaOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) (res *UpdateCommonAreaOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49153,12 +49154,12 @@ func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Co
 // `Light`.
 //
 // PATCH /phone/common_areas/{commonAreaId}/settings/{settingType}
-func (c *Client) UpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) (UpdateCommonAreaSettingRes, error) {
-	res, err := c.sendUpdateCommonAreaSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) error {
+	_, err := c.sendUpdateCommonAreaSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) (res UpdateCommonAreaSettingRes, err error) {
+func (c *Client) sendUpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) (res *UpdateCommonAreaSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49317,12 +49318,12 @@ func (c *Client) sendUpdateCommonAreaSetting(ctx context.Context, request OptUpd
 // `Light`.
 //
 // PATCH /phone/emergency_addresses/{emergencyAddressId}
-func (c *Client) UpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (UpdateEmergencyAddressRes, error) {
+func (c *Client) UpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (*UpdateEmergencyAddressOK, error) {
 	res, err := c.sendUpdateEmergencyAddress(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendUpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (res UpdateEmergencyAddressRes, err error) {
+func (c *Client) sendUpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (res *UpdateEmergencyAddressOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateEmergencyAddress"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49461,12 +49462,12 @@ func (c *Client) sendUpdateEmergencyAddress(ctx context.Context, request OptUpda
 // `Light`.
 //
 // PATCH /phone/external_contacts/{externalContactId}
-func (c *Client) UpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) (UpdateExternalContactRes, error) {
-	res, err := c.sendUpdateExternalContact(ctx, request, params)
-	return res, err
+func (c *Client) UpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) error {
+	_, err := c.sendUpdateExternalContact(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) (res UpdateExternalContactRes, err error) {
+func (c *Client) sendUpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) (res *UpdateExternalContactNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateExternalContact"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49606,12 +49607,12 @@ func (c *Client) sendUpdateExternalContact(ctx context.Context, request OptUpdat
 // `Light`.
 //
 // PATCH /phone/firmware_update_rules/{ruleId}
-func (c *Client) UpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) (UpdateFirmwareRuleRes, error) {
-	res, err := c.sendUpdateFirmwareRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) error {
+	_, err := c.sendUpdateFirmwareRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) (res UpdateFirmwareRuleRes, err error) {
+func (c *Client) sendUpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) (res *UpdateFirmwareRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateFirmwareRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49751,12 +49752,12 @@ func (c *Client) sendUpdateFirmwareRule(ctx context.Context, request OptUpdateFi
 // `Light`.
 //
 // PATCH /phone/group_call_pickup/{groupId}
-func (c *Client) UpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) (UpdateGCPRes, error) {
-	res, err := c.sendUpdateGCP(ctx, request, params)
-	return res, err
+func (c *Client) UpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) error {
+	_, err := c.sendUpdateGCP(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) (res UpdateGCPRes, err error) {
+func (c *Client) sendUpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) (res *UpdateGCPNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateGCP"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -49895,12 +49896,12 @@ func (c *Client) sendUpdateGCP(ctx context.Context, request OptUpdateGCPReq, par
 // `Light`.
 //
 // PATCH /phone/locations/{locationId}
-func (c *Client) UpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) (UpdateLocationRes, error) {
-	res, err := c.sendUpdateLocation(ctx, request, params)
-	return res, err
+func (c *Client) UpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) error {
+	_, err := c.sendUpdateLocation(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) (res UpdateLocationRes, err error) {
+func (c *Client) sendUpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) (res *UpdateLocationNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateLocation"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50040,12 +50041,12 @@ func (c *Client) sendUpdateLocation(ctx context.Context, request OptUpdateLocati
 // `Light`.
 //
 // PATCH /phone/monitoring_groups/{monitoringGroupId}
-func (c *Client) UpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) (UpdateMonitoringGroupRes, error) {
-	res, err := c.sendUpdateMonitoringGroup(ctx, request, params)
-	return res, err
+func (c *Client) UpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) error {
+	_, err := c.sendUpdateMonitoringGroup(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) (res UpdateMonitoringGroupRes, err error) {
+func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) (res *UpdateMonitoringGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateMonitoringGroup"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50187,12 +50188,12 @@ func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdat
 // `Light`.
 //
 // PATCH /phone/peering/numbers
-func (c *Client) UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (UpdatePeeringPhoneNumbersRes, error) {
+func (c *Client) UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (*UpdatePeeringPhoneNumbersOK, error) {
 	res, err := c.sendUpdatePeeringPhoneNumbers(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (res UpdatePeeringPhoneNumbersRes, err error) {
+func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (res *UpdatePeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePeeringPhoneNumbers"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50312,12 +50313,12 @@ func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptU
 // `Light`.
 //
 // PATCH /phone/numbers/{phoneNumberId}
-func (c *Client) UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) (UpdatePhoneNumberDetailsRes, error) {
-	res, err := c.sendUpdatePhoneNumberDetails(ctx, request, params)
-	return res, err
+func (c *Client) UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) error {
+	_, err := c.sendUpdatePhoneNumberDetails(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) (res UpdatePhoneNumberDetailsRes, err error) {
+func (c *Client) sendUpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) (res *UpdatePhoneNumberDetailsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePhoneNumberDetails"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50456,12 +50457,12 @@ func (c *Client) sendUpdatePhoneNumberDetails(ctx context.Context, request OptUp
 // `Light`.
 //
 // PATCH /phone/roles/{roleId}
-func (c *Client) UpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) (UpdatePhoneRoleRes, error) {
-	res, err := c.sendUpdatePhoneRole(ctx, request, params)
-	return res, err
+func (c *Client) UpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) error {
+	_, err := c.sendUpdatePhoneRole(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) (res UpdatePhoneRoleRes, err error) {
+func (c *Client) sendUpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) (res *UpdatePhoneRoleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdatePhoneRole"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50597,12 +50598,12 @@ func (c *Client) sendUpdatePhoneRole(ctx context.Context, request OptUpdatePhone
 // **Granular Scopes:** `phone:update:settings:admin`.
 //
 // PATCH /phone/settings
-func (c *Client) UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) (UpdatePhoneSettingsRes, error) {
-	res, err := c.sendUpdatePhoneSettings(ctx, request)
-	return res, err
+func (c *Client) UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) error {
+	_, err := c.sendUpdatePhoneSettings(ctx, request)
+	return err
 }
 
-func (c *Client) sendUpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) (res UpdatePhoneSettingsRes, err error) {
+func (c *Client) sendUpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) (res *UpdatePhoneSettingsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePhoneSettings"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50725,12 +50726,12 @@ func (c *Client) sendUpdatePhoneSettings(ctx context.Context, request OptUpdateP
 // `LIGHT`.
 //
 // PATCH /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
-func (c *Client) UpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) (UpdatePolicyRes, error) {
-	res, err := c.sendUpdatePolicy(ctx, request, params)
-	return res, err
+func (c *Client) UpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) error {
+	_, err := c.sendUpdatePolicy(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) (res UpdatePolicyRes, err error) {
+func (c *Client) sendUpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) (res *UpdatePolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePolicy"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -50889,12 +50890,12 @@ func (c *Client) sendUpdatePolicy(ctx context.Context, request OptUpdatePolicyRe
 // `Light`.
 //
 // PATCH /phone/provision_templates/{templateId}
-func (c *Client) UpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) (UpdateProvisionTemplateRes, error) {
-	res, err := c.sendUpdateProvisionTemplate(ctx, request, params)
-	return res, err
+func (c *Client) UpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) error {
+	_, err := c.sendUpdateProvisionTemplate(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) (res UpdateProvisionTemplateRes, err error) {
+func (c *Client) sendUpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) (res *UpdateProvisionTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateProvisionTemplate"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -51038,12 +51039,12 @@ func (c *Client) sendUpdateProvisionTemplate(ctx context.Context, request OptUpd
 // `Light`.
 //
 // PUT /phone/devices/{deviceId}/provision_templates
-func (c *Client) UpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) (UpdateProvisionTemplateToDeviceRes, error) {
-	res, err := c.sendUpdateProvisionTemplateToDevice(ctx, request, params)
-	return res, err
+func (c *Client) UpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) error {
+	_, err := c.sendUpdateProvisionTemplateToDevice(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) (res UpdateProvisionTemplateToDeviceRes, err error) {
+func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) (res *UpdateProvisionTemplateToDeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateProvisionTemplateToDevice"),
 		semconv.HTTPMethodKey.String("PUT"),
@@ -51183,12 +51184,12 @@ func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, reques
 // `LIGHT`.
 //
 // PUT /phone/recordings/{recordingId}/status
-func (c *Client) UpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) (UpdateRecordingStatusRes, error) {
-	res, err := c.sendUpdateRecordingStatus(ctx, request, params)
-	return res, err
+func (c *Client) UpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) error {
+	_, err := c.sendUpdateRecordingStatus(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) (res UpdateRecordingStatusRes, err error) {
+func (c *Client) sendUpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) (res *UpdateRecordingStatusNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateRecordingStatus"),
 		semconv.HTTPMethodKey.String("PUT"),
@@ -51332,12 +51333,12 @@ func (c *Client) sendUpdateRecordingStatus(ctx context.Context, request OptUpdat
 // `Light`.
 //
 // PATCH /phone/routing_rules/{routingRuleId}
-func (c *Client) UpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) (UpdateRoutingRuleRes, error) {
-	res, err := c.sendUpdateRoutingRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) error {
+	_, err := c.sendUpdateRoutingRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) (res UpdateRoutingRuleRes, err error) {
+func (c *Client) sendUpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) (res *UpdateRoutingRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateRoutingRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -51478,12 +51479,12 @@ func (c *Client) sendUpdateRoutingRule(ctx context.Context, request OptUpdateRou
 // `LIGHT`.
 //
 // PATCH /phone/shared_line_groups/{slgId}/policies/{policyType}
-func (c *Client) UpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) (UpdateSLGPolicySubSettingRes, error) {
-	res, err := c.sendUpdateSLGPolicySubSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) error {
+	_, err := c.sendUpdateSLGPolicySubSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) (res UpdateSLGPolicySubSettingRes, err error) {
+func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) (res *UpdateSLGPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSLGPolicySubSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -51641,12 +51642,12 @@ func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptU
 // `Light`.
 //
 // PATCH /phone/setting_templates/{templateId}
-func (c *Client) UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) (UpdateSettingTemplateRes, error) {
-	res, err := c.sendUpdateSettingTemplate(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) error {
+	_, err := c.sendUpdateSettingTemplate(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) (res UpdateSettingTemplateRes, err error) {
+func (c *Client) sendUpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) (res *UpdateSettingTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSettingTemplate"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -51786,12 +51787,12 @@ func (c *Client) sendUpdateSettingTemplate(ctx context.Context, request OptUpdat
 // `LIGHT`.
 //
 // PATCH /phone/shared_line_groups/{sharedLineGroupId}/policies
-func (c *Client) UpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) (UpdateSharedLineGroupPolicyRes, error) {
-	res, err := c.sendUpdateSharedLineGroupPolicy(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) error {
+	_, err := c.sendUpdateSharedLineGroupPolicy(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) (res UpdateSharedLineGroupPolicyRes, err error) {
+func (c *Client) sendUpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) (res *UpdateSharedLineGroupPolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSharedLineGroupPolicy"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -51932,12 +51933,12 @@ func (c *Client) sendUpdateSharedLineGroupPolicy(ctx context.Context, request Op
 // `LIGHT`.
 //
 // PATCH /phone/sites/{siteId}
-func (c *Client) UpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) (UpdateSiteDetailsRes, error) {
-	res, err := c.sendUpdateSiteDetails(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) error {
+	_, err := c.sendUpdateSiteDetails(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) (res UpdateSiteDetailsRes, err error) {
+func (c *Client) sendUpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) (res *UpdateSiteDetailsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteDetails"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52078,12 +52079,12 @@ func (c *Client) sendUpdateSiteDetails(ctx context.Context, request OptUpdateSit
 // `Medium`.
 //
 // PATCH /phone/numbers/sites/{siteId}
-func (c *Client) UpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) (UpdateSiteForUnassignedPhoneNumbersRes, error) {
-	res, err := c.sendUpdateSiteForUnassignedPhoneNumbers(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) error {
+	_, err := c.sendUpdateSiteForUnassignedPhoneNumbers(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) (res UpdateSiteForUnassignedPhoneNumbersRes, err error) {
+func (c *Client) sendUpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) (res *UpdateSiteForUnassignedPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteForUnassignedPhoneNumbers"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52221,12 +52222,12 @@ func (c *Client) sendUpdateSiteForUnassignedPhoneNumbers(ctx context.Context, re
 // `LIGHT`.
 //
 // PATCH /phone/sites/{siteId}/outbound_calling/countries_regions
-func (c *Client) UpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) (UpdateSiteOutboundCallingCountriesOrRegionsRes, error) {
-	res, err := c.sendUpdateSiteOutboundCallingCountriesOrRegions(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) error {
+	_, err := c.sendUpdateSiteOutboundCallingCountriesOrRegions(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) (res UpdateSiteOutboundCallingCountriesOrRegionsRes, err error) {
+func (c *Client) sendUpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) (res *UpdateSiteOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateSiteOutboundCallingCountriesOrRegions"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52366,12 +52367,12 @@ func (c *Client) sendUpdateSiteOutboundCallingCountriesOrRegions(ctx context.Con
 // `LIGHT`.
 //
 // PATCH /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) UpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) (UpdateSiteOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendUpdateSiteOutboundCallingExceptionRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendUpdateSiteOutboundCallingExceptionRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) (res UpdateSiteOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendUpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) (res *UpdateSiteOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateSiteOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52532,12 +52533,12 @@ func (c *Client) sendUpdateSiteOutboundCallingExceptionRule(ctx context.Context,
 // `Light`.
 //
 // PATCH /phone/sites/{siteId}/settings/{settingType}
-func (c *Client) UpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) (UpdateSiteSettingRes, error) {
-	res, err := c.sendUpdateSiteSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) error {
+	_, err := c.sendUpdateSiteSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) (res UpdateSiteSettingRes, err error) {
+func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) (res *UpdateSiteSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52694,12 +52695,12 @@ func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSit
 // `LIGHT`.
 //
 // PATCH /phone/users/{userId}/outbound_calling/countries_regions
-func (c *Client) UpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) (UpdateUserOutboundCallingCountriesOrRegionsRes, error) {
-	res, err := c.sendUpdateUserOutboundCallingCountriesOrRegions(ctx, request, params)
-	return res, err
+func (c *Client) UpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) error {
+	_, err := c.sendUpdateUserOutboundCallingCountriesOrRegions(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) (res UpdateUserOutboundCallingCountriesOrRegionsRes, err error) {
+func (c *Client) sendUpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) (res *UpdateUserOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateUserOutboundCallingCountriesOrRegions"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -52839,12 +52840,12 @@ func (c *Client) sendUpdateUserOutboundCallingCountriesOrRegions(ctx context.Con
 // `LIGHT`.
 //
 // PATCH /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
-func (c *Client) UpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) (UpdateUserOutboundCallingExceptionRuleRes, error) {
-	res, err := c.sendUpdateUserOutboundCallingExceptionRule(ctx, request, params)
-	return res, err
+func (c *Client) UpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) error {
+	_, err := c.sendUpdateUserOutboundCallingExceptionRule(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) (res UpdateUserOutboundCallingExceptionRuleRes, err error) {
+func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) (res *UpdateUserOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateUserOutboundCallingExceptionRule"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -53007,12 +53008,12 @@ func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context,
 // `Light`.
 //
 // PATCH /phone/users/{userId}
-func (c *Client) UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) (UpdateUserProfileRes, error) {
-	res, err := c.sendUpdateUserProfile(ctx, request, params)
-	return res, err
+func (c *Client) UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) error {
+	_, err := c.sendUpdateUserProfile(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) (res UpdateUserProfileRes, err error) {
+func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) (res *UpdateUserProfileNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUserProfile"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -53159,12 +53160,12 @@ func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUse
 // `Light`.
 //
 // PATCH /phone/users/{userId}/settings/{settingType}
-func (c *Client) UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) (UpdateUserSettingRes, error) {
-	res, err := c.sendUpdateUserSetting(ctx, request, params)
-	return res, err
+func (c *Client) UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) error {
+	_, err := c.sendUpdateUserSetting(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) (res UpdateUserSettingRes, err error) {
+func (c *Client) sendUpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) (res *UpdateUserSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUserSetting"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -53472,12 +53473,12 @@ func (c *Client) sendUpdateUserSettings(ctx context.Context, request OptUpdateUs
 // `LIGHT`.
 //
 // PUT /phone/users/batch
-func (c *Client) UpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) (UpdateUsersPropertiesInBatchRes, error) {
-	res, err := c.sendUpdateUsersPropertiesInBatch(ctx, request)
-	return res, err
+func (c *Client) UpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) error {
+	_, err := c.sendUpdateUsersPropertiesInBatch(ctx, request)
+	return err
 }
 
-func (c *Client) sendUpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) (res UpdateUsersPropertiesInBatchRes, err error) {
+func (c *Client) sendUpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) (res *UpdateUsersPropertiesInBatchNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUsersPropertiesInBatch"),
 		semconv.HTTPMethodKey.String("PUT"),
@@ -53599,12 +53600,12 @@ func (c *Client) sendUpdateUsersPropertiesInBatch(ctx context.Context, request O
 // `LIGHT`.
 //
 // PATCH /phone/voice_mails/{voicemailId}
-func (c *Client) UpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) (UpdateVoicemailReadStatusRes, error) {
-	res, err := c.sendUpdateVoicemailReadStatus(ctx, params)
-	return res, err
+func (c *Client) UpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) error {
+	_, err := c.sendUpdateVoicemailReadStatus(ctx, params)
+	return err
 }
 
-func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) (res UpdateVoicemailReadStatusRes, err error) {
+func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) (res *UpdateVoicemailReadStatusNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateVoicemailReadStatus"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -53759,12 +53760,12 @@ func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params Updat
 // `Light`.
 //
 // PATCH /phone/rooms/{roomId}
-func (c *Client) UpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) (UpdateZoomRoomRes, error) {
-	res, err := c.sendUpdateZoomRoom(ctx, request, params)
-	return res, err
+func (c *Client) UpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) error {
+	_, err := c.sendUpdateZoomRoom(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendUpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) (res UpdateZoomRoomRes, err error) {
+func (c *Client) sendUpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) (res *UpdateZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateZoomRoom"),
 		semconv.HTTPMethodKey.String("PATCH"),
@@ -53905,12 +53906,12 @@ func (c *Client) sendUpdateZoomRoom(ctx context.Context, request OptUpdateZoomRo
 // `MEDIUM`.
 //
 // GET /phone/users/{userId}/sms/sessions
-func (c *Client) UserSmsSession(ctx context.Context, params UserSmsSessionParams) (UserSmsSessionRes, error) {
+func (c *Client) UserSmsSession(ctx context.Context, params UserSmsSessionParams) (*UserSmsSessionOK, error) {
 	res, err := c.sendUserSmsSession(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendUserSmsSession(ctx context.Context, params UserSmsSessionParams) (res UserSmsSessionRes, err error) {
+func (c *Client) sendUserSmsSession(ctx context.Context, params UserSmsSessionParams) (res *UserSmsSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSmsSession"),
 		semconv.HTTPMethodKey.String("GET"),

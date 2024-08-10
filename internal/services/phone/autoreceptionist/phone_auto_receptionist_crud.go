@@ -58,17 +58,12 @@ func (c *phoneAutoReceptionistCrud) create(ctx context.Context, dto createDto) (
 	if err != nil {
 		return nil, fmt.Errorf("error creating phone auto receptionist: %v", err)
 	}
-	if bad, ok := res.(*zoomphone.AddAutoReceptionistBadRequest); ok {
-		return nil, fmt.Errorf("error creating phone auto receptionist: bad request %v", bad)
-	}
-	if created, ok := res.(*zoomphone.AddAutoReceptionistCreated); ok {
-		return &createdDto{
-			autoReceptionistID: util.FromOptString(created.ID),
-			name:               util.FromOptString(created.Name),
-			extensionNumber:    util.FromOptInt64(created.ExtensionNumber),
-		}, nil
-	}
-	return nil, fmt.Errorf("error creating phone auto receptionist: invalid implementation %v", res)
+
+	return &createdDto{
+		autoReceptionistID: util.FromOptString(res.ID),
+		name:               util.FromOptString(res.Name),
+		extensionNumber:    util.FromOptInt64(res.ExtensionNumber),
+	}, nil
 }
 
 func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) error {
@@ -83,7 +78,8 @@ func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) e
 			return fmt.Errorf("invalid audio prompt language: %v", dto.audioPromptLanguage.ValueString())
 		}
 	}
-	ret, err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
+
+	err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
 		Value: zoomphone.UpdateAutoReceptionistReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
 			CostCenter:          zoomphone.NewOptString(util.ToOptString(dto.costCenter).Or("")),
@@ -100,14 +96,12 @@ func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) e
 	if err != nil {
 		return fmt.Errorf("error updating phone auto receptionist: %v", err)
 	}
-	if _, ok := ret.(*zoomphone.UpdateAutoReceptionistNoContent); !ok {
-		return fmt.Errorf("error updating phone auto receptionist: %v", ret)
-	}
+
 	return nil
 }
 
 func (c *phoneAutoReceptionistCrud) delete(ctx context.Context, autoReceptionistId string) error {
-	ret, err := c.client.DeleteAutoReceptionist(ctx, zoomphone.DeleteAutoReceptionistParams{
+	err := c.client.DeleteAutoReceptionist(ctx, zoomphone.DeleteAutoReceptionistParams{
 		AutoReceptionistId: autoReceptionistId,
 	})
 	if util.IsUnexpectedStatusCodeError(err, 405) {
@@ -116,8 +110,6 @@ func (c *phoneAutoReceptionistCrud) delete(ctx context.Context, autoReceptionist
 	if err != nil {
 		return fmt.Errorf("error deleting phone auto receptionist: %v", err)
 	}
-	if _, ok := ret.(*zoomphone.DeleteAutoReceptionistNoContent); !ok {
-		return fmt.Errorf("error deleting phone auto receptionist: %v, %T", ret, ret)
-	}
+
 	return nil
 }

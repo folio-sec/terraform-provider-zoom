@@ -15,7 +15,7 @@ import (
 	"github.com/ogen-go/ogen/validate"
 )
 
-func decodeAccountCallHistoryResponse(resp *http.Response) (res AccountCallHistoryRes, _ error) {
+func decodeAccountCallHistoryResponse(resp *http.Response) (res *AccountCallHistoryOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -61,9 +61,6 @@ func decodeAccountCallHistoryResponse(resp *http.Response) (res AccountCallHisto
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AccountCallHistoryBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -110,7 +107,7 @@ func decodeAccountCallHistoryResponse(resp *http.Response) (res AccountCallHisto
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAccountCallLogsResponse(resp *http.Response) (res AccountCallLogsRes, _ error) {
+func decodeAccountCallLogsResponse(resp *http.Response) (res *AccountCallLogsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -156,9 +153,6 @@ func decodeAccountCallLogsResponse(resp *http.Response) (res AccountCallLogsRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &AccountCallLogsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -205,7 +199,7 @@ func decodeAccountCallLogsResponse(resp *http.Response) (res AccountCallLogsRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAccountSmsSessionResponse(resp *http.Response) (res AccountSmsSessionRes, _ error) {
+func decodeAccountSmsSessionResponse(resp *http.Response) (res *AccountSmsSessionOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -251,15 +245,6 @@ func decodeAccountSmsSessionResponse(resp *http.Response) (res AccountSmsSession
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AccountSmsSessionBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AccountSmsSessionUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &AccountSmsSessionNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -306,7 +291,7 @@ func decodeAccountSmsSessionResponse(resp *http.Response) (res AccountSmsSession
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAccountVoiceMailsResponse(resp *http.Response) (res AccountVoiceMailsRes, _ error) {
+func decodeAccountVoiceMailsResponse(resp *http.Response) (res *AccountVoiceMailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -352,9 +337,6 @@ func decodeAccountVoiceMailsResponse(resp *http.Response) (res AccountVoiceMails
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 401:
-		// Code 401.
-		return &AccountVoiceMailsUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -401,14 +383,11 @@ func decodeAccountVoiceMailsResponse(resp *http.Response) (res AccountVoiceMails
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeActiveCRPhoneNumbersResponse(resp *http.Response) (res ActiveCRPhoneNumbersRes, _ error) {
+func decodeActiveCRPhoneNumbersResponse(resp *http.Response) (res *ActiveCRPhoneNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &ActiveCRPhoneNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &ActiveCRPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -455,7 +434,7 @@ func decodeActiveCRPhoneNumbersResponse(resp *http.Response) (res ActiveCRPhoneN
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAccountLevelInboundBlockRulesResponse(resp *http.Response) (res AddAccountLevelInboundBlockRulesRes, _ error) {
+func decodeAddAccountLevelInboundBlockRulesResponse(resp *http.Response) (res *AddAccountLevelInboundBlockRulesCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -492,9 +471,6 @@ func decodeAddAccountLevelInboundBlockRulesResponse(resp *http.Response) (res Ad
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAccountLevelInboundBlockRulesBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -541,7 +517,7 @@ func decodeAddAccountLevelInboundBlockRulesResponse(resp *http.Response) (res Ad
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res AddAccountOutboundCallingExceptionRuleRes, _ error) {
+func decodeAddAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res *AddAccountOutboundCallingExceptionRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -578,12 +554,6 @@ func decodeAddAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAccountOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddAccountOutboundCallingExceptionRuleUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -630,7 +600,7 @@ func decodeAddAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAnAlertSettingResponse(resp *http.Response) (res AddAnAlertSettingRes, _ error) {
+func decodeAddAnAlertSettingResponse(resp *http.Response) (res *AddAnAlertSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -667,9 +637,6 @@ func decodeAddAnAlertSettingResponse(resp *http.Response) (res AddAnAlertSetting
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAnAlertSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -716,7 +683,7 @@ func decodeAddAnAlertSettingResponse(resp *http.Response) (res AddAnAlertSetting
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAnAudioResponse(resp *http.Response) (res AddAnAudioRes, _ error) {
+func decodeAddAnAudioResponse(resp *http.Response) (res *AddAnAudioCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -753,12 +720,6 @@ func decodeAddAnAudioResponse(resp *http.Response) (res AddAnAudioRes, _ error) 
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAnAudioBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddAnAudioNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -805,7 +766,7 @@ func decodeAddAnAudioResponse(resp *http.Response) (res AddAnAudioRes, _ error) 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAnumberToBlockedListResponse(resp *http.Response) (res AddAnumberToBlockedListRes, _ error) {
+func decodeAddAnumberToBlockedListResponse(resp *http.Response) (res *AddAnumberToBlockedListCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -842,12 +803,6 @@ func decodeAddAnumberToBlockedListResponse(resp *http.Response) (res AddAnumberT
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAnumberToBlockedListBadRequest{}, nil
-	case 409:
-		// Code 409.
-		return &AddAnumberToBlockedListConflict{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -894,7 +849,7 @@ func decodeAddAnumberToBlockedListResponse(resp *http.Response) (res AddAnumberT
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAudioItemResponse(resp *http.Response) (res AddAudioItemRes, _ error) {
+func decodeAddAudioItemResponse(resp *http.Response) (res *AddAudioItemCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -931,9 +886,6 @@ func decodeAddAudioItemResponse(resp *http.Response) (res AddAudioItemRes, _ err
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAudioItemBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -980,7 +932,7 @@ func decodeAddAudioItemResponse(resp *http.Response) (res AddAudioItemRes, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddAutoReceptionistResponse(resp *http.Response) (res AddAutoReceptionistRes, _ error) {
+func decodeAddAutoReceptionistResponse(resp *http.Response) (res *AddAutoReceptionistCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1017,9 +969,6 @@ func decodeAddAutoReceptionistResponse(resp *http.Response) (res AddAutoReceptio
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddAutoReceptionistBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1066,7 +1015,7 @@ func decodeAddAutoReceptionistResponse(resp *http.Response) (res AddAutoReceptio
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddBYOCNumberResponse(resp *http.Response) (res AddBYOCNumberRes, _ error) {
+func decodeAddBYOCNumberResponse(resp *http.Response) (res *AddBYOCNumberCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1103,15 +1052,6 @@ func decodeAddBYOCNumberResponse(resp *http.Response) (res AddBYOCNumberRes, _ e
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddBYOCNumberBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddBYOCNumberUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &AddBYOCNumberNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1158,7 +1098,7 @@ func decodeAddBYOCNumberResponse(resp *http.Response) (res AddBYOCNumberRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddCQPolicySubSettingResponse(resp *http.Response) (res AddCQPolicySubSettingRes, _ error) {
+func decodeAddCQPolicySubSettingResponse(resp *http.Response) (res *AddCQPolicySubSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1195,9 +1135,6 @@ func decodeAddCQPolicySubSettingResponse(resp *http.Response) (res AddCQPolicySu
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddCQPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1244,7 +1181,7 @@ func decodeAddCQPolicySubSettingResponse(resp *http.Response) (res AddCQPolicySu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddCallHandlingResponse(resp *http.Response) (res AddCallHandlingRes, _ error) {
+func decodeAddCallHandlingResponse(resp *http.Response) (res AddCallHandlingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1277,16 +1214,10 @@ func decodeAddCallHandlingResponse(resp *http.Response) (res AddCallHandlingRes,
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddCallHandlingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddCallHandlingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1333,14 +1264,11 @@ func decodeAddCallHandlingResponse(resp *http.Response) (res AddCallHandlingRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddClientCodeToCallLogResponse(resp *http.Response) (res AddClientCodeToCallLogRes, _ error) {
+func decodeAddClientCodeToCallLogResponse(resp *http.Response) (res *AddClientCodeToCallLogNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &AddClientCodeToCallLogNoContent{}, nil
-	case 404:
-		// Code 404.
-		return &AddClientCodeToCallLogNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1387,7 +1315,7 @@ func decodeAddClientCodeToCallLogResponse(resp *http.Response) (res AddClientCod
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddCommonAreaResponse(resp *http.Response) (res AddCommonAreaRes, _ error) {
+func decodeAddCommonAreaResponse(resp *http.Response) (res *AddCommonAreaCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1424,9 +1352,6 @@ func decodeAddCommonAreaResponse(resp *http.Response) (res AddCommonAreaRes, _ e
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1473,7 +1398,7 @@ func decodeAddCommonAreaResponse(resp *http.Response) (res AddCommonAreaRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res AddCommonAreaOutboundCallingExceptionRuleRes, _ error) {
+func decodeAddCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res *AddCommonAreaOutboundCallingExceptionRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1510,15 +1435,6 @@ func decodeAddCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddCommonAreaOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddCommonAreaOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &AddCommonAreaOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1565,7 +1481,7 @@ func decodeAddCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddCommonAreaSettingResponse(resp *http.Response) (res AddCommonAreaSettingRes, _ error) {
+func decodeAddCommonAreaSettingResponse(resp *http.Response) (res *AddCommonAreaSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1602,9 +1518,6 @@ func decodeAddCommonAreaSettingResponse(resp *http.Response) (res AddCommonAreaS
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddCommonAreaSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1651,7 +1564,7 @@ func decodeAddCommonAreaSettingResponse(resp *http.Response) (res AddCommonAreaS
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddEmergencyAddressResponse(resp *http.Response) (res AddEmergencyAddressRes, _ error) {
+func decodeAddEmergencyAddressResponse(resp *http.Response) (res *AddEmergencyAddressCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1697,9 +1610,6 @@ func decodeAddEmergencyAddressResponse(resp *http.Response) (res AddEmergencyAdd
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddEmergencyAddressBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1746,7 +1656,7 @@ func decodeAddEmergencyAddressResponse(resp *http.Response) (res AddEmergencyAdd
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddExtensionsToADeviceResponse(resp *http.Response) (res AddExtensionsToADeviceRes, _ error) {
+func decodeAddExtensionsToADeviceResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1762,9 +1672,11 @@ func decodeAddExtensionsToADeviceResponse(resp *http.Response) (res AddExtension
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddExtensionsToADeviceCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -1779,16 +1691,10 @@ func decodeAddExtensionsToADeviceResponse(resp *http.Response) (res AddExtension
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddExtensionsToADeviceBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddExtensionsToADeviceNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1835,7 +1741,7 @@ func decodeAddExtensionsToADeviceResponse(resp *http.Response) (res AddExtension
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res AddExtensiontLevelInboundBlockRulesRes, _ error) {
+func decodeAddExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res *AddExtensiontLevelInboundBlockRulesCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1872,12 +1778,6 @@ func decodeAddExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddExtensiontLevelInboundBlockRulesBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddExtensiontLevelInboundBlockRulesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -1924,7 +1824,7 @@ func decodeAddExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddExternalContactResponse(resp *http.Response) (res AddExternalContactRes, _ error) {
+func decodeAddExternalContactResponse(resp *http.Response) (res *AddExternalContactCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -1961,9 +1861,6 @@ func decodeAddExternalContactResponse(resp *http.Response) (res AddExternalConta
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddExternalContactBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2010,7 +1907,7 @@ func decodeAddExternalContactResponse(resp *http.Response) (res AddExternalConta
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddFirmwareRuleResponse(resp *http.Response) (res AddFirmwareRuleRes, _ error) {
+func decodeAddFirmwareRuleResponse(resp *http.Response) (res *AddFirmwareRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2047,12 +1944,6 @@ func decodeAddFirmwareRuleResponse(resp *http.Response) (res AddFirmwareRuleRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddFirmwareRuleBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddFirmwareRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2099,7 +1990,7 @@ func decodeAddFirmwareRuleResponse(resp *http.Response) (res AddFirmwareRuleRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddGCPResponse(resp *http.Response) (res AddGCPRes, _ error) {
+func decodeAddGCPResponse(resp *http.Response) (res *AddGCPCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2136,9 +2027,6 @@ func decodeAddGCPResponse(resp *http.Response) (res AddGCPRes, _ error) {
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddGCPBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2185,14 +2073,11 @@ func decodeAddGCPResponse(resp *http.Response) (res AddGCPRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddGCPMembersResponse(resp *http.Response) (res AddGCPMembersRes, _ error) {
+func decodeAddGCPMembersResponse(resp *http.Response) (res *AddGCPMembersCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AddGCPMembersCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AddGCPMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2239,7 +2124,7 @@ func decodeAddGCPMembersResponse(resp *http.Response) (res AddGCPMembersRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddLocationResponse(resp *http.Response) (res AddLocationRes, _ error) {
+func decodeAddLocationResponse(resp *http.Response) (res *AddLocationCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2276,9 +2161,6 @@ func decodeAddLocationResponse(resp *http.Response) (res AddLocationRes, _ error
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddLocationBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2325,7 +2207,7 @@ func decodeAddLocationResponse(resp *http.Response) (res AddLocationRes, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddMembersResponse(resp *http.Response) (res AddMembersRes, _ error) {
+func decodeAddMembersResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2341,9 +2223,11 @@ func decodeAddMembersResponse(resp *http.Response) (res AddMembersRes, _ error) 
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddMembersCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -2358,13 +2242,10 @@ func decodeAddMembersResponse(resp *http.Response) (res AddMembersRes, _ error) 
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2411,7 +2292,7 @@ func decodeAddMembersResponse(resp *http.Response) (res AddMembersRes, _ error) 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddMembersToCallQueueResponse(resp *http.Response) (res AddMembersToCallQueueRes, _ error) {
+func decodeAddMembersToCallQueueResponse(resp *http.Response) (res *AddMembersToCallQueueCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2448,12 +2329,6 @@ func decodeAddMembersToCallQueueResponse(resp *http.Response) (res AddMembersToC
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddMembersToCallQueueBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddMembersToCallQueueNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2500,17 +2375,11 @@ func decodeAddMembersToCallQueueResponse(resp *http.Response) (res AddMembersToC
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddMembersToSharedLineGroupResponse(resp *http.Response) (res AddMembersToSharedLineGroupRes, _ error) {
+func decodeAddMembersToSharedLineGroupResponse(resp *http.Response) (res *AddMembersToSharedLineGroupCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AddMembersToSharedLineGroupCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AddMembersToSharedLineGroupBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddMembersToSharedLineGroupNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2557,7 +2426,7 @@ func decodeAddMembersToSharedLineGroupResponse(resp *http.Response) (res AddMemb
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddOutboundCallerNumbersResponse(resp *http.Response) (res AddOutboundCallerNumbersRes, _ error) {
+func decodeAddOutboundCallerNumbersResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2573,9 +2442,11 @@ func decodeAddOutboundCallerNumbersResponse(resp *http.Response) (res AddOutboun
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddOutboundCallerNumbersCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -2590,13 +2461,10 @@ func decodeAddOutboundCallerNumbersResponse(resp *http.Response) (res AddOutboun
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2643,7 +2511,7 @@ func decodeAddOutboundCallerNumbersResponse(resp *http.Response) (res AddOutboun
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddPeeringPhoneNumbersResponse(resp *http.Response) (res AddPeeringPhoneNumbersRes, _ error) {
+func decodeAddPeeringPhoneNumbersResponse(resp *http.Response) (res *AddPeeringPhoneNumbersCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2680,9 +2548,6 @@ func decodeAddPeeringPhoneNumbersResponse(resp *http.Response) (res AddPeeringPh
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddPeeringPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2729,7 +2594,7 @@ func decodeAddPeeringPhoneNumbersResponse(resp *http.Response) (res AddPeeringPh
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddPhoneDeviceResponse(resp *http.Response) (res AddPhoneDeviceRes, _ error) {
+func decodeAddPhoneDeviceResponse(resp *http.Response) (res *AddPhoneDeviceCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2766,12 +2631,6 @@ func decodeAddPhoneDeviceResponse(resp *http.Response) (res AddPhoneDeviceRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddPhoneDeviceBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddPhoneDeviceNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2818,7 +2677,7 @@ func decodeAddPhoneDeviceResponse(resp *http.Response) (res AddPhoneDeviceRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddPolicyResponse(resp *http.Response) (res AddPolicyRes, _ error) {
+func decodeAddPolicyResponse(resp *http.Response) (res *AddPolicyCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2855,9 +2714,6 @@ func decodeAddPolicyResponse(resp *http.Response) (res AddPolicyRes, _ error) {
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddPolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2904,7 +2760,7 @@ func decodeAddPolicyResponse(resp *http.Response) (res AddPolicyRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddProvisionTemplateResponse(resp *http.Response) (res AddProvisionTemplateRes, _ error) {
+func decodeAddProvisionTemplateResponse(resp *http.Response) (res *AddProvisionTemplateCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -2941,9 +2797,6 @@ func decodeAddProvisionTemplateResponse(resp *http.Response) (res AddProvisionTe
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddProvisionTemplateBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -2990,14 +2843,11 @@ func decodeAddProvisionTemplateResponse(resp *http.Response) (res AddProvisionTe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddRoleMembersResponse(resp *http.Response) (res AddRoleMembersRes, _ error) {
+func decodeAddRoleMembersResponse(resp *http.Response) (res *AddRoleMembersCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AddRoleMembersCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AddRoleMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3044,7 +2894,7 @@ func decodeAddRoleMembersResponse(resp *http.Response) (res AddRoleMembersRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddRoutingRuleResponse(resp *http.Response) (res AddRoutingRuleRes, _ error) {
+func decodeAddRoutingRuleResponse(resp *http.Response) (res *AddRoutingRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3081,9 +2931,6 @@ func decodeAddRoutingRuleResponse(resp *http.Response) (res AddRoutingRuleRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddRoutingRuleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3130,7 +2977,7 @@ func decodeAddRoutingRuleResponse(resp *http.Response) (res AddRoutingRuleRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddSLGPolicySubSettingResponse(resp *http.Response) (res AddSLGPolicySubSettingRes, _ error) {
+func decodeAddSLGPolicySubSettingResponse(resp *http.Response) (res *AddSLGPolicySubSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3176,9 +3023,6 @@ func decodeAddSLGPolicySubSettingResponse(resp *http.Response) (res AddSLGPolicy
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddSLGPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3225,7 +3069,7 @@ func decodeAddSLGPolicySubSettingResponse(resp *http.Response) (res AddSLGPolicy
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddSettingTemplateResponse(resp *http.Response) (res AddSettingTemplateRes, _ error) {
+func decodeAddSettingTemplateResponse(resp *http.Response) (res *AddSettingTemplateCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3262,12 +3106,6 @@ func decodeAddSettingTemplateResponse(resp *http.Response) (res AddSettingTempla
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddSettingTemplateBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddSettingTemplateUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3314,7 +3152,7 @@ func decodeAddSettingTemplateResponse(resp *http.Response) (res AddSettingTempla
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddSiteOutboundCallerNumbersResponse(resp *http.Response) (res AddSiteOutboundCallerNumbersRes, _ error) {
+func decodeAddSiteOutboundCallerNumbersResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3330,9 +3168,11 @@ func decodeAddSiteOutboundCallerNumbersResponse(resp *http.Response) (res AddSit
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddSiteOutboundCallerNumbersCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -3347,13 +3187,10 @@ func decodeAddSiteOutboundCallerNumbersResponse(resp *http.Response) (res AddSit
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddSiteOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3400,7 +3237,7 @@ func decodeAddSiteOutboundCallerNumbersResponse(resp *http.Response) (res AddSit
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res AddSiteOutboundCallingExceptionRuleRes, _ error) {
+func decodeAddSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res *AddSiteOutboundCallingExceptionRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3437,15 +3274,6 @@ func decodeAddSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddSiteOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddSiteOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &AddSiteOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3492,7 +3320,7 @@ func decodeAddSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddSiteSettingResponse(resp *http.Response) (res AddSiteSettingRes, _ error) {
+func decodeAddSiteSettingResponse(resp *http.Response) (res *AddSiteSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3529,9 +3357,6 @@ func decodeAddSiteSettingResponse(resp *http.Response) (res AddSiteSettingRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddSiteSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3578,7 +3403,7 @@ func decodeAddSiteSettingResponse(resp *http.Response) (res AddSiteSettingRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddUserOutboundCallerNumbersResponse(resp *http.Response) (res AddUserOutboundCallerNumbersRes, _ error) {
+func decodeAddUserOutboundCallerNumbersResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3594,9 +3419,11 @@ func decodeAddUserOutboundCallerNumbersResponse(resp *http.Response) (res AddUse
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddUserOutboundCallerNumbersCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -3611,13 +3438,10 @@ func decodeAddUserOutboundCallerNumbersResponse(resp *http.Response) (res AddUse
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddUserOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3664,7 +3488,7 @@ func decodeAddUserOutboundCallerNumbersResponse(resp *http.Response) (res AddUse
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res AddUserOutboundCallingExceptionRuleRes, _ error) {
+func decodeAddUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res *AddUserOutboundCallingExceptionRuleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3701,15 +3525,6 @@ func decodeAddUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddUserOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AddUserOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &AddUserOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3756,7 +3571,7 @@ func decodeAddUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddUserSettingResponse(resp *http.Response) (res AddUserSettingRes, _ error) {
+func decodeAddUserSettingResponse(resp *http.Response) (res *AddUserSettingCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3802,12 +3617,6 @@ func decodeAddUserSettingResponse(resp *http.Response) (res AddUserSettingRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddUserSettingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddUserSettingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3854,17 +3663,11 @@ func decodeAddUserSettingResponse(resp *http.Response) (res AddUserSettingRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddUsersToDirectoryResponse(resp *http.Response) (res AddUsersToDirectoryRes, _ error) {
+func decodeAddUsersToDirectoryResponse(resp *http.Response) (res *AddUsersToDirectoryCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AddUsersToDirectoryCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AddUsersToDirectoryBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddUsersToDirectoryNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3911,17 +3714,11 @@ func decodeAddUsersToDirectoryResponse(resp *http.Response) (res AddUsersToDirec
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddUsersToDirectoryBySiteResponse(resp *http.Response) (res AddUsersToDirectoryBySiteRes, _ error) {
+func decodeAddUsersToDirectoryBySiteResponse(resp *http.Response) (res *AddUsersToDirectoryBySiteCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AddUsersToDirectoryBySiteCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AddUsersToDirectoryBySiteBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AddUsersToDirectoryBySiteNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -3968,7 +3765,7 @@ func decodeAddUsersToDirectoryBySiteResponse(resp *http.Response) (res AddUsersT
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAddZoomRoomResponse(resp *http.Response) (res AddZoomRoomRes, _ error) {
+func decodeAddZoomRoomResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -3984,9 +3781,11 @@ func decodeAddZoomRoomResponse(resp *http.Response) (res AddZoomRoomRes, _ error
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AddZoomRoomCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -4001,13 +3800,10 @@ func decodeAddZoomRoomResponse(resp *http.Response) (res AddZoomRoomRes, _ error
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AddZoomRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4054,7 +3850,7 @@ func decodeAddZoomRoomResponse(resp *http.Response) (res AddZoomRoomRes, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignCallingPlanResponse(resp *http.Response) (res AssignCallingPlanRes, _ error) {
+func decodeAssignCallingPlanResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -4070,9 +3866,11 @@ func decodeAssignCallingPlanResponse(resp *http.Response) (res AssignCallingPlan
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AssignCallingPlanOKApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -4087,13 +3885,10 @@ func decodeAssignCallingPlanResponse(resp *http.Response) (res AssignCallingPlan
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &AssignCallingPlanNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4140,7 +3935,7 @@ func decodeAssignCallingPlanResponse(resp *http.Response) (res AssignCallingPlan
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignCallingPlanToRoomResponse(resp *http.Response) (res AssignCallingPlanToRoomRes, _ error) {
+func decodeAssignCallingPlanToRoomResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4156,9 +3951,11 @@ func decodeAssignCallingPlanToRoomResponse(resp *http.Response) (res AssignCalli
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AssignCallingPlanToRoomCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -4173,13 +3970,10 @@ func decodeAssignCallingPlanToRoomResponse(resp *http.Response) (res AssignCalli
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignCallingPlanToRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4226,7 +4020,7 @@ func decodeAssignCallingPlanToRoomResponse(resp *http.Response) (res AssignCalli
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignCallingPlansToCommonAreaResponse(resp *http.Response) (res AssignCallingPlansToCommonAreaRes, _ error) {
+func decodeAssignCallingPlansToCommonAreaResponse(resp *http.Response) (res *AssignCallingPlansToCommonAreaCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4263,9 +4057,6 @@ func decodeAssignCallingPlansToCommonAreaResponse(resp *http.Response) (res Assi
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignCallingPlansToCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4312,7 +4103,7 @@ func decodeAssignCallingPlansToCommonAreaResponse(resp *http.Response) (res Assi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignCampaignPhoneNumbersResponse(resp *http.Response) (res AssignCampaignPhoneNumbersRes, _ error) {
+func decodeAssignCampaignPhoneNumbersResponse(resp *http.Response) (res *AssignCampaignPhoneNumbersCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4349,9 +4140,6 @@ func decodeAssignCampaignPhoneNumbersResponse(resp *http.Response) (res AssignCa
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignCampaignPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4398,7 +4186,7 @@ func decodeAssignCampaignPhoneNumbersResponse(resp *http.Response) (res AssignCa
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumberResponse(resp *http.Response) (res AssignPhoneNumberRes, _ error) {
+func decodeAssignPhoneNumberResponse(resp *http.Response) (res *AssignPhoneNumberOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -4435,12 +4223,6 @@ func decodeAssignPhoneNumberResponse(resp *http.Response) (res AssignPhoneNumber
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignPhoneNumberBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AssignPhoneNumberNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4487,7 +4269,7 @@ func decodeAssignPhoneNumberResponse(resp *http.Response) (res AssignPhoneNumber
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumberToZoomRoomResponse(resp *http.Response) (res AssignPhoneNumberToZoomRoomRes, _ error) {
+func decodeAssignPhoneNumberToZoomRoomResponse(resp *http.Response) (res jx.Raw, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4503,9 +4285,11 @@ func decodeAssignPhoneNumberToZoomRoomResponse(resp *http.Response) (res AssignP
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AssignPhoneNumberToZoomRoomCreatedApplicationJSON
+			var response jx.Raw
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				v, err := d.RawAppend(nil)
+				response = jx.Raw(v)
+				if err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -4520,13 +4304,10 @@ func decodeAssignPhoneNumberToZoomRoomResponse(resp *http.Response) (res AssignP
 				}
 				return res, err
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignPhoneNumberToZoomRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4573,17 +4354,11 @@ func decodeAssignPhoneNumberToZoomRoomResponse(resp *http.Response) (res AssignP
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumbersAutoReceptionistResponse(resp *http.Response) (res AssignPhoneNumbersAutoReceptionistRes, _ error) {
+func decodeAssignPhoneNumbersAutoReceptionistResponse(resp *http.Response) (res *AssignPhoneNumbersAutoReceptionistNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &AssignPhoneNumbersAutoReceptionistNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &AssignPhoneNumbersAutoReceptionistBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &AssignPhoneNumbersAutoReceptionistNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4630,17 +4405,11 @@ func decodeAssignPhoneNumbersAutoReceptionistResponse(resp *http.Response) (res 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumbersSLGResponse(resp *http.Response) (res AssignPhoneNumbersSLGRes, _ error) {
+func decodeAssignPhoneNumbersSLGResponse(resp *http.Response) (res *AssignPhoneNumbersSLGCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &AssignPhoneNumbersSLGCreated{}, nil
-	case 400:
-		// Code 400.
-		return &AssignPhoneNumbersSLGBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &AssignPhoneNumbersSLGUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4687,7 +4456,7 @@ func decodeAssignPhoneNumbersSLGResponse(resp *http.Response) (res AssignPhoneNu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumbersToCommonAreaResponse(resp *http.Response) (res AssignPhoneNumbersToCommonAreaRes, _ error) {
+func decodeAssignPhoneNumbersToCommonAreaResponse(resp *http.Response) (res *AssignPhoneNumbersToCommonAreaCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4724,9 +4493,6 @@ func decodeAssignPhoneNumbersToCommonAreaResponse(resp *http.Response) (res Assi
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &AssignPhoneNumbersToCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4824,7 +4590,7 @@ func decodeAssignPhoneToCallQueueResponse(resp *http.Response) (res *AssignPhone
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeBatchAddLocationsResponse(resp *http.Response) (res BatchAddLocationsRes, _ error) {
+func decodeBatchAddLocationsResponse(resp *http.Response) (res *BatchAddLocationsCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4861,9 +4627,6 @@ func decodeBatchAddLocationsResponse(resp *http.Response) (res BatchAddLocations
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &BatchAddLocationsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -4910,7 +4673,7 @@ func decodeBatchAddLocationsResponse(resp *http.Response) (res BatchAddLocations
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeBatchAddUsersResponse(resp *http.Response) (res BatchAddUsersRes, _ error) {
+func decodeBatchAddUsersResponse(resp *http.Response) (res []BatchAddUsersCreatedItem, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -4926,9 +4689,17 @@ func decodeBatchAddUsersResponse(resp *http.Response) (res BatchAddUsersRes, _ e
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response BatchAddUsersCreatedApplicationJSON
+			var response []BatchAddUsersCreatedItem
 			if err := func() error {
-				if err := response.Decode(d); err != nil {
+				response = make([]BatchAddUsersCreatedItem, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem BatchAddUsersCreatedItem
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					response = append(response, elem)
+					return nil
+				}); err != nil {
 					return err
 				}
 				if err := d.Skip(); err != io.EOF {
@@ -4945,20 +4716,17 @@ func decodeBatchAddUsersResponse(resp *http.Response) (res BatchAddUsersRes, _ e
 			}
 			// Validate response.
 			if err := func() error {
-				if err := response.Validate(); err != nil {
-					return err
+				if response == nil {
+					return errors.New("nil is invalid value")
 				}
 				return nil
 			}(); err != nil {
 				return res, errors.Wrap(err, "validate")
 			}
-			return &response, nil
+			return response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &BatchAddUsersNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5005,14 +4773,11 @@ func decodeBatchAddUsersResponse(resp *http.Response) (res BatchAddUsersRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeBatchUpdateDeviceLineKeySettingResponse(resp *http.Response) (res BatchUpdateDeviceLineKeySettingRes, _ error) {
+func decodeBatchUpdateDeviceLineKeySettingResponse(resp *http.Response) (res *BatchUpdateDeviceLineKeySettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &BatchUpdateDeviceLineKeySettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &BatchUpdateDeviceLineKeySettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5059,14 +4824,11 @@ func decodeBatchUpdateDeviceLineKeySettingResponse(resp *http.Response) (res Bat
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeBatchUpdateLineKeySettingResponse(resp *http.Response) (res BatchUpdateLineKeySettingRes, _ error) {
+func decodeBatchUpdateLineKeySettingResponse(resp *http.Response) (res *BatchUpdateLineKeySettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &BatchUpdateLineKeySettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &BatchUpdateLineKeySettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5113,7 +4875,7 @@ func decodeBatchUpdateLineKeySettingResponse(resp *http.Response) (res BatchUpda
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeCreateASharedLineGroupResponse(resp *http.Response) (res CreateASharedLineGroupRes, _ error) {
+func decodeCreateASharedLineGroupResponse(resp *http.Response) (res *CreateASharedLineGroupCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -5150,9 +4912,6 @@ func decodeCreateASharedLineGroupResponse(resp *http.Response) (res CreateAShare
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &CreateASharedLineGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5199,14 +4958,11 @@ func decodeCreateASharedLineGroupResponse(resp *http.Response) (res CreateAShare
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeCreateCRPhoneNumbersResponse(resp *http.Response) (res CreateCRPhoneNumbersRes, _ error) {
+func decodeCreateCRPhoneNumbersResponse(resp *http.Response) (res *CreateCRPhoneNumbersCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
 		return &CreateCRPhoneNumbersCreated{}, nil
-	case 400:
-		// Code 400.
-		return &CreateCRPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5253,7 +5009,7 @@ func decodeCreateCRPhoneNumbersResponse(resp *http.Response) (res CreateCRPhoneN
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeCreateCallQueueResponse(resp *http.Response) (res CreateCallQueueRes, _ error) {
+func decodeCreateCallQueueResponse(resp *http.Response) (res *CreateCallQueueCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -5290,12 +5046,6 @@ func decodeCreateCallQueueResponse(resp *http.Response) (res CreateCallQueueRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &CreateCallQueueBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &CreateCallQueueNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5342,7 +5092,7 @@ func decodeCreateCallQueueResponse(resp *http.Response) (res CreateCallQueueRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeCreateMonitoringGroupResponse(resp *http.Response) (res CreateMonitoringGroupRes, _ error) {
+func decodeCreateMonitoringGroupResponse(resp *http.Response) (res *CreateMonitoringGroupCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -5379,9 +5129,6 @@ func decodeCreateMonitoringGroupResponse(resp *http.Response) (res CreateMonitor
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &CreateMonitoringGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5428,7 +5175,7 @@ func decodeCreateMonitoringGroupResponse(resp *http.Response) (res CreateMonitor
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeCreatePhoneSiteResponse(resp *http.Response) (res CreatePhoneSiteRes, _ error) {
+func decodeCreatePhoneSiteResponse(resp *http.Response) (res *CreatePhoneSiteCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -5465,9 +5212,6 @@ func decodeCreatePhoneSiteResponse(resp *http.Response) (res CreatePhoneSiteRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &CreatePhoneSiteBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5514,14 +5258,11 @@ func decodeCreatePhoneSiteResponse(resp *http.Response) (res CreatePhoneSiteRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDelRoleMembersResponse(resp *http.Response) (res DelRoleMembersRes, _ error) {
+func decodeDelRoleMembersResponse(resp *http.Response) (res *DelRoleMembersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DelRoleMembersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DelRoleMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5568,14 +5309,11 @@ func decodeDelRoleMembersResponse(resp *http.Response) (res DelRoleMembersRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteABlockedListResponse(resp *http.Response) (res DeleteABlockedListRes, _ error) {
+func decodeDeleteABlockedListResponse(resp *http.Response) (res *DeleteABlockedListNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteABlockedListNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteABlockedListBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5622,14 +5360,11 @@ func decodeDeleteABlockedListResponse(resp *http.Response) (res DeleteABlockedLi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteACallQueueResponse(resp *http.Response) (res DeleteACallQueueRes, _ error) {
+func decodeDeleteACallQueueResponse(resp *http.Response) (res *DeleteACallQueueNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteACallQueueNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteACallQueueBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5676,14 +5411,11 @@ func decodeDeleteACallQueueResponse(resp *http.Response) (res DeleteACallQueueRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteADeviceResponse(resp *http.Response) (res DeleteADeviceRes, _ error) {
+func decodeDeleteADeviceResponse(resp *http.Response) (res *DeleteADeviceNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteADeviceNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteADeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5730,14 +5462,11 @@ func decodeDeleteADeviceResponse(resp *http.Response) (res DeleteADeviceRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAExternalContactResponse(resp *http.Response) (res DeleteAExternalContactRes, _ error) {
+func decodeDeleteAExternalContactResponse(resp *http.Response) (res *DeleteAExternalContactNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAExternalContactNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAExternalContactBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5784,14 +5513,11 @@ func decodeDeleteAExternalContactResponse(resp *http.Response) (res DeleteAExter
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAMemberSLGResponse(resp *http.Response) (res DeleteAMemberSLGRes, _ error) {
+func decodeDeleteAMemberSLGResponse(resp *http.Response) (res *DeleteAMemberSLGNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAMemberSLGNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAMemberSLGBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5838,17 +5564,11 @@ func decodeDeleteAMemberSLGResponse(resp *http.Response) (res DeleteAMemberSLGRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAPhoneNumberSLGResponse(resp *http.Response) (res DeleteAPhoneNumberSLGRes, _ error) {
+func decodeDeleteAPhoneNumberSLGResponse(resp *http.Response) (res *DeleteAPhoneNumberSLGNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAPhoneNumberSLGNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAPhoneNumberSLGBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteAPhoneNumberSLGUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5895,14 +5615,11 @@ func decodeDeleteAPhoneNumberSLGResponse(resp *http.Response) (res DeleteAPhoneN
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteASharedLineGroupResponse(resp *http.Response) (res DeleteASharedLineGroupRes, _ error) {
+func decodeDeleteASharedLineGroupResponse(resp *http.Response) (res *DeleteASharedLineGroupNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteASharedLineGroupNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteASharedLineGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -5949,17 +5666,11 @@ func decodeDeleteASharedLineGroupResponse(resp *http.Response) (res DeleteAShare
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAccountLevelInboundBlockRulesResponse(resp *http.Response) (res DeleteAccountLevelInboundBlockRulesRes, _ error) {
+func decodeDeleteAccountLevelInboundBlockRulesResponse(resp *http.Response) (res *DeleteAccountLevelInboundBlockRulesNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAccountLevelInboundBlockRulesNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAccountLevelInboundBlockRulesBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteAccountLevelInboundBlockRulesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6006,17 +5717,11 @@ func decodeDeleteAccountLevelInboundBlockRulesResponse(resp *http.Response) (res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAccountLevelInboundBlockedStatisticsResponse(resp *http.Response) (res DeleteAccountLevelInboundBlockedStatisticsRes, _ error) {
+func decodeDeleteAccountLevelInboundBlockedStatisticsResponse(resp *http.Response) (res *DeleteAccountLevelInboundBlockedStatisticsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAccountLevelInboundBlockedStatisticsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAccountLevelInboundBlockedStatisticsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteAccountLevelInboundBlockedStatisticsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6063,20 +5768,11 @@ func decodeDeleteAccountLevelInboundBlockedStatisticsResponse(resp *http.Respons
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res DeleteAccountOutboundCallingExceptionRuleRes, _ error) {
+func decodeDeleteAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res *DeleteAccountOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAccountOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAccountOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteAccountOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteAccountOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6123,17 +5819,11 @@ func decodeDeleteAccountOutboundCallingExceptionRuleResponse(resp *http.Response
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAnAlertSettingResponse(resp *http.Response) (res DeleteAnAlertSettingRes, _ error) {
+func decodeDeleteAnAlertSettingResponse(resp *http.Response) (res *DeleteAnAlertSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAnAlertSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAnAlertSettingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteAnAlertSettingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6180,14 +5870,11 @@ func decodeDeleteAnAlertSettingResponse(resp *http.Response) (res DeleteAnAlertS
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAudioItemResponse(resp *http.Response) (res DeleteAudioItemRes, _ error) {
+func decodeDeleteAudioItemResponse(resp *http.Response) (res *DeleteAudioItemNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAudioItemNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAudioItemBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6234,14 +5921,11 @@ func decodeDeleteAudioItemResponse(resp *http.Response) (res DeleteAudioItemRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteAutoReceptionistResponse(resp *http.Response) (res DeleteAutoReceptionistRes, _ error) {
+func decodeDeleteAutoReceptionistResponse(resp *http.Response) (res *DeleteAutoReceptionistNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteAutoReceptionistNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteAutoReceptionistBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6288,14 +5972,11 @@ func decodeDeleteAutoReceptionistResponse(resp *http.Response) (res DeleteAutoRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCRPhoneNumberResponse(resp *http.Response) (res DeleteCRPhoneNumberRes, _ error) {
+func decodeDeleteCRPhoneNumberResponse(resp *http.Response) (res *DeleteCRPhoneNumberNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCRPhoneNumberNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteCRPhoneNumberBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6342,14 +6023,11 @@ func decodeDeleteCRPhoneNumberResponse(resp *http.Response) (res DeleteCRPhoneNu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCallHandlingResponse(resp *http.Response) (res DeleteCallHandlingRes, _ error) {
+func decodeDeleteCallHandlingResponse(resp *http.Response) (res *DeleteCallHandlingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCallHandlingNoContent{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteCallHandlingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6396,17 +6074,11 @@ func decodeDeleteCallHandlingResponse(resp *http.Response) (res DeleteCallHandli
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCallLogResponse(resp *http.Response) (res DeleteCallLogRes, _ error) {
+func decodeDeleteCallLogResponse(resp *http.Response) (res *DeleteCallLogNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCallLogNoContent{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteCallLogUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteCallLogNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6453,17 +6125,11 @@ func decodeDeleteCallLogResponse(resp *http.Response) (res DeleteCallLogRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCallRecordingResponse(resp *http.Response) (res DeleteCallRecordingRes, _ error) {
+func decodeDeleteCallRecordingResponse(resp *http.Response) (res *DeleteCallRecordingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCallRecordingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteCallRecordingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteCallRecordingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6510,14 +6176,11 @@ func decodeDeleteCallRecordingResponse(resp *http.Response) (res DeleteCallRecor
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCommonAreaResponse(resp *http.Response) (res DeleteCommonAreaRes, _ error) {
+func decodeDeleteCommonAreaResponse(resp *http.Response) (res *DeleteCommonAreaNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCommonAreaNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6564,20 +6227,11 @@ func decodeDeleteCommonAreaResponse(resp *http.Response) (res DeleteCommonAreaRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res DeleteCommonAreaOutboundCallingExceptionRuleRes, _ error) {
+func decodeDeleteCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res *DeleteCommonAreaOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCommonAreaOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteCommonAreaOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteCommonAreaOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteCommonAreaOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6624,14 +6278,11 @@ func decodeDeleteCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Respo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteCommonAreaSettingResponse(resp *http.Response) (res DeleteCommonAreaSettingRes, _ error) {
+func decodeDeleteCommonAreaSettingResponse(resp *http.Response) (res *DeleteCommonAreaSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteCommonAreaSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteCommonAreaSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6678,14 +6329,11 @@ func decodeDeleteCommonAreaSettingResponse(resp *http.Response) (res DeleteCommo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteEmergencyAddressResponse(resp *http.Response) (res DeleteEmergencyAddressRes, _ error) {
+func decodeDeleteEmergencyAddressResponse(resp *http.Response) (res *DeleteEmergencyAddressNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteEmergencyAddressNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteEmergencyAddressBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6732,14 +6380,11 @@ func decodeDeleteEmergencyAddressResponse(resp *http.Response) (res DeleteEmerge
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteExtensionFromADeviceResponse(resp *http.Response) (res DeleteExtensionFromADeviceRes, _ error) {
+func decodeDeleteExtensionFromADeviceResponse(resp *http.Response) (res *DeleteExtensionFromADeviceNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteExtensionFromADeviceNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteExtensionFromADeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6786,17 +6431,11 @@ func decodeDeleteExtensionFromADeviceResponse(resp *http.Response) (res DeleteEx
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res DeleteExtensiontLevelInboundBlockRulesRes, _ error) {
+func decodeDeleteExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (res *DeleteExtensiontLevelInboundBlockRulesNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteExtensiontLevelInboundBlockRulesNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteExtensiontLevelInboundBlockRulesBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteExtensiontLevelInboundBlockRulesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6843,17 +6482,11 @@ func decodeDeleteExtensiontLevelInboundBlockRulesResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteFirmwareUpdateRuleResponse(resp *http.Response) (res DeleteFirmwareUpdateRuleRes, _ error) {
+func decodeDeleteFirmwareUpdateRuleResponse(resp *http.Response) (res *DeleteFirmwareUpdateRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteFirmwareUpdateRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteFirmwareUpdateRuleBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteFirmwareUpdateRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6900,14 +6533,11 @@ func decodeDeleteFirmwareUpdateRuleResponse(resp *http.Response) (res DeleteFirm
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteGCPResponse(resp *http.Response) (res DeleteGCPRes, _ error) {
+func decodeDeleteGCPResponse(resp *http.Response) (res *DeleteGCPNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteGCPNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteGCPBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -6954,14 +6584,11 @@ func decodeDeleteGCPResponse(resp *http.Response) (res DeleteGCPRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteLineKeyResponse(resp *http.Response) (res DeleteLineKeyRes, _ error) {
+func decodeDeleteLineKeyResponse(resp *http.Response) (res *DeleteLineKeyNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteLineKeyNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteLineKeyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7008,14 +6635,11 @@ func decodeDeleteLineKeyResponse(resp *http.Response) (res DeleteLineKeyRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteLocationResponse(resp *http.Response) (res DeleteLocationRes, _ error) {
+func decodeDeleteLocationResponse(resp *http.Response) (res *DeleteLocationNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteLocationNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteLocationBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7062,14 +6686,11 @@ func decodeDeleteLocationResponse(resp *http.Response) (res DeleteLocationRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteMembersOfSLGResponse(resp *http.Response) (res DeleteMembersOfSLGRes, _ error) {
+func decodeDeleteMembersOfSLGResponse(resp *http.Response) (res *DeleteMembersOfSLGNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteMembersOfSLGNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteMembersOfSLGBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7116,14 +6737,11 @@ func decodeDeleteMembersOfSLGResponse(resp *http.Response) (res DeleteMembersOfS
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteMonitoringGroupResponse(resp *http.Response) (res DeleteMonitoringGroupRes, _ error) {
+func decodeDeleteMonitoringGroupResponse(resp *http.Response) (res *DeleteMonitoringGroupNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteMonitoringGroupNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteMonitoringGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7170,14 +6788,11 @@ func decodeDeleteMonitoringGroupResponse(resp *http.Response) (res DeleteMonitor
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteOutboundCallerNumbersResponse(resp *http.Response) (res DeleteOutboundCallerNumbersRes, _ error) {
+func decodeDeleteOutboundCallerNumbersResponse(resp *http.Response) (res *DeleteOutboundCallerNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteOutboundCallerNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7224,7 +6839,7 @@ func decodeDeleteOutboundCallerNumbersResponse(resp *http.Response) (res DeleteO
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeletePeeringPhoneNumbersResponse(resp *http.Response) (res DeletePeeringPhoneNumbersRes, _ error) {
+func decodeDeletePeeringPhoneNumbersResponse(resp *http.Response) (res *DeletePeeringPhoneNumbersOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -7261,9 +6876,6 @@ func decodeDeletePeeringPhoneNumbersResponse(resp *http.Response) (res DeletePee
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &DeletePeeringPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7310,17 +6922,11 @@ func decodeDeletePeeringPhoneNumbersResponse(resp *http.Response) (res DeletePee
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeletePhoneNumbersSLGResponse(resp *http.Response) (res DeletePhoneNumbersSLGRes, _ error) {
+func decodeDeletePhoneNumbersSLGResponse(resp *http.Response) (res *DeletePhoneNumbersSLGNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeletePhoneNumbersSLGNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeletePhoneNumbersSLGBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeletePhoneNumbersSLGUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7367,14 +6973,11 @@ func decodeDeletePhoneNumbersSLGResponse(resp *http.Response) (res DeletePhoneNu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeletePhoneRoleResponse(resp *http.Response) (res DeletePhoneRoleRes, _ error) {
+func decodeDeletePhoneRoleResponse(resp *http.Response) (res *DeletePhoneRoleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeletePhoneRoleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeletePhoneRoleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7421,17 +7024,11 @@ func decodeDeletePhoneRoleResponse(resp *http.Response) (res DeletePhoneRoleRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeletePhoneSiteResponse(resp *http.Response) (res DeletePhoneSiteRes, _ error) {
+func decodeDeletePhoneSiteResponse(resp *http.Response) (res *DeletePhoneSiteNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeletePhoneSiteNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeletePhoneSiteBadRequest{}, nil
-	case 409:
-		// Code 409.
-		return &DeletePhoneSiteConflict{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7478,14 +7075,11 @@ func decodeDeletePhoneSiteResponse(resp *http.Response) (res DeletePhoneSiteRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeletePolicyResponse(resp *http.Response) (res DeletePolicyRes, _ error) {
+func decodeDeletePolicyResponse(resp *http.Response) (res *DeletePolicyNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeletePolicyNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeletePolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7532,14 +7126,11 @@ func decodeDeletePolicyResponse(resp *http.Response) (res DeletePolicyRes, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteProvisionTemplateResponse(resp *http.Response) (res DeleteProvisionTemplateRes, _ error) {
+func decodeDeleteProvisionTemplateResponse(resp *http.Response) (res *DeleteProvisionTemplateNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteProvisionTemplateNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteProvisionTemplateBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7586,14 +7177,11 @@ func decodeDeleteProvisionTemplateResponse(resp *http.Response) (res DeleteProvi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteRoutingRuleResponse(resp *http.Response) (res DeleteRoutingRuleRes, _ error) {
+func decodeDeleteRoutingRuleResponse(resp *http.Response) (res *DeleteRoutingRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteRoutingRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteRoutingRuleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7640,14 +7228,11 @@ func decodeDeleteRoutingRuleResponse(resp *http.Response) (res DeleteRoutingRule
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteSiteOutboundCallerNumbersResponse(resp *http.Response) (res DeleteSiteOutboundCallerNumbersRes, _ error) {
+func decodeDeleteSiteOutboundCallerNumbersResponse(resp *http.Response) (res *DeleteSiteOutboundCallerNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteSiteOutboundCallerNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteSiteOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7694,20 +7279,11 @@ func decodeDeleteSiteOutboundCallerNumbersResponse(resp *http.Response) (res Del
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res DeleteSiteOutboundCallingExceptionRuleRes, _ error) {
+func decodeDeleteSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res *DeleteSiteOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteSiteOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteSiteOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteSiteOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteSiteOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7754,14 +7330,11 @@ func decodeDeleteSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteSiteSettingResponse(resp *http.Response) (res DeleteSiteSettingRes, _ error) {
+func decodeDeleteSiteSettingResponse(resp *http.Response) (res *DeleteSiteSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteSiteSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteSiteSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7808,14 +7381,11 @@ func decodeDeleteSiteSettingResponse(resp *http.Response) (res DeleteSiteSetting
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUnassignedPhoneNumbersResponse(resp *http.Response) (res DeleteUnassignedPhoneNumbersRes, _ error) {
+func decodeDeleteUnassignedPhoneNumbersResponse(resp *http.Response) (res *DeleteUnassignedPhoneNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUnassignedPhoneNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUnassignedPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7862,14 +7432,11 @@ func decodeDeleteUnassignedPhoneNumbersResponse(resp *http.Response) (res Delete
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUserOutboundCallerNumbersResponse(resp *http.Response) (res DeleteUserOutboundCallerNumbersRes, _ error) {
+func decodeDeleteUserOutboundCallerNumbersResponse(resp *http.Response) (res *DeleteUserOutboundCallerNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUserOutboundCallerNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUserOutboundCallerNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7916,20 +7483,11 @@ func decodeDeleteUserOutboundCallerNumbersResponse(resp *http.Response) (res Del
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res DeleteUserOutboundCallingExceptionRuleRes, _ error) {
+func decodeDeleteUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res *DeleteUserOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUserOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUserOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &DeleteUserOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteUserOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -7976,17 +7534,11 @@ func decodeDeleteUserOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUserSettingResponse(resp *http.Response) (res DeleteUserSettingRes, _ error) {
+func decodeDeleteUserSettingResponse(resp *http.Response) (res *DeleteUserSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUserSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUserSettingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteUserSettingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8033,17 +7585,11 @@ func decodeDeleteUserSettingResponse(resp *http.Response) (res DeleteUserSetting
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUsersFromDirectoryResponse(resp *http.Response) (res DeleteUsersFromDirectoryRes, _ error) {
+func decodeDeleteUsersFromDirectoryResponse(resp *http.Response) (res *DeleteUsersFromDirectoryNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUsersFromDirectoryNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUsersFromDirectoryBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteUsersFromDirectoryNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8090,17 +7636,11 @@ func decodeDeleteUsersFromDirectoryResponse(resp *http.Response) (res DeleteUser
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDeleteUsersFromDirectoryBySiteResponse(resp *http.Response) (res DeleteUsersFromDirectoryBySiteRes, _ error) {
+func decodeDeleteUsersFromDirectoryBySiteResponse(resp *http.Response) (res *DeleteUsersFromDirectoryBySiteNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &DeleteUsersFromDirectoryBySiteNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &DeleteUsersFromDirectoryBySiteBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &DeleteUsersFromDirectoryBySiteNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8147,7 +7687,7 @@ func decodeDeleteUsersFromDirectoryBySiteResponse(resp *http.Response) (res Dele
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeDuplicatePhoneRoleResponse(resp *http.Response) (res DuplicatePhoneRoleRes, _ error) {
+func decodeDuplicatePhoneRoleResponse(resp *http.Response) (res *DuplicatePhoneRoleCreated, _ error) {
 	switch resp.StatusCode {
 	case 201:
 		// Code 201.
@@ -8184,9 +7724,6 @@ func decodeDuplicatePhoneRoleResponse(resp *http.Response) (res DuplicatePhoneRo
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &DuplicatePhoneRoleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8233,7 +7770,7 @@ func decodeDuplicatePhoneRoleResponse(resp *http.Response) (res DuplicatePhoneRo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetABillingAccountResponse(resp *http.Response) (res GetABillingAccountRes, _ error) {
+func decodeGetABillingAccountResponse(resp *http.Response) (res *GetABillingAccountOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8270,9 +7807,6 @@ func decodeGetABillingAccountResponse(resp *http.Response) (res GetABillingAccou
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetABillingAccountBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8319,7 +7853,7 @@ func decodeGetABillingAccountResponse(resp *http.Response) (res GetABillingAccou
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetABlockedListResponse(resp *http.Response) (res GetABlockedListRes, _ error) {
+func decodeGetABlockedListResponse(resp *http.Response) (res *GetABlockedListOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8365,9 +7899,6 @@ func decodeGetABlockedListResponse(resp *http.Response) (res GetABlockedListRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetABlockedListBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8414,7 +7945,7 @@ func decodeGetABlockedListResponse(resp *http.Response) (res GetABlockedListRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetACallQueueResponse(resp *http.Response) (res GetACallQueueRes, _ error) {
+func decodeGetACallQueueResponse(resp *http.Response) (res *GetACallQueueOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8460,9 +7991,6 @@ func decodeGetACallQueueResponse(resp *http.Response) (res GetACallQueueRes, _ e
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetACallQueueBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8509,7 +8037,7 @@ func decodeGetACallQueueResponse(resp *http.Response) (res GetACallQueueRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetACommonAreaResponse(resp *http.Response) (res GetACommonAreaRes, _ error) {
+func decodeGetACommonAreaResponse(resp *http.Response) (res *GetACommonAreaOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8555,9 +8083,6 @@ func decodeGetACommonAreaResponse(resp *http.Response) (res GetACommonAreaRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetACommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8604,7 +8129,7 @@ func decodeGetACommonAreaResponse(resp *http.Response) (res GetACommonAreaRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetADeviceResponse(resp *http.Response) (res GetADeviceRes, _ error) {
+func decodeGetADeviceResponse(resp *http.Response) (res *GetADeviceOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8650,9 +8175,6 @@ func decodeGetADeviceResponse(resp *http.Response) (res GetADeviceRes, _ error) 
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetADeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8699,7 +8221,7 @@ func decodeGetADeviceResponse(resp *http.Response) (res GetADeviceRes, _ error) 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetAExternalContactResponse(resp *http.Response) (res GetAExternalContactRes, _ error) {
+func decodeGetAExternalContactResponse(resp *http.Response) (res *GetAExternalContactOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8736,9 +8258,6 @@ func decodeGetAExternalContactResponse(resp *http.Response) (res GetAExternalCon
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetAExternalContactBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8877,7 +8396,7 @@ func decodeGetASharedLineGroupResponse(resp *http.Response) (res *GetASharedLine
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetASiteResponse(resp *http.Response) (res GetASiteRes, _ error) {
+func decodeGetASiteResponse(resp *http.Response) (res *GetASiteOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -8923,9 +8442,6 @@ func decodeGetASiteResponse(resp *http.Response) (res GetASiteRes, _ error) {
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetASiteBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -8972,7 +8488,7 @@ func decodeGetASiteResponse(resp *http.Response) (res GetASiteRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetAccountOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res GetAccountOutboundCallingCountriesAndRegionsRes, _ error) {
+func decodeGetAccountOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res *GetAccountOutboundCallingCountriesAndRegionsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9018,12 +8534,6 @@ func decodeGetAccountOutboundCallingCountriesAndRegionsResponse(resp *http.Respo
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetAccountOutboundCallingCountriesAndRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &GetAccountOutboundCallingCountriesAndRegionsUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -9070,7 +8580,7 @@ func decodeGetAccountOutboundCallingCountriesAndRegionsResponse(resp *http.Respo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetAlertSettingDetailsResponse(resp *http.Response) (res GetAlertSettingDetailsRes, _ error) {
+func decodeGetAlertSettingDetailsResponse(resp *http.Response) (res *GetAlertSettingDetailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9116,12 +8626,6 @@ func decodeGetAlertSettingDetailsResponse(resp *http.Response) (res GetAlertSett
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetAlertSettingDetailsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetAlertSettingDetailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -9352,7 +8856,7 @@ func decodeGetAutoReceptionistDetailResponse(resp *http.Response) (res *GetAutoR
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetAutoReceptionistIVRResponse(resp *http.Response) (res GetAutoReceptionistIVRRes, _ error) {
+func decodeGetAutoReceptionistIVRResponse(resp *http.Response) (res *GetAutoReceptionistIVROK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9398,9 +8902,6 @@ func decodeGetAutoReceptionistIVRResponse(resp *http.Response) (res GetAutoRecep
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetAutoReceptionistIVRBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -9447,7 +8948,7 @@ func decodeGetAutoReceptionistIVRResponse(resp *http.Response) (res GetAutoRecep
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetAutoReceptionistsPolicyResponse(resp *http.Response) (res GetAutoReceptionistsPolicyRes, _ error) {
+func decodeGetAutoReceptionistsPolicyResponse(resp *http.Response) (res *GetAutoReceptionistsPolicyOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9493,9 +8994,6 @@ func decodeGetAutoReceptionistsPolicyResponse(resp *http.Response) (res GetAutoR
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetAutoReceptionistsPolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -9542,7 +9040,7 @@ func decodeGetAutoReceptionistsPolicyResponse(resp *http.Response) (res GetAutoR
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetCallChargesUsageReportResponse(resp *http.Response) (res GetCallChargesUsageReportRes, _ error) {
+func decodeGetCallChargesUsageReportResponse(resp *http.Response) (res *GetCallChargesUsageReportOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9588,12 +9086,6 @@ func decodeGetCallChargesUsageReportResponse(resp *http.Response) (res GetCallCh
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetCallChargesUsageReportBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetCallChargesUsageReportNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -9916,7 +9408,7 @@ func decodeGetCallLogMetricsDetailsResponse(resp *http.Response) (res *GetCallLo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetCallPathResponse(resp *http.Response) (res GetCallPathRes, _ error) {
+func decodeGetCallPathResponse(resp *http.Response) (res *GetCallPathOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -9962,12 +9454,6 @@ func decodeGetCallPathResponse(resp *http.Response) (res GetCallPathRes, _ error
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetCallPathBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetCallPathNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10189,7 +9675,7 @@ func decodeGetCallQueueRecordingsResponse(resp *http.Response) (res *GetCallQueu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetCommonAreaOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res GetCommonAreaOutboundCallingCountriesAndRegionsRes, _ error) {
+func decodeGetCommonAreaOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res *GetCommonAreaOutboundCallingCountriesAndRegionsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10235,15 +9721,6 @@ func decodeGetCommonAreaOutboundCallingCountriesAndRegionsResponse(resp *http.Re
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetCommonAreaOutboundCallingCountriesAndRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &GetCommonAreaOutboundCallingCountriesAndRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &GetCommonAreaOutboundCallingCountriesAndRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10290,7 +9767,7 @@ func decodeGetCommonAreaOutboundCallingCountriesAndRegionsResponse(resp *http.Re
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetCommonAreaSettingsResponse(resp *http.Response) (res GetCommonAreaSettingsRes, _ error) {
+func decodeGetCommonAreaSettingsResponse(resp *http.Response) (res *GetCommonAreaSettingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10336,9 +9813,6 @@ func decodeGetCommonAreaSettingsResponse(resp *http.Response) (res GetCommonArea
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetCommonAreaSettingsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10385,7 +9859,7 @@ func decodeGetCommonAreaSettingsResponse(resp *http.Response) (res GetCommonArea
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetEmergencyAddressResponse(resp *http.Response) (res GetEmergencyAddressRes, _ error) {
+func decodeGetEmergencyAddressResponse(resp *http.Response) (res *GetEmergencyAddressOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10431,9 +9905,6 @@ func decodeGetEmergencyAddressResponse(resp *http.Response) (res GetEmergencyAdd
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetEmergencyAddressBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10480,7 +9951,7 @@ func decodeGetEmergencyAddressResponse(resp *http.Response) (res GetEmergencyAdd
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetFirmwareRuleDetailResponse(resp *http.Response) (res GetFirmwareRuleDetailRes, _ error) {
+func decodeGetFirmwareRuleDetailResponse(resp *http.Response) (res *GetFirmwareRuleDetailOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10517,12 +9988,6 @@ func decodeGetFirmwareRuleDetailResponse(resp *http.Response) (res GetFirmwareRu
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetFirmwareRuleDetailBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetFirmwareRuleDetailNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10661,7 +10126,7 @@ func decodeGetGCPResponse(resp *http.Response) (res *GetGCPOK, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetGroupPhoneSettingsResponse(resp *http.Response) (res GetGroupPhoneSettingsRes, _ error) {
+func decodeGetGroupPhoneSettingsResponse(resp *http.Response) (res *GetGroupPhoneSettingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10707,9 +10172,6 @@ func decodeGetGroupPhoneSettingsResponse(resp *http.Response) (res GetGroupPhone
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetGroupPhoneSettingsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10756,7 +10218,7 @@ func decodeGetGroupPhoneSettingsResponse(resp *http.Response) (res GetGroupPhone
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetLocationResponse(resp *http.Response) (res GetLocationRes, _ error) {
+func decodeGetLocationResponse(resp *http.Response) (res *GetLocationOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10793,9 +10255,6 @@ func decodeGetLocationResponse(resp *http.Response) (res GetLocationRes, _ error
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetLocationBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10842,7 +10301,7 @@ func decodeGetLocationResponse(resp *http.Response) (res GetLocationRes, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetMonitoringGroupByIdResponse(resp *http.Response) (res GetMonitoringGroupByIdRes, _ error) {
+func decodeGetMonitoringGroupByIdResponse(resp *http.Response) (res *GetMonitoringGroupByIdOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10888,9 +10347,6 @@ func decodeGetMonitoringGroupByIdResponse(resp *http.Response) (res GetMonitorin
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetMonitoringGroupByIdBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -10937,7 +10393,7 @@ func decodeGetMonitoringGroupByIdResponse(resp *http.Response) (res GetMonitorin
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPSOperationLogsResponse(resp *http.Response) (res GetPSOperationLogsRes, _ error) {
+func decodeGetPSOperationLogsResponse(resp *http.Response) (res *GetPSOperationLogsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -10983,9 +10439,6 @@ func decodeGetPSOperationLogsResponse(resp *http.Response) (res GetPSOperationLo
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &GetPSOperationLogsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11032,7 +10485,7 @@ func decodeGetPSOperationLogsResponse(resp *http.Response) (res GetPSOperationLo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPhoneNumberDetailsResponse(resp *http.Response) (res GetPhoneNumberDetailsRes, _ error) {
+func decodeGetPhoneNumberDetailsResponse(resp *http.Response) (res *GetPhoneNumberDetailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11078,9 +10531,6 @@ func decodeGetPhoneNumberDetailsResponse(resp *http.Response) (res GetPhoneNumbe
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetPhoneNumberDetailsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11127,7 +10577,7 @@ func decodeGetPhoneNumberDetailsResponse(resp *http.Response) (res GetPhoneNumbe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPhoneRecordingsResponse(resp *http.Response) (res GetPhoneRecordingsRes, _ error) {
+func decodeGetPhoneRecordingsResponse(resp *http.Response) (res *GetPhoneRecordingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11173,12 +10623,6 @@ func decodeGetPhoneRecordingsResponse(resp *http.Response) (res GetPhoneRecordin
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetPhoneRecordingsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &GetPhoneRecordingsUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11225,7 +10669,7 @@ func decodeGetPhoneRecordingsResponse(resp *http.Response) (res GetPhoneRecordin
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPhoneRecordingsByCallIdOrCallLogIdResponse(resp *http.Response) (res GetPhoneRecordingsByCallIdOrCallLogIdRes, _ error) {
+func decodeGetPhoneRecordingsByCallIdOrCallLogIdResponse(resp *http.Response) (res *GetPhoneRecordingsByCallIdOrCallLogIdOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11271,12 +10715,6 @@ func decodeGetPhoneRecordingsByCallIdOrCallLogIdResponse(resp *http.Response) (r
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 401:
-		// Code 401.
-		return &GetPhoneRecordingsByCallIdOrCallLogIdUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &GetPhoneRecordingsByCallIdOrCallLogIdNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11323,7 +10761,7 @@ func decodeGetPhoneRecordingsByCallIdOrCallLogIdResponse(resp *http.Response) (r
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPhoneUserVoiceMailsResponse(resp *http.Response) (res GetPhoneUserVoiceMailsRes, _ error) {
+func decodeGetPhoneUserVoiceMailsResponse(resp *http.Response) (res *GetPhoneUserVoiceMailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11369,12 +10807,6 @@ func decodeGetPhoneUserVoiceMailsResponse(resp *http.Response) (res GetPhoneUser
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetPhoneUserVoiceMailsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetPhoneUserVoiceMailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11421,7 +10853,7 @@ func decodeGetPhoneUserVoiceMailsResponse(resp *http.Response) (res GetPhoneUser
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetPortedNumbersDetailsResponse(resp *http.Response) (res GetPortedNumbersDetailsRes, _ error) {
+func decodeGetPortedNumbersDetailsResponse(resp *http.Response) (res *GetPortedNumbersDetailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11467,9 +10899,6 @@ func decodeGetPortedNumbersDetailsResponse(resp *http.Response) (res GetPortedNu
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetPortedNumbersDetailsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11866,7 +11295,7 @@ func decodeGetSMSCampaignResponse(resp *http.Response) (res *GetSMSCampaignOK, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSMSChargesUsageReportResponse(resp *http.Response) (res GetSMSChargesUsageReportRes, _ error) {
+func decodeGetSMSChargesUsageReportResponse(resp *http.Response) (res *GetSMSChargesUsageReportOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -11912,12 +11341,6 @@ func decodeGetSMSChargesUsageReportResponse(resp *http.Response) (res GetSMSChar
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetSMSChargesUsageReportBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetSMSChargesUsageReportNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -11964,7 +11387,7 @@ func decodeGetSMSChargesUsageReportResponse(resp *http.Response) (res GetSMSChar
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSettingTemplateResponse(resp *http.Response) (res GetSettingTemplateRes, _ error) {
+func decodeGetSettingTemplateResponse(resp *http.Response) (res *GetSettingTemplateOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12010,12 +11433,6 @@ func decodeGetSettingTemplateResponse(resp *http.Response) (res GetSettingTempla
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 401:
-		// Code 401.
-		return &GetSettingTemplateUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &GetSettingTemplateNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12062,7 +11479,7 @@ func decodeGetSettingTemplateResponse(resp *http.Response) (res GetSettingTempla
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSharedLineGroupPolicyResponse(resp *http.Response) (res GetSharedLineGroupPolicyRes, _ error) {
+func decodeGetSharedLineGroupPolicyResponse(resp *http.Response) (res *GetSharedLineGroupPolicyOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12108,9 +11525,6 @@ func decodeGetSharedLineGroupPolicyResponse(resp *http.Response) (res GetSharedL
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetSharedLineGroupPolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12157,7 +11571,7 @@ func decodeGetSharedLineGroupPolicyResponse(resp *http.Response) (res GetSharedL
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSiteOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res GetSiteOutboundCallingCountriesAndRegionsRes, _ error) {
+func decodeGetSiteOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res *GetSiteOutboundCallingCountriesAndRegionsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12203,15 +11617,6 @@ func decodeGetSiteOutboundCallingCountriesAndRegionsResponse(resp *http.Response
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetSiteOutboundCallingCountriesAndRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &GetSiteOutboundCallingCountriesAndRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &GetSiteOutboundCallingCountriesAndRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12258,7 +11663,7 @@ func decodeGetSiteOutboundCallingCountriesAndRegionsResponse(resp *http.Response
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSiteSettingForTypeResponse(resp *http.Response) (res GetSiteSettingForTypeRes, _ error) {
+func decodeGetSiteSettingForTypeResponse(resp *http.Response) (res *GetSiteSettingForTypeOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12304,9 +11709,6 @@ func decodeGetSiteSettingForTypeResponse(resp *http.Response) (res GetSiteSettin
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetSiteSettingForTypeBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12353,7 +11755,7 @@ func decodeGetSiteSettingForTypeResponse(resp *http.Response) (res GetSiteSettin
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetSmsSessionsResponse(resp *http.Response) (res GetSmsSessionsRes, _ error) {
+func decodeGetSmsSessionsResponse(resp *http.Response) (res *GetSmsSessionsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12399,12 +11801,6 @@ func decodeGetSmsSessionsResponse(resp *http.Response) (res GetSmsSessionsRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetSmsSessionsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &GetSmsSessionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12451,7 +11847,7 @@ func decodeGetSmsSessionsResponse(resp *http.Response) (res GetSmsSessionsRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetUserOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res GetUserOutboundCallingCountriesAndRegionsRes, _ error) {
+func decodeGetUserOutboundCallingCountriesAndRegionsResponse(resp *http.Response) (res *GetUserOutboundCallingCountriesAndRegionsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12497,15 +11893,6 @@ func decodeGetUserOutboundCallingCountriesAndRegionsResponse(resp *http.Response
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetUserOutboundCallingCountriesAndRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &GetUserOutboundCallingCountriesAndRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &GetUserOutboundCallingCountriesAndRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12552,7 +11939,7 @@ func decodeGetUserOutboundCallingCountriesAndRegionsResponse(resp *http.Response
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetVoicemailDetailsResponse(resp *http.Response) (res GetVoicemailDetailsRes, _ error) {
+func decodeGetVoicemailDetailsResponse(resp *http.Response) (res *GetVoicemailDetailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12598,9 +11985,6 @@ func decodeGetVoicemailDetailsResponse(resp *http.Response) (res GetVoicemailDet
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &GetVoicemailDetailsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12647,7 +12031,7 @@ func decodeGetVoicemailDetailsResponse(resp *http.Response) (res GetVoicemailDet
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGetVoicemailDetailsByCallIdOrCallLogIdResponse(resp *http.Response) (res GetVoicemailDetailsByCallIdOrCallLogIdRes, _ error) {
+func decodeGetVoicemailDetailsByCallIdOrCallLogIdResponse(resp *http.Response) (res *GetVoicemailDetailsByCallIdOrCallLogIdOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12693,9 +12077,6 @@ func decodeGetVoicemailDetailsByCallIdOrCallLogIdResponse(resp *http.Response) (
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &GetVoicemailDetailsByCallIdOrCallLogIdNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12834,7 +12215,7 @@ func decodeGetZoomRoomResponse(resp *http.Response) (res *GetZoomRoomOK, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListAccountLevelInboundBlockRulesResponse(resp *http.Response) (res ListAccountLevelInboundBlockRulesRes, _ error) {
+func decodeListAccountLevelInboundBlockRulesResponse(resp *http.Response) (res *ListAccountLevelInboundBlockRulesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12880,9 +12261,6 @@ func decodeListAccountLevelInboundBlockRulesResponse(resp *http.Response) (res L
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListAccountLevelInboundBlockRulesBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -12929,7 +12307,7 @@ func decodeListAccountLevelInboundBlockRulesResponse(resp *http.Response) (res L
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListAccountLevelInboundBlockedStatisticsResponse(resp *http.Response) (res ListAccountLevelInboundBlockedStatisticsRes, _ error) {
+func decodeListAccountLevelInboundBlockedStatisticsResponse(resp *http.Response) (res *ListAccountLevelInboundBlockedStatisticsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -12975,9 +12353,6 @@ func decodeListAccountLevelInboundBlockedStatisticsResponse(resp *http.Response)
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListAccountLevelInboundBlockedStatisticsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -13024,7 +12399,7 @@ func decodeListAccountLevelInboundBlockedStatisticsResponse(resp *http.Response)
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res ListAccountOutboundCallingExceptionRuleRes, _ error) {
+func decodeListAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res *ListAccountOutboundCallingExceptionRuleOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -13070,12 +12445,6 @@ func decodeListAccountOutboundCallingExceptionRuleResponse(resp *http.Response) 
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListAccountOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListAccountOutboundCallingExceptionRuleUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -13389,7 +12758,7 @@ func decodeListAccountSMSCampaignsResponse(resp *http.Response) (res *ListAccoun
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListActivationCodesResponse(resp *http.Response) (res ListActivationCodesRes, _ error) {
+func decodeListActivationCodesResponse(resp *http.Response) (res *ListActivationCodesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -13435,9 +12804,6 @@ func decodeListActivationCodesResponse(resp *http.Response) (res ListActivationC
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListActivationCodesBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -13484,7 +12850,7 @@ func decodeListActivationCodesResponse(resp *http.Response) (res ListActivationC
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListAlertSettingsWithPagingQueryResponse(resp *http.Response) (res ListAlertSettingsWithPagingQueryRes, _ error) {
+func decodeListAlertSettingsWithPagingQueryResponse(resp *http.Response) (res *ListAlertSettingsWithPagingQueryOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -13530,12 +12896,6 @@ func decodeListAlertSettingsWithPagingQueryResponse(resp *http.Response) (res Li
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListAlertSettingsWithPagingQueryBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListAlertSettingsWithPagingQueryUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -14531,7 +13891,7 @@ func decodeListCarrierPeeringPhoneNumbersResponse(resp *http.Response) (res *Lis
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res ListCommonAreaOutboundCallingExceptionRuleRes, _ error) {
+func decodeListCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res *ListCommonAreaOutboundCallingExceptionRuleOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -14577,15 +13937,6 @@ func decodeListCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Respons
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListCommonAreaOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListCommonAreaOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &ListCommonAreaOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -14899,7 +14250,7 @@ func decodeListDeviceLineKeySettingResponse(resp *http.Response) (res *ListDevic
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListEmergencyAddressesResponse(resp *http.Response) (res ListEmergencyAddressesRes, _ error) {
+func decodeListEmergencyAddressesResponse(resp *http.Response) (res *ListEmergencyAddressesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -14945,9 +14296,6 @@ func decodeListEmergencyAddressesResponse(resp *http.Response) (res ListEmergenc
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListEmergencyAddressesBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -14994,7 +14342,7 @@ func decodeListEmergencyAddressesResponse(resp *http.Response) (res ListEmergenc
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListExtensionLevelInboundBlockRulesResponse(resp *http.Response) (res ListExtensionLevelInboundBlockRulesRes, _ error) {
+func decodeListExtensionLevelInboundBlockRulesResponse(resp *http.Response) (res *ListExtensionLevelInboundBlockRulesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -15040,12 +14388,6 @@ func decodeListExtensionLevelInboundBlockRulesResponse(resp *http.Response) (res
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListExtensionLevelInboundBlockRulesBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &ListExtensionLevelInboundBlockRulesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -15175,7 +14517,7 @@ func decodeListExternalContactsResponse(resp *http.Response) (res *ListExternalC
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListFirmwareRulesResponse(resp *http.Response) (res ListFirmwareRulesRes, _ error) {
+func decodeListFirmwareRulesResponse(resp *http.Response) (res *ListFirmwareRulesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -15212,9 +14554,6 @@ func decodeListFirmwareRulesResponse(resp *http.Response) (res ListFirmwareRules
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListFirmwareRulesBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -15261,7 +14600,7 @@ func decodeListFirmwareRulesResponse(resp *http.Response) (res ListFirmwareRules
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListFirmwaresResponse(resp *http.Response) (res ListFirmwaresRes, _ error) {
+func decodeListFirmwaresResponse(resp *http.Response) (res *ListFirmwaresOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -15307,9 +14646,6 @@ func decodeListFirmwaresResponse(resp *http.Response) (res ListFirmwaresRes, _ e
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListFirmwaresBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -15715,7 +15051,7 @@ func decodeListLocationsResponse(resp *http.Response) (res *ListLocationsOK, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListMembersResponse(resp *http.Response) (res ListMembersRes, _ error) {
+func decodeListMembersResponse(resp *http.Response) (res *ListMembersOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -15761,9 +15097,6 @@ func decodeListMembersResponse(resp *http.Response) (res ListMembersRes, _ error
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -15810,7 +15143,7 @@ func decodeListMembersResponse(resp *http.Response) (res ListMembersRes, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListMonitoringGroupResponse(resp *http.Response) (res ListMonitoringGroupRes, _ error) {
+func decodeListMonitoringGroupResponse(resp *http.Response) (res *ListMonitoringGroupOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -15856,9 +15189,6 @@ func decodeListMonitoringGroupResponse(resp *http.Response) (res ListMonitoringG
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListMonitoringGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -16255,7 +15585,7 @@ func decodeListPhonePlansResponse(resp *http.Response) (res *ListPhonePlansOK, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListPhoneRolesResponse(resp *http.Response) (res ListPhoneRolesRes, _ error) {
+func decodeListPhoneRolesResponse(resp *http.Response) (res *ListPhoneRolesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -16292,9 +15622,6 @@ func decodeListPhoneRolesResponse(resp *http.Response) (res ListPhoneRolesRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &ListPhoneRolesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -16608,7 +15935,7 @@ func decodeListPortedNumbersResponse(resp *http.Response) (res *ListPortedNumber
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListRoleMembersResponse(resp *http.Response) (res ListRoleMembersRes, _ error) {
+func decodeListRoleMembersResponse(resp *http.Response) (res *ListRoleMembersOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -16645,12 +15972,6 @@ func decodeListRoleMembersResponse(resp *http.Response) (res ListRoleMembersRes,
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListRoleMembersBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &ListRoleMembersNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -16814,7 +16135,7 @@ func decodeListRoutingRuleResponse(resp *http.Response) (res []ListRoutingRuleOK
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListSettingTemplatesResponse(resp *http.Response) (res ListSettingTemplatesRes, _ error) {
+func decodeListSettingTemplatesResponse(resp *http.Response) (res *ListSettingTemplatesOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -16860,15 +16181,6 @@ func decodeListSettingTemplatesResponse(resp *http.Response) (res ListSettingTem
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListSettingTemplatesBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListSettingTemplatesUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &ListSettingTemplatesNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -17274,7 +16586,7 @@ func decodeListSiteCustomizeOutboundCallerNumbersResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res ListSiteOutboundCallingExceptionRuleRes, _ error) {
+func decodeListSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res *ListSiteOutboundCallingExceptionRuleOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -17320,15 +16632,6 @@ func decodeListSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (re
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListSiteOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListSiteOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &ListSiteOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -17633,7 +16936,7 @@ func decodeListUserCustomizeOutboundCallerNumbersResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res ListUserOutboundCallingExceptionRuleRes, _ error) {
+func decodeListUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res *ListUserOutboundCallingExceptionRuleOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -17679,15 +16982,6 @@ func decodeListUserOutboundCallingExceptionRuleResponse(resp *http.Response) (re
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListUserOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &ListUserOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &ListUserOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -17734,7 +17028,7 @@ func decodeListUserOutboundCallingExceptionRuleResponse(resp *http.Response) (re
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListUsersFromDirectoryResponse(resp *http.Response) (res ListUsersFromDirectoryRes, _ error) {
+func decodeListUsersFromDirectoryResponse(resp *http.Response) (res *ListUsersFromDirectoryOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -17771,12 +17065,6 @@ func decodeListUsersFromDirectoryResponse(resp *http.Response) (res ListUsersFro
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListUsersFromDirectoryBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &ListUsersFromDirectoryNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -17823,7 +17111,7 @@ func decodeListUsersFromDirectoryResponse(resp *http.Response) (res ListUsersFro
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListUsersFromDirectoryBySiteResponse(resp *http.Response) (res ListUsersFromDirectoryBySiteRes, _ error) {
+func decodeListUsersFromDirectoryBySiteResponse(resp *http.Response) (res *ListUsersFromDirectoryBySiteOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -17860,12 +17148,6 @@ func decodeListUsersFromDirectoryBySiteResponse(resp *http.Response) (res ListUs
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListUsersFromDirectoryBySiteBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &ListUsersFromDirectoryBySiteNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -17912,7 +17194,7 @@ func decodeListUsersFromDirectoryBySiteResponse(resp *http.Response) (res ListUs
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeListZoomPhoneAccountSettingsResponse(resp *http.Response) (res ListZoomPhoneAccountSettingsRes, _ error) {
+func decodeListZoomPhoneAccountSettingsResponse(resp *http.Response) (res *ListZoomPhoneAccountSettingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -17958,9 +17240,6 @@ func decodeListZoomPhoneAccountSettingsResponse(resp *http.Response) (res ListZo
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &ListZoomPhoneAccountSettingsBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18099,17 +17378,11 @@ func decodeListZoomRoomsResponse(resp *http.Response) (res *ListZoomRoomsOK, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeMarkPhoneNumberAsBlockedForAllExtensionsResponse(resp *http.Response) (res MarkPhoneNumberAsBlockedForAllExtensionsRes, _ error) {
+func decodeMarkPhoneNumberAsBlockedForAllExtensionsResponse(resp *http.Response) (res *MarkPhoneNumberAsBlockedForAllExtensionsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &MarkPhoneNumberAsBlockedForAllExtensionsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &MarkPhoneNumberAsBlockedForAllExtensionsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &MarkPhoneNumberAsBlockedForAllExtensionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18156,14 +17429,11 @@ func decodeMarkPhoneNumberAsBlockedForAllExtensionsResponse(resp *http.Response)
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneDownloadRecordingTranscriptResponse(resp *http.Response) (res PhoneDownloadRecordingTranscriptRes, _ error) {
+func decodePhoneDownloadRecordingTranscriptResponse(resp *http.Response) (res *PhoneDownloadRecordingTranscriptOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
 		return &PhoneDownloadRecordingTranscriptOK{}, nil
-	case 400:
-		// Code 400.
-		return &PhoneDownloadRecordingTranscriptBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18210,7 +17480,7 @@ func decodePhoneDownloadRecordingTranscriptResponse(resp *http.Response) (res Ph
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneSettingResponse(resp *http.Response) (res PhoneSettingRes, _ error) {
+func decodePhoneSettingResponse(resp *http.Response) (res *PhoneSettingOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18247,9 +17517,6 @@ func decodePhoneSettingResponse(resp *http.Response) (res PhoneSettingRes, _ err
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 403:
-		// Code 403.
-		return &PhoneSettingForbidden{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18296,7 +17563,7 @@ func decodePhoneSettingResponse(resp *http.Response) (res PhoneSettingRes, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneUserResponse(resp *http.Response) (res PhoneUserRes, _ error) {
+func decodePhoneUserResponse(resp *http.Response) (res *PhoneUserOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18342,9 +17609,6 @@ func decodePhoneUserResponse(resp *http.Response) (res PhoneUserRes, _ error) {
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &PhoneUserNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18391,7 +17655,7 @@ func decodePhoneUserResponse(resp *http.Response) (res PhoneUserRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneUserCallLogsResponse(resp *http.Response) (res PhoneUserCallLogsRes, _ error) {
+func decodePhoneUserCallLogsResponse(resp *http.Response) (res *PhoneUserCallLogsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18437,9 +17701,6 @@ func decodePhoneUserCallLogsResponse(resp *http.Response) (res PhoneUserCallLogs
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &PhoneUserCallLogsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18486,7 +17747,7 @@ func decodePhoneUserCallLogsResponse(resp *http.Response) (res PhoneUserCallLogs
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneUserRecordingsResponse(resp *http.Response) (res PhoneUserRecordingsRes, _ error) {
+func decodePhoneUserRecordingsResponse(resp *http.Response) (res *PhoneUserRecordingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18532,9 +17793,6 @@ func decodePhoneUserRecordingsResponse(resp *http.Response) (res PhoneUserRecord
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &PhoneUserRecordingsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18581,7 +17839,7 @@ func decodePhoneUserRecordingsResponse(resp *http.Response) (res PhoneUserRecord
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneUserSettingsResponse(resp *http.Response) (res PhoneUserSettingsRes, _ error) {
+func decodePhoneUserSettingsResponse(resp *http.Response) (res *PhoneUserSettingsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18627,9 +17885,6 @@ func decodePhoneUserSettingsResponse(resp *http.Response) (res PhoneUserSettings
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &PhoneUserSettingsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18676,7 +17931,7 @@ func decodePhoneUserSettingsResponse(resp *http.Response) (res PhoneUserSettings
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodePhoneUserVoiceMailsResponse(resp *http.Response) (res PhoneUserVoiceMailsRes, _ error) {
+func decodePhoneUserVoiceMailsResponse(resp *http.Response) (res *PhoneUserVoiceMailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -18722,9 +17977,6 @@ func decodePhoneUserVoiceMailsResponse(resp *http.Response) (res PhoneUserVoiceM
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &PhoneUserVoiceMailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18771,14 +18023,11 @@ func decodePhoneUserVoiceMailsResponse(resp *http.Response) (res PhoneUserVoiceM
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRebootPhoneDeviceResponse(resp *http.Response) (res RebootPhoneDeviceRes, _ error) {
+func decodeRebootPhoneDeviceResponse(resp *http.Response) (res *RebootPhoneDeviceAccepted, _ error) {
 	switch resp.StatusCode {
 	case 202:
 		// Code 202.
 		return &RebootPhoneDeviceAccepted{}, nil
-	case 400:
-		// Code 400.
-		return &RebootPhoneDeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18825,14 +18074,11 @@ func decodeRebootPhoneDeviceResponse(resp *http.Response) (res RebootPhoneDevice
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveCQPolicySubSettingResponse(resp *http.Response) (res RemoveCQPolicySubSettingRes, _ error) {
+func decodeRemoveCQPolicySubSettingResponse(resp *http.Response) (res *RemoveCQPolicySubSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveCQPolicySubSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveCQPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18879,14 +18125,11 @@ func decodeRemoveCQPolicySubSettingResponse(resp *http.Response) (res RemoveCQPo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveGCPMembersResponse(resp *http.Response) (res RemoveGCPMembersRes, _ error) {
+func decodeRemoveGCPMembersResponse(resp *http.Response) (res *RemoveGCPMembersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveGCPMembersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveGCPMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18933,14 +18176,11 @@ func decodeRemoveGCPMembersResponse(resp *http.Response) (res RemoveGCPMembersRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveMemberResponse(resp *http.Response) (res RemoveMemberRes, _ error) {
+func decodeRemoveMemberResponse(resp *http.Response) (res *RemoveMemberNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveMemberNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveMemberBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -18987,14 +18227,11 @@ func decodeRemoveMemberResponse(resp *http.Response) (res RemoveMemberRes, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveMembersResponse(resp *http.Response) (res RemoveMembersRes, _ error) {
+func decodeRemoveMembersResponse(resp *http.Response) (res *RemoveMembersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveMembersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19041,14 +18278,11 @@ func decodeRemoveMembersResponse(resp *http.Response) (res RemoveMembersRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveSLGPolicySubSettingResponse(resp *http.Response) (res RemoveSLGPolicySubSettingRes, _ error) {
+func decodeRemoveSLGPolicySubSettingResponse(resp *http.Response) (res *RemoveSLGPolicySubSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveSLGPolicySubSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveSLGPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19095,14 +18329,11 @@ func decodeRemoveSLGPolicySubSettingResponse(resp *http.Response) (res RemoveSLG
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeRemoveZoomRoomResponse(resp *http.Response) (res RemoveZoomRoomRes, _ error) {
+func decodeRemoveZoomRoomResponse(resp *http.Response) (res *RemoveZoomRoomNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &RemoveZoomRoomNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &RemoveZoomRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19149,7 +18380,7 @@ func decodeRemoveZoomRoomResponse(resp *http.Response) (res RemoveZoomRoomRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeSmsByMessageIdResponse(resp *http.Response) (res SmsByMessageIdRes, _ error) {
+func decodeSmsByMessageIdResponse(resp *http.Response) (res *SmsByMessageIdOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -19195,9 +18426,6 @@ func decodeSmsByMessageIdResponse(resp *http.Response) (res SmsByMessageIdRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 401:
-		// Code 401.
-		return &SmsByMessageIdUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19244,7 +18472,7 @@ func decodeSmsByMessageIdResponse(resp *http.Response) (res SmsByMessageIdRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeSmsSessionDetailsResponse(resp *http.Response) (res SmsSessionDetailsRes, _ error) {
+func decodeSmsSessionDetailsResponse(resp *http.Response) (res *SmsSessionDetailsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -19290,12 +18518,6 @@ func decodeSmsSessionDetailsResponse(resp *http.Response) (res SmsSessionDetails
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 401:
-		// Code 401.
-		return &SmsSessionDetailsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &SmsSessionDetailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19342,7 +18564,7 @@ func decodeSmsSessionDetailsResponse(resp *http.Response) (res SmsSessionDetails
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeSmsSessionSyncResponse(resp *http.Response) (res SmsSessionSyncRes, _ error) {
+func decodeSmsSessionSyncResponse(resp *http.Response) (res *SmsSessionSyncOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -19388,15 +18610,6 @@ func decodeSmsSessionSyncResponse(resp *http.Response) (res SmsSessionSyncRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &SmsSessionSyncBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &SmsSessionSyncUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &SmsSessionSyncNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19443,14 +18656,11 @@ func decodeSmsSessionSyncResponse(resp *http.Response) (res SmsSessionSyncRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeSyncPhoneDeviceResponse(resp *http.Response) (res SyncPhoneDeviceRes, _ error) {
+func decodeSyncPhoneDeviceResponse(resp *http.Response) (res *SyncPhoneDeviceNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &SyncPhoneDeviceNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &SyncPhoneDeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19497,7 +18707,7 @@ func decodeSyncPhoneDeviceResponse(resp *http.Response) (res SyncPhoneDeviceRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeSyncUserCallLogsResponse(resp *http.Response) (res SyncUserCallLogsRes, _ error) {
+func decodeSyncUserCallLogsResponse(resp *http.Response) (res *SyncUserCallLogsOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -19543,9 +18753,6 @@ func decodeSyncUserCallLogsResponse(resp *http.Response) (res SyncUserCallLogsRe
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 404:
-		// Code 404.
-		return &SyncUserCallLogsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19592,17 +18799,11 @@ func decodeSyncUserCallLogsResponse(resp *http.Response) (res SyncUserCallLogsRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnAssignPhoneNumCallQueueResponse(resp *http.Response) (res UnAssignPhoneNumCallQueueRes, _ error) {
+func decodeUnAssignPhoneNumCallQueueResponse(resp *http.Response) (res *UnAssignPhoneNumCallQueueNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnAssignPhoneNumCallQueueNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnAssignPhoneNumCallQueueBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UnAssignPhoneNumCallQueueNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19649,17 +18850,11 @@ func decodeUnAssignPhoneNumCallQueueResponse(resp *http.Response) (res UnAssignP
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignAPhoneNumAutoReceptionistResponse(resp *http.Response) (res UnassignAPhoneNumAutoReceptionistRes, _ error) {
+func decodeUnassignAPhoneNumAutoReceptionistResponse(resp *http.Response) (res *UnassignAPhoneNumAutoReceptionistNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignAPhoneNumAutoReceptionistNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignAPhoneNumAutoReceptionistBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UnassignAPhoneNumAutoReceptionistNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19706,14 +18901,11 @@ func decodeUnassignAPhoneNumAutoReceptionistResponse(resp *http.Response) (res U
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignAPhoneNumCallQueueResponse(resp *http.Response) (res UnassignAPhoneNumCallQueueRes, _ error) {
+func decodeUnassignAPhoneNumCallQueueResponse(resp *http.Response) (res *UnassignAPhoneNumCallQueueNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignAPhoneNumCallQueueNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignAPhoneNumCallQueueBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19760,14 +18952,11 @@ func decodeUnassignAPhoneNumCallQueueResponse(resp *http.Response) (res Unassign
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignAllMembersResponse(resp *http.Response) (res UnassignAllMembersRes, _ error) {
+func decodeUnassignAllMembersResponse(resp *http.Response) (res *UnassignAllMembersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignAllMembersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignAllMembersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19814,14 +19003,11 @@ func decodeUnassignAllMembersResponse(resp *http.Response) (res UnassignAllMembe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignAllPhoneNumsAutoReceptionistResponse(resp *http.Response) (res UnassignAllPhoneNumsAutoReceptionistRes, _ error) {
+func decodeUnassignAllPhoneNumsAutoReceptionistResponse(resp *http.Response) (res *UnassignAllPhoneNumsAutoReceptionistNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignAllPhoneNumsAutoReceptionistNoContent{}, nil
-	case 404:
-		// Code 404.
-		return &UnassignAllPhoneNumsAutoReceptionistNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19868,14 +19054,11 @@ func decodeUnassignAllPhoneNumsAutoReceptionistResponse(resp *http.Response) (re
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignCallingPlanResponse(resp *http.Response) (res UnassignCallingPlanRes, _ error) {
+func decodeUnassignCallingPlanResponse(resp *http.Response) (res *UnassignCallingPlanNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignCallingPlanNoContent{}, nil
-	case 404:
-		// Code 404.
-		return &UnassignCallingPlanNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19922,14 +19105,11 @@ func decodeUnassignCallingPlanResponse(resp *http.Response) (res UnassignCalling
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignCallingPlanFromRoomResponse(resp *http.Response) (res UnassignCallingPlanFromRoomRes, _ error) {
+func decodeUnassignCallingPlanFromRoomResponse(resp *http.Response) (res *UnassignCallingPlanFromRoomNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignCallingPlanFromRoomNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignCallingPlanFromRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -19976,14 +19156,11 @@ func decodeUnassignCallingPlanFromRoomResponse(resp *http.Response) (res Unassig
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignCallingPlansFromCommonAreaResponse(resp *http.Response) (res UnassignCallingPlansFromCommonAreaRes, _ error) {
+func decodeUnassignCallingPlansFromCommonAreaResponse(resp *http.Response) (res *UnassignCallingPlansFromCommonAreaNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignCallingPlansFromCommonAreaNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignCallingPlansFromCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20030,14 +19207,11 @@ func decodeUnassignCallingPlansFromCommonAreaResponse(resp *http.Response) (res 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignCampaignPhoneNumberResponse(resp *http.Response) (res UnassignCampaignPhoneNumberRes, _ error) {
+func decodeUnassignCampaignPhoneNumberResponse(resp *http.Response) (res *UnassignCampaignPhoneNumberNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignCampaignPhoneNumberNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignCampaignPhoneNumberBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20084,17 +19258,11 @@ func decodeUnassignCampaignPhoneNumberResponse(resp *http.Response) (res Unassig
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignMemberFromCallQueueResponse(resp *http.Response) (res UnassignMemberFromCallQueueRes, _ error) {
+func decodeUnassignMemberFromCallQueueResponse(resp *http.Response) (res *UnassignMemberFromCallQueueNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignMemberFromCallQueueNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignMemberFromCallQueueBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UnassignMemberFromCallQueueNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20141,14 +19309,11 @@ func decodeUnassignMemberFromCallQueueResponse(resp *http.Response) (res Unassig
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignPhoneNumberResponse(resp *http.Response) (res UnassignPhoneNumberRes, _ error) {
+func decodeUnassignPhoneNumberResponse(resp *http.Response) (res *UnassignPhoneNumberNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignPhoneNumberNoContent{}, nil
-	case 404:
-		// Code 404.
-		return &UnassignPhoneNumberNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20195,14 +19360,11 @@ func decodeUnassignPhoneNumberResponse(resp *http.Response) (res UnassignPhoneNu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignPhoneNumberFromZoomRoomResponse(resp *http.Response) (res UnassignPhoneNumberFromZoomRoomRes, _ error) {
+func decodeUnassignPhoneNumberFromZoomRoomResponse(resp *http.Response) (res *UnassignPhoneNumberFromZoomRoomNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignPhoneNumberFromZoomRoomNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignPhoneNumberFromZoomRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20249,14 +19411,11 @@ func decodeUnassignPhoneNumberFromZoomRoomResponse(resp *http.Response) (res Una
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUnassignPhoneNumbersFromCommonAreaResponse(resp *http.Response) (res UnassignPhoneNumbersFromCommonAreaRes, _ error) {
+func decodeUnassignPhoneNumbersFromCommonAreaResponse(resp *http.Response) (res *UnassignPhoneNumbersFromCommonAreaNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UnassignPhoneNumbersFromCommonAreaNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UnassignPhoneNumbersFromCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20303,17 +19462,11 @@ func decodeUnassignPhoneNumbersFromCommonAreaResponse(resp *http.Response) (res 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateADeviceResponse(resp *http.Response) (res UpdateADeviceRes, _ error) {
+func decodeUpdateADeviceResponse(resp *http.Response) (res *UpdateADeviceNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateADeviceNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateADeviceBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateADeviceNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20360,17 +19513,11 @@ func decodeUpdateADeviceResponse(resp *http.Response) (res UpdateADeviceRes, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAccountLevelInboundBlockRuleResponse(resp *http.Response) (res UpdateAccountLevelInboundBlockRuleRes, _ error) {
+func decodeUpdateAccountLevelInboundBlockRuleResponse(resp *http.Response) (res *UpdateAccountLevelInboundBlockRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAccountLevelInboundBlockRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAccountLevelInboundBlockRuleBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateAccountLevelInboundBlockRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20417,17 +19564,11 @@ func decodeUpdateAccountLevelInboundBlockRuleResponse(resp *http.Response) (res 
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAccountOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res UpdateAccountOutboundCallingCountriesOrRegionsRes, _ error) {
+func decodeUpdateAccountOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res *UpdateAccountOutboundCallingCountriesOrRegionsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAccountOutboundCallingCountriesOrRegionsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAccountOutboundCallingCountriesOrRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateAccountOutboundCallingCountriesOrRegionsUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20474,17 +19615,11 @@ func decodeUpdateAccountOutboundCallingCountriesOrRegionsResponse(resp *http.Res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res UpdateAccountOutboundCallingExceptionRuleRes, _ error) {
+func decodeUpdateAccountOutboundCallingExceptionRuleResponse(resp *http.Response) (res *UpdateAccountOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAccountOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAccountOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateAccountOutboundCallingExceptionRuleUnauthorized{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20531,17 +19666,11 @@ func decodeUpdateAccountOutboundCallingExceptionRuleResponse(resp *http.Response
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAnAlertSettingResponse(resp *http.Response) (res UpdateAnAlertSettingRes, _ error) {
+func decodeUpdateAnAlertSettingResponse(resp *http.Response) (res *UpdateAnAlertSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAnAlertSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAnAlertSettingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateAnAlertSettingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20588,14 +19717,11 @@ func decodeUpdateAnAlertSettingResponse(resp *http.Response) (res UpdateAnAlertS
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAudioItemResponse(resp *http.Response) (res UpdateAudioItemRes, _ error) {
+func decodeUpdateAudioItemResponse(resp *http.Response) (res *UpdateAudioItemNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAudioItemNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAudioItemBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20642,17 +19768,11 @@ func decodeUpdateAudioItemResponse(resp *http.Response) (res UpdateAudioItemRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAutoDeleteFieldResponse(resp *http.Response) (res UpdateAutoDeleteFieldRes, _ error) {
+func decodeUpdateAutoDeleteFieldResponse(resp *http.Response) (res *UpdateAutoDeleteFieldNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAutoDeleteFieldNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAutoDeleteFieldBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateAutoDeleteFieldNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20699,14 +19819,11 @@ func decodeUpdateAutoDeleteFieldResponse(resp *http.Response) (res UpdateAutoDel
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAutoReceptionistResponse(resp *http.Response) (res UpdateAutoReceptionistRes, _ error) {
+func decodeUpdateAutoReceptionistResponse(resp *http.Response) (res *UpdateAutoReceptionistNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAutoReceptionistNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAutoReceptionistBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20753,14 +19870,11 @@ func decodeUpdateAutoReceptionistResponse(resp *http.Response) (res UpdateAutoRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAutoReceptionistIVRResponse(resp *http.Response) (res UpdateAutoReceptionistIVRRes, _ error) {
+func decodeUpdateAutoReceptionistIVRResponse(resp *http.Response) (res *UpdateAutoReceptionistIVRNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAutoReceptionistIVRNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAutoReceptionistIVRBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20807,14 +19921,11 @@ func decodeUpdateAutoReceptionistIVRResponse(resp *http.Response) (res UpdateAut
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateAutoReceptionistPolicyResponse(resp *http.Response) (res UpdateAutoReceptionistPolicyRes, _ error) {
+func decodeUpdateAutoReceptionistPolicyResponse(resp *http.Response) (res *UpdateAutoReceptionistPolicyNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateAutoReceptionistPolicyNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateAutoReceptionistPolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20861,14 +19972,11 @@ func decodeUpdateAutoReceptionistPolicyResponse(resp *http.Response) (res Update
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCQPolicySubSettingResponse(resp *http.Response) (res UpdateCQPolicySubSettingRes, _ error) {
+func decodeUpdateCQPolicySubSettingResponse(resp *http.Response) (res *UpdateCQPolicySubSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCQPolicySubSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCQPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20915,17 +20023,11 @@ func decodeUpdateCQPolicySubSettingResponse(resp *http.Response) (res UpdateCQPo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCallHandlingResponse(resp *http.Response) (res UpdateCallHandlingRes, _ error) {
+func decodeUpdateCallHandlingResponse(resp *http.Response) (res *UpdateCallHandlingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCallHandlingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCallHandlingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateCallHandlingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -20972,14 +20074,11 @@ func decodeUpdateCallHandlingResponse(resp *http.Response) (res UpdateCallHandli
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCallQueueResponse(resp *http.Response) (res UpdateCallQueueRes, _ error) {
+func decodeUpdateCallQueueResponse(resp *http.Response) (res *UpdateCallQueueNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCallQueueNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCallQueueBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21026,17 +20125,11 @@ func decodeUpdateCallQueueResponse(resp *http.Response) (res UpdateCallQueueRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCallingPlanResponse(resp *http.Response) (res UpdateCallingPlanRes, _ error) {
+func decodeUpdateCallingPlanResponse(resp *http.Response) (res *UpdateCallingPlanNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCallingPlanNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCallingPlanBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateCallingPlanNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21083,14 +20176,11 @@ func decodeUpdateCallingPlanResponse(resp *http.Response) (res UpdateCallingPlan
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCommonAreaResponse(resp *http.Response) (res UpdateCommonAreaRes, _ error) {
+func decodeUpdateCommonAreaResponse(resp *http.Response) (res *UpdateCommonAreaNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCommonAreaNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCommonAreaBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21137,20 +20227,11 @@ func decodeUpdateCommonAreaResponse(resp *http.Response) (res UpdateCommonAreaRe
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCommonAreaOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res UpdateCommonAreaOutboundCallingCountriesOrRegionsRes, _ error) {
+func decodeUpdateCommonAreaOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res *UpdateCommonAreaOutboundCallingCountriesOrRegionsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCommonAreaOutboundCallingCountriesOrRegionsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCommonAreaOutboundCallingCountriesOrRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateCommonAreaOutboundCallingCountriesOrRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateCommonAreaOutboundCallingCountriesOrRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21197,20 +20278,11 @@ func decodeUpdateCommonAreaOutboundCallingCountriesOrRegionsResponse(resp *http.
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res UpdateCommonAreaOutboundCallingExceptionRuleRes, _ error) {
+func decodeUpdateCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Response) (res *UpdateCommonAreaOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCommonAreaOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCommonAreaOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateCommonAreaOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateCommonAreaOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21257,14 +20329,11 @@ func decodeUpdateCommonAreaOutboundCallingExceptionRuleResponse(resp *http.Respo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateCommonAreaSettingResponse(resp *http.Response) (res UpdateCommonAreaSettingRes, _ error) {
+func decodeUpdateCommonAreaSettingResponse(resp *http.Response) (res *UpdateCommonAreaSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateCommonAreaSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateCommonAreaSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21311,7 +20380,7 @@ func decodeUpdateCommonAreaSettingResponse(resp *http.Response) (res UpdateCommo
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateEmergencyAddressResponse(resp *http.Response) (res UpdateEmergencyAddressRes, _ error) {
+func decodeUpdateEmergencyAddressResponse(resp *http.Response) (res *UpdateEmergencyAddressOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -21357,9 +20426,6 @@ func decodeUpdateEmergencyAddressResponse(resp *http.Response) (res UpdateEmerge
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &UpdateEmergencyAddressBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21406,14 +20472,11 @@ func decodeUpdateEmergencyAddressResponse(resp *http.Response) (res UpdateEmerge
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateExternalContactResponse(resp *http.Response) (res UpdateExternalContactRes, _ error) {
+func decodeUpdateExternalContactResponse(resp *http.Response) (res *UpdateExternalContactNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateExternalContactNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateExternalContactBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21460,17 +20523,11 @@ func decodeUpdateExternalContactResponse(resp *http.Response) (res UpdateExterna
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateFirmwareRuleResponse(resp *http.Response) (res UpdateFirmwareRuleRes, _ error) {
+func decodeUpdateFirmwareRuleResponse(resp *http.Response) (res *UpdateFirmwareRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateFirmwareRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateFirmwareRuleBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateFirmwareRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21517,14 +20574,11 @@ func decodeUpdateFirmwareRuleResponse(resp *http.Response) (res UpdateFirmwareRu
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateGCPResponse(resp *http.Response) (res UpdateGCPRes, _ error) {
+func decodeUpdateGCPResponse(resp *http.Response) (res *UpdateGCPNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateGCPNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateGCPBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21571,14 +20625,11 @@ func decodeUpdateGCPResponse(resp *http.Response) (res UpdateGCPRes, _ error) {
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateLocationResponse(resp *http.Response) (res UpdateLocationRes, _ error) {
+func decodeUpdateLocationResponse(resp *http.Response) (res *UpdateLocationNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateLocationNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateLocationBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21625,14 +20676,11 @@ func decodeUpdateLocationResponse(resp *http.Response) (res UpdateLocationRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateMonitoringGroupResponse(resp *http.Response) (res UpdateMonitoringGroupRes, _ error) {
+func decodeUpdateMonitoringGroupResponse(resp *http.Response) (res *UpdateMonitoringGroupNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateMonitoringGroupNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateMonitoringGroupBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21679,7 +20727,7 @@ func decodeUpdateMonitoringGroupResponse(resp *http.Response) (res UpdateMonitor
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdatePeeringPhoneNumbersResponse(resp *http.Response) (res UpdatePeeringPhoneNumbersRes, _ error) {
+func decodeUpdatePeeringPhoneNumbersResponse(resp *http.Response) (res *UpdatePeeringPhoneNumbersOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -21716,9 +20764,6 @@ func decodeUpdatePeeringPhoneNumbersResponse(resp *http.Response) (res UpdatePee
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &UpdatePeeringPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21765,17 +20810,11 @@ func decodeUpdatePeeringPhoneNumbersResponse(resp *http.Response) (res UpdatePee
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdatePhoneNumberDetailsResponse(resp *http.Response) (res UpdatePhoneNumberDetailsRes, _ error) {
+func decodeUpdatePhoneNumberDetailsResponse(resp *http.Response) (res *UpdatePhoneNumberDetailsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdatePhoneNumberDetailsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdatePhoneNumberDetailsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdatePhoneNumberDetailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21822,14 +20861,11 @@ func decodeUpdatePhoneNumberDetailsResponse(resp *http.Response) (res UpdatePhon
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdatePhoneRoleResponse(resp *http.Response) (res UpdatePhoneRoleRes, _ error) {
+func decodeUpdatePhoneRoleResponse(resp *http.Response) (res *UpdatePhoneRoleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdatePhoneRoleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdatePhoneRoleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21876,20 +20912,11 @@ func decodeUpdatePhoneRoleResponse(resp *http.Response) (res UpdatePhoneRoleRes,
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdatePhoneSettingsResponse(resp *http.Response) (res UpdatePhoneSettingsRes, _ error) {
+func decodeUpdatePhoneSettingsResponse(resp *http.Response) (res *UpdatePhoneSettingsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdatePhoneSettingsNoContent{}, nil
-	case 401:
-		// Code 401.
-		return &UpdatePhoneSettingsUnauthorized{}, nil
-	case 403:
-		// Code 403.
-		return &UpdatePhoneSettingsForbidden{}, nil
-	case 412:
-		// Code 412.
-		return &UpdatePhoneSettingsPreconditionFailed{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21936,14 +20963,11 @@ func decodeUpdatePhoneSettingsResponse(resp *http.Response) (res UpdatePhoneSett
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdatePolicyResponse(resp *http.Response) (res UpdatePolicyRes, _ error) {
+func decodeUpdatePolicyResponse(resp *http.Response) (res *UpdatePolicyNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdatePolicyNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdatePolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -21990,14 +21014,11 @@ func decodeUpdatePolicyResponse(resp *http.Response) (res UpdatePolicyRes, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateProvisionTemplateResponse(resp *http.Response) (res UpdateProvisionTemplateRes, _ error) {
+func decodeUpdateProvisionTemplateResponse(resp *http.Response) (res *UpdateProvisionTemplateNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateProvisionTemplateNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateProvisionTemplateBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22044,14 +21065,11 @@ func decodeUpdateProvisionTemplateResponse(resp *http.Response) (res UpdateProvi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateProvisionTemplateToDeviceResponse(resp *http.Response) (res UpdateProvisionTemplateToDeviceRes, _ error) {
+func decodeUpdateProvisionTemplateToDeviceResponse(resp *http.Response) (res *UpdateProvisionTemplateToDeviceNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateProvisionTemplateToDeviceNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateProvisionTemplateToDeviceBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22098,17 +21116,11 @@ func decodeUpdateProvisionTemplateToDeviceResponse(resp *http.Response) (res Upd
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateRecordingStatusResponse(resp *http.Response) (res UpdateRecordingStatusRes, _ error) {
+func decodeUpdateRecordingStatusResponse(resp *http.Response) (res *UpdateRecordingStatusNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateRecordingStatusNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateRecordingStatusBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateRecordingStatusNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22155,14 +21167,11 @@ func decodeUpdateRecordingStatusResponse(resp *http.Response) (res UpdateRecordi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateRoutingRuleResponse(resp *http.Response) (res UpdateRoutingRuleRes, _ error) {
+func decodeUpdateRoutingRuleResponse(resp *http.Response) (res *UpdateRoutingRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateRoutingRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateRoutingRuleBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22209,14 +21218,11 @@ func decodeUpdateRoutingRuleResponse(resp *http.Response) (res UpdateRoutingRule
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSLGPolicySubSettingResponse(resp *http.Response) (res UpdateSLGPolicySubSettingRes, _ error) {
+func decodeUpdateSLGPolicySubSettingResponse(resp *http.Response) (res *UpdateSLGPolicySubSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSLGPolicySubSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSLGPolicySubSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22263,20 +21269,11 @@ func decodeUpdateSLGPolicySubSettingResponse(resp *http.Response) (res UpdateSLG
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSettingTemplateResponse(resp *http.Response) (res UpdateSettingTemplateRes, _ error) {
+func decodeUpdateSettingTemplateResponse(resp *http.Response) (res *UpdateSettingTemplateNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSettingTemplateNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSettingTemplateBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateSettingTemplateUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateSettingTemplateNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22323,14 +21320,11 @@ func decodeUpdateSettingTemplateResponse(resp *http.Response) (res UpdateSetting
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSharedLineGroupPolicyResponse(resp *http.Response) (res UpdateSharedLineGroupPolicyRes, _ error) {
+func decodeUpdateSharedLineGroupPolicyResponse(resp *http.Response) (res *UpdateSharedLineGroupPolicyNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSharedLineGroupPolicyNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSharedLineGroupPolicyBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22377,17 +21371,11 @@ func decodeUpdateSharedLineGroupPolicyResponse(resp *http.Response) (res UpdateS
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSiteDetailsResponse(resp *http.Response) (res UpdateSiteDetailsRes, _ error) {
+func decodeUpdateSiteDetailsResponse(resp *http.Response) (res *UpdateSiteDetailsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSiteDetailsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSiteDetailsBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateSiteDetailsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22434,14 +21422,11 @@ func decodeUpdateSiteDetailsResponse(resp *http.Response) (res UpdateSiteDetails
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSiteForUnassignedPhoneNumbersResponse(resp *http.Response) (res UpdateSiteForUnassignedPhoneNumbersRes, _ error) {
+func decodeUpdateSiteForUnassignedPhoneNumbersResponse(resp *http.Response) (res *UpdateSiteForUnassignedPhoneNumbersNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSiteForUnassignedPhoneNumbersNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSiteForUnassignedPhoneNumbersBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22488,20 +21473,11 @@ func decodeUpdateSiteForUnassignedPhoneNumbersResponse(resp *http.Response) (res
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSiteOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res UpdateSiteOutboundCallingCountriesOrRegionsRes, _ error) {
+func decodeUpdateSiteOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res *UpdateSiteOutboundCallingCountriesOrRegionsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSiteOutboundCallingCountriesOrRegionsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSiteOutboundCallingCountriesOrRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateSiteOutboundCallingCountriesOrRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateSiteOutboundCallingCountriesOrRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22548,20 +21524,11 @@ func decodeUpdateSiteOutboundCallingCountriesOrRegionsResponse(resp *http.Respon
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res UpdateSiteOutboundCallingExceptionRuleRes, _ error) {
+func decodeUpdateSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (res *UpdateSiteOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSiteOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSiteOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateSiteOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateSiteOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22608,14 +21575,11 @@ func decodeUpdateSiteOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateSiteSettingResponse(resp *http.Response) (res UpdateSiteSettingRes, _ error) {
+func decodeUpdateSiteSettingResponse(resp *http.Response) (res *UpdateSiteSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateSiteSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateSiteSettingBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22662,20 +21626,11 @@ func decodeUpdateSiteSettingResponse(resp *http.Response) (res UpdateSiteSetting
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateUserOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res UpdateUserOutboundCallingCountriesOrRegionsRes, _ error) {
+func decodeUpdateUserOutboundCallingCountriesOrRegionsResponse(resp *http.Response) (res *UpdateUserOutboundCallingCountriesOrRegionsNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateUserOutboundCallingCountriesOrRegionsNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateUserOutboundCallingCountriesOrRegionsBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateUserOutboundCallingCountriesOrRegionsUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateUserOutboundCallingCountriesOrRegionsNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22722,20 +21677,11 @@ func decodeUpdateUserOutboundCallingCountriesOrRegionsResponse(resp *http.Respon
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res UpdateUserOutboundCallingExceptionRuleRes, _ error) {
+func decodeUpdateUserOutboundCallingExceptionRuleResponse(resp *http.Response) (res *UpdateUserOutboundCallingExceptionRuleNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateUserOutboundCallingExceptionRuleNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateUserOutboundCallingExceptionRuleBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UpdateUserOutboundCallingExceptionRuleUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateUserOutboundCallingExceptionRuleNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22782,14 +21728,11 @@ func decodeUpdateUserOutboundCallingExceptionRuleResponse(resp *http.Response) (
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateUserProfileResponse(resp *http.Response) (res UpdateUserProfileRes, _ error) {
+func decodeUpdateUserProfileResponse(resp *http.Response) (res *UpdateUserProfileNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateUserProfileNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateUserProfileBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22836,17 +21779,11 @@ func decodeUpdateUserProfileResponse(resp *http.Response) (res UpdateUserProfile
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateUserSettingResponse(resp *http.Response) (res UpdateUserSettingRes, _ error) {
+func decodeUpdateUserSettingResponse(resp *http.Response) (res *UpdateUserSettingNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateUserSettingNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateUserSettingBadRequest{}, nil
-	case 404:
-		// Code 404.
-		return &UpdateUserSettingNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22944,14 +21881,11 @@ func decodeUpdateUserSettingsResponse(resp *http.Response) (res *UpdateUserSetti
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateUsersPropertiesInBatchResponse(resp *http.Response) (res UpdateUsersPropertiesInBatchRes, _ error) {
+func decodeUpdateUsersPropertiesInBatchResponse(resp *http.Response) (res *UpdateUsersPropertiesInBatchNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateUsersPropertiesInBatchNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateUsersPropertiesInBatchBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -22998,14 +21932,11 @@ func decodeUpdateUsersPropertiesInBatchResponse(resp *http.Response) (res Update
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateVoicemailReadStatusResponse(resp *http.Response) (res UpdateVoicemailReadStatusRes, _ error) {
+func decodeUpdateVoicemailReadStatusResponse(resp *http.Response) (res *UpdateVoicemailReadStatusNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateVoicemailReadStatusNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateVoicemailReadStatusBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -23052,14 +21983,11 @@ func decodeUpdateVoicemailReadStatusResponse(resp *http.Response) (res UpdateVoi
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateZoomRoomResponse(resp *http.Response) (res UpdateZoomRoomRes, _ error) {
+func decodeUpdateZoomRoomResponse(resp *http.Response) (res *UpdateZoomRoomNoContent, _ error) {
 	switch resp.StatusCode {
 	case 204:
 		// Code 204.
 		return &UpdateZoomRoomNoContent{}, nil
-	case 400:
-		// Code 400.
-		return &UpdateZoomRoomBadRequest{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
@@ -23106,7 +22034,7 @@ func decodeUpdateZoomRoomResponse(resp *http.Response) (res UpdateZoomRoomRes, _
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUserSmsSessionResponse(resp *http.Response) (res UserSmsSessionRes, _ error) {
+func decodeUserSmsSessionResponse(resp *http.Response) (res *UserSmsSessionOK, _ error) {
 	switch resp.StatusCode {
 	case 200:
 		// Code 200.
@@ -23152,15 +22080,6 @@ func decodeUserSmsSessionResponse(resp *http.Response) (res UserSmsSessionRes, _
 		default:
 			return res, validate.InvalidContentType(ct)
 		}
-	case 400:
-		// Code 400.
-		return &UserSmsSessionBadRequest{}, nil
-	case 401:
-		// Code 401.
-		return &UserSmsSessionUnauthorized{}, nil
-	case 404:
-		// Code 404.
-		return &UserSmsSessionNotFound{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
