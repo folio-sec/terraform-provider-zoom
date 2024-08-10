@@ -37,3 +37,12 @@ resource "zoom_phone_auto_receptionist" "example" {
 ### Read-Only
 
 - `auto_receptionist_id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+# ${auto_reception_id}
+terraform import zoom_phone_auto_receptionist.example t6wyhAZRQXXX_Rv3jj3XXX
+```
