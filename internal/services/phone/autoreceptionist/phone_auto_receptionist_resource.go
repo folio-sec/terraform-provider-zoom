@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
-	"github.com/folio-sec/terraform-provider-zoom/internal/util"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -127,11 +126,11 @@ func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.R
 
 func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptionistId string) (*phoneAutoReceptionistResourceModel, error) {
 	dto, err := r.crud.read(ctx, autoReceptionistId)
-	if util.IsUnexpectedStatusCodeError(err, 400) {
-		return nil, nil // deleted
-	}
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
+	}
+	if dto == nil {
+		return nil, nil // already deleted
 	}
 
 	return &phoneAutoReceptionistResourceModel{

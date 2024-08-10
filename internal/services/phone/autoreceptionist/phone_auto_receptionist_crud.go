@@ -2,6 +2,7 @@ package autoreceptionist
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
@@ -30,7 +31,13 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 		AutoReceptionistId: autoReceptionistID,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("unable to read phone auto receptionist: %w %T %T", err, err, detail)
+		var status *zoomphone.ErrorResponseStatusCode
+		if errors.As(err, &status) {
+			if status.StatusCode == 400 && status.Response.Code.Value == 300 {
+				return nil, nil // already deleted
+			}
+		}
+		return nil, fmt.Errorf("unable to read phone auto receptionist: %v", err)
 	}
 
 	audioPromptLanguage := types.StringNull()
@@ -104,10 +111,13 @@ func (c *phoneAutoReceptionistCrud) delete(ctx context.Context, autoReceptionist
 	err := c.client.DeleteAutoReceptionist(ctx, zoomphone.DeleteAutoReceptionistParams{
 		AutoReceptionistId: autoReceptionistId,
 	})
-	if util.IsUnexpectedStatusCodeError(err, 405) {
-		return nil // when passing not exist id, api return 405. but api spec doesn't handle it so just got it as unexpected error
-	}
 	if err != nil {
+		var status *zoomphone.ErrorResponseStatusCode
+		if errors.As(err, &status) {
+			if status.StatusCode == 400 && status.Response.Code.Value == 404 {
+				return nil
+			}
+		}
 		return fmt.Errorf("error deleting phone auto receptionist: %v", err)
 	}
 

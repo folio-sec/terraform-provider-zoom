@@ -3,4 +3,4 @@ generator:
     disable:
       - paths/server
   ignore_not_implemented: ["complex uniqueItems"]
-
+  convenient_errors: on
