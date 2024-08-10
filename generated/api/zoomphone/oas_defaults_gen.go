@@ -5,7 +5,7 @@ package zoomphone
 // setDefaults set default value of fields.
 func (s *AddFirmwareRuleReq) setDefaults() {
 	{
-		val := AddFirmwareRuleReqRestartType(1)
+		val := int(1)
 		s.RestartType.SetTo(val)
 	}
 }
@@ -13,7 +13,7 @@ func (s *AddFirmwareRuleReq) setDefaults() {
 // setDefaults set default value of fields.
 func (s *AddGCPReq) setDefaults() {
 	{
-		val := AddGCPReqDelay(0)
+		val := int(0)
 		s.Delay.SetTo(val)
 	}
 	{
@@ -29,11 +29,11 @@ func (s *AddGCPReqPlayIncomingCallsSound) setDefaults() {
 		s.Enable.SetTo(val)
 	}
 	{
-		val := AddGCPReqPlayIncomingCallsSoundRingTone("ringtone_1")
+		val := string("ringtone_1")
 		s.RingTone.SetTo(val)
 	}
 	{
-		val := AddGCPReqPlayIncomingCallsSoundDuration(0)
+		val := int(0)
 		s.Duration.SetTo(val)
 	}
 }
@@ -221,7 +221,7 @@ func (s *ListZoomRoomsOK) setDefaults() {
 // setDefaults set default value of fields.
 func (s *UpdateFirmwareRuleReq) setDefaults() {
 	{
-		val := UpdateFirmwareRuleReqRestartType(1)
+		val := int(1)
 		s.RestartType.SetTo(val)
 	}
 }
@@ -229,11 +229,11 @@ func (s *UpdateFirmwareRuleReq) setDefaults() {
 // setDefaults set default value of fields.
 func (s *UpdateGCPReqPlayIncomingCallsSound) setDefaults() {
 	{
-		val := UpdateGCPReqPlayIncomingCallsSoundRingTone("ringtone_1")
+		val := string("ringtone_1")
 		s.RingTone.SetTo(val)
 	}
 	{
-		val := UpdateGCPReqPlayIncomingCallsSoundDuration(0)
+		val := int(0)
 		s.Duration.SetTo(val)
 	}
 }

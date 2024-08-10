@@ -44,6 +44,12 @@ function recursionProcess(response, prefix = '') {
       response[key] = false
     }
 
+    // terraform doesn't have enum type
+    if (key === 'enum') {
+      delete response[key]
+      continue
+    }
+
     if (typeof response[key] !== "object") {
       continue
     }

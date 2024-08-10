@@ -4648,7 +4648,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.Directions {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4674,7 +4674,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.ConnectTypes {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4700,7 +4700,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.NumberTypes {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4726,7 +4726,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.CallTypes {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4752,7 +4752,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.ExtensionTypes {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4778,7 +4778,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.CallResults {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -4887,7 +4887,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.TimeType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -4904,7 +4904,7 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.RecordingStatus.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -5155,7 +5155,7 @@ func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogs
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.TimeType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -5435,7 +5435,7 @@ func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSes
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.FilterType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -5596,7 +5596,7 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -5630,7 +5630,7 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.OwnerType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -5647,7 +5647,7 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.VoicemailType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -7211,7 +7211,7 @@ func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHand
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -9042,7 +9042,7 @@ func (c *Client) sendAddMembers(ctx context.Context, request []string, params Ad
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.MemberType)))
+			return e.EncodeValue(conv.StringToString(params.MemberType))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -11035,7 +11035,7 @@ func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSetti
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -16933,7 +16933,7 @@ func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHa
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -18385,7 +18385,7 @@ func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params Delete
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.RestartType.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -20818,7 +20818,7 @@ func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSet
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -27426,7 +27426,7 @@ func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhone
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.SyncType)))
+			return e.EncodeValue(conv.StringToString(params.SyncType))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -29028,7 +29028,7 @@ func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSe
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -29194,7 +29194,7 @@ func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsPa
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.SyncType)))
+			return e.EncodeValue(conv.StringToString(params.SyncType))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -30030,7 +30030,7 @@ func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, para
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30047,7 +30047,7 @@ func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, para
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30064,7 +30064,7 @@ func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, para
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30260,7 +30260,7 @@ func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Contex
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30488,7 +30488,7 @@ func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30505,7 +30505,7 @@ func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30700,7 +30700,7 @@ func (c *Client) sendListAccountPhoneNumbers(ctx context.Context, params ListAcc
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30717,7 +30717,7 @@ func (c *Client) sendListAccountPhoneNumbers(ctx context.Context, params ListAcc
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.ExtensionType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -30751,7 +30751,7 @@ func (c *Client) sendListAccountPhoneNumbers(ctx context.Context, params ListAcc
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.NumberType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -31450,7 +31450,7 @@ func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, param
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Module.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -31467,7 +31467,7 @@ func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, param
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Rule.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -31484,7 +31484,7 @@ func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, param
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -32415,7 +32415,7 @@ func (c *Client) sendListCRPhoneNumbers(ctx context.Context, params ListCRPhoneN
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.AssignedStatus.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -33539,7 +33539,7 @@ func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Cont
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -33556,7 +33556,7 @@ func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Cont
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -33932,7 +33932,7 @@ func (c *Client) sendListCustomizeOutboundCallerNumbers(ctx context.Context, par
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.ExtensionType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -34305,7 +34305,7 @@ func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmer
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Level.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -34322,7 +34322,7 @@ func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmer
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -34555,7 +34555,7 @@ func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, pa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -34572,7 +34572,7 @@ func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, pa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -35502,7 +35502,7 @@ func (c *Client) sendListGCPMembers(ctx context.Context, params ListGCPMembersPa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.ExtensionType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -35988,7 +35988,7 @@ func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) 
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.MemberType)))
+			return e.EncodeValue(conv.StringToString(params.MemberType))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -36165,7 +36165,7 @@ func (c *Client) sendListMonitoringGroup(ctx context.Context, params ListMonitor
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -36431,7 +36431,7 @@ func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCal
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.QualityType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -36485,7 +36485,7 @@ func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCal
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.Directions {
 						if err := func() error {
-							return e.EncodeValue(conv.StringToString(string(item)))
+							return e.EncodeValue(conv.StringToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -36511,7 +36511,7 @@ func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCal
 				return e.EncodeArray(func(e uri.Encoder) error {
 					for i, item := range params.Durations {
 						if err := func() error {
-							return e.EncodeValue(conv.IntToString(int(item)))
+							return e.EncodeValue(conv.IntToString(item))
 						}(); err != nil {
 							return errors.Wrapf(err, "[%d]", i)
 						}
@@ -36910,7 +36910,7 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.Type)))
+			return e.EncodeValue(conv.StringToString(params.Type))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -36925,7 +36925,7 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.AssigneeType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -36942,7 +36942,7 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.DeviceSource.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -36959,7 +36959,7 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.LocationStatus.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -36993,7 +36993,7 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.DeviceType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -37668,7 +37668,7 @@ func (c *Client) sendListPhoneUsers(ctx context.Context, params ListPhoneUsersPa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39054,7 +39054,7 @@ func (c *Client) sendListSiteCustomizeOutboundCallerNumbers(ctx context.Context,
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.ExtensionType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39301,7 +39301,7 @@ func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, p
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39318,7 +39318,7 @@ func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, p
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39496,7 +39496,7 @@ func (c *Client) sendListTrackedLocations(ctx context.Context, params ListTracke
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.IntToString(int(val)))
+				return e.EncodeValue(conv.IntToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39530,7 +39530,7 @@ func (c *Client) sendListTrackedLocations(ctx context.Context, params ListTracke
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.LocationType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -39890,7 +39890,7 @@ func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context,
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.ExtensionType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -40137,7 +40137,7 @@ func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, p
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MatchType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -40154,7 +40154,7 @@ func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, p
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -41704,7 +41704,7 @@ func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCall
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Type.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -41755,7 +41755,7 @@ func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCall
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.TimeType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -42299,7 +42299,7 @@ func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVo
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.Status.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -43025,7 +43025,7 @@ func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.MemberType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -43188,7 +43188,7 @@ func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersPara
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.MemberType)))
+			return e.EncodeValue(conv.StringToString(params.MemberType))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -44069,7 +44069,7 @@ func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncPa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.SyncType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -44396,7 +44396,7 @@ func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLo
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.SyncType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -48310,7 +48310,7 @@ func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCa
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -52603,7 +52603,7 @@ func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSit
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(string(params.SettingType)))
+			return e.EncodeValue(conv.StringToString(params.SettingType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -53674,7 +53674,7 @@ func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params Updat
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(string(params.ReadStatus)))
+			return e.EncodeValue(conv.StringToString(params.ReadStatus))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -54084,7 +54084,7 @@ func (c *Client) sendUserSmsSession(ctx context.Context, params UserSmsSessionPa
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.FilterType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(string(val)))
+				return e.EncodeValue(conv.StringToString(val))
 			}
 			return nil
 		}); err != nil {

@@ -23,21 +23,21 @@ type AccountCallHistoryParams struct {
 	// search by keyword and it shows a list of all the related calls. Any calls go through this keyword.
 	Keyword OptString
 	// The direction filter of the call logs.
-	Directions []AccountCallHistoryDirectionsItem
+	Directions []string
 	// The connect type filter of the call logs.
 	// * `internal`
 	// * `external`.
-	ConnectTypes []AccountCallHistoryConnectTypesItem
+	ConnectTypes []string
 	// The number type filter of the caller or callee.
-	NumberTypes []AccountCallHistoryNumberTypesItem
+	NumberTypes []string
 	// The call type filter of the call logs.
 	// * `general`
 	// * `emergency`.
-	CallTypes []AccountCallHistoryCallTypesItem
+	CallTypes []string
 	// The extension type filter of the call logs.
-	ExtensionTypes []AccountCallHistoryExtensionTypesItem
+	ExtensionTypes []string
 	// The call result filter of the call logs.
-	CallResults []AccountCallHistoryCallResultsItem
+	CallResults []string
 	// The primary group filter of call logs.
 	GroupIds []string
 	// The site filter of call logs.
@@ -47,10 +47,10 @@ type AccountCallHistoryParams struct {
 	// The cost center of which the call log belongs.
 	CostCenter OptString
 	// This field enables you to search call logs by start or end time. By default, using start_time.
-	TimeType OptAccountCallHistoryTimeType
+	TimeType OptString
 	// The recording filter indicates whether the whole call has recording or not. recorded means the
 	// call has at least one recording, non_recorded means the call does not have any recordings.
-	RecordingStatus OptAccountCallHistoryRecordingStatus
+	RecordingStatus OptString
 }
 
 // AccountCallLogsParams is parameters of accountCallLogs operation.
@@ -78,7 +78,7 @@ type AccountCallLogsParams struct {
 	// `parkTimeout`, `monitor`, `takeover`, `sipGroup`.
 	Path OptString
 	// Enables you to search call logs by start or end time. Choose `startTime` or `endTime`.
-	TimeType OptAccountCallLogsTimeType
+	TimeType OptString
 	// Unique identifier of the [site](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-multiple-sites). Use this query parameter if you have
 	// enabled multiple sites and would like to filter the response of this API call by call logs of a
@@ -117,7 +117,7 @@ type AccountSmsSessionParams struct {
 	// * `last_message_time`: queries which sessions last messages between From and To dates.
 	// * `sent_message_time`: queries which sessions have sent messages between From and To dates.
 	// * `received_message_time`: queries which sessions have received messages between From and To dates.
-	FilterType OptAccountSmsSessionFilterType
+	FilterType OptString
 }
 
 // AccountVoiceMailsParams is parameters of accountVoiceMails operation.
@@ -125,13 +125,13 @@ type AccountVoiceMailsParams struct {
 	// The number of records returned within a single API call.
 	PageSize OptInt
 	// Status of the voice mail.
-	Status OptAccountVoiceMailsStatus
+	Status OptString
 	// The site ID.
 	SiteID OptString
 	// The owner type.
-	OwnerType OptAccountVoiceMailsOwnerType
+	OwnerType OptString
 	// The voicemail type.
-	VoicemailType OptAccountVoiceMailsVoicemailType
+	VoicemailType OptString
 	// The next page token paginates through a large set of results. A next page token is returned
 	// whenever the set of available results exceeds the current page size. The expiration period for
 	// this token is 15 minutes.
@@ -173,7 +173,7 @@ type AddCallHandlingParams struct {
 	// * `business_hours`
 	// * `closed_hours`
 	// * `holiday_hours`.
-	SettingType AddCallHandlingSettingType
+	SettingType string
 }
 
 // AddClientCodeToCallLogParams is parameters of addClientCodeToCallLog operation.
@@ -218,7 +218,7 @@ type AddMembersParams struct {
 	// Monitoring group ID.
 	MonitoringGroupId string
 	// Member type.
-	MemberType AddMembersMemberType
+	MemberType string
 }
 
 // AddMembersToCallQueueParams is parameters of addMembersToCallQueue operation.
@@ -276,7 +276,7 @@ type AddSiteSettingParams struct {
 	// The site setting type:
 	// * `holiday_hours`
 	// * `security`.
-	SettingType AddSiteSettingSettingType
+	SettingType string
 }
 
 // AddUserOutboundCallerNumbersParams is parameters of addUserOutboundCallerNumbers operation.
@@ -483,7 +483,7 @@ type DeleteCallHandlingParams struct {
 	// * `business_hours`
 	// * `closed_hours`
 	// * `holiday_hours`.
-	SettingType DeleteCallHandlingSettingType
+	SettingType string
 	// The call forwarding's ID. Use this parameter if you pass the `call_forwarding_id` value for the
 	// `settingType` parameter.
 	CallForwardingID OptString
@@ -561,7 +561,7 @@ type DeleteFirmwareUpdateRuleParams struct {
 	RuleId string
 	// Restart type: `1` - Restart the devices immediately. `2` - Restart with the next resync or auto
 	// pull.
-	RestartType OptDeleteFirmwareUpdateRuleRestartType
+	RestartType OptInt
 }
 
 // DeleteGCPParams is parameters of deleteGCP operation.
@@ -672,7 +672,7 @@ type DeleteSiteSettingParams struct {
 	// The site setting type:
 	// * `holiday_hours`
 	// * `security`.
-	SettingType DeleteSiteSettingSettingType
+	SettingType string
 	// The device type. Enable SRTP AES-256 encryption on the site for the specified device type. Used
 	// for `security` setting type.
 	DeviceType OptString
@@ -1067,7 +1067,7 @@ type GetPhoneUserVoiceMailsParams struct {
 	// FSync: Full sync
 	// BSync: Backward sync
 	// ISync: Forward sync.
-	SyncType GetPhoneUserVoiceMailsSyncType
+	SyncType string
 	// The sync token. Use it if requesting a backward (`BSync`) or forward (`ISync`) sync.
 	SyncToken OptString
 	// The record count of each query.
@@ -1166,7 +1166,7 @@ type GetSiteSettingForTypeParams struct {
 	// * `desk_phone`
 	// * `dial_by_name`
 	// * `billing_account`.
-	SettingType GetSiteSettingForTypeSettingType
+	SettingType string
 }
 
 // GetSmsSessionsParams is parameters of GetSmsSessions operation.
@@ -1174,7 +1174,7 @@ type GetSmsSessionsParams struct {
 	// The user ID, user email, or &ldquo;me&rdquo; when using OAuth token.
 	UserId string
 	// FSync: Full sync BSync: Backward sync ISync: Forward sync.
-	SyncType GetSmsSessionsSyncType
+	SyncType string
 	// The sync token. Use if requesting a backward (`BSync`) or forward (`ISync`) sync.
 	SyncToken OptString
 	// The record count of each query.
@@ -1236,15 +1236,15 @@ type ListAccountLevelInboundBlockRulesParams struct {
 	// `blocked_number` field are blocked.
 	// * `SMS-shortCodes`:  Indicates that only a specific SMS short code that is shown in the
 	// `blocked_number` field is blocked.
-	MatchType OptListAccountLevelInboundBlockRulesMatchType
+	MatchType OptString
 	// The block type for the block rule:
 	// * block_for_other_reasons
 	// * block_as_threat.
-	Type OptListAccountLevelInboundBlockRulesType
+	Type OptString
 	// Whether the block rule is active or inactive.
 	// * `active`: The block rule is active.
 	// * `inactive`: The block rule is inactive.
-	Status OptListAccountLevelInboundBlockRulesStatus
+	Status OptString
 	// The next page token paginates through a large set of results. It returns whenever the set of
 	// available results exceeds the current page size. The expiration period for this token is 15
 	// minutes.
@@ -1264,7 +1264,7 @@ type ListAccountLevelInboundBlockedStatisticsParams struct {
 	// blocked.
 	// * `SMS-shortCodes`:  Only a specific SMS short code that is shown in the `blocked_number` field is
 	// blocked.
-	MatchType OptListAccountLevelInboundBlockedStatisticsMatchType
+	MatchType OptString
 	// The block type for the block rule:
 	// * block_for_other_reasons
 	// * block_as_threat.
@@ -1285,9 +1285,9 @@ type ListAccountOutboundCallingExceptionRuleParams struct {
 	// The partial string of a phone number.
 	Keyword OptString
 	// The match type of an exception rule.
-	MatchType OptListAccountOutboundCallingExceptionRuleMatchType
+	MatchType OptString
 	// The status of an exception rule.
-	Status OptListAccountOutboundCallingExceptionRuleStatus
+	Status OptString
 	// The next page token paginates through a large set of results. It returns whenever the set of
 	// available results exceeds the current page size. The expiration period for this token is 15
 	// minutes.
@@ -1308,7 +1308,7 @@ type ListAccountPhoneNumbersParams struct {
 	// `unassigned`: The number is not assigned to anyone.
 	// `all`: Include both assigned and unassigned numbers in the response.
 	// `byoc`: Include Bring Your Own Carrier (BYOC) numbers only in the response.
-	Type OptListAccountPhoneNumbersType
+	Type OptString
 	// The type of assignee to whom the number is assigned. The parameter can be set only if `type`
 	// parameter is set as `assigned`. The value can be one of the following:
 	// `user`
@@ -1318,11 +1318,11 @@ type ListAccountPhoneNumbersParams struct {
 	// `emergencyNumberPool`
 	// `companyLocation`
 	// `meetingService`.
-	ExtensionType OptListAccountPhoneNumbersExtensionType
+	ExtensionType OptString
 	// The number of records returned within a single API call.
 	PageSize OptInt
 	// The type of phone number. The value can be either `toll` or `tollfree`.
-	NumberType OptListAccountPhoneNumbersNumberType
+	NumberType OptString
 	// This field includes or excludes pending numbers in the response. The value can be either `true` or
 	// `false`.
 	PendingNumbers OptBool
@@ -1375,7 +1375,7 @@ type ListAlertSettingsWithPagingQueryParams struct {
 	// shown as:
 	// `Call Queue Management`-`1`, `Route Group Management`-`2`, `Devices &amp; Phones Management`-`3`,
 	// `Call Quality Management`-`4`, `Emergency Services Management`-`5`.
-	Module OptListAlertSettingsWithPagingQueryModule
+	Module OptInt
 	// This field filters the specific alert list by the rule. The rule and its code mappings display as:
 	// `Service Level`-`1`, `Inbound Abandoned Calls`-`2`, `Inbound Overflowed Calls`-`3`, `Inbound Avg
 	// Call Waiting Time`-`4`, `Inbound Forwarded to Voicemail`-`5`, `Number of Waiting Calls`-`6`,
@@ -1388,11 +1388,11 @@ type ListAlertSettingsWithPagingQueryParams struct {
 	// `12`.
 	// When the value of the `module` is `4`, the value of `rule` can only be `13`.
 	// When the value of the `module` is `5`, the value of `rule` can only be `14`.
-	Rule OptListAlertSettingsWithPagingQueryRule
+	Rule OptInt
 	// The alert's status:
 	// * `0` &mdash; Inactive.
 	// * `1` &mdash; Active.
-	Status OptListAlertSettingsWithPagingQueryStatus
+	Status OptInt
 }
 
 // ListAudioItemsParams is parameters of ListAudioItems operation.
@@ -1437,7 +1437,7 @@ type ListCRPhoneNumbersParams struct {
 	// The current page number of returned records.
 	NextPageToken OptString
 	// Number assignment status.
-	AssignedStatus OptListCRPhoneNumbersAssignedStatus
+	AssignedStatus OptString
 	// Partner account ID from sub-account.
 	SubAccountID OptString
 	// Partial string of the phone number.
@@ -1520,9 +1520,9 @@ type ListCommonAreaOutboundCallingExceptionRuleParams struct {
 	// The partial string of a phone number.
 	Keyword OptString
 	// The match type of an exception rule.
-	MatchType OptListCommonAreaOutboundCallingExceptionRuleMatchType
+	MatchType OptString
 	// The status of an exception rule.
-	Status OptListCommonAreaOutboundCallingExceptionRuleStatus
+	Status OptString
 	// The next page token paginates through a large set of results. A next page token returns whenever
 	// the set of available results exceeds the current page size. The expiration period for this token
 	// is 15 minutes.
@@ -1550,7 +1550,7 @@ type ListCustomizeOutboundCallerNumbersParams struct {
 	// This field filters phone numbers that belong to the site.
 	SiteID OptString
 	// The type of extension to which the phone number belongs.
-	ExtensionType OptListCustomizeOutboundCallerNumbersExtensionType
+	ExtensionType OptString
 	// A search keyword for phone or extension numbers.
 	Keyword OptString
 	// The number of records returned within a single API call.
@@ -1577,7 +1577,7 @@ type ListEmergencyAddressesParams struct {
 	// * `0` - Account/Company-level emergency address.
 	// * `1` - User/Personal-level emergency address.
 	// * `2` - Unknown company/pending emergency address.
-	Level OptListEmergencyAddressesLevel
+	Level OptInt
 	// The emergency address verification status:
 	// * `1` &mdash; Verification not Required.
 	// * `2` &mdash; Unverified.
@@ -1585,7 +1585,7 @@ type ListEmergencyAddressesParams struct {
 	// * `4` &mdash; Verified.
 	// * `5` &mdash; Rejected.
 	// * `6` &mdash; Verification failed.
-	Status OptListEmergencyAddressesStatus
+	Status OptInt
 	// Keyword(s) to filter emergency addresses. You can filter by either:
 	// * Address Line 1.
 	// * Address Line 2.
@@ -1614,11 +1614,11 @@ type ListExtensionLevelInboundBlockRulesParams struct {
 	// blocked.
 	// * `SMS-shortCodes`:  Only a specific SMS short code that is shown in the `blocked_number` field is
 	// blocked.
-	MatchType OptListExtensionLevelInboundBlockRulesMatchType
+	MatchType OptString
 	// The block type for the block rule:
 	// * `block_for_other_reasons`
 	// * `block_as_threat`.
-	Type OptListExtensionLevelInboundBlockRulesType
+	Type OptString
 	// The next page token paginates through a large set of results. It returns whenever the set of
 	// available results exceeds the current page size. The expiration period for this token is 15
 	// minutes.
@@ -1686,7 +1686,7 @@ type ListGCPMembersParams struct {
 	// Unique identifier of the site.
 	SiteID OptString
 	// Type of the assignee.
-	ExtensionType OptListGCPMembersExtensionType
+	ExtensionType OptString
 }
 
 // ListLineKeySettingParams is parameters of listLineKeySetting operation.
@@ -1714,7 +1714,7 @@ type ListMembersParams struct {
 	// Monitoring group ID.
 	MonitoringGroupId string
 	// Member type.
-	MemberType ListMembersMemberType
+	MemberType string
 	// The size of the page.
 	PageSize OptInt
 	// The current page number of returned records.
@@ -1724,7 +1724,7 @@ type ListMembersParams struct {
 // ListMonitoringGroupParams is parameters of listMonitoringGroup operation.
 type ListMonitoringGroupParams struct {
 	// The monitoring group's type.
-	Type OptListMonitoringGroupType
+	Type OptInt
 	// The unique identifier of the monitoring group's site.
 	SiteID OptString
 	// The size of the page.
@@ -1752,19 +1752,19 @@ type ListPastCallMetricsParams struct {
 	// The value of this field can be one of the following:
 	// * `good`: Retrieve call logs of the call(s) with good quality of voice.
 	// * `bad`: Retrieve call logs of the call(s) with good quality of voice.
-	QualityType OptListPastCallMetricsQualityType
+	QualityType OptString
 	// The department the extension belongs to.
 	Department OptString
 	// The cost center the extension belongs to.
 	CostCenter OptString
 	// The directions of the call.
-	Directions []ListPastCallMetricsDirectionsItem
+	Directions []string
 	// The duration of the call.
 	// * `0`: The call that lasts 1 to 5 minutes.
 	// * `1`: The call that lasts 5 to 10 minutes.
 	// * `2`: The call that lasts more than 10 minutes.
 	// * `3`: The call that lasts less than 1 minute.
-	Durations []ListPastCallMetricsDurationsItem
+	Durations []int
 	// The unique identifier of the [site](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-multiple-sites). Use this query parameter if you have
 	// enabled multiple sites and would like to filter the response of this API call by call logs of a
@@ -1797,19 +1797,19 @@ type ListPeeringPhoneNumbersParams struct {
 // ListPhoneDevicesParams is parameters of listPhoneDevices operation.
 type ListPhoneDevicesParams struct {
 	// The device status: `assigned` or `unassigned` to list device status in Zoom account.
-	Type ListPhoneDevicesType
+	Type string
 	// The type of the assignee. It's available if `type = assigned`. It's unavailable if the account has
 	// not enabled the common area feature. It also returns devices of the specified `assignee_type`. If
 	// unspecified, it returns all assigned devices.
-	AssigneeType OptListPhoneDevicesAssigneeType
+	AssigneeType OptString
 	// The device source. `hotDesking` is only available when `type = assigned`.
-	DeviceSource OptListPhoneDevicesDeviceSource
+	DeviceSource OptString
 	// The status of device location. It's available if `type = assigned`.
-	LocationStatus OptListPhoneDevicesLocationStatus
+	LocationStatus OptString
 	// The site of the assignee.
 	SiteID OptString
 	// The manufacturer name or device type.
-	DeviceType OptListPhoneDevicesDeviceType
+	DeviceType OptString
 	// The user, extension, MAC address, or IP address to filter the results.
 	Keyword OptString
 	// The next page token paginates through a large set of results. A next page token returns whenever
@@ -1847,7 +1847,7 @@ type ListPhoneUsersParams struct {
 	// The status of the Zoom Phone user.
 	// `pending`: The users have been assigned the Zoom Workplace license, but not been assigned Zoom
 	// Phone feature.
-	Status OptListPhoneUsersStatus
+	Status OptString
 	// The department where the user belongs.
 	Department OptString
 	// The cost center where the user belongs.
@@ -1937,7 +1937,7 @@ type ListSiteCustomizeOutboundCallerNumbersParams struct {
 	// For filtering phone numbers that belong to the site.
 	SiteID OptString
 	// The type of the extension to which the phone number belongs.
-	ExtensionType OptListSiteCustomizeOutboundCallerNumbersExtensionType
+	ExtensionType OptString
 	// A search keyword for phone or extension numbers.
 	Keyword OptString
 	// The number of records returned within a single API call.
@@ -1958,9 +1958,9 @@ type ListSiteOutboundCallingExceptionRuleParams struct {
 	// The partial string of a phone number.
 	Keyword OptString
 	// The match type of an exception rule.
-	MatchType OptListSiteOutboundCallingExceptionRuleMatchType
+	MatchType OptString
 	// The status of an exception rule.
-	Status OptListSiteOutboundCallingExceptionRuleStatus
+	Status OptString
 	// The next page token paginates through a large set of results. A next page token returns whenever
 	// the set of available results exceeds the current page size. The expiration period for this token
 	// is 15 minutes.
@@ -1978,11 +1978,11 @@ type ListTrackedLocationsParams struct {
 	// `4`: Detectable Personal Location.
 	// `5`: Real-time Location for Users.
 	// `6`: Real-time Location for IP Phones.
-	Type OptListTrackedLocationsType
+	Type OptInt
 	// The site's ID.
 	SiteID OptString
 	// The location's type. 'Company' is the default value.
-	LocationType OptListTrackedLocationsLocationType
+	LocationType OptString
 	// The device name or device MAC address.
 	Keyword OptString
 }
@@ -2004,7 +2004,7 @@ type ListUserCustomizeOutboundCallerNumbersParams struct {
 	// This field filters phone numbers that belong to the site.
 	SiteID OptString
 	// The type of extension to which the phone number belongs.
-	ExtensionType OptListUserCustomizeOutboundCallerNumbersExtensionType
+	ExtensionType OptString
 	// A search keyword for phone or extension numbers.
 	Keyword OptString
 	// The number of records returned within a single API call.
@@ -2025,9 +2025,9 @@ type ListUserOutboundCallingExceptionRuleParams struct {
 	// The partial string of a phone number.
 	Keyword OptString
 	// The match type of an exception rule.
-	MatchType OptListUserOutboundCallingExceptionRuleMatchType
+	MatchType OptString
 	// The status of an exception rule.
-	Status OptListUserOutboundCallingExceptionRuleStatus
+	Status OptString
 	// The next page token paginates through a large set of results. A next page token returns whenever
 	// the set of available results exceeds the current page size. The expiration period for this token
 	// is 15 minutes.
@@ -2131,7 +2131,7 @@ type PhoneUserCallLogsParams struct {
 	// **Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or
 	// **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as the `from` parameter.
 	To   OptDate
-	Type OptPhoneUserCallLogsType
+	Type OptString
 	// The next page token paginates through a large set of results. A next page token returns whenever
 	// the set of available results exceeds the current page size. The expiration period for this token
 	// is 15 minutes.
@@ -2141,7 +2141,7 @@ type PhoneUserCallLogsParams struct {
 	PhoneNumber OptString
 	// This field enables you to sort call logs by start or end time. Choose the sort time value. Values
 	// include `startTime` or `endTime`.
-	TimeType OptPhoneUserCallLogsTimeType
+	TimeType OptString
 }
 
 // PhoneUserRecordingsParams is parameters of phoneUserRecordings operation.
@@ -2177,7 +2177,7 @@ type PhoneUserVoiceMailsParams struct {
 	// The number of records returned within a single API call.
 	PageSize OptInt
 	// Status of the voice mail.
-	Status OptPhoneUserVoiceMailsStatus
+	Status OptString
 	// The next page token paginates through a large set of results. A next page token is returned
 	// whenever the set of available results exceeds the current page size. The expiration period for
 	// this token is 15 minutes.
@@ -2223,7 +2223,7 @@ type RemoveMemberParams struct {
 	// Member's extension ID.
 	MemberExtensionId string
 	// Member type.
-	MemberType OptRemoveMemberMemberType
+	MemberType OptString
 }
 
 // RemoveMembersParams is parameters of removeMembers operation.
@@ -2231,7 +2231,7 @@ type RemoveMembersParams struct {
 	// Monitoring group ID.
 	MonitoringGroupId string
 	// Member type.
-	MemberType RemoveMembersMemberType
+	MemberType string
 }
 
 // RemoveSLGPolicySubSettingParams is parameters of removeSLGPolicySubSetting operation.
@@ -2285,7 +2285,7 @@ type SmsSessionSyncParams struct {
 	// FSync - Full sync
 	// ISync - Increase sync
 	// BSync - Backward sync.
-	SyncType OptSmsSessionSyncSyncType
+	SyncType OptString
 	// The number of records returned within a single API call.
 	Count OptInt
 	// The time range for returned records. Used for locating where the next retrieval will begin.
@@ -2300,7 +2300,7 @@ type SyncUserCallLogsParams struct {
 	// FSync - Full sync
 	// ISync - Increase sync
 	// BSync - Backward sync.
-	SyncType OptSyncUserCallLogsSyncType
+	SyncType OptString
 	// The number of records returned within a single API call.
 	Count OptInt
 	// The time range for returned records. It's used for locating where the next retrieval will begin.
@@ -2491,7 +2491,7 @@ type UpdateCallHandlingParams struct {
 	// * `business_hours`
 	// * `closed_hours`
 	// * `holiday_hours`.
-	SettingType UpdateCallHandlingSettingType
+	SettingType string
 }
 
 // UpdateCallQueueParams is parameters of updateCallQueue operation.
@@ -2672,7 +2672,7 @@ type UpdateSiteSettingParams struct {
 	// * `desk_phone`
 	// * `dial_by_name`
 	// * `billing_account`.
-	SettingType UpdateSiteSettingSettingType
+	SettingType string
 }
 
 // UpdateUserOutboundCallingCountriesOrRegionsParams is parameters of UpdateUserOutboundCallingCountriesOrRegions operation.
@@ -2717,7 +2717,7 @@ type UpdateVoicemailReadStatusParams struct {
 	// us/docs/api-reference/phone/methods/#operation/phoneUserVoiceMails) API.
 	VoicemailId string
 	// The voicemail status. The `Unread` feature must enable **Mark Voicemail as Unread**.
-	ReadStatus UpdateVoicemailReadStatusReadStatus
+	ReadStatus string
 }
 
 // UpdateZoomRoomParams is parameters of updateZoomRoom operation.
@@ -2757,5 +2757,5 @@ type UserSmsSessionParams struct {
 	// * `sent_message_time`: can query which sessions have sent messages between From and To dates.
 	// * `received_message_time`: can query which sessions have received messages between From and To
 	// dates.
-	FilterType OptUserSmsSessionFilterType
+	FilterType OptString
 }
