@@ -17,6 +17,7 @@ function recursionProcess(response, prefix = '') {
       delete response[key].enum
     }
 
+    // The path parameters must always be required to be true
     if (key === 'parameters') {
       response[key] = response[key].map((parameter) => {
         if (parameter.in === 'path') {
@@ -26,6 +27,7 @@ function recursionProcess(response, prefix = '') {
       });
     }
 
+    // The ogen does not support uniqueItems
     if (key === 'uniqueItems') {
       response[key] = false
     }
@@ -107,6 +109,15 @@ const buffers = [];
   const text = buffer.toString();
   const spec = JSON.parse(text);
 
+  /**
+   * The oneOf atrribute of ogen is
+   * - Unique per-object attributes
+   * - primitive types
+   * - discriminator attribute
+   * only three patterns are supported.
+   *
+   * The following uses the discriminator attribute to support onfOf.
+   */
   ["post", "patch"].forEach((method) => {
     spec.paths["/phone/extension/{extensionId}/call_handling/settings/{settingType}"][method].requestBody.content['application/json'].schema = {
       ...spec.paths["/phone/extension/{extensionId}/call_handling/settings/{settingType}"][method].requestBody.content['application/json'].schema,
@@ -129,10 +140,44 @@ const buffers = [];
     spec.paths["/phone/extension/{extensionId}/call_handling/settings/{settingType}"][method].requestBody.content['application/json'].schema.oneOf = spec.paths["/phone/extension/{extensionId}/call_handling/settings/{settingType}"][method].requestBody.content['application/json'].schema.oneOf.map((item) => {
       const key = item.properties.sub_setting_type.example;
       return {
-        "$ref": `#/components/schemas/${method}_${key}`
+        $ref: `#/components/schemas/${method}_${key}`,
       };
     });
   });
+
+  // Enable ogen convenient errors
+  spec.paths = Object.fromEntries(Object.entries(spec.paths).map(([path, pathValue]) => {
+    return [path, Object.fromEntries(Object.entries(pathValue).map(([method, methodValue]) => {
+      methodValue.responses = {
+        ...methodValue.responses,
+        default: {
+          description: "For ogen convenient errors",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ErrorResponse"
+              },
+            },
+          },
+        },
+      };
+      return [method, methodValue];
+    }))];
+  }));
+  spec.components.schemas = {
+    ...spec.components.schemas,
+    ErrorResponse: {
+      type: "object",
+      properties: {
+        code: {
+          type: "integer",
+        },
+        message: {
+          type: "string",
+        },
+      },
+    },
+  };
 
   recursionProcess(spec);
 

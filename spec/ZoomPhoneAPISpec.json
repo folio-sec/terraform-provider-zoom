@@ -1944,6 +1944,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Setting type(s) supplied in query parameter setting_types is invalid. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2143,6 +2153,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2201,6 +2221,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2250,6 +2280,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2528,6 +2568,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2735,6 +2785,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n Validation Failed<br> <br>\n**Error Code:** `13004` <br>\n Alert rule on this target already exists.<br> <br>\n**Error Code:** `13005` <br>\n This alert can only be set up once.<br> <br>\n**Error Code:** `13006` <br>\n The number of target is invalid. <br> <br>\n**Error Code:** `13007` <br>\n The number of email recipients is invalid. <br> <br>\n**Error Code:** `13008` <br>\n The number of chat channels is invalid.<br> <br>\n**Error Code:** `13009` <br>\n Fail to create alert.<br> <br>\n**Error Code:** `13010` <br>\n Invalid parameters.<br> <br>\n**Error Code:** `13012` <br>\n The module:{0} does not support this rule:{1}.<br> <br>\n**Error Code:** `13013` <br>\n The rule:{0} does not support this target type:{1}.<br> <br>\n**Error Code:** `13014` <br>\n The target id:{0} is invalid.<br> <br>\n**Error Code:** `403` <br>\n You do not have permission.<br> <br>\n**Error Code:** `13015` <br>\n The rule:{0} can not support the rule condition type:{1}.<br> <br>\n**Error Code:** `13016` <br>\n The rule:{0} is missing the rule condition type:{1}.<br> <br>\n**Error Code:** `13017` <br>\n The value of the rule condition type:{0} is invalid.<br> <br>\n**Error Code:** `13018` <br>\n The value of alert field:{0} is invalid.<br> <br>\n**Error Code:** `13019` <br>\n The group does not exist, groupId:{0}.<br> <br>\n**Error Code:** `13020` <br>\n There are duplicated rule condition types.<br> <br>\n**Error Code:** `13021` <br>\n The rule condition value can not be same.<br> <br>\n**Error Code:** `13022` <br>\n The number of alerts for this module:{0} has reached the limit, and it is not allowed to create alerts of this rule:{1}.<br> <br>\n**Error Code:** `13023` <br>\n The number of email recipients is invalid.<br> <br>\n**Error Code:** `13024` <br>\n The number of chat channels is invalid. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2997,6 +3057,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3046,6 +3116,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3217,6 +3297,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3338,6 +3428,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3388,6 +3488,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3457,6 +3567,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3530,6 +3650,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -3635,6 +3765,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3748,6 +3888,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3946,6 +4096,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4028,6 +4188,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4219,6 +4389,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4265,6 +4445,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Unable to delete main Auto receptionist.<br><br> <br>\n**Error Code:** `404` <br>\n AutoReceptionist does not exist: {autoReceptionistId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4387,6 +4577,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Extension Number must be {min} to {max} digits<br>\nValidation Failed. AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionistId}<br>\nAudio prompt language is invalid:{0}<br>\nTime zone is invalid:{0}<br> <br>\n**Error Code:** `400` <br>\n Invalid short number length.<br>\nInvalid full extension number length.<br><br> <br>\n**Error Code:** `10001` <br>\n Number {extensionNumber} is a reserved extension number.<br>\nExtension number {extensionNumber} is already used.<br>\nLanguage setting is invalid. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4468,6 +4668,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4512,6 +4722,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId} <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4573,6 +4793,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4777,6 +5007,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -4906,6 +5146,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5028,6 +5278,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n**Error Code:** `429` <br>\n You can only add up to {0} {1} to access your voicemail.<br>\n\nUser does not exist: {0}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5097,6 +5357,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5190,6 +5460,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5247,6 +5527,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -5316,6 +5606,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nBilling account does not exist: {billingAccountId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5451,6 +5751,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5558,6 +5868,16 @@
           },
           "409": {
             "description": "**HTTP Status Code:** `409` <br>\n Conflict\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5659,6 +5979,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nBlocked number (Id: {blockedListId}) does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -5704,6 +6034,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Blocked number (Id: {blockedListId}) does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -7142,6 +7482,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -7262,6 +7612,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Extension does not exist: {extensionId}<br>Holiday does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -7343,6 +7703,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Call forwarding does not exist: {callForwardingId}.<br>Holiday does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -7438,6 +7808,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n Call forwarding does not exist: {callForwardingId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -8087,6 +8467,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Validation Failed <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -8703,6 +9093,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -9155,6 +9555,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `3001` <br>\n Error retrieving call logs. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "deprecated": true,
@@ -9527,6 +9937,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "deprecated": true,
@@ -9597,6 +10017,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nValidation Failed.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -10108,6 +10538,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `300` <br>\n User does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -10558,6 +10998,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `300` <br>\n User does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -10623,6 +11073,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -10823,6 +11283,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -10972,6 +11442,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser not found: {userId}\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11224,6 +11704,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThe group does not exist, groupId:{callQueueId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11270,6 +11760,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThe group does not exist, groupId:{callQueueId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11373,6 +11873,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. The group does not exist, groupId:{groupId}\n\nTimezone not found in the system.\n\n**Error Code:** `400` <br>\nUnable to update this call queue as it is used for internal safety response team.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11479,6 +11989,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11579,6 +12099,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser not found: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11623,6 +12153,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. The group does not exist, groupId:{callQueueId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11683,6 +12223,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11834,6 +12384,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -11905,6 +12465,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12015,6 +12585,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12211,6 +12791,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12376,6 +12966,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12438,6 +13038,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThis account is not a Carrier Reseller.\nReseller does not configure Carrier.\n\n**Error Code:** `300` <br>\nInvalid phone number.\nInvalid phone number status.\nUnable to recognize country.\nPhone number already exists.\n\n**Error Code:** `429` <br>\nPhone number batch operation is limited to 200 per request.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12485,6 +13095,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPhone number does not exists.\n\n**Error Code:** `429` <br>\nPhone number batch operation is limited to 200 per request.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12532,6 +13152,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPhone number does not exists.\n\n**Error Code:** `429` <br>\nPhone number batch operation is limited to 200 per request.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12748,6 +13378,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12854,6 +13494,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\ncValidation failed.<br>\n* Timezone not found in the system.\n* This country is not supported by Zoom Phone.\n* Site does not exist: {site_id}.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -12991,6 +13641,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n**Error Code:** `400` <br>\n The account_id is invalid. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13316,6 +13976,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13362,6 +14032,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13490,6 +14170,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {0}.\n\n**Error Code:** `409` <br>\nA conflict occurred with the target extension number. Try again later.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13609,6 +14299,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13676,6 +14376,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13782,6 +14492,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13839,6 +14559,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -13942,6 +14672,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14042,6 +14782,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14107,6 +14857,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14199,6 +14959,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nCommon area does not exist: {commonAreaId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14474,6 +15244,16 @@
                       "example": 20
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -14766,6 +15546,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -14996,6 +15786,16 @@
                       "example": "3.6"
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -15244,6 +16044,16 @@
                       "example": 1
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -15613,6 +16423,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -15764,6 +16584,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -15845,6 +16675,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nExtension ID does not exist: {0}. <br>\nIndex is invalid: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -15996,6 +16836,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16059,6 +16909,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16120,6 +16980,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16277,6 +17147,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16349,6 +17229,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16420,6 +17310,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16676,6 +17576,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nSite does not exist: {site_id}\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -16881,6 +17791,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17038,6 +17958,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nEmergency address does not exist {emergencyAddressId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17084,6 +18014,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17285,6 +18225,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17501,6 +18451,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed.\nLocation does not exist: {0}.\nToo many concurrent requests. A request to add locations batch has already been made.\nLocations size must be less than 10.\nYou can only access up to 5000 locations.\nCan not bind ELIN if location does not have an emergency address.\nA phone number can not be bound to multiple locations at the same time.\nPhone number format invalid.\nPhone number does not exist.\nThere is an error with the parent location of the sub location.\nNetwork switches size must be less than 100.\nSwitch MAC address is required.\nDuplicate Switch Info found.\nMac Address format invalid.\nNumber bssid per location limited to less than 100.\nBSSID format error.\nEmergency address Line 1 is required.\nEmergency address country is required.\nIP format error.\nPublic IP is required.\nSIP group does not exist.\nIdentifier can not be matched.\nYou can only access up to {0} level.\nThis location identifier already exists. You cannot have duplicate identifiers.\nThe parent_identifier can not be the value of the identifier of the same location.\nThis location display_name already exists. You cannot have duplicate location names.\nIdentifier is required.\nLocation name is required.\nEmergency address VAT is required in {0}.\nEmergency address state code is required in {0}.\nEmergency address zip is required in {0}.\nThe field can not exceed {0} characters.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17756,6 +18716,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -17874,6 +18844,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation failed.\nA site ID is required.\nParent location does not exist.\nAn emergency address is required.\nAn emergency address is required.\nA location name is required.\nA public IP is required.\nYou can only access up to \"{0}\" level.\nYou can only access up to 5000 locations.\nThe maximum number of \"{0}\" is {1}.\nCannot bind an ELIN if the location does not have an emergency address.\nIP format error.\nDuplicate Switch Info found.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18087,6 +19067,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nLocation does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18132,6 +19122,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18261,6 +19261,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18388,6 +19398,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18499,6 +19519,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18598,6 +19628,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nExternal contact does not exist: {externalContactId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18643,6 +19683,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18744,6 +19794,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18861,6 +19921,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -18957,6 +20027,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nThe firmware version does not exist, firmware version:{0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19036,6 +20116,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nFirmware rule (ID: {0}) does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19099,6 +20189,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nThe rule does not exist, rule id:{0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19188,6 +20288,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nThe rule does not exist, rule id:{0}.<br>\n\nThe firmware version does not exist, firmware version:{0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19308,6 +20418,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19478,6 +20598,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19629,6 +20759,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19784,6 +20924,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19828,6 +20978,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nGroup call pickup does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -19961,6 +21121,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed.<br>\nExtension number error.<br>\nDisplay name must be in the range of 3 to 200.<br>\nDescription is too long.<br>\nDelay must be in the range of 0 to 15.<br>\nDuration must be in the range of 0 to 5.<br>\n\n**Error Code:** `404` <br>\nGroup call pickup does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -20112,6 +21282,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -20176,6 +21356,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `404` <br>\nGroup call pickup does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -20231,6 +21421,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nGroup call pickup does not exist.<br>\nMember does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -21882,6 +23082,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Group does not exist. <br>\nSetting type(s) supplied in query parameter setting_types is invalid. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22087,6 +23297,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nAuto Receptionist does not exist: {0}.\nHoliday hours handling does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22219,6 +23439,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nAuto Receptionist does not exist: {0}.\nHoliday hours handling does not exist: {0}.\n\n**Error Code:** `300` <br>\nThe number of times to repeat the audio prompt is required and can not be greater than 3.\nThe action value set for if caller enters no action after the prompt played is not correct.\nThe action value is not correct.\nThe id for noAction to forward to is not correct.\nVoicemail greeting file id is required.\nThe phone number to forward to is required.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22399,6 +23629,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Extension does not exist: {extensionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22512,6 +23752,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Extension does not exist: {extensionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22575,6 +23825,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Blocked rule does not exist: {blocked_rule_id}. <br>\n**Error Code:** `404` <br>\n Extension does not exist: {extensionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22751,6 +24011,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13600` <br>\n You do not enable the block list for inbound calls and messaging policy setting. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22800,6 +24070,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Blocked statistic does not exist: {blocked_statistic_id}.  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -22858,6 +24138,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Blocked statistic does not exist: {blocked_statistic_id}.  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23054,6 +24344,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13600` <br>\n You do not enable the block list for inbound calls and messaging policy setting. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23164,6 +24464,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13600` <br>\n The block list for inbound calls and messaging policy setting is not enabled. <br>\n**Error Code:** `13601` <br>\n Blocked phone number already exists:{blocked_number}. <br>\n**Error Code:** `13605` <br>\n The block calls as threat policy setting is not enabled. It is not allowed selecting 'type' as 'block_as_threat. <br>\n**Error Code:** `400` <br>\n Invalid country. <br>\n**Error Code:** `7015` <br>\n The phone number {blocked_number} is invalid. <br>\n**Error Code:** `13604` <br>\n Blocked number:{blocked_number} does not match the country:{country}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23213,6 +24523,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Blocked rule does not exist: {blocked_rule_id}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23323,6 +24643,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Blocked rule does not exist: {blocked_rule_id}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23456,6 +24786,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23579,6 +24919,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nLine key ID does not exist: {0}. <br>\nLine key type is invalid: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23640,6 +24990,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nLine key ID does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23825,6 +25185,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n The next page token is invalid or expired. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -23929,6 +25299,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Name is required.\nType is required\nSite ID is required.\nThe privilege does not exist.\nType should be `1`, `2`, or `3`. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24052,6 +25432,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n The group does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24098,6 +25488,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24183,6 +25583,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nThe privilege does not exist.\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24323,6 +25733,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nMissing 'member_type'.\nThe next page token is invalid or expired.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24401,6 +25821,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThe maximum number of monitors is 100.\nThe maximum number of monitored is 100.\nThe group does not exist.\n\n**Error Code:** `409` <br>\nCannot create group. 'member_type' member(s) already exist(s) in current monitoring group.\nCannot create group. 'member_type' member(s) already exist(s) in other monitoring group.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24460,6 +25890,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24531,6 +25971,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24669,6 +26119,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24761,6 +26221,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -24960,6 +26430,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13000` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25083,6 +26563,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25147,6 +26637,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25266,6 +26766,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The common area does not exist: {commonAreaId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25392,6 +26902,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25469,6 +26989,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25655,6 +27185,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25763,6 +27303,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n  Requires an access token. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25817,6 +27367,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -25923,6 +27483,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Requires an access token. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26062,6 +27632,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26154,6 +27734,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26353,6 +27943,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13000` <br>\n The site does not exist: {siteId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26476,6 +28076,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26540,6 +28150,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26659,6 +28279,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The site does not exist: {siteId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26798,6 +28428,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -26890,6 +28530,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27089,6 +28739,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13000` <br>\n The user does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27212,6 +28872,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27276,6 +28946,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n**Error Code:** `13507` <br>\n The exception rule does not exist: {exceptionRuleId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27395,6 +29075,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13500` <br>\n The user does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27696,6 +29386,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27811,6 +29511,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `1001` <br>\n User not found: {userId} <br>\nUser extension Id or common area extension Id not found. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -27874,6 +29584,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `429` <br>\nToo many concurrent requests. A request has already been made.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28146,6 +29866,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nDevice does not exist in the system.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28191,6 +29921,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28273,6 +30013,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User not found: {userId}\n\nThe user extension does not exist, extensionId: {extensionId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28351,6 +30101,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser extension ID or common area extension ID not found.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28408,6 +30168,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28471,6 +30241,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `404` <br>\nProvision template does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28518,6 +30298,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThe given device type does not support this action<br>\n*The given device is offline<br>\nOperation is too frequent. Please try again in a few minutes.<br><br>\n\n**Error Code:** `404` <br>\nDevice does not exist: {accountId}.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28624,6 +30414,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -28970,6 +30770,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29019,6 +30829,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29086,6 +30906,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29380,6 +31210,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Phone number does not exist, phonenumberId:{phoneNumberId} <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29463,6 +31303,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29570,6 +31420,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nThis user does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29631,6 +31491,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29716,6 +31586,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -29821,6 +31701,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29899,6 +31789,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -29981,6 +31881,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30059,6 +31969,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30104,6 +32024,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30170,6 +32100,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30286,6 +32226,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30367,6 +32317,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `400` <br>\nThere are invalid emails:{0}\n\nThere are invalid user ids:{0}\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30425,6 +32385,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThere are invalid emails:{0}\n\nThere are invalid user ids:{0}\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30562,6 +32532,16 @@
                       "example": 20
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -30707,6 +32687,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30825,6 +32815,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `124` <br>\nAccount does not exist: \"{accountId}\".\n\n**Error Code:** `300` <br>\nValidation Failed. Batch adding phone numbers is limited to 200 per request.\n\n**Error Code:** `404` <br>\nUnknown carrier.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -30912,6 +32912,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `124` <br>\nAccount does not exist: \"{accountId}\".\n\n**Error Code:** `300` <br>\nValidation Failed. Batch adding phone numbers is limited to 200 per request.\n\n**Error Code:** `404` <br>\nUnknown carrier.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31028,6 +33038,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `124` <br>\nAccount does not exist: \"{accountId}\".\n\n**Error Code:** `300` <br>\nValidation Failed. Batch adding phone numbers is limited to 200 per request.\n\n**Error Code:** `404` <br>\nUnknown carrier.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31138,6 +33158,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31221,6 +33251,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `400` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31299,6 +33339,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31344,6 +33394,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nProvision template does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31416,6 +33476,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n**Error Code:** `404` <br>\nProvision template does not exist.<br>\n\n**Error Code:** `400` <br>\nProvision template name ({0}) already exists.<br>\ntemplate should not contain reserved parameters (Key: {0}).<br>\nProvision template name ({0}) already exists.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31679,6 +33749,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `1001` <br>\n Recording does not exist: \"{callId or callLogId}\". <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -31733,6 +33813,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nFile does not exist.<br>\n\n**Error Code:** `12000` <br>\nUnable to transcribe this recording.<br>\n\n**Error Code:** `12001` <br>\nAdmin has disabled this transcription.<br>\n\n**Error Code:** `12002` <br>\nThis recording is still in the process of being transcribed. Reopen this recording in a few minutes.<br>\n\n**Error Code:** `12003` <br>\nTranscripts failed to download.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32121,6 +34211,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32174,6 +34274,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nRecording does not exist: {recordingId}.<br>\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32247,6 +34357,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Recording does not exist: {recordingId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32325,6 +34445,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Recording does not exist: {recordingId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32587,6 +34717,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -32863,6 +35003,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33041,6 +35191,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33258,6 +35418,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33376,6 +35546,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33474,6 +35654,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Type does not exist.\nType cannot be null.\nNumber Pattern cannot be null.\nNumber Pattern length can be up to 255 characters.\nSIP Group cannot be null.\nNumber Pattern ({0}) already exists.\nTranslation length can be up to 255 characters.\nRouting rule name cannot be blank.\nRouting rule name length can be up to 255 characters. <br>\n**Error Code:** `404` <br>\n SIP Group does not exist.\nSite does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33588,6 +35778,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33633,6 +35833,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n Routing rule does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33724,6 +35934,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Type does not exist.\nSIP Group cannot be null.\nNumber Pattern ({0}) already exists.\nRouting rule name length can be up to 255 characters.\nNumber Pattern length can be up to 255 characters.\nTranslation length can be up to 255 characters. <br>\n**Error Code:** `404` <br>\n Routing rule does not exist.\nSIP Group does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -33949,6 +36169,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `7012` <br>\n Error retrieving SMS. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -34242,6 +36472,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nSession does not exist: {sessionId}.\n\n**Error Code:** `7013` <br>\nError retrieving SMS history.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -34472,6 +36712,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -34748,6 +36998,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `300` <br>\nThe sync token is invalid or expired.<br>\n\n**Error Code:** `12004` <br>\nSession does not exist: {0}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -34977,6 +37237,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User does not exist: {userId} <br>\n**Error Code:** `7012` <br>\n Error retrieving SMS. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -35317,6 +37587,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n**Error Code:** `300` <br>\nThe sync token is invalid or expired.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -35450,6 +37730,16 @@
                       "example": 1
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -35634,6 +37924,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -35739,6 +38039,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe brand does not exist.\n\n**Error Code:** `400` <br>\nThe campaign does not exist.<br>\nThe campaign is not active.<br>\nNumbers both not available.<br>\nCan not assign campaign to pending number: {0}.<br>\nCan not assign campaign to toll free number: {0}.<br>\nCan not enable sms for BYOC number: {0}.<br>\nCan not assign campaign to pending campaign number.<br>\nThe selected number size exceeds campaign capacity.<br>\nThe maximum size for phone numbers is 49.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -35795,6 +38105,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe brand does not exist.\n\n**Error Code:** `400` <br>\nThe campaign does not exist.<br>\nThe campaign does not have the number.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -35930,6 +38250,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -36030,6 +38360,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -36697,6 +39037,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -37295,6 +39645,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -37431,6 +39791,16 @@
                       "example": 2
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -37622,6 +39992,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nPortin order does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -37746,6 +40126,16 @@
           },
           "403": {
             "description": "**HTTP Status Code:** `403` <br>\n Forbidden \n\n **Error Code:** `2031` <br>\n Zoom Phone has not been enabled for this account. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -37853,6 +40243,16 @@
           },
           "412": {
             "description": "**HTTP Status Code:** `412` <br>\n undefined \n\n **Error Code:** `412` <br>\n Disable multiple sites after deleting other sites. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -37977,6 +40377,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38088,6 +40498,16 @@
                       "default": 30
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -38248,6 +40668,16 @@
                       "example": 14
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -38414,6 +40844,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38503,6 +40943,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n  <br>\n**Error Code:** `400` <br>\n Extension number {extensionNumber} is already used.<br><br> <br>\n**Error Code:** `409` <br>\n Invalid short number length. <br>\nNumber {extensionNumber} is a reserved extension number. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38753,6 +41203,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38799,6 +41259,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38889,6 +41359,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n Shared line group does not exist:{sharedLineGroupId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -38961,6 +41441,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n  <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -39129,6 +41619,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -39200,6 +41700,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -39308,6 +41818,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -39453,6 +41973,16 @@
                       "example": 20
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -39630,6 +42160,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Invalid site code length.<br>Country information is invalid.<br>This address could not be validated or geocoded. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -41030,6 +43570,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n The site does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -41089,6 +43639,16 @@
           },
           "409": {
             "description": "**HTTP Status Code:** `409` <br>\n Conflict\n\n**Error Code:** `409` <br>\nConflict target extension number, try later.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -42205,6 +44765,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -42414,6 +44984,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -42484,6 +45064,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -42543,6 +45133,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -43396,6 +45996,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nSite does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -43537,6 +46147,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -43616,6 +46236,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -44274,6 +46904,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>Prompt files do not exist, audio ids: {0}.<br>Hot-desking session timeout setting is invalid.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -44537,6 +47177,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -44606,6 +47256,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n Invalid field. <br>\n**Error Code:** `12007` <br>\n The user in Trash cannot be assigned Zoom One license. <br>\n**Error Code:** `12008` <br>\n The Zoom Phone feature of the Zoom One license cannot be supported for users assigned to India sites. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -44780,6 +47440,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `300` <br>\nValidation Failed.\nUser size must be less than 10.\nToo many concurrent requests. A request to batch add users has already been made.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -46049,6 +48719,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `1001` <br>\n User does not exist: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -46731,6 +49411,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -46809,6 +49499,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist:{userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -46891,6 +49591,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist:{userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -47104,6 +49814,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -47178,6 +49898,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -47241,6 +49971,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -47736,6 +50476,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -47819,6 +50569,16 @@
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204`\n\nUser Setting updated."
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -48221,6 +50981,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -48323,6 +51093,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -48653,6 +51433,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist: {userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -48843,6 +51633,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -49087,6 +51887,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -49296,6 +52106,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `2001` <br>\n Account does not exist. <br>\n**Error Code:** `300` <br>\n The sync token is invalid or expired. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -49568,6 +52388,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized\n\n**Error Code:** `124` <br>\nAccount does not exist: {accountId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -49747,6 +52577,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nVoice mail does not exist: {voicemailId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -49815,6 +52655,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n The read status is invalid.<br>Request failed because \"Mark Voicemail as Unread\" feature has not been enabled for this account.<br> <br>\n**Error Code:** `404` <br>\n Voice mail does not exist: {0}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50026,6 +52876,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50099,6 +52959,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nUnknown or invalid calling plan: {type}.<br>\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50187,6 +53057,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -50414,6 +53294,16 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50458,6 +53348,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50559,6 +53459,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nExtension number error.\n\n**Error Code:** `400` <br>\nPolicy locked: {policy_key}.\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}\nSite does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50639,6 +53549,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nPlan invalid.\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\n\n**Error Code:** `429` <br>\nRoom batch operation is limited to 5 per request.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50705,6 +53625,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nPlan invalid.\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50786,6 +53716,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\nPhone number does not exist.\n\n**Error Code:** `409` <br>\nPhone number already in use.\nThis function requires a Zoom Phone Metered, Unlimited, or Pro plan.\n\n**Error Code:** `429` <br>\nRoom batch operation is limited to 5 per request.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50843,6 +53783,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nRoom does not exist:{roomId}.\nPhone number does not exist.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50917,6 +53867,16 @@
         "responses": {
           "204": {
             "description": "**HTTP Status Code:** `204` **No Content**\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -50962,6 +53922,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. The group does not exist, groupId:{callQueueId}\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51022,6 +53992,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nPhone number not belong to call queue.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51116,6 +54096,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User not found: {userId}. <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51162,6 +54152,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51220,6 +54220,16 @@
           },
           "400": {
             "description": "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51300,6 +54310,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized\n\n**Error Code:** `124` <br>\nPhone number does not belong to this account\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51348,6 +54368,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Phone number does not belong to this account <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51407,6 +54437,16 @@
           },
           "401": {
             "description": "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Phone number does not belong to this account <br>\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -51474,6 +54514,16 @@
           },
           "404": {
             "description": "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `1001` <br>\nUser does not exist:{userId}.\n\n"
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -52364,6 +55414,17 @@
             "enum": [
               "call_handling"
             ]
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
           }
         }
       }
