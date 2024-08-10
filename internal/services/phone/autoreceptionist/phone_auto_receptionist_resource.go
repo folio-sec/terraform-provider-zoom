@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	"github.com/folio-sec/terraform-provider-zoom/internal/util"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -126,6 +127,9 @@ func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.R
 
 func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptionistId string) (*phoneAutoReceptionistResourceModel, error) {
 	dto, err := r.crud.read(ctx, autoReceptionistId)
+	if util.IsUnexpectedStatusCodeError(err, 400) {
+		return nil, nil // deleted
+	}
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
 	}
@@ -169,7 +173,8 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 		audioPromptLanguage: plan.AudioPromptLanguage,
 	})
 	if err != nil {
-		// TODO mark resource as taint
+		// TODO change delete logic with marking resource as taint
+		_ = r.crud.delete(ctx, ret.autoReceptionistID.ValueString())
 		resp.Diagnostics.AddError(
 			"Error creating phone auto receptionist on updating",
 			err.Error(),

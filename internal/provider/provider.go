@@ -3,9 +3,11 @@ package provider
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/httpclient"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	autoreceptionist2 "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
@@ -137,10 +139,8 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 	tflog.Debug(ctx, "Creating Zoom Phone Master API client")
 
-	retryableClient := retryablehttp.NewClient()
-	httpClient := retryableClient.StandardClient()
-
-	zoomOAuthClient, err := zoomoauth.NewClient(zoomoauth.WithHTTPClient(httpClient))
+	retryClient := retryablehttp.NewClient().StandardClient()
+	zoomOAuthClient, err := zoomoauth.NewClient(zoomoauth.WithHTTPClient(retryClient))
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create Zoom OAuth client",
@@ -158,6 +158,9 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		return
 	}
 
+	httpClient := &http.Client{
+		Transport: httpclient.NewLoggingRoundTripper(ctx, retryClient.Transport),
+	}
 	zoomPhoneMasterClient, err := zoomphone.NewClient(
 		"https://api.zoom.us/v2",
 		clientSecurity{

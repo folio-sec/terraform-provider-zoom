@@ -30,7 +30,7 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 		AutoReceptionistId: autoReceptionistID,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("unable to read phone auto receptionist: %v", err)
+		return nil, fmt.Errorf("unable to read phone auto receptionist: %w %T %T", err, err, detail)
 	}
 
 	audioPromptLanguage := types.StringNull()
@@ -73,7 +73,7 @@ func (c *phoneAutoReceptionistCrud) create(ctx context.Context, dto createDto) (
 
 func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) error {
 	audioPromptLanguage := zoomphone.OptUpdateAutoReceptionistReqAudioPromptLanguage{}
-	if !dto.audioPromptLanguage.IsNull() {
+	if dto.audioPromptLanguage.ValueString() != "" {
 		for _, lang := range zoomphone.UpdateAutoReceptionistReqAudioPromptLanguageJa.AllValues() {
 			if string(lang) == dto.audioPromptLanguage.ValueString() {
 				audioPromptLanguage = zoomphone.NewOptUpdateAutoReceptionistReqAudioPromptLanguage(lang)
@@ -117,7 +117,7 @@ func (c *phoneAutoReceptionistCrud) delete(ctx context.Context, autoReceptionist
 		return fmt.Errorf("error deleting phone auto receptionist: %v", err)
 	}
 	if _, ok := ret.(*zoomphone.DeleteAutoReceptionistNoContent); !ok {
-		return fmt.Errorf("error deleting phone auto receptionist: %v", ret)
+		return fmt.Errorf("error deleting phone auto receptionist: %v, %T", ret, ret)
 	}
 	return nil
 }
