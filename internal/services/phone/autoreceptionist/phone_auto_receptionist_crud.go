@@ -33,6 +33,10 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 		return nil, fmt.Errorf("unable to read phone auto receptionist: %v", err)
 	}
 
+	audioPromptLanguage := types.StringNull()
+	if detail.AudioPromptLanguage.IsSet() {
+		audioPromptLanguage = types.StringValue(string(detail.AudioPromptLanguage.Value))
+	}
 	return &readDto{
 		autoReceptionistID:  types.StringValue(autoReceptionistID),
 		costCenter:          util.FromOptString(detail.CostCenter),
@@ -40,7 +44,7 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 		extensionNumber:     util.FromOptInt64(detail.ExtensionNumber),
 		name:                util.FromOptString(detail.Name),
 		timezone:            util.FromOptString(detail.Timezone),
-		audioPromptLanguage: util.FromOptString(detail.AudioPromptLanguage),
+		audioPromptLanguage: audioPromptLanguage,
 	}, nil
 }
 
@@ -68,6 +72,17 @@ func (c *phoneAutoReceptionistCrud) create(ctx context.Context, dto createDto) (
 }
 
 func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) error {
+	audioPromptLanguage := zoomphone.OptUpdateAutoReceptionistReqAudioPromptLanguage{}
+	if !dto.audioPromptLanguage.IsNull() {
+		for _, lang := range zoomphone.UpdateAutoReceptionistReqAudioPromptLanguageJa.AllValues() {
+			if string(lang) == dto.audioPromptLanguage.ValueString() {
+				audioPromptLanguage = zoomphone.NewOptUpdateAutoReceptionistReqAudioPromptLanguage(lang)
+			}
+		}
+		if !audioPromptLanguage.IsSet() {
+			return fmt.Errorf("invalid audio prompt language: %v", dto.audioPromptLanguage.ValueString())
+		}
+	}
 	ret, err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
 		Value: zoomphone.UpdateAutoReceptionistReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
@@ -75,7 +90,7 @@ func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) e
 			Department:          zoomphone.NewOptString(util.ToOptString(dto.department).Or("")),
 			ExtensionNumber:     util.ToOptInt64(dto.extensionNumber),
 			Name:                util.ToOptString(dto.name),
-			AudioPromptLanguage: util.ToOptString(dto.audioPromptLanguage),
+			AudioPromptLanguage: audioPromptLanguage,
 			Timezone:            util.ToOptString(dto.timezone),
 		},
 		Set: true,
