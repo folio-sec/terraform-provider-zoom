@@ -16,20 +16,20 @@ import (
 )
 
 var (
-	_ resource.Resource                = &phoneAutoReceptionistResource{}
-	_ resource.ResourceWithConfigure   = &phoneAutoReceptionistResource{}
-	_ resource.ResourceWithImportState = &phoneAutoReceptionistResource{}
+	_ resource.Resource                = &tfResource{}
+	_ resource.ResourceWithConfigure   = &tfResource{}
+	_ resource.ResourceWithImportState = &tfResource{}
 )
 
-func NewPhoneReceptionistResource() resource.Resource {
-	return &phoneAutoReceptionistResource{}
+func NewPhoneAutoReceptionistResource() resource.Resource {
+	return &tfResource{}
 }
 
-type phoneAutoReceptionistResource struct {
-	crud *phoneAutoReceptionistCrud
+type tfResource struct {
+	crud *crud
 }
 
-func (r *phoneAutoReceptionistResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+func (r *tfResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
 	}
@@ -41,14 +41,14 @@ func (r *phoneAutoReceptionistResource) Configure(_ context.Context, req resourc
 		)
 		return
 	}
-	r.crud = newPhoneReceptionistCrud(data.PhoneMasterClient)
+	r.crud = newCrud(data.PhoneMasterClient)
 }
 
-func (r *phoneAutoReceptionistResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_phone_auto_receptionist"
 }
 
-func (r *phoneAutoReceptionistResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
@@ -93,7 +93,7 @@ func (r *phoneAutoReceptionistResource) Schema(_ context.Context, _ resource.Sch
 	}
 }
 
-type phoneAutoReceptionistResourceModel struct {
+type resourceModel struct {
 	AutoReceptionistID  types.String `tfsdk:"auto_receptionist_id"`
 	CostCenter          types.String `tfsdk:"cost_center"`
 	Department          types.String `tfsdk:"department"`
@@ -103,15 +103,15 @@ type phoneAutoReceptionistResourceModel struct {
 	AudioPromptLanguage types.String `tfsdk:"audio_prompt_language"`
 }
 
-func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state phoneAutoReceptionistResourceModel
+func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var state resourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	output, err := r.read(ctx, state.AutoReceptionistID.ValueString())
+	output, err := r.read(ctx, state.AutoReceptionistID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
 		return
@@ -124,7 +124,7 @@ func (r *phoneAutoReceptionistResource) Read(ctx context.Context, req resource.R
 	}
 }
 
-func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptionistId string) (*phoneAutoReceptionistResourceModel, error) {
+func (r *tfResource) read(ctx context.Context, autoReceptionistId types.String) (*resourceModel, error) {
 	dto, err := r.crud.read(ctx, autoReceptionistId)
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
@@ -133,7 +133,7 @@ func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptioni
 		return nil, nil // already deleted
 	}
 
-	return &phoneAutoReceptionistResourceModel{
+	return &resourceModel{
 		AutoReceptionistID:  dto.autoReceptionistID,
 		CostCenter:          dto.costCenter,
 		Department:          dto.department,
@@ -144,8 +144,8 @@ func (r *phoneAutoReceptionistResource) read(ctx context.Context, autoReceptioni
 	}, nil
 }
 
-func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan phoneAutoReceptionistResourceModel
+func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var plan resourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -173,7 +173,7 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 	})
 	if err != nil {
 		// TODO change delete logic with marking resource as taint
-		_ = r.crud.delete(ctx, ret.autoReceptionistID.ValueString())
+		_ = r.crud.delete(ctx, ret.autoReceptionistID)
 		resp.Diagnostics.AddError(
 			"Error creating phone auto receptionist on updating",
 			err.Error(),
@@ -181,7 +181,7 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 		return
 	}
 
-	output, err := r.read(ctx, ret.autoReceptionistID.ValueString())
+	output, err := r.read(ctx, ret.autoReceptionistID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating phone auto receptionist on reading", err.Error())
 		return
@@ -194,8 +194,8 @@ func (r *phoneAutoReceptionistResource) Create(ctx context.Context, req resource
 	}
 }
 
-func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan phoneAutoReceptionistResourceModel
+func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var plan resourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -226,7 +226,7 @@ func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource
 		return
 	}
 
-	output, err := r.read(ctx, plan.AutoReceptionistID.ValueString())
+	output, err := r.read(ctx, plan.AutoReceptionistID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating phone auto receptionist", err.Error())
 		return
@@ -239,15 +239,15 @@ func (r *phoneAutoReceptionistResource) Update(ctx context.Context, req resource
 	}
 }
 
-func (r *phoneAutoReceptionistResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var state phoneAutoReceptionistResourceModel
+func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var state resourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	if err := r.crud.delete(ctx, state.AutoReceptionistID.ValueString()); err != nil {
+	if err := r.crud.delete(ctx, state.AutoReceptionistID); err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone auto receptionist",
 			fmt.Sprintf(
@@ -264,6 +264,6 @@ func (r *phoneAutoReceptionistResource) Delete(ctx context.Context, req resource
 	})
 }
 
-func (r *phoneAutoReceptionistResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("auto_receptionist_id"), req, resp)
 }

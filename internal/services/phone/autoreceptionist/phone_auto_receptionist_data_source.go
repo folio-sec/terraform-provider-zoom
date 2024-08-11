@@ -12,19 +12,19 @@ import (
 )
 
 var (
-	_ datasource.DataSource              = &phoneAutoReceptionistDataSource{}
-	_ datasource.DataSourceWithConfigure = &phoneAutoReceptionistDataSource{}
+	_ datasource.DataSource              = &tfDataSource{}
+	_ datasource.DataSourceWithConfigure = &tfDataSource{}
 )
 
 func NewPhoneAutoReceptionistDataSource() datasource.DataSource {
-	return &phoneAutoReceptionistDataSource{}
+	return &tfDataSource{}
 }
 
-type phoneAutoReceptionistDataSource struct {
-	crud *phoneAutoReceptionistCrud
+type tfDataSource struct {
+	crud *crud
 }
 
-func (d *phoneAutoReceptionistDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *tfDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
 	}
@@ -36,14 +36,14 @@ func (d *phoneAutoReceptionistDataSource) Configure(_ context.Context, req datas
 		)
 		return
 	}
-	d.crud = newPhoneReceptionistCrud(data.PhoneMasterClient)
+	d.crud = newCrud(data.PhoneMasterClient)
 }
 
-func (d *phoneAutoReceptionistDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *tfDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_phone_auto_receptionist"
 }
 
-func (d *phoneAutoReceptionistDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
@@ -79,7 +79,7 @@ func (d *phoneAutoReceptionistDataSource) Schema(_ context.Context, _ datasource
 	}
 }
 
-type phoneAutoReceptionistDataSourceModel struct {
+type dataSourceModel struct {
 	AutoReceptionistID  types.String `tfsdk:"auto_receptionist_id"`
 	CostCenter          types.String `tfsdk:"cost_center"`
 	Department          types.String `tfsdk:"department"`
@@ -89,14 +89,14 @@ type phoneAutoReceptionistDataSourceModel struct {
 	AudioPromptLanguage types.String `tfsdk:"audio_prompt_language"`
 }
 
-func (d *phoneAutoReceptionistDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data phoneAutoReceptionistDataSourceModel
+func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data dataSourceModel
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	dto, err := d.crud.read(ctx, data.AutoReceptionistID.ValueString())
+	dto, err := d.crud.read(ctx, data.AutoReceptionistID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
 		return
@@ -106,7 +106,7 @@ func (d *phoneAutoReceptionistDataSource) Read(ctx context.Context, req datasour
 		"auto_receptionist_id": dto.autoReceptionistID.ValueString(),
 	})
 
-	output := phoneAutoReceptionistDataSourceModel{
+	output := dataSourceModel{
 		AutoReceptionistID:  dto.autoReceptionistID,
 		CostCenter:          dto.costCenter,
 		Department:          dto.department,

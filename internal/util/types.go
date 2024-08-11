@@ -41,6 +41,21 @@ func ToOptInt64(o types.Int64) zoomphone.OptInt64 {
 	return zoomphone.NewOptInt64(o.ValueInt64())
 }
 
+func FromOptInt(o OptValue[int]) types.Int32 {
+	v, ok := o.Get()
+	if !ok {
+		return types.Int32Null()
+	}
+	return types.Int32Value(int32(v))
+}
+
+func ToOptInt(o types.Int32) zoomphone.OptInt {
+	if o.IsNull() {
+		return zoomphone.OptInt{}
+	}
+	return zoomphone.NewOptInt(int(o.ValueInt32()))
+}
+
 func FromOptDateTime(o OptValue[time.Time]) types.String {
 	v, ok := o.Get()
 	if !ok {

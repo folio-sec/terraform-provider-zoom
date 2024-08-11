@@ -7,28 +7,22 @@ import (
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
 	"github.com/folio-sec/terraform-provider-zoom/internal/util"
-	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var (
-	_ datasource.DataSource              = &phoneAutoReceptionistDataSource{}
-	_ datasource.DataSourceWithConfigure = &phoneAutoReceptionistDataSource{}
-)
-
-func newPhoneReceptionistCrud(client *zoomphone.Client) *phoneAutoReceptionistCrud {
-	return &phoneAutoReceptionistCrud{
+func newCrud(client *zoomphone.Client) *crud {
+	return &crud{
 		client: client,
 	}
 }
 
-type phoneAutoReceptionistCrud struct {
+type crud struct {
 	client *zoomphone.Client
 }
 
-func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID string) (*readDto, error) {
+func (c *crud) read(ctx context.Context, autoReceptionistID types.String) (*readDto, error) {
 	detail, err := c.client.GetAutoReceptionistDetail(ctx, zoomphone.GetAutoReceptionistDetailParams{
-		AutoReceptionistId: autoReceptionistID,
+		AutoReceptionistId: autoReceptionistID.ValueString(),
 	})
 	if err != nil {
 		var status *zoomphone.ErrorResponseStatusCode
@@ -41,7 +35,7 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 	}
 
 	return &readDto{
-		autoReceptionistID:  types.StringValue(autoReceptionistID),
+		autoReceptionistID:  autoReceptionistID,
 		costCenter:          util.FromOptString(detail.CostCenter),
 		department:          util.FromOptString(detail.Department),
 		extensionNumber:     util.FromOptInt64(detail.ExtensionNumber),
@@ -51,7 +45,7 @@ func (c *phoneAutoReceptionistCrud) read(ctx context.Context, autoReceptionistID
 	}, nil
 }
 
-func (c *phoneAutoReceptionistCrud) create(ctx context.Context, dto createDto) (*createdDto, error) {
+func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
 	res, err := c.client.AddAutoReceptionist(ctx, zoomphone.OptAddAutoReceptionistReq{
 		Value: zoomphone.AddAutoReceptionistReq{
 			Name: dto.name.ValueString(),
@@ -69,7 +63,7 @@ func (c *phoneAutoReceptionistCrud) create(ctx context.Context, dto createDto) (
 	}, nil
 }
 
-func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) error {
+func (c *crud) update(ctx context.Context, dto updateDto) error {
 	err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
 		Value: zoomphone.UpdateAutoReceptionistReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
@@ -91,9 +85,9 @@ func (c *phoneAutoReceptionistCrud) update(ctx context.Context, dto updateDto) e
 	return nil
 }
 
-func (c *phoneAutoReceptionistCrud) delete(ctx context.Context, autoReceptionistId string) error {
+func (c *crud) delete(ctx context.Context, autoReceptionistId types.String) error {
 	err := c.client.DeleteAutoReceptionist(ctx, zoomphone.DeleteAutoReceptionistParams{
-		AutoReceptionistId: autoReceptionistId,
+		AutoReceptionistId: autoReceptionistId.ValueString(),
 	})
 	if err != nil {
 		var status *zoomphone.ErrorResponseStatusCode
