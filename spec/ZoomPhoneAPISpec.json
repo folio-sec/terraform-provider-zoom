@@ -9881,8 +9881,7 @@
             "application/json": {
               "schema": {
                 "required": [
-                  "name",
-                  "site_id"
+                  "name"
                 ],
                 "type": "object",
                 "properties": {

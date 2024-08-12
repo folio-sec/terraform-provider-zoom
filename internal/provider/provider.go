@@ -11,6 +11,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionistivr"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueue"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -189,12 +190,14 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		autoreceptionist.NewPhoneAutoReceptionistResource,
 		autoreceptionistivr.NewPhoneAutoReceptionistIvrResource,
+		callqueue.NewPhoneCallQueueResource,
 	}
 }
 
 func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
+		callqueue.NewPhoneCallQueueDataSource,
 	}
 }
 

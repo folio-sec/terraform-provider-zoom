@@ -19780,8 +19780,10 @@ func (s *CreateCallQueueReq) encodeFields(e *jx.Encoder) {
 		e.Str(s.Name)
 	}
 	{
-		e.FieldStart("site_id")
-		e.Str(s.SiteID)
+		if s.SiteID.Set {
+			e.FieldStart("site_id")
+			s.SiteID.Encode(e)
+		}
 	}
 }
 
@@ -19867,11 +19869,9 @@ func (s *CreateCallQueueReq) Decode(d *jx.Decoder) error {
 				return errors.Wrap(err, "decode field \"name\"")
 			}
 		case "site_id":
-			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
-				v, err := d.Str()
-				s.SiteID = string(v)
-				if err != nil {
+				s.SiteID.Reset()
+				if err := s.SiteID.Decode(d); err != nil {
 					return err
 				}
 				return nil
@@ -19888,7 +19888,7 @@ func (s *CreateCallQueueReq) Decode(d *jx.Decoder) error {
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [1]uint8{
-		0b01100000,
+		0b00100000,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
 			// Mask only required fields and check equality to mask using XOR.
