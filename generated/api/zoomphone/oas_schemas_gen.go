@@ -8088,7 +8088,7 @@ type CreateCallQueueReq struct {
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) have been enabled. This can be
 	// retrieved from the [List Phone Sites](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
-	SiteID string `json:"site_id"`
+	SiteID OptString `json:"site_id"`
 }
 
 // GetCostCenter returns the value of CostCenter.
@@ -8122,7 +8122,7 @@ func (s *CreateCallQueueReq) GetName() string {
 }
 
 // GetSiteID returns the value of SiteID.
-func (s *CreateCallQueueReq) GetSiteID() string {
+func (s *CreateCallQueueReq) GetSiteID() OptString {
 	return s.SiteID
 }
 
@@ -8157,7 +8157,7 @@ func (s *CreateCallQueueReq) SetName(val string) {
 }
 
 // SetSiteID sets the value of SiteID.
-func (s *CreateCallQueueReq) SetSiteID(val string) {
+func (s *CreateCallQueueReq) SetSiteID(val OptString) {
 	s.SiteID = val
 }
 

@@ -14,7 +14,7 @@ Auto receptionists answer calls with a personalized recording and routes calls t
 
 ```terraform
 data "zoom_phone_auto_receptionist" "example" {
-  auto_receptionist_id = "example"
+  id = "t6wyhAZRQXXX_Rv3jj3XXX"
 }
 
 output "example" {

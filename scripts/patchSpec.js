@@ -247,6 +247,11 @@ function phonePatch(spec) {
       return [method, value];
     }));
   });
+
+  // POST /phone/call_queues doesn't require site_id required parameter
+  if (spec.paths['/phone/call_queues']) {
+    spec.paths['/phone/call_queues']['post']['requestBody']['content']['application/json']['schema']['required'] = ['name']
+  }
 }
 
 const buffers = [];
