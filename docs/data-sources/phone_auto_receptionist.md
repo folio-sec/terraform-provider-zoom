@@ -27,13 +27,14 @@ output "example" {
 
 ### Required
 
-- `auto_receptionist_id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
+- `id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
 
 ### Read-Only
 
 - `audio_prompt_language` (String) The language for all default audio prompts for the auto receptionist.
 - `cost_center` (String) Cost center name.
 - `department` (String) Department name.
+- `extension_id` (String) Extension ID.
 - `extension_number` (Number) Extension number of the auto receptionist.
 - `name` (String) Name of the auto receptionist.
 - `timezone` (String) [Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.

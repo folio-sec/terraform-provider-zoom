@@ -6,6 +6,7 @@ type readDto struct {
 	autoReceptionistID  types.String
 	costCenter          types.String
 	department          types.String
+	extensionID         types.String
 	extensionNumber     types.Int64
 	name                types.String
 	timezone            types.String

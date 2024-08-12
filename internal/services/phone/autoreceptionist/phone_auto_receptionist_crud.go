@@ -38,6 +38,7 @@ func (c *crud) read(ctx context.Context, autoReceptionistID types.String) (*read
 		autoReceptionistID:  autoReceptionistID,
 		costCenter:          util.FromOptString(detail.CostCenter),
 		department:          util.FromOptString(detail.Department),
+		extensionID:         util.FromOptString(detail.ExtensionID),
 		extensionNumber:     util.FromOptInt64(detail.ExtensionNumber),
 		name:                util.FromOptString(detail.Name),
 		timezone:            util.FromOptString(detail.Timezone),
@@ -45,7 +46,7 @@ func (c *crud) read(ctx context.Context, autoReceptionistID types.String) (*read
 	}, nil
 }
 
-func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
+func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) {
 	res, err := c.client.AddAutoReceptionist(ctx, zoomphone.OptAddAutoReceptionistReq{
 		Value: zoomphone.AddAutoReceptionistReq{
 			Name: dto.name.ValueString(),
@@ -63,7 +64,7 @@ func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
 	}, nil
 }
 
-func (c *crud) update(ctx context.Context, dto updateDto) error {
+func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
 		Value: zoomphone.UpdateAutoReceptionistReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.

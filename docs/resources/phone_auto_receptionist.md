@@ -36,7 +36,8 @@ resource "zoom_phone_auto_receptionist" "example" {
 
 ### Read-Only
 
-- `auto_receptionist_id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
+- `extension_id` (String) Extension ID.
+- `id` (String) Auto receptionist ID. The unique identifier of the auto receptionist.
 
 ## Import
 

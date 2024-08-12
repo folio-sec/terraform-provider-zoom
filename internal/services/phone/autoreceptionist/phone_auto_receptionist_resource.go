@@ -52,7 +52,7 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
-			"auto_receptionist_id": schema.StringAttribute{
+			"id": schema.StringAttribute{
 				Computed:            true,
 				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist.",
@@ -64,6 +64,10 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 			"department": schema.StringAttribute{
 				Optional:            true,
 				MarkdownDescription: "Department name.",
+			},
+			"extension_id": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "Extension ID.",
 			},
 			"extension_number": schema.Int64Attribute{
 				Optional:            true,
@@ -94,9 +98,10 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 }
 
 type resourceModel struct {
-	AutoReceptionistID  types.String `tfsdk:"auto_receptionist_id"`
+	ID                  types.String `tfsdk:"id"`
 	CostCenter          types.String `tfsdk:"cost_center"`
 	Department          types.String `tfsdk:"department"`
+	ExtensionID         types.String `tfsdk:"extension_id"`
 	ExtensionNumber     types.Int64  `tfsdk:"extension_number"`
 	Name                types.String `tfsdk:"name"`
 	Timezone            types.String `tfsdk:"timezone"`
@@ -111,7 +116,7 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 		return
 	}
 
-	output, err := r.read(ctx, state.AutoReceptionistID)
+	output, err := r.read(ctx, state.ID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
 		return
@@ -134,9 +139,10 @@ func (r *tfResource) read(ctx context.Context, autoReceptionistId types.String) 
 	}
 
 	return &resourceModel{
-		AutoReceptionistID:  dto.autoReceptionistID,
+		ID:                  dto.autoReceptionistID,
 		CostCenter:          dto.costCenter,
 		Department:          dto.department,
+		ExtensionID:         dto.extensionID,
 		ExtensionNumber:     dto.extensionNumber,
 		Name:                dto.name,
 		Timezone:            dto.timezone,
@@ -152,7 +158,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 		return
 	}
 
-	ret, err := r.crud.create(ctx, createDto{
+	ret, err := r.crud.create(ctx, &createDto{
 		name: plan.Name,
 	})
 	if err != nil {
@@ -162,7 +168,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 		)
 		return
 	}
-	err = r.crud.update(ctx, updateDto{
+	err = r.crud.update(ctx, &updateDto{
 		autoReceptionistID:  ret.autoReceptionistID,
 		costCenter:          plan.CostCenter,
 		department:          plan.Department,
@@ -206,8 +212,8 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 		return
 	}
 
-	if err := r.crud.update(ctx, updateDto{
-		autoReceptionistID:  plan.AutoReceptionistID,
+	if err := r.crud.update(ctx, &updateDto{
+		autoReceptionistID:  plan.ID,
 		costCenter:          plan.CostCenter,
 		department:          plan.Department,
 		extensionNumber:     plan.ExtensionNumber,
@@ -219,14 +225,14 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 			"Error updating phone auto receptionist",
 			fmt.Sprintf(
 				"Could not update phone auto receptionist %s, unexpected error: %s",
-				plan.AutoReceptionistID.ValueString(),
+				plan.ID.ValueString(),
 				err,
 			),
 		)
 		return
 	}
 
-	output, err := r.read(ctx, plan.AutoReceptionistID)
+	output, err := r.read(ctx, plan.ID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating phone auto receptionist", err.Error())
 		return
@@ -247,12 +253,12 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	if err := r.crud.delete(ctx, state.AutoReceptionistID); err != nil {
+	if err := r.crud.delete(ctx, state.ID); err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone auto receptionist",
 			fmt.Sprintf(
 				"Could not delete phone auto receptionist %s, unexpected error: %s",
-				state.AutoReceptionistID.ValueString(),
+				state.ID.ValueString(),
 				err,
 			),
 		)
@@ -260,7 +266,7 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 	}
 
 	tflog.Info(ctx, "deleted phone auto receptionist", map[string]interface{}{
-		"auto_receptionist_id": state.AutoReceptionistID.ValueString(),
+		"auto_receptionist_id": state.ID.ValueString(),
 	})
 }
 

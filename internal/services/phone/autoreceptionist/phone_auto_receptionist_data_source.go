@@ -47,7 +47,7 @@ func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, res
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
 		Attributes: map[string]schema.Attribute{
-			"auto_receptionist_id": schema.StringAttribute{
+			"id": schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist.",
 			},
@@ -58,6 +58,10 @@ func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, res
 			"department": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "Department name.",
+			},
+			"extension_id": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "Extension ID.",
 			},
 			"extension_number": schema.Int64Attribute{
 				Computed:            true,
@@ -80,9 +84,10 @@ func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, res
 }
 
 type dataSourceModel struct {
-	AutoReceptionistID  types.String `tfsdk:"auto_receptionist_id"`
+	ID                  types.String `tfsdk:"id"`
 	CostCenter          types.String `tfsdk:"cost_center"`
 	Department          types.String `tfsdk:"department"`
+	ExtensionID         types.String `tfsdk:"extension_id"`
 	ExtensionNumber     types.Int64  `tfsdk:"extension_number"`
 	Name                types.String `tfsdk:"name"`
 	Timezone            types.String `tfsdk:"timezone"`
@@ -96,7 +101,7 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 		return
 	}
 
-	dto, err := d.crud.read(ctx, data.AutoReceptionistID)
+	dto, err := d.crud.read(ctx, data.ID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading phone auto receptionist", err.Error())
 		return
@@ -107,9 +112,10 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 	})
 
 	output := dataSourceModel{
-		AutoReceptionistID:  dto.autoReceptionistID,
+		ID:                  dto.autoReceptionistID,
 		CostCenter:          dto.costCenter,
 		Department:          dto.department,
+		ExtensionID:         dto.extensionID,
 		ExtensionNumber:     dto.extensionNumber,
 		Name:                dto.name,
 		Timezone:            dto.timezone,
