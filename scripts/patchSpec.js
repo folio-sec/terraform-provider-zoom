@@ -29,6 +29,11 @@ function recursionProcess(response, prefix = '') {
       delete response[key].enum
     }
 
+    if (response[key] !== void 0 && response[key].type === 'string' && response[key].minimum) {
+      response[key].minLength = response[key].minimum;
+      delete response[key].minimum;
+    }
+
     // The path parameters must always be required to be true
     if (key === 'parameters') {
       response[key] = response[key].map((parameter) => {
@@ -42,6 +47,13 @@ function recursionProcess(response, prefix = '') {
     // The ogen does not support uniqueItems
     if (key === 'uniqueItems') {
       response[key] = false
+    }
+
+    // Schema must be object type
+    if (key === 'application/json') {
+      if (response[key].schema.properties && !response[key].schema.type) {
+        response[key].schema['type'] = 'object';
+      }
     }
 
     // terraform doesn't have enum type
@@ -302,6 +314,110 @@ function phonePatch(spec) {
   }
 }
 
+function userPatch(spec) {
+  // The path name and parameter name do not exist,
+  // so the path parameter is matched to the path name.
+  [
+    'post',
+    'delete',
+  ].forEach((method) => {
+    const path = '/contacts/groups/{groupId}/members';
+    if (!spec.paths[path]) {
+      return;
+    }
+
+    const parameters = spec.paths[path][method].parameters ?? [];
+
+    spec.paths[path][method] = {
+      ...spec.paths[path][method],
+      parameters: [
+        ...parameters,
+        {
+          name: "groupId",
+          in: "path",
+          description: "The group ID.",
+          required: true,
+          schema: {
+            type: "string",
+            example: "A4ql1FjgL913r"
+          },
+        },
+      ]
+    }
+  });
+
+  // OpenAPI integer type is not supported maxLength/minLength
+  if (spec.paths['/users/{userId}']) {
+    const pmi = spec.paths['/users/{userId}'].patch.requestBody.content['application/json'].schema.properties.pmi;
+    pmi.maximum = 9999999999
+    pmi.minimum = 1000000000
+    delete pmi.maxLength
+    delete pmi.minLength
+  }
+
+  // The oneOf the same type of path parameter is invalid as OpenAPI
+  if (spec.paths['/groups/{groupId}/admins/{userId}']) {
+    const path = '/groups/{groupId}/admins/{userId}';
+    spec.paths[path].delete.parameters = spec.paths[path].delete.parameters.map((parameter) => {
+      if (parameter.name === 'userId') {
+        parameter.schema = {
+          ...parameter.schema.oneOf[0],
+        };
+      }
+      return parameter;
+    });
+  }
+
+  // Because the oneOf nesting is not supported in ogen, the oneOf is set to flat.
+  spec.paths = Object.fromEntries(Object.entries(spec.paths).map(([path, pathValue]) => {
+    return [path, Object.fromEntries(Object.entries(pathValue).map(([method, methodValue]) => {
+      return [method, Object.fromEntries(Object.entries(methodValue).map(([methodKey, methodKeyValue]) => {
+        if (methodKey === 'requestBody') {
+          if (methodKeyValue.content && methodKeyValue.content['application/json'] && methodKeyValue.content['application/json'].schema) {
+            methodKeyValue.content['application/json'].schema = Object.fromEntries(Object.entries(methodKeyValue.content['application/json'].schema).map(([schemaKey, schemaValue]) => {
+              if (schemaKey !== 'oneOf') {
+                return [schemaKey, schemaValue];
+              }
+
+              return [schemaKey, schemaValue.flatMap((item) => {
+                if (!item.oneOf) {
+                  return item;
+                }
+
+                return item.oneOf;
+              })];
+            }));
+          }
+        }
+
+        if (methodKey === 'responses') {
+          methodKeyValue = Object.fromEntries(Object.entries(methodKeyValue).map(([status, statusValue]) => {
+            if (statusValue.content && statusValue.content['application/json'] && statusValue.content['application/json'].schema) {
+              statusValue.content['application/json'].schema = Object.fromEntries(Object.entries(statusValue.content['application/json'].schema).map(([schemaKey, schemaValue]) => {
+                if (schemaKey !== 'oneOf') {
+                  return [schemaKey, schemaValue];
+                }
+
+                return [schemaKey, schemaValue.flatMap((item) => {
+                  if (!item.oneOf) {
+                    return item;
+                  }
+
+                  return item.oneOf;
+                })];
+              }));
+            }
+
+            return [status, statusValue];
+          }));
+        }
+
+        return [methodKey, methodKeyValue];
+      }))];
+    }))];
+  }));
+}
+
 const buffers = [];
 
 (async () => {
@@ -315,6 +431,7 @@ const buffers = [];
 
   enableConvenientErrorsPatch(spec);
   phonePatch(spec);
+  userPatch(spec);
   recursionProcess(spec);
 
   process.stdout.write(JSON.stringify(spec, null, 2));

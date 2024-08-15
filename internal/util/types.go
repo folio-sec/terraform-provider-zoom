@@ -87,3 +87,18 @@ func ToOptDateTime(o types.String) zoomphone.OptDateTime {
 	value, _ := time.Parse(o.ValueString(), "2006-01-02 15:04:05.999999999 -0700 MST")
 	return zoomphone.NewOptDateTime(value)
 }
+
+func FromOptBool(o OptValue[bool]) types.Bool {
+	v, ok := o.Get()
+	if !ok {
+		return types.BoolNull()
+	}
+	return types.BoolValue(v)
+}
+
+func ToOptBool(o types.Bool) zoomphone.OptBool {
+	if o.IsNull() {
+		return zoomphone.OptBool{}
+	}
+	return zoomphone.NewOptBool(o.ValueBool())
+}

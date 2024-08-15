@@ -7,8 +7,10 @@ import (
 	"os"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
+	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomuser"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/httpclient"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/zoomclient"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionistivr"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/blockedlist"
@@ -27,7 +29,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -36,23 +37,6 @@ var _ provider.Provider = &zoomProvider{}
 
 type zoomProvider struct {
 	version string
-}
-
-type zoomProviderModel struct {
-	AccountID    types.String `tfsdk:"account_id"`
-	ClientID     types.String `tfsdk:"client_id"`
-	ClientSecret types.String `tfsdk:"client_secret"`
-}
-
-type clientSecurity struct {
-	AccessToken string
-}
-
-func (c clientSecurity) OpenapiAuthorization(_ context.Context, _ string) (zoomphone.OpenapiAuthorization, error) {
-	return zoomphone.OpenapiAuthorization{}, nil
-}
-func (c clientSecurity) OpenapiOAuth(_ context.Context, _ string) (zoomphone.OpenapiOAuth, error) {
-	return zoomphone.OpenapiOAuth{Token: c.AccessToken}, nil
 }
 
 func (p *zoomProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -174,23 +158,40 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 			httpclient.NewLoggingRoundTripper(ctx, retryClient.Transport),
 		),
 	}
-	zoomPhoneMasterClient, err := zoomphone.NewClient(
+
+	zoomPhoneClient, err := zoomphone.NewClient(
 		"https://api.zoom.us/v2",
-		clientSecurity{
+		zoomclient.ZoomPhoneClientSecurity{
 			AccessToken: res.AccessToken,
 		},
 		zoomphone.WithClient(httpClient),
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Unable to create Zoom Phone Master API client",
-			fmt.Sprintf("An unexpected error occurred when creating the Zoom Phone Master API client. Error: %s", err.Error()),
+			"Unable to create Zoom Phone API client",
+			fmt.Sprintf("An unexpected error occurred when creating the Zoom Phone API client. Error: %s", err.Error()),
+		)
+		return
+	}
+
+	zoomUserClient, err := zoomuser.NewClient(
+		"https://api.zoom.us/v2",
+		zoomclient.ZoomUserClientSecurity{
+			AccessToken: res.AccessToken,
+		},
+		zoomuser.WithClient(httpClient),
+	)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Unable to create Zoom User API client",
+			fmt.Sprintf("An unexpected error occurred when creating the Zoom User API client. Error: %s", err.Error()),
 		)
 		return
 	}
 
 	providerData := &shared.ProviderData{
-		PhoneMasterClient: zoomPhoneMasterClient,
+		PhoneClient: zoomPhoneClient,
+		UserClient:  zoomUserClient,
 	}
 
 	resp.DataSourceData = providerData

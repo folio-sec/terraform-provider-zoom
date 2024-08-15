@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 	"fmt"
-	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -21,24 +20,24 @@ var (
 	_ resource.ResourceWithImportState = &userResource{}
 )
 
-type userResourceModel struct {
-	ID                     types.String         `tfsdk:"id"`
-	PhoneUserID            types.String         `tfsdk:"phone_user_id"`
-	Email                  types.String         `tfsdk:"email"`
-	FirstName              types.String         `tfsdk:"first_name"`
-	LastName               types.String         `tfsdk:"last_name"`
-	CallingPlans           types.Set            `tfsdk:"calling_plans"`
-	SiteCode               types.String         `tfsdk:"site_code"`
-	SiteName               types.String         `tfsdk:"site_name"`
-	TemplateName           types.String         `tfsdk:"template_name"`
-	ExtensionNumber        types.String         `tfsdk:"extension_number"`
-	PhoneNumbers           types.Set            `tfsdk:"phone_numbers"`
-	OutboundCallerID       types.String         `tfsdk:"outbound_caller_id"`
-	SelectOutboundCallerID types.Bool           `tfsdk:"select_outbound_caller_id"`
-	Sms                    userSmsResourceModel `tfsdk:"sms"`
+type resourceModel struct {
+	ID                     types.String     `tfsdk:"id"`
+	PhoneUserID            types.String     `tfsdk:"phone_user_id"`
+	Email                  types.String     `tfsdk:"email"`
+	FirstName              types.String     `tfsdk:"first_name"`
+	LastName               types.String     `tfsdk:"last_name"`
+	CallingPlans           types.Set        `tfsdk:"calling_plans"`
+	SiteCode               types.String     `tfsdk:"site_code"`
+	SiteName               types.String     `tfsdk:"site_name"`
+	TemplateName           types.String     `tfsdk:"template_name"`
+	ExtensionNumber        types.String     `tfsdk:"extension_number"`
+	PhoneNumbers           types.Set        `tfsdk:"phone_numbers"`
+	OutboundCallerID       types.String     `tfsdk:"outbound_caller_id"`
+	SelectOutboundCallerID types.Bool       `tfsdk:"select_outbound_caller_id"`
+	Sms                    smsResourceModel `tfsdk:"sms"`
 }
 
-type userSmsResourceModel struct {
+type smsResourceModel struct {
 	Enable                    types.Bool   `tfsdk:"enable"`
 	InternationalSms          types.Bool   `tfsdk:"international_sms"`
 	InternationalSmsCountries types.Set    `tfsdk:"international_sms_countries"`
@@ -63,8 +62,8 @@ func (r *userResource) Configure(context.Context, resource.ConfigureRequest, *re
 }
 
 func (r userResource) Schema(ctx context.Context, _ resource.SchemaRequest, response *resource.SchemaResponse) {
-	playRecordingBeepToneBlock := schema.SingleNestedBlock{
-		MarkdownDescription: "Use this block to configure settings related to playing a recording beep tone.",
+	playRecordingBeepToneAttribute := schema.SingleNestedAttribute{
+		MarkdownDescription: "Use this attribute to configure settings related to playing a recording beep tone.",
 		Attributes: map[string]schema.Attribute{
 			"enable": schema.BoolAttribute{
 				Optional:            true,
@@ -130,10 +129,6 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 				Computed:            true,
 				MarkdownDescription: "The extension number of the user. The number must be complete (i.e. site number + short extension).",
 			},
-			"phone_user_id": schema.StringAttribute{
-				Computed:            true,
-				MarkdownDescription: "The ID of the Phone user.",
-			},
 			"first_name": schema.StringAttribute{
 				Optional:            true,
 				MarkdownDescription: "The user's first name. It ensures the users are active in your Zoom account.",
@@ -142,13 +137,15 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 				Optional:            true,
 				MarkdownDescription: "The user's last name. It ensures the users are active in your Zoom account.",
 			},
-		},
-		Blocks: map[string]schema.Block{
-			"policy": schema.SingleNestedBlock{
-				MarkdownDescription: "Use this block to configure settings related to the user's policy.",
-				Blocks: map[string]schema.Block{
-					"ad_hoc_call_recording": schema.SingleNestedBlock{
-						MarkdownDescription: "Use this block to configure settings related to ad hoc call recording.",
+			"phone_user_id": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The ID of the Phone user.",
+			},
+			"policy": schema.SingleNestedAttribute{
+				MarkdownDescription: "Use this attribute to configure settings related to the user's policy.",
+				Attributes: map[string]schema.Attribute{
+					"ad_hoc_call_recording": schema.SingleNestedAttribute{
+						MarkdownDescription: "Use this attribute to configure settings related to ad hoc call recording.",
 						Attributes: map[string]schema.Attribute{
 							"enable": schema.BoolAttribute{
 								Optional:            true,
@@ -164,6 +161,7 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 								Computed:            true,
 								MarkdownDescription: "Which level of administrator prohibits the modification of the current settings. Allowed: `account`, `user_group`, `site`",
 							},
+							"play_recording_beep_tone": playRecordingBeepToneAttribute,
 							"recording_start_prompt": schema.BoolAttribute{
 								Optional:            true,
 								Computed:            true,
@@ -176,18 +174,10 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 								Default:             booldefault.StaticBool(false),
 								MarkdownDescription: "Whether call recording transcription is enabled.",
 							},
-							"reset": schema.BoolAttribute{
-								Optional:            true,
-								Computed:            true,
-								MarkdownDescription: "Whether the user's ad hoc recording reset option will use the phone site's settings.",
-							},
-						},
-						Blocks: map[string]schema.Block{
-							"play_recording_beep_tone": playRecordingBeepToneBlock,
 						},
 					},
-					"auto_call_recording": schema.SingleNestedBlock{
-						MarkdownDescription: "Use this block to configure settings related to auto call recording.",
+					"auto_call_recording": schema.SingleNestedAttribute{
+						MarkdownDescription: "Use this attribute to configure settings related to auto call recording.",
 						Attributes: map[string]schema.Attribute{
 							"allow_stop_resume_recording": schema.BoolAttribute{
 								Optional:            true,
@@ -214,6 +204,7 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 								Computed:            true,
 								MarkdownDescription: "Which level of administrator prohibits the modification of the current settings. Allowed: `account`, `user_group`, `site`",
 							},
+							"play_recording_beep_tone": playRecordingBeepToneAttribute,
 							"recording_calls": schema.StringAttribute{
 								Optional: true,
 								Computed: true,
@@ -225,48 +216,37 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 							"recording_explicit_consent": schema.BoolAttribute{
 								Optional:            true,
 								Computed:            true,
-								Default:             booldefault.StaticBool(false),
 								MarkdownDescription: "Whether press 1 to provide recording consent is enabled.",
 							},
 							"recording_start_prompt": schema.BoolAttribute{
 								Optional:            true,
 								Computed:            true,
-								Default:             booldefault.StaticBool(false),
 								MarkdownDescription: "Whether a prompt plays to call participants when the recording has started.",
 							},
 							"recording_transcription": schema.BoolAttribute{
 								Optional:            true,
 								Computed:            true,
-								Default:             booldefault.StaticBool(false),
 								MarkdownDescription: "Whether call recording transcription is enabled.",
 							},
 						},
-						Blocks: map[string]schema.Block{
-							"play_recording_beep_tone": playRecordingBeepToneBlock,
-						},
 					},
-					"call_overflow": schema.SingleNestedBlock{
-						MarkdownDescription: "Use this block to configure settings related to call overflow.",
+					"call_overflow": schema.SingleNestedAttribute{
+						MarkdownDescription: "Use this attribute to configure settings related to call overflow.",
 						Attributes: map[string]schema.Attribute{
 							"call_overflow_type": schema.Int32Attribute{
 								Optional: true,
 								Computed: true,
-								Default:  int32default.StaticInt32(0),
 								Validators: []validator.Int32{
 									int32validator.Between(1, 4),
 								},
+								Default:             int32default.StaticInt32(4),
 								MarkdownDescription: "`1` - Low restriction (external numbers not allowed) `2` - Medium restriction (external numbers and external contacts not allowed) `3` - High restriction (external numbers, external contacts and internal extensions without inbound automatic call recording not allowed) `4` - No restriction",
 							},
 							"enable": schema.BoolAttribute{
 								Optional:            true,
 								Computed:            true,
-								Default:             booldefault.StaticBool(false),
+								Default:             booldefault.StaticBool(true),
 								MarkdownDescription: "Whether to allow user to forward calls to other numbers.",
-							},
-							"reset": schema.BoolAttribute{
-								Optional:            true,
-								Computed:            true,
-								MarkdownDescription: "Whether the current settings will use the phone site's settings (applicable if the current settings are using the new policy framework).",
 							},
 							"locked": schema.BoolAttribute{
 								Computed:            true,
@@ -278,16 +258,16 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 							},
 							"modified": schema.BoolAttribute{
 								Computed:            true,
-								MarkdownDescription: "Whether the current settings have been modified. If modified, they can be reset (displayed when using the new policy framework)."
+								MarkdownDescription: "Whether the current settings have been modified. If modified, they can be reset (displayed when using the new policy framework).",
 							},
 						},
 					},
-					"call_park": schema.SingleNestedBlock{
-						MarkdownDescription: "Use this block to configure settings related to call park.",
+					"call_park": schema.SingleNestedAttribute{
+						MarkdownDescription: "Use this attribute to configure settings related to call park.",
 						Attributes: map[string]schema.Attribute{
 							"call_not_picked_up_action": schema.Int64Attribute{
-								Optional: true,
-								Computed: true,
+								Optional:            true,
+								Computed:            true,
 								MarkdownDescription: "The action when a parked call is not picked up. 100-Ring back to parker, 0-Forward to voicemail of the parker, 9-Disconnect, 50-Forward to another extension.",
 							},
 							"enable": schema.BoolAttribute{
@@ -319,62 +299,133 @@ This resource requires the` + "`phone:write:batch_users:admin`.",
 							},
 						},
 					},
+					"call_transferring": schema.SingleNestedAttribute{
+						Optional:            true,
+						Computed:            true,
+						MarkdownDescription: "Use this attribute to configure settings related to call transferring.",
+						Attributes: map[string]schema.Attribute{
+							"call_transferring_type": schema.Int32Attribute{
+								Optional: true,
+								Computed: true,
+								Validators: []validator.Int32{
+									int32validator.Between(1, 4),
+								},
+								Default:             int32default.StaticInt32(1),
+								MarkdownDescription: "`1` - No restriction. `2` - Medium restriction (external numbers and external contacts not allowed). `3` - High restriction (external numbers, unrecorded external contacts, and internal extensions without inbound automatic recording not allowed). `4` - Low restriction (external numbers not allowed). Allowed: `1`, `2`, `3`, `4`",
+							},
+							"enable": schema.BoolAttribute{
+								Optional: true,
+								Computed: true,
+								Default:  booldefault.StaticBool(true),
+							},
+						},
+					},
+					"delegation": schema.BoolAttribute{
+						Optional:            true,
+						Computed:            true,
+						MarkdownDescription: "Whether the user can use [call delegation](https://support.zoom.us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).",
+					},
+					"elevate_to_meeting": schema.BoolAttribute{
+						Optional:            true,
+						Computed:            true,
+						Default:             booldefault.StaticBool(true),
+						MarkdownDescription: "Whether the user can elevate their phone calls to a meeting.",
+					},
+					"emergency_address_management":            schema.SingleNestedAttribute{},
+					"call_handling_forwarding_to_other_users": schema.SingleNestedAttribute{},
+					"hand_off_to_room":                        schema.SingleNestedAttribute{},
+					"international_calling": schema.BoolAttribute{
+						Optional:            true,
+						Computed:            true,
+						MarkdownDescription: "Whether the current extension can make international calls outside of their calling plan.",
+					},
+					"mobile_switch_to_carrier":  schema.SingleNestedAttribute{},
+					"select_outbound_caller_id": schema.SingleNestedAttribute{},
+					"sms": schema.SingleNestedAttribute{
+						MarkdownDescription: "Use this attribute to configure settings related to SMS.",
+						Attributes: map[string]schema.Attribute{
+							"enable": schema.BoolAttribute{
+								Optional:            true,
+								Computed:            true,
+								MarkdownDescription: "Whether the user can send and receive messages.",
+							},
+							"international_sms": schema.BoolAttribute{
+								Optional:            true,
+								Computed:            true,
+								MarkdownDescription: "Whether the user can send and receive international messages.",
+							},
+							"international_sms_countries": schema.SetAttribute{
+								ElementType:         types.StringType,
+								Optional:            true,
+								Computed:            true,
+								MarkdownDescription: "The country that can send and receive international messages. Supported values are [the country ISO codes](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries).",
+							},
+							"locked": schema.BoolAttribute{
+								Computed:            true,
+								MarkdownDescription: "Whether the senior administrator allows users to modify the current settings.",
+							},
+							"locked_by": schema.StringAttribute{
+								Computed:            true,
+								MarkdownDescription: "Which level of administrator prohibits modifying the current settings. Allowed: `account`, `user_group` and `site`",
+							},
+						},
+					},
+					"voicemail":                              schema.SingleNestedAttribute{},
+					"voicemail_access_members":               schema.SetNestedAttribute{},
+					"zoom_phone_on_mobile":                   schema.SingleNestedAttribute{},
+					"personal_audio_library":                 schema.SingleNestedAttribute{},
+					"voicemail_transcription":                schema.SingleNestedAttribute{},
+					"voicemail_notification_by_email":        schema.SingleNestedAttribute{},
+					"shared_voicemail_notification_by_email": schema.SingleNestedAttribute{},
+					"check_voicemails_over_phone":            schema.SingleNestedAttribute{},
+					"audio_intercom":                         schema.SingleNestedAttribute{},
+					"e2e_encryption":                         schema.SingleNestedAttribute{},
 				},
 			},
-			"sms": schema.SingleNestedBlock{
-				MarkdownDescription: "Use this block to configure settings related to SMS.",
-				Attributes: map[string]schema.Attribute{
-					"enable": schema.BoolAttribute{
-						Optional:            true,
-						Computed:            true,
-						MarkdownDescription: "Whether the user can send and receive messages.",
-					},
-					"international_sms": schema.BoolAttribute{
-						Optional:            true,
-						Computed:            true,
-						MarkdownDescription: "Whether the user can send and receive international messages.",
-					},
-					"international_sms_countries": schema.SetAttribute{
-						ElementType:         types.StringType,
-						Optional:            true,
-						Computed:            true,
-						MarkdownDescription: "The country that can send and receive international messages. Supported values are [the country ISO codes](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries).",
-					},
-					"locked": schema.BoolAttribute{
-						Computed:            true,
-						MarkdownDescription: "Whether the senior administrator allows users to modify the current settings.",
-					},
-					"locked_by": schema.StringAttribute{
-						Computed:            true,
-						MarkdownDescription: "Which level of administrator prohibits modifying the current settings. Allowed: `account`, `user_group` and `site`",
-					},
-				},
+			"site_id": schema.StringAttribute{
+				Optional:            true,
+				Computed:            true,
+				MarkdownDescription: "The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672z) where the user should be moved or assigned.",
 			},
 		},
 	}
 }
 
-func (r userResource) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
+func (r userResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var plan resourceModel
+	diag := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diag...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	ret, err := r.crud.create(ctx, &createDto{})
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error creating phone user",
+			err.Error(),
+		)
+		return
+	}
+
+}
+
+func (r userResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (r userResource) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
+func (r userResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (r userResource) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
+func (r userResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (r userResource) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (r userResource) ImportState(ctx context.Context, request resource.ImportStateRequest, response *resource.ImportStateResponse) {
+func (r userResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	//TODO implement me
 	panic("implement me")
 }

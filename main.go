@@ -12,6 +12,7 @@ import (
 
 // Generate OpenAPI Clients
 //go:generate go run github.com/ogen-go/ogen/cmd/ogen --target generated/api/zoomphone -package zoomphone --clean spec/ZoomPhoneAPISpec.json
+//go:generate go run github.com/ogen-go/ogen/cmd/ogen --target generated/api/zoomuser -package zoomuser --clean spec/ZoomUserAPISpec.json
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
 //go:generate terraform fmt -recursive ./examples/
