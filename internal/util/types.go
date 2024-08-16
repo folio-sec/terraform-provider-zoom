@@ -11,6 +11,21 @@ type OptValue[A any] interface {
 	Get() (v A, ok bool)
 }
 
+func FromOptBool(o OptValue[bool]) types.Bool {
+	v, ok := o.Get()
+	if !ok {
+		return types.BoolNull()
+	}
+	return types.BoolValue(v)
+}
+
+func ToOptBool(o types.Bool) zoomphone.OptBool {
+	if o.IsNull() {
+		return zoomphone.OptBool{}
+	}
+	return zoomphone.NewOptBool(o.ValueBool())
+}
+
 func FromOptString(o OptValue[string]) types.String {
 	v, ok := o.Get()
 	if !ok {

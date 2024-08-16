@@ -2,6 +2,7 @@ package autoreceptionistivr
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -27,6 +28,12 @@ func (c *crud) read(ctx context.Context, autoReceptionistID, hoursType, holidayI
 		HolidayID:          util.ToOptString(holidayID),
 	})
 	if err != nil {
+		var status *zoomphone.ErrorResponseStatusCode
+		if errors.As(err, &status) {
+			if status.StatusCode == 400 && status.Response.Code.Value == 300 {
+				return nil, nil // already deleted
+			}
+		}
 		return nil, fmt.Errorf("unable to read phone auto receptionist ivr: %w", err)
 	}
 

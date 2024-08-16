@@ -12,6 +12,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionistivr"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueue"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -161,7 +162,10 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 	}
 
 	httpClient := &http.Client{
-		Transport: httpclient.NewLoggingRoundTripper(ctx, retryClient.Transport),
+		Transport: httpclient.NewNoJsonResponseRoundTripper(
+			ctx,
+			httpclient.NewLoggingRoundTripper(ctx, retryClient.Transport),
+		),
 	}
 	zoomPhoneMasterClient, err := zoomphone.NewClient(
 		"https://api.zoom.us/v2",
@@ -191,6 +195,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		autoreceptionist.NewPhoneAutoReceptionistResource,
 		autoreceptionistivr.NewPhoneAutoReceptionistIvrResource,
 		callqueue.NewPhoneCallQueueResource,
+		callqueuemembers.NewPhoneCallQueueMembersResource,
 	}
 }
 
