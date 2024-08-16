@@ -310,6 +310,9 @@ func (r *tfResource) read(ctx context.Context, model resourceModel) (*resourceMo
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
 	}
+	if dto == nil {
+		return nil, nil // already deleted
+	}
 
 	var audioPrompt *resourceModelAudioPrompt
 	if dto.audioPrompt != nil && model.AudioPrompt != nil {
