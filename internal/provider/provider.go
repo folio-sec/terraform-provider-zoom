@@ -14,6 +14,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueue"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -205,6 +206,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 	return []func() datasource.DataSource{
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
 		callqueue.NewPhoneCallQueueDataSource,
+		phonenumbers.NewPhonePhoneNumbersDataSource,
 	}
 }
 
