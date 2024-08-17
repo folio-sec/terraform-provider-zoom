@@ -216,7 +216,7 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		return err
 	}
 
-	// 0. plan validation
+	// 0. plan validation (it might be better to move into validator)
 	for _, planUser := range plan.Users {
 		if planUser.ID.ValueString() == "" && planUser.Email.ValueString() == "" {
 			return fmt.Errorf("either `id` or `email` must be specified on user")

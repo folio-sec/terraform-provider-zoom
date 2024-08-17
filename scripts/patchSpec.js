@@ -101,6 +101,23 @@ function enableConvenientErrorsPatch(spec) {
         message: {
           type: "string",
         },
+        errors: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              field: {
+                type: "string",
+              },
+              field_value: {
+                type: "string",
+              },
+              message: {
+                type: "string",
+              }
+            }
+          }
+        }
       },
     },
   };
@@ -260,6 +277,13 @@ function phonePatch(spec) {
             { "name": "page_size", "in": "query", "required": false, "schema": { "type": "integer" } },
             { "name": "next_page_token", "in": "query", "required": false, "schema": { "type": "string" } },
         )
+  }
+
+  // POST /phone/call_queues/{callQueueId}/phone_numbers return 201, not 204
+  if (spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']) {
+    spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['201'] =
+        spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
+    delete spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
   }
 }
 

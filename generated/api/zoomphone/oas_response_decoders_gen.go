@@ -4475,11 +4475,11 @@ func decodeAssignPhoneNumbersToCommonAreaResponse(resp *http.Response) (res *Ass
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneToCallQueueResponse(resp *http.Response) (res *AssignPhoneToCallQueueNoContent, _ error) {
+func decodeAssignPhoneToCallQueueResponse(resp *http.Response) (res *AssignPhoneToCallQueueCreated, _ error) {
 	switch resp.StatusCode {
-	case 204:
-		// Code 204.
-		return &AssignPhoneToCallQueueNoContent{}, nil
+	case 201:
+		// Code 201.
+		return &AssignPhoneToCallQueueCreated{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {
