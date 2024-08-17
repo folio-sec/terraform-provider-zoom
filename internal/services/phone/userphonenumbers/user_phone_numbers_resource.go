@@ -1,4 +1,4 @@
-package callqueuephonenumbers
+package userphonenumbers
 
 import (
 	"context"
@@ -6,11 +6,9 @@ import (
 	"strings"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
-	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/samber/lo"
@@ -22,7 +20,7 @@ var (
 	_ resource.ResourceWithImportState = &tfResource{}
 )
 
-func NewPhoneCallQueuePhoneNumbersResource() resource.Resource {
+func NewPhoneUserPhoneNumbersResource() resource.Resource {
 	return &tfResource{}
 }
 
@@ -46,26 +44,23 @@ func (r *tfResource) Configure(_ context.Context, req resource.ConfigureRequest,
 }
 
 func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_phone_call_queue_phone_numbers"
+	resp.TypeName = req.ProviderTypeName + "_phone_user_phone_numbers"
 }
 
 func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: `After [buying phone number(s)](https://support.zoom.us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it, allowing callers to directly dial a number to reach a [call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues).
+		MarkdownDescription: `Assigns a [phone number](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom Phone.
 
 ## API Permissions
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
-			"`phone:read:call_queue:admin`",
-			"`phone:read:list_call_queues:admin`",
-			"`phone:read:list_numbers:admin`",
-			"`phone:write:call_queue_number:admin`",
-			"`phone:delete:call_queue_number:admin`",
+			"`phone:write:user_number:admin`",
+			"`phone:delete:user_number:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
-			"call_queue_id": schema.StringAttribute{
+			"user_id": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "Unique identifier of the Call Queue.",
+				MarkdownDescription: "Unique identifier of the User.",
 			},
 			"phone_numbers": schema.SetNestedAttribute{
 				Required: true,
@@ -81,15 +76,6 @@ This resource requires the ` + strings.Join([]string{
 							Computed:            true,
 							MarkdownDescription: "Phone number e.g. `+12058945456` . Provide either the `id` or the `number` field. ",
 						},
-						"source": schema.StringAttribute{
-							Optional: true,
-							Computed: true,
-							MarkdownDescription: `Source
-  - Allowed: internal┃external`,
-							Validators: []validator.String{
-								stringvalidator.OneOf("internal", "external"),
-							},
-						},
 					},
 				},
 			},
@@ -98,14 +84,13 @@ This resource requires the ` + strings.Join([]string{
 }
 
 type resourceModel struct {
-	CallQueueID  types.String                `tfsdk:"call_queue_id"`
+	UserID       types.String                `tfsdk:"user_id"`
 	PhoneNumbers []*resourceModelPhoneNumber `tfsdk:"phone_numbers"`
 }
 
 type resourceModelPhoneNumber struct {
 	ID     types.String `tfsdk:"id"`
 	Number types.String `tfsdk:"number"`
-	Source types.String `tfsdk:"source"`
 }
 
 func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -118,7 +103,7 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 
 	output, err := r.read(ctx, state)
 	if err != nil {
-		resp.Diagnostics.AddError("Error reading phone call queue phone numbers", err.Error())
+		resp.Diagnostics.AddError("Error reading phone user phone numbers", err.Error())
 		return
 	}
 
@@ -130,7 +115,7 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 }
 
 func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceModel, error) {
-	dto, err := r.crud.read(ctx, plan.CallQueueID)
+	dto, err := r.crud.read(ctx, plan.UserID)
 	if err != nil {
 		return nil, err
 	}
@@ -142,11 +127,10 @@ func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceMod
 		return &resourceModelPhoneNumber{
 			ID:     p.id,
 			Number: p.number,
-			Source: p.source,
 		}
 	})
 	return &resourceModel{
-		CallQueueID:  plan.CallQueueID,
+		UserID:       plan.UserID,
 		PhoneNumbers: phoneNumbers,
 	}, nil
 }
@@ -157,7 +141,7 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		return err
 	}
 	if asis == nil {
-		return fmt.Errorf("calal queue not found %s", plan.CallQueueID.ValueString())
+		return fmt.Errorf("phone user not found %s", plan.UserID.ValueString())
 	}
 
 	// 0. plan validation (it might be better to move into validator)
@@ -179,7 +163,7 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		}
 	}
 	if err = r.crud.unassign(ctx, &unassignDto{
-		callQueueID:    plan.CallQueueID,
+		userID:         plan.UserID,
 		phoneNumberIDs: unassignPhoneNumberIDs,
 	}); err != nil {
 		return err
@@ -202,7 +186,7 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		}
 	}
 	if err = r.crud.assign(ctx, &assignDto{
-		callQueueID:    plan.CallQueueID,
+		userID:         plan.UserID,
 		phoneNumberIDs: assignPhoneNumberIDs,
 		phoneNumbers:   assignPhoneNumbers,
 	}); err != nil {
@@ -221,7 +205,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 
 	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue phone numbers",
+			"Error creating phone user phone numbers",
 			err.Error(),
 		)
 		return
@@ -229,7 +213,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 
 	output, err := r.read(ctx, plan)
 	if err != nil {
-		resp.Diagnostics.AddError("Error creating phone call queue phone numbers on reading", err.Error())
+		resp.Diagnostics.AddError("Error creating phone user phone numbers on reading", err.Error())
 		return
 	}
 
@@ -246,15 +230,15 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
-			"Error updating phone call queue phone numbers on get plan",
-			"Error updating phone call queue phone numbers",
+			"Error updating phone user phone numbers on get plan",
+			"Error updating phone user phone numbers",
 		)
 		return
 	}
 
 	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue phone numbers",
+			"Error creating phone user phone numbers",
 			err.Error(),
 		)
 		return
@@ -262,7 +246,7 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 
 	output, err := r.read(ctx, plan)
 	if err != nil {
-		resp.Diagnostics.AddError("Error updating phone call queue phone numbers", err.Error())
+		resp.Diagnostics.AddError("Error updating phone user phone numbers", err.Error())
 		return
 	}
 
@@ -281,23 +265,45 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	if err := r.crud.unassignAll(ctx, state.CallQueueID); err != nil {
+	asis, err := r.read(ctx, state)
+	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error deleting phone call queue phone numbers",
+			"Error deleting phone user phone numbers on read",
 			fmt.Sprintf(
-				"Could not delete phone call queue phone numbers %s, unexpected error: %s",
-				state.CallQueueID.ValueString(),
+				"Could not delete phone user phone numbers %s, unexpected error: %s",
+				state.UserID.ValueString(),
+				err,
+			),
+		)
+		return
+	}
+	if asis == nil {
+		return // already deleted
+	}
+
+	dto := &unassignDto{
+		userID: state.UserID,
+		phoneNumberIDs: lo.Map(asis.PhoneNumbers, func(p *resourceModelPhoneNumber, _index int) types.String {
+			return p.ID
+		}),
+	}
+	if err := r.crud.unassign(ctx, dto); err != nil {
+		resp.Diagnostics.AddError(
+			"Error deleting phone user phone numbers",
+			fmt.Sprintf(
+				"Could not delete phone user phone numbers %s, unexpected error: %s",
+				state.UserID.ValueString(),
 				err,
 			),
 		)
 		return
 	}
 
-	tflog.Info(ctx, "deleted phone call queue phone numbers", map[string]interface{}{
-		"call_queue_id": state.CallQueueID.ValueString(),
+	tflog.Info(ctx, "deleted phone user phone numbers", map[string]interface{}{
+		"user_id": state.UserID.ValueString(),
 	})
 }
 
 func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("call_queue_id"), req, resp)
+	resource.ImportStatePassthroughID(ctx, path.Root("user_id"), req, resp)
 }

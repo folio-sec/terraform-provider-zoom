@@ -265,6 +265,13 @@ function phonePatch(spec) {
     }));
   });
 
+  // POST /phone/users/{userId}/phone_numbers return 201, not 200
+  if (spec.paths['/phone/users/{userId}/phone_numbers']) {
+    spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['201'] =
+        spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['200']
+    delete spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['200']
+  }
+
   // POST /phone/call_queues doesn't require site_id required parameter
   if (spec.paths['/phone/call_queues']) {
     spec.paths['/phone/call_queues']['post']['requestBody']['content']['application/json']['schema']['required'] = ['name']

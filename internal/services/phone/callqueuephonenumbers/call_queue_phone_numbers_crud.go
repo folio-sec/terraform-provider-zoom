@@ -67,7 +67,7 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 			zoomphone.AssignPhoneToCallQueueReq{
 				PhoneNumbers: lo.Map(phoneNumbers, func(phoneNumber types.String, index int) zoomphone.AssignPhoneToCallQueueReqPhoneNumbersItem {
 					return zoomphone.AssignPhoneToCallQueueReqPhoneNumbersItem{
-						ID: util.ToOptString(phoneNumber),
+						Number: util.ToOptString(phoneNumber),
 					}
 				}),
 			},

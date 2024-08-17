@@ -16202,14 +16202,14 @@ func (s *AssignCampaignPhoneNumbersReqPhoneNumbersItem) UnmarshalJSON(data []byt
 }
 
 // Encode implements json.Marshaler.
-func (s *AssignPhoneNumberOK) Encode(e *jx.Encoder) {
+func (s *AssignPhoneNumberCreated) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
 	e.ObjEnd()
 }
 
 // encodeFields encodes fields.
-func (s *AssignPhoneNumberOK) encodeFields(e *jx.Encoder) {
+func (s *AssignPhoneNumberCreated) encodeFields(e *jx.Encoder) {
 	{
 		if s.PhoneNumbers != nil {
 			e.FieldStart("phone_numbers")
@@ -16222,23 +16222,23 @@ func (s *AssignPhoneNumberOK) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfAssignPhoneNumberOK = [1]string{
+var jsonFieldsNameOfAssignPhoneNumberCreated = [1]string{
 	0: "phone_numbers",
 }
 
-// Decode decodes AssignPhoneNumberOK from json.
-func (s *AssignPhoneNumberOK) Decode(d *jx.Decoder) error {
+// Decode decodes AssignPhoneNumberCreated from json.
+func (s *AssignPhoneNumberCreated) Decode(d *jx.Decoder) error {
 	if s == nil {
-		return errors.New("invalid: unable to decode AssignPhoneNumberOK to nil")
+		return errors.New("invalid: unable to decode AssignPhoneNumberCreated to nil")
 	}
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
 		case "phone_numbers":
 			if err := func() error {
-				s.PhoneNumbers = make([]AssignPhoneNumberOKPhoneNumbersItem, 0)
+				s.PhoneNumbers = make([]AssignPhoneNumberCreatedPhoneNumbersItem, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem AssignPhoneNumberOKPhoneNumbersItem
+					var elem AssignPhoneNumberCreatedPhoneNumbersItem
 					if err := elem.Decode(d); err != nil {
 						return err
 					}
@@ -16256,34 +16256,34 @@ func (s *AssignPhoneNumberOK) Decode(d *jx.Decoder) error {
 		}
 		return nil
 	}); err != nil {
-		return errors.Wrap(err, "decode AssignPhoneNumberOK")
+		return errors.Wrap(err, "decode AssignPhoneNumberCreated")
 	}
 
 	return nil
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s *AssignPhoneNumberOK) MarshalJSON() ([]byte, error) {
+func (s *AssignPhoneNumberCreated) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *AssignPhoneNumberOK) UnmarshalJSON(data []byte) error {
+func (s *AssignPhoneNumberCreated) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
 
 // Encode implements json.Marshaler.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) Encode(e *jx.Encoder) {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
 	e.ObjEnd()
 }
 
 // encodeFields encodes fields.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) encodeFields(e *jx.Encoder) {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) encodeFields(e *jx.Encoder) {
 	{
 		if s.ID.Set {
 			e.FieldStart("id")
@@ -16298,15 +16298,15 @@ func (s *AssignPhoneNumberOKPhoneNumbersItem) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfAssignPhoneNumberOKPhoneNumbersItem = [2]string{
+var jsonFieldsNameOfAssignPhoneNumberCreatedPhoneNumbersItem = [2]string{
 	0: "id",
 	1: "number",
 }
 
-// Decode decodes AssignPhoneNumberOKPhoneNumbersItem from json.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) Decode(d *jx.Decoder) error {
+// Decode decodes AssignPhoneNumberCreatedPhoneNumbersItem from json.
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) Decode(d *jx.Decoder) error {
 	if s == nil {
-		return errors.New("invalid: unable to decode AssignPhoneNumberOKPhoneNumbersItem to nil")
+		return errors.New("invalid: unable to decode AssignPhoneNumberCreatedPhoneNumbersItem to nil")
 	}
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
@@ -16336,21 +16336,21 @@ func (s *AssignPhoneNumberOKPhoneNumbersItem) Decode(d *jx.Decoder) error {
 		}
 		return nil
 	}); err != nil {
-		return errors.Wrap(err, "decode AssignPhoneNumberOKPhoneNumbersItem")
+		return errors.Wrap(err, "decode AssignPhoneNumberCreatedPhoneNumbersItem")
 	}
 
 	return nil
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) MarshalJSON() ([]byte, error) {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) UnmarshalJSON(data []byte) error {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

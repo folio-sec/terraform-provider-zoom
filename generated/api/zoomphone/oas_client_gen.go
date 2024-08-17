@@ -816,7 +816,7 @@ type Invoker interface {
 	// `Light`.
 	//
 	// POST /phone/users/{userId}/phone_numbers
-	AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberOK, error)
+	AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberCreated, error)
 	// AssignPhoneNumberToZoomRoom invokes assignPhoneNumberToZoomRoom operation.
 	//
 	// Use this API to [assign phone numbers to a Zoom Room](https://support.zoom.
@@ -12587,12 +12587,12 @@ func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request Opt
 // `Light`.
 //
 // POST /phone/users/{userId}/phone_numbers
-func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberOK, error) {
+func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberCreated, error) {
 	res, err := c.sendAssignPhoneNumber(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (res *AssignPhoneNumberOK, err error) {
+func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (res *AssignPhoneNumberCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumber"),
 		semconv.HTTPMethodKey.String("POST"),
