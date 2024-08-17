@@ -5,19 +5,18 @@ import (
 	"fmt"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/samber/lo"
 )
 
 var (
-	_ resource.Resource              = &tfResource{}
-	_ resource.ResourceWithConfigure = &tfResource{}
+	_ resource.Resource                = &tfResource{}
+	_ resource.ResourceWithConfigure   = &tfResource{}
+	_ resource.ResourceWithImportState = &tfResource{}
 )
 
 func NewPhoneCallQueueMembersResource() resource.Resource {
@@ -49,51 +48,50 @@ func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, r
 
 func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue memberss to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.",
+		MarkdownDescription: "Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.",
 		Attributes: map[string]schema.Attribute{
 			"call_queue_id": schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: "Unique identifier of the Call Queue.",
 			},
 			"common_areas": schema.SetNestedAttribute{
-				Required:            true,
+				Optional:            true,
 				MarkdownDescription: "Common Area.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
 							Required:            true,
-							MarkdownDescription: "The member ID.",
+							MarkdownDescription: "Common Area ID: Unique identifier of the common area.",
 						},
 						"name": schema.StringAttribute{
 							Computed:            true,
 							MarkdownDescription: "The name of the common area.",
-							PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 						},
 						"extension_id": schema.StringAttribute{
 							Computed:            true,
 							MarkdownDescription: "The extension ID of the common area.",
-							PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 						},
 						"receive_call": schema.BoolAttribute{
 							Computed:            true,
 							MarkdownDescription: "Whether the user can receive calls. It displays if the level is user.",
-							PlanModifiers:       []planmodifier.Bool{boolplanmodifier.UseStateForUnknown()},
 						},
 					},
 				},
 			},
 			"users": schema.SetNestedAttribute{
-				Required:            true,
+				Optional:            true,
 				MarkdownDescription: "User.",
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Required:            true,
-							MarkdownDescription: "User ID: Unique identifier of the user.",
+							Optional:            true,
+							Computed:            true,
+							MarkdownDescription: "User ID: Unique identifier of the user. `id` or `email` must be specified.",
 						},
 						"email": schema.StringAttribute{
 							Optional:            true,
-							MarkdownDescription: "Email address of the user.",
+							Computed:            true,
+							MarkdownDescription: "Email address of the user. `id` or `email` must be specified.",
 						},
 						"name": schema.StringAttribute{
 							Computed:            true,
@@ -156,47 +154,37 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 	}
 }
 
-func (r *tfResource) read(ctx context.Context, asis resourceModel) (*resourceModel, error) {
-	dto, err := r.crud.read(ctx, asis.CallQueueID)
+func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceModel, error) {
+	dto, err := r.crud.read(ctx, plan.CallQueueID)
 	if err != nil {
-		return nil, fmt.Errorf("error read: %v", err)
+		return nil, err
 	}
 	if dto == nil {
 		return nil, nil // already deleted
 	}
 
-	// check only the members that are in the state
-	// sometimes phone_call_queue_members resource is managed by a different state
-	// at that time this resource should manage only the members that are in the state
-	targetMembers := lo.Filter(dto.callQueueMembers, func(member *readDtoCallQueueMembers, _index int) bool {
-		isExistedUser := lo.ContainsBy(asis.Users, func(t *resourceModelUser) bool {
-			return t.ID == member.id
-		})
-		isExistedCommonArea := lo.ContainsBy(asis.CommonAreas, func(t *resourceModelCommonArea) bool {
-			return t.ID == member.id
-		})
-		return isExistedUser || isExistedCommonArea
+	extensionIDs := lo.Map(dto.callQueueMembers, func(member *readDtoCallQueueMember, _index int) types.String {
+		return member.extensionID
 	})
+	userDatas, err := r.crud.readUsersByExtensionIDs(ctx, extensionIDs)
+	if err != nil {
+		return nil, err
+	}
 
-	commonAreas := make([]*resourceModelCommonArea, 0)
-	users := make([]*resourceModelUser, 0)
-	for _, member := range targetMembers {
+	commonAreas := lo.Ternary(plan.CommonAreas != nil, make([]*resourceModelCommonArea, 0), nil)
+	users := lo.Ternary(plan.Users != nil, make([]*resourceModelUser, 0), nil)
+	for _, member := range dto.callQueueMembers {
 		switch member.level.ValueString() {
 		case "user":
-			foundUser, ok := lo.Find(asis.Users, func(item *resourceModelUser) bool {
-				return item.ID.ValueString() == member.id.ValueString()
+			foundUser, ok := lo.Find(userDatas.users, func(item *readUsersDtoUser) bool {
+				return item.extensionID.ValueString() == member.extensionID.ValueString()
 			})
 			if !ok {
-				return nil, fmt.Errorf("user not found: %s", member.id)
+				return nil, fmt.Errorf("user not found: %s", member.extensionID.ValueString())
 			}
-			tflog.Info(ctx, "read member", map[string]interface{}{
-				"ID":    member.id.ValueString(),
-				"Email": foundUser.Email.ValueString(),
-				"Name":  member.name.ValueString(),
-			})
 			users = append(users, &resourceModelUser{
 				ID:          member.id,
-				Email:       foundUser.Email,
+				Email:       foundUser.email,
 				Name:        member.name,
 				ExtensionID: member.extensionID,
 				ReceiveCall: member.receiveCall,
@@ -216,10 +204,85 @@ func (r *tfResource) read(ctx context.Context, asis resourceModel) (*resourceMod
 	}
 
 	return &resourceModel{
-		CallQueueID: asis.CallQueueID,
+		CallQueueID: plan.CallQueueID,
 		CommonAreas: commonAreas,
 		Users:       users,
 	}, nil
+}
+
+func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
+	asis, err := r.read(ctx, plan)
+	if err != nil {
+		return err
+	}
+
+	// 0. plan validation
+	for _, planUser := range plan.Users {
+		if planUser.ID.ValueString() == "" && planUser.Email.ValueString() == "" {
+			return fmt.Errorf("either `id` or `email` must be specified on user")
+		}
+	}
+
+	// 1. unassign members = asis - plan
+	var unassignMemberIDs []types.String
+	for _, asisUser := range asis.Users {
+		planExisted := lo.ContainsBy(plan.Users, func(planItem *resourceModelUser) bool {
+			// user parameter allow either id or email
+			return planItem.ID == asisUser.ID || planItem.Email == asisUser.Email
+		})
+		if !planExisted {
+			// member id is same with user.id or commonArea.id
+			unassignMemberIDs = append(unassignMemberIDs, asisUser.ID)
+		}
+	}
+	for _, asisCommonArea := range asis.CommonAreas {
+		planExisted := lo.ContainsBy(plan.CommonAreas, func(planItem *resourceModelCommonArea) bool {
+			return planItem.ID == asisCommonArea.ID
+		})
+		if !planExisted {
+			// member id is same with user.id or commonArea.id
+			unassignMemberIDs = append(unassignMemberIDs, asisCommonArea.ID)
+		}
+	}
+	if err = r.crud.unassign(ctx, &unassignDto{
+		callQueueID: plan.CallQueueID,
+		memberIDs:   unassignMemberIDs,
+	}); err != nil {
+		return err
+	}
+
+	// 2. assign members = plan - asis
+	var assignUsers []*assignDtoUser
+	for _, planUser := range plan.Users {
+		asisExisted := lo.ContainsBy(asis.Users, func(asisItem *resourceModelUser) bool {
+			// user parameter allow either id or email
+			return asisItem.ID == planUser.ID || asisItem.Email == planUser.Email
+		})
+		if !asisExisted {
+			assignUsers = append(assignUsers, &assignDtoUser{
+				id:    planUser.ID, // member id is same with user.id or commonArea.id
+				email: planUser.Email,
+			})
+		}
+	}
+	var assignCommonAreaIDs []types.String
+	for _, planCommonArea := range plan.CommonAreas {
+		asisExisted := lo.ContainsBy(asis.CommonAreas, func(asisItem *resourceModelCommonArea) bool {
+			return asisItem.ID == planCommonArea.ID
+		})
+		if !asisExisted {
+			// member id is same with user.id or commonArea.id
+			assignCommonAreaIDs = append(assignCommonAreaIDs, planCommonArea.ID)
+		}
+	}
+	if err = r.crud.assign(ctx, &assignDto{
+		callQueueID:   plan.CallQueueID,
+		commonAreaIDs: assignCommonAreaIDs,
+		users:         assignUsers,
+	}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
@@ -230,38 +293,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 		return
 	}
 
-	asis, err := r.read(ctx, plan)
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Error creating phone call queue members on read",
-			err.Error(),
-		)
-		return
-	}
-
-	assignCommonAreaIDs := lo.Map(lo.Filter(plan.CommonAreas, func(t *resourceModelCommonArea, _index int) bool {
-		return !lo.ContainsBy(asis.CommonAreas, func(item *resourceModelCommonArea) bool {
-			return item.ID == t.ID
-		})
-	}), func(item *resourceModelCommonArea, index int) types.String {
-		return item.ID
-	})
-	assignUsers := lo.Map(lo.Filter(plan.Users, func(t *resourceModelUser, _index int) bool {
-		return !lo.ContainsBy(asis.Users, func(item *resourceModelUser) bool {
-			return item.ID == t.ID
-		})
-	}), func(item *resourceModelUser, index int) *assignDtoUser {
-		return &assignDtoUser{
-			id:    item.ID,
-			email: item.Email,
-		}
-	})
-
-	if err = r.crud.assign(ctx, &assignDto{
-		callQueueID:   plan.CallQueueID,
-		commonAreaIDs: assignCommonAreaIDs,
-		users:         assignUsers,
-	}); err != nil {
+	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
 			"Error creating phone call queue members",
 			err.Error(),
@@ -283,18 +315,8 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 }
 
 func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var state resourceModel
-	diags := req.State.Get(ctx, &state)
-	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		resp.Diagnostics.AddError(
-			"Error updating phone call queue members on get state",
-			"Error updating phone call queue members",
-		)
-		return
-	}
 	var plan resourceModel
-	diags = req.Plan.Get(ctx, &plan)
+	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
@@ -303,86 +325,11 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 		)
 		return
 	}
-	asis, err := r.read(ctx, plan)
-	if err != nil {
+
+	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue members on read",
+			"Error creating phone call queue members",
 			err.Error(),
-		)
-		return
-	}
-
-	// 1. unassign members = (state - plan) ∧ asis
-	unassignUsers := lo.Filter(state.Users, func(stateItem *resourceModelUser, index int) bool {
-		isUnassignPlan := !lo.ContainsBy(plan.Users, func(planItem *resourceModelUser) bool {
-			return planItem.ID == stateItem.ID
-		})
-		isAssigned := lo.ContainsBy(asis.Users, func(asisItem *resourceModelUser) bool {
-			return asisItem.ID == stateItem.ID
-		})
-		return isUnassignPlan && isAssigned
-	})
-	unassignCommonAreas := lo.Filter(state.CommonAreas, func(stateItem *resourceModelCommonArea, index int) bool {
-		isUnassignPlan := !lo.ContainsBy(plan.CommonAreas, func(planItem *resourceModelCommonArea) bool {
-			return planItem.ID == stateItem.ID
-		})
-		isAssigned := lo.ContainsBy(asis.CommonAreas, func(asisItem *resourceModelCommonArea) bool {
-			return asisItem.ID == stateItem.ID
-		})
-		return isUnassignPlan && isAssigned
-	})
-	var unassignMemberIDs []types.String
-	for _, user := range unassignUsers {
-		unassignMemberIDs = append(unassignMemberIDs, user.ID)
-	}
-	for _, commonArea := range unassignCommonAreas {
-		unassignMemberIDs = append(unassignMemberIDs, commonArea.ID)
-	}
-	if err := r.crud.unassign(ctx, &unassignDto{
-		callQueueID: plan.CallQueueID,
-		memberIDs:   unassignMemberIDs,
-	}); err != nil {
-		resp.Diagnostics.AddError(
-			"Error updating phone call queue members on unassign",
-			fmt.Sprintf(
-				"Could not update phone call queue members %s, unexpected error: %s",
-				plan.CallQueueID.ValueString(),
-				err,
-			),
-		)
-		return
-	}
-
-	// 2. assign new members = plan - asis
-	assignUsers := lo.Map(lo.Filter(plan.Users, func(planItem *resourceModelUser, index int) bool {
-		return !lo.ContainsBy(asis.Users, func(stateItem *resourceModelUser) bool {
-			return planItem.ID == stateItem.ID
-		})
-	}), func(item *resourceModelUser, index int) *assignDtoUser {
-		return &assignDtoUser{
-			id:    item.ID,
-			email: item.Email,
-		}
-	})
-	assignCommonAreaIDs := lo.Map(lo.Filter(plan.CommonAreas, func(planItem *resourceModelCommonArea, index int) bool {
-		return !lo.ContainsBy(asis.CommonAreas, func(stateItem *resourceModelCommonArea) bool {
-			return planItem.ID == stateItem.ID
-		})
-	}), func(item *resourceModelCommonArea, index int) types.String {
-		return item.ID
-	})
-	if err := r.crud.assign(ctx, &assignDto{
-		callQueueID:   plan.CallQueueID,
-		commonAreaIDs: assignCommonAreaIDs,
-		users:         assignUsers,
-	}); err != nil {
-		resp.Diagnostics.AddError(
-			"Error updating phone call queue members on assign",
-			fmt.Sprintf(
-				"Could not update phone call queue members %s, unexpected error: %s",
-				plan.CallQueueID.ValueString(),
-				err,
-			),
 		)
 		return
 	}
@@ -407,37 +354,8 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	asis, err := r.read(ctx, state)
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Error creating phone call queue members on read",
-			err.Error(),
-		)
-		return
-	}
 
-	// unassign members = state ∧ asis
-	unassignUsers := lo.Filter(state.Users, func(stateItem *resourceModelUser, index int) bool {
-		return lo.ContainsBy(asis.Users, func(asisItem *resourceModelUser) bool {
-			return asisItem.ID == stateItem.ID
-		})
-	})
-	unassignCommonAreas := lo.Filter(state.CommonAreas, func(stateItem *resourceModelCommonArea, index int) bool {
-		return lo.ContainsBy(asis.CommonAreas, func(asisItem *resourceModelCommonArea) bool {
-			return asisItem.ID == stateItem.ID
-		})
-	})
-	var unassignMemberIDs []types.String
-	for _, user := range unassignUsers {
-		unassignMemberIDs = append(unassignMemberIDs, user.ID)
-	}
-	for _, commonArea := range unassignCommonAreas {
-		unassignMemberIDs = append(unassignMemberIDs, commonArea.ID)
-	}
-	if err := r.crud.unassign(ctx, &unassignDto{
-		callQueueID: state.CallQueueID,
-		memberIDs:   unassignMemberIDs,
-	}); err != nil {
+	if err := r.crud.unassignAll(ctx, state.CallQueueID); err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone call queue members",
 			fmt.Sprintf(
@@ -452,4 +370,8 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 	tflog.Info(ctx, "deleted phone call queue members", map[string]interface{}{
 		"call_queue_id": state.CallQueueID.ValueString(),
 	})
+}
+
+func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("call_queue_id"), req, resp)
 }

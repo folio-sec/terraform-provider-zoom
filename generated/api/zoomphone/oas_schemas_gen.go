@@ -2387,7 +2387,7 @@ func (s *AddAnAudioReq) SetVoiceAccent(val OptString) {
 }
 
 type AddAnumberToBlockedListCreated struct {
-	// Unique identifier of the blocked list.
+	// The unique identifier of the blocked list.
 	ID OptString `json:"id"`
 }
 
@@ -2402,16 +2402,16 @@ func (s *AddAnumberToBlockedListCreated) SetID(val OptString) {
 }
 
 type AddAnumberToBlockedListReq struct {
-	// State whether you want the block type to be inbound or outbound.
+	// Whether you want the block type to be inbound or outbound.
 	// `inbound`: Pass this value to prevent the blocked number or prefix from calling into the phone
 	// users.
 	// `outbound`: Pass this value to prevent phone users from calling the blocked number or prefix.
 	BlockType OptString `json:"block_type"`
-	// Provide a comment to help you identify the blocked number or prefix.
+	// Comments to help you identify the blocked number or prefix.
 	Comment OptString `json:"comment"`
 	// The country information. For example, entering US or CH.
 	Country OptString `json:"country"`
-	// Specify the match type for the blocked list:
+	// This field specifies the match type for the blocked list:
 	// * `phoneNumber`: Choose this option (Phone Number Match) if you want to block a specific phone
 	// number. Provide the phone number in the `phone_number` field and the country code in the `country`
 	// field.
@@ -2423,7 +2423,7 @@ type AddAnumberToBlockedListReq struct {
 	//  If you passed `prefix` as the value for the `match_type` field, provide the prefix of the phone
 	// number in the `country` field.
 	PhoneNumber OptString `json:"phone_number"`
-	// Enable or disable the blocking. One of the following values are allowed:
+	// This field enables or disables the blocking. One of the following values are allowed:
 	// `active`: Keep the blocking active.
 	// `inactive`: Disable the blocking.
 	Status OptString `json:"status"`

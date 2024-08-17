@@ -3,14 +3,23 @@ package callqueuemembers
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
 type readDto struct {
-	callQueueMembers []*readDtoCallQueueMembers
+	callQueueMembers []*readDtoCallQueueMember
 }
 
-type readDtoCallQueueMembers struct {
-	id          types.String
+type readDtoCallQueueMember struct {
+	id          types.String // same with user.id or commonArea.id
 	name        types.String
 	level       types.String
 	receiveCall types.Bool
+	extensionID types.String
+}
+
+type readUsersDto struct {
+	users []*readUsersDtoUser
+}
+
+type readUsersDtoUser struct {
+	email       types.String
 	extensionID types.String
 }
 

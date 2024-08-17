@@ -3,12 +3,12 @@
 page_title: "zoom_phone_call_queue_members Resource - zoom"
 subcategory: ""
 description: |-
-  Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue memberss to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+  Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
 ---
 
 # zoom_phone_call_queue_members (Resource)
 
-Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue memberss to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
 
 ## Example Usage
 
@@ -20,11 +20,20 @@ resource "zoom_phone_call_queue" "example" {
 
 resource "zoom_phone_call_queue_members" "example" {
   call_queue_id = zoom_phone_call_queue.example.id
-  common_areas  = []
+  common_areas = [
+    {
+      id = "xxxxx-Q6aYBcsv2wJaag"
+    }
+  ]
   users = [
     {
-      id    = "6KpvKpy-RFCYmhj-XXXFqA"
-      email = "john@folio-sec.com"
+      id = "YYYgNJuS-XXcsv2wJnug"
+    },
+    {
+      email = "mary@example.com"
+    },
+    {
+      email = "john@example.com"
     },
   ]
 }
@@ -36,6 +45,9 @@ resource "zoom_phone_call_queue_members" "example" {
 ### Required
 
 - `call_queue_id` (String) Unique identifier of the Call Queue.
+
+### Optional
+
 - `common_areas` (Attributes Set) Common Area. (see [below for nested schema](#nestedatt--common_areas))
 - `users` (Attributes Set) User. (see [below for nested schema](#nestedatt--users))
 
@@ -44,7 +56,7 @@ resource "zoom_phone_call_queue_members" "example" {
 
 Required:
 
-- `id` (String) The member ID.
+- `id` (String) Common Area ID: Unique identifier of the common area.
 
 Read-Only:
 
@@ -56,16 +68,22 @@ Read-Only:
 <a id="nestedatt--users"></a>
 ### Nested Schema for `users`
 
-Required:
-
-- `id` (String) User ID: Unique identifier of the user.
-
 Optional:
 
-- `email` (String) Email address of the user.
+- `email` (String) Email address of the user. `id` or `email` must be specified.
+- `id` (String) User ID: Unique identifier of the user. `id` or `email` must be specified.
 
 Read-Only:
 
 - `extension_id` (String) The extension ID of the user.
 - `name` (String) The name of the user.
 - `receive_call` (Boolean) Whether the user can receive calls. It displays if the level is user.
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+# ${call_queue_id}
+terraform import zoom_phone_call_queue_members.example wGJDBcnJQC6tV86BbtlXXX
+```

@@ -1478,7 +1478,9 @@ type ListCallLogsMetricsParams struct {
 type ListCallQueueMembersParams struct {
 	// The call queue ID that is retrievable from the [List Call Queues](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#tag/Call-Queues/operation/listCallQueues) API.
-	CallQueueId string
+	CallQueueId   string
+	PageSize      OptInt
+	NextPageToken OptString
 }
 
 // ListCallQueuesParams is parameters of listCallQueues operation.

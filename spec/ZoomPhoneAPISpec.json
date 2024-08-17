@@ -5133,7 +5133,7 @@
           "Blocked List"
         ],
         "summary": "Create a blocked list",
-        "description": "A Zoom account owner or a user with the admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available. Use this API to create a block list and add a number to the list.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Creates a block list and add a number to the list. \n\nA Zoom account owner or a user with the admin privilege can block phone numbers for phone users in an account. \n\nBlocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). \n\nBlocked callers will hear a generic message stating that the person they are calling is not available. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "addAnumberToBlockedList",
         "requestBody": {
           "content": {
@@ -5143,13 +5143,13 @@
                 "properties": {
                   "block_type": {
                     "type": "string",
-                    "description": "State whether you want the block type to be inbound or outbound.\n\n`inbound`: Pass this value to prevent the blocked number or prefix from calling into the phone users.\n\n`outbound`: Pass this value to prevent phone users from calling the blocked number or prefix.",
+                    "description": "Whether you want the block type to be inbound or outbound.\n\n`inbound`: Pass this value to prevent the blocked number or prefix from calling into the phone users.\n\n`outbound`: Pass this value to prevent phone users from calling the blocked number or prefix.",
                     "example": "inbound"
                   },
                   "comment": {
                     "maxLength": 255,
                     "type": "string",
-                    "description": "Provide a comment to help you identify the blocked number or prefix.",
+                    "description": "Comments to help you identify the blocked number or prefix.",
                     "example": "test"
                   },
                   "country": {
@@ -5160,7 +5160,7 @@
                   },
                   "match_type": {
                     "type": "string",
-                    "description": "Specify the match type for the blocked list:\n\n* `phoneNumber`: Choose this option (Phone Number Match) if you want to block a specific phone number. Provide the phone number in the `phone_number` field and the country code in the `country` field.\n\n* `prefix`: Choose this option (Prefix Match) if you want to block all numbers with a specific country or an area code. Enter a phone number in the `phone_number` field and in the `country` field, enter a country code as part of the prefix.",
+                    "description": "This field specifies the match type for the blocked list:\n\n* `phoneNumber`: Choose this option (Phone Number Match) if you want to block a specific phone number. Provide the phone number in the `phone_number` field and the country code in the `country` field.\n\n* `prefix`: Choose this option (Prefix Match) if you want to block all numbers with a specific country or an area code. Enter a phone number in the `phone_number` field and in the `country` field, enter a country code as part of the prefix.",
                     "example": "prefix"
                   },
                   "phone_number": {
@@ -5171,7 +5171,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "description": "Enable or disable the blocking. One of the following values are allowed:\n\n`active`: Keep the blocking active.\n\n`inactive`: Disable the blocking.",
+                    "description": "This field enables or disables the blocking. One of the following values are allowed:\n\n`active`: Keep the blocking active.\n\n`inactive`: Disable the blocking.",
                     "example": "active"
                   }
                 }
@@ -5189,7 +5189,7 @@
                   "properties": {
                     "id": {
                       "type": "string",
-                      "description": "Unique identifier of the blocked list.",
+                      "description": "The unique identifier of the blocked list.",
                       "example": "2ypsHHwTTFK-fzZJkudYwA"
                     }
                   }
@@ -5218,6 +5218,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -10445,6 +10446,22 @@
             "schema": {
               "type": "string",
               "example": "3PNsZB50TNev4pgBjtKeDw"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],

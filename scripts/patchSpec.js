@@ -252,6 +252,15 @@ function phonePatch(spec) {
   if (spec.paths['/phone/call_queues']) {
     spec.paths['/phone/call_queues']['post']['requestBody']['content']['application/json']['schema']['required'] = ['name']
   }
+
+  // GET /phone/call_queues/{callQueueId}/members doesn't have page_size and next_page_token parameters
+  if (spec.paths['/phone/call_queues/{callQueueId}/members']) {
+    spec.paths['/phone/call_queues/{callQueueId}/members']['get']['parameters'] =
+        spec.paths['/phone/call_queues/{callQueueId}/members']['get']['parameters'].concat(
+            { "name": "page_size", "in": "query", "required": false, "schema": { "type": "integer" } },
+            { "name": "next_page_token", "in": "query", "required": false, "schema": { "type": "string" } },
+        )
+  }
 }
 
 const buffers = [];

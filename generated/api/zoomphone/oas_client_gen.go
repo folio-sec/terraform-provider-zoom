@@ -155,17 +155,19 @@ type Invoker interface {
 	AddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (*AddAnAudioCreated, error)
 	// AddAnumberToBlockedList invokes addAnumberToBlockedList operation.
 	//
+	// Creates a block list and add a number to the list.
 	// A Zoom account owner or a user with the admin privilege can block phone numbers for phone users in
-	// an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-	// (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
-	// generic message stating that the person they are calling is not available. Use this API to create
-	// a block list and add a number to the list.
+	// an account.
+	// Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users
+	// in your account won't be able to dial those numbers).
+	// Blocked callers will hear a generic message stating that the person they are calling is not
+	// available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/blocked_list
 	AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (*AddAnumberToBlockedListCreated, error)
@@ -6427,17 +6429,19 @@ func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, p
 
 // AddAnumberToBlockedList invokes addAnumberToBlockedList operation.
 //
+// Creates a block list and add a number to the list.
 // A Zoom account owner or a user with the admin privilege can block phone numbers for phone users in
-// an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-// (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
-// generic message stating that the person they are calling is not available. Use this API to create
-// a block list and add a number to the list.
+// an account.
+// Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users
+// in your account won't be able to dial those numbers).
+// Blocked callers will hear a generic message stating that the person they are calling is not
+// available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/blocked_list
 func (c *Client) AddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (*AddAnumberToBlockedListCreated, error) {
@@ -32831,6 +32835,44 @@ func (c *Client) sendListCallQueueMembers(ctx context.Context, params ListCallQu
 	}
 	pathParts[2] = "/members"
 	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
 
 	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
