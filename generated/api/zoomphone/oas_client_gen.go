@@ -13331,7 +13331,7 @@ func (c *Client) AssignPhoneToCallQueue(ctx context.Context, request OptAssignPh
 	return err
 }
 
-func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssignPhoneToCallQueueReq, params AssignPhoneToCallQueueParams) (res *AssignPhoneToCallQueueNoContent, err error) {
+func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssignPhoneToCallQueueReq, params AssignPhoneToCallQueueParams) (res *AssignPhoneToCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneToCallQueue"),
 		semconv.HTTPMethodKey.String("POST"),

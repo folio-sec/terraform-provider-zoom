@@ -48775,7 +48775,7 @@
           }
         },
         "responses": {
-          "204": {
+          "201": {
             "description": "**HTTP Status Code:** `204` **No Content**\n\n"
           },
           "default": {
@@ -49779,6 +49779,23 @@
           },
           "message": {
             "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "field_value": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
