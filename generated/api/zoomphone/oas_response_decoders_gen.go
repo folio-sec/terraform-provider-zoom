@@ -4122,10 +4122,10 @@ func decodeAssignCampaignPhoneNumbersResponse(resp *http.Response) (res *AssignC
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeAssignPhoneNumberResponse(resp *http.Response) (res *AssignPhoneNumberOK, _ error) {
+func decodeAssignPhoneNumberResponse(resp *http.Response) (res *AssignPhoneNumberCreated, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
+	case 201:
+		// Code 201.
 		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
 		if err != nil {
 			return res, errors.Wrap(err, "parse media type")
@@ -4138,7 +4138,7 @@ func decodeAssignPhoneNumberResponse(resp *http.Response) (res *AssignPhoneNumbe
 			}
 			d := jx.DecodeBytes(buf)
 
-			var response AssignPhoneNumberOK
+			var response AssignPhoneNumberCreated
 			if err := func() error {
 				if err := response.Decode(d); err != nil {
 					return err

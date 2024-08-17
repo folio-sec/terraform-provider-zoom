@@ -28281,7 +28281,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "**HTTP Status Code:** `200`   \n \nPhone number assigned successfully. \n",
             "content": {
               "application/json": {

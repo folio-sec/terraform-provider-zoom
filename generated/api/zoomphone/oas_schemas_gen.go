@@ -6758,22 +6758,22 @@ func (s *AssignCampaignPhoneNumbersReqPhoneNumbersItem) SetNumber(val OptString)
 	s.Number = val
 }
 
-type AssignPhoneNumberOK struct {
+type AssignPhoneNumberCreated struct {
 	// Assigned phone number.
-	PhoneNumbers []AssignPhoneNumberOKPhoneNumbersItem `json:"phone_numbers"`
+	PhoneNumbers []AssignPhoneNumberCreatedPhoneNumbersItem `json:"phone_numbers"`
 }
 
 // GetPhoneNumbers returns the value of PhoneNumbers.
-func (s *AssignPhoneNumberOK) GetPhoneNumbers() []AssignPhoneNumberOKPhoneNumbersItem {
+func (s *AssignPhoneNumberCreated) GetPhoneNumbers() []AssignPhoneNumberCreatedPhoneNumbersItem {
 	return s.PhoneNumbers
 }
 
 // SetPhoneNumbers sets the value of PhoneNumbers.
-func (s *AssignPhoneNumberOK) SetPhoneNumbers(val []AssignPhoneNumberOKPhoneNumbersItem) {
+func (s *AssignPhoneNumberCreated) SetPhoneNumbers(val []AssignPhoneNumberCreatedPhoneNumbersItem) {
 	s.PhoneNumbers = val
 }
 
-type AssignPhoneNumberOKPhoneNumbersItem struct {
+type AssignPhoneNumberCreatedPhoneNumbersItem struct {
 	// ID of the phone number.
 	ID OptString `json:"id"`
 	// The phone number that is assigned to the user.
@@ -6781,22 +6781,22 @@ type AssignPhoneNumberOKPhoneNumbersItem struct {
 }
 
 // GetID returns the value of ID.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) GetID() OptString {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) GetID() OptString {
 	return s.ID
 }
 
 // GetNumber returns the value of Number.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) GetNumber() OptString {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) GetNumber() OptString {
 	return s.Number
 }
 
 // SetID sets the value of ID.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) SetID(val OptString) {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) SetID(val OptString) {
 	s.ID = val
 }
 
 // SetNumber sets the value of Number.
-func (s *AssignPhoneNumberOKPhoneNumbersItem) SetNumber(val OptString) {
+func (s *AssignPhoneNumberCreatedPhoneNumbersItem) SetNumber(val OptString) {
 	s.Number = val
 }
 
