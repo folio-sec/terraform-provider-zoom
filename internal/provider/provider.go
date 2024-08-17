@@ -18,13 +18,10 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
-<<<<<<< HEAD
-	sharedlinegroupgroup "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
-	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmembers"
-	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumbers"
-=======
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmembers"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
->>>>>>> f4b4b75 (impl user resource)
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"

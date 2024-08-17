@@ -1,0 +1,88 @@
+name: Terraform Provider Tests
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/test.yml'
+      - '**.go'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+      - run: go mod download
+      - run: go build -o dist/terraform-provider-zoom .
+      - run: go fmt ./...
+      - name: Check no diff
+        run: |
+          git add .
+          git diff --cached --exit-code
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+      - run: go test -race -v -shffle on -cover ./...
+  acceptance:
+    name: Acceptance Tests (Terraform ${{ matrix.terraform-version }})
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    strategy:
+      fail-fast: false
+      matrix:
+        terraform-version:
+          - '1.5.*'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ matrix.terraform-version }}
+          terraform_wrapper: false
+      - run: go test -race -v -shuffle on -cover ./...
+        env:
+          TF_ACC: '1'
+  summary:
+    name: Summary
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - unit
+      - acceptance
+    timeout-minutes: 5
+    if: ${{ always() }}
+    steps:
+      - name: Success
+        run: |-
+            for status in ${{ join(needs.*.result, ' ') }}
+            do
+              if [ "$status" != "success" ] && [ "$status" != "skipped" ]
+              then
+                echo "Some checks failed"
+                exit 1
+              fi
+            done
