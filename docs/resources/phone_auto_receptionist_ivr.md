@@ -4,11 +4,18 @@ page_title: "zoom_phone_auto_receptionist_ivr Resource - zoom"
 subcategory: ""
 description: |-
   [interactive voice response (IVR) system](https://support.zoom.// us/hc/en-us/articles/360038601971) of the specified auto receptionist.
+  API Permissions
+  The following API permissions are required in order to use this resource.
+  This resource requires the phone:read:auto_receptionist_ivr:admin, phone:update:auto_receptionist_ivr:admin.
 ---
 
 # zoom_phone_auto_receptionist_ivr (Resource)
 
 [interactive voice response (IVR) system](https://support.zoom.// us/hc/en-us/articles/360038601971) of the specified auto receptionist.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the `phone:read:auto_receptionist_ivr:admin`, `phone:update:auto_receptionist_ivr:admin`.
 
 ## Example Usage
 

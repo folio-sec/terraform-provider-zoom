@@ -4,11 +4,18 @@ page_title: "zoom_phone_auto_receptionist Data Source - zoom"
 subcategory: ""
 description: |-
   Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
+  API Permissions
+  The following API permissions are required in order to use this resource.
+  This resource requires the phone:read:auto_receptionist:admin
 ---
 
 # zoom_phone_auto_receptionist (Data Source)
 
 Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the `phone:read:auto_receptionist:admin`
 
 ## Example Usage
 

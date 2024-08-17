@@ -3,6 +3,7 @@ package autoreceptionist
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -45,7 +46,13 @@ func (d *tfDataSource) Metadata(_ context.Context, req datasource.MetadataReques
 
 func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.",
+		MarkdownDescription: `Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the ` + strings.Join([]string{
+			"`phone:read:auto_receptionist:admin`",
+		}, ", "),
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Required:            true,

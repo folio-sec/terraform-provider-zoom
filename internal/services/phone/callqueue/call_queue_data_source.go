@@ -3,6 +3,7 @@ package callqueue
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -45,7 +46,13 @@ func (d *tfDataSource) Metadata(_ context.Context, req datasource.MetadataReques
 
 func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.",
+		MarkdownDescription: `Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the ` + strings.Join([]string{
+			"`phone:read:call_queue:admin`",
+		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Required:            true,

@@ -4,11 +4,18 @@ page_title: "zoom_phone_call_queue_members Resource - zoom"
 subcategory: ""
 description: |-
   Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+  API Permissions
+  The following API permissions are required in order to use this resource.
+  This resource requires the phone:read:list_users:admin, phone:read:list_call_queue_members:admin, phone:write:call_queue_member:admin, phone:delete:call_queue_member:admin.
 ---
 
 # zoom_phone_call_queue_members (Resource)
 
 Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the `phone:read:list_users:admin`, `phone:read:list_call_queue_members:admin`, `phone:write:call_queue_member:admin`, `phone:delete:call_queue_member:admin`.
 
 ## Example Usage
 

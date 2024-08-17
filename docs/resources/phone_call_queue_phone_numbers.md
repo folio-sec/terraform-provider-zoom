@@ -4,11 +4,18 @@ page_title: "zoom_phone_call_queue_phone_numbers Resource - zoom"
 subcategory: ""
 description: |-
   After buying phone number(s) https://support.zoom.us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad, you can assign it, allowing callers to directly dial a number to reach a call queue https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues.
+  API Permissions
+  The following API permissions are required in order to use this resource.
+  This resource requires the phone:read:call_queue:admin, phone:read:list_call_queues:admin, phone:read:list_numbers:admin, phone:write:call_queue_number:admin, phone:delete:call_queue_number:admin.
 ---
 
 # zoom_phone_call_queue_phone_numbers (Resource)
 
 After [buying phone number(s)](https://support.zoom.us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it, allowing callers to directly dial a number to reach a [call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues).
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the `phone:read:call_queue:admin`, `phone:read:list_call_queues:admin`, `phone:read:list_numbers:admin`, `phone:write:call_queue_number:admin`, `phone:delete:call_queue_number:admin`.
 
 ## Example Usage
 

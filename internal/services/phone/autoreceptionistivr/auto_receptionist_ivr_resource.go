@@ -3,6 +3,7 @@ package autoreceptionistivr
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
@@ -55,7 +56,14 @@ func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, r
 
 func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "[interactive voice response (IVR) system](https://support.zoom.// us/hc/en-us/articles/360038601971) of the specified auto receptionist.",
+		MarkdownDescription: `[interactive voice response (IVR) system](https://support.zoom.// us/hc/en-us/articles/360038601971) of the specified auto receptionist.
+
+## API Permissions
+The following API permissions are required in order to use this resource.
+This resource requires the ` + strings.Join([]string{
+			"`phone:read:auto_receptionist_ivr:admin`",
+			"`phone:update:auto_receptionist_ivr:admin`",
+		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
 			"auto_receptionist_id": schema.StringAttribute{
 				Required:            true,
