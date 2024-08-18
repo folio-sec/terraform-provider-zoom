@@ -11,6 +11,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionistivr"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/blockedlist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueue"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
@@ -201,6 +202,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		callqueuemembers.NewPhoneCallQueueMembersResource,
 		callqueuephonenumbers.NewPhoneCallQueuePhoneNumbersResource,
 		userphonenumbers.NewPhoneUserPhoneNumbersResource,
+		blockedlist.NewPhoneBlockedListResource,
 	}
 }
 
@@ -209,6 +211,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
+		blockedlist.NewPhoneBlockedListDataSource,
 	}
 }
 
