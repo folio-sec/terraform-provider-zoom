@@ -1,4 +1,4 @@
-package callqueuemembers
+package sharedlinegroupgroupmembers
 
 import (
 	"context"
@@ -22,7 +22,7 @@ var (
 	_ resource.ResourceWithImportState = &tfResource{}
 )
 
-func NewPhoneCallQueueMembersResource() resource.Resource {
+func NewPhoneSharedLineGroupMembersResource() resource.Resource {
 	return &tfResource{}
 }
 
@@ -46,23 +46,23 @@ func (r *tfResource) Configure(_ context.Context, req resource.ConfigureRequest,
 }
 
 func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_phone_call_queue_members"
+	resp.TypeName = req.ProviderTypeName + "_phone_shared_line_group_members"
 }
 
 func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: `Call queues allow you to route incoming calls to a group of users. For instance, you can use call queue members to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+		MarkdownDescription: `A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail. Note that a member can only be added to one shared line group.
 
 ## API Permissions
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:list_users:admin`",
-			"`phone:read:list_call_queue_members:admin`",
-			"`phone:write:call_queue_member:admin`",
-			"`phone:delete:call_queue_member:admin`",
+			"`phone:read:list_shared_line_group_members:admin`",
+			"`phone:write:shared_line_group_member:admin`",
+			"`phone:delete:shared_line_group_member:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
-			"call_queue_id": schema.StringAttribute{
+			"shared_line_group_id": schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: "Unique identifier of the Call Queue.",
 				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
@@ -83,10 +83,6 @@ This resource requires the ` + strings.Join([]string{
 						"extension_id": schema.StringAttribute{
 							Computed:            true,
 							MarkdownDescription: "The extension ID of the common area.",
-						},
-						"receive_call": schema.BoolAttribute{
-							Computed:            true,
-							MarkdownDescription: "Whether the user can receive calls. It displays if the level is user.",
 						},
 					},
 				},
@@ -114,10 +110,6 @@ This resource requires the ` + strings.Join([]string{
 							Computed:            true,
 							MarkdownDescription: "The extension ID of the user.",
 						},
-						"receive_call": schema.BoolAttribute{
-							Computed:            true,
-							MarkdownDescription: "Whether the user can receive calls. It displays if the level is user.",
-						},
 					},
 				},
 			},
@@ -126,16 +118,15 @@ This resource requires the ` + strings.Join([]string{
 }
 
 type resourceModel struct {
-	CallQueueID types.String               `tfsdk:"call_queue_id"`
-	CommonAreas []*resourceModelCommonArea `tfsdk:"common_areas"`
-	Users       []*resourceModelUser       `tfsdk:"users"`
+	SharedLineGroupID types.String               `tfsdk:"shared_line_group_id"`
+	CommonAreas       []*resourceModelCommonArea `tfsdk:"common_areas"`
+	Users             []*resourceModelUser       `tfsdk:"users"`
 }
 
 type resourceModelCommonArea struct {
 	ID          types.String `tfsdk:"id"`
 	Name        types.String `tfsdk:"name"`
 	ExtensionID types.String `tfsdk:"extension_id"`
-	ReceiveCall types.Bool   `tfsdk:"receive_call"`
 }
 
 type resourceModelUser struct {
@@ -143,7 +134,6 @@ type resourceModelUser struct {
 	Email       types.String `tfsdk:"email"`
 	Name        types.String `tfsdk:"name"`
 	ExtensionID types.String `tfsdk:"extension_id"`
-	ReceiveCall types.Bool   `tfsdk:"receive_call"`
 }
 
 func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -156,7 +146,7 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 
 	output, err := r.read(ctx, state)
 	if err != nil {
-		resp.Diagnostics.AddError("Error reading phone call queue members", err.Error())
+		resp.Diagnostics.AddError("Error reading phone shared line group members", err.Error())
 		return
 	}
 
@@ -168,7 +158,7 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 }
 
 func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceModel, error) {
-	dto, err := r.crud.read(ctx, plan.CallQueueID)
+	dto, err := r.crud.read(ctx, plan.SharedLineGroupID)
 	if err != nil {
 		return nil, err
 	}
@@ -176,50 +166,42 @@ func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceMod
 		return nil, nil // already deleted
 	}
 
-	extensionIDs := lo.Map(dto.callQueueMembers, func(member *readDtoCallQueueMember, _index int) types.String {
+	userExtensionIDs := lo.Map(dto.users, func(member *readDtoUser, _index int) types.String {
 		return member.extensionID
 	})
-	userDatas, err := r.crud.readUsersByExtensionIDs(ctx, extensionIDs)
+	userDatas, err := r.crud.readUsersByExtensionIDs(ctx, userExtensionIDs)
 	if err != nil {
 		return nil, err
 	}
 
 	commonAreas := lo.Ternary(plan.CommonAreas != nil, make([]*resourceModelCommonArea, 0), nil)
 	users := lo.Ternary(plan.Users != nil, make([]*resourceModelUser, 0), nil)
-	for _, member := range dto.callQueueMembers {
-		switch member.level.ValueString() {
-		case "user":
-			foundUser, ok := lo.Find(userDatas.users, func(item *readUsersDtoUser) bool {
-				return item.extensionID.ValueString() == member.extensionID.ValueString()
-			})
-			if !ok {
-				return nil, fmt.Errorf("user not found: %s", member.extensionID.ValueString())
-			}
-			users = append(users, &resourceModelUser{
-				ID:          member.id,
-				Email:       foundUser.email,
-				Name:        member.name,
-				ExtensionID: member.extensionID,
-				ReceiveCall: member.receiveCall,
-			})
-			break
-		case "commonArea":
-			commonAreas = append(commonAreas, &resourceModelCommonArea{
-				ID:          member.id,
-				Name:        member.name,
-				ExtensionID: member.extensionID,
-				ReceiveCall: member.receiveCall,
-			})
-			break
-		default:
-			return nil, fmt.Errorf("unexpected level: %s", member.level)
+	for _, commonArea := range dto.commonAreas {
+		commonAreas = append(commonAreas, &resourceModelCommonArea{
+			ID:          commonArea.id,
+			Name:        commonArea.name,
+			ExtensionID: commonArea.extensionID,
+		})
+	}
+	for _, user := range dto.users {
+		foundUser, ok := lo.Find(userDatas.users, func(item *readUsersDtoUser) bool {
+			return item.extensionID.ValueString() == user.extensionID.ValueString()
+		})
+		if !ok {
+			return nil, fmt.Errorf("user not found: %s", user.extensionID.ValueString())
 		}
+		users = append(users, &resourceModelUser{
+			ID:          user.id,
+			Email:       foundUser.email,
+			Name:        user.name,
+			ExtensionID: user.extensionID,
+		})
 	}
 
 	return &resourceModel{
-		CallQueueID: plan.CallQueueID,
-		CommonAreas: commonAreas,
-		Users:       users,
+		SharedLineGroupID: plan.SharedLineGroupID,
+		CommonAreas:       commonAreas,
+		Users:             users,
 	}, nil
 }
 
@@ -258,8 +240,8 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		}
 	}
 	if err = r.crud.unassign(ctx, &unassignDto{
-		callQueueID: plan.CallQueueID,
-		memberIDs:   unassignMemberIDs,
+		sharedLineGroupID: plan.SharedLineGroupID,
+		memberIDs:         unassignMemberIDs,
 	}); err != nil {
 		return err
 	}
@@ -289,9 +271,9 @@ func (r *tfResource) sync(ctx context.Context, plan resourceModel) error {
 		}
 	}
 	if err = r.crud.assign(ctx, &assignDto{
-		callQueueID:   plan.CallQueueID,
-		commonAreaIDs: assignCommonAreaIDs,
-		users:         assignUsers,
+		sharedLineGroupID: plan.SharedLineGroupID,
+		commonAreaIDs:     assignCommonAreaIDs,
+		users:             assignUsers,
 	}); err != nil {
 		return err
 	}
@@ -308,7 +290,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 
 	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue members",
+			"Error creating phone shared line group members",
 			err.Error(),
 		)
 		return
@@ -316,7 +298,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 
 	output, err := r.read(ctx, plan)
 	if err != nil {
-		resp.Diagnostics.AddError("Error creating phone call queue members on reading", err.Error())
+		resp.Diagnostics.AddError("Error creating phone shared line group members on reading", err.Error())
 		return
 	}
 
@@ -333,15 +315,15 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
-			"Error updating phone call queue members on get plan",
-			"Error updating phone call queue members",
+			"Error updating phone shared line group members on get plan",
+			"Error updating phone shared line group members",
 		)
 		return
 	}
 
 	if err := r.sync(ctx, plan); err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue members",
+			"Error creating phone shared line group members",
 			err.Error(),
 		)
 		return
@@ -349,7 +331,7 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 
 	output, err := r.read(ctx, plan)
 	if err != nil {
-		resp.Diagnostics.AddError("Error updating phone call queue members", err.Error())
+		resp.Diagnostics.AddError("Error updating phone shared line group members", err.Error())
 		return
 	}
 
@@ -368,23 +350,23 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	if err := r.crud.unassignAll(ctx, state.CallQueueID); err != nil {
+	if err := r.crud.unassignAll(ctx, state.SharedLineGroupID); err != nil {
 		resp.Diagnostics.AddError(
-			"Error deleting phone call queue members",
+			"Error deleting phone shared line group members",
 			fmt.Sprintf(
-				"Could not delete phone call queue members %s, unexpected error: %s",
-				state.CallQueueID.ValueString(),
+				"Could not delete phone shared line group members %s, unexpected error: %s",
+				state.SharedLineGroupID.ValueString(),
 				err,
 			),
 		)
 		return
 	}
 
-	tflog.Info(ctx, "deleted phone call queue members", map[string]interface{}{
-		"call_queue_id": state.CallQueueID.ValueString(),
+	tflog.Info(ctx, "deleted phone shared line group members", map[string]interface{}{
+		"shared_line_group_id": state.SharedLineGroupID.ValueString(),
 	})
 }
 
 func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("call_queue_id"), req, resp)
+	resource.ImportStatePassthroughID(ctx, path.Root("shared_line_group_id"), req, resp)
 }

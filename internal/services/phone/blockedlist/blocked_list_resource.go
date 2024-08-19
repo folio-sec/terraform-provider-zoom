@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -109,10 +110,12 @@ This resource requires the ` + strings.Join([]string{
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"status": schema.StringAttribute{
-				Required: true,
+				Optional: true,
+				Computed: true,
 				MarkdownDescription: `Indicates whether the blocking is active or inactive.
   - active: The blocked list is active.
   - inactive: The blocked list is inactive.`,
+				Default: stringdefault.StaticString("active"),
 				// PATCH blocked_list hasn't be provided yet, so we just do delete/create on update.
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),

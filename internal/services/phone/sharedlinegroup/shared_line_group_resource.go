@@ -1,4 +1,4 @@
-package callqueue
+package sharedlinegroupgroup
 
 import (
 	"context"
@@ -25,7 +25,7 @@ var (
 	_ resource.ResourceWithImportState = &tfResource{}
 )
 
-func NewPhoneCallQueueResource() resource.Resource {
+func NewPhoneSharedLineGroupResource() resource.Resource {
 	return &tfResource{}
 }
 
@@ -49,34 +49,33 @@ func (r *tfResource) Configure(_ context.Context, req resource.ConfigureRequest,
 }
 
 func (r *tfResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_phone_call_queue"
+	resp.TypeName = req.ProviderTypeName + "_phone_shared_line_group"
 }
 
 func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: `Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+		MarkdownDescription: `A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail.
 
 ## API Permissions
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
-			"`phone:read:call_queue:admin`",
-			"`phone:write:call_queue:admin`",
-			"`phone:update:call_queue:admin`",
-			"`phone:delete:call_queue:admin`",
+			"`phone:read:shared_line_group:admin`",
+			"`phone:write:shared_line_group:admin`",
+			"`phone:update:shared_line_group:admin`",
+			"`phone:delete:shared_line_group:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
 				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
-				MarkdownDescription: "Unique identifier of the Call Queue.",
+				MarkdownDescription: "The unique identifier of the shared line group.",
 			},
-			"cost_center": schema.StringAttribute{
-				Optional:            true,
-				MarkdownDescription: "Cost center name.",
-			},
-			"department": schema.StringAttribute{
-				Optional:            true,
-				MarkdownDescription: "Department name.",
+			"display_name": schema.StringAttribute{
+				Required: true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(200),
+				},
+				MarkdownDescription: "The name to identify the shared line group.",
 			},
 			"extension_id": schema.StringAttribute{
 				Computed:            true,
@@ -86,25 +85,21 @@ This resource requires the ` + strings.Join([]string{
 			"extension_number": schema.Int64Attribute{
 				Required:            true,
 				PlanModifiers:       []planmodifier.Int64{int64planmodifier.UseStateForUnknown()},
-				MarkdownDescription: "Extension number of the call queue.",
+				MarkdownDescription: "Extension number of the shared line group.",
 			},
-			"name": schema.StringAttribute{
-				Required: true,
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(32),
-				},
-				MarkdownDescription: "Name of the call queue.",
-			},
-			"description": schema.StringAttribute{
-				Optional: true,
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(32),
-				},
-				MarkdownDescription: "Description for the Call Queue.",
+			"primary_number": schema.StringAttribute{
+				// primary_number is managed by "shared_line_group_phone_numbers" resource
+				// so "shared_line_group.primary_number" should be read only value.
+				Computed: true,
+				MarkdownDescription: `If you have multiple direct phone numbers assigned to the shared line group, this is the primary number selected for desk phones.
+The primary number shares the same line as the extension number. This means if a caller is routed to the shared line group through an auto receptionist, the line associated with the primary number will be used.`,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"site_id": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the Call Queue is assigned.",
+				MarkdownDescription: "Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the shared line group is assigned.",
+				// update api doesn't support site_id, so replace on updating
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"status": schema.StringAttribute{
 				Optional: true,
@@ -113,7 +108,7 @@ This resource requires the ` + strings.Join([]string{
 				Validators: []validator.String{
 					stringvalidator.OneOf("active", "inactive"),
 				},
-				MarkdownDescription: `Status of the Call Queue.
+				MarkdownDescription: `The status of the shared line group.
   - Allowed: active┃inactive`,
 			},
 		},
@@ -122,12 +117,10 @@ This resource requires the ` + strings.Join([]string{
 
 type resourceModel struct {
 	ID              types.String `tfsdk:"id"`
-	CostCenter      types.String `tfsdk:"cost_center"`
-	Department      types.String `tfsdk:"department"`
+	DisplayName     types.String `tfsdk:"display_name"`
 	ExtensionID     types.String `tfsdk:"extension_id"`
 	ExtensionNumber types.Int64  `tfsdk:"extension_number"`
-	Name            types.String `tfsdk:"name"`
-	Description     types.String `tfsdk:"description"`
+	PrimaryNumber   types.String `tfsdk:"primary_number"`
 	SiteID          types.String `tfsdk:"site_id"`
 	Status          types.String `tfsdk:"status"`
 }
@@ -140,9 +133,9 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 		return
 	}
 
-	output, err := r.read(ctx, state.ID, state.Description)
+	output, err := r.read(ctx, state.ID)
 	if err != nil {
-		resp.Diagnostics.AddError("Error reading phone call queue", err.Error())
+		resp.Diagnostics.AddError("Error reading phone shared line group", err.Error())
 		return
 	}
 
@@ -153,8 +146,8 @@ func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *r
 	}
 }
 
-func (r *tfResource) read(ctx context.Context, callQueueId, description types.String) (*resourceModel, error) {
-	dto, err := r.crud.read(ctx, callQueueId)
+func (r *tfResource) read(ctx context.Context, sharedLineGroupId types.String) (*resourceModel, error) {
+	dto, err := r.crud.read(ctx, sharedLineGroupId)
 	if err != nil {
 		return nil, fmt.Errorf("error read: %v", err)
 	}
@@ -167,16 +160,13 @@ func (r *tfResource) read(ctx context.Context, callQueueId, description types.St
 		siteID = dto.site.id
 	}
 	return &resourceModel{
-		ID:              dto.callQueueID,
-		CostCenter:      dto.costCenter,
-		Department:      dto.department,
+		ID:              dto.sharedLineGroupID,
+		DisplayName:     dto.displayName,
 		ExtensionID:     dto.extensionID,
 		ExtensionNumber: dto.extensionNumber,
-		Name:            dto.name,
-		// Description: dto.description, // get api not supported yet
-		Description: description,
-		SiteID:      siteID,
-		Status:      dto.status,
+		PrimaryNumber:   dto.primaryNumber,
+		Status:          dto.status,
+		SiteID:          siteID,
 	}, nil
 }
 
@@ -189,16 +179,12 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 	}
 
 	ret, err := r.crud.create(ctx, &createDto{
-		name:            plan.Name,
-		siteID:          plan.SiteID,
-		costCenter:      plan.CostCenter,
-		department:      plan.Department,
+		displayName:     plan.DisplayName,
 		extensionNumber: plan.ExtensionNumber,
-		description:     plan.Description,
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue",
+			"Error creating phone shared line group",
 			err.Error(),
 		)
 		return
@@ -206,27 +192,23 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 
 	// some fields cannot set on create api, so update them
 	if err := r.crud.update(ctx, &updateDto{
-		callQueueID:     ret.callQueueID,
-		siteID:          plan.SiteID,
-		costCenter:      plan.CostCenter,
-		department:      plan.Department,
-		extensionNumber: plan.ExtensionNumber,
-		name:            plan.Name,
-		description:     plan.Description,
-		status:          plan.Status,
+		sharedLineGroupID: ret.sharedLineGroupID,
+		extensionNumber:   plan.ExtensionNumber,
+		displayName:       plan.DisplayName,
+		status:            plan.Status,
 	}); err != nil {
 		// TODO change delete logic with marking resource as taint
-		_ = r.crud.delete(ctx, ret.callQueueID)
+		_ = r.crud.delete(ctx, ret.sharedLineGroupID)
 		resp.Diagnostics.AddError(
-			"Error creating phone call queue on updating",
+			"Error creating phone shared line group on updating",
 			err.Error(),
 		)
 		return
 	}
 
-	output, err := r.read(ctx, ret.callQueueID, plan.Description)
+	output, err := r.read(ctx, ret.sharedLineGroupID)
 	if err != nil {
-		resp.Diagnostics.AddError("Error creating phone call queue on reading", err.Error())
+		resp.Diagnostics.AddError("Error creating phone shared line group on reading", err.Error())
 		return
 	}
 
@@ -243,26 +225,22 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
-			"Error updating phone call queue",
-			"Error updating phone call queue",
+			"Error updating phone shared line group",
+			"Error updating phone shared line group",
 		)
 		return
 	}
 
 	if err := r.crud.update(ctx, &updateDto{
-		callQueueID:     plan.ID,
-		siteID:          plan.SiteID,
-		costCenter:      plan.CostCenter,
-		department:      plan.Department,
-		extensionNumber: plan.ExtensionNumber,
-		name:            plan.Name,
-		description:     plan.Description,
-		status:          plan.Status,
+		sharedLineGroupID: plan.ID,
+		extensionNumber:   plan.ExtensionNumber,
+		displayName:       plan.DisplayName,
+		status:            plan.Status,
 	}); err != nil {
 		resp.Diagnostics.AddError(
-			"Error updating phone call queue",
+			"Error updating phone shared line group",
 			fmt.Sprintf(
-				"Could not update phone call queue %s, unexpected error: %s",
+				"Could not update phone shared line group %s, unexpected error: %s",
 				plan.ID.ValueString(),
 				err,
 			),
@@ -270,9 +248,9 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 		return
 	}
 
-	output, err := r.read(ctx, plan.ID, plan.Description)
+	output, err := r.read(ctx, plan.ID)
 	if err != nil {
-		resp.Diagnostics.AddError("Error updating phone call queue", err.Error())
+		resp.Diagnostics.AddError("Error updating phone shared line group", err.Error())
 		return
 	}
 
@@ -293,9 +271,9 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 
 	if err := r.crud.delete(ctx, state.ID); err != nil {
 		resp.Diagnostics.AddError(
-			"Error deleting phone call queue",
+			"Error deleting phone shared line group",
 			fmt.Sprintf(
-				"Could not delete phone call queue %s, unexpected error: %s",
+				"Could not delete phone shared line group %s, unexpected error: %s",
 				state.ID.ValueString(),
 				err,
 			),
@@ -303,8 +281,8 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	tflog.Info(ctx, "deleted phone call queue", map[string]interface{}{
-		"call_queue_id": state.ID.ValueString(),
+	tflog.Info(ctx, "deleted phone shared line group", map[string]interface{}{
+		"shared_line_group_id": state.ID.ValueString(),
 	})
 }
 

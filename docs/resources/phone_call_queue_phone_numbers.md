@@ -50,7 +50,7 @@ resource "zoom_phone_call_queue_phone_numbers" "example" {
 Optional:
 
 - `id` (String) Unique identifier of the number. Provide either the `id` or the `number` field.
-- `number` (String) Phone number e.g. `+12058945456` . Provide either the `id` or the `number` field.
+- `number` (String) Phone number e.g. `+12058945456`. Provide either the `id` or the `number` field.
 - `source` (String) Source
   - Allowed: internal┃external
 

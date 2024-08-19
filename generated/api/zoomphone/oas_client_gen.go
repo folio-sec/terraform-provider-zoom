@@ -3737,6 +3737,22 @@ type Invoker interface {
 	//
 	// PATCH /phone/devices/{deviceId}
 	UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) error
+	// UpdateASharedLineGroup invokes updateASharedLineGroup operation.
+	//
+	// Updates information of a shared line group. A [shared line group](https://support.zoom.
+	// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
+	// with a group of phone users or common areas. This gives members of the shared line group access to
+	// the group's direct phone number and voicemail.
+	// **Prerequisites:**
+	// * Pro or higher account with Zoom Phone license.
+	// * Account owner or admin privileges
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:shared_line_group:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `Light`.
+	//
+	// PATCH /phone/shared_line_groups/{sharedLineGroupId}
+	UpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) error
 	// UpdateAccountLevelInboundBlockRule invokes UpdateAccountLevelInboundBlockRule operation.
 	//
 	// Updates the account level block rule for inbound calls and messaging.
@@ -46806,6 +46822,153 @@ func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADevice
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateADeviceResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateASharedLineGroup invokes updateASharedLineGroup operation.
+//
+// Updates information of a shared line group. A [shared line group](https://support.zoom.
+// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
+// with a group of phone users or common areas. This gives members of the shared line group access to
+// the group's direct phone number and voicemail.
+// **Prerequisites:**
+// * Pro or higher account with Zoom Phone license.
+// * Account owner or admin privileges
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:shared_line_group:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `Light`.
+//
+// PATCH /phone/shared_line_groups/{sharedLineGroupId}
+func (c *Client) UpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) error {
+	_, err := c.sendUpdateASharedLineGroup(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendUpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) (res *UpdateASharedLineGroupNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateASharedLineGroup"),
+		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateASharedLineGroup",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/shared_line_groups/"
+	{
+		// Encode "sharedLineGroupId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "sharedLineGroupId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.SharedLineGroupId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateASharedLineGroupRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "UpdateASharedLineGroup", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "UpdateASharedLineGroup", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateASharedLineGroupResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
