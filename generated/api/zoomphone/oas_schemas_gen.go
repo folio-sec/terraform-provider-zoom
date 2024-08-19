@@ -70530,6 +70530,52 @@ func (o OptUpdateADeviceReq) Or(d UpdateADeviceReq) UpdateADeviceReq {
 	return d
 }
 
+// NewOptUpdateASharedLineGroupReq returns new OptUpdateASharedLineGroupReq with value set to v.
+func NewOptUpdateASharedLineGroupReq(v UpdateASharedLineGroupReq) OptUpdateASharedLineGroupReq {
+	return OptUpdateASharedLineGroupReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateASharedLineGroupReq is optional UpdateASharedLineGroupReq.
+type OptUpdateASharedLineGroupReq struct {
+	Value UpdateASharedLineGroupReq
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateASharedLineGroupReq was set.
+func (o OptUpdateASharedLineGroupReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateASharedLineGroupReq) Reset() {
+	var v UpdateASharedLineGroupReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateASharedLineGroupReq) SetTo(v UpdateASharedLineGroupReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateASharedLineGroupReq) Get() (v UpdateASharedLineGroupReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateASharedLineGroupReq) Or(d UpdateASharedLineGroupReq) UpdateASharedLineGroupReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateAccountLevelInboundBlockRuleReq returns new OptUpdateAccountLevelInboundBlockRuleReq with value set to v.
 func NewOptUpdateAccountLevelInboundBlockRuleReq(v UpdateAccountLevelInboundBlockRuleReq) OptUpdateAccountLevelInboundBlockRuleReq {
 	return OptUpdateAccountLevelInboundBlockRuleReq{
@@ -87800,6 +87846,74 @@ func (s *UpdateADeviceReq) SetMACAddress(val OptString) {
 // SetProvisionTemplateID sets the value of ProvisionTemplateID.
 func (s *UpdateADeviceReq) SetProvisionTemplateID(val OptString) {
 	s.ProvisionTemplateID = val
+}
+
+// UpdateASharedLineGroupNoContent is response for UpdateASharedLineGroup operation.
+type UpdateASharedLineGroupNoContent struct{}
+
+type UpdateASharedLineGroupReq struct {
+	// The display name of the shared line group.
+	DisplayName OptString `json:"display_name"`
+	// The extension number assigned to the shared line group.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The phone number that you would like to assign as the primary number for this shared line group.
+	PrimaryNumber OptString `json:"primary_number"`
+	// The status of the shared line group.
+	Status OptString `json:"status"`
+	// The timezone for the business hours. A value should be provided from the IDs listed
+	// [here](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones).
+	Timezone OptString `json:"timezone"`
+}
+
+// GetDisplayName returns the value of DisplayName.
+func (s *UpdateASharedLineGroupReq) GetDisplayName() OptString {
+	return s.DisplayName
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *UpdateASharedLineGroupReq) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetPrimaryNumber returns the value of PrimaryNumber.
+func (s *UpdateASharedLineGroupReq) GetPrimaryNumber() OptString {
+	return s.PrimaryNumber
+}
+
+// GetStatus returns the value of Status.
+func (s *UpdateASharedLineGroupReq) GetStatus() OptString {
+	return s.Status
+}
+
+// GetTimezone returns the value of Timezone.
+func (s *UpdateASharedLineGroupReq) GetTimezone() OptString {
+	return s.Timezone
+}
+
+// SetDisplayName sets the value of DisplayName.
+func (s *UpdateASharedLineGroupReq) SetDisplayName(val OptString) {
+	s.DisplayName = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *UpdateASharedLineGroupReq) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetPrimaryNumber sets the value of PrimaryNumber.
+func (s *UpdateASharedLineGroupReq) SetPrimaryNumber(val OptString) {
+	s.PrimaryNumber = val
+}
+
+// SetStatus sets the value of Status.
+func (s *UpdateASharedLineGroupReq) SetStatus(val OptString) {
+	s.Status = val
+}
+
+// SetTimezone sets the value of Timezone.
+func (s *UpdateASharedLineGroupReq) SetTimezone(val OptString) {
+	s.Timezone = val
 }
 
 // UpdateAccountLevelInboundBlockRuleNoContent is response for UpdateAccountLevelInboundBlockRule operation.

@@ -116192,6 +116192,39 @@ func (s *OptUpdateADeviceReq) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes UpdateASharedLineGroupReq as json.
+func (o OptUpdateASharedLineGroupReq) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateASharedLineGroupReq from json.
+func (o *OptUpdateASharedLineGroupReq) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateASharedLineGroupReq to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateASharedLineGroupReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateASharedLineGroupReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes UpdateAccountLevelInboundBlockRuleReq as json.
 func (o OptUpdateAccountLevelInboundBlockRuleReq) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -138994,6 +139027,137 @@ func (s *UpdateADeviceReq) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UpdateADeviceReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UpdateASharedLineGroupReq) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateASharedLineGroupReq) encodeFields(e *jx.Encoder) {
+	{
+		if s.DisplayName.Set {
+			e.FieldStart("display_name")
+			s.DisplayName.Encode(e)
+		}
+	}
+	{
+		if s.ExtensionNumber.Set {
+			e.FieldStart("extension_number")
+			s.ExtensionNumber.Encode(e)
+		}
+	}
+	{
+		if s.PrimaryNumber.Set {
+			e.FieldStart("primary_number")
+			s.PrimaryNumber.Encode(e)
+		}
+	}
+	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
+	{
+		if s.Timezone.Set {
+			e.FieldStart("timezone")
+			s.Timezone.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUpdateASharedLineGroupReq = [5]string{
+	0: "display_name",
+	1: "extension_number",
+	2: "primary_number",
+	3: "status",
+	4: "timezone",
+}
+
+// Decode decodes UpdateASharedLineGroupReq from json.
+func (s *UpdateASharedLineGroupReq) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateASharedLineGroupReq to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "display_name":
+			if err := func() error {
+				s.DisplayName.Reset()
+				if err := s.DisplayName.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"display_name\"")
+			}
+		case "extension_number":
+			if err := func() error {
+				s.ExtensionNumber.Reset()
+				if err := s.ExtensionNumber.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"extension_number\"")
+			}
+		case "primary_number":
+			if err := func() error {
+				s.PrimaryNumber.Reset()
+				if err := s.PrimaryNumber.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"primary_number\"")
+			}
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
+			}
+		case "timezone":
+			if err := func() error {
+				s.Timezone.Reset()
+				if err := s.Timezone.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"timezone\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateASharedLineGroupReq")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateASharedLineGroupReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateASharedLineGroupReq) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

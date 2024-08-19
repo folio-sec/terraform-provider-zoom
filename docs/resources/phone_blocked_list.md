@@ -44,13 +44,13 @@ resource "zoom_phone_blocked_list" "example" {
   - phoneNumber: Indicates that only a specific phone number that is shown in the phone_number field is blocked.
   - prefix: Indicates that all numbers starting with prefix that is shown in the phone_number field are blocked.
 - `phone_number` (String) The phone number or the prefix number that is blocked based on the `match_type`. Displayed in E164 format.
-- `status` (String) Indicates whether the blocking is active or inactive.
-  - active: The blocked list is active.
-  - inactive: The blocked list is inactive.
 
 ### Optional
 
 - `comment` (String) Provide a comment to help you identify the blocked number or prefix. Constraints: Max 255 chars.
+- `status` (String) Indicates whether the blocking is active or inactive.
+  - active: The blocked list is active.
+  - inactive: The blocked list is inactive.
 
 ### Read-Only
 

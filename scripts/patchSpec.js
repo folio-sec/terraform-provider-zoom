@@ -217,8 +217,16 @@ function phonePatch(spec) {
 
   // Merging because the methods are separated in the same path.
   if (spec.paths['/phone/shared_line_groups/{slgId}']) {
+    spec.paths['/phone/shared_line_groups/{sharedLineGroupId}'].patch = spec.paths['/phone/shared_line_groups/{slgId}'].patch
     spec.paths['/phone/shared_line_groups/{sharedLineGroupId}'].delete = spec.paths['/phone/shared_line_groups/{slgId}'].delete
     delete spec.paths['/phone/shared_line_groups/{slgId}']
+
+    // PATCH /phone/shared_line_groups/{slgId} request body `primaryNumber` allows string, not object
+    spec.paths['/phone/shared_line_groups/{sharedLineGroupId}']['patch']['requestBody']['content']['application/json']['schema']['properties']['primary_number'] = {
+      "type": "string",
+      "description": "The phone number that you would like to assign as the primary number for this shared line group.",
+      "example": "14232058798"
+    }
   }
 
   // The path name and parameter name do not match,

@@ -16,6 +16,9 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
+	sharedlinegroupgroup "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
+	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmembers"
+	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
@@ -203,6 +206,9 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		callqueuephonenumbers.NewPhoneCallQueuePhoneNumbersResource,
 		userphonenumbers.NewPhoneUserPhoneNumbersResource,
 		blockedlist.NewPhoneBlockedListResource,
+		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
+		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
+		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
 	}
 }
 
@@ -212,6 +218,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
 		blockedlist.NewPhoneBlockedListDataSource,
+		sharedlinegroupgroup.NewPhoneSharedLineGroupDataSource,
 	}
 }
 

@@ -37350,6 +37350,95 @@
           ]
         }
       },
+      "patch": {
+        "tags": [
+          "Shared Line Group"
+        ],
+        "summary": "Update a shared line group",
+        "description": " Updates information of a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail. \n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:shared_line_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "operationId": "updateASharedLineGroup",
+        "parameters": [
+          {
+            "name": "sharedLineGroupId",
+            "in": "path",
+            "description": "The unique identifier of the shared line group that is to be updated.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "ysEYtQyGTv-_YHajQfO2ow"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "display_name": {
+                    "type": "string",
+                    "description": "The display name of the shared line group.",
+                    "example": "slg_name_2020_12_22_06_52_34_430"
+                  },
+                  "extension_number": {
+                    "type": "integer",
+                    "description": "The extension number assigned to the shared line group.",
+                    "format": "int64",
+                    "example": 1000001007
+                  },
+                  "primary_number": {
+                    "type": "string",
+                    "description": "The phone number that you would like to assign as the primary number for this shared line group.",
+                    "example": "14232058798"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "The status of the shared line group.",
+                    "example": "active"
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "description": "The timezone for the business hours. A value should be provided from the IDs listed [here](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones).",
+                    "example": "UTC"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` **No Content** \n\nShared Line Group Updated Successfully."
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:write:admin",
+              "phone:update:shared_line_group:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-macro-scopes": [
+            "phone:write:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:update:shared_line_group:admin"
+          ]
+        }
+      },
       "delete": {
         "tags": [
           "Shared Line Group"

@@ -2424,6 +2424,12 @@ type UpdateADeviceParams struct {
 	DeviceId string
 }
 
+// UpdateASharedLineGroupParams is parameters of updateASharedLineGroup operation.
+type UpdateASharedLineGroupParams struct {
+	// The unique identifier of the shared line group that is to be updated.
+	SharedLineGroupId string
+}
+
 // UpdateAccountLevelInboundBlockRuleParams is parameters of UpdateAccountLevelInboundBlockRule operation.
 type UpdateAccountLevelInboundBlockRuleParams struct {
 	// The unique identifier of the blocked rule.
