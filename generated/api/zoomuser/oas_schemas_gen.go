@@ -746,8 +746,9 @@ type DelUserVBNoContent struct{}
 
 // Ref: #/components/schemas/ErrorResponse
 type ErrorResponse struct {
-	Code    OptInt    `json:"code"`
-	Message OptString `json:"message"`
+	Code    OptInt                    `json:"code"`
+	Message OptString                 `json:"message"`
+	Errors  []ErrorResponseErrorsItem `json:"errors"`
 }
 
 // GetCode returns the value of Code.
@@ -760,6 +761,11 @@ func (s *ErrorResponse) GetMessage() OptString {
 	return s.Message
 }
 
+// GetErrors returns the value of Errors.
+func (s *ErrorResponse) GetErrors() []ErrorResponseErrorsItem {
+	return s.Errors
+}
+
 // SetCode sets the value of Code.
 func (s *ErrorResponse) SetCode(val OptInt) {
 	s.Code = val
@@ -767,6 +773,47 @@ func (s *ErrorResponse) SetCode(val OptInt) {
 
 // SetMessage sets the value of Message.
 func (s *ErrorResponse) SetMessage(val OptString) {
+	s.Message = val
+}
+
+// SetErrors sets the value of Errors.
+func (s *ErrorResponse) SetErrors(val []ErrorResponseErrorsItem) {
+	s.Errors = val
+}
+
+type ErrorResponseErrorsItem struct {
+	Field      OptString `json:"field"`
+	FieldValue OptString `json:"field_value"`
+	Message    OptString `json:"message"`
+}
+
+// GetField returns the value of Field.
+func (s *ErrorResponseErrorsItem) GetField() OptString {
+	return s.Field
+}
+
+// GetFieldValue returns the value of FieldValue.
+func (s *ErrorResponseErrorsItem) GetFieldValue() OptString {
+	return s.FieldValue
+}
+
+// GetMessage returns the value of Message.
+func (s *ErrorResponseErrorsItem) GetMessage() OptString {
+	return s.Message
+}
+
+// SetField sets the value of Field.
+func (s *ErrorResponseErrorsItem) SetField(val OptString) {
+	s.Field = val
+}
+
+// SetFieldValue sets the value of FieldValue.
+func (s *ErrorResponseErrorsItem) SetFieldValue(val OptString) {
+	s.FieldValue = val
+}
+
+// SetMessage sets the value of Message.
+func (s *ErrorResponseErrorsItem) SetMessage(val OptString) {
 	s.Message = val
 }
 

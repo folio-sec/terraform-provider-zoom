@@ -10,6 +10,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework v1.10.0
 	github.com/hashicorp/terraform-plugin-framework-validators v0.13.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.34.0
 	github.com/ogen-go/ogen v1.2.2
 	github.com/samber/lo v1.47.0
 	go.opentelemetry.io/otel v1.28.0
@@ -63,7 +64,6 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/posener/complete v1.2.3 // indirect
-	github.com/samber/lo v1.47.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.5.0 // indirect

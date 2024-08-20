@@ -18,9 +18,13 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
+<<<<<<< HEAD
 	sharedlinegroupgroup "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
 	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmembers"
 	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumbers"
+=======
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
+>>>>>>> f4b4b75 (impl user resource)
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
@@ -205,23 +209,24 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		autoreceptionist.NewPhoneAutoReceptionistResource,
 		autoreceptionistivr.NewPhoneAutoReceptionistIvrResource,
+		blockedlist.NewPhoneBlockedListResource,
 		callqueue.NewPhoneCallQueueResource,
 		callqueuemembers.NewPhoneCallQueueMembersResource,
 		callqueuephonenumbers.NewPhoneCallQueuePhoneNumbersResource,
-		userphonenumbers.NewPhoneUserPhoneNumbersResource,
-		blockedlist.NewPhoneBlockedListResource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
 		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
+		user.NewUserResource,
+		userphonenumbers.NewPhoneUserPhoneNumbersResource,
 	}
 }
 
 func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
+		blockedlist.NewPhoneBlockedListDataSource,
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
-		blockedlist.NewPhoneBlockedListDataSource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupDataSource,
 	}
 }

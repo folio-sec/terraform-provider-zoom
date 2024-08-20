@@ -20,7 +20,7 @@ func FromOptBool(o OptValue[bool]) types.Bool {
 }
 
 func ToOptBool(o types.Bool) zoomphone.OptBool {
-	if o.IsNull() {
+	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptBool{}
 	}
 	return zoomphone.NewOptBool(o.ValueBool())
@@ -35,7 +35,7 @@ func FromOptString(o OptValue[string]) types.String {
 }
 
 func ToOptString(o types.String) zoomphone.OptString {
-	if o.IsNull() {
+	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptString{}
 	}
 	return zoomphone.NewOptString(o.ValueString())
@@ -50,7 +50,7 @@ func FromOptInt64(o OptValue[int64]) types.Int64 {
 }
 
 func ToOptInt64(o types.Int64) zoomphone.OptInt64 {
-	if o.IsNull() {
+	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptInt64{}
 	}
 	return zoomphone.NewOptInt64(o.ValueInt64())
@@ -65,7 +65,7 @@ func FromOptInt(o OptValue[int]) types.Int32 {
 }
 
 func ToOptInt(o types.Int32) zoomphone.OptInt {
-	if o.IsNull() {
+	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptInt{}
 	}
 	return zoomphone.NewOptInt(int(o.ValueInt32()))
@@ -81,24 +81,9 @@ func FromOptDateTime(o OptValue[time.Time]) types.String {
 }
 
 func ToOptDateTime(o types.String) zoomphone.OptDateTime {
-	if o.IsNull() {
+	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptDateTime{}
 	}
 	value, _ := time.Parse(o.ValueString(), "2006-01-02 15:04:05.999999999 -0700 MST")
 	return zoomphone.NewOptDateTime(value)
-}
-
-func FromOptBool(o OptValue[bool]) types.Bool {
-	v, ok := o.Get()
-	if !ok {
-		return types.BoolNull()
-	}
-	return types.BoolValue(v)
-}
-
-func ToOptBool(o types.Bool) zoomphone.OptBool {
-	if o.IsNull() {
-		return zoomphone.OptBool{}
-	}
-	return zoomphone.NewOptBool(o.ValueBool())
 }

@@ -34,6 +34,11 @@ function recursionProcess(response, prefix = '') {
       delete response[key].minimum;
     }
 
+    // Schemas with properties are always of type object
+    if (response[key] !== void 0 && response[key].properties && response[key].type === void 0) {
+      response[key].type = 'object';
+    }
+
     // The path parameters must always be required to be true
     if (key === 'parameters') {
       response[key] = response[key].map((parameter) => {
@@ -47,13 +52,6 @@ function recursionProcess(response, prefix = '') {
     // The ogen does not support uniqueItems
     if (key === 'uniqueItems') {
       response[key] = false
-    }
-
-    // Schema must be object type
-    if (key === 'application/json') {
-      if (response[key].schema.properties && !response[key].schema.type) {
-        response[key].schema['type'] = 'object';
-      }
     }
 
     // terraform doesn't have enum type
@@ -311,6 +309,53 @@ function phonePatch(spec) {
     spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['201'] =
         spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
     delete spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
+  }
+
+  // GET PATCH /phone/users/{userId} should have policy.auto_call_recording.inbound_audio_notification and policy.auto_call_recording.outbound_audio_notification properties
+  if (spec.paths['/phone/users/{userId}']) {
+    const auditNotifications = {
+      inbound_audio_notification: {
+        type: "object",
+        properties: {
+          recording_start_prompt: {
+            type: "boolean",
+            description: "Whether to show prompt for starting call recording with inbound audio.",
+            example: true,
+          },
+          recording_explicit_consent: {
+            type: "boolean",
+            description: "Whether to obtain explicit consent for call recording with inbound audio.",
+            example: true,
+          },
+        }
+      },
+      outbound_audio_notification: {
+        type: "object",
+        properties: {
+          recording_start_prompt: {
+            type: "boolean",
+            description: "Whether to show prompt for starting call recording with outbound audio.",
+            example: true,
+          },
+          recording_explicit_consent: {
+            type: "boolean",
+            description: "Whether to obtain explicit consent for call recording with outbound audio.",
+            example: true,
+          },
+        }
+      },
+    };
+
+    const autoCallRecordingGet = spec.paths['/phone/users/{userId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['policy']['properties']['auto_call_recording'];
+    autoCallRecordingGet.properties = {
+      ...autoCallRecordingGet.properties,
+      ...auditNotifications,
+    };
+    const autoCallRecordingPatch = spec.paths['/phone/users/{userId}']['patch']['requestBody']['content']['application/json']['schema']['properties']['policy']['properties']['auto_call_recording'];
+    autoCallRecordingPatch.properties = {
+      ...autoCallRecordingPatch.properties,
+      ...auditNotifications,
+    };
   }
 }
 
