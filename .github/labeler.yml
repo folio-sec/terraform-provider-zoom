@@ -1,0 +1,9 @@
+service/phone:
+- changed-files:
+  - any-glob-to-any-file: internal/services/phone/**/*
+spec:
+- changed-files:
+  - any-glob-to-any-file: spec/**/*
+ci:
+- changed-files:
+  - any-glob-to-any-file: .github/**/*
