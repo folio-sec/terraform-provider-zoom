@@ -59,7 +59,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
         with:
           terraform_version: ${{ matrix.terraform-version }}
           terraform_wrapper: false
