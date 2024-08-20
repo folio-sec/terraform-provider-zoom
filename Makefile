@@ -12,7 +12,7 @@ add the following config to ~/.terraformrc to enable override:
 ```
 provider_installation {
   dev_overrides {
-    "${DEV}/${PROVIDER}" = "${PLUGINS}"
+    "registry.terraform.io/${DEV}/${PROVIDER}" = "${PLUGINS}"
   }
 }
 ```
@@ -73,8 +73,12 @@ local_install: build_override
 	$(info ${TERRAFORMRC})
 
 .PHONY: updatespec
-updatespec: updatespec/phone
+updatespec: updatespec/phone updatespec/user
 
 .PHONY: updatespec/phone
 updatespec/phone:
 	@curl -sfL https://developers.zoom.us/api-specs/phone/methods/ZoomPhoneAPI-spec.json | ./scripts/patchSpec.js > spec/ZoomPhoneAPISpec.json
+
+.PHONY: updatespec/user
+updatespec/user:
+	@curl -sfL https://developers.zoom.us/api-specs/user/methods/ZoomUserAPI-spec.json | ./scripts/patchSpec.js > spec/ZoomUserAPISpec.json

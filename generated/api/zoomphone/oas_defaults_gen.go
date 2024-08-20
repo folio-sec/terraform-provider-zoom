@@ -107,6 +107,14 @@ func (s *GetSiteOutboundCallingCountriesAndRegionsOK) setDefaults() {
 }
 
 // setDefaults set default value of fields.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) setDefaults() {
+	{
+		val := string("hours")
+		s.Unit.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
 func (s *GetUserOutboundCallingCountriesAndRegionsOK) setDefaults() {
 	{
 		val := int(30)
@@ -235,5 +243,13 @@ func (s *UpdateGCPReqPlayIncomingCallsSound) setDefaults() {
 	{
 		val := int(0)
 		s.Duration.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) setDefaults() {
+	{
+		val := string("hours")
+		s.Unit.SetTo(val)
 	}
 }

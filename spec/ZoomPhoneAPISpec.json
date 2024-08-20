@@ -10233,7 +10233,8 @@
                           }
                         }
                       },
-                      "description": "The call queue policy list."
+                      "description": "The call queue policy list.",
+                      "type": "object"
                     }
                   }
                 }
@@ -41622,7 +41623,8 @@
                           "description": "The set duration after which users are signed out of hot desking devices."
                         }
                       },
-                      "description": "The desk phone setting."
+                      "description": "The desk phone setting.",
+                      "type": "object"
                     },
                     "dial_by_name": {
                       "type": "object",
@@ -42450,7 +42452,8 @@
                         "description": "The set duration after which users are signed out of hot desking devices."
                       }
                     },
-                    "description": "The desk phone setting."
+                    "description": "The desk phone setting.",
+                    "type": "object"
                   },
                   "dial_by_name": {
                     "type": "object",
@@ -42977,7 +42980,8 @@
                                 "description": "The provision template name. Supported by select devices.",
                                 "example": "TestProvisionTemplate"
                               }
-                            }
+                            },
+                            "type": "object"
                           }
                         }
                       }
@@ -43360,6 +43364,36 @@
                                   "type": "string",
                                   "description": "The beep sides. It displays only when the `enable` is set to true.",
                                   "example": "allMember"
+                                }
+                              }
+                            },
+                            "inbound_audio_notification": {
+                              "type": "object",
+                              "properties": {
+                                "recording_start_prompt": {
+                                  "type": "boolean",
+                                  "description": "Whether to show prompt for starting call recording with inbound audio.",
+                                  "example": true
+                                },
+                                "recording_explicit_consent": {
+                                  "type": "boolean",
+                                  "description": "Whether to obtain explicit consent for call recording with inbound audio.",
+                                  "example": true
+                                }
+                              }
+                            },
+                            "outbound_audio_notification": {
+                              "type": "object",
+                              "properties": {
+                                "recording_start_prompt": {
+                                  "type": "boolean",
+                                  "description": "Whether to show prompt for starting call recording with outbound audio.",
+                                  "example": true
+                                },
+                                "recording_explicit_consent": {
+                                  "type": "boolean",
+                                  "description": "Whether to obtain explicit consent for call recording with outbound audio.",
+                                  "example": true
                                 }
                               }
                             }
@@ -44283,6 +44317,36 @@
                             "type": "boolean",
                             "description": "Whether the user's automatic call recording reset option will use the phone site's settings.",
                             "example": true
+                          },
+                          "inbound_audio_notification": {
+                            "type": "object",
+                            "properties": {
+                              "recording_start_prompt": {
+                                "type": "boolean",
+                                "description": "Whether to show prompt for starting call recording with inbound audio.",
+                                "example": true
+                              },
+                              "recording_explicit_consent": {
+                                "type": "boolean",
+                                "description": "Whether to obtain explicit consent for call recording with inbound audio.",
+                                "example": true
+                              }
+                            }
+                          },
+                          "outbound_audio_notification": {
+                            "type": "object",
+                            "properties": {
+                              "recording_start_prompt": {
+                                "type": "boolean",
+                                "description": "Whether to show prompt for starting call recording with outbound audio.",
+                                "example": true
+                              },
+                              "recording_explicit_consent": {
+                                "type": "boolean",
+                                "description": "Whether to obtain explicit consent for call recording with outbound audio.",
+                                "example": true
+                              }
+                            }
                           }
                         },
                         "description": "A list of the user's automatic call recording settings."

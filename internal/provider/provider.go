@@ -7,8 +7,10 @@ import (
 	"os"
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
+	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomuser"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/httpclient"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
+	"github.com/folio-sec/terraform-provider-zoom/internal/provider/zoomclient"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionist"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/autoreceptionistivr"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/blockedlist"
@@ -16,9 +18,13 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemembers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
+<<<<<<< HEAD
 	sharedlinegroupgroup "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
 	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmembers"
 	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumbers"
+=======
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
+>>>>>>> f4b4b75 (impl user resource)
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
@@ -27,8 +33,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/samber/lo"
 )
 
 // Ensure zoomProvider satisfies various provider interfaces.
@@ -36,23 +42,6 @@ var _ provider.Provider = &zoomProvider{}
 
 type zoomProvider struct {
 	version string
-}
-
-type zoomProviderModel struct {
-	AccountID    types.String `tfsdk:"account_id"`
-	ClientID     types.String `tfsdk:"client_id"`
-	ClientSecret types.String `tfsdk:"client_secret"`
-}
-
-type clientSecurity struct {
-	AccessToken string
-}
-
-func (c clientSecurity) OpenapiAuthorization(_ context.Context, _ string) (zoomphone.OpenapiAuthorization, error) {
-	return zoomphone.OpenapiAuthorization{}, nil
-}
-func (c clientSecurity) OpenapiOAuth(_ context.Context, _ string) (zoomphone.OpenapiOAuth, error) {
-	return zoomphone.OpenapiOAuth{Token: c.AccessToken}, nil
 }
 
 func (p *zoomProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -101,13 +90,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		return
 	}
 
-	accountID := os.Getenv("ZOOM_ACCOUNT_ID")
-	clientID := os.Getenv("ZOOM_CLIENT_ID")
-	clientSecret := os.Getenv("ZOOM_CLIENT_ID")
-
-	if !config.AccountID.IsNull() || !config.AccountID.IsUnknown() {
-		accountID = config.AccountID.ValueString()
-	}
+	accountID := lo.TernaryF(config.AccountID.IsNull() || config.AccountID.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_ACCOUNT_ID")
+	}, func() string {
+		return config.AccountID.ValueString()
+	})
 	if accountID == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("account_id"),
@@ -116,9 +103,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		)
 	}
 
-	if !config.ClientID.IsNull() || !config.ClientID.IsUnknown() {
-		clientID = config.ClientID.ValueString()
-	}
+	clientID := lo.TernaryF(config.ClientID.IsNull() || config.ClientID.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_CLIENT_ID")
+	}, func() string {
+		return config.ClientID.ValueString()
+	})
 	if clientID == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("client_id"),
@@ -127,9 +116,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		)
 	}
 
-	if !config.ClientSecret.IsNull() {
-		clientSecret = config.ClientSecret.ValueString()
-	}
+	clientSecret := lo.TernaryF(config.ClientSecret.IsNull() || config.ClientSecret.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_CLIENT_SECRET")
+	}, func() string {
+		return config.ClientSecret.ValueString()
+	})
 	if clientSecret == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("client_secret"),
@@ -174,23 +165,40 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 			httpclient.NewLoggingRoundTripper(ctx, retryClient.Transport),
 		),
 	}
-	zoomPhoneMasterClient, err := zoomphone.NewClient(
+
+	zoomPhoneClient, err := zoomphone.NewClient(
 		"https://api.zoom.us/v2",
-		clientSecurity{
+		zoomclient.ZoomPhoneClientSecurity{
 			AccessToken: res.AccessToken,
 		},
 		zoomphone.WithClient(httpClient),
 	)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Unable to create Zoom Phone Master API client",
-			fmt.Sprintf("An unexpected error occurred when creating the Zoom Phone Master API client. Error: %s", err.Error()),
+			"Unable to create Zoom Phone API client",
+			fmt.Sprintf("An unexpected error occurred when creating the Zoom Phone API client. Error: %s", err.Error()),
+		)
+		return
+	}
+
+	zoomUserClient, err := zoomuser.NewClient(
+		"https://api.zoom.us/v2",
+		zoomclient.ZoomUserClientSecurity{
+			AccessToken: res.AccessToken,
+		},
+		zoomuser.WithClient(httpClient),
+	)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Unable to create Zoom User API client",
+			fmt.Sprintf("An unexpected error occurred when creating the Zoom User API client. Error: %s", err.Error()),
 		)
 		return
 	}
 
 	providerData := &shared.ProviderData{
-		PhoneMasterClient: zoomPhoneMasterClient,
+		PhoneClient: zoomPhoneClient,
+		UserClient:  zoomUserClient,
 	}
 
 	resp.DataSourceData = providerData
@@ -201,23 +209,24 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		autoreceptionist.NewPhoneAutoReceptionistResource,
 		autoreceptionistivr.NewPhoneAutoReceptionistIvrResource,
+		blockedlist.NewPhoneBlockedListResource,
 		callqueue.NewPhoneCallQueueResource,
 		callqueuemembers.NewPhoneCallQueueMembersResource,
 		callqueuephonenumbers.NewPhoneCallQueuePhoneNumbersResource,
-		userphonenumbers.NewPhoneUserPhoneNumbersResource,
-		blockedlist.NewPhoneBlockedListResource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
 		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
+		user.NewUserResource,
+		userphonenumbers.NewPhoneUserPhoneNumbersResource,
 	}
 }
 
 func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
+		blockedlist.NewPhoneBlockedListDataSource,
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
-		blockedlist.NewPhoneBlockedListDataSource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupDataSource,
 	}
 }

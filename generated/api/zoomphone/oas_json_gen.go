@@ -18589,9 +18589,7 @@ func (s *BatchAddUsersReqUsersItem) encodeFields(e *jx.Encoder) {
 			e.FieldStart("desk_phones")
 			e.ArrStart()
 			for _, elem := range s.DeskPhones {
-				if len(elem) != 0 {
-					e.Raw(elem)
-				}
+				elem.Encode(e)
 			}
 			e.ArrEnd()
 		}
@@ -18768,12 +18766,10 @@ func (s *BatchAddUsersReqUsersItem) Decode(d *jx.Decoder) error {
 			}
 		case "desk_phones":
 			if err := func() error {
-				s.DeskPhones = make([]jx.Raw, 0)
+				s.DeskPhones = make([]BatchAddUsersReqUsersItemDeskPhonesItem, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem jx.Raw
-					v, err := d.RawAppend(nil)
-					elem = jx.Raw(v)
-					if err != nil {
+					var elem BatchAddUsersReqUsersItemDeskPhonesItem
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
 					s.DeskPhones = append(s.DeskPhones, elem)
@@ -18838,6 +18834,120 @@ func (s *BatchAddUsersReqUsersItem) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *BatchAddUsersReqUsersItem) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) encodeFields(e *jx.Encoder) {
+	{
+		if s.Brand.Set {
+			e.FieldStart("brand")
+			s.Brand.Encode(e)
+		}
+	}
+	{
+		if s.Model.Set {
+			e.FieldStart("model")
+			s.Model.Encode(e)
+		}
+	}
+	{
+		if s.MAC.Set {
+			e.FieldStart("mac")
+			s.MAC.Encode(e)
+		}
+	}
+	{
+		if s.ProvisionTemplate.Set {
+			e.FieldStart("provision_template")
+			s.ProvisionTemplate.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfBatchAddUsersReqUsersItemDeskPhonesItem = [4]string{
+	0: "brand",
+	1: "model",
+	2: "mac",
+	3: "provision_template",
+}
+
+// Decode decodes BatchAddUsersReqUsersItemDeskPhonesItem from json.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode BatchAddUsersReqUsersItemDeskPhonesItem to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "brand":
+			if err := func() error {
+				s.Brand.Reset()
+				if err := s.Brand.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"brand\"")
+			}
+		case "model":
+			if err := func() error {
+				s.Model.Reset()
+				if err := s.Model.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"model\"")
+			}
+		case "mac":
+			if err := func() error {
+				s.MAC.Reset()
+				if err := s.MAC.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mac\"")
+			}
+		case "provision_template":
+			if err := func() error {
+				s.ProvisionTemplate.Reset()
+				if err := s.ProvisionTemplate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"provision_template\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode BatchAddUsersReqUsersItemDeskPhonesItem")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -21987,9 +22097,9 @@ func (s *GetACallQueueOK) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if len(s.Policy) != 0 {
+		if s.Policy.Set {
 			e.FieldStart("policy")
-			e.Raw(s.Policy)
+			s.Policy.Encode(e)
 		}
 	}
 }
@@ -22125,9 +22235,8 @@ func (s *GetACallQueueOK) Decode(d *jx.Decoder) error {
 			}
 		case "policy":
 			if err := func() error {
-				v, err := d.RawAppend(nil)
-				s.Policy = jx.Raw(v)
-				if err != nil {
+				s.Policy.Reset()
+				if err := s.Policy.Decode(d); err != nil {
 					return err
 				}
 				return nil
@@ -22581,6 +22690,211 @@ func (s *GetACallQueueOKPhoneNumbersItem) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *GetACallQueueOKPhoneNumbersItem) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetACallQueueOKPolicy) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetACallQueueOKPolicy) encodeFields(e *jx.Encoder) {
+	{
+		if s.VoicemailAccessMembers != nil {
+			e.FieldStart("voicemail_access_members")
+			e.ArrStart()
+			for _, elem := range s.VoicemailAccessMembers {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+}
+
+var jsonFieldsNameOfGetACallQueueOKPolicy = [1]string{
+	0: "voicemail_access_members",
+}
+
+// Decode decodes GetACallQueueOKPolicy from json.
+func (s *GetACallQueueOKPolicy) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetACallQueueOKPolicy to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "voicemail_access_members":
+			if err := func() error {
+				s.VoicemailAccessMembers = make([]GetACallQueueOKPolicyVoicemailAccessMembersItem, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem GetACallQueueOKPolicyVoicemailAccessMembersItem
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.VoicemailAccessMembers = append(s.VoicemailAccessMembers, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"voicemail_access_members\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetACallQueueOKPolicy")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetACallQueueOKPolicy) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetACallQueueOKPolicy) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) encodeFields(e *jx.Encoder) {
+	{
+		if s.AccessUserID.Set {
+			e.FieldStart("access_user_id")
+			s.AccessUserID.Encode(e)
+		}
+	}
+	{
+		if s.AllowDownload.Set {
+			e.FieldStart("allow_download")
+			s.AllowDownload.Encode(e)
+		}
+	}
+	{
+		if s.AllowDelete.Set {
+			e.FieldStart("allow_delete")
+			s.AllowDelete.Encode(e)
+		}
+	}
+	{
+		if s.AllowSharing.Set {
+			e.FieldStart("allow_sharing")
+			s.AllowSharing.Encode(e)
+		}
+	}
+	{
+		if s.SharedID.Set {
+			e.FieldStart("shared_id")
+			s.SharedID.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetACallQueueOKPolicyVoicemailAccessMembersItem = [5]string{
+	0: "access_user_id",
+	1: "allow_download",
+	2: "allow_delete",
+	3: "allow_sharing",
+	4: "shared_id",
+}
+
+// Decode decodes GetACallQueueOKPolicyVoicemailAccessMembersItem from json.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetACallQueueOKPolicyVoicemailAccessMembersItem to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "access_user_id":
+			if err := func() error {
+				s.AccessUserID.Reset()
+				if err := s.AccessUserID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"access_user_id\"")
+			}
+		case "allow_download":
+			if err := func() error {
+				s.AllowDownload.Reset()
+				if err := s.AllowDownload.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"allow_download\"")
+			}
+		case "allow_delete":
+			if err := func() error {
+				s.AllowDelete.Reset()
+				if err := s.AllowDelete.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"allow_delete\"")
+			}
+		case "allow_sharing":
+			if err := func() error {
+				s.AllowSharing.Reset()
+				if err := s.AllowSharing.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"allow_sharing\"")
+			}
+		case "shared_id":
+			if err := func() error {
+				s.SharedID.Reset()
+				if err := s.SharedID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"shared_id\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetACallQueueOKPolicyVoicemailAccessMembersItem")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -63834,9 +64148,9 @@ func (s *GetSiteSettingForTypeOK) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if len(s.DeskPhone) != 0 {
+		if s.DeskPhone.Set {
 			e.FieldStart("desk_phone")
-			e.Raw(s.DeskPhone)
+			s.DeskPhone.Encode(e)
 		}
 	}
 	{
@@ -63946,9 +64260,8 @@ func (s *GetSiteSettingForTypeOK) Decode(d *jx.Decoder) error {
 			}
 		case "desk_phone":
 			if err := func() error {
-				v, err := d.RawAppend(nil)
-				s.DeskPhone = jx.Raw(v)
-				if err != nil {
+				s.DeskPhone.Reset()
+				if err := s.DeskPhone.Decode(d); err != nil {
 					return err
 				}
 				return nil
@@ -67163,6 +67476,183 @@ func (s *GetSiteSettingForTypeOKClosedHoursOverflowOperator) MarshalJSON() ([]by
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *GetSiteSettingForTypeOKClosedHoursOverflowOperator) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetSiteSettingForTypeOKDeskPhone) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetSiteSettingForTypeOKDeskPhone) encodeFields(e *jx.Encoder) {
+	{
+		if s.HotDeskingSessionTimeout.Set {
+			e.FieldStart("hot_desking_session_timeout")
+			s.HotDeskingSessionTimeout.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetSiteSettingForTypeOKDeskPhone = [1]string{
+	0: "hot_desking_session_timeout",
+}
+
+// Decode decodes GetSiteSettingForTypeOKDeskPhone from json.
+func (s *GetSiteSettingForTypeOKDeskPhone) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetSiteSettingForTypeOKDeskPhone to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "hot_desking_session_timeout":
+			if err := func() error {
+				s.HotDeskingSessionTimeout.Reset()
+				if err := s.HotDeskingSessionTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hot_desking_session_timeout\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetSiteSettingForTypeOKDeskPhone")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetSiteSettingForTypeOKDeskPhone) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetSiteSettingForTypeOKDeskPhone) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("number")
+		e.Int(s.Number)
+	}
+	{
+		if s.Unit.Set {
+			e.FieldStart("unit")
+			s.Unit.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout = [2]string{
+	0: "number",
+	1: "unit",
+}
+
+// Decode decodes GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout from json.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout to nil")
+	}
+	var requiredBitSet [1]uint8
+	s.setDefaults()
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "number":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				v, err := d.Int()
+				s.Number = int(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"number\"")
+			}
+		case "unit":
+			if err := func() error {
+				s.Unit.Reset()
+				if err := s.Unit.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"unit\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000001,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) {
+					name = jsonFieldsNameOfGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -102423,6 +102913,39 @@ func (s *OptGetACallQueueOKMembers) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes GetACallQueueOKPolicy as json.
+func (o OptGetACallQueueOKPolicy) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetACallQueueOKPolicy from json.
+func (o *OptGetACallQueueOKPolicy) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetACallQueueOKPolicy to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetACallQueueOKPolicy) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetACallQueueOKPolicy) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes GetACallQueueOKSite as json.
 func (o OptGetACallQueueOKSite) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -109980,6 +110503,72 @@ func (s *OptGetSiteSettingForTypeOKClosedHoursOverflowOperator) UnmarshalJSON(da
 	return s.Decode(d)
 }
 
+// Encode encodes GetSiteSettingForTypeOKDeskPhone as json.
+func (o OptGetSiteSettingForTypeOKDeskPhone) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetSiteSettingForTypeOKDeskPhone from json.
+func (o *OptGetSiteSettingForTypeOKDeskPhone) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetSiteSettingForTypeOKDeskPhone to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetSiteSettingForTypeOKDeskPhone) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetSiteSettingForTypeOKDeskPhone) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout as json.
+func (o OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout from json.
+func (o *OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes GetSiteSettingForTypeOKDialByName as json.
 func (o OptGetSiteSettingForTypeOKDialByName) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -114402,6 +114991,72 @@ func (s OptPhoneUserOKPolicyAutoCallRecording) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptPhoneUserOKPolicyAutoCallRecording) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification as json.
+func (o OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification from json.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification as json.
+func (o OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification from json.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -121208,6 +121863,72 @@ func (s *OptUpdateSiteSettingReqClosedHoursOverflowOperator) UnmarshalJSON(data 
 	return s.Decode(d)
 }
 
+// Encode encodes UpdateSiteSettingReqDeskPhone as json.
+func (o OptUpdateSiteSettingReqDeskPhone) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateSiteSettingReqDeskPhone from json.
+func (o *OptUpdateSiteSettingReqDeskPhone) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateSiteSettingReqDeskPhone to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateSiteSettingReqDeskPhone) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateSiteSettingReqDeskPhone) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout as json.
+func (o OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout from json.
+func (o *OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes UpdateSiteSettingReqDialByName as json.
 func (o OptUpdateSiteSettingReqDialByName) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -121699,6 +122420,72 @@ func (s OptUpdateUserProfileReqPolicyAutoCallRecording) MarshalJSON() ([]byte, e
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptUpdateUserProfileReqPolicyAutoCallRecording) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification as json.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification from json.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification as json.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification from json.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -128379,19 +129166,33 @@ func (s *PhoneUserOKPolicyAutoCallRecording) encodeFields(e *jx.Encoder) {
 			s.PlayRecordingBeepTone.Encode(e)
 		}
 	}
+	{
+		if s.InboundAudioNotification.Set {
+			e.FieldStart("inbound_audio_notification")
+			s.InboundAudioNotification.Encode(e)
+		}
+	}
+	{
+		if s.OutboundAudioNotification.Set {
+			e.FieldStart("outbound_audio_notification")
+			s.OutboundAudioNotification.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfPhoneUserOKPolicyAutoCallRecording = [10]string{
-	0: "allow_stop_resume_recording",
-	1: "disconnect_on_recording_failure",
-	2: "enable",
-	3: "locked",
-	4: "locked_by",
-	5: "recording_calls",
-	6: "recording_explicit_consent",
-	7: "recording_start_prompt",
-	8: "recording_transcription",
-	9: "play_recording_beep_tone",
+var jsonFieldsNameOfPhoneUserOKPolicyAutoCallRecording = [12]string{
+	0:  "allow_stop_resume_recording",
+	1:  "disconnect_on_recording_failure",
+	2:  "enable",
+	3:  "locked",
+	4:  "locked_by",
+	5:  "recording_calls",
+	6:  "recording_explicit_consent",
+	7:  "recording_start_prompt",
+	8:  "recording_transcription",
+	9:  "play_recording_beep_tone",
+	10: "inbound_audio_notification",
+	11: "outbound_audio_notification",
 }
 
 // Decode decodes PhoneUserOKPolicyAutoCallRecording from json.
@@ -128501,6 +129302,26 @@ func (s *PhoneUserOKPolicyAutoCallRecording) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"play_recording_beep_tone\"")
+			}
+		case "inbound_audio_notification":
+			if err := func() error {
+				s.InboundAudioNotification.Reset()
+				if err := s.InboundAudioNotification.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inbound_audio_notification\"")
+			}
+		case "outbound_audio_notification":
+			if err := func() error {
+				s.OutboundAudioNotification.Reset()
+				if err := s.OutboundAudioNotification.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outbound_audio_notification\"")
 			}
 		default:
 			return d.Skip()
@@ -128636,6 +129457,166 @@ func (s *PhoneUserOKPolicyAutoCallRecordingAccessMembersItem) MarshalJSON() ([]b
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *PhoneUserOKPolicyAutoCallRecordingAccessMembersItem) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) encodeFields(e *jx.Encoder) {
+	{
+		if s.RecordingStartPrompt.Set {
+			e.FieldStart("recording_start_prompt")
+			s.RecordingStartPrompt.Encode(e)
+		}
+	}
+	{
+		if s.RecordingExplicitConsent.Set {
+			e.FieldStart("recording_explicit_consent")
+			s.RecordingExplicitConsent.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification = [2]string{
+	0: "recording_start_prompt",
+	1: "recording_explicit_consent",
+}
+
+// Decode decodes PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification from json.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "recording_start_prompt":
+			if err := func() error {
+				s.RecordingStartPrompt.Reset()
+				if err := s.RecordingStartPrompt.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_start_prompt\"")
+			}
+		case "recording_explicit_consent":
+			if err := func() error {
+				s.RecordingExplicitConsent.Reset()
+				if err := s.RecordingExplicitConsent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_explicit_consent\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) encodeFields(e *jx.Encoder) {
+	{
+		if s.RecordingStartPrompt.Set {
+			e.FieldStart("recording_start_prompt")
+			s.RecordingStartPrompt.Encode(e)
+		}
+	}
+	{
+		if s.RecordingExplicitConsent.Set {
+			e.FieldStart("recording_explicit_consent")
+			s.RecordingExplicitConsent.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification = [2]string{
+	0: "recording_start_prompt",
+	1: "recording_explicit_consent",
+}
+
+// Decode decodes PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification from json.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "recording_start_prompt":
+			if err := func() error {
+				s.RecordingStartPrompt.Reset()
+				if err := s.RecordingStartPrompt.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_start_prompt\"")
+			}
+		case "recording_explicit_consent":
+			if err := func() error {
+				s.RecordingExplicitConsent.Reset()
+				if err := s.RecordingExplicitConsent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_explicit_consent\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -154611,9 +155592,9 @@ func (s *UpdateSiteSettingReq) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if len(s.DeskPhone) != 0 {
+		if s.DeskPhone.Set {
 			e.FieldStart("desk_phone")
-			e.Raw(s.DeskPhone)
+			s.DeskPhone.Encode(e)
 		}
 	}
 	{
@@ -154712,9 +155693,8 @@ func (s *UpdateSiteSettingReq) Decode(d *jx.Decoder) error {
 			}
 		case "desk_phone":
 			if err := func() error {
-				v, err := d.RawAppend(nil)
-				s.DeskPhone = jx.Raw(v)
-				if err != nil {
+				s.DeskPhone.Reset()
+				if err := s.DeskPhone.Decode(d); err != nil {
 					return err
 				}
 				return nil
@@ -157475,6 +158455,183 @@ func (s *UpdateSiteSettingReqClosedHoursOverflowOperator) UnmarshalJSON(data []b
 }
 
 // Encode implements json.Marshaler.
+func (s *UpdateSiteSettingReqDeskPhone) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateSiteSettingReqDeskPhone) encodeFields(e *jx.Encoder) {
+	{
+		if s.HotDeskingSessionTimeout.Set {
+			e.FieldStart("hot_desking_session_timeout")
+			s.HotDeskingSessionTimeout.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUpdateSiteSettingReqDeskPhone = [1]string{
+	0: "hot_desking_session_timeout",
+}
+
+// Decode decodes UpdateSiteSettingReqDeskPhone from json.
+func (s *UpdateSiteSettingReqDeskPhone) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateSiteSettingReqDeskPhone to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "hot_desking_session_timeout":
+			if err := func() error {
+				s.HotDeskingSessionTimeout.Reset()
+				if err := s.HotDeskingSessionTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hot_desking_session_timeout\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateSiteSettingReqDeskPhone")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateSiteSettingReqDeskPhone) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateSiteSettingReqDeskPhone) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("number")
+		e.Int(s.Number)
+	}
+	{
+		if s.Unit.Set {
+			e.FieldStart("unit")
+			s.Unit.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout = [2]string{
+	0: "number",
+	1: "unit",
+}
+
+// Decode decodes UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout from json.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout to nil")
+	}
+	var requiredBitSet [1]uint8
+	s.setDefaults()
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "number":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				v, err := d.Int()
+				s.Number = int(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"number\"")
+			}
+		case "unit":
+			if err := func() error {
+				s.Unit.Reset()
+				if err := s.Unit.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"unit\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000001,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) {
+					name = jsonFieldsNameOfUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s *UpdateSiteSettingReqDialByName) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -159563,18 +160720,32 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) encodeFields(e *jx.Encoder
 			s.Reset.Encode(e)
 		}
 	}
+	{
+		if s.InboundAudioNotification.Set {
+			e.FieldStart("inbound_audio_notification")
+			s.InboundAudioNotification.Encode(e)
+		}
+	}
+	{
+		if s.OutboundAudioNotification.Set {
+			e.FieldStart("outbound_audio_notification")
+			s.OutboundAudioNotification.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfUpdateUserProfileReqPolicyAutoCallRecording = [9]string{
-	0: "allow_stop_resume_recording",
-	1: "disconnect_on_recording_failure",
-	2: "enable",
-	3: "recording_calls",
-	4: "recording_explicit_consent",
-	5: "recording_start_prompt",
-	6: "recording_transcription",
-	7: "play_recording_beep_tone",
-	8: "reset",
+var jsonFieldsNameOfUpdateUserProfileReqPolicyAutoCallRecording = [11]string{
+	0:  "allow_stop_resume_recording",
+	1:  "disconnect_on_recording_failure",
+	2:  "enable",
+	3:  "recording_calls",
+	4:  "recording_explicit_consent",
+	5:  "recording_start_prompt",
+	6:  "recording_transcription",
+	7:  "play_recording_beep_tone",
+	8:  "reset",
+	9:  "inbound_audio_notification",
+	10: "outbound_audio_notification",
 }
 
 // Decode decodes UpdateUserProfileReqPolicyAutoCallRecording from json.
@@ -159675,6 +160846,26 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) Decode(d *jx.Decoder) erro
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"reset\"")
 			}
+		case "inbound_audio_notification":
+			if err := func() error {
+				s.InboundAudioNotification.Reset()
+				if err := s.InboundAudioNotification.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inbound_audio_notification\"")
+			}
+		case "outbound_audio_notification":
+			if err := func() error {
+				s.OutboundAudioNotification.Reset()
+				if err := s.OutboundAudioNotification.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outbound_audio_notification\"")
+			}
 		default:
 			return d.Skip()
 		}
@@ -159695,6 +160886,166 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) MarshalJSON() ([]byte, err
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UpdateUserProfileReqPolicyAutoCallRecording) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) encodeFields(e *jx.Encoder) {
+	{
+		if s.RecordingStartPrompt.Set {
+			e.FieldStart("recording_start_prompt")
+			s.RecordingStartPrompt.Encode(e)
+		}
+	}
+	{
+		if s.RecordingExplicitConsent.Set {
+			e.FieldStart("recording_explicit_consent")
+			s.RecordingExplicitConsent.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification = [2]string{
+	0: "recording_start_prompt",
+	1: "recording_explicit_consent",
+}
+
+// Decode decodes UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification from json.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "recording_start_prompt":
+			if err := func() error {
+				s.RecordingStartPrompt.Reset()
+				if err := s.RecordingStartPrompt.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_start_prompt\"")
+			}
+		case "recording_explicit_consent":
+			if err := func() error {
+				s.RecordingExplicitConsent.Reset()
+				if err := s.RecordingExplicitConsent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_explicit_consent\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) encodeFields(e *jx.Encoder) {
+	{
+		if s.RecordingStartPrompt.Set {
+			e.FieldStart("recording_start_prompt")
+			s.RecordingStartPrompt.Encode(e)
+		}
+	}
+	{
+		if s.RecordingExplicitConsent.Set {
+			e.FieldStart("recording_explicit_consent")
+			s.RecordingExplicitConsent.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification = [2]string{
+	0: "recording_start_prompt",
+	1: "recording_explicit_consent",
+}
+
+// Decode decodes UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification from json.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "recording_start_prompt":
+			if err := func() error {
+				s.RecordingStartPrompt.Reset()
+				if err := s.RecordingStartPrompt.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_start_prompt\"")
+			}
+		case "recording_explicit_consent":
+			if err := func() error {
+				s.RecordingExplicitConsent.Reset()
+				if err := s.RecordingExplicitConsent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recording_explicit_consent\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

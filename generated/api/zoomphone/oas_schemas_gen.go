@@ -5,8 +5,6 @@ package zoomphone
 import (
 	"fmt"
 	"time"
-
-	"github.com/go-faster/jx"
 )
 
 func (s *ErrorResponseStatusCode) Error() string {
@@ -7577,7 +7575,7 @@ type BatchAddUsersReqUsersItem struct {
 	// us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices).
 	// Each user can be assigned up to 3 desk phones.
 	// All users must belong to the same site if a desk phone is assigned to multiple users.
-	DeskPhones []jx.Raw `json:"desk_phones"`
+	DeskPhones []BatchAddUsersReqUsersItemDeskPhonesItem `json:"desk_phones"`
 }
 
 // GetEmail returns the value of Email.
@@ -7641,7 +7639,7 @@ func (s *BatchAddUsersReqUsersItem) GetSMS() OptBool {
 }
 
 // GetDeskPhones returns the value of DeskPhones.
-func (s *BatchAddUsersReqUsersItem) GetDeskPhones() []jx.Raw {
+func (s *BatchAddUsersReqUsersItem) GetDeskPhones() []BatchAddUsersReqUsersItemDeskPhonesItem {
 	return s.DeskPhones
 }
 
@@ -7706,8 +7704,59 @@ func (s *BatchAddUsersReqUsersItem) SetSMS(val OptBool) {
 }
 
 // SetDeskPhones sets the value of DeskPhones.
-func (s *BatchAddUsersReqUsersItem) SetDeskPhones(val []jx.Raw) {
+func (s *BatchAddUsersReqUsersItem) SetDeskPhones(val []BatchAddUsersReqUsersItemDeskPhonesItem) {
 	s.DeskPhones = val
+}
+
+type BatchAddUsersReqUsersItemDeskPhonesItem struct {
+	// The manufacturer (brand) name of the device.
+	Brand OptString `json:"brand"`
+	// The model name of the device.
+	Model OptString `json:"model"`
+	// The MAC address of the desk phone.
+	MAC OptString `json:"mac"`
+	// The provision template name. Supported by select devices.
+	ProvisionTemplate OptString `json:"provision_template"`
+}
+
+// GetBrand returns the value of Brand.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) GetBrand() OptString {
+	return s.Brand
+}
+
+// GetModel returns the value of Model.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) GetModel() OptString {
+	return s.Model
+}
+
+// GetMAC returns the value of MAC.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) GetMAC() OptString {
+	return s.MAC
+}
+
+// GetProvisionTemplate returns the value of ProvisionTemplate.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) GetProvisionTemplate() OptString {
+	return s.ProvisionTemplate
+}
+
+// SetBrand sets the value of Brand.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) SetBrand(val OptString) {
+	s.Brand = val
+}
+
+// SetModel sets the value of Model.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) SetModel(val OptString) {
+	s.Model = val
+}
+
+// SetMAC sets the value of MAC.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) SetMAC(val OptString) {
+	s.MAC = val
+}
+
+// SetProvisionTemplate sets the value of ProvisionTemplate.
+func (s *BatchAddUsersReqUsersItemDeskPhonesItem) SetProvisionTemplate(val OptString) {
+	s.ProvisionTemplate = val
 }
 
 // BatchUpdateDeviceLineKeySettingNoContent is response for BatchUpdateDeviceLineKeySetting operation.
@@ -9110,7 +9159,7 @@ type GetACallQueueOK struct {
 	// Status of the Call Queue.
 	Status OptString `json:"status"`
 	// The call queue policy list.
-	Policy jx.Raw `json:"policy"`
+	Policy OptGetACallQueueOKPolicy `json:"policy"`
 }
 
 // GetCostCenter returns the value of CostCenter.
@@ -9164,7 +9213,7 @@ func (s *GetACallQueueOK) GetStatus() OptString {
 }
 
 // GetPolicy returns the value of Policy.
-func (s *GetACallQueueOK) GetPolicy() jx.Raw {
+func (s *GetACallQueueOK) GetPolicy() OptGetACallQueueOKPolicy {
 	return s.Policy
 }
 
@@ -9219,7 +9268,7 @@ func (s *GetACallQueueOK) SetStatus(val OptString) {
 }
 
 // SetPolicy sets the value of Policy.
-func (s *GetACallQueueOK) SetPolicy(val jx.Raw) {
+func (s *GetACallQueueOK) SetPolicy(val OptGetACallQueueOKPolicy) {
 	s.Policy = val
 }
 
@@ -9390,6 +9439,86 @@ func (s *GetACallQueueOKPhoneNumbersItem) SetNumber(val OptString) {
 // SetSource sets the value of Source.
 func (s *GetACallQueueOKPhoneNumbersItem) SetSource(val OptString) {
 	s.Source = val
+}
+
+// The call queue policy list.
+type GetACallQueueOKPolicy struct {
+	// The shared voicemail access member list.
+	VoicemailAccessMembers []GetACallQueueOKPolicyVoicemailAccessMembersItem `json:"voicemail_access_members"`
+}
+
+// GetVoicemailAccessMembers returns the value of VoicemailAccessMembers.
+func (s *GetACallQueueOKPolicy) GetVoicemailAccessMembers() []GetACallQueueOKPolicyVoicemailAccessMembersItem {
+	return s.VoicemailAccessMembers
+}
+
+// SetVoicemailAccessMembers sets the value of VoicemailAccessMembers.
+func (s *GetACallQueueOKPolicy) SetVoicemailAccessMembers(val []GetACallQueueOKPolicyVoicemailAccessMembersItem) {
+	s.VoicemailAccessMembers = val
+}
+
+// Merged schema.
+type GetACallQueueOKPolicyVoicemailAccessMembersItem struct {
+	// The Zoom user ID or email to share or update the access permissions with.
+	AccessUserID OptString `json:"access_user_id"`
+	// Specifies whether the member has download permissions. The default is **false**.
+	AllowDownload OptBool `json:"allow_download"`
+	// Specifies whether the member has delete permissions. The default is **false**.
+	AllowDelete OptBool `json:"allow_delete"`
+	// Specifies whether the member has the permission to share. The default is **false**.
+	AllowSharing OptBool `json:"allow_sharing"`
+	// The shared voicemail ID.
+	SharedID OptString `json:"shared_id"`
+}
+
+// GetAccessUserID returns the value of AccessUserID.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAccessUserID() OptString {
+	return s.AccessUserID
+}
+
+// GetAllowDownload returns the value of AllowDownload.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAllowDownload() OptBool {
+	return s.AllowDownload
+}
+
+// GetAllowDelete returns the value of AllowDelete.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAllowDelete() OptBool {
+	return s.AllowDelete
+}
+
+// GetAllowSharing returns the value of AllowSharing.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAllowSharing() OptBool {
+	return s.AllowSharing
+}
+
+// GetSharedID returns the value of SharedID.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetSharedID() OptString {
+	return s.SharedID
+}
+
+// SetAccessUserID sets the value of AccessUserID.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAccessUserID(val OptString) {
+	s.AccessUserID = val
+}
+
+// SetAllowDownload sets the value of AllowDownload.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAllowDownload(val OptBool) {
+	s.AllowDownload = val
+}
+
+// SetAllowDelete sets the value of AllowDelete.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAllowDelete(val OptBool) {
+	s.AllowDelete = val
+}
+
+// SetAllowSharing sets the value of AllowSharing.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAllowSharing(val OptBool) {
+	s.AllowSharing = val
+}
+
+// SetSharedID sets the value of SharedID.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetSharedID(val OptString) {
+	s.SharedID = val
 }
 
 type GetACallQueueOKSite struct {
@@ -30889,7 +31018,7 @@ type GetSiteSettingForTypeOK struct {
 	// The audio prompt setting.
 	AudioPrompt OptGetSiteSettingForTypeOKAudioPrompt `json:"audio_prompt"`
 	// The desk phone setting.
-	DeskPhone jx.Raw `json:"desk_phone"`
+	DeskPhone OptGetSiteSettingForTypeOKDeskPhone `json:"desk_phone"`
 	// The dial by name directory setting.
 	DialByName OptGetSiteSettingForTypeOKDialByName `json:"dial_by_name"`
 	// Billing account setting.
@@ -30932,7 +31061,7 @@ func (s *GetSiteSettingForTypeOK) GetAudioPrompt() OptGetSiteSettingForTypeOKAud
 }
 
 // GetDeskPhone returns the value of DeskPhone.
-func (s *GetSiteSettingForTypeOK) GetDeskPhone() jx.Raw {
+func (s *GetSiteSettingForTypeOK) GetDeskPhone() OptGetSiteSettingForTypeOKDeskPhone {
 	return s.DeskPhone
 }
 
@@ -30982,7 +31111,7 @@ func (s *GetSiteSettingForTypeOK) SetAudioPrompt(val OptGetSiteSettingForTypeOKA
 }
 
 // SetDeskPhone sets the value of DeskPhone.
-func (s *GetSiteSettingForTypeOK) SetDeskPhone(val jx.Raw) {
+func (s *GetSiteSettingForTypeOK) SetDeskPhone(val OptGetSiteSettingForTypeOKDeskPhone) {
 	s.DeskPhone = val
 }
 
@@ -32318,6 +32447,50 @@ func (s *GetSiteSettingForTypeOKClosedHoursOverflowOperator) SetDisplayName(val 
 // SetExtensionType sets the value of ExtensionType.
 func (s *GetSiteSettingForTypeOKClosedHoursOverflowOperator) SetExtensionType(val OptString) {
 	s.ExtensionType = val
+}
+
+// The desk phone setting.
+type GetSiteSettingForTypeOKDeskPhone struct {
+	// The set duration after which users are signed out of hot desking devices.
+	HotDeskingSessionTimeout OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout `json:"hot_desking_session_timeout"`
+}
+
+// GetHotDeskingSessionTimeout returns the value of HotDeskingSessionTimeout.
+func (s *GetSiteSettingForTypeOKDeskPhone) GetHotDeskingSessionTimeout() OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout {
+	return s.HotDeskingSessionTimeout
+}
+
+// SetHotDeskingSessionTimeout sets the value of HotDeskingSessionTimeout.
+func (s *GetSiteSettingForTypeOKDeskPhone) SetHotDeskingSessionTimeout(val OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) {
+	s.HotDeskingSessionTimeout = val
+}
+
+// The set duration after which users are signed out of hot desking devices.
+type GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout struct {
+	Number int `json:"number"`
+	// `minutes` - available if the `number` values are: '5, 10, 15, 30'
+	// `hours` - not available if the `number` value is '30'.
+	Unit OptString `json:"unit"`
+}
+
+// GetNumber returns the value of Number.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) GetNumber() int {
+	return s.Number
+}
+
+// GetUnit returns the value of Unit.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) GetUnit() OptString {
+	return s.Unit
+}
+
+// SetNumber sets the value of Number.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) SetNumber(val int) {
+	s.Number = val
+}
+
+// SetUnit sets the value of Unit.
+func (s *GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) SetUnit(val OptString) {
+	s.Unit = val
 }
 
 // The dial by name directory setting.
@@ -51250,6 +51423,52 @@ func (o OptGetACallQueueOKMembers) Or(d GetACallQueueOKMembers) GetACallQueueOKM
 	return d
 }
 
+// NewOptGetACallQueueOKPolicy returns new OptGetACallQueueOKPolicy with value set to v.
+func NewOptGetACallQueueOKPolicy(v GetACallQueueOKPolicy) OptGetACallQueueOKPolicy {
+	return OptGetACallQueueOKPolicy{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetACallQueueOKPolicy is optional GetACallQueueOKPolicy.
+type OptGetACallQueueOKPolicy struct {
+	Value GetACallQueueOKPolicy
+	Set   bool
+}
+
+// IsSet returns true if OptGetACallQueueOKPolicy was set.
+func (o OptGetACallQueueOKPolicy) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetACallQueueOKPolicy) Reset() {
+	var v GetACallQueueOKPolicy
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetACallQueueOKPolicy) SetTo(v GetACallQueueOKPolicy) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetACallQueueOKPolicy) Get() (v GetACallQueueOKPolicy, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetACallQueueOKPolicy) Or(d GetACallQueueOKPolicy) GetACallQueueOKPolicy {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetACallQueueOKSite returns new OptGetACallQueueOKSite with value set to v.
 func NewOptGetACallQueueOKSite(v GetACallQueueOKSite) OptGetACallQueueOKSite {
 	return OptGetACallQueueOKSite{
@@ -61862,6 +62081,98 @@ func (o OptGetSiteSettingForTypeOKClosedHoursOverflowOperator) Or(d GetSiteSetti
 	return d
 }
 
+// NewOptGetSiteSettingForTypeOKDeskPhone returns new OptGetSiteSettingForTypeOKDeskPhone with value set to v.
+func NewOptGetSiteSettingForTypeOKDeskPhone(v GetSiteSettingForTypeOKDeskPhone) OptGetSiteSettingForTypeOKDeskPhone {
+	return OptGetSiteSettingForTypeOKDeskPhone{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetSiteSettingForTypeOKDeskPhone is optional GetSiteSettingForTypeOKDeskPhone.
+type OptGetSiteSettingForTypeOKDeskPhone struct {
+	Value GetSiteSettingForTypeOKDeskPhone
+	Set   bool
+}
+
+// IsSet returns true if OptGetSiteSettingForTypeOKDeskPhone was set.
+func (o OptGetSiteSettingForTypeOKDeskPhone) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetSiteSettingForTypeOKDeskPhone) Reset() {
+	var v GetSiteSettingForTypeOKDeskPhone
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetSiteSettingForTypeOKDeskPhone) SetTo(v GetSiteSettingForTypeOKDeskPhone) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetSiteSettingForTypeOKDeskPhone) Get() (v GetSiteSettingForTypeOKDeskPhone, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetSiteSettingForTypeOKDeskPhone) Or(d GetSiteSettingForTypeOKDeskPhone) GetSiteSettingForTypeOKDeskPhone {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout returns new OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout with value set to v.
+func NewOptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout(v GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout {
+	return OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout is optional GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout.
+type OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout struct {
+	Value GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout
+	Set   bool
+}
+
+// IsSet returns true if OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout was set.
+func (o OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Reset() {
+	var v GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) SetTo(v GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Get() (v GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) Or(d GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetSiteSettingForTypeOKDialByName returns new OptGetSiteSettingForTypeOKDialByName with value set to v.
 func NewOptGetSiteSettingForTypeOKDialByName(v GetSiteSettingForTypeOKDialByName) OptGetSiteSettingForTypeOKDialByName {
 	return OptGetSiteSettingForTypeOKDialByName{
@@ -68040,6 +68351,98 @@ func (o OptPhoneUserOKPolicyAutoCallRecording) Get() (v PhoneUserOKPolicyAutoCal
 
 // Or returns value if set, or given parameter if does not.
 func (o OptPhoneUserOKPolicyAutoCallRecording) Or(d PhoneUserOKPolicyAutoCallRecording) PhoneUserOKPolicyAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification returns new OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification(v PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification {
+	return OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification is optional PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification.
+type OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) SetTo(v PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Get() (v PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) Or(d PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification returns new OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification(v PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification is optional PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification.
+type OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Get() (v PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) Or(d PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -77580,6 +77983,98 @@ func (o OptUpdateSiteSettingReqClosedHoursOverflowOperator) Or(d UpdateSiteSetti
 	return d
 }
 
+// NewOptUpdateSiteSettingReqDeskPhone returns new OptUpdateSiteSettingReqDeskPhone with value set to v.
+func NewOptUpdateSiteSettingReqDeskPhone(v UpdateSiteSettingReqDeskPhone) OptUpdateSiteSettingReqDeskPhone {
+	return OptUpdateSiteSettingReqDeskPhone{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteSettingReqDeskPhone is optional UpdateSiteSettingReqDeskPhone.
+type OptUpdateSiteSettingReqDeskPhone struct {
+	Value UpdateSiteSettingReqDeskPhone
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteSettingReqDeskPhone was set.
+func (o OptUpdateSiteSettingReqDeskPhone) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteSettingReqDeskPhone) Reset() {
+	var v UpdateSiteSettingReqDeskPhone
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteSettingReqDeskPhone) SetTo(v UpdateSiteSettingReqDeskPhone) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteSettingReqDeskPhone) Get() (v UpdateSiteSettingReqDeskPhone, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteSettingReqDeskPhone) Or(d UpdateSiteSettingReqDeskPhone) UpdateSiteSettingReqDeskPhone {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout returns new OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout with value set to v.
+func NewOptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout(v UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout {
+	return OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout is optional UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout.
+type OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout struct {
+	Value UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout was set.
+func (o OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Reset() {
+	var v UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) SetTo(v UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Get() (v UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) Or(d UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteSettingReqDialByName returns new OptUpdateSiteSettingReqDialByName with value set to v.
 func NewOptUpdateSiteSettingReqDialByName(v UpdateSiteSettingReqDialByName) OptUpdateSiteSettingReqDialByName {
 	return OptUpdateSiteSettingReqDialByName{
@@ -78266,6 +78761,102 @@ func (o OptUpdateUserProfileReqPolicyAutoCallRecording) Get() (v UpdateUserProfi
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateUserProfileReqPolicyAutoCallRecording) Or(d UpdateUserProfileReqPolicyAutoCallRecording) UpdateUserProfileReqPolicyAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification returns new OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification(v UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification {
+	return OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification is optional UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification.
+type OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) SetTo(v UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Get() (v UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Or(d UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification returns new OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification(v UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification is optional UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification.
+type OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Get() (v UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) Or(d UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -82792,8 +83383,10 @@ type PhoneUserOKPolicyAutoCallRecording struct {
 	// Whether a prompt plays to call participants when the recording has started.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether the call recording transcription is enabled.
-	RecordingTranscription OptBool                                                    `json:"recording_transcription"`
-	PlayRecordingBeepTone  OptPhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	RecordingTranscription    OptBool                                                        `json:"recording_transcription"`
+	PlayRecordingBeepTone     OptPhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
+	InboundAudioNotification  OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetAllowStopResumeRecording returns the value of AllowStopResumeRecording.
@@ -82846,6 +83439,16 @@ func (s *PhoneUserOKPolicyAutoCallRecording) GetPlayRecordingBeepTone() OptPhone
 	return s.PlayRecordingBeepTone
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *PhoneUserOKPolicyAutoCallRecording) GetInboundAudioNotification() OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *PhoneUserOKPolicyAutoCallRecording) GetOutboundAudioNotification() OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetAllowStopResumeRecording sets the value of AllowStopResumeRecording.
 func (s *PhoneUserOKPolicyAutoCallRecording) SetAllowStopResumeRecording(val OptBool) {
 	s.AllowStopResumeRecording = val
@@ -82894,6 +83497,16 @@ func (s *PhoneUserOKPolicyAutoCallRecording) SetRecordingTranscription(val OptBo
 // SetPlayRecordingBeepTone sets the value of PlayRecordingBeepTone.
 func (s *PhoneUserOKPolicyAutoCallRecording) SetPlayRecordingBeepTone(val OptPhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTone) {
 	s.PlayRecordingBeepTone = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *PhoneUserOKPolicyAutoCallRecording) SetInboundAudioNotification(val OptPhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *PhoneUserOKPolicyAutoCallRecording) SetOutboundAudioNotification(val OptPhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
 }
 
 // Merged schema.
@@ -82946,6 +83559,60 @@ func (s *PhoneUserOKPolicyAutoCallRecordingAccessMembersItem) SetAllowDownload(v
 // SetSharedID sets the value of SharedID.
 func (s *PhoneUserOKPolicyAutoCallRecordingAccessMembersItem) SetSharedID(val OptString) {
 	s.SharedID = val
+}
+
+type PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether to show prompt for starting call recording with inbound audio.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether to obtain explicit consent for call recording with inbound audio.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether to show prompt for starting call recording with outbound audio.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether to obtain explicit consent for call recording with outbound audio.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type PhoneUserOKPolicyAutoCallRecordingPlayRecordingBeepTone struct {
@@ -95079,7 +95746,7 @@ type UpdateSiteSettingReq struct {
 	// The audio prompt setting. Used for `audio_prompt` setting type.
 	AudioPrompt OptUpdateSiteSettingReqAudioPrompt `json:"audio_prompt"`
 	// The desk phone setting.
-	DeskPhone jx.Raw `json:"desk_phone"`
+	DeskPhone OptUpdateSiteSettingReqDeskPhone `json:"desk_phone"`
 	// The dial by name directory setting.
 	DialByName OptUpdateSiteSettingReqDialByName `json:"dial_by_name"`
 	// Billing account setting.
@@ -95117,7 +95784,7 @@ func (s *UpdateSiteSettingReq) GetAudioPrompt() OptUpdateSiteSettingReqAudioProm
 }
 
 // GetDeskPhone returns the value of DeskPhone.
-func (s *UpdateSiteSettingReq) GetDeskPhone() jx.Raw {
+func (s *UpdateSiteSettingReq) GetDeskPhone() OptUpdateSiteSettingReqDeskPhone {
 	return s.DeskPhone
 }
 
@@ -95162,7 +95829,7 @@ func (s *UpdateSiteSettingReq) SetAudioPrompt(val OptUpdateSiteSettingReqAudioPr
 }
 
 // SetDeskPhone sets the value of DeskPhone.
-func (s *UpdateSiteSettingReq) SetDeskPhone(val jx.Raw) {
+func (s *UpdateSiteSettingReq) SetDeskPhone(val OptUpdateSiteSettingReqDeskPhone) {
 	s.DeskPhone = val
 }
 
@@ -96097,6 +96764,50 @@ func (s *UpdateSiteSettingReqClosedHoursOverflowOperator) GetExtensionID() OptSt
 // SetExtensionID sets the value of ExtensionID.
 func (s *UpdateSiteSettingReqClosedHoursOverflowOperator) SetExtensionID(val OptString) {
 	s.ExtensionID = val
+}
+
+// The desk phone setting.
+type UpdateSiteSettingReqDeskPhone struct {
+	// The set duration after which users are signed out of hot desking devices.
+	HotDeskingSessionTimeout OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout `json:"hot_desking_session_timeout"`
+}
+
+// GetHotDeskingSessionTimeout returns the value of HotDeskingSessionTimeout.
+func (s *UpdateSiteSettingReqDeskPhone) GetHotDeskingSessionTimeout() OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout {
+	return s.HotDeskingSessionTimeout
+}
+
+// SetHotDeskingSessionTimeout sets the value of HotDeskingSessionTimeout.
+func (s *UpdateSiteSettingReqDeskPhone) SetHotDeskingSessionTimeout(val OptUpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) {
+	s.HotDeskingSessionTimeout = val
+}
+
+// The set duration after which users are signed out of hot desking devices.
+type UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout struct {
+	Number int `json:"number"`
+	// `minutes` - available if the `number` values are: '5, 10, 15, 30'
+	// `hours` - not available if the `number` value is '30'.
+	Unit OptString `json:"unit"`
+}
+
+// GetNumber returns the value of Number.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) GetNumber() int {
+	return s.Number
+}
+
+// GetUnit returns the value of Unit.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) GetUnit() OptString {
+	return s.Unit
+}
+
+// SetNumber sets the value of Number.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) SetNumber(val int) {
+	s.Number = val
+}
+
+// SetUnit sets the value of Unit.
+func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) SetUnit(val OptString) {
+	s.Unit = val
 }
 
 // The dial by name directory setting.
@@ -97057,7 +97768,9 @@ type UpdateUserProfileReqPolicyAutoCallRecording struct {
 	RecordingTranscription OptBool                                                             `json:"recording_transcription"`
 	PlayRecordingBeepTone  OptUpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
 	// Whether the user's automatic call recording reset option will use the phone site's settings.
-	Reset OptBool `json:"reset"`
+	Reset                     OptBool                                                                 `json:"reset"`
+	InboundAudioNotification  OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetAllowStopResumeRecording returns the value of AllowStopResumeRecording.
@@ -97105,6 +97818,16 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) GetReset() OptBool {
 	return s.Reset
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *UpdateUserProfileReqPolicyAutoCallRecording) GetInboundAudioNotification() OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *UpdateUserProfileReqPolicyAutoCallRecording) GetOutboundAudioNotification() OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetAllowStopResumeRecording sets the value of AllowStopResumeRecording.
 func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetAllowStopResumeRecording(val OptBool) {
 	s.AllowStopResumeRecording = val
@@ -97148,6 +97871,70 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetPlayRecordingBeepTone(v
 // SetReset sets the value of Reset.
 func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetReset(val OptBool) {
 	s.Reset = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetInboundAudioNotification(val OptUpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetOutboundAudioNotification(val OptUpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether to show prompt for starting call recording with inbound audio.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether to obtain explicit consent for call recording with inbound audio.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether to show prompt for starting call recording with outbound audio.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether to obtain explicit consent for call recording with outbound audio.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type UpdateUserProfileReqPolicyAutoCallRecordingPlayRecordingBeepTone struct {
