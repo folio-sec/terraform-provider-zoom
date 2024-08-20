@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/test.yml'
       - '**.go'
+      - 'go.mod'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
