@@ -40,7 +40,7 @@ func (d *tfDataSource) Configure(_ context.Context, req datasource.ConfigureRequ
 		)
 		return
 	}
-	d.crud = newCrud(data.PhoneMasterClient)
+	d.crud = newCrud(data.PhoneClient)
 }
 
 func (d *tfDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {

@@ -30,6 +30,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/samber/lo"
 )
 
 // Ensure zoomProvider satisfies various provider interfaces.
@@ -85,13 +86,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		return
 	}
 
-	accountID := os.Getenv("ZOOM_ACCOUNT_ID")
-	clientID := os.Getenv("ZOOM_CLIENT_ID")
-	clientSecret := os.Getenv("ZOOM_CLIENT_ID")
-
-	if !config.AccountID.IsNull() || !config.AccountID.IsUnknown() {
-		accountID = config.AccountID.ValueString()
-	}
+	accountID := lo.TernaryF(config.AccountID.IsNull() || config.AccountID.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_ACCOUNT_ID")
+	}, func() string {
+		return config.AccountID.ValueString()
+	})
 	if accountID == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("account_id"),
@@ -100,9 +99,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		)
 	}
 
-	if !config.ClientID.IsNull() || !config.ClientID.IsUnknown() {
-		clientID = config.ClientID.ValueString()
-	}
+	clientID := lo.TernaryF(config.ClientID.IsNull() || config.ClientID.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_CLIENT_ID")
+	}, func() string {
+		return config.ClientID.ValueString()
+	})
 	if clientID == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("client_id"),
@@ -111,9 +112,11 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		)
 	}
 
-	if !config.ClientSecret.IsNull() {
-		clientSecret = config.ClientSecret.ValueString()
-	}
+	clientSecret := lo.TernaryF(config.ClientSecret.IsNull() || config.ClientSecret.IsUnknown(), func() string {
+		return os.Getenv("ZOOM_CLIENT_SECRET")
+	}, func() string {
+		return config.ClientSecret.ValueString()
+	})
 	if clientSecret == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("client_secret"),
