@@ -1,4 +1,4 @@
-package callqueuemembers
+package callqueuemember
 
 import (
 	"context"

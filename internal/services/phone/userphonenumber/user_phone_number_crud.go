@@ -1,4 +1,4 @@
-package userphonenumbers
+package userphonenumber
 
 import (
 	"context"
