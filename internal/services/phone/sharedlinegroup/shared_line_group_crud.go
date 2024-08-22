@@ -56,9 +56,9 @@ func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) 
 	res, err := c.client.CreateASharedLineGroup(ctx, zoomphone.OptCreateASharedLineGroupReq{
 		Value: zoomphone.CreateASharedLineGroupReq{
 			DisplayName:     dto.displayName.ValueString(),
-			Description:     util.ToOptString(dto.description),
-			ExtensionNumber: util.ToOptInt64(dto.extensionNumber),
-			SiteID:          util.ToOptString(dto.siteID),
+			Description:     util.ToPhoneOptString(dto.description),
+			ExtensionNumber: util.ToPhoneOptInt64(dto.extensionNumber),
+			SiteID:          util.ToPhoneOptString(dto.siteID),
 		},
 		Set: true,
 	})
@@ -74,11 +74,11 @@ func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) 
 func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	err := c.client.UpdateASharedLineGroup(ctx, zoomphone.OptUpdateASharedLineGroupReq{
 		Value: zoomphone.UpdateASharedLineGroupReq{
-			ExtensionNumber: util.ToOptInt64(dto.extensionNumber),
-			DisplayName:     util.ToOptString(dto.displayName),
-			Status:          util.ToOptString(dto.status),
+			ExtensionNumber: util.ToPhoneOptInt64(dto.extensionNumber),
+			DisplayName:     util.ToPhoneOptString(dto.displayName),
+			Status:          util.ToPhoneOptString(dto.status),
 			// PrimeNumber is managed by "shared_line_group_phone_numbers" resource
-			// PrimaryNumber: util.ToOptString(dto.primeNumber),
+			// PrimaryNumber: util.ToPhoneOptString(dto.primeNumber),
 		},
 		Set: true,
 	}, zoomphone.UpdateASharedLineGroupParams{

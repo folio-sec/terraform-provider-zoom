@@ -59,11 +59,11 @@ func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) 
 		Value: zoomphone.CreateCallQueueReq{
 			Name: dto.name.ValueString(),
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
-			CostCenter:      zoomphone.NewOptString(util.ToOptString(dto.costCenter).Or("")),
-			Department:      zoomphone.NewOptString(util.ToOptString(dto.department).Or("")),
-			Description:     util.ToOptString(dto.description),
-			ExtensionNumber: util.ToOptInt64(dto.extensionNumber),
-			SiteID:          util.ToOptString(dto.siteID),
+			CostCenter:      zoomphone.NewOptString(util.ToPhoneOptString(dto.costCenter).Or("")),
+			Department:      zoomphone.NewOptString(util.ToPhoneOptString(dto.department).Or("")),
+			Description:     util.ToPhoneOptString(dto.description),
+			ExtensionNumber: util.ToPhoneOptInt64(dto.extensionNumber),
+			SiteID:          util.ToPhoneOptString(dto.siteID),
 		},
 		Set: true,
 	})
@@ -80,13 +80,13 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	err := c.client.UpdateCallQueue(ctx, zoomphone.OptUpdateCallQueueReq{
 		Value: zoomphone.UpdateCallQueueReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
-			CostCenter:      zoomphone.NewOptString(util.ToOptString(dto.costCenter).Or("")),
-			Department:      zoomphone.NewOptString(util.ToOptString(dto.department).Or("")),
-			Description:     util.ToOptString(dto.description),
-			ExtensionNumber: util.ToOptInt64(dto.extensionNumber),
-			Name:            util.ToOptString(dto.name),
-			Status:          util.ToOptString(dto.status),
-			SiteID:          util.ToOptString(dto.siteID),
+			CostCenter:      zoomphone.NewOptString(util.ToPhoneOptString(dto.costCenter).Or("")),
+			Department:      zoomphone.NewOptString(util.ToPhoneOptString(dto.department).Or("")),
+			Description:     util.ToPhoneOptString(dto.description),
+			ExtensionNumber: util.ToPhoneOptInt64(dto.extensionNumber),
+			Name:            util.ToPhoneOptString(dto.name),
+			Status:          util.ToPhoneOptString(dto.status),
+			SiteID:          util.ToPhoneOptString(dto.siteID),
 		},
 		Set: true,
 	}, zoomphone.UpdateCallQueueParams{
