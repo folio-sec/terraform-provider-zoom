@@ -53,7 +53,7 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 			zoomphone.AssignPhoneNumbersSLGReq{
 				PhoneNumbers: lo.Map(phoneNumberIDs, func(phoneNumberID types.String, index int) zoomphone.AssignPhoneNumbersSLGReqPhoneNumbersItem {
 					return zoomphone.AssignPhoneNumbersSLGReqPhoneNumbersItem{
-						ID: util.ToOptString(phoneNumberID),
+						ID: util.ToPhoneOptString(phoneNumberID),
 					}
 				}),
 			},
@@ -67,7 +67,7 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 			zoomphone.AssignPhoneNumbersSLGReq{
 				PhoneNumbers: lo.Map(phoneNumbers, func(phoneNumber types.String, index int) zoomphone.AssignPhoneNumbersSLGReqPhoneNumbersItem {
 					return zoomphone.AssignPhoneNumbersSLGReqPhoneNumbersItem{
-						Number: util.ToOptString(phoneNumber),
+						Number: util.ToPhoneOptString(phoneNumber),
 					}
 				}),
 			},
@@ -118,7 +118,7 @@ func (c *crud) updatePrimaryNumber(ctx context.Context, sharedLineGroupID, prima
 	// UpdateASharedLineGroup is PATCH, so just update PrimaryNumber only
 	err := c.client.UpdateASharedLineGroup(ctx, zoomphone.OptUpdateASharedLineGroupReq{
 		Value: zoomphone.UpdateASharedLineGroupReq{
-			PrimaryNumber: util.ToOptString(primaryNumber),
+			PrimaryNumber: util.ToPhoneOptString(primaryNumber),
 		},
 		Set: true,
 	}, zoomphone.UpdateASharedLineGroupParams{

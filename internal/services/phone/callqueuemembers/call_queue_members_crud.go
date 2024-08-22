@@ -113,8 +113,8 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 	users := make([]zoomphone.AddMembersToCallQueueReqMembersUsersItem, len(dto.users))
 	for i, user := range dto.users {
 		users[i] = zoomphone.AddMembersToCallQueueReqMembersUsersItem{
-			ID:    util.ToOptString(user.id),
-			Email: util.ToOptString(user.email),
+			ID:    util.ToPhoneOptString(user.id),
+			Email: util.ToPhoneOptString(user.email),
 		}
 	}
 

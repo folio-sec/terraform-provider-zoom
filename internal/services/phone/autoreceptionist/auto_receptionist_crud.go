@@ -68,12 +68,12 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	err := c.client.UpdateAutoReceptionist(ctx, zoomphone.OptUpdateAutoReceptionistReq{
 		Value: zoomphone.UpdateAutoReceptionistReq{
 			// CostCenter/Department: to remove it, need to pass empty string. not null.
-			CostCenter:          zoomphone.NewOptString(util.ToOptString(dto.costCenter).Or("")),
-			Department:          zoomphone.NewOptString(util.ToOptString(dto.department).Or("")),
-			ExtensionNumber:     util.ToOptInt64(dto.extensionNumber),
-			Name:                util.ToOptString(dto.name),
-			AudioPromptLanguage: util.ToOptString(dto.audioPromptLanguage),
-			Timezone:            util.ToOptString(dto.timezone),
+			CostCenter:          zoomphone.NewOptString(util.ToPhoneOptString(dto.costCenter).Or("")),
+			Department:          zoomphone.NewOptString(util.ToPhoneOptString(dto.department).Or("")),
+			ExtensionNumber:     util.ToPhoneOptInt64(dto.extensionNumber),
+			Name:                util.ToPhoneOptString(dto.name),
+			AudioPromptLanguage: util.ToPhoneOptString(dto.audioPromptLanguage),
+			Timezone:            util.ToPhoneOptString(dto.timezone),
 		},
 		Set: true,
 	}, zoomphone.UpdateAutoReceptionistParams{
