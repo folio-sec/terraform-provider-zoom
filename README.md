@@ -75,3 +75,7 @@ You can debug developing provider using following steps:
 - Edit `~/.terraformrc` using the output comment
 - `cd examples/resources/zoom_phone_autoreceiptionist`
 - `TF_LOG_PROVIDER=debug terraform apply`
+
+## Release
+
+We use release management by [tagpr](https://github.com/Songmu/tagpr). When merging tagpr PR, next version would be released by github-actions.
