@@ -1,4 +1,4 @@
-package callqueuemembers
+package sharedlinegroupgroupmembers
 
 import (
 	"context"
@@ -21,41 +21,41 @@ type crud struct {
 	client *zoomphone.Client
 }
 
-func (c *crud) read(ctx context.Context, callQueueID types.String) (*readDto, error) {
-	var callQueueMembers []*readDtoCallQueueMember
-	nextPageToken := zoomphone.OptString{}
-	for {
-		ret, err := c.client.ListCallQueueMembers(ctx, zoomphone.ListCallQueueMembersParams{
-			CallQueueId:   callQueueID.ValueString(),
-			NextPageToken: nextPageToken,
-			PageSize:      zoomphone.NewOptInt(300), // Constraints: Max 300
-		})
-		if err != nil {
-			var status *zoomphone.ErrorResponseStatusCode
-			if errors.As(err, &status) {
-				if status.StatusCode == 400 && status.Response.Code.Value == 300 {
-					return nil, nil // already deleted
-				}
+func (c *crud) read(ctx context.Context, sharedLineGroupID types.String) (*readDto, error) {
+	var commonAreas []*readDtoCommonArea
+	var users []*readDtoUser
+	ret, err := c.client.GetASharedLineGroup(ctx, zoomphone.GetASharedLineGroupParams{
+		SharedLineGroupId: sharedLineGroupID.ValueString(),
+	})
+	if err != nil {
+		var status *zoomphone.ErrorResponseStatusCode
+		if errors.As(err, &status) {
+			if status.StatusCode == 400 && status.Response.Code.Value == 300 {
+				return nil, nil // already deleted
 			}
-			return nil, fmt.Errorf("unable to read phone call queue members: %v", err)
 		}
-		callQueueMembers = append(callQueueMembers, lo.Map(ret.CallQueueMembers, func(member zoomphone.ListCallQueueMembersOKCallQueueMembersItem, _index int) *readDtoCallQueueMember {
-			return &readDtoCallQueueMember{
+		return nil, fmt.Errorf("unable to read phone shared line group members: %v", err)
+	}
+	if ret.Members.Set {
+		commonAreas = lo.Map(ret.Members.Value.CommonAreas, func(member zoomphone.GetASharedLineGroupOKMembersCommonAreasItem, _index int) *readDtoCommonArea {
+			return &readDtoCommonArea{
 				id:          util.FromOptString(member.ID),
 				name:        util.FromOptString(member.Name),
-				level:       util.FromOptString(member.Level),
-				receiveCall: util.FromOptBool(member.ReceiveCall),
 				extensionID: util.FromOptString(member.ExtensionID),
 			}
-		})...)
-		if ret.NextPageToken.Value == "" {
-			break
-		}
-		nextPageToken = ret.NextPageToken
+		})
+		users = lo.Map(ret.Members.Value.Users, func(member zoomphone.GetASharedLineGroupOKMembersUsersItem, _index int) *readDtoUser {
+			return &readDtoUser{
+				id:          util.FromOptString(member.ID),
+				name:        util.FromOptString(member.Name),
+				extensionID: util.FromOptString(member.ExtensionID),
+			}
+		})
 	}
 
 	return &readDto{
-		callQueueMembers: callQueueMembers,
+		commonAreas: commonAreas,
+		users:       users,
 	}, nil
 }
 
@@ -110,43 +110,43 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 	for i, id := range dto.commonAreaIDs {
 		commonAreaIDs[i] = id.ValueString()
 	}
-	users := make([]zoomphone.AddMembersToCallQueueReqMembersUsersItem, len(dto.users))
+	users := make([]zoomphone.AddMembersToSharedLineGroupReqMembersUsersItem, len(dto.users))
 	for i, user := range dto.users {
-		users[i] = zoomphone.AddMembersToCallQueueReqMembersUsersItem{
-			ID:    util.ToOptString(user.id),
-			Email: util.ToOptString(user.email),
+		users[i] = zoomphone.AddMembersToSharedLineGroupReqMembersUsersItem{
+			ID:    util.ToPhoneOptString(user.id),
+			Email: util.ToPhoneOptString(user.email),
 		}
 	}
 
 	// A maximum of 10 members can be added at a time.
 	for _, commonAreaIDChunked := range lo.Chunk(commonAreaIDs, 10) {
-		err := c.client.AddMembersToCallQueue(ctx, zoomphone.OptAddMembersToCallQueueReq{
-			Value: zoomphone.AddMembersToCallQueueReq{
-				Members: zoomphone.NewOptAddMembersToCallQueueReqMembers(zoomphone.AddMembersToCallQueueReqMembers{
+		err := c.client.AddMembersToSharedLineGroup(ctx, zoomphone.OptAddMembersToSharedLineGroupReq{
+			Value: zoomphone.AddMembersToSharedLineGroupReq{
+				Members: zoomphone.NewOptAddMembersToSharedLineGroupReqMembers(zoomphone.AddMembersToSharedLineGroupReqMembers{
 					CommonAreaIds: commonAreaIDChunked,
 				}),
 			},
 			Set: true,
-		}, zoomphone.AddMembersToCallQueueParams{
-			CallQueueId: dto.callQueueID.ValueString(),
+		}, zoomphone.AddMembersToSharedLineGroupParams{
+			SharedLineGroupId: dto.sharedLineGroupID.ValueString(),
 		})
 		if err != nil {
-			return fmt.Errorf("error assigning phone call queue members: %v", err)
+			return fmt.Errorf("error assigning phone shared line group members: %v", err)
 		}
 	}
 	for _, userChunked := range lo.Chunk(users, 10) {
-		err := c.client.AddMembersToCallQueue(ctx, zoomphone.OptAddMembersToCallQueueReq{
-			Value: zoomphone.AddMembersToCallQueueReq{
-				Members: zoomphone.NewOptAddMembersToCallQueueReqMembers(zoomphone.AddMembersToCallQueueReqMembers{
+		err := c.client.AddMembersToSharedLineGroup(ctx, zoomphone.OptAddMembersToSharedLineGroupReq{
+			Value: zoomphone.AddMembersToSharedLineGroupReq{
+				Members: zoomphone.NewOptAddMembersToSharedLineGroupReqMembers(zoomphone.AddMembersToSharedLineGroupReqMembers{
 					Users: userChunked,
 				}),
 			},
 			Set: true,
-		}, zoomphone.AddMembersToCallQueueParams{
-			CallQueueId: dto.callQueueID.ValueString(),
+		}, zoomphone.AddMembersToSharedLineGroupParams{
+			SharedLineGroupId: dto.sharedLineGroupID.ValueString(),
 		})
 		if err != nil {
-			return fmt.Errorf("error assigning phone call queue members: %v", err)
+			return fmt.Errorf("error assigning phone shared line group members: %v", err)
 		}
 	}
 
@@ -155,9 +155,9 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 
 func (c *crud) unassign(ctx context.Context, dto *unassignDto) error {
 	for _, memberID := range dto.memberIDs {
-		err := c.client.UnassignMemberFromCallQueue(ctx, zoomphone.UnassignMemberFromCallQueueParams{
-			CallQueueId: dto.callQueueID.ValueString(),
-			MemberId:    memberID.ValueString(),
+		err := c.client.DeleteAMemberSLG(ctx, zoomphone.DeleteAMemberSLGParams{
+			SharedLineGroupId: dto.sharedLineGroupID.ValueString(),
+			MemberId:          memberID.ValueString(),
 		})
 		if err != nil {
 			var status *zoomphone.ErrorResponseStatusCode
@@ -166,16 +166,16 @@ func (c *crud) unassign(ctx context.Context, dto *unassignDto) error {
 					continue
 				}
 			}
-			return fmt.Errorf("error unassigning phone call queue members: %v", err)
+			return fmt.Errorf("error unassigning phone shared line group members: %v", err)
 		}
 	}
 
 	return nil
 }
 
-func (c *crud) unassignAll(ctx context.Context, callQueueID types.String) error {
-	err := c.client.UnassignAllMembers(ctx, zoomphone.UnassignAllMembersParams{
-		CallQueueId: callQueueID.ValueString(),
+func (c *crud) unassignAll(ctx context.Context, sharedLineGroupID types.String) error {
+	err := c.client.DeleteMembersOfSLG(ctx, zoomphone.DeleteMembersOfSLGParams{
+		SharedLineGroupId: sharedLineGroupID.ValueString(),
 	})
 	if err != nil {
 		var status *zoomphone.ErrorResponseStatusCode
@@ -184,7 +184,7 @@ func (c *crud) unassignAll(ctx context.Context, callQueueID types.String) error 
 				return nil
 			}
 		}
-		return fmt.Errorf("error unassigning all phone call queue members: %v", err)
+		return fmt.Errorf("error unassigning all phone shared line group members: %v", err)
 	}
 	return nil
 }

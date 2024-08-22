@@ -1,4 +1,4 @@
-package userphonenumbers
+package userphonenumber
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 

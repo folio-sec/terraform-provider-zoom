@@ -47,11 +47,11 @@ func (c *crud) read(ctx context.Context, blockedListID types.String) (*readDto, 
 func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) {
 	res, err := c.client.AddAnumberToBlockedList(ctx, zoomphone.OptAddAnumberToBlockedListReq{
 		Value: zoomphone.AddAnumberToBlockedListReq{
-			BlockType:   util.ToOptString(dto.blockType),
-			Comment:     util.ToOptString(dto.comment),
-			MatchType:   util.ToOptString(dto.matchType),
-			PhoneNumber: util.ToOptString(dto.phoneNumber),
-			Status:      util.ToOptString(dto.status),
+			BlockType:   util.ToPhoneOptString(dto.blockType),
+			Comment:     util.ToPhoneOptString(dto.comment),
+			MatchType:   util.ToPhoneOptString(dto.matchType),
+			PhoneNumber: util.ToPhoneOptString(dto.phoneNumber),
+			Status:      util.ToPhoneOptString(dto.status),
 		},
 		Set: true,
 	})

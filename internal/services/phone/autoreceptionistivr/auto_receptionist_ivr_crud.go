@@ -24,8 +24,8 @@ type crud struct {
 func (c *crud) read(ctx context.Context, autoReceptionistID, hoursType, holidayID types.String) (*readDto, error) {
 	detail, err := c.client.GetAutoReceptionistIVR(ctx, zoomphone.GetAutoReceptionistIVRParams{
 		AutoReceptionistId: autoReceptionistID.ValueString(),
-		HoursType:          util.ToOptString(hoursType),
-		HolidayID:          util.ToOptString(holidayID),
+		HoursType:          util.ToPhoneOptString(hoursType),
+		HolidayID:          util.ToPhoneOptString(holidayID),
 	})
 	if err != nil {
 		var status *zoomphone.ErrorResponseStatusCode
@@ -105,16 +105,16 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	callerEntersNoAction := zoomphone.OptUpdateAutoReceptionistIVRReqCallerEntersNoAction{}
 	if dto.callerEntersNoAction != nil {
 		callerEntersNoAction = zoomphone.NewOptUpdateAutoReceptionistIVRReqCallerEntersNoAction(zoomphone.UpdateAutoReceptionistIVRReqCallerEntersNoAction{
-			Action:               util.ToOptInt(dto.callerEntersNoAction.action),
-			AudioPromptRepeat:    util.ToOptInt(dto.callerEntersNoAction.auditPromptRepeat),
-			ForwardToExtensionID: util.ToOptString(dto.callerEntersNoAction.forwardToExtensionID),
+			Action:               util.ToPhoneOptInt(dto.callerEntersNoAction.action),
+			AudioPromptRepeat:    util.ToPhoneOptInt(dto.callerEntersNoAction.auditPromptRepeat),
+			ForwardToExtensionID: util.ToPhoneOptString(dto.callerEntersNoAction.forwardToExtensionID),
 		})
 	}
 	err := c.client.UpdateAutoReceptionistIVR(ctx, zoomphone.OptUpdateAutoReceptionistIVRReq{
 		Value: zoomphone.UpdateAutoReceptionistIVRReq{
-			HolidayID:            util.ToOptString(dto.holidayID),
-			HoursType:            util.ToOptString(dto.hoursType),
-			AudioPromptID:        util.ToOptString(dto.audioPromptID),
+			HolidayID:            util.ToPhoneOptString(dto.holidayID),
+			HoursType:            util.ToPhoneOptString(dto.hoursType),
+			AudioPromptID:        util.ToPhoneOptString(dto.audioPromptID),
 			CallerEntersNoAction: callerEntersNoAction,
 		},
 		Set: true,
@@ -129,19 +129,19 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 		target := zoomphone.OptUpdateAutoReceptionistIVRReqKeyActionTarget{}
 		if keyAction.target != nil {
 			target = zoomphone.NewOptUpdateAutoReceptionistIVRReqKeyActionTarget(zoomphone.UpdateAutoReceptionistIVRReqKeyActionTarget{
-				ExtensionID: util.ToOptString(keyAction.target.extensionID),
-				PhoneNumber: util.ToOptString(keyAction.target.phoneNumber),
+				ExtensionID: util.ToPhoneOptString(keyAction.target.extensionID),
+				PhoneNumber: util.ToPhoneOptString(keyAction.target.phoneNumber),
 			})
 		}
 		err := c.client.UpdateAutoReceptionistIVR(ctx, zoomphone.OptUpdateAutoReceptionistIVRReq{
 			Value: zoomphone.UpdateAutoReceptionistIVRReq{
-				HolidayID: util.ToOptString(dto.holidayID),
-				HoursType: util.ToOptString(dto.hoursType),
+				HolidayID: util.ToPhoneOptString(dto.holidayID),
+				HoursType: util.ToPhoneOptString(dto.hoursType),
 				KeyAction: zoomphone.NewOptUpdateAutoReceptionistIVRReqKeyAction(zoomphone.UpdateAutoReceptionistIVRReqKeyAction{
-					Key:                 util.ToOptString(keyAction.key),
-					Action:              util.ToOptInt(keyAction.action),
+					Key:                 util.ToPhoneOptString(keyAction.key),
+					Action:              util.ToPhoneOptInt(keyAction.action),
 					Target:              target,
-					VoicemailGreetingID: util.ToOptString(keyAction.voiceMailGreetingId),
+					VoicemailGreetingID: util.ToPhoneOptString(keyAction.voiceMailGreetingId),
 				}),
 			},
 			Set: true,

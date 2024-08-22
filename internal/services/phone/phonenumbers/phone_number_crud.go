@@ -27,11 +27,11 @@ func (c *crud) read(ctx context.Context, dto *readQueryDto) (*readDto, error) {
 		ret, err := c.client.ListAccountPhoneNumbers(ctx, zoomphone.ListAccountPhoneNumbersParams{
 			NextPageToken:  nextPageToken,
 			PageSize:       zoomphone.NewOptInt(300), // max 300
-			Type:           util.ToOptString(dto.typ),
-			ExtensionType:  util.ToOptString(dto.extensionType),
-			NumberType:     util.ToOptString(dto.numberType),
-			PendingNumbers: util.ToOptBool(dto.pendingNumbers),
-			SiteID:         util.ToOptString(dto.siteID),
+			Type:           util.ToPhoneOptString(dto.typ),
+			ExtensionType:  util.ToPhoneOptString(dto.extensionType),
+			NumberType:     util.ToPhoneOptString(dto.numberType),
+			PendingNumbers: util.ToPhoneOptBool(dto.pendingNumbers),
+			SiteID:         util.ToPhoneOptString(dto.siteID),
 		})
 		if err != nil {
 			return nil, fmt.Errorf("unable to read phone numbers: %v", err)

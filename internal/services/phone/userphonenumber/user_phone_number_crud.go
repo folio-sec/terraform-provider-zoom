@@ -1,4 +1,4 @@
-package userphonenumbers
+package userphonenumber
 
 import (
 	"context"
@@ -52,7 +52,7 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 			zoomphone.AssignPhoneNumberReq{
 				PhoneNumbers: lo.Map(phoneNumberIDs, func(phoneNumberID types.String, index int) zoomphone.AssignPhoneNumberReqPhoneNumbersItem {
 					return zoomphone.AssignPhoneNumberReqPhoneNumbersItem{
-						ID: util.ToOptString(phoneNumberID),
+						ID: util.ToPhoneOptString(phoneNumberID),
 					}
 				}),
 			},
@@ -66,7 +66,7 @@ func (c *crud) assign(ctx context.Context, dto *assignDto) error {
 			zoomphone.AssignPhoneNumberReq{
 				PhoneNumbers: lo.Map(phoneNumbers, func(phoneNumber types.String, index int) zoomphone.AssignPhoneNumberReqPhoneNumbersItem {
 					return zoomphone.AssignPhoneNumberReqPhoneNumbersItem{
-						Number: util.ToOptString(phoneNumber),
+						Number: util.ToPhoneOptString(phoneNumber),
 					}
 				}),
 			},

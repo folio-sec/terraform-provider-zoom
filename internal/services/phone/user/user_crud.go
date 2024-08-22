@@ -82,14 +82,14 @@ func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
 func (c *crud) update(ctx context.Context, dto updateDto) error {
 	err := c.phoneClient.UpdateUserProfile(ctx, zoomphone.NewOptUpdateUserProfileReq(
 		zoomphone.UpdateUserProfileReq{
-			EmergencyAddressID: util.ToOptString(dto.emergencyAddressID),
+			EmergencyAddressID: util.ToPhoneOptString(dto.emergencyAddressID),
 			ExtensionNumber: lo.TernaryF(dto.extensionNumber.IsNull() || dto.extensionNumber.IsUnknown(), func() zoomphone.OptString {
 				return zoomphone.OptString{}
 			}, func() zoomphone.OptString {
 				return zoomphone.NewOptString(strconv.FormatInt(dto.extensionNumber.ValueInt64(), 10))
 			}),
-			SiteID:     util.ToOptString(dto.siteID),
-			TemplateID: util.ToOptString(dto.templateID),
+			SiteID:     util.ToPhoneOptString(dto.siteID),
+			TemplateID: util.ToPhoneOptString(dto.templateID),
 		},
 	), zoomphone.UpdateUserProfileParams{
 		UserId: dto.zoomUserID.ValueString(),
