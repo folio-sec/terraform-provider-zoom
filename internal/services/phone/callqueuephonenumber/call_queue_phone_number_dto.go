@@ -1,4 +1,4 @@
-package callqueuephonenumbers
+package callqueuephonenumber
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
