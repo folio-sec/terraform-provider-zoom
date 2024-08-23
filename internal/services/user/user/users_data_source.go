@@ -282,8 +282,8 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 	data.Users = lo.Map(dto.users, func(user listDtoUser, _ int) dataSourceModelUser {
 		return dataSourceModelUser{
 			ID: lo.Ternary(lo.IsEmpty(user.userID.ValueString()), types.StringNull(), user.userID),
-			CustomAttributes: lo.Map(user.customAttributes, func(customAttribute listDtoUserCustomAttribute, _ int) dataSourceModelUserCustomAttributes {
-				return dataSourceModelUserCustomAttributes{
+			CustomAttributes: lo.Map(user.customAttributes, func(customAttribute listDtoUserCustomAttribute, _ int) dataSourceModelUserCustomAttribute {
+				return dataSourceModelUserCustomAttribute{
 					Key:   customAttribute.key,
 					Name:  customAttribute.name,
 					Value: customAttribute.value,
