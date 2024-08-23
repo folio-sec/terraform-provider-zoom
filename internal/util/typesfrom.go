@@ -3,6 +3,7 @@ package util
 import (
 	"time"
 
+	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -42,11 +43,10 @@ func FromOptInt(o OptValue[int]) types.Int32 {
 	return types.Int32Value(int32(v))
 }
 
-func FromOptDateTime(o OptValue[time.Time]) types.String {
+func FromOptDateTime(o OptValue[time.Time]) timetypes.RFC3339 {
 	v, ok := o.Get()
 	if !ok {
-		return types.StringNull()
+		return timetypes.NewRFC3339Null()
 	}
-	str := v.String()
-	return types.StringValue(str)
+	return timetypes.NewRFC3339TimeValue(v)
 }

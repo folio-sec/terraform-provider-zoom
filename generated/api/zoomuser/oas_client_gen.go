@@ -12,7 +12,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
-	semconv "go.opentelemetry.io/otel/semconv/v1.19.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/ogen-go/ogen/conv"
@@ -1001,7 +1001,7 @@ func (c *Client) BulkUpdateFeature(ctx context.Context, request OptBulkUpdateFea
 func (c *Client) sendBulkUpdateFeature(ctx context.Context, request OptBulkUpdateFeatureReq) (res *BulkUpdateFeatureCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("bulkUpdateFeature"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/users/features"),
 	}
 
@@ -1125,7 +1125,7 @@ func (c *Client) ContactGroup(ctx context.Context, params ContactGroupParams) (*
 func (c *Client) sendContactGroup(ctx context.Context, params ContactGroupParams) (res *ContactGroupOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroup"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}"),
 	}
 
@@ -1264,7 +1264,7 @@ func (c *Client) ContactGroupCreate(ctx context.Context, request OptContactGroup
 func (c *Client) sendContactGroupCreate(ctx context.Context, request OptContactGroupCreateReq) (res *ContactGroupCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/contacts/groups"),
 	}
 
@@ -1388,7 +1388,7 @@ func (c *Client) ContactGroupDelete(ctx context.Context, params ContactGroupDele
 func (c *Client) sendContactGroupDelete(ctx context.Context, params ContactGroupDeleteParams) (res *ContactGroupDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}"),
 	}
 
@@ -1527,7 +1527,7 @@ func (c *Client) ContactGroupMemberAdd(ctx context.Context, request OptContactGr
 func (c *Client) sendContactGroupMemberAdd(ctx context.Context, request OptContactGroupMemberAddReq, params ContactGroupMemberAddParams) (res *ContactGroupMemberAddCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupMemberAdd"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}/members"),
 	}
 
@@ -1670,7 +1670,7 @@ func (c *Client) ContactGroupMemberRemove(ctx context.Context, params ContactGro
 func (c *Client) sendContactGroupMemberRemove(ctx context.Context, params ContactGroupMemberRemoveParams) (res *ContactGroupMemberRemoveNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupMemberRemove"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}/members"),
 	}
 
@@ -1828,7 +1828,7 @@ func (c *Client) ContactGroupMembers(ctx context.Context, params ContactGroupMem
 func (c *Client) sendContactGroupMembers(ctx context.Context, params ContactGroupMembersParams) (res *ContactGroupMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}/members"),
 	}
 
@@ -2006,7 +2006,7 @@ func (c *Client) ContactGroupUpdate(ctx context.Context, request OptContactGroup
 func (c *Client) sendContactGroupUpdate(ctx context.Context, request OptContactGroupUpdateReq, params ContactGroupUpdateParams) (res *ContactGroupUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroupUpdate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/contacts/groups/{groupId}"),
 	}
 
@@ -2148,7 +2148,7 @@ func (c *Client) ContactGroups(ctx context.Context, params ContactGroupsParams) 
 func (c *Client) sendContactGroups(ctx context.Context, params ContactGroupsParams) (res *ContactGroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("contactGroups"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/contacts/groups"),
 	}
 
@@ -2311,7 +2311,7 @@ func (c *Client) DelGroupVB(ctx context.Context, params DelGroupVBParams) error 
 func (c *Client) sendDelGroupVB(ctx context.Context, params DelGroupVBParams) (res *DelGroupVBNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("delGroupVB"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings/virtual_backgrounds"),
 	}
 
@@ -2478,7 +2478,7 @@ func (c *Client) DelUserVB(ctx context.Context, params DelUserVBParams) error {
 func (c *Client) sendDelUserVB(ctx context.Context, params DelUserVBParams) (res *DelUserVBNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("delUserVB"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/settings/virtual_backgrounds"),
 	}
 
@@ -2639,7 +2639,7 @@ func (c *Client) GetCollaborationDevice(ctx context.Context, params GetCollabora
 func (c *Client) sendGetCollaborationDevice(ctx context.Context, params GetCollaborationDeviceParams) (res *GetCollaborationDeviceOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCollaborationDevice"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/collaboration_devices/{collaborationDeviceId}"),
 	}
 
@@ -2802,7 +2802,7 @@ func (c *Client) GetGroupLockSettings(ctx context.Context, params GetGroupLockSe
 func (c *Client) sendGetGroupLockSettings(ctx context.Context, params GetGroupLockSettingsParams) (res GetGroupLockSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getGroupLockSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/lock_settings"),
 	}
 
@@ -2963,7 +2963,7 @@ func (c *Client) GetGroupSettings(ctx context.Context, params GetGroupSettingsPa
 func (c *Client) sendGetGroupSettings(ctx context.Context, params GetGroupSettingsParams) (res GetGroupSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getGroupSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings"),
 	}
 
@@ -3142,7 +3142,7 @@ func (c *Client) GetUserMeetingTemplates(ctx context.Context, params GetUserMeet
 func (c *Client) sendGetUserMeetingTemplates(ctx context.Context, params GetUserMeetingTemplatesParams) (res *GetUserMeetingTemplatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getUserMeetingTemplates"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/meeting_templates/{meetingTemplateId}"),
 	}
 
@@ -3315,7 +3315,7 @@ func (c *Client) GetUserPresenceStatus(ctx context.Context, params GetUserPresen
 func (c *Client) sendGetUserPresenceStatus(ctx context.Context, params GetUserPresenceStatusParams) (res GetUserPresenceStatusOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getUserPresenceStatus"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/presence_status"),
 	}
 
@@ -3456,7 +3456,7 @@ func (c *Client) Group(ctx context.Context, params GroupParams) (*GroupOK, error
 func (c *Client) sendGroup(ctx context.Context, params GroupParams) (res *GroupOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("group"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}"),
 	}
 
@@ -3597,7 +3597,7 @@ func (c *Client) GroupAdmins(ctx context.Context, params GroupAdminsParams) (*Gr
 func (c *Client) sendGroupAdmins(ctx context.Context, params GroupAdminsParams) (res *GroupAdminsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupAdmins"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/admins"),
 	}
 
@@ -3777,7 +3777,7 @@ func (c *Client) GroupAdminsCreate(ctx context.Context, request OptGroupAdminsCr
 func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (res GroupAdminsCreateRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupAdminsCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/admins"),
 	}
 
@@ -3922,7 +3922,7 @@ func (c *Client) GroupAdminsDelete(ctx context.Context, params GroupAdminsDelete
 func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) (res GroupAdminsDeleteRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupAdminsDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/admins/{userId}"),
 	}
 
@@ -4082,7 +4082,7 @@ func (c *Client) GroupChannels(ctx context.Context, params GroupChannelsParams) 
 func (c *Client) sendGroupChannels(ctx context.Context, params GroupChannelsParams) (res *GroupChannelsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupChannels"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/channels"),
 	}
 
@@ -4227,7 +4227,7 @@ func (c *Client) GroupCreate(ctx context.Context, request OptGroupCreateReq) (Gr
 func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq) (res GroupCreateRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/groups"),
 	}
 
@@ -4351,7 +4351,7 @@ func (c *Client) GroupDelete(ctx context.Context, params GroupDeleteParams) erro
 func (c *Client) sendGroupDelete(ctx context.Context, params GroupDeleteParams) (res *GroupDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}"),
 	}
 
@@ -4494,7 +4494,7 @@ func (c *Client) GroupLockedSettings(ctx context.Context, request OptGroupLocked
 func (c *Client) sendGroupLockedSettings(ctx context.Context, request OptGroupLockedSettingsReq, params GroupLockedSettingsParams) (res *GroupLockedSettingsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupLockedSettings"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/lock_settings"),
 	}
 
@@ -4659,7 +4659,7 @@ func (c *Client) GroupMembers(ctx context.Context, params GroupMembersParams) (*
 func (c *Client) sendGroupMembers(ctx context.Context, params GroupMembersParams) (res *GroupMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/members"),
 	}
 
@@ -4856,7 +4856,7 @@ func (c *Client) GroupMembersCreate(ctx context.Context, request OptGroupMembers
 func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (res GroupMembersCreateRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupMembersCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/members"),
 	}
 
@@ -5001,7 +5001,7 @@ func (c *Client) GroupMembersDelete(ctx context.Context, params GroupMembersDele
 func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) (res GroupMembersDeleteRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupMembersDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/members/{memberId}"),
 	}
 
@@ -5160,7 +5160,7 @@ func (c *Client) GroupSettingsRegistration(ctx context.Context, params GroupSett
 func (c *Client) sendGroupSettingsRegistration(ctx context.Context, params GroupSettingsRegistrationParams) (res *GroupSettingsRegistrationOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupSettingsRegistration"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings/registration"),
 	}
 
@@ -5326,7 +5326,7 @@ func (c *Client) GroupSettingsRegistrationUpdate(ctx context.Context, request Op
 func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) (res GroupSettingsRegistrationUpdateRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupSettingsRegistrationUpdate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings/registration"),
 	}
 
@@ -5491,7 +5491,7 @@ func (c *Client) GroupUpdate(ctx context.Context, request OptGroupUpdateReq, par
 func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) (res GroupUpdateRes, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupUpdate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}"),
 	}
 
@@ -5634,7 +5634,7 @@ func (c *Client) Groups(ctx context.Context) (*GroupsOK, error) {
 func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groups"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/groups"),
 	}
 
@@ -5756,7 +5756,7 @@ func (c *Client) ListCollaborationDevices(ctx context.Context, params ListCollab
 func (c *Client) sendListCollaborationDevices(ctx context.Context, params ListCollaborationDevicesParams) (res *ListCollaborationDevicesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCollaborationDevices"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/collaboration_devices"),
 	}
 
@@ -5905,7 +5905,7 @@ func (c *Client) UpdateAGroupMember(ctx context.Context, request OptUpdateAGroup
 func (c *Client) sendUpdateAGroupMember(ctx context.Context, request OptUpdateAGroupMemberReq, params UpdateAGroupMemberParams) (res *UpdateAGroupMemberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAGroupMember"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/members/{memberId}"),
 	}
 
@@ -6070,7 +6070,7 @@ func (c *Client) UpdateGroupSettings(ctx context.Context, request OptUpdateGroup
 func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateGroupSettingsReq, params UpdateGroupSettingsParams) (res *UpdateGroupSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateGroupSettings"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings"),
 	}
 
@@ -6251,7 +6251,7 @@ func (c *Client) UpdatePresenceStatus(ctx context.Context, request OptUpdatePres
 func (c *Client) sendUpdatePresenceStatus(ctx context.Context, request OptUpdatePresenceStatusReq, params UpdatePresenceStatusParams) (res *UpdatePresenceStatusNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePresenceStatus"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/users/{userId}/presence_status"),
 	}
 
@@ -6399,7 +6399,7 @@ func (c *Client) UploadGroupVB(ctx context.Context, request OptUploadGroupVBReq,
 func (c *Client) sendUploadGroupVB(ctx context.Context, request OptUploadGroupVBReq, params UploadGroupVBParams) (res *UploadGroupVBCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("uploadGroupVB"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/groups/{groupId}/settings/virtual_backgrounds"),
 	}
 
@@ -6555,7 +6555,7 @@ func (c *Client) UploadVBuser(ctx context.Context, request OptUploadVBuserReq, p
 func (c *Client) sendUploadVBuser(ctx context.Context, request OptUploadVBuserReq, params UploadVBuserParams) (res *UploadVBuserCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("uploadVBuser"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/users/{userId}/settings/virtual_backgrounds"),
 	}
 
@@ -6705,7 +6705,7 @@ func (c *Client) User(ctx context.Context, params UserParams) (*UserOK, error) {
 func (c *Client) sendUser(ctx context.Context, params UserParams) (res *UserOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("user"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}"),
 	}
 
@@ -6909,7 +6909,7 @@ func (c *Client) UserAssistantCreate(ctx context.Context, request OptUserAssista
 func (c *Client) sendUserAssistantCreate(ctx context.Context, request OptUserAssistantCreateReq, params UserAssistantCreateParams) (res *UserAssistantCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userAssistantCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/users/{userId}/assistants"),
 	}
 
@@ -7060,7 +7060,7 @@ func (c *Client) UserAssistantDelete(ctx context.Context, params UserAssistantDe
 func (c *Client) sendUserAssistantDelete(ctx context.Context, params UserAssistantDeleteParams) (res *UserAssistantDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userAssistantDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/assistants/{assistantId}"),
 	}
 
@@ -7225,7 +7225,7 @@ func (c *Client) UserAssistants(ctx context.Context, params UserAssistantsParams
 func (c *Client) sendUserAssistants(ctx context.Context, params UserAssistantsParams) (res *UserAssistantsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userAssistants"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/assistants"),
 	}
 
@@ -7373,7 +7373,7 @@ func (c *Client) UserAssistantsDelete(ctx context.Context, params UserAssistants
 func (c *Client) sendUserAssistantsDelete(ctx context.Context, params UserAssistantsDeleteParams) (res *UserAssistantsDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userAssistantsDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/assistants"),
 	}
 
@@ -7518,7 +7518,7 @@ func (c *Client) UserCreate(ctx context.Context, request OptUserCreateReq) (*Use
 func (c *Client) sendUserCreate(ctx context.Context, request OptUserCreateReq) (res *UserCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userCreate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/users"),
 	}
 
@@ -7653,7 +7653,7 @@ func (c *Client) UserDelete(ctx context.Context, params UserDeleteParams) error 
 func (c *Client) sendUserDelete(ctx context.Context, params UserDeleteParams) (res *UserDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}"),
 	}
 
@@ -7921,7 +7921,7 @@ func (c *Client) UserEmail(ctx context.Context, params UserEmailParams) (*UserEm
 func (c *Client) sendUserEmail(ctx context.Context, params UserEmailParams) (res *UserEmailOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userEmail"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/email"),
 	}
 
@@ -8069,7 +8069,7 @@ func (c *Client) UserEmailUpdate(ctx context.Context, request OptUserEmailUpdate
 func (c *Client) sendUserEmailUpdate(ctx context.Context, request OptUserEmailUpdateReq, params UserEmailUpdateParams) (res *UserEmailUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userEmailUpdate"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/users/{userId}/email"),
 	}
 
@@ -8218,7 +8218,7 @@ func (c *Client) UserPassword(ctx context.Context, request OptUserPasswordReq, p
 func (c *Client) sendUserPassword(ctx context.Context, request OptUserPasswordReq, params UserPasswordParams) (res *UserPasswordNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userPassword"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/users/{userId}/password"),
 	}
 
@@ -8364,7 +8364,7 @@ func (c *Client) UserPermission(ctx context.Context, params UserPermissionParams
 func (c *Client) sendUserPermission(ctx context.Context, params UserPermissionParams) (res *UserPermissionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userPermission"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/permissions"),
 	}
 
@@ -8506,7 +8506,7 @@ func (c *Client) UserPicture(ctx context.Context, request OptUserPictureReq, par
 func (c *Client) sendUserPicture(ctx context.Context, request OptUserPictureReq, params UserPictureParams) (res *UserPictureCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userPicture"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/users/{userId}/picture"),
 	}
 
@@ -8648,7 +8648,7 @@ func (c *Client) UserPictureDelete(ctx context.Context, params UserPictureDelete
 func (c *Client) sendUserPictureDelete(ctx context.Context, params UserPictureDeleteParams) (res *UserPictureDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userPictureDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/picture"),
 	}
 
@@ -8789,7 +8789,7 @@ func (c *Client) UserSSOTokenDelete(ctx context.Context, params UserSSOTokenDele
 func (c *Client) sendUserSSOTokenDelete(ctx context.Context, params UserSSOTokenDeleteParams) (res *UserSSOTokenDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSSOTokenDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/token"),
 	}
 
@@ -8933,7 +8933,7 @@ func (c *Client) UserSchedulerDelete(ctx context.Context, params UserSchedulerDe
 func (c *Client) sendUserSchedulerDelete(ctx context.Context, params UserSchedulerDeleteParams) (res *UserSchedulerDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSchedulerDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/schedulers/{schedulerId}"),
 	}
 
@@ -9097,7 +9097,7 @@ func (c *Client) UserSchedulers(ctx context.Context, params UserSchedulersParams
 func (c *Client) sendUserSchedulers(ctx context.Context, params UserSchedulersParams) (res *UserSchedulersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSchedulers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/schedulers"),
 	}
 
@@ -9241,7 +9241,7 @@ func (c *Client) UserSchedulersDelete(ctx context.Context, params UserSchedulers
 func (c *Client) sendUserSchedulersDelete(ctx context.Context, params UserSchedulersDeleteParams) (res *UserSchedulersDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSchedulersDelete"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/users/{userId}/schedulers"),
 	}
 
@@ -9381,7 +9381,7 @@ func (c *Client) UserSettings(ctx context.Context, params UserSettingsParams) (U
 func (c *Client) sendUserSettings(ctx context.Context, params UserSettingsParams) (res UserSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/settings"),
 	}
 
@@ -9576,7 +9576,7 @@ func (c *Client) UserSettingsUpdate(ctx context.Context, request OptUserSettings
 func (c *Client) sendUserSettingsUpdate(ctx context.Context, request OptUserSettingsUpdateReq, params UserSettingsUpdateParams) (res *UserSettingsUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSettingsUpdate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/users/{userId}/settings"),
 	}
 
@@ -9744,7 +9744,7 @@ func (c *Client) UserStatus(ctx context.Context, request OptUserStatusReq, param
 func (c *Client) sendUserStatus(ctx context.Context, request OptUserStatusReq, params UserStatusParams) (res *UserStatusOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userStatus"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/users/{userId}/status"),
 	}
 
@@ -9886,7 +9886,7 @@ func (c *Client) UserSummary(ctx context.Context) (*UserSummaryOK, error) {
 func (c *Client) sendUserSummary(ctx context.Context) (res *UserSummaryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSummary"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/summary"),
 	}
 
@@ -10008,7 +10008,7 @@ func (c *Client) UserToken(ctx context.Context, params UserTokenParams) (*UserTo
 func (c *Client) sendUserToken(ctx context.Context, params UserTokenParams) (res *UserTokenOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userToken"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/{userId}/token"),
 	}
 
@@ -10188,7 +10188,7 @@ func (c *Client) UserUpdate(ctx context.Context, request OptUserUpdateReq, param
 func (c *Client) sendUserUpdate(ctx context.Context, request OptUserUpdateReq, params UserUpdateParams) (res *UserUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userUpdate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/users/{userId}"),
 	}
 
@@ -10368,7 +10368,7 @@ func (c *Client) UserVanityName(ctx context.Context, params UserVanityNameParams
 func (c *Client) sendUserVanityName(ctx context.Context, params UserVanityNameParams) (res *UserVanityNameOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userVanityName"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/vanity_name"),
 	}
 
@@ -10513,7 +10513,7 @@ func (c *Client) UserZak(ctx context.Context) (*UserZakOK, error) {
 func (c *Client) sendUserZak(ctx context.Context) (res *UserZakOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userZak"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users/me/zak"),
 	}
 
@@ -10633,7 +10633,7 @@ func (c *Client) Users(ctx context.Context, params UsersParams) (*UsersOK, error
 func (c *Client) sendUsers(ctx context.Context, params UsersParams) (res *UsersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("users"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/users"),
 	}
 

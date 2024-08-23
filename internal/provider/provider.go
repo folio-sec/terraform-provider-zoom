@@ -18,11 +18,12 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemember"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumber"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
-	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
-	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmember"
-	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumber"
-	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
+	sharedlinegroupgroup "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
+	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmember"
+	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumber"
+	phoneuser "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumber"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/user/user"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -213,7 +214,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
 		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
-		user.NewUserResource,
+		phoneuser.NewUserResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
 	}
 }
@@ -225,6 +226,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupDataSource,
+		user.NewUsersDataSource,
 	}
 }
 
