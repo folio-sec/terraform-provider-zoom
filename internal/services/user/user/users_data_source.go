@@ -61,39 +61,45 @@ This resource requires the ` + strings.Join([]string{
 			"`user:read:list_users:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
-			"status": schema.StringAttribute{
-				Optional: true,
-				Validators: []validator.String{
-					stringvalidator.OneOf("active", "inactive", "pending"),
-				},
-				MarkdownDescription: "The user's status. Default value is `active`. Allowed: `active`, `inactive`, `pending`" + strings.Join([]string{
-					"",
-					"- `active`: The user exists on the account.",
-					"- `inactive`: The user has been deactivated.",
-					"- `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.",
-				}, markdownSeparatorForList),
-			},
-			"role_id": schema.StringAttribute{
+			"query": schema.SingleNestedAttribute{
 				Optional:            true,
-				MarkdownDescription: "The role's unique ID. Use this parameter to filter the response by a specific role. You can use the [List roles API](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles) to get a role's unique ID value.",
-			},
-			"include_fields": schema.StringAttribute{
-				Optional: true,
-				Validators: []validator.String{
-					stringvalidator.OneOf("custom_attributes", "host_key"),
+				MarkdownDescription: "The query parameters for listing users.",
+				Attributes: map[string]schema.Attribute{
+					"status": schema.StringAttribute{
+						Optional: true,
+						Validators: []validator.String{
+							stringvalidator.OneOf("active", "inactive", "pending"),
+						},
+						MarkdownDescription: "The user's status. Default behavior is `active`. Allowed: `active`, `inactive`, `pending`" + strings.Join([]string{
+							"",
+							"- `active`: The user exists on the account.",
+							"- `inactive`: The user has been deactivated.",
+							"- `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.",
+						}, markdownSeparatorForList),
+					},
+					"role_id": schema.StringAttribute{
+						Optional:            true,
+						MarkdownDescription: "The role's unique ID. Use this parameter to filter the response by a specific role. You can use the [List roles API](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles) to get a role's unique ID value.",
+					},
+					"include_fields": schema.StringAttribute{
+						Optional: true,
+						Validators: []validator.String{
+							stringvalidator.OneOf("custom_attributes", "host_key"),
+						},
+						MarkdownDescription: "This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`" + strings.Join([]string{
+							"",
+							"- `custom_attributes`: Return the user's custom attributes.",
+							"- `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).",
+						}, markdownSeparatorForList),
+					},
+					"license": schema.StringAttribute{
+						Optional: true,
+						Validators: []validator.String{
+							stringvalidator.OneOf("zoom_workforce_management", "zoom_compliance_management"),
+						},
+						MarkdownDescription: "The user's license. Filter the response by a specific license. Allowed: `zoom_workforce_management`, `zoom_compliance_management`",
+					},
 				},
-				MarkdownDescription: "This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`" + strings.Join([]string{
-					"",
-					"- `custom_attributes`: Return the user's custom attributes.",
-					"- `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).",
-				}, markdownSeparatorForList),
-			},
-			"license": schema.StringAttribute{
-				Optional: true,
-				Validators: []validator.String{
-					stringvalidator.OneOf("zoom_workforce_management", "zoom_compliance_management"),
-				},
-				MarkdownDescription: "The user's license. Filter the response by a specific license. Allowed: `zoom_workforce_management`, `zoom_compliance_management`",
 			},
 			"users": schema.SetNestedAttribute{
 				Computed:            true,
@@ -253,12 +259,21 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 		return
 	}
 
-	dto, err := d.crud.list(ctx, listQueryDto{
-		status:        data.Status,
-		roleID:        data.RoleID,
-		includeFields: data.IncludeFields,
-		license:       data.License,
-	})
+	dto, err := d.crud.list(ctx, lo.TernaryF(data.Query == nil, func() listQueryDto {
+		return listQueryDto{
+			status:        types.StringNull(),
+			roleID:        types.StringNull(),
+			includeFields: types.StringNull(),
+			license:       types.StringNull(),
+		}
+	}, func() listQueryDto {
+		return listQueryDto{
+			status:        data.Query.Status,
+			roleID:        data.Query.RoleID,
+			includeFields: data.Query.IncludeFields,
+			license:       data.Query.License,
+		}
+	}))
 	if err != nil {
 		resp.Diagnostics.AddError("Error reading users", err.Error())
 		return

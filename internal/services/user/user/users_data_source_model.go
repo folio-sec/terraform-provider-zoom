@@ -6,11 +6,15 @@ import (
 )
 
 type dataSourceModel struct {
-	Status        types.String          `tfsdk:"status"`
-	RoleID        types.String          `tfsdk:"role_id"`
-	IncludeFields types.String          `tfsdk:"include_fields"`
-	License       types.String          `tfsdk:"license"`
-	Users         []dataSourceModelUser `tfsdk:"users"`
+	Query *dataSourceModelQuery `tfsdk:"query"`
+	Users []dataSourceModelUser `tfsdk:"users"`
+}
+
+type dataSourceModelQuery struct {
+	Status        types.String `tfsdk:"status"`
+	RoleID        types.String `tfsdk:"role_id"`
+	IncludeFields types.String `tfsdk:"include_fields"`
+	License       types.String `tfsdk:"license"`
 }
 
 type dataSourceModelUser struct {

@@ -22,12 +22,14 @@ This resource requires the `user:read:list_users:admin`.
 
 ```terraform
 data "zoom_user_users" "example" {
-  status = "active"
+  query = {
+    status = "active"
+  }
 }
 
 output "users" {
   value = data.zoom_user_users.example.users
-  // Thee host_key attribute is sensitive, so it is marked as such to root output
+  // The host_key attribute is sensitive, so it is marked as such to root output
   sensitive = true
 }
 ```
@@ -37,19 +39,27 @@ output "users" {
 
 ### Optional
 
+- `query` (Attributes) The query parameters for listing users. (see [below for nested schema](#nestedatt--query))
+
+### Read-Only
+
+- `users` (Attributes Set) A list of users. Each user object provides the attributes documented below. (see [below for nested schema](#nestedatt--users))
+
+<a id="nestedatt--query"></a>
+### Nested Schema for `query`
+
+Optional:
+
 - `include_fields` (String) This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`
   - `custom_attributes`: Return the user's custom attributes.
   - `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).
 - `license` (String) The user's license. Filter the response by a specific license. Allowed: `zoom_workforce_management`, `zoom_compliance_management`
 - `role_id` (String) The role's unique ID. Use this parameter to filter the response by a specific role. You can use the [List roles API](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles) to get a role's unique ID value.
-- `status` (String) The user's status. Default value is `active`. Allowed: `active`, `inactive`, `pending`
+- `status` (String) The user's status. Default behavior is `active`. Allowed: `active`, `inactive`, `pending`
   - `active`: The user exists on the account.
   - `inactive`: The user has been deactivated.
   - `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.
 
-### Read-Only
-
-- `users` (Attributes Set) A list of users. Each user object provides the attributes documented below. (see [below for nested schema](#nestedatt--users))
 
 <a id="nestedatt--users"></a>
 ### Nested Schema for `users`
