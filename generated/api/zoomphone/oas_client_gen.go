@@ -13,7 +13,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/metric"
-	semconv "go.opentelemetry.io/otel/semconv/v1.19.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/ogen-go/ogen/conv"
@@ -4529,7 +4529,7 @@ func (c *Client) AccountCallHistory(ctx context.Context, params AccountCallHisto
 func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallHistoryParams) (res *AccountCallHistoryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountCallHistory"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_history"),
 	}
 
@@ -5022,7 +5022,7 @@ func (c *Client) AccountCallLogs(ctx context.Context, params AccountCallLogsPara
 func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogsParams) (res *AccountCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountCallLogs"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_logs"),
 	}
 
@@ -5302,7 +5302,7 @@ func (c *Client) AccountSmsSession(ctx context.Context, params AccountSmsSession
 func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (res *AccountSmsSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountSmsSession"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms/sessions"),
 	}
 
@@ -5548,7 +5548,7 @@ func (c *Client) AccountVoiceMails(ctx context.Context, params AccountVoiceMails
 func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (res *AccountVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("accountVoiceMails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/voice_mails"),
 	}
 
@@ -5812,7 +5812,7 @@ func (c *Client) ActiveCRPhoneNumbers(ctx context.Context, request []string) err
 func (c *Client) sendActiveCRPhoneNumbers(ctx context.Context, request []string) (res *ActiveCRPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("activeCRPhoneNumbers"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/carrier_reseller/numbers"),
 	}
 
@@ -5939,7 +5939,7 @@ func (c *Client) AddAccountLevelInboundBlockRules(ctx context.Context, request O
 func (c *Client) sendAddAccountLevelInboundBlockRules(ctx context.Context, request OptAddAccountLevelInboundBlockRulesReq) (res *AddAccountLevelInboundBlockRulesCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAccountLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/rules"),
 	}
 
@@ -6065,7 +6065,7 @@ func (c *Client) AddAccountOutboundCallingExceptionRule(ctx context.Context, req
 func (c *Client) sendAddAccountOutboundCallingExceptionRule(ctx context.Context, request OptAddAccountOutboundCallingExceptionRuleReq) (res *AddAccountOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAccountOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/exception_rules"),
 	}
 
@@ -6191,7 +6191,7 @@ func (c *Client) AddAnAlertSetting(ctx context.Context, request OptAddAnAlertSet
 func (c *Client) sendAddAnAlertSetting(ctx context.Context, request OptAddAnAlertSettingReq) (res *AddAnAlertSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAnAlertSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/alert_settings"),
 	}
 
@@ -6318,7 +6318,7 @@ func (c *Client) AddAnAudio(ctx context.Context, request OptAddAnAudioReq, param
 func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, params AddAnAudioParams) (res *AddAnAudioCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAnAudio"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/audios"),
 	}
 
@@ -6468,7 +6468,7 @@ func (c *Client) AddAnumberToBlockedList(ctx context.Context, request OptAddAnum
 func (c *Client) sendAddAnumberToBlockedList(ctx context.Context, request OptAddAnumberToBlockedListReq) (res *AddAnumberToBlockedListCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addAnumberToBlockedList"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/blocked_list"),
 	}
 
@@ -6598,7 +6598,7 @@ func (c *Client) AddAudioItem(ctx context.Context, request OptAddAudioItemReq, p
 func (c *Client) sendAddAudioItem(ctx context.Context, request OptAddAudioItemReq, params AddAudioItemParams) (res *AddAudioItemCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddAudioItem"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/audios/batch"),
 	}
 
@@ -6746,7 +6746,7 @@ func (c *Client) AddAutoReceptionist(ctx context.Context, request OptAddAutoRece
 func (c *Client) sendAddAutoReceptionist(ctx context.Context, request OptAddAutoReceptionistReq) (res *AddAutoReceptionistCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addAutoReceptionist"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists"),
 	}
 
@@ -6872,7 +6872,7 @@ func (c *Client) AddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq)
 func (c *Client) sendAddBYOCNumber(ctx context.Context, request OptAddBYOCNumberReq) (res *AddBYOCNumberCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addBYOCNumber"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/byoc_numbers"),
 	}
 
@@ -7000,7 +7000,7 @@ func (c *Client) AddCQPolicySubSetting(ctx context.Context, request OptAddCQPoli
 func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQPolicySubSettingReq, params AddCQPolicySubSettingParams) (res *AddCQPolicySubSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCQPolicySubSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/policies/{policyType}"),
 	}
 
@@ -7169,7 +7169,7 @@ func (c *Client) AddCallHandling(ctx context.Context, request OptAddCallHandling
 func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (res AddCallHandlingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCallHandling"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/call_handling/settings/{settingType}"),
 	}
 
@@ -7334,7 +7334,7 @@ func (c *Client) AddClientCodeToCallLog(ctx context.Context, request OptAddClien
 func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) (res *AddClientCodeToCallLogNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addClientCodeToCallLog"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/phone/call_logs/{callLogId}/client_code"),
 	}
 
@@ -7481,7 +7481,7 @@ func (c *Client) AddCommonArea(ctx context.Context, request OptAddCommonAreaReq)
 func (c *Client) sendAddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (res *AddCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addCommonArea"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/common_areas"),
 	}
 
@@ -7607,7 +7607,7 @@ func (c *Client) AddCommonAreaOutboundCallingExceptionRule(ctx context.Context, 
 func (c *Client) sendAddCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptAddCommonAreaOutboundCallingExceptionRuleReq, params AddCommonAreaOutboundCallingExceptionRuleParams) (res *AddCommonAreaOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddCommonAreaOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/exception_rules"),
 	}
 
@@ -7754,7 +7754,7 @@ func (c *Client) AddCommonAreaSetting(ctx context.Context, request OptAddCommonA
 func (c *Client) sendAddCommonAreaSetting(ctx context.Context, request OptAddCommonAreaSettingReq, params AddCommonAreaSettingParams) (res *AddCommonAreaSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddCommonAreaSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/settings/{settingType}"),
 	}
 
@@ -7918,7 +7918,7 @@ func (c *Client) AddEmergencyAddress(ctx context.Context, request OptAddEmergenc
 func (c *Client) sendAddEmergencyAddress(ctx context.Context, request OptAddEmergencyAddressReq) (res *AddEmergencyAddressCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addEmergencyAddress"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/emergency_addresses"),
 	}
 
@@ -8049,7 +8049,7 @@ func (c *Client) AddExtensionsToADevice(ctx context.Context, request OptAddExten
 func (c *Client) sendAddExtensionsToADevice(ctx context.Context, request OptAddExtensionsToADeviceReq, params AddExtensionsToADeviceParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addExtensionsToADevice"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/extensions"),
 	}
 
@@ -8196,7 +8196,7 @@ func (c *Client) AddExtensiontLevelInboundBlockRules(ctx context.Context, reques
 func (c *Client) sendAddExtensiontLevelInboundBlockRules(ctx context.Context, request OptAddExtensiontLevelInboundBlockRulesReq, params AddExtensiontLevelInboundBlockRulesParams) (res *AddExtensiontLevelInboundBlockRulesCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddExtensiontLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/inbound_blocked/rules"),
 	}
 
@@ -8341,7 +8341,7 @@ func (c *Client) AddExternalContact(ctx context.Context, request OptAddExternalC
 func (c *Client) sendAddExternalContact(ctx context.Context, request OptAddExternalContactReq) (res *AddExternalContactCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addExternalContact"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/external_contacts"),
 	}
 
@@ -8468,7 +8468,7 @@ func (c *Client) AddFirmwareRule(ctx context.Context, request OptAddFirmwareRule
 func (c *Client) sendAddFirmwareRule(ctx context.Context, request OptAddFirmwareRuleReq) (res *AddFirmwareRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddFirmwareRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/firmware_update_rules"),
 	}
 
@@ -8596,7 +8596,7 @@ func (c *Client) AddGCP(ctx context.Context, request OptAddGCPReq) (*AddGCPCreat
 func (c *Client) sendAddGCP(ctx context.Context, request OptAddGCPReq) (res *AddGCPCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addGCP"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup"),
 	}
 
@@ -8723,7 +8723,7 @@ func (c *Client) AddGCPMembers(ctx context.Context, request OptAddGCPMembersReq,
 func (c *Client) sendAddGCPMembers(ctx context.Context, request OptAddGCPMembersReq, params AddGCPMembersParams) (res *AddGCPMembersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addGCPMembers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}/members"),
 	}
 
@@ -8868,7 +8868,7 @@ func (c *Client) AddLocation(ctx context.Context, request OptAddLocationReq) (*A
 func (c *Client) sendAddLocation(ctx context.Context, request OptAddLocationReq) (res *AddLocationCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addLocation"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/locations"),
 	}
 
@@ -8995,7 +8995,7 @@ func (c *Client) AddMembers(ctx context.Context, request []string, params AddMem
 func (c *Client) sendAddMembers(ctx context.Context, request []string, params AddMembersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}/monitor_members"),
 	}
 
@@ -9159,7 +9159,7 @@ func (c *Client) AddMembersToCallQueue(ctx context.Context, request OptAddMember
 func (c *Client) sendAddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) (res *AddMembersToCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembersToCallQueue"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/members"),
 	}
 
@@ -9306,7 +9306,7 @@ func (c *Client) AddMembersToSharedLineGroup(ctx context.Context, request OptAdd
 func (c *Client) sendAddMembersToSharedLineGroup(ctx context.Context, request OptAddMembersToSharedLineGroupReq, params AddMembersToSharedLineGroupParams) (res *AddMembersToSharedLineGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addMembersToSharedLineGroup"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/members"),
 	}
 
@@ -9453,7 +9453,7 @@ func (c *Client) AddOutboundCallerNumbers(ctx context.Context, request OptAddOut
 func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAddOutboundCallerNumbersReq) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/outbound_caller_id/customized_numbers"),
 	}
 
@@ -9582,7 +9582,7 @@ func (c *Client) AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeri
 func (c *Client) sendAddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (res *AddPeeringPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addPeeringPhoneNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/peering/numbers"),
 	}
 
@@ -9714,7 +9714,7 @@ func (c *Client) AddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceRe
 func (c *Client) sendAddPhoneDevice(ctx context.Context, request OptAddPhoneDeviceReq) (res *AddPhoneDeviceCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addPhoneDevice"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/devices"),
 	}
 
@@ -9842,7 +9842,7 @@ func (c *Client) AddPolicy(ctx context.Context, request OptAddPolicyReq, params 
 func (c *Client) sendAddPolicy(ctx context.Context, request OptAddPolicyReq, params AddPolicyParams) (res *AddPolicyCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddPolicy"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}"),
 	}
 
@@ -10006,7 +10006,7 @@ func (c *Client) AddProvisionTemplate(ctx context.Context, request OptAddProvisi
 func (c *Client) sendAddProvisionTemplate(ctx context.Context, request OptAddProvisionTemplateReq) (res *AddProvisionTemplateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addProvisionTemplate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/provision_templates"),
 	}
 
@@ -10133,7 +10133,7 @@ func (c *Client) AddRoleMembers(ctx context.Context, request OptAddRoleMembersRe
 func (c *Client) sendAddRoleMembers(ctx context.Context, request OptAddRoleMembersReq, params AddRoleMembersParams) (res *AddRoleMembersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddRoleMembers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}/members"),
 	}
 
@@ -10282,7 +10282,7 @@ func (c *Client) AddRoutingRule(ctx context.Context, request OptAddRoutingRuleRe
 func (c *Client) sendAddRoutingRule(ctx context.Context, request OptAddRoutingRuleReq) (res *AddRoutingRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addRoutingRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/routing_rules"),
 	}
 
@@ -10408,7 +10408,7 @@ func (c *Client) AddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPo
 func (c *Client) sendAddSLGPolicySubSetting(ctx context.Context, request OptAddSLGPolicySubSettingReq, params AddSLGPolicySubSettingParams) (res *AddSLGPolicySubSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSLGPolicySubSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{slgId}/policies/{policyType}"),
 	}
 
@@ -10572,7 +10572,7 @@ func (c *Client) AddSettingTemplate(ctx context.Context, request OptAddSettingTe
 func (c *Client) sendAddSettingTemplate(ctx context.Context, request OptAddSettingTemplateReq) (res *AddSettingTemplateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSettingTemplate"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/setting_templates"),
 	}
 
@@ -10700,7 +10700,7 @@ func (c *Client) AddSiteOutboundCallerNumbers(ctx context.Context, request OptAd
 func (c *Client) sendAddSiteOutboundCallerNumbers(ctx context.Context, request OptAddSiteOutboundCallerNumbersReq, params AddSiteOutboundCallerNumbersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSiteOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -10845,7 +10845,7 @@ func (c *Client) AddSiteOutboundCallingExceptionRule(ctx context.Context, reques
 func (c *Client) sendAddSiteOutboundCallingExceptionRule(ctx context.Context, request OptAddSiteOutboundCallingExceptionRuleReq, params AddSiteOutboundCallingExceptionRuleParams) (res *AddSiteOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddSiteOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/exception_rules"),
 	}
 
@@ -10993,7 +10993,7 @@ func (c *Client) AddSiteSetting(ctx context.Context, request OptAddSiteSettingRe
 func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSettingReq, params AddSiteSettingParams) (res *AddSiteSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addSiteSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/settings/{settingType}"),
 	}
 
@@ -11157,7 +11157,7 @@ func (c *Client) AddUserOutboundCallerNumbers(ctx context.Context, request OptAd
 func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addUserOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -11302,7 +11302,7 @@ func (c *Client) AddUserOutboundCallingExceptionRule(ctx context.Context, reques
 func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, request OptAddUserOutboundCallingExceptionRuleReq, params AddUserOutboundCallingExceptionRuleParams) (res *AddUserOutboundCallingExceptionRuleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUserOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/exception_rules"),
 	}
 
@@ -11455,7 +11455,7 @@ func (c *Client) AddUserSetting(ctx context.Context, request OptAddUserSettingRe
 func (c *Client) sendAddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (res *AddUserSettingCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addUserSetting"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/settings/{settingType}"),
 	}
 
@@ -11619,7 +11619,7 @@ func (c *Client) AddUsersToDirectory(ctx context.Context, request OptAddUsersToD
 func (c *Client) sendAddUsersToDirectory(ctx context.Context, request OptAddUsersToDirectoryReq) (res *AddUsersToDirectoryCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUsersToDirectory"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/dial_by_name_directory/extensions"),
 	}
 
@@ -11746,7 +11746,7 @@ func (c *Client) AddUsersToDirectoryBySite(ctx context.Context, request OptAddUs
 func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) (res *AddUsersToDirectoryBySiteCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("AddUsersToDirectoryBySite"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/dial_by_name_directory/extensions"),
 	}
 
@@ -11893,7 +11893,7 @@ func (c *Client) AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (jx
 func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addZoomRoom"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/rooms"),
 	}
 
@@ -12023,7 +12023,7 @@ func (c *Client) AssignCallingPlan(ctx context.Context, request OptAssignCalling
 func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlan"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/calling_plans"),
 	}
 
@@ -12172,7 +12172,7 @@ func (c *Client) AssignCallingPlanToRoom(ctx context.Context, request OptAssignC
 func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlanToRoom"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}/calling_plans"),
 	}
 
@@ -12318,7 +12318,7 @@ func (c *Client) AssignCallingPlansToCommonArea(ctx context.Context, request Opt
 func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (res *AssignCallingPlansToCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlansToCommonArea"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/calling_plans"),
 	}
 
@@ -12464,7 +12464,7 @@ func (c *Client) AssignCampaignPhoneNumbers(ctx context.Context, request OptAssi
 func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (res *AssignCampaignPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCampaignPhoneNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sms_campaigns/{smsCampaignId}/phone_numbers"),
 	}
 
@@ -12611,7 +12611,7 @@ func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNu
 func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (res *AssignPhoneNumberCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumber"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/phone_numbers"),
 	}
 
@@ -12757,7 +12757,7 @@ func (c *Client) AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAss
 func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (res jx.Raw, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumberToZoomRoom"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}/phone_numbers"),
 	}
 
@@ -12907,7 +12907,7 @@ func (c *Client) AssignPhoneNumbersAutoReceptionist(ctx context.Context, request
 func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, request OptAssignPhoneNumbersAutoReceptionistReq, params AssignPhoneNumbersAutoReceptionistParams) (res *AssignPhoneNumbersAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersAutoReceptionist"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/phone_numbers"),
 	}
 
@@ -13055,7 +13055,7 @@ func (c *Client) AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPho
 func (c *Client) sendAssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) (res *AssignPhoneNumbersSLGCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersSLG"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers"),
 	}
 
@@ -13201,7 +13201,7 @@ func (c *Client) AssignPhoneNumbersToCommonArea(ctx context.Context, request Opt
 func (c *Client) sendAssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (res *AssignPhoneNumbersToCommonAreaCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumbersToCommonArea"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/phone_numbers"),
 	}
 
@@ -13350,7 +13350,7 @@ func (c *Client) AssignPhoneToCallQueue(ctx context.Context, request OptAssignPh
 func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssignPhoneToCallQueueReq, params AssignPhoneToCallQueueParams) (res *AssignPhoneToCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneToCallQueue"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/phone_numbers"),
 	}
 
@@ -13495,7 +13495,7 @@ func (c *Client) BatchAddLocations(ctx context.Context, request OptBatchAddLocat
 func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (res *BatchAddLocationsCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchAddLocations"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/batch_locations"),
 	}
 
@@ -13623,7 +13623,7 @@ func (c *Client) BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq)
 func (c *Client) sendBatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) (res []BatchAddUsersCreatedItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchAddUsers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/users/batch"),
 	}
 
@@ -13750,7 +13750,7 @@ func (c *Client) BatchUpdateDeviceLineKeySetting(ctx context.Context, request Op
 func (c *Client) sendBatchUpdateDeviceLineKeySetting(ctx context.Context, request OptBatchUpdateDeviceLineKeySettingReq, params BatchUpdateDeviceLineKeySettingParams) (res *BatchUpdateDeviceLineKeySettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("batchUpdateDeviceLineKeySetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/line_keys"),
 	}
 
@@ -13896,7 +13896,7 @@ func (c *Client) BatchUpdateLineKeySetting(ctx context.Context, request OptBatch
 func (c *Client) sendBatchUpdateLineKeySetting(ctx context.Context, request OptBatchUpdateLineKeySettingReq, params BatchUpdateLineKeySettingParams) (res *BatchUpdateLineKeySettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("BatchUpdateLineKeySetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/line_keys"),
 	}
 
@@ -14042,7 +14042,7 @@ func (c *Client) CreateASharedLineGroup(ctx context.Context, request OptCreateAS
 func (c *Client) sendCreateASharedLineGroup(ctx context.Context, request OptCreateASharedLineGroupReq) (res *CreateASharedLineGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createASharedLineGroup"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups"),
 	}
 
@@ -14169,7 +14169,7 @@ func (c *Client) CreateCRPhoneNumbers(ctx context.Context, request []CreateCRPho
 func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateCRPhoneNumbersReqItem) (res *CreateCRPhoneNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createCRPhoneNumbers"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/carrier_reseller/numbers"),
 	}
 
@@ -14301,7 +14301,7 @@ func (c *Client) CreateCallQueue(ctx context.Context, request OptCreateCallQueue
 func (c *Client) sendCreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (res *CreateCallQueueCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createCallQueue"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/call_queues"),
 	}
 
@@ -14427,7 +14427,7 @@ func (c *Client) CreateMonitoringGroup(ctx context.Context, request OptCreateMon
 func (c *Client) sendCreateMonitoringGroup(ctx context.Context, request OptCreateMonitoringGroupReq) (res *CreateMonitoringGroupCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createMonitoringGroup"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups"),
 	}
 
@@ -14555,7 +14555,7 @@ func (c *Client) CreatePhoneSite(ctx context.Context, request OptCreatePhoneSite
 func (c *Client) sendCreatePhoneSite(ctx context.Context, request OptCreatePhoneSiteReq) (res *CreatePhoneSiteCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createPhoneSite"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/sites"),
 	}
 
@@ -14682,7 +14682,7 @@ func (c *Client) DelRoleMembers(ctx context.Context, params DelRoleMembersParams
 func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersParams) (res *DelRoleMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DelRoleMembers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}/members"),
 	}
 
@@ -14854,7 +14854,7 @@ func (c *Client) DeleteABlockedList(ctx context.Context, params DeleteABlockedLi
 func (c *Client) sendDeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) (res *DeleteABlockedListNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteABlockedList"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/blocked_list/{blockedListId}"),
 	}
 
@@ -14999,7 +14999,7 @@ func (c *Client) DeleteACallQueue(ctx context.Context, params DeleteACallQueuePa
 func (c *Client) sendDeleteACallQueue(ctx context.Context, params DeleteACallQueueParams) (res *DeleteACallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteACallQueue"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}"),
 	}
 
@@ -15142,7 +15142,7 @@ func (c *Client) DeleteADevice(ctx context.Context, params DeleteADeviceParams) 
 func (c *Client) sendDeleteADevice(ctx context.Context, params DeleteADeviceParams) (res *DeleteADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteADevice"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}"),
 	}
 
@@ -15283,7 +15283,7 @@ func (c *Client) DeleteAExternalContact(ctx context.Context, params DeleteAExter
 func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAExternalContactParams) (res *DeleteAExternalContactNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAExternalContact"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/external_contacts/{externalContactId}"),
 	}
 
@@ -15427,7 +15427,7 @@ func (c *Client) DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGPa
 func (c *Client) sendDeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) (res *DeleteAMemberSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAMemberSLG"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}"),
 	}
 
@@ -15589,7 +15589,7 @@ func (c *Client) DeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneN
 func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPhoneNumberSLGParams) (res *DeleteAPhoneNumberSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAPhoneNumberSLG"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -15751,7 +15751,7 @@ func (c *Client) DeleteASharedLineGroup(ctx context.Context, params DeleteAShare
 func (c *Client) sendDeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) (res *DeleteASharedLineGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteASharedLineGroup"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}"),
 	}
 
@@ -15892,7 +15892,7 @@ func (c *Client) DeleteAccountLevelInboundBlockRules(ctx context.Context, params
 func (c *Client) sendDeleteAccountLevelInboundBlockRules(ctx context.Context, params DeleteAccountLevelInboundBlockRulesParams) (res *DeleteAccountLevelInboundBlockRulesNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAccountLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/rules"),
 	}
 
@@ -16036,7 +16036,7 @@ func (c *Client) DeleteAccountLevelInboundBlockedStatistics(ctx context.Context,
 func (c *Client) sendDeleteAccountLevelInboundBlockedStatistics(ctx context.Context, params DeleteAccountLevelInboundBlockedStatisticsParams) (res *DeleteAccountLevelInboundBlockedStatisticsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAccountLevelInboundBlockedStatistics"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/extension_rules/statistics"),
 	}
 
@@ -16177,7 +16177,7 @@ func (c *Client) DeleteAccountOutboundCallingExceptionRule(ctx context.Context, 
 func (c *Client) sendDeleteAccountOutboundCallingExceptionRule(ctx context.Context, params DeleteAccountOutboundCallingExceptionRuleParams) (res *DeleteAccountOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAccountOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -16318,7 +16318,7 @@ func (c *Client) DeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertS
 func (c *Client) sendDeleteAnAlertSetting(ctx context.Context, params DeleteAnAlertSettingParams) (res *DeleteAnAlertSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAnAlertSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/alert_settings/{alertSettingId}"),
 	}
 
@@ -16459,7 +16459,7 @@ func (c *Client) DeleteAudioItem(ctx context.Context, params DeleteAudioItemPara
 func (c *Client) sendDeleteAudioItem(ctx context.Context, params DeleteAudioItemParams) (res *DeleteAudioItemNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteAudioItem"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/audios/{audioId}"),
 	}
 
@@ -16604,7 +16604,7 @@ func (c *Client) DeleteAutoReceptionist(ctx context.Context, params DeleteAutoRe
 func (c *Client) sendDeleteAutoReceptionist(ctx context.Context, params DeleteAutoReceptionistParams) (res *DeleteAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteAutoReceptionist"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}"),
 	}
 
@@ -16745,7 +16745,7 @@ func (c *Client) DeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNu
 func (c *Client) sendDeleteCRPhoneNumber(ctx context.Context, params DeleteCRPhoneNumberParams) (res *DeleteCRPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCRPhoneNumber"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/carrier_reseller/numbers/{number}"),
 	}
 
@@ -16891,7 +16891,7 @@ func (c *Client) DeleteCallHandling(ctx context.Context, params DeleteCallHandli
 func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHandlingParams) (res *DeleteCallHandlingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallHandling"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/call_handling/settings/{settingType}"),
 	}
 
@@ -17092,7 +17092,7 @@ func (c *Client) DeleteCallLog(ctx context.Context, params DeleteCallLogParams) 
 func (c *Client) sendDeleteCallLog(ctx context.Context, params DeleteCallLogParams) (res *DeleteCallLogNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallLog"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_logs/{callLogId}"),
 	}
 
@@ -17252,7 +17252,7 @@ func (c *Client) DeleteCallRecording(ctx context.Context, params DeleteCallRecor
 func (c *Client) sendDeleteCallRecording(ctx context.Context, params DeleteCallRecordingParams) (res *DeleteCallRecordingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCallRecording"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/recordings/{recordingId}"),
 	}
 
@@ -17394,7 +17394,7 @@ func (c *Client) DeleteCommonArea(ctx context.Context, params DeleteCommonAreaPa
 func (c *Client) sendDeleteCommonArea(ctx context.Context, params DeleteCommonAreaParams) (res *DeleteCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonArea"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}"),
 	}
 
@@ -17535,7 +17535,7 @@ func (c *Client) DeleteCommonAreaOutboundCallingExceptionRule(ctx context.Contex
 func (c *Client) sendDeleteCommonAreaOutboundCallingExceptionRule(ctx context.Context, params DeleteCommonAreaOutboundCallingExceptionRuleParams) (res *DeleteCommonAreaOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonAreaOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -17696,7 +17696,7 @@ func (c *Client) DeleteCommonAreaSetting(ctx context.Context, params DeleteCommo
 func (c *Client) sendDeleteCommonAreaSetting(ctx context.Context, params DeleteCommonAreaSettingParams) (res *DeleteCommonAreaSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteCommonAreaSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/settings/{settingType}"),
 	}
 
@@ -17874,7 +17874,7 @@ func (c *Client) DeleteEmergencyAddress(ctx context.Context, params DeleteEmerge
 func (c *Client) sendDeleteEmergencyAddress(ctx context.Context, params DeleteEmergencyAddressParams) (res *DeleteEmergencyAddressNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteEmergencyAddress"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/emergency_addresses/{emergencyAddressId}"),
 	}
 
@@ -18015,7 +18015,7 @@ func (c *Client) DeleteExtensionFromADevice(ctx context.Context, params DeleteEx
 func (c *Client) sendDeleteExtensionFromADevice(ctx context.Context, params DeleteExtensionFromADeviceParams) (res *DeleteExtensionFromADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteExtensionFromADevice"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/extensions/{extensionId}"),
 	}
 
@@ -18177,7 +18177,7 @@ func (c *Client) DeleteExtensiontLevelInboundBlockRules(ctx context.Context, par
 func (c *Client) sendDeleteExtensiontLevelInboundBlockRules(ctx context.Context, params DeleteExtensiontLevelInboundBlockRulesParams) (res *DeleteExtensiontLevelInboundBlockRulesNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteExtensiontLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/inbound_blocked/rules"),
 	}
 
@@ -18338,7 +18338,7 @@ func (c *Client) DeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirm
 func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params DeleteFirmwareUpdateRuleParams) (res *DeleteFirmwareUpdateRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteFirmwareUpdateRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/firmware_update_rules/{ruleId}"),
 	}
 
@@ -18501,7 +18501,7 @@ func (c *Client) DeleteGCP(ctx context.Context, params DeleteGCPParams) error {
 func (c *Client) sendDeleteGCP(ctx context.Context, params DeleteGCPParams) (res *DeleteGCPNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteGCP"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}"),
 	}
 
@@ -18643,7 +18643,7 @@ func (c *Client) DeleteLineKey(ctx context.Context, params DeleteLineKeyParams) 
 func (c *Client) sendDeleteLineKey(ctx context.Context, params DeleteLineKeyParams) (res *DeleteLineKeyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteLineKey"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/line_keys/{lineKeyId}"),
 	}
 
@@ -18803,7 +18803,7 @@ func (c *Client) DeleteLocation(ctx context.Context, params DeleteLocationParams
 func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationParams) (res *DeleteLocationNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteLocation"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/locations/{locationId}"),
 	}
 
@@ -18947,7 +18947,7 @@ func (c *Client) DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfS
 func (c *Client) sendDeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) (res *DeleteMembersOfSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteMembersOfSLG"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/members"),
 	}
 
@@ -19090,7 +19090,7 @@ func (c *Client) DeleteMonitoringGroup(ctx context.Context, params DeleteMonitor
 func (c *Client) sendDeleteMonitoringGroup(ctx context.Context, params DeleteMonitoringGroupParams) (res *DeleteMonitoringGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteMonitoringGroup"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}"),
 	}
 
@@ -19233,7 +19233,7 @@ func (c *Client) DeleteOutboundCallerNumbers(ctx context.Context, params DeleteO
 func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) (res *DeleteOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/outbound_caller_id/customized_numbers"),
 	}
 
@@ -19389,7 +19389,7 @@ func (c *Client) DeletePeeringPhoneNumbers(ctx context.Context, request OptDelet
 func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (res *DeletePeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePeeringPhoneNumbers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/peering/numbers"),
 	}
 
@@ -19517,7 +19517,7 @@ func (c *Client) DeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNu
 func (c *Client) sendDeletePhoneNumbersSLG(ctx context.Context, params DeletePhoneNumbersSLGParams) (res *DeletePhoneNumbersSLGNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePhoneNumbersSLG"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers"),
 	}
 
@@ -19660,7 +19660,7 @@ func (c *Client) DeletePhoneRole(ctx context.Context, params DeletePhoneRolePara
 func (c *Client) sendDeletePhoneRole(ctx context.Context, params DeletePhoneRoleParams) (res *DeletePhoneRoleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeletePhoneRole"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}"),
 	}
 
@@ -19805,7 +19805,7 @@ func (c *Client) DeletePhoneSite(ctx context.Context, params DeletePhoneSitePara
 func (c *Client) sendDeletePhoneSite(ctx context.Context, params DeletePhoneSiteParams) (res *DeletePhoneSiteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePhoneSite"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}"),
 	}
 
@@ -19966,7 +19966,7 @@ func (c *Client) DeletePolicy(ctx context.Context, params DeletePolicyParams) er
 func (c *Client) sendDeletePolicy(ctx context.Context, params DeletePolicyParams) (res *DeletePolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeletePolicy"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}"),
 	}
 
@@ -20154,7 +20154,7 @@ func (c *Client) DeleteProvisionTemplate(ctx context.Context, params DeleteProvi
 func (c *Client) sendDeleteProvisionTemplate(ctx context.Context, params DeleteProvisionTemplateParams) (res *DeleteProvisionTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteProvisionTemplate"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/provision_templates/{templateId}"),
 	}
 
@@ -20299,7 +20299,7 @@ func (c *Client) DeleteRoutingRule(ctx context.Context, params DeleteRoutingRule
 func (c *Client) sendDeleteRoutingRule(ctx context.Context, params DeleteRoutingRuleParams) (res *DeleteRoutingRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteRoutingRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/routing_rules/{routingRuleId}"),
 	}
 
@@ -20442,7 +20442,7 @@ func (c *Client) DeleteSiteOutboundCallerNumbers(ctx context.Context, params Del
 func (c *Client) sendDeleteSiteOutboundCallerNumbers(ctx context.Context, params DeleteSiteOutboundCallerNumbersParams) (res *DeleteSiteOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -20614,7 +20614,7 @@ func (c *Client) DeleteSiteOutboundCallingExceptionRule(ctx context.Context, par
 func (c *Client) sendDeleteSiteOutboundCallingExceptionRule(ctx context.Context, params DeleteSiteOutboundCallingExceptionRuleParams) (res *DeleteSiteOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -20776,7 +20776,7 @@ func (c *Client) DeleteSiteSetting(ctx context.Context, params DeleteSiteSetting
 func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSettingParams) (res *DeleteSiteSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteSiteSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/settings/{settingType}"),
 	}
 
@@ -20977,7 +20977,7 @@ func (c *Client) DeleteUnassignedPhoneNumbers(ctx context.Context, params Delete
 func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) (res *DeleteUnassignedPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUnassignedPhoneNumbers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/numbers"),
 	}
 
@@ -21128,7 +21128,7 @@ func (c *Client) DeleteUserOutboundCallerNumbers(ctx context.Context, params Del
 func (c *Client) sendDeleteUserOutboundCallerNumbers(ctx context.Context, params DeleteUserOutboundCallerNumbersParams) (res *DeleteUserOutboundCallerNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -21300,7 +21300,7 @@ func (c *Client) DeleteUserOutboundCallingExceptionRule(ctx context.Context, par
 func (c *Client) sendDeleteUserOutboundCallingExceptionRule(ctx context.Context, params DeleteUserOutboundCallingExceptionRuleParams) (res *DeleteUserOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -21468,7 +21468,7 @@ func (c *Client) DeleteUserSetting(ctx context.Context, params DeleteUserSetting
 func (c *Client) sendDeleteUserSetting(ctx context.Context, params DeleteUserSettingParams) (res *DeleteUserSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deleteUserSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/settings/{settingType}"),
 	}
 
@@ -21701,7 +21701,7 @@ func (c *Client) DeleteUsersFromDirectory(ctx context.Context, params DeleteUser
 func (c *Client) sendDeleteUsersFromDirectory(ctx context.Context, params DeleteUsersFromDirectoryParams) (res *DeleteUsersFromDirectoryNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteUsersFromDirectory"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/dial_by_name_directory/extensions"),
 	}
 
@@ -21869,7 +21869,7 @@ func (c *Client) DeleteUsersFromDirectoryBySite(ctx context.Context, params Dele
 func (c *Client) sendDeleteUsersFromDirectoryBySite(ctx context.Context, params DeleteUsersFromDirectoryBySiteParams) (res *DeleteUsersFromDirectoryBySiteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DeleteUsersFromDirectoryBySite"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/dial_by_name_directory/extensions"),
 	}
 
@@ -22058,7 +22058,7 @@ func (c *Client) DuplicatePhoneRole(ctx context.Context, request OptDuplicatePho
 func (c *Client) sendDuplicatePhoneRole(ctx context.Context, request OptDuplicatePhoneRoleReq) (res *DuplicatePhoneRoleCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("DuplicatePhoneRole"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/roles"),
 	}
 
@@ -22184,7 +22184,7 @@ func (c *Client) GetABillingAccount(ctx context.Context, params GetABillingAccou
 func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingAccountParams) (res *GetABillingAccountOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetABillingAccount"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/billing_accounts/{billingAccountId}"),
 	}
 
@@ -22328,7 +22328,7 @@ func (c *Client) GetABlockedList(ctx context.Context, params GetABlockedListPara
 func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedListParams) (res *GetABlockedListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getABlockedList"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/blocked_list/{blockedListId}"),
 	}
 
@@ -22473,7 +22473,7 @@ func (c *Client) GetACallQueue(ctx context.Context, params GetACallQueueParams) 
 func (c *Client) sendGetACallQueue(ctx context.Context, params GetACallQueueParams) (res *GetACallQueueOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getACallQueue"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}"),
 	}
 
@@ -22615,7 +22615,7 @@ func (c *Client) GetACommonArea(ctx context.Context, params GetACommonAreaParams
 func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaParams) (res *GetACommonAreaOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getACommonArea"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}"),
 	}
 
@@ -22757,7 +22757,7 @@ func (c *Client) GetADevice(ctx context.Context, params GetADeviceParams) (*GetA
 func (c *Client) sendGetADevice(ctx context.Context, params GetADeviceParams) (res *GetADeviceOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getADevice"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}"),
 	}
 
@@ -22898,7 +22898,7 @@ func (c *Client) GetAExternalContact(ctx context.Context, params GetAExternalCon
 func (c *Client) sendGetAExternalContact(ctx context.Context, params GetAExternalContactParams) (res *GetAExternalContactOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAExternalContact"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/external_contacts/{externalContactId}"),
 	}
 
@@ -23042,7 +23042,7 @@ func (c *Client) GetASharedLineGroup(ctx context.Context, params GetASharedLineG
 func (c *Client) sendGetASharedLineGroup(ctx context.Context, params GetASharedLineGroupParams) (res *GetASharedLineGroupOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getASharedLineGroup"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}"),
 	}
 
@@ -23185,7 +23185,7 @@ func (c *Client) GetASite(ctx context.Context, params GetASiteParams) (*GetASite
 func (c *Client) sendGetASite(ctx context.Context, params GetASiteParams) (res *GetASiteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getASite"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}"),
 	}
 
@@ -23326,7 +23326,7 @@ func (c *Client) GetAccountOutboundCallingCountriesAndRegions(ctx context.Contex
 func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (res *GetAccountOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetAccountOutboundCallingCountriesAndRegions"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/countries_regions"),
 	}
 
@@ -23488,7 +23488,7 @@ func (c *Client) GetAlertSettingDetails(ctx context.Context, params GetAlertSett
 func (c *Client) sendGetAlertSettingDetails(ctx context.Context, params GetAlertSettingDetailsParams) (res *GetAlertSettingDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetAlertSettingDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/alert_settings/{alertSettingId}"),
 	}
 
@@ -23629,7 +23629,7 @@ func (c *Client) GetAudioItem(ctx context.Context, params GetAudioItemParams) (*
 func (c *Client) sendGetAudioItem(ctx context.Context, params GetAudioItemParams) (res *GetAudioItemOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetAudioItem"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/audios/{audioId}"),
 	}
 
@@ -23770,7 +23770,7 @@ func (c *Client) GetAutoReceptionistDetail(ctx context.Context, params GetAutoRe
 func (c *Client) sendGetAutoReceptionistDetail(ctx context.Context, params GetAutoReceptionistDetailParams) (res *GetAutoReceptionistDetailOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAutoReceptionistDetail"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}"),
 	}
 
@@ -23912,7 +23912,7 @@ func (c *Client) GetAutoReceptionistIVR(ctx context.Context, params GetAutoRecep
 func (c *Client) sendGetAutoReceptionistIVR(ctx context.Context, params GetAutoReceptionistIVRParams) (res *GetAutoReceptionistIVROK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAutoReceptionistIVR"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/ivr"),
 	}
 
@@ -24093,7 +24093,7 @@ func (c *Client) GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoR
 func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (res *GetAutoReceptionistsPolicyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getAutoReceptionistsPolicy"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/policies"),
 	}
 
@@ -24239,7 +24239,7 @@ func (c *Client) GetCallChargesUsageReport(ctx context.Context, params GetCallCh
 func (c *Client) sendGetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (res *GetCallChargesUsageReportOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetCallChargesUsageReport"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/reports/call_charges"),
 	}
 
@@ -24471,7 +24471,7 @@ func (c *Client) GetCallHandling(ctx context.Context, params GetCallHandlingPara
 func (c *Client) sendGetCallHandling(ctx context.Context, params GetCallHandlingParams) (res *GetCallHandlingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallHandling"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/call_handling/settings"),
 	}
 
@@ -24616,7 +24616,7 @@ func (c *Client) GetCallLogDetails(ctx context.Context, params GetCallLogDetails
 func (c *Client) sendGetCallLogDetails(ctx context.Context, params GetCallLogDetailsParams) (res *GetCallLogDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallLogDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_logs/{callLogId}"),
 	}
 
@@ -24756,7 +24756,7 @@ func (c *Client) GetCallLogMetricsDetails(ctx context.Context, params GetCallLog
 func (c *Client) sendGetCallLogMetricsDetails(ctx context.Context, params GetCallLogMetricsDetailsParams) (res *GetCallLogMetricsDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallLogMetricsDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/metrics/call_logs/{call_id}"),
 	}
 
@@ -24898,7 +24898,7 @@ func (c *Client) GetCallPath(ctx context.Context, params GetCallPathParams) (*Ge
 func (c *Client) sendGetCallPath(ctx context.Context, params GetCallPathParams) (res *GetCallPathOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallPath"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_history/{callLogId}"),
 	}
 
@@ -25040,7 +25040,7 @@ func (c *Client) GetCallQoS(ctx context.Context, params GetCallQoSParams) (*GetC
 func (c *Client) sendGetCallQoS(ctx context.Context, params GetCallQoSParams) (res *GetCallQoSOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallQoS"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/metrics/call_logs/{callId}/qos"),
 	}
 
@@ -25185,7 +25185,7 @@ func (c *Client) GetCallQueueRecordings(ctx context.Context, params GetCallQueue
 func (c *Client) sendGetCallQueueRecordings(ctx context.Context, params GetCallQueueRecordingsParams) (res *GetCallQueueRecordingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCallQueueRecordings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/recordings"),
 	}
 
@@ -25399,7 +25399,7 @@ func (c *Client) GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Con
 func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (res *GetCommonAreaOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetCommonAreaOutboundCallingCountriesAndRegions"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/countries_regions"),
 	}
 
@@ -25580,7 +25580,7 @@ func (c *Client) GetCommonAreaSettings(ctx context.Context, params GetCommonArea
 func (c *Client) sendGetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (res *GetCommonAreaSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getCommonAreaSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/settings"),
 	}
 
@@ -25722,7 +25722,7 @@ func (c *Client) GetEmergencyAddress(ctx context.Context, params GetEmergencyAdd
 func (c *Client) sendGetEmergencyAddress(ctx context.Context, params GetEmergencyAddressParams) (res *GetEmergencyAddressOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getEmergencyAddress"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/emergency_addresses/{emergencyAddressId}"),
 	}
 
@@ -25864,7 +25864,7 @@ func (c *Client) GetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRu
 func (c *Client) sendGetFirmwareRuleDetail(ctx context.Context, params GetFirmwareRuleDetailParams) (res *GetFirmwareRuleDetailOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetFirmwareRuleDetail"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/firmware_update_rules/{ruleId}"),
 	}
 
@@ -26006,7 +26006,7 @@ func (c *Client) GetGCP(ctx context.Context, params GetGCPParams) (*GetGCPOK, er
 func (c *Client) sendGetGCP(ctx context.Context, params GetGCPParams) (res *GetGCPOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetGCP"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}"),
 	}
 
@@ -26146,7 +26146,7 @@ func (c *Client) GetGroupPhoneSettings(ctx context.Context, params GetGroupPhone
 func (c *Client) sendGetGroupPhoneSettings(ctx context.Context, params GetGroupPhoneSettingsParams) (res *GetGroupPhoneSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getGroupPhoneSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/groups/{groupId}/settings"),
 	}
 
@@ -26309,7 +26309,7 @@ func (c *Client) GetLocation(ctx context.Context, params GetLocationParams) (*Ge
 func (c *Client) sendGetLocation(ctx context.Context, params GetLocationParams) (res *GetLocationOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getLocation"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/locations/{locationId}"),
 	}
 
@@ -26451,7 +26451,7 @@ func (c *Client) GetMonitoringGroupById(ctx context.Context, params GetMonitorin
 func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (res *GetMonitoringGroupByIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getMonitoringGroupById"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}"),
 	}
 
@@ -26597,7 +26597,7 @@ func (c *Client) GetPSOperationLogs(ctx context.Context, params GetPSOperationLo
 func (c *Client) sendGetPSOperationLogs(ctx context.Context, params GetPSOperationLogsParams) (res *GetPSOperationLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPSOperationLogs"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/reports/operationlogs"),
 	}
 
@@ -26809,7 +26809,7 @@ func (c *Client) GetPhoneNumberDetails(ctx context.Context, params GetPhoneNumbe
 func (c *Client) sendGetPhoneNumberDetails(ctx context.Context, params GetPhoneNumberDetailsParams) (res *GetPhoneNumberDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneNumberDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/numbers/{phoneNumberId}"),
 	}
 
@@ -26952,7 +26952,7 @@ func (c *Client) GetPhoneRecordings(ctx context.Context, params GetPhoneRecordin
 func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneRecordingsParams) (res *GetPhoneRecordingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneRecordings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/recordings"),
 	}
 
@@ -27235,7 +27235,7 @@ func (c *Client) GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, para
 func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (res *GetPhoneRecordingsByCallIdOrCallLogIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPhoneRecordingsByCallIdOrCallLogId"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_logs/{id}/recordings"),
 	}
 
@@ -27379,7 +27379,7 @@ func (c *Client) GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUser
 func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (res *GetPhoneUserVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetPhoneUserVoiceMails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/voice_mails/sync"),
 	}
 
@@ -27573,7 +27573,7 @@ func (c *Client) GetPortedNumbersDetails(ctx context.Context, params GetPortedNu
 func (c *Client) sendGetPortedNumbersDetails(ctx context.Context, params GetPortedNumbersDetailsParams) (res *GetPortedNumbersDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getPortedNumbersDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/ported_numbers/orders/{orderId}"),
 	}
 
@@ -27715,7 +27715,7 @@ func (c *Client) GetProvisionTemplate(ctx context.Context, params GetProvisionTe
 func (c *Client) sendGetProvisionTemplate(ctx context.Context, params GetProvisionTemplateParams) (res *GetProvisionTemplateOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetProvisionTemplate"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/provision_templates/{templateId}"),
 	}
 
@@ -27857,7 +27857,7 @@ func (c *Client) GetRoleInformation(ctx context.Context, params GetRoleInformati
 func (c *Client) sendGetRoleInformation(ctx context.Context, params GetRoleInformationParams) (res *GetRoleInformationOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getRoleInformation"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}"),
 	}
 
@@ -27999,7 +27999,7 @@ func (c *Client) GetRoutingRule(ctx context.Context, params GetRoutingRuleParams
 func (c *Client) sendGetRoutingRule(ctx context.Context, params GetRoutingRuleParams) (res *GetRoutingRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getRoutingRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/routing_rules/{routingRuleId}"),
 	}
 
@@ -28140,7 +28140,7 @@ func (c *Client) GetSMSCampaign(ctx context.Context, params GetSMSCampaignParams
 func (c *Client) sendGetSMSCampaign(ctx context.Context, params GetSMSCampaignParams) (res *GetSMSCampaignOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSMSCampaign"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms_campaigns/{smsCampaignId}"),
 	}
 
@@ -28286,7 +28286,7 @@ func (c *Client) GetSMSChargesUsageReport(ctx context.Context, params GetSMSChar
 func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMSChargesUsageReportParams) (res *GetSMSChargesUsageReportOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSMSChargesUsageReport"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/reports/sms_charges"),
 	}
 
@@ -28498,7 +28498,7 @@ func (c *Client) GetSettingTemplate(ctx context.Context, params GetSettingTempla
 func (c *Client) sendGetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (res *GetSettingTemplateOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSettingTemplate"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/setting_templates/{templateId}"),
 	}
 
@@ -28661,7 +28661,7 @@ func (c *Client) GetSharedLineGroupPolicy(ctx context.Context, params GetSharedL
 func (c *Client) sendGetSharedLineGroupPolicy(ctx context.Context, params GetSharedLineGroupPolicyParams) (res *GetSharedLineGroupPolicyOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSharedLineGroupPolicy"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/policies"),
 	}
 
@@ -28803,7 +28803,7 @@ func (c *Client) GetSiteOutboundCallingCountriesAndRegions(ctx context.Context, 
 func (c *Client) sendGetSiteOutboundCallingCountriesAndRegions(ctx context.Context, params GetSiteOutboundCallingCountriesAndRegionsParams) (res *GetSiteOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSiteOutboundCallingCountriesAndRegions"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/countries_regions"),
 	}
 
@@ -28986,7 +28986,7 @@ func (c *Client) GetSiteSettingForType(ctx context.Context, params GetSiteSettin
 func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSettingForTypeParams) (res *GetSiteSettingForTypeOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getSiteSettingForType"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/settings/{settingType}"),
 	}
 
@@ -29147,7 +29147,7 @@ func (c *Client) GetSmsSessions(ctx context.Context, params GetSmsSessionsParams
 func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (res *GetSmsSessionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetSmsSessions"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/sms/sessions/sync"),
 	}
 
@@ -29358,7 +29358,7 @@ func (c *Client) GetUserOutboundCallingCountriesAndRegions(ctx context.Context, 
 func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (res *GetUserOutboundCallingCountriesAndRegionsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("GetUserOutboundCallingCountriesAndRegions"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/countries_regions"),
 	}
 
@@ -29538,7 +29538,7 @@ func (c *Client) GetVoicemailDetails(ctx context.Context, params GetVoicemailDet
 func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (res *GetVoicemailDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getVoicemailDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/voice_mails/{voicemailId}"),
 	}
 
@@ -29681,7 +29681,7 @@ func (c *Client) GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, par
 func (c *Client) sendGetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (res *GetVoicemailDetailsByCallIdOrCallLogIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getVoicemailDetailsByCallIdOrCallLogId"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_logs/{id}/voice_mail"),
 	}
 
@@ -29843,7 +29843,7 @@ func (c *Client) GetZoomRoom(ctx context.Context, params GetZoomRoomParams) (*Ge
 func (c *Client) sendGetZoomRoom(ctx context.Context, params GetZoomRoomParams) (res *GetZoomRoomOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("getZoomRoom"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}"),
 	}
 
@@ -29984,7 +29984,7 @@ func (c *Client) ListAccountLevelInboundBlockRules(ctx context.Context, params L
 func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, params ListAccountLevelInboundBlockRulesParams) (res *ListAccountLevelInboundBlockRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAccountLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/rules"),
 	}
 
@@ -30214,7 +30214,7 @@ func (c *Client) ListAccountLevelInboundBlockedStatistics(ctx context.Context, p
 func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Context, params ListAccountLevelInboundBlockedStatisticsParams) (res *ListAccountLevelInboundBlockedStatisticsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAccountLevelInboundBlockedStatistics"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/extension_rules/statistics"),
 	}
 
@@ -30425,7 +30425,7 @@ func (c *Client) ListAccountOutboundCallingExceptionRule(ctx context.Context, pa
 func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context, params ListAccountOutboundCallingExceptionRuleParams) (res *ListAccountOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAccountOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/exception_rules"),
 	}
 
@@ -30654,7 +30654,7 @@ func (c *Client) ListAccountPhoneNumbers(ctx context.Context, params ListAccount
 func (c *Client) sendListAccountPhoneNumbers(ctx context.Context, params ListAccountPhoneNumbersParams) (res *ListAccountPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAccountPhoneNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/numbers"),
 	}
 
@@ -30901,7 +30901,7 @@ func (c *Client) ListAccountProvisionTemplate(ctx context.Context, params ListAc
 func (c *Client) sendListAccountProvisionTemplate(ctx context.Context, params ListAccountProvisionTemplateParams) (res *ListAccountProvisionTemplateOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAccountProvisionTemplate"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/provision_templates"),
 	}
 
@@ -31062,7 +31062,7 @@ func (c *Client) ListAccountSMSCampaigns(ctx context.Context, params ListAccount
 func (c *Client) sendListAccountSMSCampaigns(ctx context.Context, params ListAccountSMSCampaignsParams) (res *ListAccountSMSCampaignsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAccountSMSCampaigns"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms_campaigns"),
 	}
 
@@ -31225,7 +31225,7 @@ func (c *Client) ListActivationCodes(ctx context.Context, params ListActivationC
 func (c *Client) sendListActivationCodes(ctx context.Context, params ListActivationCodesParams) (res *ListActivationCodesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listActivationCodes"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/activation_codes"),
 	}
 
@@ -31387,7 +31387,7 @@ func (c *Client) ListAlertSettingsWithPagingQuery(ctx context.Context, params Li
 func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (res *ListAlertSettingsWithPagingQueryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAlertSettingsWithPagingQuery"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/alert_settings"),
 	}
 
@@ -31600,7 +31600,7 @@ func (c *Client) ListAudioItems(ctx context.Context, params ListAudioItemsParams
 func (c *Client) sendListAudioItems(ctx context.Context, params ListAudioItemsParams) (res *ListAudioItemsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListAudioItems"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/audios"),
 	}
 
@@ -31742,7 +31742,7 @@ func (c *Client) ListAutoReceptionists(ctx context.Context, params ListAutoRecep
 func (c *Client) sendListAutoReceptionists(ctx context.Context, params ListAutoReceptionistsParams) (res *ListAutoReceptionistsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listAutoReceptionists"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists"),
 	}
 
@@ -31903,7 +31903,7 @@ func (c *Client) ListBYOCSIPTrunk(ctx context.Context, params ListBYOCSIPTrunkPa
 func (c *Client) sendListBYOCSIPTrunk(ctx context.Context, params ListBYOCSIPTrunkParams) (res *ListBYOCSIPTrunkOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listBYOCSIPTrunk"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sip_trunk/trunks"),
 	}
 
@@ -32064,7 +32064,7 @@ func (c *Client) ListBillingAccount(ctx context.Context) (*ListBillingAccountOK,
 func (c *Client) sendListBillingAccount(ctx context.Context) (res *ListBillingAccountOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listBillingAccount"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/billing_accounts"),
 	}
 
@@ -32190,7 +32190,7 @@ func (c *Client) ListBlockedList(ctx context.Context, params ListBlockedListPara
 func (c *Client) sendListBlockedList(ctx context.Context, params ListBlockedListParams) (res *ListBlockedListOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listBlockedList"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/blocked_list"),
 	}
 
@@ -32352,7 +32352,7 @@ func (c *Client) ListCRPhoneNumbers(ctx context.Context, params ListCRPhoneNumbe
 func (c *Client) sendListCRPhoneNumbers(ctx context.Context, params ListCRPhoneNumbersParams) (res *ListCRPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCRPhoneNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/carrier_reseller/numbers"),
 	}
 
@@ -32566,7 +32566,7 @@ func (c *Client) ListCallLogsMetrics(ctx context.Context, params ListCallLogsMet
 func (c *Client) sendListCallLogsMetrics(ctx context.Context, params ListCallLogsMetricsParams) (res *ListCallLogsMetricsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCallLogsMetrics"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/metrics/call_logs"),
 	}
 
@@ -32796,7 +32796,7 @@ func (c *Client) ListCallQueueMembers(ctx context.Context, params ListCallQueueM
 func (c *Client) sendListCallQueueMembers(ctx context.Context, params ListCallQueueMembersParams) (res *ListCallQueueMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCallQueueMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/members"),
 	}
 
@@ -32980,7 +32980,7 @@ func (c *Client) ListCallQueues(ctx context.Context, params ListCallQueuesParams
 func (c *Client) sendListCallQueues(ctx context.Context, params ListCallQueuesParams) (res *ListCallQueuesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCallQueues"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/call_queues"),
 	}
 
@@ -33193,7 +33193,7 @@ func (c *Client) ListCallingPlans(ctx context.Context) (*ListCallingPlansOK, err
 func (c *Client) sendListCallingPlans(ctx context.Context) (res *ListCallingPlansOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCallingPlans"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/calling_plans"),
 	}
 
@@ -33318,7 +33318,7 @@ func (c *Client) ListCarrierPeeringPhoneNumbers(ctx context.Context, params List
 func (c *Client) sendListCarrierPeeringPhoneNumbers(ctx context.Context, params ListCarrierPeeringPhoneNumbersParams) (res *ListCarrierPeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCarrierPeeringPhoneNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/carrier_peering/numbers"),
 	}
 
@@ -33495,7 +33495,7 @@ func (c *Client) ListCommonAreaOutboundCallingExceptionRule(ctx context.Context,
 func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Context, params ListCommonAreaOutboundCallingExceptionRuleParams) (res *ListCommonAreaOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCommonAreaOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/exception_rules"),
 	}
 
@@ -33744,7 +33744,7 @@ func (c *Client) ListCommonAreas(ctx context.Context, params ListCommonAreasPara
 func (c *Client) sendListCommonAreas(ctx context.Context, params ListCommonAreasParams) (res *ListCommonAreasOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCommonAreas"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/common_areas"),
 	}
 
@@ -33907,7 +33907,7 @@ func (c *Client) ListCustomizeOutboundCallerNumbers(ctx context.Context, params 
 func (c *Client) sendListCustomizeOutboundCallerNumbers(ctx context.Context, params ListCustomizeOutboundCallerNumbersParams) (res *ListCustomizeOutboundCallerNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listCustomizeOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/outbound_caller_id/customized_numbers"),
 	}
 
@@ -34138,7 +34138,7 @@ func (c *Client) ListDeviceLineKeySetting(ctx context.Context, params ListDevice
 func (c *Client) sendListDeviceLineKeySetting(ctx context.Context, params ListDeviceLineKeySettingParams) (res *ListDeviceLineKeySettingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listDeviceLineKeySetting"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/line_keys"),
 	}
 
@@ -34280,7 +34280,7 @@ func (c *Client) ListEmergencyAddresses(ctx context.Context, params ListEmergenc
 func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmergencyAddressesParams) (res *ListEmergencyAddressesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listEmergencyAddresses"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/emergency_addresses"),
 	}
 
@@ -34528,7 +34528,7 @@ func (c *Client) ListExtensionLevelInboundBlockRules(ctx context.Context, params
 func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, params ListExtensionLevelInboundBlockRulesParams) (res *ListExtensionLevelInboundBlockRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListExtensionLevelInboundBlockRules"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/inbound_blocked/rules"),
 	}
 
@@ -34759,7 +34759,7 @@ func (c *Client) ListExternalContacts(ctx context.Context, params ListExternalCo
 func (c *Client) sendListExternalContacts(ctx context.Context, params ListExternalContactsParams) (res *ListExternalContactsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listExternalContacts"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/external_contacts"),
 	}
 
@@ -34921,7 +34921,7 @@ func (c *Client) ListFirmwareRules(ctx context.Context, params ListFirmwareRules
 func (c *Client) sendListFirmwareRules(ctx context.Context, params ListFirmwareRulesParams) (res *ListFirmwareRulesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListFirmwareRules"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/firmware_update_rules"),
 	}
 
@@ -35100,7 +35100,7 @@ func (c *Client) ListFirmwares(ctx context.Context, params ListFirmwaresParams) 
 func (c *Client) sendListFirmwares(ctx context.Context, params ListFirmwaresParams) (res *ListFirmwaresOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListFirmwares"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/firmwares"),
 	}
 
@@ -35262,7 +35262,7 @@ func (c *Client) ListGCP(ctx context.Context, params ListGCPParams) (*ListGCPOK,
 func (c *Client) sendListGCP(ctx context.Context, params ListGCPParams) (res *ListGCPOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listGCP"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup"),
 	}
 
@@ -35441,7 +35441,7 @@ func (c *Client) ListGCPMembers(ctx context.Context, params ListGCPMembersParams
 func (c *Client) sendListGCPMembers(ctx context.Context, params ListGCPMembersParams) (res *ListGCPMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listGCPMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}/members"),
 	}
 
@@ -35656,7 +35656,7 @@ func (c *Client) ListLineKeySetting(ctx context.Context, params ListLineKeySetti
 func (c *Client) sendListLineKeySetting(ctx context.Context, params ListLineKeySettingParams) (res *ListLineKeySettingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listLineKeySetting"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/line_keys"),
 	}
 
@@ -35800,7 +35800,7 @@ func (c *Client) ListLocations(ctx context.Context, params ListLocationsParams) 
 func (c *Client) sendListLocations(ctx context.Context, params ListLocationsParams) (res *ListLocationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listLocations"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/locations"),
 	}
 
@@ -35979,7 +35979,7 @@ func (c *Client) ListMembers(ctx context.Context, params ListMembersParams) (*Li
 func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) (res *ListMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}/monitor_members"),
 	}
 
@@ -36174,7 +36174,7 @@ func (c *Client) ListMonitoringGroup(ctx context.Context, params ListMonitoringG
 func (c *Client) sendListMonitoringGroup(ctx context.Context, params ListMonitoringGroupParams) (res *ListMonitoringGroupOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listMonitoringGroup"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups"),
 	}
 
@@ -36372,7 +36372,7 @@ func (c *Client) ListPastCallMetrics(ctx context.Context, params ListPastCallMet
 func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCallMetricsParams) (res *ListPastCallMetricsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPastCallMetrics"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/metrics/past_calls"),
 	}
 
@@ -36724,7 +36724,7 @@ func (c *Client) ListPeeringPhoneNumbers(ctx context.Context, params ListPeering
 func (c *Client) sendListPeeringPhoneNumbers(ctx context.Context, params ListPeeringPhoneNumbersParams) (res *ListPeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPeeringPhoneNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/peering/numbers"),
 	}
 
@@ -36920,7 +36920,7 @@ func (c *Client) ListPhoneDevices(ctx context.Context, params ListPhoneDevicesPa
 func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevicesParams) (res *ListPhoneDevicesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPhoneDevices"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/devices"),
 	}
 
@@ -37199,7 +37199,7 @@ func (c *Client) ListPhonePlans(ctx context.Context) (*ListPhonePlansOK, error) 
 func (c *Client) sendListPhonePlans(ctx context.Context) (res *ListPhonePlansOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPhonePlans"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/plans"),
 	}
 
@@ -37322,7 +37322,7 @@ func (c *Client) ListPhoneRoles(ctx context.Context) (*ListPhoneRolesOK, error) 
 func (c *Client) sendListPhoneRoles(ctx context.Context) (res *ListPhoneRolesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListPhoneRoles"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/roles"),
 	}
 
@@ -37448,7 +37448,7 @@ func (c *Client) ListPhoneSites(ctx context.Context, params ListPhoneSitesParams
 func (c *Client) sendListPhoneSites(ctx context.Context, params ListPhoneSitesParams) (res *ListPhoneSitesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPhoneSites"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites"),
 	}
 
@@ -37609,7 +37609,7 @@ func (c *Client) ListPhoneUsers(ctx context.Context, params ListPhoneUsersParams
 func (c *Client) sendListPhoneUsers(ctx context.Context, params ListPhoneUsersParams) (res *ListPhoneUsersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPhoneUsers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users"),
 	}
 
@@ -37872,7 +37872,7 @@ func (c *Client) ListPortedNumbers(ctx context.Context, params ListPortedNumbers
 func (c *Client) sendListPortedNumbers(ctx context.Context, params ListPortedNumbersParams) (res *ListPortedNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listPortedNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/ported_numbers/orders"),
 	}
 
@@ -38034,7 +38034,7 @@ func (c *Client) ListRoleMembers(ctx context.Context, params ListRoleMembersPara
 func (c *Client) sendListRoleMembers(ctx context.Context, params ListRoleMembersParams) (res *ListRoleMembersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListRoleMembers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}/members"),
 	}
 
@@ -38198,7 +38198,7 @@ func (c *Client) ListRoutingRule(ctx context.Context, params ListRoutingRulePara
 func (c *Client) sendListRoutingRule(ctx context.Context, params ListRoutingRuleParams) (res []ListRoutingRuleOKItem, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listRoutingRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/routing_rules"),
 	}
 
@@ -38342,7 +38342,7 @@ func (c *Client) ListSettingTemplates(ctx context.Context, params ListSettingTem
 func (c *Client) sendListSettingTemplates(ctx context.Context, params ListSettingTemplatesParams) (res *ListSettingTemplatesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSettingTemplates"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/setting_templates"),
 	}
 
@@ -38521,7 +38521,7 @@ func (c *Client) ListSharedLineAppearances(ctx context.Context, params ListShare
 func (c *Client) sendListSharedLineAppearances(ctx context.Context, params ListSharedLineAppearancesParams) (res *ListSharedLineAppearancesOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSharedLineAppearances"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_appearances"),
 	}
 
@@ -38685,7 +38685,7 @@ func (c *Client) ListSharedLineGroups(ctx context.Context, params ListSharedLine
 func (c *Client) sendListSharedLineGroups(ctx context.Context, params ListSharedLineGroupsParams) (res *ListSharedLineGroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSharedLineGroups"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups"),
 	}
 
@@ -38846,7 +38846,7 @@ func (c *Client) ListSipGroups(ctx context.Context, params ListSipGroupsParams) 
 func (c *Client) sendListSipGroups(ctx context.Context, params ListSipGroupsParams) (res *ListSipGroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSipGroups"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sip_groups"),
 	}
 
@@ -39010,7 +39010,7 @@ func (c *Client) ListSiteCustomizeOutboundCallerNumbers(ctx context.Context, par
 func (c *Client) sendListSiteCustomizeOutboundCallerNumbers(ctx context.Context, params ListSiteCustomizeOutboundCallerNumbersParams) (res *ListSiteCustomizeOutboundCallerNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSiteCustomizeOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -39257,7 +39257,7 @@ func (c *Client) ListSiteOutboundCallingExceptionRule(ctx context.Context, param
 func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, params ListSiteOutboundCallingExceptionRuleParams) (res *ListSiteOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listSiteOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/exception_rules"),
 	}
 
@@ -39505,7 +39505,7 @@ func (c *Client) ListTrackedLocations(ctx context.Context, params ListTrackedLoc
 func (c *Client) sendListTrackedLocations(ctx context.Context, params ListTrackedLocationsParams) (res *ListTrackedLocationsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listTrackedLocations"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/metrics/location_tracking"),
 	}
 
@@ -39701,7 +39701,7 @@ func (c *Client) ListUnassignedZoomRooms(ctx context.Context, params ListUnassig
 func (c *Client) sendListUnassignedZoomRooms(ctx context.Context, params ListUnassignedZoomRoomsParams) (res *ListUnassignedZoomRoomsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listUnassignedZoomRooms"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/rooms/unassigned"),
 	}
 
@@ -39846,7 +39846,7 @@ func (c *Client) ListUserCustomizeOutboundCallerNumbers(ctx context.Context, par
 func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context, params ListUserCustomizeOutboundCallerNumbersParams) (res *ListUserCustomizeOutboundCallerNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listUserCustomizeOutboundCallerNumbers"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_caller_id/customized_numbers"),
 	}
 
@@ -40093,7 +40093,7 @@ func (c *Client) ListUserOutboundCallingExceptionRule(ctx context.Context, param
 func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (res *ListUserOutboundCallingExceptionRuleOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listUserOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/exception_rules"),
 	}
 
@@ -40342,7 +40342,7 @@ func (c *Client) ListUsersFromDirectory(ctx context.Context, params ListUsersFro
 func (c *Client) sendListUsersFromDirectory(ctx context.Context, params ListUsersFromDirectoryParams) (res *ListUsersFromDirectoryOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListUsersFromDirectory"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/dial_by_name_directory/extensions"),
 	}
 
@@ -40535,7 +40535,7 @@ func (c *Client) ListUsersFromDirectoryBySite(ctx context.Context, params ListUs
 func (c *Client) sendListUsersFromDirectoryBySite(ctx context.Context, params ListUsersFromDirectoryBySiteParams) (res *ListUsersFromDirectoryBySiteOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("ListUsersFromDirectoryBySite"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/dial_by_name_directory/extensions"),
 	}
 
@@ -40749,7 +40749,7 @@ func (c *Client) ListZoomPhoneAccountSettings(ctx context.Context, params ListZo
 func (c *Client) sendListZoomPhoneAccountSettings(ctx context.Context, params ListZoomPhoneAccountSettingsParams) (res *ListZoomPhoneAccountSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listZoomPhoneAccountSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/account_settings"),
 	}
 
@@ -40892,7 +40892,7 @@ func (c *Client) ListZoomRooms(ctx context.Context, params ListZoomRoomsParams) 
 func (c *Client) sendListZoomRooms(ctx context.Context, params ListZoomRoomsParams) (res *ListZoomRoomsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listZoomRooms"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/rooms"),
 	}
 
@@ -41106,7 +41106,7 @@ func (c *Client) MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, r
 func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) (res *MarkPhoneNumberAsBlockedForAllExtensionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("MarkPhoneNumberAsBlockedForAllExtensions"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/extension_rules/statistics/blocked_for_all"),
 	}
 
@@ -41232,7 +41232,7 @@ func (c *Client) PhoneDownloadRecordingTranscript(ctx context.Context, params Ph
 func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) (res *PhoneDownloadRecordingTranscriptOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneDownloadRecordingTranscript"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/recording_transcript/download/{recordingId}"),
 	}
 
@@ -41373,7 +41373,7 @@ func (c *Client) PhoneSetting(ctx context.Context) (*PhoneSettingOK, error) {
 func (c *Client) sendPhoneSetting(ctx context.Context) (res *PhoneSettingOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneSetting"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/settings"),
 	}
 
@@ -41499,7 +41499,7 @@ func (c *Client) PhoneUser(ctx context.Context, params PhoneUserParams) (*PhoneU
 func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res *PhoneUserOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUser"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}"),
 	}
 
@@ -41643,7 +41643,7 @@ func (c *Client) PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogs
 func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (res *PhoneUserCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserCallLogs"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_logs"),
 	}
 
@@ -41911,7 +41911,7 @@ func (c *Client) PhoneUserRecordings(ctx context.Context, params PhoneUserRecord
 func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (res *PhoneUserRecordingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserRecordings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/recordings"),
 	}
 
@@ -42128,7 +42128,7 @@ func (c *Client) PhoneUserSettings(ctx context.Context, params PhoneUserSettings
 func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (res *PhoneUserSettingsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserSettings"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/settings"),
 	}
 
@@ -42272,7 +42272,7 @@ func (c *Client) PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceM
 func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (res *PhoneUserVoiceMailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("phoneUserVoiceMails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/voice_mails"),
 	}
 
@@ -42504,7 +42504,7 @@ func (c *Client) RebootPhoneDevice(ctx context.Context, params RebootPhoneDevice
 func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) (res *RebootPhoneDeviceAccepted, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("rebootPhoneDevice"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/reboot"),
 	}
 
@@ -42648,7 +42648,7 @@ func (c *Client) RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPo
 func (c *Client) sendRemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) (res *RemoveCQPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeCQPolicySubSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/policies/{policyType}"),
 	}
 
@@ -42836,7 +42836,7 @@ func (c *Client) RemoveGCPMembers(ctx context.Context, params RemoveGCPMembersPa
 func (c *Client) sendRemoveGCPMembers(ctx context.Context, params RemoveGCPMembersParams) (res *RemoveGCPMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeGCPMembers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}/members/{extensionId}"),
 	}
 
@@ -42997,7 +42997,7 @@ func (c *Client) RemoveMember(ctx context.Context, params RemoveMemberParams) er
 func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams) (res *RemoveMemberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeMember"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}"),
 	}
 
@@ -43179,7 +43179,7 @@ func (c *Client) RemoveMembers(ctx context.Context, params RemoveMembersParams) 
 func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersParams) (res *RemoveMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeMembers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}/monitor_members"),
 	}
 
@@ -43339,7 +43339,7 @@ func (c *Client) RemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLG
 func (c *Client) sendRemoveSLGPolicySubSetting(ctx context.Context, params RemoveSLGPolicySubSettingParams) (res *RemoveSLGPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("removeSLGPolicySubSetting"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{slgId}/policies/{policyType}"),
 	}
 
@@ -43528,7 +43528,7 @@ func (c *Client) RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams
 func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) (res *RemoveZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("RemoveZoomRoom"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}"),
 	}
 
@@ -43669,7 +43669,7 @@ func (c *Client) SmsByMessageId(ctx context.Context, params SmsByMessageIdParams
 func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (res *SmsByMessageIdOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsByMessageId"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms/sessions/{sessionId}/messages/{messageId}"),
 	}
 
@@ -43829,7 +43829,7 @@ func (c *Client) SmsSessionDetails(ctx context.Context, params SmsSessionDetails
 func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (res *SmsSessionDetailsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsSessionDetails"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms/sessions/{sessionId}"),
 	}
 
@@ -44059,7 +44059,7 @@ func (c *Client) SmsSessionSync(ctx context.Context, params SmsSessionSyncParams
 func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (res *SmsSessionSyncOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("smsSessionSync"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/sms/sessions/{sessionId}/sync"),
 	}
 
@@ -44257,7 +44257,7 @@ func (c *Client) SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDevice
 func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) (res *SyncPhoneDeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("syncPhoneDevice"),
-		semconv.HTTPMethodKey.String("POST"),
+		semconv.HTTPRequestMethodKey.String("POST"),
 		semconv.HTTPRouteKey.String("/phone/devices/sync"),
 	}
 
@@ -44386,7 +44386,7 @@ func (c *Client) SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsPa
 func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (res *SyncUserCallLogsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("syncUserCallLogs"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_logs/sync"),
 	}
 
@@ -44587,7 +44587,7 @@ func (c *Client) UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignP
 func (c *Client) sendUnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) (res *UnAssignPhoneNumCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unAssignPhoneNumCallQueue"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -44749,7 +44749,7 @@ func (c *Client) UnassignAPhoneNumAutoReceptionist(ctx context.Context, params U
 func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) (res *UnassignAPhoneNumAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAPhoneNumAutoReceptionist"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -44913,7 +44913,7 @@ func (c *Client) UnassignAPhoneNumCallQueue(ctx context.Context, params Unassign
 func (c *Client) sendUnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) (res *UnassignAPhoneNumCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAPhoneNumCallQueue"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/phone_numbers"),
 	}
 
@@ -45056,7 +45056,7 @@ func (c *Client) UnassignAllMembers(ctx context.Context, params UnassignAllMembe
 func (c *Client) sendUnassignAllMembers(ctx context.Context, params UnassignAllMembersParams) (res *UnassignAllMembersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAllMembers"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/members"),
 	}
 
@@ -45200,7 +45200,7 @@ func (c *Client) UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, param
 func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) (res *UnassignAllPhoneNumsAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignAllPhoneNumsAutoReceptionist"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/phone_numbers"),
 	}
 
@@ -45346,7 +45346,7 @@ func (c *Client) UnassignCallingPlan(ctx context.Context, params UnassignCalling
 func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) (res *UnassignCallingPlanNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlan"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/calling_plans/{type}"),
 	}
 
@@ -45530,7 +45530,7 @@ func (c *Client) UnassignCallingPlanFromRoom(ctx context.Context, params Unassig
 func (c *Client) sendUnassignCallingPlanFromRoom(ctx context.Context, params UnassignCallingPlanFromRoomParams) (res *UnassignCallingPlanFromRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlanFromRoom"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}/calling_plans/{type}"),
 	}
 
@@ -45712,7 +45712,7 @@ func (c *Client) UnassignCallingPlansFromCommonArea(ctx context.Context, params 
 func (c *Client) sendUnassignCallingPlansFromCommonArea(ctx context.Context, params UnassignCallingPlansFromCommonAreaParams) (res *UnassignCallingPlansFromCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlansFromCommonArea"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/calling_plans/{type}"),
 	}
 
@@ -45896,7 +45896,7 @@ func (c *Client) UnassignCampaignPhoneNumber(ctx context.Context, params Unassig
 func (c *Client) sendUnassignCampaignPhoneNumber(ctx context.Context, params UnassignCampaignPhoneNumberParams) (res *UnassignCampaignPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCampaignPhoneNumber"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/sms_campaigns/{smsCampaignId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -46057,7 +46057,7 @@ func (c *Client) UnassignMemberFromCallQueue(ctx context.Context, params Unassig
 func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params UnassignMemberFromCallQueueParams) (res *UnassignMemberFromCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignMemberFromCallQueue"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/members/{memberId}"),
 	}
 
@@ -46220,7 +46220,7 @@ func (c *Client) UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNu
 func (c *Client) sendUnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) (res *UnassignPhoneNumberNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UnassignPhoneNumber"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -46384,7 +46384,7 @@ func (c *Client) UnassignPhoneNumberFromZoomRoom(ctx context.Context, params Una
 func (c *Client) sendUnassignPhoneNumberFromZoomRoom(ctx context.Context, params UnassignPhoneNumberFromZoomRoomParams) (res *UnassignPhoneNumberFromZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UnassignPhoneNumberFromZoomRoom"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -46545,7 +46545,7 @@ func (c *Client) UnassignPhoneNumbersFromCommonArea(ctx context.Context, params 
 func (c *Client) sendUnassignPhoneNumbersFromCommonArea(ctx context.Context, params UnassignPhoneNumbersFromCommonAreaParams) (res *UnassignPhoneNumbersFromCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignPhoneNumbersFromCommonArea"),
-		semconv.HTTPMethodKey.String("DELETE"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/phone_numbers/{phoneNumberId}"),
 	}
 
@@ -46705,7 +46705,7 @@ func (c *Client) UpdateADevice(ctx context.Context, request OptUpdateADeviceReq,
 func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) (res *UpdateADeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateADevice"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}"),
 	}
 
@@ -46852,7 +46852,7 @@ func (c *Client) UpdateASharedLineGroup(ctx context.Context, request OptUpdateAS
 func (c *Client) sendUpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) (res *UpdateASharedLineGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateASharedLineGroup"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}"),
 	}
 
@@ -46996,7 +46996,7 @@ func (c *Client) UpdateAccountLevelInboundBlockRule(ctx context.Context, request
 func (c *Client) sendUpdateAccountLevelInboundBlockRule(ctx context.Context, request OptUpdateAccountLevelInboundBlockRuleReq, params UpdateAccountLevelInboundBlockRuleParams) (res *UpdateAccountLevelInboundBlockRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountLevelInboundBlockRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/inbound_blocked/rules/{blockedRuleId}"),
 	}
 
@@ -47139,7 +47139,7 @@ func (c *Client) UpdateAccountOutboundCallingCountriesOrRegions(ctx context.Cont
 func (c *Client) sendUpdateAccountOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateAccountOutboundCallingCountriesOrRegionsReq) (res *UpdateAccountOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountOutboundCallingCountriesOrRegions"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/countries_regions"),
 	}
 
@@ -47265,7 +47265,7 @@ func (c *Client) UpdateAccountOutboundCallingExceptionRule(ctx context.Context, 
 func (c *Client) sendUpdateAccountOutboundCallingExceptionRule(ctx context.Context, request OptUpdateAccountOutboundCallingExceptionRuleReq, params UpdateAccountOutboundCallingExceptionRuleParams) (res *UpdateAccountOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAccountOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -47409,7 +47409,7 @@ func (c *Client) UpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAl
 func (c *Client) sendUpdateAnAlertSetting(ctx context.Context, request OptUpdateAnAlertSettingReq, params UpdateAnAlertSettingParams) (res *UpdateAnAlertSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAnAlertSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/alert_settings/{alertSettingId}"),
 	}
 
@@ -47553,7 +47553,7 @@ func (c *Client) UpdateAudioItem(ctx context.Context, request OptUpdateAudioItem
 func (c *Client) sendUpdateAudioItem(ctx context.Context, request OptUpdateAudioItemReq, params UpdateAudioItemParams) (res *UpdateAudioItemNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAudioItem"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/audios/{audioId}"),
 	}
 
@@ -47698,7 +47698,7 @@ func (c *Client) UpdateAutoDeleteField(ctx context.Context, request OptUpdateAut
 func (c *Client) sendUpdateAutoDeleteField(ctx context.Context, request OptUpdateAutoDeleteFieldReq, params UpdateAutoDeleteFieldParams) (res *UpdateAutoDeleteFieldNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateAutoDeleteField"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/recordings/{recordingId}"),
 	}
 
@@ -47846,7 +47846,7 @@ func (c *Client) UpdateAutoReceptionist(ctx context.Context, request OptUpdateAu
 func (c *Client) sendUpdateAutoReceptionist(ctx context.Context, request OptUpdateAutoReceptionistReq, params UpdateAutoReceptionistParams) (res *UpdateAutoReceptionistNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionist"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}"),
 	}
 
@@ -47991,7 +47991,7 @@ func (c *Client) UpdateAutoReceptionistIVR(ctx context.Context, request OptUpdat
 func (c *Client) sendUpdateAutoReceptionistIVR(ctx context.Context, request OptUpdateAutoReceptionistIVRReq, params UpdateAutoReceptionistIVRParams) (res *UpdateAutoReceptionistIVRNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionistIVR"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/ivr"),
 	}
 
@@ -48137,7 +48137,7 @@ func (c *Client) UpdateAutoReceptionistPolicy(ctx context.Context, request OptUp
 func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) (res *UpdateAutoReceptionistPolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateAutoReceptionistPolicy"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/policies"),
 	}
 
@@ -48284,7 +48284,7 @@ func (c *Client) UpdateCQPolicySubSetting(ctx context.Context, request OptUpdate
 func (c *Client) sendUpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) (res *UpdateCQPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCQPolicySubSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}/policies/{policyType}"),
 	}
 
@@ -48453,7 +48453,7 @@ func (c *Client) UpdateCallHandling(ctx context.Context, request OptUpdateCallHa
 func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) (res *UpdateCallHandlingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallHandling"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/extension/{extensionId}/call_handling/settings/{settingType}"),
 	}
 
@@ -48620,7 +48620,7 @@ func (c *Client) UpdateCallQueue(ctx context.Context, request OptUpdateCallQueue
 func (c *Client) sendUpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) (res *UpdateCallQueueNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallQueue"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/call_queues/{callQueueId}"),
 	}
 
@@ -48768,7 +48768,7 @@ func (c *Client) UpdateCallingPlan(ctx context.Context, request OptUpdateCalling
 func (c *Client) sendUpdateCallingPlan(ctx context.Context, request OptUpdateCallingPlanReq, params UpdateCallingPlanParams) (res *UpdateCallingPlanNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCallingPlan"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/calling_plans"),
 	}
 
@@ -48914,7 +48914,7 @@ func (c *Client) UpdateCommonArea(ctx context.Context, request OptUpdateCommonAr
 func (c *Client) sendUpdateCommonArea(ctx context.Context, request OptUpdateCommonAreaReq, params UpdateCommonAreaParams) (res *UpdateCommonAreaNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateCommonArea"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}"),
 	}
 
@@ -49057,7 +49057,7 @@ func (c *Client) UpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.C
 func (c *Client) sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateCommonAreaOutboundCallingCountriesOrRegionsReq, params UpdateCommonAreaOutboundCallingCountriesOrRegionsParams) (res *UpdateCommonAreaOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaOutboundCallingCountriesOrRegions"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/countries_regions"),
 	}
 
@@ -49202,7 +49202,7 @@ func (c *Client) UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Contex
 func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) (res *UpdateCommonAreaOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -49367,7 +49367,7 @@ func (c *Client) UpdateCommonAreaSetting(ctx context.Context, request OptUpdateC
 func (c *Client) sendUpdateCommonAreaSetting(ctx context.Context, request OptUpdateCommonAreaSettingReq, params UpdateCommonAreaSettingParams) (res *UpdateCommonAreaSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateCommonAreaSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/settings/{settingType}"),
 	}
 
@@ -49531,7 +49531,7 @@ func (c *Client) UpdateEmergencyAddress(ctx context.Context, request OptUpdateEm
 func (c *Client) sendUpdateEmergencyAddress(ctx context.Context, request OptUpdateEmergencyAddressReq, params UpdateEmergencyAddressParams) (res *UpdateEmergencyAddressOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateEmergencyAddress"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/emergency_addresses/{emergencyAddressId}"),
 	}
 
@@ -49675,7 +49675,7 @@ func (c *Client) UpdateExternalContact(ctx context.Context, request OptUpdateExt
 func (c *Client) sendUpdateExternalContact(ctx context.Context, request OptUpdateExternalContactReq, params UpdateExternalContactParams) (res *UpdateExternalContactNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateExternalContact"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/external_contacts/{externalContactId}"),
 	}
 
@@ -49820,7 +49820,7 @@ func (c *Client) UpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwa
 func (c *Client) sendUpdateFirmwareRule(ctx context.Context, request OptUpdateFirmwareRuleReq, params UpdateFirmwareRuleParams) (res *UpdateFirmwareRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateFirmwareRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/firmware_update_rules/{ruleId}"),
 	}
 
@@ -49965,7 +49965,7 @@ func (c *Client) UpdateGCP(ctx context.Context, request OptUpdateGCPReq, params 
 func (c *Client) sendUpdateGCP(ctx context.Context, request OptUpdateGCPReq, params UpdateGCPParams) (res *UpdateGCPNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateGCP"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/group_call_pickup/{groupId}"),
 	}
 
@@ -50109,7 +50109,7 @@ func (c *Client) UpdateLocation(ctx context.Context, request OptUpdateLocationRe
 func (c *Client) sendUpdateLocation(ctx context.Context, request OptUpdateLocationReq, params UpdateLocationParams) (res *UpdateLocationNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateLocation"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/locations/{locationId}"),
 	}
 
@@ -50254,7 +50254,7 @@ func (c *Client) UpdateMonitoringGroup(ctx context.Context, request OptUpdateMon
 func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) (res *UpdateMonitoringGroupNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateMonitoringGroup"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/monitoring_groups/{monitoringGroupId}"),
 	}
 
@@ -50401,7 +50401,7 @@ func (c *Client) UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdat
 func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (res *UpdatePeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePeeringPhoneNumbers"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/peering/numbers"),
 	}
 
@@ -50526,7 +50526,7 @@ func (c *Client) UpdatePhoneNumberDetails(ctx context.Context, request OptUpdate
 func (c *Client) sendUpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) (res *UpdatePhoneNumberDetailsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePhoneNumberDetails"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/numbers/{phoneNumberId}"),
 	}
 
@@ -50670,7 +50670,7 @@ func (c *Client) UpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRole
 func (c *Client) sendUpdatePhoneRole(ctx context.Context, request OptUpdatePhoneRoleReq, params UpdatePhoneRoleParams) (res *UpdatePhoneRoleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdatePhoneRole"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/roles/{roleId}"),
 	}
 
@@ -50811,7 +50811,7 @@ func (c *Client) UpdatePhoneSettings(ctx context.Context, request OptUpdatePhone
 func (c *Client) sendUpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) (res *UpdatePhoneSettingsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePhoneSettings"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/settings"),
 	}
 
@@ -50939,7 +50939,7 @@ func (c *Client) UpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, p
 func (c *Client) sendUpdatePolicy(ctx context.Context, request OptUpdatePolicyReq, params UpdatePolicyParams) (res *UpdatePolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updatePolicy"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}"),
 	}
 
@@ -51103,7 +51103,7 @@ func (c *Client) UpdateProvisionTemplate(ctx context.Context, request OptUpdateP
 func (c *Client) sendUpdateProvisionTemplate(ctx context.Context, request OptUpdateProvisionTemplateReq, params UpdateProvisionTemplateParams) (res *UpdateProvisionTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateProvisionTemplate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/provision_templates/{templateId}"),
 	}
 
@@ -51252,7 +51252,7 @@ func (c *Client) UpdateProvisionTemplateToDevice(ctx context.Context, request Op
 func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, request OptUpdateProvisionTemplateToDeviceReq, params UpdateProvisionTemplateToDeviceParams) (res *UpdateProvisionTemplateToDeviceNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateProvisionTemplateToDevice"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/phone/devices/{deviceId}/provision_templates"),
 	}
 
@@ -51397,7 +51397,7 @@ func (c *Client) UpdateRecordingStatus(ctx context.Context, request OptUpdateRec
 func (c *Client) sendUpdateRecordingStatus(ctx context.Context, request OptUpdateRecordingStatusReq, params UpdateRecordingStatusParams) (res *UpdateRecordingStatusNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateRecordingStatus"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/phone/recordings/{recordingId}/status"),
 	}
 
@@ -51546,7 +51546,7 @@ func (c *Client) UpdateRoutingRule(ctx context.Context, request OptUpdateRouting
 func (c *Client) sendUpdateRoutingRule(ctx context.Context, request OptUpdateRoutingRuleReq, params UpdateRoutingRuleParams) (res *UpdateRoutingRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateRoutingRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/routing_rules/{routingRuleId}"),
 	}
 
@@ -51692,7 +51692,7 @@ func (c *Client) UpdateSLGPolicySubSetting(ctx context.Context, request OptUpdat
 func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptUpdateSLGPolicySubSettingReq, params UpdateSLGPolicySubSettingParams) (res *UpdateSLGPolicySubSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSLGPolicySubSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{slgId}/policies/{policyType}"),
 	}
 
@@ -51855,7 +51855,7 @@ func (c *Client) UpdateSettingTemplate(ctx context.Context, request OptUpdateSet
 func (c *Client) sendUpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) (res *UpdateSettingTemplateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSettingTemplate"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/setting_templates/{templateId}"),
 	}
 
@@ -52000,7 +52000,7 @@ func (c *Client) UpdateSharedLineGroupPolicy(ctx context.Context, request OptUpd
 func (c *Client) sendUpdateSharedLineGroupPolicy(ctx context.Context, request OptUpdateSharedLineGroupPolicyReq, params UpdateSharedLineGroupPolicyParams) (res *UpdateSharedLineGroupPolicyNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSharedLineGroupPolicy"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/shared_line_groups/{sharedLineGroupId}/policies"),
 	}
 
@@ -52146,7 +52146,7 @@ func (c *Client) UpdateSiteDetails(ctx context.Context, request OptUpdateSiteDet
 func (c *Client) sendUpdateSiteDetails(ctx context.Context, request OptUpdateSiteDetailsReq, params UpdateSiteDetailsParams) (res *UpdateSiteDetailsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteDetails"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}"),
 	}
 
@@ -52292,7 +52292,7 @@ func (c *Client) UpdateSiteForUnassignedPhoneNumbers(ctx context.Context, reques
 func (c *Client) sendUpdateSiteForUnassignedPhoneNumbers(ctx context.Context, request OptUpdateSiteForUnassignedPhoneNumbersReq, params UpdateSiteForUnassignedPhoneNumbersParams) (res *UpdateSiteForUnassignedPhoneNumbersNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteForUnassignedPhoneNumbers"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/numbers/sites/{siteId}"),
 	}
 
@@ -52435,7 +52435,7 @@ func (c *Client) UpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context
 func (c *Client) sendUpdateSiteOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateSiteOutboundCallingCountriesOrRegionsReq, params UpdateSiteOutboundCallingCountriesOrRegionsParams) (res *UpdateSiteOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateSiteOutboundCallingCountriesOrRegions"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/countries_regions"),
 	}
 
@@ -52580,7 +52580,7 @@ func (c *Client) UpdateSiteOutboundCallingExceptionRule(ctx context.Context, req
 func (c *Client) sendUpdateSiteOutboundCallingExceptionRule(ctx context.Context, request OptUpdateSiteOutboundCallingExceptionRuleReq, params UpdateSiteOutboundCallingExceptionRuleParams) (res *UpdateSiteOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateSiteOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -52746,7 +52746,7 @@ func (c *Client) UpdateSiteSetting(ctx context.Context, request OptUpdateSiteSet
 func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSiteSettingReq, params UpdateSiteSettingParams) (res *UpdateSiteSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateSiteSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/sites/{siteId}/settings/{settingType}"),
 	}
 
@@ -52908,7 +52908,7 @@ func (c *Client) UpdateUserOutboundCallingCountriesOrRegions(ctx context.Context
 func (c *Client) sendUpdateUserOutboundCallingCountriesOrRegions(ctx context.Context, request OptUpdateUserOutboundCallingCountriesOrRegionsReq, params UpdateUserOutboundCallingCountriesOrRegionsParams) (res *UpdateUserOutboundCallingCountriesOrRegionsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateUserOutboundCallingCountriesOrRegions"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/countries_regions"),
 	}
 
@@ -53053,7 +53053,7 @@ func (c *Client) UpdateUserOutboundCallingExceptionRule(ctx context.Context, req
 func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context, request OptUpdateUserOutboundCallingExceptionRuleReq, params UpdateUserOutboundCallingExceptionRuleParams) (res *UpdateUserOutboundCallingExceptionRuleNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("UpdateUserOutboundCallingExceptionRule"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}"),
 	}
 
@@ -53221,7 +53221,7 @@ func (c *Client) UpdateUserProfile(ctx context.Context, request OptUpdateUserPro
 func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) (res *UpdateUserProfileNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUserProfile"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}"),
 	}
 
@@ -53373,7 +53373,7 @@ func (c *Client) UpdateUserSetting(ctx context.Context, request OptUpdateUserSet
 func (c *Client) sendUpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) (res *UpdateUserSettingNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUserSetting"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/settings/{settingType}"),
 	}
 
@@ -53539,7 +53539,7 @@ func (c *Client) UpdateUserSettings(ctx context.Context, request OptUpdateUserSe
 func (c *Client) sendUpdateUserSettings(ctx context.Context, request OptUpdateUserSettingsReq, params UpdateUserSettingsParams) (res *UpdateUserSettingsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUserSettings"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/settings"),
 	}
 
@@ -53686,7 +53686,7 @@ func (c *Client) UpdateUsersPropertiesInBatch(ctx context.Context, request OptUp
 func (c *Client) sendUpdateUsersPropertiesInBatch(ctx context.Context, request OptUpdateUsersPropertiesInBatchReq) (res *UpdateUsersPropertiesInBatchNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateUsersPropertiesInBatch"),
-		semconv.HTTPMethodKey.String("PUT"),
+		semconv.HTTPRequestMethodKey.String("PUT"),
 		semconv.HTTPRouteKey.String("/phone/users/batch"),
 	}
 
@@ -53813,7 +53813,7 @@ func (c *Client) UpdateVoicemailReadStatus(ctx context.Context, params UpdateVoi
 func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params UpdateVoicemailReadStatusParams) (res *UpdateVoicemailReadStatusNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateVoicemailReadStatus"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/voice_mails/{voicemailId}"),
 	}
 
@@ -53973,7 +53973,7 @@ func (c *Client) UpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomRe
 func (c *Client) sendUpdateZoomRoom(ctx context.Context, request OptUpdateZoomRoomReq, params UpdateZoomRoomParams) (res *UpdateZoomRoomNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateZoomRoom"),
-		semconv.HTTPMethodKey.String("PATCH"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
 		semconv.HTTPRouteKey.String("/phone/rooms/{roomId}"),
 	}
 
@@ -54119,7 +54119,7 @@ func (c *Client) UserSmsSession(ctx context.Context, params UserSmsSessionParams
 func (c *Client) sendUserSmsSession(ctx context.Context, params UserSmsSessionParams) (res *UserSmsSessionOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("userSmsSession"),
-		semconv.HTTPMethodKey.String("GET"),
+		semconv.HTTPRequestMethodKey.String("GET"),
 		semconv.HTTPRouteKey.String("/phone/users/{userId}/sms/sessions"),
 	}
 
