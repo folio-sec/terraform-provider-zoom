@@ -54,21 +54,22 @@ output "users" {
 <a id="nestedatt--users"></a>
 ### Nested Schema for `users`
 
-Optional:
+Read-Only:
 
 - `custom_attributes` (Attributes Set) The information about the user's custom attributes. This field is only returned if users are assigned custom attributes and you provided the `custom_attributes` value for the `include_fields` parameter in the API request. (see [below for nested schema](#nestedatt--users--custom_attributes))
 - `dept` (String) The user's department.
-- `display_name` (String) The user's display name.
-- `employee_unique_id` (String) The employee's unique ID. The this field only returns when SAML single sign-on (SSO) is enabled or the `login_type` value is `101` (SSO).
-- `first_name` (String) The user's first name.
+- `display_name` (String) (Optional) The user's display name.
+- `email` (String) The user's email address.
+- `employee_unique_id` (String) (Optional) The employee's unique ID. The this field only returns when SAML single sign-on (SSO) is enabled or the `login_type` value is `101` (SSO).
+- `first_name` (String) (Optional) The user's first name.
 - `group_ids` (Set of String) The IDs of groups where the user is a member.
-- `host_key` (String, Sensitive) The user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key). This field is only returned if users are assigned a host key and you provided the host_key value for the include_fields query parameter in the API request.
-- `id` (String) The user's ID. The API does not return this value for users with the `pending` status.
+- `host_key` (String, Sensitive) (Optional) The user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key). This field is only returned if users are assigned a host key and you provided the host_key value for the include_fields query parameter in the API request.
+- `id` (String) (Optional) The user's ID. The API does not return this value for users with the `pending` status.
 - `im_group_ids` (Set of String) The IDs of IM directory groups where the user is a member.
-- `last_client_version` (String) The last client version that user used to log in.
-- `last_login_time` (String) The user's last login time. This field has a three-day buffer period.
-- `last_name` (String) The user's last name.
-- `plan_united_type` (String) This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`
+- `last_client_version` (String) (Optional) The last client version that user used to log in.
+- `last_login_time` (String) (Optional) The user's last login time. This field has a three-day buffer period.
+- `last_name` (String) (Optional) The user's last name.
+- `plan_united_type` (String) (Optional) This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`
   - `1`:  Zoom United Pro-United with US/CA Unlimited.
   - `2`:  Zoom United Pro-United with UK/IR Unlimited.
   - `4`:  Zoom United Pro-United with AU/NZ Unlimited.
@@ -87,35 +88,27 @@ Optional:
   - `32768`: Zoom United Pro-United with JP Unlimited.
   - `65536`: Zoom United Biz-United with JP Unlimited.
   - `131072`: Zoom United Ent-United with JP Unlimited.
-- `pmi` (Number) The user's [personal meeting ID (PMI)](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#understanding-personal-meeting-id-pmi).
-- `role_id` (String) The unique ID of the user's assigned [role](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles).
+- `pmi` (Number) (Optional) The user's [personal meeting ID (PMI)](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#understanding-personal-meeting-id-pmi).
+- `role_id` (String) (Optional) The unique ID of the user's assigned [role](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles).
 - `status` (String) The user's status. Allowed: `active`, `inactive`, `pending`
   - `active`: An active user.
   - `inactive`: A deactivated user.
   - `pending`: A pending user.
-- `timezone` (String) The user's timezone.
-- `user_created_at` (String) The date and time when this user was created.
-- `verified` (Number) Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`
-  - `0`: The user's email not verified.
-  - `1`: A verified user email.
-
-Read-Only:
-
-- `email` (String) The user's email address.
+- `timezone` (String) (Optional) The user's timezone.
 - `type` (Number) The user's assigned plan type. Allowed: `1`, `2`, `4`, `99`
   - `1`: Basic.
   - `2`: Licensed.
   - `4`: Unassigned without Meetings Basic.
   - `99`: None (this can only be set with `ssoCreate`).
+- `user_created_at` (String) The date and time when this user was created.
+- `verified` (Number) Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`- `0`: The user's email not verified.
+  - `1`: A verified user email.
 
 <a id="nestedatt--users--custom_attributes"></a>
 ### Nested Schema for `users.custom_attributes`
 
-Optional:
-
-- `name` (String) The custom attribute's name.
-- `value` (String) The custom attribute's value.
-
 Read-Only:
 
 - `key` (String) The custom attribute's unique ID.
+- `name` (String) The custom attribute's name.
+- `value` (String) The custom attribute's value.

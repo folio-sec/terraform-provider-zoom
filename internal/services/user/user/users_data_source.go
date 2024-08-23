@@ -101,12 +101,10 @@ This resource requires the ` + strings.Join([]string{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's ID. The API does not return this value for users with the `pending` status.",
+							MarkdownDescription: "(Optional) The user's ID. The API does not return this value for users with the `pending` status.",
 						},
 						"custom_attributes": schema.SetNestedAttribute{
-							Optional:            true,
 							Computed:            true,
 							MarkdownDescription: "The information about the user's custom attributes. This field is only returned if users are assigned custom attributes and you provided the `custom_attributes` value for the `include_fields` parameter in the API request.",
 							NestedObject: schema.NestedAttributeObject{
@@ -116,12 +114,10 @@ This resource requires the ` + strings.Join([]string{
 										MarkdownDescription: "The custom attribute's unique ID.",
 									},
 									"name": schema.StringAttribute{
-										Optional:            true,
 										Computed:            true,
 										MarkdownDescription: "The custom attribute's name.",
 									},
 									"value": schema.StringAttribute{
-										Optional:            true,
 										Computed:            true,
 										MarkdownDescription: "The custom attribute's value.",
 									},
@@ -129,67 +125,56 @@ This resource requires the ` + strings.Join([]string{
 							},
 						},
 						"dept": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
 							MarkdownDescription: "The user's department.",
 						},
 						"display_name": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's display name.",
+							MarkdownDescription: "(Optional) The user's display name.",
 						},
 						"email": schema.StringAttribute{
 							Computed:            true,
 							MarkdownDescription: "The user's email address.",
 						},
 						"employee_unique_id": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The employee's unique ID. The this field only returns when SAML single sign-on (SSO) is enabled or the `login_type` value is `101` (SSO).",
+							MarkdownDescription: "(Optional) The employee's unique ID. The this field only returns when SAML single sign-on (SSO) is enabled or the `login_type` value is `101` (SSO).",
 						},
 						"first_name": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's first name.",
+							MarkdownDescription: "(Optional) The user's first name.",
 						},
 						"group_ids": schema.SetAttribute{
 							ElementType:         types.StringType,
-							Optional:            true,
 							Computed:            true,
 							MarkdownDescription: "The IDs of groups where the user is a member.",
 						},
 						"host_key": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
 							Sensitive:           true,
-							MarkdownDescription: "The user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key). This field is only returned if users are assigned a host key and you provided the host_key value for the include_fields query parameter in the API request.",
+							MarkdownDescription: "(Optional) The user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key). This field is only returned if users are assigned a host key and you provided the host_key value for the include_fields query parameter in the API request.",
 						},
 						"im_group_ids": schema.SetAttribute{
 							ElementType:         types.StringType,
-							Optional:            true,
 							Computed:            true,
 							MarkdownDescription: "The IDs of IM directory groups where the user is a member.",
 						},
 						"last_client_version": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The last client version that user used to log in.",
+							MarkdownDescription: "(Optional) The last client version that user used to log in.",
 						},
 						"last_login_time": schema.StringAttribute{
 							CustomType:          timetypes.RFC3339Type{},
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's last login time. This field has a three-day buffer period.",
+							MarkdownDescription: "(Optional) The user's last login time. This field has a three-day buffer period.",
 						},
 						"last_name": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's last name.",
+							MarkdownDescription: "(Optional) The user's last name.",
 						},
 						"plan_united_type": schema.StringAttribute{
-							Optional: true,
 							Computed: true,
-							MarkdownDescription: "This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`" + strings.Join([]string{
+							MarkdownDescription: "(Optional) This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`" + strings.Join([]string{
 								"",
 								"- `1`:  Zoom United Pro-United with US/CA Unlimited.",
 								"- `2`:  Zoom United Pro-United with UK/IR Unlimited.",
@@ -212,17 +197,14 @@ This resource requires the ` + strings.Join([]string{
 							}, markdownSeparatorForList),
 						},
 						"pmi": schema.Int64Attribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's [personal meeting ID (PMI)](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#understanding-personal-meeting-id-pmi).",
+							MarkdownDescription: "(Optional) The user's [personal meeting ID (PMI)](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#understanding-personal-meeting-id-pmi).",
 						},
 						"role_id": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The unique ID of the user's assigned [role](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles).",
+							MarkdownDescription: "(Optional) The unique ID of the user's assigned [role](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles).",
 						},
 						"status": schema.StringAttribute{
-							Optional: true,
 							Computed: true,
 							MarkdownDescription: "The user's status. Allowed: `active`, `inactive`, `pending`" + strings.Join([]string{
 								"",
@@ -232,9 +214,8 @@ This resource requires the ` + strings.Join([]string{
 							}, markdownSeparatorForList),
 						},
 						"timezone": schema.StringAttribute{
-							Optional:            true,
 							Computed:            true,
-							MarkdownDescription: "The user's timezone.",
+							MarkdownDescription: "(Optional) The user's timezone.",
 						},
 						"type": schema.Int32Attribute{
 							Computed: true,
@@ -248,15 +229,12 @@ This resource requires the ` + strings.Join([]string{
 						},
 						"user_created_at": schema.StringAttribute{
 							CustomType:          timetypes.RFC3339Type{},
-							Optional:            true,
 							Computed:            true,
 							MarkdownDescription: "The date and time when this user was created.",
 						},
 						"verified": schema.Int32Attribute{
-							Optional: true,
 							Computed: true,
 							MarkdownDescription: "Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`" + strings.Join([]string{
-								"",
 								"- `0`: The user's email not verified.",
 								"- `1`: A verified user email.",
 							}, markdownSeparatorForList),
@@ -288,7 +266,7 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 
 	data.Users = lo.Map(dto.users, func(user listDtoUser, _ int) dataSourceModelUser {
 		return dataSourceModelUser{
-			ID: user.userID,
+			ID: lo.Ternary(lo.IsEmpty(user.userID.ValueString()), types.StringNull(), user.userID),
 			CustomAttributes: lo.Map(user.customAttributes, func(customAttribute listDtoUserCustomAttribute, _ int) dataSourceModelUserCustomAttributes {
 				return dataSourceModelUserCustomAttributes{
 					Key:   customAttribute.key,
@@ -316,8 +294,8 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 			LastLoginTime:     user.lastLoginTime,
 			LastName:          user.lastName,
 			PlanUnitedType:    user.planUnitedType,
-			Pmi:               user.pmi,
-			RoleID:            user.roleID,
+			Pmi:               lo.Ternary(lo.IsEmpty(user.pmi.ValueInt64()), types.Int64Null(), user.pmi),
+			RoleID:            lo.Ternary(user.roleID.ValueString() == "0", types.StringNull(), user.roleID),
 			Status:            user.status,
 			Timezone:          user.timezone,
 			Type:              user.userType,
