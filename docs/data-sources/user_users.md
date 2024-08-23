@@ -38,14 +38,14 @@ output "users" {
 ### Optional
 
 - `include_fields` (String) This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`
-				- `custom_attributes`: Return the user's custom attributes.
-- `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).
+  - `custom_attributes`: Return the user's custom attributes.
+  - `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).
 - `license` (String) The user's license. Filter the response by a specific license. Allowed: `zoom_workforce_management`, `zoom_compliance_management`
 - `role_id` (String) The role's unique ID. Use this parameter to filter the response by a specific role. You can use the [List roles API](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles) to get a role's unique ID value.
 - `status` (String) The user's status. Default value is `active`. Allowed: `active`, `inactive`, `pending`
-				- `active`: The user exists on the account.
-- `inactive`: The user has been deactivated.
-- `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.
+  - `active`: The user exists on the account.
+  - `inactive`: The user has been deactivated.
+  - `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.
 
 ### Read-Only
 
@@ -69,44 +69,44 @@ Optional:
 - `last_login_time` (String) The user's last login time. This field has a three-day buffer period.
 - `last_name` (String) The user's last name.
 - `plan_united_type` (String) This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`
-							- `1`:  Zoom United Pro-United with US/CA Unlimited.
-- `2`:  Zoom United Pro-United with UK/IR Unlimited.
-- `4`:  Zoom United Pro-United with AU/NZ Unlimited.
-- `8`:  Zoom United Pro-United with Global Select.
-- `16`: Zoom United Pro-United with Zoom Phone Pro.
-- `32`: Zoom United Biz-United with US/CA Unlimited.
-- `64`: Zoom United Biz-United with UK/IR Unlimited.
-- `128`: Zoom United Biz-United with AU/NZ Unlimited.
-- `256`: Zoom United Biz-United with Global Select.
-- `512`: Zoom United Biz-United with Zoom Phone Pro.
-- `1024`: Zoom United Ent-United with US/CA Unlimited.
-- `2048`: Zoom United Ent-United with UK/IR Unlimited.
-- `4096`: Zoom United Ent-United with AU/NZ Unlimited.
-- `8192`: Zoom United Ent-United with Global Select.
-- `16384`: Zoom United Ent-United with Zoom Phone Pro.
-- `32768`: Zoom United Pro-United with JP Unlimited.
-- `65536`: Zoom United Biz-United with JP Unlimited.
-- `131072`: Zoom United Ent-United with JP Unlimited.
+  - `1`:  Zoom United Pro-United with US/CA Unlimited.
+  - `2`:  Zoom United Pro-United with UK/IR Unlimited.
+  - `4`:  Zoom United Pro-United with AU/NZ Unlimited.
+  - `8`:  Zoom United Pro-United with Global Select.
+  - `16`: Zoom United Pro-United with Zoom Phone Pro.
+  - `32`: Zoom United Biz-United with US/CA Unlimited.
+  - `64`: Zoom United Biz-United with UK/IR Unlimited.
+  - `128`: Zoom United Biz-United with AU/NZ Unlimited.
+  - `256`: Zoom United Biz-United with Global Select.
+  - `512`: Zoom United Biz-United with Zoom Phone Pro.
+  - `1024`: Zoom United Ent-United with US/CA Unlimited.
+  - `2048`: Zoom United Ent-United with UK/IR Unlimited.
+  - `4096`: Zoom United Ent-United with AU/NZ Unlimited.
+  - `8192`: Zoom United Ent-United with Global Select.
+  - `16384`: Zoom United Ent-United with Zoom Phone Pro.
+  - `32768`: Zoom United Pro-United with JP Unlimited.
+  - `65536`: Zoom United Biz-United with JP Unlimited.
+  - `131072`: Zoom United Ent-United with JP Unlimited.
 - `pmi` (Number) The user's [personal meeting ID (PMI)](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#understanding-personal-meeting-id-pmi).
 - `role_id` (String) The unique ID of the user's assigned [role](https://developers.zoom.us/docs/api/rest/reference/account/methods/#operation/roles).
 - `status` (String) The user's status. Allowed: `active`, `inactive`, `pending`
-							- `active`: An active user.
-- `inactive`: A deactivated user.
-- `pending`: A pending user.
+  - `active`: An active user.
+  - `inactive`: A deactivated user.
+  - `pending`: A pending user.
 - `timezone` (String) The user's timezone.
 - `user_created_at` (String) The date and time when this user was created.
 - `verified` (Number) Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`
-							- `0`: The user's email not verified.
-- `1`: A verified user email.
+  - `0`: The user's email not verified.
+  - `1`: A verified user email.
 
 Read-Only:
 
 - `email` (String) The user's email address.
 - `type` (Number) The user's assigned plan type. Allowed: `1`, `2`, `4`, `99`
-							- `1`: Basic.
-- `2`: Licensed.
-- `4`: Unassigned without Meetings Basic.
-- `99`: None (this can only be set with `ssoCreate`).
+  - `1`: Basic.
+  - `2`: Licensed.
+  - `4`: Unassigned without Meetings Basic.
+  - `99`: None (this can only be set with `ssoCreate`).
 
 <a id="nestedatt--users--custom_attributes"></a>
 ### Nested Schema for `users.custom_attributes`

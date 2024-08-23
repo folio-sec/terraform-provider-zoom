@@ -49,6 +49,8 @@ func (d *tfDataSource) Metadata(_ context.Context, req datasource.MetadataReques
 }
 
 func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	markdownSeparatorForList := "\n  "
+
 	resp.Schema = schema.Schema{
 		MarkdownDescription: `Gets basic information for multiple Zoom users.
 
@@ -64,12 +66,12 @@ This resource requires the ` + strings.Join([]string{
 				Validators: []validator.String{
 					stringvalidator.OneOf("active", "inactive", "pending"),
 				},
-				MarkdownDescription: "The user's status. Default value is `active`. Allowed: `active`, `inactive`, `pending`" + `
-				` + strings.Join([]string{
+				MarkdownDescription: "The user's status. Default value is `active`. Allowed: `active`, `inactive`, `pending`" + strings.Join([]string{
+					"",
 					"- `active`: The user exists on the account.",
 					"- `inactive`: The user has been deactivated.",
 					"- `pending`: The user exists on the account, but has not activated their account. See [Managing users](https://support.zoom.us/hc/en-us/articles/201363183) for details.",
-				}, "\n"),
+				}, markdownSeparatorForList),
 			},
 			"role_id": schema.StringAttribute{
 				Optional:            true,
@@ -80,11 +82,11 @@ This resource requires the ` + strings.Join([]string{
 				Validators: []validator.String{
 					stringvalidator.OneOf("custom_attributes", "host_key"),
 				},
-				MarkdownDescription: "This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`" + `
-				` + strings.Join([]string{
+				MarkdownDescription: "This parameter displays one of the following attributes in the API call's response. Allowed: `custom_attributes`, `host_key`" + strings.Join([]string{
+					"",
 					"- `custom_attributes`: Return the user's custom attributes.",
 					"- `host_key`: Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).",
-				}, "\n"),
+				}, markdownSeparatorForList),
 			},
 			"license": schema.StringAttribute{
 				Optional: true,
@@ -187,8 +189,8 @@ This resource requires the ` + strings.Join([]string{
 						"plan_united_type": schema.StringAttribute{
 							Optional: true,
 							Computed: true,
-							MarkdownDescription: "This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`" + `
-							` + strings.Join([]string{
+							MarkdownDescription: "This field is returned if the user is enrolled in the [Zoom United](https://zoom.us/pricing/zoom-bundles) plan. Allowed: `1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048`, `4096`, `8192`, `16384`, `32768`, `65536`, `131072`" + strings.Join([]string{
+								"",
 								"- `1`:  Zoom United Pro-United with US/CA Unlimited.",
 								"- `2`:  Zoom United Pro-United with UK/IR Unlimited.",
 								"- `4`:  Zoom United Pro-United with AU/NZ Unlimited.",
@@ -207,7 +209,7 @@ This resource requires the ` + strings.Join([]string{
 								"- `32768`: Zoom United Pro-United with JP Unlimited.",
 								"- `65536`: Zoom United Biz-United with JP Unlimited.",
 								"- `131072`: Zoom United Ent-United with JP Unlimited.",
-							}, "\n"),
+							}, markdownSeparatorForList),
 						},
 						"pmi": schema.Int64Attribute{
 							Optional:            true,
@@ -222,12 +224,12 @@ This resource requires the ` + strings.Join([]string{
 						"status": schema.StringAttribute{
 							Optional: true,
 							Computed: true,
-							MarkdownDescription: "The user's status. Allowed: `active`, `inactive`, `pending`" + `
-							` + strings.Join([]string{
+							MarkdownDescription: "The user's status. Allowed: `active`, `inactive`, `pending`" + strings.Join([]string{
+								"",
 								"- `active`: An active user.",
 								"- `inactive`: A deactivated user.",
 								"- `pending`: A pending user.",
-							}, "\n"),
+							}, markdownSeparatorForList),
 						},
 						"timezone": schema.StringAttribute{
 							Optional:            true,
@@ -236,13 +238,13 @@ This resource requires the ` + strings.Join([]string{
 						},
 						"type": schema.Int32Attribute{
 							Computed: true,
-							MarkdownDescription: "The user's assigned plan type. Allowed: `1`, `2`, `4`, `99`" + `
-							` + strings.Join([]string{
+							MarkdownDescription: "The user's assigned plan type. Allowed: `1`, `2`, `4`, `99`" + strings.Join([]string{
+								"",
 								"- `1`: Basic.",
 								"- `2`: Licensed.",
 								"- `4`: Unassigned without Meetings Basic.",
 								"- `99`: None (this can only be set with `ssoCreate`).",
-							}, "\n"),
+							}, markdownSeparatorForList),
 						},
 						"user_created_at": schema.StringAttribute{
 							CustomType:          timetypes.RFC3339Type{},
@@ -253,11 +255,11 @@ This resource requires the ` + strings.Join([]string{
 						"verified": schema.Int32Attribute{
 							Optional: true,
 							Computed: true,
-							MarkdownDescription: "Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`" + `
-							` + strings.Join([]string{
+							MarkdownDescription: "Whether the user's email address for the Zoom account is verified. Allowed: `0`, `1`" + strings.Join([]string{
+								"",
 								"- `0`: The user's email not verified.",
 								"- `1`: A verified user email.",
-							}, "\n"),
+							}, markdownSeparatorForList),
 						},
 					},
 				},
