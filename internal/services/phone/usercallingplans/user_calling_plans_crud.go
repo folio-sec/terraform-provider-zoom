@@ -54,12 +54,6 @@ func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
 		UserId: dto.userID.ValueString(),
 	})
 	if err != nil {
-		var status *zoomphone.ErrorResponseStatusCode
-		if errors.As(err, &status) {
-			if status.StatusCode == 400 && status.Response.Code.Value == 300 {
-				_ = 1
-			}
-		}
 		return nil, fmt.Errorf("unable to create phone user calling plan: %v", err)
 	}
 	return &createdDto{}, nil
