@@ -214,7 +214,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
 		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
-		phoneuser.NewUserResource,
+		phoneuser.NewPhoneUserResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
 	}
 }
