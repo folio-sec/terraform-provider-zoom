@@ -1,7 +1,7 @@
 TEST?=$$(go list ./... |grep -v 'vendor')
 DEV      := folio-sec
 PROVIDER := zoom
-VERSION := $(shell cat version)
+VERSION := v$(shell cat version)
 PLUGINS  := ${HOME}/bin/plugins/registry.terraform.io/${DEV}/${PROVIDER}
 BIN      := terraform-provider-zoom_${VERSION}
 
