@@ -34,6 +34,12 @@ function recursionProcess(response, prefix = '') {
       delete response[key].minimum;
     }
 
+    // Open API does not support the `double` type, so it is converted to `number` and `format` is set to `double`.
+    if (response[key] !== void 0 && response[key].type === 'double') {
+      response[key].type = 'number';
+      response[key].format = 'double';
+    }
+
     // Schemas with properties are always of type object
     if (response[key] !== void 0 && response[key].properties && response[key].type === void 0) {
       response[key].type = 'object';
@@ -211,17 +217,16 @@ function phonePatch(spec) {
       before: "/phone/shared_line_groups/{slgId}/phone_numbers/{phoneNumberId}",
       after: "/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers/{phoneNumberId}",
     },
-    {
-      before: "/phone/users/{userId}/calling_plans/{planType}",
-      after: "/phone/users/{userId}/calling_plans/{type}",
-    },
   ]
   replacePathsMappings.forEach(({ before, after }) => {
     if (!spec.paths[before]) {
       return;
     }
 
-    spec.paths[after] = spec.paths[before];
+    spec.paths[after] = {
+        ...(spec.paths[after] ? spec.paths[after] : {}),
+        ...spec.paths[before]
+    }
     delete spec.paths[before];
   });
 
@@ -242,7 +247,9 @@ function phonePatch(spec) {
   // The path name and parameter name do not match,
   // so the path parameter is matched to the path name.
   [
+    '/phone/shared_line_groups/{sharedLineGroupId}',
     '/phone/shared_line_groups/{sharedLineGroupId}/members',
+    '/phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}',
     '/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers',
     '/phone/shared_line_groups/{sharedLineGroupId}/phone_numbers/{phoneNumberId}',
   ].forEach((path) => {
@@ -311,50 +318,12 @@ function phonePatch(spec) {
     delete spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
   }
 
-  // GET PATCH /phone/users/{userId} should have policy.auto_call_recording.inbound_audio_notification and policy.auto_call_recording.outbound_audio_notification properties
+  // GET PATCH /phone/users/{userId} should have calling_plans[].name property
   if (spec.paths['/phone/users/{userId}']) {
-    const auditNotifications = {
-      inbound_audio_notification: {
-        type: "object",
-        properties: {
-          recording_start_prompt: {
-            type: "boolean",
-            description: "Whether to show prompt for starting call recording with inbound audio.",
-            example: true,
-          },
-          recording_explicit_consent: {
-            type: "boolean",
-            description: "Whether to obtain explicit consent for call recording with inbound audio.",
-            example: true,
-          },
-        }
-      },
-      outbound_audio_notification: {
-        type: "object",
-        properties: {
-          recording_start_prompt: {
-            type: "boolean",
-            description: "Whether to show prompt for starting call recording with outbound audio.",
-            example: true,
-          },
-          recording_explicit_consent: {
-            type: "boolean",
-            description: "Whether to obtain explicit consent for call recording with outbound audio.",
-            example: true,
-          },
-        }
-      },
-    };
-
-    const autoCallRecordingGet = spec.paths['/phone/users/{userId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['policy']['properties']['auto_call_recording'];
-    autoCallRecordingGet.properties = {
-      ...autoCallRecordingGet.properties,
-      ...auditNotifications,
-    };
-    const autoCallRecordingPatch = spec.paths['/phone/users/{userId}']['patch']['requestBody']['content']['application/json']['schema']['properties']['policy']['properties']['auto_call_recording'];
-    autoCallRecordingPatch.properties = {
-      ...autoCallRecordingPatch.properties,
-      ...auditNotifications,
+    spec.paths['/phone/users/{userId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['calling_plans']['items']['properties']['name'] = {
+      type: "string",
+      description: "The type name of calling plan.",
+      example: "JP Unlimited Calling Plan",
     };
   }
 }

@@ -7725,7 +7725,7 @@
           {
             "name": "include_fields",
             "in": "query",
-            "description": "Use this parameter to display one of the following attributes in the API call's response: \n* `custom_attributes` &mdash; Return the user's custom attributes. \n* `host_key` &mdash; Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).",
+            "description": "This parameter displays one of the following attributes in the API call's response: \n* `custom_attributes` &mdash; Return the user's custom attributes. \n* `host_key` &mdash; Return the user's [host key](https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key).",
             "required": false,
             "schema": {
               "type": "string",
@@ -7735,7 +7735,7 @@
           {
             "name": "next_page_token",
             "in": "query",
-            "description": "Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
+            "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
             "required": false,
             "schema": {
               "type": "string",
@@ -7763,7 +7763,7 @@
                   "properties": {
                     "next_page_token": {
                       "type": "string",
-                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "description": "The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
                       "example": "8V8HigQkzm2O5r9RUn31D9ZyJHgrmFfbLa2"
                     },
                     "page_count": {
@@ -7791,7 +7791,7 @@
                     },
                     "users": {
                       "type": "array",
-                      "description": "Information about the users.",
+                      "description": "The information about the users.",
                       "items": {
                         "required": [
                           "email",
@@ -7814,7 +7814,7 @@
                           },
                           "custom_attributes": {
                             "type": "array",
-                            "description": "Information about the user's custom attributes.\n\nThis field is **only** returned if users are assigned custom attributes and you provided the `custom_attributes` value for the `include_fields` query parameter in the API request.",
+                            "description": "The information about the user's custom attributes.\n\nThis field is **only** returned if users are assigned custom attributes and you provided the `custom_attributes` value for the `include_fields` query parameter in the API request.",
                             "items": {
                               "type": "object",
                               "properties": {
@@ -7929,12 +7929,12 @@
                           },
                           "type": {
                             "type": "integer",
-                            "description": "The user's assigned plan type. \n* `1` - Basic. \n* `2` - Licensed. \n* `4` - No Meeting License. \n* `99` - None (this can only be set with `ssoCreate`).",
+                            "description": "The user's assigned plan type. \n* `1` - Basic. \n* `2` - Licensed. \n* `4` - Unassigned without Meetings Basic.   \n* `99` - None (this can only be set with `ssoCreate`).",
                             "example": 1
                           },
                           "verified": {
                             "type": "integer",
-                            "description": "Display whether the user's email address for the Zoom account is verified. \n* `1` - A verified user email. \n* `0` - The user's email **not** verified.",
+                            "description": "Whether the user's email address for the Zoom account is verified. \n* `1` - A verified user email. \n* `0` - The user's email **not** verified.",
                             "example": 1
                           },
                           "display_name": {
@@ -8052,7 +8052,7 @@
                       },
                       "type": {
                         "type": "integer",
-                        "description": "User type.  \n `1` - Basic.  \n `2` - Licensed.  \n `99` - None (this can only be set with `ssoCreate`).",
+                        "description": "User type.  \n `1` - Basic.  \n `2` - Licensed.   \n `4` - Unassigned without Meetings Basic.    \n `99` - None. this can only be set with `ssoCreate`.",
                         "example": 1
                       },
                       "feature": {
@@ -8115,7 +8115,7 @@
                     },
                     "type": {
                       "type": "integer",
-                      "description": "User type.  \n `1` - Basic.  \n `2` - Licensed.  \n `99` - None (this can only be set with `ssoCreate`).\n",
+                      "description": "User type.  \n `1` - Basic.  \n `2` - Licensed.  \n `4` - Unassigned without Meetings Basic.   \n `99` - None. This can only be set with `ssoCreate`.\n",
                       "example": 1
                     }
                   }
@@ -8734,7 +8734,7 @@
                         },
                         "type": {
                           "type": "integer",
-                          "description": "User's plan type:  \n `1` - Basic.  \n `2` - Licensed.  \n `99` - None (this can only be set with `ssoCreate`).",
+                          "description": "User's plan type. \n `1` - Basic.  \n `2` - Licensed.  \n `4` - Unassigned without Meetings Basic.  \n `99` - None. This can only be set with `ssoCreate`.",
                           "example": 1
                         },
                         "use_pmi": {
@@ -9357,7 +9357,7 @@
                   },
                   "type": {
                     "type": "integer",
-                    "description": "The type of [user](https://support.zoom.us/hc/en-us/articles/201363173-Zoom-user-types-roles). \n* `1` - Basic. \n* `2` - Licensed. \n* `4` - No Meetings License. \n* `99` - None. You can only set this value if the user was created using the `ssoCreate` value for `action` parameter in the [**Create users**](/docs/api-reference/zoom-api/methods#operation/userCreate) API.",
+                    "description": "The type of [user](https://support.zoom.us/hc/en-us/articles/201363173-Zoom-user-types-roles). \n* `1` - Basic. \n* `2` - Licensed. \n* `4` - Unassigned without Meetings Basic.   \n* `99` - None. You can only set this value if the user was created using the `ssoCreate` value for `action` parameter in the [**Create users**](/docs/api-reference/zoom-api/methods#operation/userCreate) API.",
                     "example": 2
                   },
                   "use_pmi": {

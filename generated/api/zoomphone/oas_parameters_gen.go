@@ -124,7 +124,7 @@ type AccountSmsSessionParams struct {
 type AccountVoiceMailsParams struct {
 	// The number of records returned within a single API call.
 	PageSize OptInt
-	// Status of the voice mail.
+	// The status of the voice mail.
 	Status OptString
 	// The site ID.
 	SiteID OptString
@@ -132,18 +132,22 @@ type AccountVoiceMailsParams struct {
 	OwnerType OptString
 	// The voicemail type.
 	VoicemailType OptString
-	// The next page token paginates through a large set of results. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes..
 	NextPageToken OptString
-	// The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range
-	// defined by the `from` and `to` parameters should be a month as the response only includes one
-	// month's worth of data at once. The month defined should fall within the last six months. If
-	// unspecified, returns data from the past 30 days.
+	// The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format.
+	// The date range defined in the `from` and `to` parameters should be a month as the response only
+	// includes one month's worth of data at once.
+	// The month defined should fall within the last six months. If unspecified, it returns data from the
+	// past 30 days.
 	From OptDate
-	// **Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or
-	// **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as the `from` parameter.
+	// This field is **required** only when the `from` parameter is specified.
+	// The end time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as
+	// the `from` parameter.
 	To OptDate
+	// Whether to query voicemails from trash. The default setting is false.
+	Trashed OptBool
 }
 
 // AddAnAudioParams is parameters of AddAnAudio operation.
@@ -348,7 +352,7 @@ type AssignPhoneNumbersAutoReceptionistParams struct {
 
 // AssignPhoneNumbersSLGParams is parameters of assignPhoneNumbersSLG operation.
 type AssignPhoneNumbersSLGParams struct {
-	// The unique identifier of the shared line group.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -387,7 +391,7 @@ type DelRoleMembersParams struct {
 
 // DeleteABlockedListParams is parameters of deleteABlockedList operation.
 type DeleteABlockedListParams struct {
-	// Unique identifier of the blocked list. This can be retrieved from the List Blocked List API.
+	// The unique identifier of the blocked list.
 	BlockedListId string
 }
 
@@ -427,7 +431,7 @@ type DeleteAPhoneNumberSLGParams struct {
 
 // DeleteASharedLineGroupParams is parameters of deleteASharedLineGroup operation.
 type DeleteASharedLineGroupParams struct {
-	// The unique identifier of the shared line group that you would like to delete.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -585,7 +589,7 @@ type DeleteLocationParams struct {
 
 // DeleteMembersOfSLGParams is parameters of deleteMembersOfSLG operation.
 type DeleteMembersOfSLGParams struct {
-	// The unique identifier of the shared line group that you would like to delete.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -751,7 +755,7 @@ type GetABillingAccountParams struct {
 
 // GetABlockedListParams is parameters of getABlockedList operation.
 type GetABlockedListParams struct {
-	// Unique identifier of the blocked list.
+	// The unique identifier of the blocked list.
 	BlockedListId string
 }
 
@@ -804,6 +808,7 @@ type GetAccountOutboundCallingCountriesAndRegionsParams struct {
 
 // GetAlertSettingDetailsParams is parameters of GetAlertSettingDetails operation.
 type GetAlertSettingDetailsParams struct {
+	// The unique Identifier of the alert setting.
 	AlertSettingId string
 }
 
@@ -1067,11 +1072,11 @@ type GetPhoneUserVoiceMailsParams struct {
 	// FSync: Full sync
 	// BSync: Backward sync
 	// ISync: Forward sync.
-	SyncType string
+	SyncType OptString
 	// The sync token. Use it if requesting a backward (`BSync`) or forward (`ISync`) sync.
 	SyncToken OptString
 	// The record count of each query.
-	Count OptInt
+	Count int
 }
 
 // GetPortedNumbersDetailsParams is parameters of getPortedNumbersDetails operation.
@@ -2178,13 +2183,13 @@ type PhoneUserVoiceMailsParams struct {
 	UserId string
 	// The number of records returned within a single API call.
 	PageSize OptInt
-	// Status of the voice mail.
+	// The status of the voice mail.
 	Status OptString
-	// The next page token paginates through a large set of results. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token is used to paginate through large result sets. A next page token will be
+	// returned whenever the set of available results exceeds the current page size. The expiration
+	// period for this token is 15 minutes.
 	NextPageToken OptString
-	// The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range
+	// Start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range
 	// defined by the `from` and `to` parameters should be a month as the response only includes one
 	// month's worth of data at once. The month defined should fall within the last six months. If
 	// unspecified, returns data from the past 30 days.
@@ -2192,6 +2197,8 @@ type PhoneUserVoiceMailsParams struct {
 	// **Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or
 	// **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as the `from` parameter.
 	To OptDate
+	// Whether to query voicemails from Trash.
+	Trash OptBool
 }
 
 // RebootPhoneDeviceParams is parameters of rebootPhoneDevice operation.
@@ -2311,9 +2318,9 @@ type SyncUserCallLogsParams struct {
 
 // UnAssignPhoneNumCallQueueParams is parameters of unAssignPhoneNumCallQueue operation.
 type UnAssignPhoneNumCallQueueParams struct {
-	// Unique identifier of the Call Queue. This can be retrieved from the List Call Queues API.
+	// The unique identifier of the call queue.
 	CallQueueId string
-	// Unique identifier of the Phone Number.
+	// The phone number ID.
 	PhoneNumberId string
 }
 
@@ -2330,7 +2337,7 @@ type UnassignAPhoneNumAutoReceptionistParams struct {
 
 // UnassignAPhoneNumCallQueueParams is parameters of unassignAPhoneNumCallQueue operation.
 type UnassignAPhoneNumCallQueueParams struct {
-	// Unique identifier of the Call Queue. This can be retrieved from List Call Queues API.
+	// The unique identifier of the call queue.
 	CallQueueId string
 }
 
@@ -2346,12 +2353,11 @@ type UnassignAllPhoneNumsAutoReceptionistParams struct {
 
 // UnassignCallingPlanParams is parameters of unassignCallingPlan operation.
 type UnassignCallingPlanParams struct {
+	// The ID of the user.
 	UserId string
-	// The [type](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of the calling plan that
-	// was assigned to user. (e.g: The value of type would be &quot;200&quot; for Unlimited US/Canada
-	// calling plan.).
-	Type string
+	// The type of plan. Refer to the [Plan Number section](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).
+	PlanType string
 	// The billing account ID. If the user is located in India, the parameter is required.
 	BillingAccountID OptString
 }
@@ -2426,7 +2432,7 @@ type UpdateADeviceParams struct {
 
 // UpdateASharedLineGroupParams is parameters of updateASharedLineGroup operation.
 type UpdateASharedLineGroupParams struct {
-	// The unique identifier of the shared line group that is to be updated.
+	// The shared line group ID.
 	SharedLineGroupId string
 }
 
@@ -2480,6 +2486,12 @@ type UpdateAutoReceptionistPolicyParams struct {
 	// receptionists API](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#operation/listAutoReceptionists).
 	AutoReceptionistId string
+}
+
+// UpdateBlockedListParams is parameters of updateBlockedList operation.
+type UpdateBlockedListParams struct {
+	// Unique Identifier of the Blocked List.
+	BlockedListId string
 }
 
 // UpdateCQPolicySubSettingParams is parameters of updateCQPolicySubSetting operation.
@@ -2576,7 +2588,7 @@ type UpdateMonitoringGroupParams struct {
 
 // UpdatePhoneNumberDetailsParams is parameters of updatePhoneNumberDetails operation.
 type UpdatePhoneNumberDetailsParams struct {
-	// Phone number ID.
+	// The unique identifier of the phone number.
 	PhoneNumberId string
 }
 

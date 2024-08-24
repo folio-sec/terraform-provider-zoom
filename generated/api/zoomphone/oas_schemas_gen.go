@@ -1515,23 +1515,22 @@ func (s *AccountSmsSessionOKSMSSessionsItemParticipantsItemOwner) SetType(val Op
 	s.Type = val
 }
 
-// Phone voicemails.
 type AccountVoiceMailsOK struct {
-	// Start date of the query.
+	// The start time and date of the query.
 	From OptDate `json:"from"`
-	// The next page token is used to paginate through large result sets. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
-	// Total number of pages. This field is deprecated.
+	// The total number of pages.
 	PageCount OptInt `json:"page_count"`
-	// Size of each page.
+	// The size of each page.
 	PageSize OptInt `json:"page_size"`
-	// End date of the query.
+	// The end time and date of the query.
 	To OptDate `json:"to"`
-	// Total number of records.
+	// The total number of records.
 	TotalRecords OptInt `json:"total_records"`
-	// Voicemails.
+	// The voicemails.
 	VoiceMails []AccountVoiceMailsOKVoiceMailsItem `json:"voice_mails"`
 }
 
@@ -1610,35 +1609,50 @@ type AccountVoiceMailsOKVoiceMailsItem struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
-	// Contact name of the callee.
+	// The contact name of the callee.
 	CalleeName OptString `json:"callee_name"`
-	// The number associated with the callee. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The phone number of the callee (the one receiving the call).
 	CalleeNumber OptString `json:"callee_number"`
 	// The callee's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
-	// * `3` &mdash; Customized emergency number.
+	// * `1` — Internal number.
+	// * `2` — External number.
+	// * `3` — Customized emergency number.
 	CalleeNumberType OptInt `json:"callee_number_type"`
-	// Contact name of the caller.
+	// The contact name of the caller.
 	CallerName OptString `json:"caller_name"`
-	// The number associated with the caller. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The phone number of the caller.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
+	// * `1` — Internal number.
+	// * `2` — External number.
 	CallerNumberType OptInt `json:"caller_number_type"`
-	// Start time and date of the voicemail.
-	DateTime OptString `json:"date_time"`
-	// Download url of the attachment.
+	// The start time and date of the voicemail.
+	DateTime OptDateTime `json:"date_time"`
+	// The download URL of the attachment. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the voicemail file using this URL.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
-	// The duration of voicemail in seconds.
+	// The duration of the voicemail. The unit of time is seconds.
 	Duration OptInt `json:"duration"`
-	// Voicemail ID.
+	// The voicemail ID.
 	ID OptString `json:"id"`
-	// Status of the voicemail: 'read' or 'unread'.
+	// The status of the voicemail: 'read' or 'unread'.
 	Status OptString `json:"status"`
+	// The owner of the voicemail.
+	Owner OptAccountVoiceMailsOKVoiceMailsItemOwner `json:"owner"`
+	// The time and date the voicemail was deleted. It exists only when voicemail is from trash.
+	DeletedTime OptDateTime `json:"deleted_time"`
+	// The number of days left until voicemail is permanently deleted. If the voicemail never auto
+	// deletes, the value is '-1'. It exists only when voicemail is from trash.
+	DaysLeftAutoPermantelyDelete OptInt `json:"days_left_auto_permantely_delete"`
+	// This field indicates how the voicemail was deleted. It exists only when voicemail is from trash.
+	SoftDeletedType OptString `json:"soft_deleted_type"`
 }
 
 // GetCallID returns the value of CallID.
@@ -1682,7 +1696,7 @@ func (s *AccountVoiceMailsOKVoiceMailsItem) GetCallerNumberType() OptInt {
 }
 
 // GetDateTime returns the value of DateTime.
-func (s *AccountVoiceMailsOKVoiceMailsItem) GetDateTime() OptString {
+func (s *AccountVoiceMailsOKVoiceMailsItem) GetDateTime() OptDateTime {
 	return s.DateTime
 }
 
@@ -1704,6 +1718,26 @@ func (s *AccountVoiceMailsOKVoiceMailsItem) GetID() OptString {
 // GetStatus returns the value of Status.
 func (s *AccountVoiceMailsOKVoiceMailsItem) GetStatus() OptString {
 	return s.Status
+}
+
+// GetOwner returns the value of Owner.
+func (s *AccountVoiceMailsOKVoiceMailsItem) GetOwner() OptAccountVoiceMailsOKVoiceMailsItemOwner {
+	return s.Owner
+}
+
+// GetDeletedTime returns the value of DeletedTime.
+func (s *AccountVoiceMailsOKVoiceMailsItem) GetDeletedTime() OptDateTime {
+	return s.DeletedTime
+}
+
+// GetDaysLeftAutoPermantelyDelete returns the value of DaysLeftAutoPermantelyDelete.
+func (s *AccountVoiceMailsOKVoiceMailsItem) GetDaysLeftAutoPermantelyDelete() OptInt {
+	return s.DaysLeftAutoPermantelyDelete
+}
+
+// GetSoftDeletedType returns the value of SoftDeletedType.
+func (s *AccountVoiceMailsOKVoiceMailsItem) GetSoftDeletedType() OptString {
+	return s.SoftDeletedType
 }
 
 // SetCallID sets the value of CallID.
@@ -1747,7 +1781,7 @@ func (s *AccountVoiceMailsOKVoiceMailsItem) SetCallerNumberType(val OptInt) {
 }
 
 // SetDateTime sets the value of DateTime.
-func (s *AccountVoiceMailsOKVoiceMailsItem) SetDateTime(val OptString) {
+func (s *AccountVoiceMailsOKVoiceMailsItem) SetDateTime(val OptDateTime) {
 	s.DateTime = val
 }
 
@@ -1769,6 +1803,102 @@ func (s *AccountVoiceMailsOKVoiceMailsItem) SetID(val OptString) {
 // SetStatus sets the value of Status.
 func (s *AccountVoiceMailsOKVoiceMailsItem) SetStatus(val OptString) {
 	s.Status = val
+}
+
+// SetOwner sets the value of Owner.
+func (s *AccountVoiceMailsOKVoiceMailsItem) SetOwner(val OptAccountVoiceMailsOKVoiceMailsItemOwner) {
+	s.Owner = val
+}
+
+// SetDeletedTime sets the value of DeletedTime.
+func (s *AccountVoiceMailsOKVoiceMailsItem) SetDeletedTime(val OptDateTime) {
+	s.DeletedTime = val
+}
+
+// SetDaysLeftAutoPermantelyDelete sets the value of DaysLeftAutoPermantelyDelete.
+func (s *AccountVoiceMailsOKVoiceMailsItem) SetDaysLeftAutoPermantelyDelete(val OptInt) {
+	s.DaysLeftAutoPermantelyDelete = val
+}
+
+// SetSoftDeletedType sets the value of SoftDeletedType.
+func (s *AccountVoiceMailsOKVoiceMailsItem) SetSoftDeletedType(val OptString) {
+	s.SoftDeletedType = val
+}
+
+// The owner of the voicemail.
+type AccountVoiceMailsOKVoiceMailsItemOwner struct {
+	// The extension number associated with the call number.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The owner's ID.
+	ID OptString `json:"id"`
+	// The name of the owner.
+	Name OptString `json:"name"`
+	// The owner type.
+	Type OptString `json:"type"`
+	// This field indicates the status of extension. * `inactive` * `deleted`.
+	ExtensionStatus OptString `json:"extension_status"`
+	// The date time the extension was deleted. It exists only when extension_status is `deleted`.
+	ExtensionDeletedTime OptString `json:"extension_deleted_time"`
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetID returns the value of ID.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetName() OptString {
+	return s.Name
+}
+
+// GetType returns the value of Type.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetType() OptString {
+	return s.Type
+}
+
+// GetExtensionStatus returns the value of ExtensionStatus.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetExtensionStatus() OptString {
+	return s.ExtensionStatus
+}
+
+// GetExtensionDeletedTime returns the value of ExtensionDeletedTime.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) GetExtensionDeletedTime() OptString {
+	return s.ExtensionDeletedTime
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetID sets the value of ID.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetType sets the value of Type.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetType(val OptString) {
+	s.Type = val
+}
+
+// SetExtensionStatus sets the value of ExtensionStatus.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetExtensionStatus(val OptString) {
+	s.ExtensionStatus = val
+}
+
+// SetExtensionDeletedTime sets the value of ExtensionDeletedTime.
+func (s *AccountVoiceMailsOKVoiceMailsItemOwner) SetExtensionDeletedTime(val OptString) {
+	s.ExtensionDeletedTime = val
 }
 
 // ActiveCRPhoneNumbersNoContent is response for ActiveCRPhoneNumbers operation.
@@ -9055,17 +9185,17 @@ func (s *GetABillingAccountOK) SetName(val OptString) {
 }
 
 type GetABlockedListOK struct {
-	// Block type.
+	// The block type.
 	// * `inbound`: The blocked number or numbers with the specifie prefix are prevented from calling in
 	// to phone users.
 	// * `outbound`: The phone users  are prevented from calling the blocked number or numbers with the
 	// specified prefix.
 	BlockType OptString `json:"block_type"`
-	// Provide a comment to help you identify the blocked number or prefix.
+	// This field provides a comment to help you identify the blocked number or prefix.
 	Comment OptString `json:"comment"`
-	// Unique identifier of the blocked list.
+	// The blocked list ID.
 	ID OptString `json:"id"`
-	// Indicates the match type for the blocked list. The values can be one of the following:
+	// This field indicates the match type for the blocked list. The values can be one of the following:
 	// * `phoneNumber`: Indicates that only a specific phone number that is shown in the `phone_number`
 	// field is blocked.
 	// * `prefix`: Indicates that all numbers starting with prefix that is shown in the `phone_number`
@@ -9074,7 +9204,7 @@ type GetABlockedListOK struct {
 	// The phone number or the prefix number that is blocked based on the `match_type`. Displayed in E164
 	// format.
 	PhoneNumber OptString `json:"phone_number"`
-	// Indicates whether the blocking is active or inactive.
+	// This field indicates whether the blocking is active or inactive.
 	// *n`active`: The blocked list is active.
 	// * `inactive`: The blocked list is inactive.
 	Status OptString `json:"status"`
@@ -11880,12 +12010,44 @@ type GetASiteOKPolicyAutoCallRecording struct {
 	// * `both`.
 	RecordingCalls OptString `json:"recording_calls"`
 	// Whether the `Press 1 option that provides recording consent` is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. When the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. When the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether the call recording transcription is enabled.
-	RecordingTranscription OptBool                                                   `json:"recording_transcription"`
-	PlayRecordingBeepTone  OptGetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	RecordingTranscription    OptBool                                                       `json:"recording_transcription"`
+	PlayRecordingBeepTone     OptGetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
+	InboundAudioNotification  OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetAllowStopResumeRecording returns the value of AllowStopResumeRecording.
@@ -11943,6 +12105,16 @@ func (s *GetASiteOKPolicyAutoCallRecording) GetPlayRecordingBeepTone() OptGetASi
 	return s.PlayRecordingBeepTone
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *GetASiteOKPolicyAutoCallRecording) GetInboundAudioNotification() OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *GetASiteOKPolicyAutoCallRecording) GetOutboundAudioNotification() OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetAllowStopResumeRecording sets the value of AllowStopResumeRecording.
 func (s *GetASiteOKPolicyAutoCallRecording) SetAllowStopResumeRecording(val OptBool) {
 	s.AllowStopResumeRecording = val
@@ -11996,6 +12168,100 @@ func (s *GetASiteOKPolicyAutoCallRecording) SetRecordingTranscription(val OptBoo
 // SetPlayRecordingBeepTone sets the value of PlayRecordingBeepTone.
 func (s *GetASiteOKPolicyAutoCallRecording) SetPlayRecordingBeepTone(val OptGetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone) {
 	s.PlayRecordingBeepTone = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *GetASiteOKPolicyAutoCallRecording) SetInboundAudioNotification(val OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *GetASiteOKPolicyAutoCallRecording) SetOutboundAudioNotification(val OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type GetASiteOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether the **Press 1** option that provides recording consent for inbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type GetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone struct {
@@ -14358,7 +14624,7 @@ type GetAlertSettingDetailsOKTargetsItemAssigneesItem struct {
 	ExtensionNumber OptInt64 `json:"extension_number"`
 	// Name.
 	Name OptString `json:"name"`
-	// The type of the assignee. It's available only if the device is assigned.
+	// The type of the assignee. Its available only if the device is assigned.
 	ExtensionType OptString `json:"extension_type"`
 	// The extension ID of the `user` or `common area`.
 	ExtensionID OptString `json:"extension_id"`
@@ -23405,10 +23671,10 @@ func (s *GetGroupPhoneSettingsOKAdvancedEncryption) SetDisableIncomingUnencrypte
 }
 
 type GetGroupPhoneSettingsOKAllowedCallLocations struct {
-	// Whether to define where the extension or user can make and accept calls and send SMS. When the
+	// Whether to define where the extension or user can make and accept calls, and send SMS. When the
 	// extension or user is outside of the allowed locations, calls will follow &quot;When a call is not
-	// answered&quot; settings, meanwhile outbound and inbound emergency calls and SMS will still be
-	// allowed. Note: SMS settings will only be available to users.
+	// answered&quot; settings. Outbound and inbound emergency calls and SMS will still be allowed. Note:
+	// SMS settings will only be available to users.
 	Enable OptBool `json:"enable"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
@@ -23553,19 +23819,66 @@ type GetGroupPhoneSettingsOKAutoCallRecording struct {
 	// Whether the call recording transcription is enabled.
 	RecordingTranscription OptBool `json:"recording_transcription"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. when the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// The audio that plays when the recording has started. You can use this audio ID to get the audio
 	// information using [Get an audio item](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt_audio_id` and `inbound_audio_notification.recording_start_prompt_audio_id`
+	// will remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_start_prompt_audio_id` will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	// and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent. when
+	// the field is updated, the `inbound_audio_notification.recording_start_prompt_audio_id`, and
+	// `outbound_audio_notification.recording_start_prompt_audio_id` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
 	// Whether the `Press 1 option that provides recording consent` is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. when the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether the stop and resume of automatic call recording is enabled.
 	AllowStopResumeRecording OptBool `json:"allow_stop_resume_recording"`
 	// Whether a call disconnects when there is an issue with the automatic call recording and the call
 	// cannot reconnect after five seconds. This does **not** include emergency calls.
-	DisconnectOnRecordingFailure OptBool                                                          `json:"disconnect_on_recording_failure"`
-	PlayRecordingBeepTone        OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	DisconnectOnRecordingFailure OptBool                                                              `json:"disconnect_on_recording_failure"`
+	PlayRecordingBeepTone        OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
+	InboundAudioNotification     OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification    OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetEnable returns the value of Enable.
@@ -23623,6 +23936,16 @@ func (s *GetGroupPhoneSettingsOKAutoCallRecording) GetPlayRecordingBeepTone() Op
 	return s.PlayRecordingBeepTone
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *GetGroupPhoneSettingsOKAutoCallRecording) GetInboundAudioNotification() OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *GetGroupPhoneSettingsOKAutoCallRecording) GetOutboundAudioNotification() OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetEnable sets the value of Enable.
 func (s *GetGroupPhoneSettingsOKAutoCallRecording) SetEnable(val OptBool) {
 	s.Enable = val
@@ -23676,6 +23999,142 @@ func (s *GetGroupPhoneSettingsOKAutoCallRecording) SetDisconnectOnRecordingFailu
 // SetPlayRecordingBeepTone sets the value of PlayRecordingBeepTone.
 func (s *GetGroupPhoneSettingsOKAutoCallRecording) SetPlayRecordingBeepTone(val OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone) {
 	s.PlayRecordingBeepTone = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *GetGroupPhoneSettingsOKAutoCallRecording) SetInboundAudioNotification(val OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *GetGroupPhoneSettingsOKAutoCallRecording) SetOutboundAudioNotification(val OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// The audio that plays when the recording has started for inbound call. You can use this audio ID to
+	// get the audio information using [Get an audio item](https://developer.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	// and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` with the same value.
+	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
+	// Whether the **Press 1** option that provides recording consent for inbound call is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingStartPromptAudioID returns the value of RecordingStartPromptAudioID.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingStartPromptAudioID() OptString {
+	return s.RecordingStartPromptAudioID
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingStartPromptAudioID sets the value of RecordingStartPromptAudioID.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingStartPromptAudioID(val OptString) {
+	s.RecordingStartPromptAudioID = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, please update
+	// both `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// The audio that plays when the recording has started for outbound call. You can use this audio ID
+	// to get the audio information using [Get an audio item](https://developer.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	// and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, please update
+	// both `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` with the same value.
+	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingStartPromptAudioID returns the value of RecordingStartPromptAudioID.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingStartPromptAudioID() OptString {
+	return s.RecordingStartPromptAudioID
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingStartPromptAudioID sets the value of RecordingStartPromptAudioID.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingStartPromptAudioID(val OptString) {
+	s.RecordingStartPromptAudioID = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type GetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone struct {
@@ -27333,7 +27792,15 @@ type GetPhoneRecordingsByCallIdOrCallLogIdOK struct {
 	SoftDeletedType OptString `json:"soft_deleted_type"`
 	// The recording type. The allowed value is `OnDemand` or `Automatic`.
 	RecordingType OptString `json:"recording_type"`
-	// The download URL for the recording.
+	// The download URL for the recording. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the recording file using this url.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	FileURL OptString `json:"file_url"`
 	// The status of disclaimer for recording:
 	// * `0` - passive/implicit
@@ -27648,7 +28115,7 @@ type GetPhoneRecordingsByCallIdOrCallLogIdOKOwner struct {
 	ID OptString `json:"id"`
 	// The name of the owner.
 	Name OptString `json:"name"`
-	// The owner type.
+	// The owner's type.
 	Type OptString `json:"type"`
 	// This field indicates the status of extension.
 	// * `inactive`
@@ -27812,7 +28279,15 @@ type GetPhoneRecordingsOKRecordingsItem struct {
 	DisclaimerStatus OptInt `json:"disclaimer_status"`
 	// The direction of the call. The values are `inbound` or `outbound`.
 	Direction OptString `json:"direction"`
-	// The download URL for the recording.
+	// The download URL for the recording. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the recording file using this URL.
+	// Example request
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
 	// The call recording's duration, in seconds.
 	Duration OptInt `json:"duration"`
@@ -27827,7 +28302,15 @@ type GetPhoneRecordingsOKRecordingsItem struct {
 	// The recording type. The allowed values are `OnDemand` or `Automatic`.
 	RecordingType OptString                                 `json:"recording_type"`
 	Site          OptGetPhoneRecordingsOKRecordingsItemSite `json:"site"`
-	// The download URL for the recording transcript.
+	// The download URL for the recording transcript. For security purposes, you must provide an OAuth
+	// access token in the auth header to download the recording transcript file using this URL.
+	// Example request
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	TranscriptDownloadURL OptString `json:"transcript_download_url"`
 	// This field indicates whether the recording has Auto Delete Data After Retention Duration setting
 	// enabled or not.
@@ -28077,9 +28560,9 @@ func (s *GetPhoneRecordingsOKRecordingsItem) SetAutoDeleteEnable(val OptBool) {
 // The call-receiving user. The current recording must belong to the receiver and call queue for it
 // to be available.
 type GetPhoneRecordingsOKRecordingsItemAcceptedBy struct {
-	// The user name.
+	// The user's name.
 	Name OptString `json:"name"`
-	// The user extension number.
+	// The user's extension number.
 	ExtensionNumber OptString `json:"extension_number"`
 }
 
@@ -28106,9 +28589,9 @@ func (s *GetPhoneRecordingsOKRecordingsItemAcceptedBy) SetExtensionNumber(val Op
 // The call-initiating user. The current recording must belong to the initiator and call queue for it
 // to be available.
 type GetPhoneRecordingsOKRecordingsItemOutgoingBy struct {
-	// The user name.
+	// The user's name.
 	Name OptString `json:"name"`
-	// The user extension number.
+	// The user's extension number.
 	ExtensionNumber OptString `json:"extension_number"`
 }
 
@@ -28293,7 +28776,15 @@ type GetPhoneUserVoiceMailsOKVoiceMailsItem struct {
 	CallerNumberType OptInt `json:"caller_number_type"`
 	// The start time and date of the voiemail.
 	DateTime OptString `json:"date_time"`
-	// The download URL for voicemail.
+	// The download URL for voicemail. For security purposes, you must provide an OAuth access token in
+	// the auth header to download the voicemail file using this url.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
 	// The duration of voicemail in seconds.
 	Duration OptInt `json:"duration"`
@@ -28301,6 +28792,15 @@ type GetPhoneUserVoiceMailsOKVoiceMailsItem struct {
 	ID OptString `json:"id"`
 	// The status of the voicemail: `read` or `unread`.
 	Status OptString `json:"status"`
+	// The current intent detection state of the voicemail:
+	// * `not_started` &mdash; AI detect was not started.
+	// * `processing` &mdash; processing.
+	// * `success` &mdash; success.
+	// * `ai_detection_failed` &mdash; failed, AI detection failed.
+	// * `unknown_reason_failed` &mdash; failed, unknown reason.
+	IntentDetectStatus OptString `json:"intent_detect_status"`
+	// The matched intents of the voicemail.
+	IntentResults []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem `json:"intent_results"`
 }
 
 // GetCallID returns the value of CallID.
@@ -28378,6 +28878,16 @@ func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetStatus() OptString {
 	return s.Status
 }
 
+// GetIntentDetectStatus returns the value of IntentDetectStatus.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetIntentDetectStatus() OptString {
+	return s.IntentDetectStatus
+}
+
+// GetIntentResults returns the value of IntentResults.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetIntentResults() []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem {
+	return s.IntentResults
+}
+
 // SetCallID sets the value of CallID.
 func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallID(val OptString) {
 	s.CallID = val
@@ -28451,6 +28961,43 @@ func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetID(val OptString) {
 // SetStatus sets the value of Status.
 func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetStatus(val OptString) {
 	s.Status = val
+}
+
+// SetIntentDetectStatus sets the value of IntentDetectStatus.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetIntentDetectStatus(val OptString) {
+	s.IntentDetectStatus = val
+}
+
+// SetIntentResults sets the value of IntentResults.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetIntentResults(val []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) {
+	s.IntentResults = val
+}
+
+type GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem struct {
+	// The intent ID.
+	IntentID OptString `json:"intent_id"`
+	// The confidence score of the intent detected by the AI to this current voicemail.
+	ConfidenceScore OptFloat64 `json:"confidence_score"`
+}
+
+// GetIntentID returns the value of IntentID.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) GetIntentID() OptString {
+	return s.IntentID
+}
+
+// GetConfidenceScore returns the value of ConfidenceScore.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) GetConfidenceScore() OptFloat64 {
+	return s.ConfidenceScore
+}
+
+// SetIntentID sets the value of IntentID.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) SetIntentID(val OptString) {
+	s.IntentID = val
+}
+
+// SetConfidenceScore sets the value of ConfidenceScore.
+func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) SetConfidenceScore(val OptFloat64) {
+	s.ConfidenceScore = val
 }
 
 type GetPortedNumbersDetailsOK struct {
@@ -29748,9 +30295,26 @@ type GetSettingTemplateOKPolicyAutoCallRecording struct {
 	// Values: inbound, outbound, both.
 	RecordingCalls OptString `json:"recording_calls"`
 	// Whether to play a prompt to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. When the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether to allow call recording transcription.
-	RecordingTranscription OptBool `json:"recording_transcription"`
+	RecordingTranscription    OptBool                                                                 `json:"recording_transcription"`
+	InboundAudioNotification  OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetEnable returns the value of Enable.
@@ -29773,6 +30337,16 @@ func (s *GetSettingTemplateOKPolicyAutoCallRecording) GetRecordingTranscription(
 	return s.RecordingTranscription
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *GetSettingTemplateOKPolicyAutoCallRecording) GetInboundAudioNotification() OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *GetSettingTemplateOKPolicyAutoCallRecording) GetOutboundAudioNotification() OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetEnable sets the value of Enable.
 func (s *GetSettingTemplateOKPolicyAutoCallRecording) SetEnable(val OptBool) {
 	s.Enable = val
@@ -29791,6 +30365,62 @@ func (s *GetSettingTemplateOKPolicyAutoCallRecording) SetRecordingStartPrompt(va
 // SetRecordingTranscription sets the value of RecordingTranscription.
 func (s *GetSettingTemplateOKPolicyAutoCallRecording) SetRecordingTranscription(val OptBool) {
 	s.RecordingTranscription = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *GetSettingTemplateOKPolicyAutoCallRecording) SetInboundAudioNotification(val OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *GetSettingTemplateOKPolicyAutoCallRecording) SetOutboundAudioNotification(val OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether to play a prompt to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+type GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether to play a prompt to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
 }
 
 type GetSettingTemplateOKPolicyCallForwarding struct {
@@ -33398,8 +34028,7 @@ type GetVoicemailDetailsByCallIdOrCallLogIdOK struct {
 	CallLogID OptString `json:"call_log_id"`
 	// The name of the callee.
 	CalleeName OptString `json:"callee_name"`
-	// The number associated with the callee. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The callee's phone number.
 	CalleeNumber OptString `json:"callee_number"`
 	// The callee's number type:
 	// * `1` &mdash; Internal number.
@@ -33408,8 +34037,7 @@ type GetVoicemailDetailsByCallIdOrCallLogIdOK struct {
 	CalleeNumberType OptInt `json:"callee_number_type"`
 	// The name of the caller.
 	CallerName OptString `json:"caller_name"`
-	// The number associated with the caller. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The caller's phone number.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
 	// * `1` &mdash; Internal number.
@@ -33417,7 +34045,15 @@ type GetVoicemailDetailsByCallIdOrCallLogIdOK struct {
 	CallerNumberType OptInt `json:"caller_number_type"`
 	// The date the voicemail was created.
 	DateTime OptString `json:"date_time"`
-	// The URL to download the voicemail.
+	// The URL to download the voicemail. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the voicemail file using this url.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
 	// The duration of voicemail in seconds.
 	Duration OptInt `json:"duration"`
@@ -33635,35 +34271,58 @@ type GetVoicemailDetailsOK struct {
 	CallLogID OptString `json:"call_log_id"`
 	// The name of the callee.
 	CalleeName OptString `json:"callee_name"`
-	// The number associated with the callee. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The callee's phone number.
 	CalleeNumber OptString `json:"callee_number"`
 	// The callee's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
-	// * `3` &mdash; Customized emergency number.
+	// * `1` — Internal number
+	// * `2` — External number
+	// * `3` — Customized emergency number.
 	CalleeNumberType OptInt `json:"callee_number_type"`
 	// The name of the caller.
 	CallerName OptString `json:"caller_name"`
-	// The number associated with the caller. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The caller's phone number.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
+	// * `1` — Internal number
+	// * `2` — External number.
 	CallerNumberType OptInt `json:"caller_number_type"`
-	// The date the voicemail was created.
+	// The creation date of the voicemail.
 	DateTime OptString `json:"date_time"`
-	// The URL to download the voicemail.
+	// The URL to download the voicemail. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the voicemail file using this url.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
 	// The duration of voicemail in seconds.
 	Duration OptInt `json:"duration"`
 	// The voicemail ID.
 	ID OptString `json:"id"`
-	// The status of the voicemail. It can be either 'read' or 'unread'.
+	// The status of the voicemail. It can be either **read** or **unread**.
 	Status OptString `json:"status"`
 	// The voicemail transcript.
 	Transcription OptGetVoicemailDetailsOKTranscription `json:"transcription"`
+	// The deletion time and date of the voicemail. It exists only when voicemail is from trash.
+	DeletedTime OptDateTime `json:"deleted_time"`
+	// The number of days left until voicemail is permanently deleted. If the voicemail never auto
+	// deletes, the value is `-1`. It exists only when voicemail is from trash.
+	DaysLeftAutoPermantelyDelete OptInt `json:"days_left_auto_permantely_delete"`
+	// This field indicates how the voicemail was deleted. It exists only when voicemail is from trash.
+	SoftDeletedType OptString `json:"soft_deleted_type"`
+	// The current intent detection state of the voicemail:
+	// * `not_started` &mdash; AI detect was not started.
+	// * `processing` &mdash; processing.
+	// * `success` &mdash; success.
+	// * `ai_detection_failed` &mdash; failed, AI detection failed.
+	// * `unknown_reason_failed` &mdash; failed, unknown reason.
+	IntentDetectStatus OptString `json:"intent_detect_status"`
+	// The matched intents of the voicemail.
+	IntentResults []GetVoicemailDetailsOKIntentResultsItem `json:"intent_results"`
+	VoiceMailTask OptGetVoicemailDetailsOKVoiceMailTask    `json:"voice_mail_task"`
 }
 
 // GetCallID returns the value of CallID.
@@ -33736,6 +34395,36 @@ func (s *GetVoicemailDetailsOK) GetTranscription() OptGetVoicemailDetailsOKTrans
 	return s.Transcription
 }
 
+// GetDeletedTime returns the value of DeletedTime.
+func (s *GetVoicemailDetailsOK) GetDeletedTime() OptDateTime {
+	return s.DeletedTime
+}
+
+// GetDaysLeftAutoPermantelyDelete returns the value of DaysLeftAutoPermantelyDelete.
+func (s *GetVoicemailDetailsOK) GetDaysLeftAutoPermantelyDelete() OptInt {
+	return s.DaysLeftAutoPermantelyDelete
+}
+
+// GetSoftDeletedType returns the value of SoftDeletedType.
+func (s *GetVoicemailDetailsOK) GetSoftDeletedType() OptString {
+	return s.SoftDeletedType
+}
+
+// GetIntentDetectStatus returns the value of IntentDetectStatus.
+func (s *GetVoicemailDetailsOK) GetIntentDetectStatus() OptString {
+	return s.IntentDetectStatus
+}
+
+// GetIntentResults returns the value of IntentResults.
+func (s *GetVoicemailDetailsOK) GetIntentResults() []GetVoicemailDetailsOKIntentResultsItem {
+	return s.IntentResults
+}
+
+// GetVoiceMailTask returns the value of VoiceMailTask.
+func (s *GetVoicemailDetailsOK) GetVoiceMailTask() OptGetVoicemailDetailsOKVoiceMailTask {
+	return s.VoiceMailTask
+}
+
 // SetCallID sets the value of CallID.
 func (s *GetVoicemailDetailsOK) SetCallID(val OptString) {
 	s.CallID = val
@@ -33806,29 +34495,86 @@ func (s *GetVoicemailDetailsOK) SetTranscription(val OptGetVoicemailDetailsOKTra
 	s.Transcription = val
 }
 
+// SetDeletedTime sets the value of DeletedTime.
+func (s *GetVoicemailDetailsOK) SetDeletedTime(val OptDateTime) {
+	s.DeletedTime = val
+}
+
+// SetDaysLeftAutoPermantelyDelete sets the value of DaysLeftAutoPermantelyDelete.
+func (s *GetVoicemailDetailsOK) SetDaysLeftAutoPermantelyDelete(val OptInt) {
+	s.DaysLeftAutoPermantelyDelete = val
+}
+
+// SetSoftDeletedType sets the value of SoftDeletedType.
+func (s *GetVoicemailDetailsOK) SetSoftDeletedType(val OptString) {
+	s.SoftDeletedType = val
+}
+
+// SetIntentDetectStatus sets the value of IntentDetectStatus.
+func (s *GetVoicemailDetailsOK) SetIntentDetectStatus(val OptString) {
+	s.IntentDetectStatus = val
+}
+
+// SetIntentResults sets the value of IntentResults.
+func (s *GetVoicemailDetailsOK) SetIntentResults(val []GetVoicemailDetailsOKIntentResultsItem) {
+	s.IntentResults = val
+}
+
+// SetVoiceMailTask sets the value of VoiceMailTask.
+func (s *GetVoicemailDetailsOK) SetVoiceMailTask(val OptGetVoicemailDetailsOKVoiceMailTask) {
+	s.VoiceMailTask = val
+}
+
+type GetVoicemailDetailsOKIntentResultsItem struct {
+	// The intent ID.
+	IntentID OptString `json:"intent_id"`
+	// The confidence score of the intent detected by the AI to this current voicemail.
+	ConfidenceScore OptFloat64 `json:"confidence_score"`
+}
+
+// GetIntentID returns the value of IntentID.
+func (s *GetVoicemailDetailsOKIntentResultsItem) GetIntentID() OptString {
+	return s.IntentID
+}
+
+// GetConfidenceScore returns the value of ConfidenceScore.
+func (s *GetVoicemailDetailsOKIntentResultsItem) GetConfidenceScore() OptFloat64 {
+	return s.ConfidenceScore
+}
+
+// SetIntentID sets the value of IntentID.
+func (s *GetVoicemailDetailsOKIntentResultsItem) SetIntentID(val OptString) {
+	s.IntentID = val
+}
+
+// SetConfidenceScore sets the value of ConfidenceScore.
+func (s *GetVoicemailDetailsOKIntentResultsItem) SetConfidenceScore(val OptFloat64) {
+	s.ConfidenceScore = val
+}
+
 // The voicemail transcript.
 type GetVoicemailDetailsOKTranscription struct {
 	// The content of the voicemail transcript.
 	Content OptString `json:"content"`
-	// Status of the voicemail transcript:
-	// * `0` &mdash; Transcript is not available.
-	// * `1` &mdash; Transcript is processing.
-	// * `2` &mdash; Transcript processed successfully.
-	// * `4` &mdash; Transcript is disabled.
-	// * `5` &mdash; Transcript is enabled.
-	// * `9` &mdash; Transcript web error.
-	// * `11` &mdash; Transcript download error.
-	// * `12` &mdash; Transcript upload error.
-	// * `13` &mdash; Transcript web database error.
-	// * `14` &mdash; Transcript BYOS (Bring Your Own Storage) upload error.
-	// * `409` &mdash; Transcript duplicate processing request error.
-	// * `415` &mdash; Transcript unsupported media error.
-	// * `422` &mdash; Transcript cannot be processed.
-	// * `500` &mdash; Transcript server error.
-	// * `601` &mdash; Transcript AISense after retry error.
-	// * `602` &mdash; Transcript AISense upload file error.
-	// * `603` &mdash; Transcript AISense download file error.
-	// * `999` &mdash; Transcript AISense error.
+	// The status of the voicemail transcript:
+	// * `0` — Transcript is not available.
+	// * `1` — Transcript is processing.
+	// * `2` — Transcript processed successfully.
+	// * `4` — Transcript is disabled.
+	// * `5` — Transcript is enabled.
+	// * `9` — Transcript web error.
+	// * `11` — Transcript download error.
+	// * `12` — Transcript upload error.
+	// * `13` — Transcript web database error.
+	// * `14` — Transcript BYOS (Bring Your Own Storage) upload error.
+	// * `409` — Transcript duplicate processing request error.
+	// * `415` — Transcript unsupported media error.
+	// * `422` — Transcript cannot be processed.
+	// * `500` — Transcript server error.
+	// * `601` — Transcript AISense after retry error.
+	// * `602` — Transcript AISense upload file error.
+	// * `603` — Transcript AISense download file error.
+	// * `999` — Transcript AISense error.
 	Status OptInt `json:"status"`
 	// This field indicates the company that provides the transcription engine technology.
 	Engine OptString `json:"engine"`
@@ -33862,6 +34608,49 @@ func (s *GetVoicemailDetailsOKTranscription) SetStatus(val OptInt) {
 // SetEngine sets the value of Engine.
 func (s *GetVoicemailDetailsOKTranscription) SetEngine(val OptString) {
 	s.Engine = val
+}
+
+type GetVoicemailDetailsOKVoiceMailTask struct {
+	// This field indicates the processing status of extracting task from the voicemail transcription.
+	// * `processing`: Indicates that the task extraction process is still ongoing.
+	// * `success`: Indicates that the task is successfully extracted from the voicemail transcription.
+	// * `no_task`: Indicates that no recognizable task is found in the voicemail transcription.
+	// * `failure`: Indicates that an error occurred during the task extraction transcription.
+	Status OptString `json:"status"`
+	// The voicemail task extracted from the voicemail transcription.
+	Content OptString `json:"content"`
+	// This field provides feedback on the voicemail task.
+	Feedback OptString `json:"feedback"`
+}
+
+// GetStatus returns the value of Status.
+func (s *GetVoicemailDetailsOKVoiceMailTask) GetStatus() OptString {
+	return s.Status
+}
+
+// GetContent returns the value of Content.
+func (s *GetVoicemailDetailsOKVoiceMailTask) GetContent() OptString {
+	return s.Content
+}
+
+// GetFeedback returns the value of Feedback.
+func (s *GetVoicemailDetailsOKVoiceMailTask) GetFeedback() OptString {
+	return s.Feedback
+}
+
+// SetStatus sets the value of Status.
+func (s *GetVoicemailDetailsOKVoiceMailTask) SetStatus(val OptString) {
+	s.Status = val
+}
+
+// SetContent sets the value of Content.
+func (s *GetVoicemailDetailsOKVoiceMailTask) SetContent(val OptString) {
+	s.Content = val
+}
+
+// SetFeedback sets the value of Feedback.
+func (s *GetVoicemailDetailsOKVoiceMailTask) SetFeedback(val OptString) {
+	s.Feedback = val
 }
 
 type GetZoomRoomOK struct {
@@ -36355,9 +37144,9 @@ func (s *ListBillingAccountOKBillingAccountsItem) SetName(val OptString) {
 
 type ListBlockedListOK struct {
 	BlockedList []ListBlockedListOKBlockedListItem `json:"blocked_list"`
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of available results exceeds the current page size. The expiration
-	// period for this token is 15 minutes.
+	// The next page token paginates through large result sets. A next page token returns whenever the
+	// set of available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
 	NextPageToken OptString `json:"next_page_token"`
 	// The total number of records returned from a single API call.
 	PageSize OptInt `json:"page_size"`
@@ -36406,17 +37195,17 @@ func (s *ListBlockedListOK) SetTotalRecords(val OptInt) {
 }
 
 type ListBlockedListOKBlockedListItem struct {
-	// Block type.
+	// The block type.
 	// `inbound`: The blocked number or numbers with the specified prefix are prevented from calling in
 	// to phone users.
 	// `outbound`: The phone users  are prevented from calling the blocked number or numbers with the
 	// specified prefix.
 	BlockType OptString `json:"block_type"`
-	// Provide a comment to help you identify the blocked number or prefix.
+	// Comments to help you identify the blocked number or prefix.
 	Comment OptString `json:"comment"`
-	// Unique identifier of the blocked list.
+	// The unique identifier of the blocked list.
 	ID OptString `json:"id"`
-	// Indicates the match type for the blocked list:
+	// Whether the match type for the blocked list:
 	// `phoneNumber`: Indicates that only a specific phone number that is shown in the `phone_number`
 	// field is blocked.
 	// `prefix`: Indicates that all numbers starting with the prefix that is shown in the `phone_number`
@@ -36426,7 +37215,7 @@ type ListBlockedListOKBlockedListItem struct {
 	//  If you passed `prefix` as the value for the `match_type` field, provide the prefix of the phone
 	// number in the `country` field. Displayed in E164 format.
 	PhoneNumber OptString `json:"phone_number"`
-	// Indicates whether the blocking is active or inactive.
+	// Whether the blocking is active or inactive.
 	// `active`: The blocked list is active.
 	// `inactive`: The blocked list is inactive.
 	Status OptString `json:"status"`
@@ -45184,19 +45973,66 @@ type ListZoomPhoneAccountSettingsOKAutoCallRecording struct {
 	// Whether the call recording transcription is enabled.
 	RecordingTranscription OptBool `json:"recording_transcription"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. When the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// The audio that plays when the recording has started. You can use this audio ID to get the audio
 	// information using [Get an audio item](https://developer.zoom.
 	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt_audio_id` and `inbound_audio_notification.recording_start_prompt_audio_id`
+	// will remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_start_prompt_audio_id` will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	//  and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent. When
+	// the field is updated, the `inbound_audio_notification.recording_start_prompt_audio_id`, and
+	// `outbound_audio_notification.recording_start_prompt_audio_id` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
 	// Whether the **Press 1** option that provides recording consent is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. When the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether the stop and resume of automatic call recording is enabled.
 	AllowStopResumeRecording OptBool `json:"allow_stop_resume_recording"`
 	// Whether a call disconnects when there is an issue with the automatic call recording, and the call
 	// cannot reconnect after five seconds. This does **not** include emergency calls.
-	DisconnectOnRecordingFailure OptBool                                                                 `json:"disconnect_on_recording_failure"`
-	PlayRecordingBeepTone        OptListZoomPhoneAccountSettingsOKAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	DisconnectOnRecordingFailure OptBool                                                                     `json:"disconnect_on_recording_failure"`
+	PlayRecordingBeepTone        OptListZoomPhoneAccountSettingsOKAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
+	InboundAudioNotification     OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification    OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetEnable returns the value of Enable.
@@ -45254,6 +46090,16 @@ func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) GetPlayRecordingBeepTo
 	return s.PlayRecordingBeepTone
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) GetInboundAudioNotification() OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) GetOutboundAudioNotification() OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetEnable sets the value of Enable.
 func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) SetEnable(val OptBool) {
 	s.Enable = val
@@ -45307,6 +46153,142 @@ func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) SetDisconnectOnRecordi
 // SetPlayRecordingBeepTone sets the value of PlayRecordingBeepTone.
 func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) SetPlayRecordingBeepTone(val OptListZoomPhoneAccountSettingsOKAutoCallRecordingPlayRecordingBeepTone) {
 	s.PlayRecordingBeepTone = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) SetInboundAudioNotification(val OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecording) SetOutboundAudioNotification(val OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// The audio that plays when the recording has started for inbound call. You can use this audio ID to
+	// get the audio information using [Get an audio item](https://developer.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	//  and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` with the same value.
+	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
+	// Whether the **Press 1** option that provides recording consent for inbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingStartPromptAudioID returns the value of RecordingStartPromptAudioID.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingStartPromptAudioID() OptString {
+	return s.RecordingStartPromptAudioID
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingStartPromptAudioID sets the value of RecordingStartPromptAudioID.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingStartPromptAudioID(val OptString) {
+	s.RecordingStartPromptAudioID = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// The audio that plays when the recording has started for outbound call. You can use this audio ID
+	// to get the audio information using [Get an audio item](https://developer.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`,
+	//  and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.
+	// recording_start_prompt_audio_id` with the same value.
+	RecordingStartPromptAudioID OptString `json:"recording_start_prompt_audio_id"`
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingStartPromptAudioID returns the value of RecordingStartPromptAudioID.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingStartPromptAudioID() OptString {
+	return s.RecordingStartPromptAudioID
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingStartPromptAudioID sets the value of RecordingStartPromptAudioID.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingStartPromptAudioID(val OptString) {
+	s.RecordingStartPromptAudioID = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type ListZoomPhoneAccountSettingsOKAutoCallRecordingPlayRecordingBeepTone struct {
@@ -47507,6 +48489,52 @@ func (o OptAccountSmsSessionOKSMSSessionsItemParticipantsItemOwner) Get() (v Acc
 
 // Or returns value if set, or given parameter if does not.
 func (o OptAccountSmsSessionOKSMSSessionsItemParticipantsItemOwner) Or(d AccountSmsSessionOKSMSSessionsItemParticipantsItemOwner) AccountSmsSessionOKSMSSessionsItemParticipantsItemOwner {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAccountVoiceMailsOKVoiceMailsItemOwner returns new OptAccountVoiceMailsOKVoiceMailsItemOwner with value set to v.
+func NewOptAccountVoiceMailsOKVoiceMailsItemOwner(v AccountVoiceMailsOKVoiceMailsItemOwner) OptAccountVoiceMailsOKVoiceMailsItemOwner {
+	return OptAccountVoiceMailsOKVoiceMailsItemOwner{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAccountVoiceMailsOKVoiceMailsItemOwner is optional AccountVoiceMailsOKVoiceMailsItemOwner.
+type OptAccountVoiceMailsOKVoiceMailsItemOwner struct {
+	Value AccountVoiceMailsOKVoiceMailsItemOwner
+	Set   bool
+}
+
+// IsSet returns true if OptAccountVoiceMailsOKVoiceMailsItemOwner was set.
+func (o OptAccountVoiceMailsOKVoiceMailsItemOwner) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAccountVoiceMailsOKVoiceMailsItemOwner) Reset() {
+	var v AccountVoiceMailsOKVoiceMailsItemOwner
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAccountVoiceMailsOKVoiceMailsItemOwner) SetTo(v AccountVoiceMailsOKVoiceMailsItemOwner) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAccountVoiceMailsOKVoiceMailsItemOwner) Get() (v AccountVoiceMailsOKVoiceMailsItemOwner, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAccountVoiceMailsOKVoiceMailsItemOwner) Or(d AccountVoiceMailsOKVoiceMailsItemOwner) AccountVoiceMailsOKVoiceMailsItemOwner {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -51377,6 +52405,52 @@ func (o OptDuplicatePhoneRoleReq) Or(d DuplicatePhoneRoleReq) DuplicatePhoneRole
 	return d
 }
 
+// NewOptFloat64 returns new OptFloat64 with value set to v.
+func NewOptFloat64(v float64) OptFloat64 {
+	return OptFloat64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptFloat64 is optional float64.
+type OptFloat64 struct {
+	Value float64
+	Set   bool
+}
+
+// IsSet returns true if OptFloat64 was set.
+func (o OptFloat64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptFloat64) Reset() {
+	var v float64
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptFloat64) SetTo(v float64) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptFloat64) Get() (v float64, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptFloat64) Or(d float64) float64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetACallQueueOKMembers returns new OptGetACallQueueOKMembers with value set to v.
 func NewOptGetACallQueueOKMembers(v GetACallQueueOKMembers) OptGetACallQueueOKMembers {
 	return OptGetACallQueueOKMembers{
@@ -52475,6 +53549,98 @@ func (o OptGetASiteOKPolicyAutoCallRecording) Get() (v GetASiteOKPolicyAutoCallR
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyAutoCallRecording) Or(d GetASiteOKPolicyAutoCallRecording) GetASiteOKPolicyAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification returns new OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification(v GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification {
+	return OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification is optional GetASiteOKPolicyAutoCallRecordingInboundAudioNotification.
+type OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value GetASiteOKPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v GetASiteOKPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) SetTo(v GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) Get() (v GetASiteOKPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification) Or(d GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) GetASiteOKPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification returns new OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification(v GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification is optional GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification.
+type OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) Get() (v GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) Or(d GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56641,6 +57807,102 @@ func (o OptGetGroupPhoneSettingsOKAutoCallRecording) Or(d GetGroupPhoneSettingsO
 	return d
 }
 
+// NewOptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification returns new OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification(v GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification {
+	return OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification is optional GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification.
+type OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification struct {
+	Value GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification was set.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) Reset() {
+	var v GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) SetTo(v GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) Get() (v GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) Or(d GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification) GetGroupPhoneSettingsOKAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification returns new OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification(v GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification {
+	return OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification is optional GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification.
+type OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification struct {
+	Value GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification was set.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) SetTo(v GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) Get() (v GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) Or(d GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification) GetGroupPhoneSettingsOKAutoCallRecordingOutboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone returns new OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone with value set to v.
 func NewOptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone(v GetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone) OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone {
 	return OptGetGroupPhoneSettingsOKAutoCallRecordingPlayRecordingBeepTone{
@@ -59583,6 +60845,102 @@ func (o OptGetSettingTemplateOKPolicyAutoCallRecording) Get() (v GetSettingTempl
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetSettingTemplateOKPolicyAutoCallRecording) Or(d GetSettingTemplateOKPolicyAutoCallRecording) GetSettingTemplateOKPolicyAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification returns new OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification(v GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification {
+	return OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification is optional GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification.
+type OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) SetTo(v GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) Get() (v GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) Or(d GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification) GetSettingTemplateOKPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification returns new OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification(v GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification is optional GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification.
+type OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) Get() (v GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) Or(d GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification) GetSettingTemplateOKPolicyAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -62817,6 +64175,52 @@ func (o OptGetVoicemailDetailsOKTranscription) Or(d GetVoicemailDetailsOKTranscr
 	return d
 }
 
+// NewOptGetVoicemailDetailsOKVoiceMailTask returns new OptGetVoicemailDetailsOKVoiceMailTask with value set to v.
+func NewOptGetVoicemailDetailsOKVoiceMailTask(v GetVoicemailDetailsOKVoiceMailTask) OptGetVoicemailDetailsOKVoiceMailTask {
+	return OptGetVoicemailDetailsOKVoiceMailTask{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetVoicemailDetailsOKVoiceMailTask is optional GetVoicemailDetailsOKVoiceMailTask.
+type OptGetVoicemailDetailsOKVoiceMailTask struct {
+	Value GetVoicemailDetailsOKVoiceMailTask
+	Set   bool
+}
+
+// IsSet returns true if OptGetVoicemailDetailsOKVoiceMailTask was set.
+func (o OptGetVoicemailDetailsOKVoiceMailTask) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetVoicemailDetailsOKVoiceMailTask) Reset() {
+	var v GetVoicemailDetailsOKVoiceMailTask
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetVoicemailDetailsOKVoiceMailTask) SetTo(v GetVoicemailDetailsOKVoiceMailTask) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetVoicemailDetailsOKVoiceMailTask) Get() (v GetVoicemailDetailsOKVoiceMailTask, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetVoicemailDetailsOKVoiceMailTask) Or(d GetVoicemailDetailsOKVoiceMailTask) GetVoicemailDetailsOKVoiceMailTask {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetZoomRoomOKEmergencyAddress returns new OptGetZoomRoomOKEmergencyAddress with value set to v.
 func NewOptGetZoomRoomOKEmergencyAddress(v GetZoomRoomOKEmergencyAddress) OptGetZoomRoomOKEmergencyAddress {
 	return OptGetZoomRoomOKEmergencyAddress{
@@ -65345,6 +66749,102 @@ func (o OptListZoomPhoneAccountSettingsOKAutoCallRecording) Get() (v ListZoomPho
 
 // Or returns value if set, or given parameter if does not.
 func (o OptListZoomPhoneAccountSettingsOKAutoCallRecording) Or(d ListZoomPhoneAccountSettingsOKAutoCallRecording) ListZoomPhoneAccountSettingsOKAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification returns new OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification(v ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification {
+	return OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification is optional ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification.
+type OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification struct {
+	Value ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification was set.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) Reset() {
+	var v ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) SetTo(v ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) Get() (v ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) Or(d ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification) ListZoomPhoneAccountSettingsOKAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification returns new OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification(v ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification {
+	return OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification is optional ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification.
+type OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification struct {
+	Value ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification was set.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) SetTo(v ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) Get() (v ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) Or(d ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification) ListZoomPhoneAccountSettingsOKAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -69323,6 +70823,52 @@ func (o OptPhoneUserOKPolicyVoicemail) Or(d PhoneUserOKPolicyVoicemail) PhoneUse
 	return d
 }
 
+// NewOptPhoneUserOKPolicyVoicemailIntentBasedPrioritization returns new OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization with value set to v.
+func NewOptPhoneUserOKPolicyVoicemailIntentBasedPrioritization(v PhoneUserOKPolicyVoicemailIntentBasedPrioritization) OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization {
+	return OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization is optional PhoneUserOKPolicyVoicemailIntentBasedPrioritization.
+type OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization struct {
+	Value PhoneUserOKPolicyVoicemailIntentBasedPrioritization
+	Set   bool
+}
+
+// IsSet returns true if OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization was set.
+func (o OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) Reset() {
+	var v PhoneUserOKPolicyVoicemailIntentBasedPrioritization
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) SetTo(v PhoneUserOKPolicyVoicemailIntentBasedPrioritization) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) Get() (v PhoneUserOKPolicyVoicemailIntentBasedPrioritization, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) Or(d PhoneUserOKPolicyVoicemailIntentBasedPrioritization) PhoneUserOKPolicyVoicemailIntentBasedPrioritization {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptPhoneUserOKPolicyVoicemailNotificationByEmail returns new OptPhoneUserOKPolicyVoicemailNotificationByEmail with value set to v.
 func NewOptPhoneUserOKPolicyVoicemailNotificationByEmail(v PhoneUserOKPolicyVoicemailNotificationByEmail) OptPhoneUserOKPolicyVoicemailNotificationByEmail {
 	return OptPhoneUserOKPolicyVoicemailNotificationByEmail{
@@ -69363,6 +70909,52 @@ func (o OptPhoneUserOKPolicyVoicemailNotificationByEmail) Get() (v PhoneUserOKPo
 
 // Or returns value if set, or given parameter if does not.
 func (o OptPhoneUserOKPolicyVoicemailNotificationByEmail) Or(d PhoneUserOKPolicyVoicemailNotificationByEmail) PhoneUserOKPolicyVoicemailNotificationByEmail {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptPhoneUserOKPolicyVoicemailTasks returns new OptPhoneUserOKPolicyVoicemailTasks with value set to v.
+func NewOptPhoneUserOKPolicyVoicemailTasks(v PhoneUserOKPolicyVoicemailTasks) OptPhoneUserOKPolicyVoicemailTasks {
+	return OptPhoneUserOKPolicyVoicemailTasks{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPhoneUserOKPolicyVoicemailTasks is optional PhoneUserOKPolicyVoicemailTasks.
+type OptPhoneUserOKPolicyVoicemailTasks struct {
+	Value PhoneUserOKPolicyVoicemailTasks
+	Set   bool
+}
+
+// IsSet returns true if OptPhoneUserOKPolicyVoicemailTasks was set.
+func (o OptPhoneUserOKPolicyVoicemailTasks) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPhoneUserOKPolicyVoicemailTasks) Reset() {
+	var v PhoneUserOKPolicyVoicemailTasks
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPhoneUserOKPolicyVoicemailTasks) SetTo(v PhoneUserOKPolicyVoicemailTasks) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPhoneUserOKPolicyVoicemailTasks) Get() (v PhoneUserOKPolicyVoicemailTasks, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPhoneUserOKPolicyVoicemailTasks) Or(d PhoneUserOKPolicyVoicemailTasks) PhoneUserOKPolicyVoicemailTasks {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -71715,6 +73307,52 @@ func (o OptUpdateAutoReceptionistReq) Or(d UpdateAutoReceptionistReq) UpdateAuto
 	return d
 }
 
+// NewOptUpdateBlockedListReq returns new OptUpdateBlockedListReq with value set to v.
+func NewOptUpdateBlockedListReq(v UpdateBlockedListReq) OptUpdateBlockedListReq {
+	return OptUpdateBlockedListReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateBlockedListReq is optional UpdateBlockedListReq.
+type OptUpdateBlockedListReq struct {
+	Value UpdateBlockedListReq
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateBlockedListReq was set.
+func (o OptUpdateBlockedListReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateBlockedListReq) Reset() {
+	var v UpdateBlockedListReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateBlockedListReq) SetTo(v UpdateBlockedListReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateBlockedListReq) Get() (v UpdateBlockedListReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateBlockedListReq) Or(d UpdateBlockedListReq) UpdateBlockedListReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateCQPolicySubSettingReq returns new OptUpdateCQPolicySubSettingReq with value set to v.
 func NewOptUpdateCQPolicySubSettingReq(v UpdateCQPolicySubSettingReq) OptUpdateCQPolicySubSettingReq {
 	return OptUpdateCQPolicySubSettingReq{
@@ -73601,6 +75239,102 @@ func (o OptUpdateSettingTemplateReqPolicyAutoCallRecording) Or(d UpdateSettingTe
 	return d
 }
 
+// NewOptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification returns new OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification(v UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification {
+	return OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification is optional UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification.
+type OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) SetTo(v UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) Get() (v UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) Or(d UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification returns new OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification(v UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification is optional UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification.
+type OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) Get() (v UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) Or(d UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSettingTemplateReqPolicyCallForwarding returns new OptUpdateSettingTemplateReqPolicyCallForwarding with value set to v.
 func NewOptUpdateSettingTemplateReqPolicyCallForwarding(v UpdateSettingTemplateReqPolicyCallForwarding) OptUpdateSettingTemplateReqPolicyCallForwarding {
 	return OptUpdateSettingTemplateReqPolicyCallForwarding{
@@ -74855,6 +76589,102 @@ func (o OptUpdateSiteDetailsReqPolicyAutoCallRecording) Get() (v UpdateSiteDetai
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyAutoCallRecording) Or(d UpdateSiteDetailsReqPolicyAutoCallRecording) UpdateSiteDetailsReqPolicyAutoCallRecording {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification returns new OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification(v UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification {
+	return OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification is optional UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification.
+type OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	Value UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) Reset() {
+	var v UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) SetTo(v UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) Get() (v UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) Or(d UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification returns new OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification(v UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification is optional UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification.
+type OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	Value UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) Reset() {
+	var v UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) SetTo(v UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) Get() (v UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) Or(d UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -82557,6 +84387,8 @@ type PhoneUserOKCallingPlansItem struct {
 	BillingAccountID OptString `json:"billing_account_id"`
 	// The billing account name. It displays when the user is located in India.
 	BillingAccountName OptString `json:"billing_account_name"`
+	// The type name of calling plan.
+	Name OptString `json:"name"`
 }
 
 // GetType returns the value of Type.
@@ -82574,6 +84406,11 @@ func (s *PhoneUserOKCallingPlansItem) GetBillingAccountName() OptString {
 	return s.BillingAccountName
 }
 
+// GetName returns the value of Name.
+func (s *PhoneUserOKCallingPlansItem) GetName() OptString {
+	return s.Name
+}
+
 // SetType sets the value of Type.
 func (s *PhoneUserOKCallingPlansItem) SetType(val OptInt) {
 	s.Type = val
@@ -82587,6 +84424,11 @@ func (s *PhoneUserOKCallingPlansItem) SetBillingAccountID(val OptString) {
 // SetBillingAccountName sets the value of BillingAccountName.
 func (s *PhoneUserOKCallingPlansItem) SetBillingAccountName(val OptString) {
 	s.BillingAccountName = val
+}
+
+// SetName sets the value of Name.
+func (s *PhoneUserOKCallingPlansItem) SetName(val OptString) {
+	s.Name = val
 }
 
 type PhoneUserOKEmergencyAddress struct {
@@ -82762,11 +84604,13 @@ type PhoneUserOKPolicy struct {
 	// Whether to allow Zoom clients to send media directly to each other. Users or devices that have
 	// certain features like recording or monitoring enabled may not be able to use the peer to peer
 	// media sharing feature.
-	PeerToPeerMedia              OptPhoneUserOKPolicyPeerToPeerMedia              `json:"peer_to_peer_media"`
-	E2eEncryption                OptPhoneUserOKPolicyE2eEncryption                `json:"e2e_encryption"`
-	OutboundCalling              OptPhoneUserOKPolicyOutboundCalling              `json:"outbound_calling"`
-	OutboundSMS                  OptPhoneUserOKPolicyOutboundSMS                  `json:"outbound_sms"`
-	AllowEndUserEditCallHandling OptPhoneUserOKPolicyAllowEndUserEditCallHandling `json:"allow_end_user_edit_call_handling"`
+	PeerToPeerMedia                    OptPhoneUserOKPolicyPeerToPeerMedia                    `json:"peer_to_peer_media"`
+	E2eEncryption                      OptPhoneUserOKPolicyE2eEncryption                      `json:"e2e_encryption"`
+	OutboundCalling                    OptPhoneUserOKPolicyOutboundCalling                    `json:"outbound_calling"`
+	OutboundSMS                        OptPhoneUserOKPolicyOutboundSMS                        `json:"outbound_sms"`
+	AllowEndUserEditCallHandling       OptPhoneUserOKPolicyAllowEndUserEditCallHandling       `json:"allow_end_user_edit_call_handling"`
+	VoicemailIntentBasedPrioritization OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization `json:"voicemail_intent_based_prioritization"`
+	VoicemailTasks                     OptPhoneUserOKPolicyVoicemailTasks                     `json:"voicemail_tasks"`
 }
 
 // GetAdHocCallRecording returns the value of AdHocCallRecording.
@@ -82929,6 +84773,16 @@ func (s *PhoneUserOKPolicy) GetAllowEndUserEditCallHandling() OptPhoneUserOKPoli
 	return s.AllowEndUserEditCallHandling
 }
 
+// GetVoicemailIntentBasedPrioritization returns the value of VoicemailIntentBasedPrioritization.
+func (s *PhoneUserOKPolicy) GetVoicemailIntentBasedPrioritization() OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization {
+	return s.VoicemailIntentBasedPrioritization
+}
+
+// GetVoicemailTasks returns the value of VoicemailTasks.
+func (s *PhoneUserOKPolicy) GetVoicemailTasks() OptPhoneUserOKPolicyVoicemailTasks {
+	return s.VoicemailTasks
+}
+
 // SetAdHocCallRecording sets the value of AdHocCallRecording.
 func (s *PhoneUserOKPolicy) SetAdHocCallRecording(val OptPhoneUserOKPolicyAdHocCallRecording) {
 	s.AdHocCallRecording = val
@@ -83087,6 +84941,16 @@ func (s *PhoneUserOKPolicy) SetOutboundSMS(val OptPhoneUserOKPolicyOutboundSMS) 
 // SetAllowEndUserEditCallHandling sets the value of AllowEndUserEditCallHandling.
 func (s *PhoneUserOKPolicy) SetAllowEndUserEditCallHandling(val OptPhoneUserOKPolicyAllowEndUserEditCallHandling) {
 	s.AllowEndUserEditCallHandling = val
+}
+
+// SetVoicemailIntentBasedPrioritization sets the value of VoicemailIntentBasedPrioritization.
+func (s *PhoneUserOKPolicy) SetVoicemailIntentBasedPrioritization(val OptPhoneUserOKPolicyVoicemailIntentBasedPrioritization) {
+	s.VoicemailIntentBasedPrioritization = val
+}
+
+// SetVoicemailTasks sets the value of VoicemailTasks.
+func (s *PhoneUserOKPolicy) SetVoicemailTasks(val OptPhoneUserOKPolicyVoicemailTasks) {
+	s.VoicemailTasks = val
 }
 
 // A list of ad hoc call recording settings.
@@ -83369,7 +85233,7 @@ type PhoneUserOKPolicyAutoCallRecording struct {
 	DisconnectOnRecordingFailure OptBool `json:"disconnect_on_recording_failure"`
 	// Whether the automatic call recording is enabled.
 	Enable OptBool `json:"enable"`
-	// Whether the senior administrator allow users to modify the current settings.
+	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
 	// Which level of administrator prohibits the modification of the current settings.
 	LockedBy OptString `json:"locked_by"`
@@ -83378,9 +85242,39 @@ type PhoneUserOKPolicyAutoCallRecording struct {
 	// * `outbound`
 	// * `both`.
 	RecordingCalls OptString `json:"recording_calls"`
-	// Whether the 'press 1' option that provides recording consent is enabled.
+	// Whether the **Press 1** option that provides recording consent is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. When the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. When the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether the call recording transcription is enabled.
 	RecordingTranscription    OptBool                                                        `json:"recording_transcription"`
@@ -83562,9 +85456,24 @@ func (s *PhoneUserOKPolicyAutoCallRecordingAccessMembersItem) SetSharedID(val Op
 }
 
 type PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification struct {
-	// Whether to show prompt for starting call recording with inbound audio.
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
-	// Whether to obtain explicit consent for call recording with inbound audio.
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 }
 
@@ -83589,9 +85498,24 @@ func (s *PhoneUserOKPolicyAutoCallRecordingInboundAudioNotification) SetRecordin
 }
 
 type PhoneUserOKPolicyAutoCallRecordingOutboundAudioNotification struct {
-	// Whether to show prompt for starting call recording with outbound audio.
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
-	// Whether to obtain explicit consent for call recording with outbound audio.
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * If customers  do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 }
 
@@ -84721,6 +86645,59 @@ func (s *PhoneUserOKPolicyVoicemailAccessMembersItem) SetSharedID(val OptString)
 	s.SharedID = val
 }
 
+type PhoneUserOKPolicyVoicemailIntentBasedPrioritization struct {
+	// Whether to allow users to prioritize urgent voicemails based on predefined priority topics. Users
+	// need to have voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset (displayed when
+	// using the new policy framework).
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *PhoneUserOKPolicyVoicemailIntentBasedPrioritization) SetModified(val OptBool) {
+	s.Modified = val
+}
+
 type PhoneUserOKPolicyVoicemailNotificationByEmail struct {
 	// Whether to include the voicemail file.
 	IncludeVoicemailFile OptBool `json:"include_voicemail_file"`
@@ -84795,6 +86772,59 @@ func (s *PhoneUserOKPolicyVoicemailNotificationByEmail) SetLockedBy(val OptStrin
 // SetModified sets the value of Modified.
 func (s *PhoneUserOKPolicyVoicemailNotificationByEmail) SetModified(val OptBool) {
 	s.Modified = val
+}
+
+type PhoneUserOKPolicyVoicemailTasks struct {
+	// Whether to allow users to extract tasks from English voicemail transcriptions. Users need to have
+	// voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Whether the current settings have been modified. If modified, they can be reset (displayed when
+	// using the new policy framework).
+	Modified OptBool `json:"modified"`
+	// Which level of administrator prohibits modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *PhoneUserOKPolicyVoicemailTasks) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *PhoneUserOKPolicyVoicemailTasks) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetModified returns the value of Modified.
+func (s *PhoneUserOKPolicyVoicemailTasks) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *PhoneUserOKPolicyVoicemailTasks) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// SetEnable sets the value of Enable.
+func (s *PhoneUserOKPolicyVoicemailTasks) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *PhoneUserOKPolicyVoicemailTasks) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetModified sets the value of Modified.
+func (s *PhoneUserOKPolicyVoicemailTasks) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *PhoneUserOKPolicyVoicemailTasks) SetLockedBy(val OptString) {
+	s.LockedBy = val
 }
 
 type PhoneUserOKPolicyVoicemailTranscription struct {
@@ -86180,23 +88210,22 @@ func (s *PhoneUserSettingsOKVoiceMailItem) SetSharedID(val OptString) {
 	s.SharedID = val
 }
 
-// Phone user voicemails.
 type PhoneUserVoiceMailsOK struct {
-	// Start date of the query.
+	// The start date of the query.
 	From OptDate `json:"from"`
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of available results exceeds the current page size. The expiration
-	// period for this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token is returned
+	// whenever the set of available results exceeds the current page size. The expiration period for
+	// this token is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
-	// Total number of pages. This field is deprecated.
+	// The total number of pages.
 	PageCount OptInt `json:"page_count"`
-	// Size of each page.
+	// The zize of each page.
 	PageSize OptInt `json:"page_size"`
-	// End date of the query.
+	// The end date.
 	To OptDate `json:"to"`
-	// Total number of records.
+	// The total number of records.
 	TotalRecords OptInt `json:"total_records"`
-	// Voicemails.
+	// The voicemails.
 	VoiceMails []PhoneUserVoiceMailsOKVoiceMailsItem `json:"voice_mails"`
 }
 
@@ -86275,34 +88304,40 @@ type PhoneUserVoiceMailsOKVoiceMailsItem struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
-	// Contact name of callee.
+	// The contact name of callee.
 	CalleeName OptString `json:"callee_name"`
-	// The number associated with the callee. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The number of the callee.
 	CalleeNumber OptString `json:"callee_number"`
 	// The callee's number type:
 	// * `1` &mdash; Internal number.
 	// * `2` &mdash; External number.
 	// * `3` &mdash; Customized emergency number.
 	CalleeNumberType OptInt `json:"callee_number_type"`
-	// Contact name of the caller.
+	// The contact name of the caller.
 	CallerName OptString `json:"caller_name"`
-	// The number associated with the caller. Could be a phone number or an extension. Check the number
-	// type to differentiate the two.
+	// The number of the caller.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
 	// * `1` &mdash; Internal number.
 	// * `2` &mdash; External number.
 	CallerNumberType OptInt `json:"caller_number_type"`
-	// Start time and date of the voicemail.
+	// The time and date the voice mail started.
 	DateTime OptString `json:"date_time"`
-	// Download url of the attachment.
+	// The download URL of the attachment. For security purposes, you must provide an OAuth access token
+	// in the auth header to download the voicemail file using this URL.
+	// Example request:
+	// ```
+	// curl --request GET \
+	// --url {download_url} \
+	// --header 'authorization: Bearer {access_token}' \
+	// --header 'content-type: application/json'
+	// ```.
 	DownloadURL OptString `json:"download_url"`
 	// The duration of voicemail in seconds.
 	Duration OptInt `json:"duration"`
-	// Voicemail ID.
+	// The voicemail ID.
 	ID OptString `json:"id"`
-	// Status of the voice mail. Can be either 'read' or 'unread'.
+	// The status of the voice mail. It can be either 'read' or 'unread'.
 	Status OptString `json:"status"`
 }
 
@@ -89625,6 +91660,96 @@ func (s *UpdateAutoReceptionistReq) SetRecordingStorageLocation(val OptString) {
 	s.RecordingStorageLocation = val
 }
 
+// UpdateBlockedListNoContent is response for UpdateBlockedList operation.
+type UpdateBlockedListNoContent struct{}
+
+type UpdateBlockedListReq struct {
+	// Whether you want the block type to be inbound or outbound.
+	// `inbound`: Pass this value to prevent the blocked number or prefix from calling in to phone users.
+	// `outbound`: Pass this value to prevent phone users from calling the blocked number or prefix.
+	BlockType OptString `json:"block_type"`
+	// This field enables you to make a comment to identify the blocked number or prefix.
+	Comment OptString `json:"comment"`
+	// The country information. For example, entering US or CH.
+	Country OptString `json:"country"`
+	// This field specifies the match type for the blocked list:
+	// * `phoneNumber`: Choose this option (Phone Number Match) if you want to block a specific phone
+	// number. Provide the phone number in the `phone_number` field and the country code in the `country`
+	// field.
+	// * `prefix`: Choose this option (Prefix Match) if you want to block all numbers with a specific
+	// country or an area code. Enter a phone number in the `phone_number` field and in the `country`
+	// field, enter a country code as part of the prefix.
+	MatchType OptString `json:"match_type"`
+	// The phone number to be blocked if you passed `phoneNumber` as the value for the `match_type` field.
+	//  If you passed `prefix` as the value for the `match_type` field, provide the prefix of the phone
+	// number in the `country` field.
+	PhoneNumber OptString `json:"phone_number"`
+	// This field enables or disables the blocking:
+	// * `active`: Keep the blocking active.
+	// * `inactive`: Disable the blocking.
+	Status OptString `json:"status"`
+}
+
+// GetBlockType returns the value of BlockType.
+func (s *UpdateBlockedListReq) GetBlockType() OptString {
+	return s.BlockType
+}
+
+// GetComment returns the value of Comment.
+func (s *UpdateBlockedListReq) GetComment() OptString {
+	return s.Comment
+}
+
+// GetCountry returns the value of Country.
+func (s *UpdateBlockedListReq) GetCountry() OptString {
+	return s.Country
+}
+
+// GetMatchType returns the value of MatchType.
+func (s *UpdateBlockedListReq) GetMatchType() OptString {
+	return s.MatchType
+}
+
+// GetPhoneNumber returns the value of PhoneNumber.
+func (s *UpdateBlockedListReq) GetPhoneNumber() OptString {
+	return s.PhoneNumber
+}
+
+// GetStatus returns the value of Status.
+func (s *UpdateBlockedListReq) GetStatus() OptString {
+	return s.Status
+}
+
+// SetBlockType sets the value of BlockType.
+func (s *UpdateBlockedListReq) SetBlockType(val OptString) {
+	s.BlockType = val
+}
+
+// SetComment sets the value of Comment.
+func (s *UpdateBlockedListReq) SetComment(val OptString) {
+	s.Comment = val
+}
+
+// SetCountry sets the value of Country.
+func (s *UpdateBlockedListReq) SetCountry(val OptString) {
+	s.Country = val
+}
+
+// SetMatchType sets the value of MatchType.
+func (s *UpdateBlockedListReq) SetMatchType(val OptString) {
+	s.MatchType = val
+}
+
+// SetPhoneNumber sets the value of PhoneNumber.
+func (s *UpdateBlockedListReq) SetPhoneNumber(val OptString) {
+	s.PhoneNumber = val
+}
+
+// SetStatus sets the value of Status.
+func (s *UpdateBlockedListReq) SetStatus(val OptString) {
+	s.Status = val
+}
+
 // UpdateCQPolicySubSettingNoContent is response for UpdateCQPolicySubSetting operation.
 type UpdateCQPolicySubSettingNoContent struct{}
 
@@ -91365,13 +93490,13 @@ func (s *UpdatePeeringPhoneNumbersReqPhoneNumbersItem) SetStatus(val OptInt) {
 type UpdatePhoneNumberDetailsNoContent struct{}
 
 type UpdatePhoneNumberDetailsReq struct {
-	// Phone number capability. Values: `outgoing` or `incoming`. Add one or both.
+	// THe phone number's capability. Values: `outgoing` or `incoming`. Add one or both.
 	Capability []string `json:"capability"`
-	// Phone number display name.
+	// The phone number display name.
 	DisplayName OptString `json:"display_name"`
-	// Confirm byoc phone number's emergency address status. 2-confirmed.
+	// This field confirms BYOC phone number's emergency address status. 2-confirmed.
 	EmergencyAddressStatus OptInt `json:"emergency_address_status"`
-	// Sip group id, only used for byoc phone number update.
+	// The SIP group ID, only used for BYOC phone number update.
 	SipGroupID OptString `json:"sip_group_id"`
 }
 
@@ -91747,7 +93872,7 @@ func (s *UpdateProvisionTemplateToDeviceReq) SetProvisionTemplateID(val OptStrin
 type UpdateRecordingStatusNoContent struct{}
 
 type UpdateRecordingStatusReq struct {
-	// This field corresponds to actions that you can use to update recording status. Example: recovering
+	// This field corresponds to actions that you can use to update recording status. Example: Recovering
 	// recordings from trash.
 	// Allowed values: `recover`.
 	Action OptString `json:"action"`
@@ -92103,9 +94228,26 @@ type UpdateSettingTemplateReqPolicyAutoCallRecording struct {
 	// Values: inbound, outbound, both.
 	RecordingCalls OptString `json:"recording_calls"`
 	// Whether to play a prompt to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. when the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether to allow call recording transcription.
-	RecordingTranscription OptBool `json:"recording_transcription"`
+	RecordingTranscription    OptBool                                                                     `json:"recording_transcription"`
+	InboundAudioNotification  OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetEnable returns the value of Enable.
@@ -92128,6 +94270,16 @@ func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) GetRecordingTranscript
 	return s.RecordingTranscription
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) GetInboundAudioNotification() OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) GetOutboundAudioNotification() OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetEnable sets the value of Enable.
 func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) SetEnable(val OptBool) {
 	s.Enable = val
@@ -92146,6 +94298,62 @@ func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) SetRecordingStartPromp
 // SetRecordingTranscription sets the value of RecordingTranscription.
 func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) SetRecordingTranscription(val OptBool) {
 	s.RecordingTranscription = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) SetInboundAudioNotification(val OptUpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecording) SetOutboundAudioNotification(val OptUpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for the inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+type UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for the outbound call
+	// is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateSettingTemplateReqPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
 }
 
 type UpdateSettingTemplateReqPolicyCallForwarding struct {
@@ -93374,10 +95582,10 @@ type UpdateSiteDetailsReqPolicy struct {
 	// Whether to allow users to forward their calls to other numbers.
 	CallHandlingForwardingToOtherUsers OptUpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers `json:"call_handling_forwarding_to_other_users"`
 	// Whether to allow extension owners or members of a shared line group to check voicemails for
-	// extension numbers over the phone using PIN code.
+	// extension numbers over the phone using the PIN code.
 	CheckVoicemailsOverPhone OptUpdateSiteDetailsReqPolicyCheckVoicemailsOverPhone `json:"check_voicemails_over_phone"`
-	// After enabling the feature, a unique pickup code generates for each queue, which can be customized
-	// in the Call Queue profile. Queue calls can be answered with the pickup code by the users under the
+	// After enabling the feature, a unique pickup code generates for each queue. It can be customized in
+	// the Call Queue profile. Queue calls can be answered with the pickup code by the users under the
 	// same site.
 	CallQueuePickupCode OptUpdateSiteDetailsReqPolicyCallQueuePickupCode `json:"call_queue_pickup_code"`
 	// The opt-out reasons for call queues. When enabled, call queue members need to select an opt-out
@@ -93397,7 +95605,7 @@ type UpdateSiteDetailsReqPolicy struct {
 	// Whether to calls without a caller ID are blocked.
 	BlockCallsWithoutCallerID OptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID `json:"block_calls_without_caller_id"`
 	// The rules for blocking external calls during business, closed, and holiday hours. This feature is
-	// only available for User, Zoom Room and Common Area.
+	// only available for User, Zoom Room, and Common Area.
 	BlockExternalCalls OptUpdateSiteDetailsReqPolicyBlockExternalCalls `json:"block_external_calls"`
 	// It requires the account to enable the `Force Calls out to the PSTN network` feature.
 	ForceOffNet OptUpdateSiteDetailsReqPolicyForceOffNet `json:"force_off_net"`
@@ -93816,8 +96024,8 @@ func (s *UpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone) SetP
 // answers the intercom call.
 type UpdateSiteDetailsReqPolicyAudioIntercom struct {
 	Enable OptBool `json:"enable"`
-	// Whether the current settings use the phone account's settings if the current settings use the new
-	// policy framework.
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
@@ -93873,12 +96081,44 @@ type UpdateSiteDetailsReqPolicyAutoCallRecording struct {
 	// * `both`.
 	RecordingCalls OptString `json:"recording_calls"`
 	// Whether the `Press 1 to provide recording consent` is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate the inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. when the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate the inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. when the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether call recording transcription is enabled.
-	RecordingTranscription OptBool                                                             `json:"recording_transcription"`
-	PlayRecordingBeepTone  OptUpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	RecordingTranscription    OptBool                                                                 `json:"recording_transcription"`
+	PlayRecordingBeepTone     OptUpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
+	InboundAudioNotification  OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	OutboundAudioNotification OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
 // GetAllowStopResumeRecording returns the value of AllowStopResumeRecording.
@@ -93931,6 +96171,16 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) GetPlayRecordingBeepTone()
 	return s.PlayRecordingBeepTone
 }
 
+// GetInboundAudioNotification returns the value of InboundAudioNotification.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) GetInboundAudioNotification() OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification {
+	return s.InboundAudioNotification
+}
+
+// GetOutboundAudioNotification returns the value of OutboundAudioNotification.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) GetOutboundAudioNotification() OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification {
+	return s.OutboundAudioNotification
+}
+
 // SetAllowStopResumeRecording sets the value of AllowStopResumeRecording.
 func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetAllowStopResumeRecording(val OptBool) {
 	s.AllowStopResumeRecording = val
@@ -93979,6 +96229,100 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetRecordingTranscription(
 // SetPlayRecordingBeepTone sets the value of PlayRecordingBeepTone.
 func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetPlayRecordingBeepTone(val OptUpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone) {
 	s.PlayRecordingBeepTone = val
+}
+
+// SetInboundAudioNotification sets the value of InboundAudioNotification.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetInboundAudioNotification(val OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) {
+	s.InboundAudioNotification = val
+}
+
+// SetOutboundAudioNotification sets the value of OutboundAudioNotification.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetOutboundAudioNotification(val OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) {
+	s.OutboundAudioNotification = val
+}
+
+type UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether the **Press 1** option that provides recording consent for inbound call is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
+}
+
+type UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification struct {
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
+	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
+	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
+}
+
+// GetRecordingStartPrompt returns the value of RecordingStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingStartPrompt() OptBool {
+	return s.RecordingStartPrompt
+}
+
+// GetRecordingExplicitConsent returns the value of RecordingExplicitConsent.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) GetRecordingExplicitConsent() OptBool {
+	return s.RecordingExplicitConsent
+}
+
+// SetRecordingStartPrompt sets the value of RecordingStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingStartPrompt(val OptBool) {
+	s.RecordingStartPrompt = val
+}
+
+// SetRecordingExplicitConsent sets the value of RecordingExplicitConsent.
+func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) SetRecordingExplicitConsent(val OptBool) {
+	s.RecordingExplicitConsent = val
 }
 
 type UpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone struct {
@@ -94180,7 +96524,7 @@ func (s *UpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID) SetLocked(val OptB
 }
 
 // The rules for blocking external calls during business, closed, and holiday hours. This feature is
-// only available for User, Zoom Room and Common Area.
+// only available for User, Zoom Room, and Common Area.
 type UpdateSiteDetailsReqPolicyBlockExternalCalls struct {
 	Enable OptBool `json:"enable"`
 	// Whether the current settings use the phone account's settings, which are compatible with the old
@@ -94406,8 +96750,8 @@ type UpdateSiteDetailsReqPolicyCallOverflow struct {
 	CallOverflowType OptInt `json:"call_overflow_type"`
 	// Whether to allow users to forward their calls to other numbers.
 	Enable OptBool `json:"enable"`
-	// Whether the current settings use the phone account's settings if the current settings use the new
-	// policy framework.
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
@@ -94640,13 +96984,13 @@ func (s *UpdateSiteDetailsReqPolicyCallQueueOptOutReasonCallQueueOptOutReasonsLi
 	s.Enable = val
 }
 
-// After enabling the feature, a unique pickup code generates for each queue, which can be customized
-// in the Call Queue profile. Queue calls can be answered with the pickup code by the users under the
+// After enabling the feature, a unique pickup code generates for each queue. It can be customized in
+// the Call Queue profile. Queue calls can be answered with the pickup code by the users under the
 // same site.
 type UpdateSiteDetailsReqPolicyCallQueuePickupCode struct {
 	Enable OptBool `json:"enable"`
-	// Whether the current settings use the phone account's settings if the current settings use the new
-	// policy framework.
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
@@ -94692,8 +97036,8 @@ type UpdateSiteDetailsReqPolicyCallTransferring struct {
 	// Whether to allow users to warm or blind transfer their calls. This does not apply to warm transfer
 	// on IP Phones except for Yealink.
 	Enable OptBool `json:"enable"`
-	// Whether the current settings use the phone account's settings if the current settings use the new
-	// policy framework.
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
@@ -94740,7 +97084,7 @@ func (s *UpdateSiteDetailsReqPolicyCallTransferring) SetLocked(val OptBool) {
 }
 
 // Whether to allow extension owners or members of a shared line group to check voicemails for
-// extension numbers over the phone using PIN code.
+// extension numbers over the phone using the PIN code.
 type UpdateSiteDetailsReqPolicyCheckVoicemailsOverPhone struct {
 	Enable OptBool `json:"enable"`
 	// Whether the current settings use the phone account's settings if the current settings use the new
@@ -97761,8 +100105,38 @@ type UpdateUserProfileReqPolicyAutoCallRecording struct {
 	// * `both`.
 	RecordingCalls OptString `json:"recording_calls"`
 	// Whether press 1 to provide recording consent is enabled.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will
+	// remain consistent. When the field is updated, the `inbound_audio_notification.
+	// recording_explicit_consent` will be also updated.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent. When the field
+	// is updated, the `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 	// Whether a prompt plays to call participants when the recording has started.
+	// <b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` to operate inbound and outbound prompt separately.
+	// <b>Note:</b>
+	// * if customers who opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain
+	// consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`
+	// will be also updated.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent. when the field is
+	// updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.
+	// recording_start_prompt` will be also updated.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether call recording transcription is enabled.
 	RecordingTranscription OptBool                                                             `json:"recording_transcription"`
@@ -97884,9 +100258,24 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecording) SetOutboundAudioNotificati
 }
 
 type UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification struct {
-	// Whether to show prompt for starting call recording with inbound audio.
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
-	// Whether to obtain explicit consent for call recording with inbound audio.
+	// Whether the **Press 1** option that provides recording consent for inbound call is enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 }
 
@@ -97911,9 +100300,24 @@ func (s *UpdateUserProfileReqPolicyAutoCallRecordingInboundAudioNotification) Se
 }
 
 type UpdateUserProfileReqPolicyAutoCallRecordingOutboundAudioNotification struct {
-	// Whether to show prompt for starting call recording with outbound audio.
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
+	// <b>Note:</b>
+	// * If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values
+	// of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and
+	// `outbound_audio_notification.recording_start_prompt` always remain consistent.
+	// * If customers do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.
+	// recording_start_prompt` with the same value.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
-	// Whether to obtain explicit consent for call recording with outbound audio.
+	// Whether the **Press 1** option that provides recording consent for outbound call is enabled.
+	// <b>Note:</b>
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, the values of
+	// `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and
+	// `outbound_audio_notification.recording_explicit_consent` always remain consistent.
+	// * if customers who do not opt OP flag named `Enable Caller Based Consent Options`, update both
+	// `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.
+	// recording_explicit_consent` with the same value.
 	RecordingExplicitConsent OptBool `json:"recording_explicit_consent"`
 }
 
