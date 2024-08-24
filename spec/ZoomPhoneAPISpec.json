@@ -45481,7 +45481,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "**HTTP Status code:** `200`\n\nCalling plan assigned successfully.",
             "content": {
               "application/json": {
