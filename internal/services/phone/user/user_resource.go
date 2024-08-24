@@ -9,7 +9,6 @@ import (
 
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
-	"github.com/folio-sec/terraform-provider-zoom/internal/schema/customplanmodifier"
 	"github.com/folio-sec/terraform-provider-zoom/internal/schema/customvalidator"
 	"github.com/folio-sec/terraform-provider-zoom/internal/util"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -41,7 +40,7 @@ type resourceModel struct {
 	TemplateID         types.String `tfsdk:"template_id"`
 }
 
-func NewUserResource() resource.Resource {
+func NewPhoneUserResource() resource.Resource {
 	return &tfResource{}
 }
 
@@ -94,7 +93,6 @@ This resource requires the ` + strings.Join([]string{
 			"cost_center": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
-					customplanmodifier.EmptyIfNull(),
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "The cost center name.",
@@ -136,7 +134,6 @@ This resource requires the ` + strings.Join([]string{
 				Optional: true,
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
-					customplanmodifier.EmptyIfNull(),
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672z) where the user should be moved or assigned.",
