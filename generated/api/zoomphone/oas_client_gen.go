@@ -74,14 +74,14 @@ type Invoker interface {
 	AccountSmsSession(ctx context.Context, params AccountSmsSessionParams) (*AccountSmsSessionOK, error)
 	// AccountVoiceMails invokes accountVoiceMails operation.
 	//
-	// Use this API to get a user's Zoom Phone voicemails.
+	// Gets a user's Zoom Phone voicemails.
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// **Scopes:** `phone:read:admin`,`phone_voicemail:read:admin`
 	// **Granular Scopes:** `phone:read:list_voicemails:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Heavy`.
+	// `HEAVY`.
 	//
 	// GET /phone/voice_mails
 	AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (*AccountVoiceMailsOK, error)
@@ -859,7 +859,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:shared_line_group_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
 	AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) error
@@ -1041,17 +1041,17 @@ type Invoker interface {
 	DelRoleMembers(ctx context.Context, params DelRoleMembersParams) error
 	// DeleteABlockedList invokes deleteABlockedList operation.
 	//
-	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
-	// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-	// (phone users in your account won't be able to dial those numbers).
-	// Use this API to delete a blocked list and therefore removing the associated number from the
-	// blocked list. The number will be unblocked after the deletion.
+	// Deletes a blocked list, which removes the associated number from the blocked list.
+	// The number will be unblocked after the deletion. A Zoom account owner or a user with admin
+	// privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound
+	// (numbers will be blocked from calling in) and outbound (phone users in your account won't be able
+	// to dial those numbers).
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/blocked_list/{blockedListId}
 	DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) error
@@ -1112,7 +1112,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:shared_line_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}
 	DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) error
@@ -1142,7 +1142,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}
 	DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) error
@@ -1428,7 +1428,7 @@ type Invoker interface {
 	DeleteLocation(ctx context.Context, params DeleteLocationParams) error
 	// DeleteMembersOfSLG invokes deleteMembersOfSLG operation.
 	//
-	// Unassigns **all** existing members from a Shared Line Group.Members of the [shared line
+	// Unassigns **all** existing members from a shared line group. Members of the [shared line
 	// group](https://support.zoom.us/hc/en-us/articles/360038850792) have access to the group's phone
 	// number and voicemail.
 	// **Prerequisites:**
@@ -1438,7 +1438,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:shared_line_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/shared_line_groups/{sharedLineGroupId}/members
 	DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) error
@@ -1742,17 +1742,17 @@ type Invoker interface {
 	GetABillingAccount(ctx context.Context, params GetABillingAccountParams) (*GetABillingAccountOK, error)
 	// GetABlockedList invokes getABlockedList operation.
 	//
+	// Returns the information about a specific blocked list.
 	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
 	// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
 	// (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
 	// generic message stating that the person they are calling is not available.
-	// Use this API to get information about a specific blocked list.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/blocked_list/{blockedListId}
 	GetABlockedList(ctx context.Context, params GetABlockedListParams) (*GetABlockedListOK, error)
@@ -1860,7 +1860,7 @@ type Invoker interface {
 	GetAccountOutboundCallingCountriesAndRegions(ctx context.Context, params GetAccountOutboundCallingCountriesAndRegionsParams) (*GetAccountOutboundCallingCountriesAndRegionsOK, error)
 	// GetAlertSettingDetails invokes GetAlertSettingDetails operation.
 	//
-	// Gets detailed information about a specific [Alert setting](https://support.zoom.
+	// Returns detailed information about a specific [alert setting](https://support.zoom.
 	// us/hc/en-us/articles/7146944434445).
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
@@ -2188,7 +2188,7 @@ type Invoker interface {
 	//
 	// Returns an account's [call recording](https://support.zoom.
 	// us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's
-	// `callId` or `callLogId` ID.
+	// `callId` or `callLogId`.
 	// **Note**: This  API returns the `file_url` in the JSON query results.
 	// **Prerequisites:**
 	// * A Pro or higher account with Zoom Phone license
@@ -2308,7 +2308,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:setting_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/setting_templates/{templateId}
 	GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (*GetSettingTemplateOK, error)
@@ -2384,29 +2384,29 @@ type Invoker interface {
 	GetUserOutboundCallingCountriesAndRegions(ctx context.Context, params GetUserOutboundCallingCountriesAndRegionsParams) (*GetUserOutboundCallingCountriesAndRegionsOK, error)
 	// GetVoicemailDetails invokes getVoicemailDetails operation.
 	//
-	// Use this API to return information about a [voicemail message](https://support.zoom.
+	// Returns the information about a [voicemail message](https://support.zoom.
 	// us/hc/en-us/articles/360021400211-Managing-voicemail-messages).
 	// **Prerequisites:**
-	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+	// * Zoom Phone license
+	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
 	// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/voice_mails/{voicemailId}
 	GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (*GetVoicemailDetailsOK, error)
 	// GetVoicemailDetailsByCallIdOrCallLogId invokes getVoicemailDetailsByCallIdOrCallLogId operation.
 	//
-	// Use this API to return detailed information on a voicemail associated with a call log ID. For
-	// user-level apps, pass [the `me` value](https://marketplace.zoom.
-	// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+	// Returns the detailed information on a voicemail associated with a call log ID. For user-level apps,
+	//  pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword)
+	// instead of the `userId` parameter.
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license
 	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
 	// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/users/{userId}/call_logs/{id}/voice_mail
 	GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (*GetVoicemailDetailsByCallIdOrCallLogIdOK, error)
@@ -2587,17 +2587,17 @@ type Invoker interface {
 	ListBillingAccount(ctx context.Context) (*ListBillingAccountOK, error)
 	// ListBlockedList invokes listBlockedList operation.
 	//
-	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
-	// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-	// (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
-	// generic message stating that the person they are calling is not available.
-	// Use this API to list all the blocked lists in an acccount.
+	// Returns all the blocked lists in an acccount. A Zoom account owner or a user with admin privilege
+	// can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers
+	// will be blocked from calling in) and outbound (phone users in your account won't be able to dial
+	// those numbers). Blocked callers will hear a generic message stating that the person they are
+	// calling is not available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_blocked_lists:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/blocked_list
 	ListBlockedList(ctx context.Context, params ListBlockedListParams) (*ListBlockedListOK, error)
@@ -3118,7 +3118,7 @@ type Invoker interface {
 	ListSiteCustomizeOutboundCallerNumbers(ctx context.Context, params ListSiteCustomizeOutboundCallerNumbersParams) (*ListSiteCustomizeOutboundCallerNumbersOK, error)
 	// ListSiteOutboundCallingExceptionRule invokes listSiteOutboundCallingExceptionRule operation.
 	//
-	// Lists site level outbound calling policy exception rules.*
+	// Returns a list of site level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:read:admin`
@@ -3284,7 +3284,7 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
+	// **Scopes:** `phone:read`,`phone:read:admin`
 	// **Granular Scopes:** `phone:read:user`,`phone:read:user:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
@@ -3341,16 +3341,16 @@ type Invoker interface {
 	PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error)
 	// PhoneUserVoiceMails invokes phoneUserVoiceMails operation.
 	//
-	// Use this API to get a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
+	// Gets a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
 	// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 	// `userId` parameter.
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
 	// **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/voice_mails
 	PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (*PhoneUserVoiceMailsOK, error)
@@ -3524,10 +3524,10 @@ type Invoker interface {
 	SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (*SyncUserCallLogsOK, error)
 	// UnAssignPhoneNumCallQueue invokes unAssignPhoneNumCallQueue operation.
 	//
-	// After assigning a phone number, you can unbind it if you don't want it to be assigned to a [Call
-	// Queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues). Use this API
-	// to unbind a phone number from a Call Queue. After successful unbinding, the number will appear in
-	// the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
+	// Unbinds a phone number from a call queue. After assigning a phone number, you can unbind it if you
+	// don't want it to be assigned to a [call queue](https://support.zoom.
+	// us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the number
+	// will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
 	// **Prerequisites:**
 	// * Pro or higher account palan
 	// * Account owner or admin permissions
@@ -3535,7 +3535,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}
 	UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) error
@@ -3556,8 +3556,8 @@ type Invoker interface {
 	UnassignAPhoneNumAutoReceptionist(ctx context.Context, params UnassignAPhoneNumAutoReceptionistParams) error
 	// UnassignAPhoneNumCallQueue invokes unassignAPhoneNumCallQueue operation.
 	//
-	// Use this API to unbind all phone numbers that are assigned to a [Call Queue](https://support.zoom.
-	// us/hc/en-us/articles/360021524831-Managing-Call-Queues) After successful unbinding, the numbers
+	// Unbinds all phone numbers that are assigned to a [call queue](https://support.zoom.
+	// us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the numbers
 	// will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
 	// If you only need to unassign a specific phone number, use the Unassign a Phone Number API instead.
 	// **Prerequisites:**
@@ -3567,7 +3567,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:delete:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/phone_numbers
 	UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) error
@@ -3602,8 +3602,8 @@ type Invoker interface {
 	UnassignAllPhoneNumsAutoReceptionist(ctx context.Context, params UnassignAllPhoneNumsAutoReceptionistParams) error
 	// UnassignCallingPlan invokes unassignCallingPlan operation.
 	//
-	// Unassigns a a [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051) user's
-	// [calling plan](https://marketplace.zoom.
+	// Unassigns a [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051) user's [calling
+	// plan](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans). For user-level apps, pass
 	// [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead
 	// of the `userId` parameter.
@@ -3613,9 +3613,9 @@ type Invoker interface {
 	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
-	// DELETE /phone/users/{userId}/calling_plans/{type}
+	// DELETE /phone/users/{userId}/calling_plans/{planType}
 	UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) error
 	// UnassignCallingPlanFromRoom invokes unassignCallingPlanFromRoom operation.
 	//
@@ -3739,17 +3739,17 @@ type Invoker interface {
 	UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) error
 	// UpdateASharedLineGroup invokes updateASharedLineGroup operation.
 	//
-	// Updates information of a shared line group. A [shared line group](https://support.zoom.
+	// Updates the information about a shared line group.  A [shared line group](https://support.zoom.
 	// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-	// with a group of phone users or common areas. This gives members of the shared line group access to
-	// the group's direct phone number and voicemail.
+	// with a group of phone users or common areas. Members of the shared line group can access to the
+	// group's direct phone number and voicemail.
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/shared_line_groups/{sharedLineGroupId}
 	UpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) error
@@ -3876,6 +3876,22 @@ type Invoker interface {
 	//
 	// PATCH /phone/auto_receptionists/{autoReceptionistId}/policies
 	UpdateAutoReceptionistPolicy(ctx context.Context, request OptUpdateAutoReceptionistPolicyReq, params UpdateAutoReceptionistPolicyParams) error
+	// UpdateBlockedList invokes updateBlockedList operation.
+	//
+	// Updates the information in the blocked list.
+	// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
+	// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
+	// (phone users in your account won't be able to dial those numbers). Blocked callers hear a generic
+	// message stating that the person they are calling is not available.
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:blocked_list:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// PATCH /phone/blocked_list/{blockedListId}
+	UpdateBlockedList(ctx context.Context, request OptUpdateBlockedListReq, params UpdateBlockedListParams) error
 	// UpdateCQPolicySubSetting invokes updateCQPolicySubSetting operation.
 	//
 	// Use this API to update the policy sub-setting for a specific [call queue](https://support.zoom.
@@ -4104,7 +4120,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/numbers/{phoneNumberId}
 	UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) error
@@ -4182,8 +4198,8 @@ type Invoker interface {
 	//
 	// Updates the status of a single recording in account.
 	// **Prerequisites:**
-	// * User must belong to a Business or Enterprise account
-	// * User must have a Zoom Phone license
+	// * User must belong to a Business or Enterprise account.
+	// * User must have a Zoom Phone license.
 	// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
 	// **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -4232,7 +4248,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:setting_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/setting_templates/{templateId}
 	UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) error
@@ -4359,7 +4375,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:update:user`,`phone:update:user:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/users/{userId}
 	UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) error
@@ -5530,14 +5546,14 @@ func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSes
 
 // AccountVoiceMails invokes accountVoiceMails operation.
 //
-// Use this API to get a user's Zoom Phone voicemails.
+// Gets a user's Zoom Phone voicemails.
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // **Scopes:** `phone:read:admin`,`phone_voicemail:read:admin`
 // **Granular Scopes:** `phone:read:list_voicemails:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Heavy`.
+// `HEAVY`.
 //
 // GET /phone/voice_mails
 func (c *Client) AccountVoiceMails(ctx context.Context, params AccountVoiceMailsParams) (*AccountVoiceMailsOK, error) {
@@ -5717,6 +5733,23 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.To.Get(); ok {
 				return e.EncodeValue(conv.DateToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "trashed" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "trashed",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Trashed.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -13044,7 +13077,7 @@ func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, req
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:shared_line_group_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/shared_line_groups/{sharedLineGroupId}/phone_numbers
 func (c *Client) AssignPhoneNumbersSLG(ctx context.Context, request OptAssignPhoneNumbersSLGReq, params AssignPhoneNumbersSLGParams) error {
@@ -14833,17 +14866,17 @@ func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersPa
 
 // DeleteABlockedList invokes deleteABlockedList operation.
 //
-// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
-// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-// (phone users in your account won't be able to dial those numbers).
-// Use this API to delete a blocked list and therefore removing the associated number from the
-// blocked list. The number will be unblocked after the deletion.
+// Deletes a blocked list, which removes the associated number from the blocked list.
+// The number will be unblocked after the deletion. A Zoom account owner or a user with admin
+// privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound
+// (numbers will be blocked from calling in) and outbound (phone users in your account won't be able
+// to dial those numbers).
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/blocked_list/{blockedListId}
 func (c *Client) DeleteABlockedList(ctx context.Context, params DeleteABlockedListParams) error {
@@ -15416,7 +15449,7 @@ func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAE
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:shared_line_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/members/{memberId}
 func (c *Client) DeleteAMemberSLG(ctx context.Context, params DeleteAMemberSLGParams) error {
@@ -15740,7 +15773,7 @@ func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPh
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}
 func (c *Client) DeleteASharedLineGroup(ctx context.Context, params DeleteASharedLineGroupParams) error {
@@ -18926,7 +18959,7 @@ func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationPa
 
 // DeleteMembersOfSLG invokes deleteMembersOfSLG operation.
 //
-// Unassigns **all** existing members from a Shared Line Group.Members of the [shared line
+// Unassigns **all** existing members from a shared line group. Members of the [shared line
 // group](https://support.zoom.us/hc/en-us/articles/360038850792) have access to the group's phone
 // number and voicemail.
 // **Prerequisites:**
@@ -18936,7 +18969,7 @@ func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationPa
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:shared_line_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/shared_line_groups/{sharedLineGroupId}/members
 func (c *Client) DeleteMembersOfSLG(ctx context.Context, params DeleteMembersOfSLGParams) error {
@@ -22307,17 +22340,17 @@ func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingA
 
 // GetABlockedList invokes getABlockedList operation.
 //
+// Returns the information about a specific blocked list.
 // A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
 // account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
 // (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
 // generic message stating that the person they are calling is not available.
-// Use this API to get information about a specific blocked list.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/blocked_list/{blockedListId}
 func (c *Client) GetABlockedList(ctx context.Context, params GetABlockedListParams) (*GetABlockedListOK, error) {
@@ -23469,7 +23502,7 @@ func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Co
 
 // GetAlertSettingDetails invokes GetAlertSettingDetails operation.
 //
-// Gets detailed information about a specific [Alert setting](https://support.zoom.
+// Returns detailed information about a specific [alert setting](https://support.zoom.
 // us/hc/en-us/articles/7146944434445).
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
@@ -27216,7 +27249,7 @@ func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneReco
 //
 // Returns an account's [call recording](https://support.zoom.
 // us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's
-// `callId` or `callLogId` ID.
+// `callId` or `callLogId`.
 // **Note**: This  API returns the `file_url` in the JSON query results.
 // **Prerequisites:**
 // * A Pro or higher account with Zoom Phone license
@@ -27446,7 +27479,10 @@ func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhone
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(params.SyncType))
+			if val, ok := params.SyncType.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -27477,10 +27513,7 @@ func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhone
 		}
 
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.Count.Get(); ok {
-				return e.EncodeValue(conv.IntToString(val))
-			}
-			return nil
+			return e.EncodeValue(conv.IntToString(params.Count))
 		}); err != nil {
 			return res, errors.Wrap(err, "encode query")
 		}
@@ -28487,7 +28520,7 @@ func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMS
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:setting_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/setting_templates/{templateId}
 func (c *Client) GetSettingTemplate(ctx context.Context, params GetSettingTemplateParams) (*GetSettingTemplateOK, error) {
@@ -29520,14 +29553,14 @@ func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Conte
 
 // GetVoicemailDetails invokes getVoicemailDetails operation.
 //
-// Use this API to return information about a [voicemail message](https://support.zoom.
+// Returns the information about a [voicemail message](https://support.zoom.
 // us/hc/en-us/articles/360021400211-Managing-voicemail-messages).
 // **Prerequisites:**
-// * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+// * Zoom Phone license
+// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
 // **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/voice_mails/{voicemailId}
 func (c *Client) GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (*GetVoicemailDetailsOK, error) {
@@ -29661,16 +29694,18 @@ func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemai
 
 // GetVoicemailDetailsByCallIdOrCallLogId invokes getVoicemailDetailsByCallIdOrCallLogId operation.
 //
-// Use this API to return detailed information on a voicemail associated with a call log ID. For
-// user-level apps, pass [the `me` value](https://marketplace.zoom.
-// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+// Returns the detailed information on a voicemail associated with a call log ID. For user-level apps,
+//
+//	pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword)
+//
+// instead of the `userId` parameter.
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license
 // **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
 // **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/users/{userId}/call_logs/{id}/voice_mail
 func (c *Client) GetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context, params GetVoicemailDetailsByCallIdOrCallLogIdParams) (*GetVoicemailDetailsByCallIdOrCallLogIdOK, error) {
@@ -32169,17 +32204,17 @@ func (c *Client) sendListBillingAccount(ctx context.Context) (res *ListBillingAc
 
 // ListBlockedList invokes listBlockedList operation.
 //
-// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
-// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
-// (phone users in your account won't be able to dial those numbers). Blocked callers will hear a
-// generic message stating that the person they are calling is not available.
-// Use this API to list all the blocked lists in an acccount.
+// Returns all the blocked lists in an acccount. A Zoom account owner or a user with admin privilege
+// can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers
+// will be blocked from calling in) and outbound (phone users in your account won't be able to dial
+// those numbers). Blocked callers will hear a generic message stating that the person they are
+// calling is not available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_blocked_lists:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/blocked_list
 func (c *Client) ListBlockedList(ctx context.Context, params ListBlockedListParams) (*ListBlockedListOK, error) {
@@ -39240,7 +39275,7 @@ func (c *Client) sendListSiteCustomizeOutboundCallerNumbers(ctx context.Context,
 
 // ListSiteOutboundCallingExceptionRule invokes listSiteOutboundCallingExceptionRule operation.
 //
-// Lists site level outbound calling policy exception rules.*
+// Returns a list of site level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:read:admin`
@@ -41485,7 +41520,7 @@ func (c *Client) sendPhoneSetting(ctx context.Context) (res *PhoneSettingOK, err
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
+// **Scopes:** `phone:read`,`phone:read:admin`
 // **Granular Scopes:** `phone:read:user`,`phone:read:user:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
@@ -42252,16 +42287,16 @@ func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSett
 
 // PhoneUserVoiceMails invokes phoneUserVoiceMails operation.
 //
-// Use this API to get a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
+// Gets a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
 // value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 // `userId` parameter.
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
 // **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/users/{userId}/voice_mails
 func (c *Client) PhoneUserVoiceMails(ctx context.Context, params PhoneUserVoiceMailsParams) (*PhoneUserVoiceMailsOK, error) {
@@ -42409,6 +42444,23 @@ func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVo
 		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
 			if val, ok := params.To.Get(); ok {
 				return e.EncodeValue(conv.DateToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "trash" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "trash",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Trash.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
 			}
 			return nil
 		}); err != nil {
@@ -44565,10 +44617,10 @@ func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLo
 
 // UnAssignPhoneNumCallQueue invokes unAssignPhoneNumCallQueue operation.
 //
-// After assigning a phone number, you can unbind it if you don't want it to be assigned to a [Call
-// Queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues). Use this API
-// to unbind a phone number from a Call Queue. After successful unbinding, the number will appear in
-// the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
+// Unbinds a phone number from a call queue. After assigning a phone number, you can unbind it if you
+// don't want it to be assigned to a [call queue](https://support.zoom.
+// us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the number
+// will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
 // **Prerequisites:**
 // * Pro or higher account palan
 // * Account owner or admin permissions
@@ -44576,7 +44628,7 @@ func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLo
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}
 func (c *Client) UnAssignPhoneNumCallQueue(ctx context.Context, params UnAssignPhoneNumCallQueueParams) error {
@@ -44891,8 +44943,8 @@ func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, para
 
 // UnassignAPhoneNumCallQueue invokes unassignAPhoneNumCallQueue operation.
 //
-// Use this API to unbind all phone numbers that are assigned to a [Call Queue](https://support.zoom.
-// us/hc/en-us/articles/360021524831-Managing-Call-Queues) After successful unbinding, the numbers
+// Unbinds all phone numbers that are assigned to a [call queue](https://support.zoom.
+// us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the numbers
 // will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).
 // If you only need to unassign a specific phone number, use the Unassign a Phone Number API instead.
 // **Prerequisites:**
@@ -44902,7 +44954,7 @@ func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, para
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:delete:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/call_queues/{callQueueId}/phone_numbers
 func (c *Client) UnassignAPhoneNumCallQueue(ctx context.Context, params UnassignAPhoneNumCallQueueParams) error {
@@ -45324,8 +45376,8 @@ func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, p
 
 // UnassignCallingPlan invokes unassignCallingPlan operation.
 //
-// Unassigns a a [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051) user's
-// [calling plan](https://marketplace.zoom.
+// Unassigns a [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051) user's [calling
+// plan](https://marketplace.zoom.
 // us/docs/api-reference/other-references/plans#zoom-phone-calling-plans). For user-level apps, pass
 // [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead
 // of the `userId` parameter.
@@ -45335,9 +45387,9 @@ func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, p
 // **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
-// DELETE /phone/users/{userId}/calling_plans/{type}
+// DELETE /phone/users/{userId}/calling_plans/{planType}
 func (c *Client) UnassignCallingPlan(ctx context.Context, params UnassignCallingPlanParams) error {
 	_, err := c.sendUnassignCallingPlan(ctx, params)
 	return err
@@ -45347,7 +45399,7 @@ func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCal
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("unassignCallingPlan"),
 		semconv.HTTPRequestMethodKey.String("DELETE"),
-		semconv.HTTPRouteKey.String("/phone/users/{userId}/calling_plans/{type}"),
+		semconv.HTTPRouteKey.String("/phone/users/{userId}/calling_plans/{planType}"),
 	}
 
 	// Run stopwatch.
@@ -45401,14 +45453,14 @@ func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCal
 	}
 	pathParts[2] = "/calling_plans/"
 	{
-		// Encode "type" parameter.
+		// Encode "planType" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
-			Param:   "type",
+			Param:   "planType",
 			Style:   uri.PathStyleSimple,
 			Explode: false,
 		})
 		if err := func() error {
-			return e.EncodeValue(conv.StringToString(params.Type))
+			return e.EncodeValue(conv.StringToString(params.PlanType))
 		}(); err != nil {
 			return res, errors.Wrap(err, "encode path")
 		}
@@ -46831,17 +46883,17 @@ func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADevice
 
 // UpdateASharedLineGroup invokes updateASharedLineGroup operation.
 //
-// Updates information of a shared line group. A [shared line group](https://support.zoom.
+// Updates the information about a shared line group.  A [shared line group](https://support.zoom.
 // us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-// with a group of phone users or common areas. This gives members of the shared line group access to
-// the group's direct phone number and voicemail.
+// with a group of phone users or common areas. Members of the shared line group can access to the
+// group's direct phone number and voicemail.
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/shared_line_groups/{sharedLineGroupId}
 func (c *Client) UpdateASharedLineGroup(ctx context.Context, request OptUpdateASharedLineGroupReq, params UpdateASharedLineGroupParams) error {
@@ -48255,6 +48307,153 @@ func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request O
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateAutoReceptionistPolicyResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateBlockedList invokes updateBlockedList operation.
+//
+// Updates the information in the blocked list.
+// A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an
+// account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound
+// (phone users in your account won't be able to dial those numbers). Blocked callers hear a generic
+// message stating that the person they are calling is not available.
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:blocked_list:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// PATCH /phone/blocked_list/{blockedListId}
+func (c *Client) UpdateBlockedList(ctx context.Context, request OptUpdateBlockedListReq, params UpdateBlockedListParams) error {
+	_, err := c.sendUpdateBlockedList(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendUpdateBlockedList(ctx context.Context, request OptUpdateBlockedListReq, params UpdateBlockedListParams) (res *UpdateBlockedListNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateBlockedList"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/blocked_list/{blockedListId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateBlockedList",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/blocked_list/"
+	{
+		// Encode "blockedListId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "blockedListId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.BlockedListId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateBlockedListRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "UpdateBlockedList", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "UpdateBlockedList", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateBlockedListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -50515,7 +50714,7 @@ func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptU
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/numbers/{phoneNumberId}
 func (c *Client) UpdatePhoneNumberDetails(ctx context.Context, request OptUpdatePhoneNumberDetailsReq, params UpdatePhoneNumberDetailsParams) error {
@@ -51381,8 +51580,8 @@ func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, reques
 //
 // Updates the status of a single recording in account.
 // **Prerequisites:**
-// * User must belong to a Business or Enterprise account
-// * User must have a Zoom Phone license
+// * User must belong to a Business or Enterprise account.
+// * User must have a Zoom Phone license.
 // **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
 // **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -51844,7 +52043,7 @@ func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptU
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:setting_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/setting_templates/{templateId}
 func (c *Client) UpdateSettingTemplate(ctx context.Context, request OptUpdateSettingTemplateReq, params UpdateSettingTemplateParams) error {
@@ -53210,7 +53409,7 @@ func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context,
 // **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:update:user`,`phone:update:user:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/users/{userId}
 func (c *Client) UpdateUserProfile(ctx context.Context, request OptUpdateUserProfileReq, params UpdateUserProfileParams) error {

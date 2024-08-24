@@ -25359,7 +25359,8 @@ type UserCreateCreated struct {
 	// User type.
 	// `1` - Basic.
 	// `2` - Licensed.
-	// `99` - None (this can only be set with `ssoCreate`).
+	// `4` - Unassigned without Meetings Basic.
+	// `99` - None. This can only be set with `ssoCreate`.
 	Type OptInt `json:"type"`
 }
 
@@ -25472,7 +25473,8 @@ type UserCreateReqUserInfo struct {
 	// User type.
 	// `1` - Basic.
 	// `2` - Licensed.
-	// `99` - None (this can only be set with `ssoCreate`).
+	// `4` - Unassigned without Meetings Basic.
+	// `99` - None. this can only be set with `ssoCreate`.
 	Type int `json:"type"`
 	// Information about the user's features.
 	Feature OptUserCreateReqUserInfoFeature `json:"feature"`
@@ -25695,10 +25697,11 @@ type UserOK struct {
 	RoleName OptString `json:"role_name"`
 	// The time zone of the user.
 	Timezone OptString `json:"timezone"`
-	// User's plan type:
+	// User's plan type.
 	// `1` - Basic.
 	// `2` - Licensed.
-	// `99` - None (this can only be set with `ssoCreate`).
+	// `4` - Unassigned without Meetings Basic.
+	// `99` - None. This can only be set with `ssoCreate`.
 	Type int `json:"type"`
 	// Merged property.
 	UsePmi OptBool `json:"use_pmi"`
@@ -35020,7 +35023,7 @@ type UserUpdateReq struct {
 	// The type of [user](https://support.zoom.us/hc/en-us/articles/201363173-Zoom-user-types-roles).
 	// * `1` - Basic.
 	// * `2` - Licensed.
-	// * `4` - No Meetings License.
+	// * `4` - Unassigned without Meetings Basic.
 	// * `99` - None. You can only set this value if the user was created using the `ssoCreate` value for
 	// `action` parameter in the [**Create
 	// users**](/docs/api-reference/zoom-api/methods#operation/userCreate) API.
@@ -35516,9 +35519,9 @@ func (s *UserZakOK) SetToken(val OptString) {
 }
 
 type UsersOK struct {
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of available results exceeds the current page size. The expiration
-	// period for this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
 	// The number of pages returned for the request made.
 	PageCount OptInt `json:"page_count"`
@@ -35528,7 +35531,7 @@ type UsersOK struct {
 	PageSize OptInt `json:"page_size"`
 	// The total number of all the records available across pages.
 	TotalRecords OptInt `json:"total_records"`
-	// Information about the users.
+	// The information about the users.
 	Users []UsersOKUsersItem `json:"users"`
 }
 
@@ -35599,7 +35602,7 @@ type UsersOKUsersItem struct {
 	//
 	// Deprecated: schema marks this property as deprecated.
 	CreatedAt OptDateTime `json:"created_at"`
-	// Information about the user's custom attributes.
+	// The information about the user's custom attributes.
 	// This field is **only** returned if users are assigned custom attributes and you provided the
 	// `custom_attributes` value for the `include_fields` query parameter in the API request.
 	CustomAttributes []UsersOKUsersItemCustomAttributesItem `json:"custom_attributes"`
@@ -35671,10 +35674,10 @@ type UsersOKUsersItem struct {
 	// The user's assigned plan type.
 	// * `1` - Basic.
 	// * `2` - Licensed.
-	// * `4` - No Meeting License.
+	// * `4` - Unassigned without Meetings Basic.
 	// * `99` - None (this can only be set with `ssoCreate`).
 	Type int `json:"type"`
-	// Display whether the user's email address for the Zoom account is verified.
+	// Whether the user's email address for the Zoom account is verified.
 	// * `1` - A verified user email.
 	// * `0` - The user's email **not** verified.
 	Verified OptInt `json:"verified"`

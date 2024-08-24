@@ -601,14 +601,14 @@ type UsersParams struct {
 	RoleID OptString
 	// The page number of the current page in the returned records.
 	PageNumber OptString
-	// Use this parameter to display one of the following attributes in the API call's response:
+	// This parameter displays one of the following attributes in the API call's response:
 	// * `custom_attributes` &mdash; Return the user's custom attributes.
 	// * `host_key` &mdash; Return the user's [host key](https://support.zoom.
 	// us/hc/en-us/articles/205172555-Using-your-host-key).
 	IncludeFields OptString
-	// Use the next page token to paginate through large result sets. A next page token is returned
-	// whenever the set of available results exceeds the current page size. This token's expiration
-	// period is 15 minutes.
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
 	NextPageToken OptString
 	// The user's license. Filter the response by a specific license.
 	License OptString
