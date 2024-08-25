@@ -290,6 +290,13 @@ function phonePatch(spec) {
     }));
   });
 
+  // POST /phone/users/{userId}/calling_plans return 201, not 200
+  if (spec.paths['/phone/users/{userId}/calling_plans']) {
+    spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['201'] =
+        spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['200']
+    delete spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['200']
+  }
+
   // POST /phone/users/{userId}/phone_numbers return 201, not 200
   if (spec.paths['/phone/users/{userId}/phone_numbers']) {
     spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['201'] =

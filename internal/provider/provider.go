@@ -22,6 +22,7 @@ import (
 	sharedlinegroupgroupmembers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmember"
 	sharedlinegroupgroupphonenumbers "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumber"
 	phoneuser "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/usercallingplans"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumber"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/user/user"
 	"github.com/folio-sec/terraform-provider-zoom/internal/zoomoauth"
@@ -215,6 +216,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
 		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
 		phoneuser.NewPhoneUserResource,
+		usercallingplans.NewPhoneUserCallingPlansResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
 	}
 }
