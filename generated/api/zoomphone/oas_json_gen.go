@@ -125721,11 +125721,18 @@ func (s *PatchCallHandlingSettingsCallForwardingSettings) encodeFields(e *jx.Enc
 			s.RequirePress1BeforeConnecting.Encode(e)
 		}
 	}
+	{
+		if s.HolidayID.Set {
+			e.FieldStart("holiday_id")
+			s.HolidayID.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfPatchCallHandlingSettingsCallForwardingSettings = [2]string{
+var jsonFieldsNameOfPatchCallHandlingSettingsCallForwardingSettings = [3]string{
 	0: "call_forwarding_settings",
 	1: "require_press_1_before_connecting",
+	2: "holiday_id",
 }
 
 // Decode decodes PatchCallHandlingSettingsCallForwardingSettings from json.
@@ -125762,6 +125769,16 @@ func (s *PatchCallHandlingSettingsCallForwardingSettings) Decode(d *jx.Decoder) 
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"require_press_1_before_connecting\"")
+			}
+		case "holiday_id":
+			if err := func() error {
+				s.HolidayID.Reset()
+				if err := s.HolidayID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"holiday_id\"")
 			}
 		default:
 			return d.Skip()
@@ -126232,9 +126249,15 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) encodeFields(e *jx.Encod
 			s.WrapUpTime.Encode(e)
 		}
 	}
+	{
+		if s.HolidayID.Set {
+			e.FieldStart("holiday_id")
+			s.HolidayID.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfPatchCallHandlingSettingsCallHandlingSettings = [27]string{
+var jsonFieldsNameOfPatchCallHandlingSettingsCallHandlingSettings = [28]string{
 	0:  "allow_callers_check_voicemail",
 	1:  "allow_members_to_reset",
 	2:  "audio_while_connecting_id",
@@ -126262,6 +126285,7 @@ var jsonFieldsNameOfPatchCallHandlingSettingsCallHandlingSettings = [27]string{
 	24: "ring_mode",
 	25: "voicemail_greeting_id",
 	26: "wrap_up_time",
+	27: "holiday_id",
 }
 
 // Decode decodes PatchCallHandlingSettingsCallHandlingSettings from json.
@@ -126541,6 +126565,16 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) Decode(d *jx.Decoder) er
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"wrap_up_time\"")
+			}
+		case "holiday_id":
+			if err := func() error {
+				s.HolidayID.Reset()
+				if err := s.HolidayID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"holiday_id\"")
 			}
 		default:
 			return d.Skip()

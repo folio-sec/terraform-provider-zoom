@@ -284,7 +284,21 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	if err := r.crud.unassignAll(ctx, state.CallQueueID); err != nil {
+	asis, err := r.crud.read(ctx, state.CallQueueID)
+	if err != nil {
+		resp.Diagnostics.AddError("Error deleting phone call queue phone numbers", err.Error())
+	}
+	if asis == nil {
+		return
+	}
+
+	err = r.crud.unassign(ctx, &unassignDto{
+		callQueueID: state.CallQueueID,
+		phoneNumberIDs: lo.Map(asis.phoneNumbers, func(p *readDtoPhoneNumber, _index int) types.String {
+			return p.id
+		}),
+	})
+	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone call queue phone numbers",
 			fmt.Sprintf(

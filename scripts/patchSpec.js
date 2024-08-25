@@ -325,6 +325,19 @@ function phonePatch(spec) {
     delete spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
   }
 
+  // PATCH /phone/extension/{extensionId}/call_handling/settings/{settingType} PatchCallHandlingSettingsCustomHours should accept holidayId property for holiday_hours
+  if (spec.components.schemas['PatchCallHandlingSettingsCallHandling']) {
+    spec.components.schemas['PatchCallHandlingSettingsCallHandling']['properties']['settings']['properties']['holiday_id'] = {
+      "type": "string", "description": "The ID of the holiday.",
+    }
+  }
+  // PATCH /phone/extension/{extensionId}/call_handling/settings/{settingType} PatchCallHandlingSettingsCallForwarding should accept holidayId property for holiday_hours
+  if (spec.components.schemas['PatchCallHandlingSettingsCallForwarding']) {
+    spec.components.schemas['PatchCallHandlingSettingsCallForwarding']['properties']['settings']['properties']['holiday_id'] = {
+      "type": "string", "description": "The ID of the holiday.",
+    }
+  }
+
   // GET PATCH /phone/users/{userId} should have calling_plans[].name property
   if (spec.paths['/phone/users/{userId}']) {
     spec.paths['/phone/users/{userId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['calling_plans']['items']['properties']['name'] = {

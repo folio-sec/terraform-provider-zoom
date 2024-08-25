@@ -1,0 +1,2 @@
+# ${extension_id/holiday_id}
+terraform import zoom_phone_call_handling_holiday_hours.example t6wyhAZRQXXX_Rv3jj3XXX/gkqphABALXXX_Al0g13XXX
