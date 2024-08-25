@@ -1,8 +1,7 @@
 TEST?=$$(go list ./... |grep -v 'vendor')
 DEV      := folio-sec
 PROVIDER := zoom
-# VERSION  := $(shell git describe --abbrev=0 --tags --match "v*")
-VERSION := v0.0.1
+VERSION := v$(shell cat version)
 PLUGINS  := ${HOME}/bin/plugins/registry.terraform.io/${DEV}/${PROVIDER}
 BIN      := terraform-provider-zoom_${VERSION}
 
@@ -61,7 +60,7 @@ build:
 	@mkdir -p dist
 	go build -o dist/${BIN} .
 
-# Run go build. Output to dist/.
+# Run go build. Move artifact to terraform plugins dir
 .PHONY: build_override
 build_override: build
 	mkdir -p ${PLUGINS}

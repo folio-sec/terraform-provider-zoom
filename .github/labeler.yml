@@ -1,6 +1,9 @@
 service/phone:
 - changed-files:
   - any-glob-to-any-file: internal/services/phone/**/*
+service/user:
+- changed-files:
+  - any-glob-to-any-file: internal/services/user/**/*
 spec:
 - changed-files:
   - any-glob-to-any-file: spec/**/*
