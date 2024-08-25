@@ -97,3 +97,19 @@ func (c *crud) unassign(ctx context.Context, dto *unassignDto) error {
 	}
 	return nil
 }
+
+func (c *crud) unassignAll(ctx context.Context, callQueueID types.String) error {
+	err := c.client.UnassignAPhoneNumCallQueue(ctx, zoomphone.UnassignAPhoneNumCallQueueParams{
+		CallQueueId: callQueueID.ValueString(),
+	})
+	if err != nil {
+		var status *zoomphone.ErrorResponseStatusCode
+		if errors.As(err, &status) {
+			if status.StatusCode == 404 {
+				return nil
+			}
+		}
+		return fmt.Errorf("error unassigning all phone call queue phone numbers: %v", err)
+	}
+	return nil
+}
