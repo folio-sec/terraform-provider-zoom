@@ -22,7 +22,7 @@ This resource requires the `phone:read:call_handling_setting:admin`, `phone:writ
 ## Example Usage
 
 ```terraform
-# Define only one resource for each extended id.
+# Define only one resource for each extension id.
 resource "zoom_phone_call_handling_business_hours" "example" {
   extension_id = "wGJDBcnJQC6tV86BbtlXXX"
 

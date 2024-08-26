@@ -1,4 +1,4 @@
-# Define only one resource for each extended id.
+# Define only one resource for each extension id.
 resource "zoom_phone_call_handling_business_hours" "example" {
   extension_id = "wGJDBcnJQC6tV86BbtlXXX"
 
