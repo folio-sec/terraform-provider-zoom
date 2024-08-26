@@ -1,9 +1,8 @@
 package util
 
 import (
-	"time"
-
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
+	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -35,10 +34,10 @@ func ToPhoneOptInt(o types.Int32) zoomphone.OptInt {
 	return zoomphone.NewOptInt(int(o.ValueInt32()))
 }
 
-func ToPhoneOptDateTime(o types.String) zoomphone.OptDateTime {
+func ToPhoneOptDateTime(o timetypes.RFC3339) zoomphone.OptDateTime {
 	if o.IsNull() || o.IsUnknown() {
 		return zoomphone.OptDateTime{}
 	}
-	value, _ := time.Parse(o.ValueString(), "2006-01-02 15:04:05.999999999 -0700 MST")
-	return zoomphone.NewOptDateTime(value)
+	value, _ := o.ValueRFC3339Time()
+	return zoomphone.NewOptDateTime(value.UTC())
 }

@@ -50591,6 +50591,10 @@
                 "type": "boolean",
                 "description": "When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot; before the call connects. Enable this option to ensure missed calls do not reach to your personal voicemail. It's required for the `call_forwarding` sub-setting.\n\nPress 1 is always enabled and is required for `callQueue` type extension calls.",
                 "example": true
+              },
+              "holiday_id": {
+                "type": "string",
+                "description": "The ID of the holiday."
               }
             }
           },
@@ -50856,6 +50860,10 @@
                 "type": "integer",
                 "description": "The wrap up time in seconds. \nSpecify the duration before the next queue call is routed to a member in call queue:\n* `0` \n* `10` \n* `15` \n* `20` \n* `25` \n* `30` \n* `35` \n* `40` \n* `45` \n* `50` \n* `55` \n* `60` \n* `120` \n* `180` \n* `240` \n* `300`\n\nThis is only required for the `call_handling` sub-setting.",
                 "example": 25
+              },
+              "holiday_id": {
+                "type": "string",
+                "description": "The ID of the holiday."
               }
             }
           },

@@ -20,6 +20,26 @@ func NewLoggingRoundTripper(ctx context.Context, rt http.RoundTripper) http.Roun
 }
 
 func (t LoggingRoundTripper) RoundTrip(req *http.Request) (resp *http.Response, err error) {
+	if req != nil && req.Method != "GET" {
+		buf, _ := io.ReadAll(req.Body)
+		loggingBody := io.NopCloser(bytes.NewBuffer(buf))
+		rawBody := io.NopCloser(bytes.NewBuffer(buf))
+		req.Body = rawBody
+		bodyBytes, err := io.ReadAll(loggingBody)
+		if err != nil {
+			return nil, fmt.Errorf("http failed to read response body: %w", err)
+		}
+		bodyString := string(bodyBytes)
+		tflog.Debug(t.ctx,
+			fmt.Sprintf("http request"),
+			map[string]interface{}{
+				"method":      req.Method,
+				"request_uri": req.URL.RequestURI(),
+				"body":        bodyString,
+			},
+		)
+	}
+
 	resp, err = t.rt.RoundTrip(req)
 	if err != nil {
 		tflog.Info(

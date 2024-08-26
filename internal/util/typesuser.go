@@ -40,5 +40,5 @@ func ToUserOptDateTime(o timetypes.RFC3339) zoomuser.OptDateTime {
 	}
 
 	value, _ := o.ValueRFC3339Time()
-	return zoomuser.NewOptDateTime(value)
+	return zoomuser.NewOptDateTime(value.UTC())
 }

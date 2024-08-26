@@ -82249,6 +82249,8 @@ type PatchCallHandlingSettingsCallForwardingSettings struct {
 	// voicemail. It's required for the `call_forwarding` sub-setting.
 	// Press 1 is always enabled and is required for `callQueue` type extension calls.
 	RequirePress1BeforeConnecting OptBool `json:"require_press_1_before_connecting"`
+	// The ID of the holiday.
+	HolidayID OptString `json:"holiday_id"`
 }
 
 // GetCallForwardingSettings returns the value of CallForwardingSettings.
@@ -82261,6 +82263,11 @@ func (s *PatchCallHandlingSettingsCallForwardingSettings) GetRequirePress1Before
 	return s.RequirePress1BeforeConnecting
 }
 
+// GetHolidayID returns the value of HolidayID.
+func (s *PatchCallHandlingSettingsCallForwardingSettings) GetHolidayID() OptString {
+	return s.HolidayID
+}
+
 // SetCallForwardingSettings sets the value of CallForwardingSettings.
 func (s *PatchCallHandlingSettingsCallForwardingSettings) SetCallForwardingSettings(val []PatchCallHandlingSettingsCallForwardingSettingsCallForwardingSettingsItem) {
 	s.CallForwardingSettings = val
@@ -82269,6 +82276,11 @@ func (s *PatchCallHandlingSettingsCallForwardingSettings) SetCallForwardingSetti
 // SetRequirePress1BeforeConnecting sets the value of RequirePress1BeforeConnecting.
 func (s *PatchCallHandlingSettingsCallForwardingSettings) SetRequirePress1BeforeConnecting(val OptBool) {
 	s.RequirePress1BeforeConnecting = val
+}
+
+// SetHolidayID sets the value of HolidayID.
+func (s *PatchCallHandlingSettingsCallForwardingSettings) SetHolidayID(val OptString) {
+	s.HolidayID = val
 }
 
 type PatchCallHandlingSettingsCallForwardingSettingsCallForwardingSettingsItem struct {
@@ -82563,6 +82575,8 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// * `300`
 	// This is only required for the `call_handling` sub-setting.
 	WrapUpTime OptInt `json:"wrap_up_time"`
+	// The ID of the holiday.
+	HolidayID OptString `json:"holiday_id"`
 }
 
 // GetAllowCallersCheckVoicemail returns the value of AllowCallersCheckVoicemail.
@@ -82700,6 +82714,11 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) GetWrapUpTime() OptInt {
 	return s.WrapUpTime
 }
 
+// GetHolidayID returns the value of HolidayID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetHolidayID() OptString {
+	return s.HolidayID
+}
+
 // SetAllowCallersCheckVoicemail sets the value of AllowCallersCheckVoicemail.
 func (s *PatchCallHandlingSettingsCallHandlingSettings) SetAllowCallersCheckVoicemail(val OptBool) {
 	s.AllowCallersCheckVoicemail = val
@@ -82833,6 +82852,11 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) SetVoicemailGreetingID(v
 // SetWrapUpTime sets the value of WrapUpTime.
 func (s *PatchCallHandlingSettingsCallHandlingSettings) SetWrapUpTime(val OptInt) {
 	s.WrapUpTime = val
+}
+
+// SetHolidayID sets the value of HolidayID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetHolidayID(val OptString) {
+	s.HolidayID = val
 }
 
 // This option distributes incoming calls.
