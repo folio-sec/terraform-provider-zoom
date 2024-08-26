@@ -540,8 +540,10 @@ func (r *tfBusinessHoursResource) read(ctx context.Context, plan *businessHoursR
 		customHoursSetting = append(customHoursSetting, &businessHoursResourceModelCustomHoursSettings{
 			Weekday: item.weekday,
 			Type:    item.typ,
-			From:    lo.Ternary(item.typ.ValueInt32() == 2, item.from, types.StringNull()),
-			To:      lo.Ternary(item.typ.ValueInt32() == 2, item.to, types.StringNull()),
+			// NOTE: Zoom API returns "00:00" or pre-registered time for from/to when type is not 2.
+			// when changing type from 2 to 1, generally we set from/to with null, so just ignore them.
+			From: lo.Ternary(item.typ.ValueInt32() == 2, item.from, types.StringNull()),
+			To:   lo.Ternary(item.typ.ValueInt32() == 2, item.to, types.StringNull()),
 		})
 	}
 	customHours := &businessHoursResourceModelCustomHours{
