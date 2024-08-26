@@ -57,7 +57,7 @@ release:
   extra_files:
     - glob: 'terraform-registry-manifest.json'
       name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
-  # If you want to manually examine the release before its live, uncomment this line:
-  # draft: true
+  footer: |
+    **Full Changelog**: https://github.com/folio-sec/terraform-provider-zoom/compare/{{ .PreviousTag }}...{{ .Tag }}
 changelog:
   use: "github"
