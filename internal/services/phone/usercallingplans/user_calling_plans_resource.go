@@ -103,6 +103,7 @@ var callingPlanMapping = map[int32]string{
 	70202: "MEETINGS_GB_IE_NUMBER_INCLUDED",
 	70207: "MEETINGS_JP_NUMBER_INCLUDED",
 	71000: "MEETINGS_GLOBAL_SELECT_NUMBER_INCLUDED",
+	83000: "ZOOM_WORKPLACE_ENTERPRISE", // FIXME change when finding correct value on https://developers.zoom.us/docs/api/rest/other-references/calling-plans/
 }
 
 func NewPhoneUserCallingPlansResource() resource.Resource {
