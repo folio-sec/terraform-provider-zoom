@@ -61,3 +61,6 @@ release:
     **Full Changelog**: https://github.com/folio-sec/terraform-provider-zoom/compare/{{ .PreviousTag }}...{{ .Tag }}
 changelog:
   use: "github"
+  filters:
+    exclude:
+      - "^Release for v" # ignore release PR
