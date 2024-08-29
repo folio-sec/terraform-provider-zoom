@@ -26,6 +26,72 @@ type crud struct {
 	userClient  *zoomuser.Client
 }
 
+func (c *crud) list(ctx context.Context, dto listQueryDto) (*listDto, error) {
+	var users []listDtoUser
+	nextPageToken := zoomphone.OptString{}
+
+	for {
+		ret, err := c.phoneClient.ListPhoneUsers(ctx, zoomphone.ListPhoneUsersParams{
+			PageSize:      zoomphone.NewOptInt(100), // Max 100
+			NextPageToken: nextPageToken,
+			SiteID:        util.ToPhoneOptString(dto.siteID),
+			CallingType:   util.ToPhoneOptInt(dto.callingType),
+			Status:        util.ToPhoneOptString(dto.status),
+			Department:    util.ToPhoneOptString(dto.department),
+			CostCenter:    util.ToPhoneOptString(dto.costCenter),
+			Keyword:       util.ToPhoneOptString(dto.keyword),
+		})
+		if err != nil {
+			return nil, fmt.Errorf("unable to list users: %v", err)
+		}
+
+		users = append(users, lo.Map(ret.Users, func(item zoomphone.ListPhoneUsersOKUsersItem, _ int) listDtoUser {
+			return listDtoUser{
+				callingPlans: lo.Map(item.CallingPlans, func(item zoomphone.ListPhoneUsersOKUsersItemCallingPlansItem, index int) *listDtoUserCallingPlan {
+					return &listDtoUserCallingPlan{
+						name:               util.FromOptString(item.Name),
+						typ:                util.FromOptInt(item.Type),
+						billingAccountID:   util.FromOptString(item.BillingAccountID),
+						billingAccountName: util.FromOptString(item.BillingAccountName),
+					}
+				}),
+				email:           util.FromOptString(item.Email),
+				extensionID:     util.FromOptString(item.Email),
+				extensionNumber: util.FromOptInt64(item.ExtensionNumber),
+				userID:          util.FromOptString(item.ID),
+				name:            util.FromOptString(item.Name),
+				phoneUserID:     util.FromOptString(item.PhoneUserID),
+				site: lo.TernaryF(item.Site.IsSet(), func() *listDtoUserSite {
+					return &listDtoUserSite{
+						id:   util.FromOptString(item.Site.Value.ID),
+						name: util.FromOptString(item.Site.Value.Name),
+					}
+				}, func() *listDtoUserSite {
+					return nil
+				}),
+				status: util.FromOptString(item.Status),
+				phoneNumbers: lo.Map(item.PhoneNumbers, func(item zoomphone.ListPhoneUsersOKUsersItemPhoneNumbersItem, index int) *listDtoUserPhoneNumber {
+					return &listDtoUserPhoneNumber{
+						id:     util.FromOptString(item.ID),
+						number: util.FromOptString(item.Number),
+					}
+				}),
+				department: util.FromOptString(item.Department),
+				costCenter: util.FromOptString(item.CostCenter),
+			}
+		})...)
+
+		if !ret.NextPageToken.IsSet() || ret.NextPageToken.Value == "" {
+			break
+		}
+		nextPageToken = ret.NextPageToken
+	}
+
+	return &listDto{
+		users: users,
+	}, nil
+}
+
 func (c *crud) read(ctx context.Context, zoomUserID types.String) (*readDto, error) {
 	detail, err := c.phoneClient.PhoneUser(ctx, zoomphone.PhoneUserParams{
 		UserId: zoomUserID.ValueString(),

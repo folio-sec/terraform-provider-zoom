@@ -64,6 +64,7 @@ build:
 .PHONY: build_override
 build_override: build
 	mkdir -p ${PLUGINS}
+	rm -rf ${PLUGINS}/* || true
 	mv dist/${BIN} ${PLUGINS}/${BIN}
 
 # Run go build. Move artifact to terraform plugins dir. Output override config for ~/.terraformrc
