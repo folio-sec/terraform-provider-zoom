@@ -338,6 +338,15 @@ function phonePatch(spec) {
     }
   }
 
+  // GET /phone/external_contacts/{externalContactId} should have routing_path response body
+  if (spec.paths['/phone/external_contacts/{externalContactId}']) {
+    spec.paths['/phone/external_contacts/{externalContactId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['routing_path'] = {
+      type: "string",
+      description: "The external contact's SIP group, to define the call routing path. This is for customers that use SIP trunking.",
+      example: "PSTN"
+    };
+  }
+
   // GET PATCH /phone/users/{userId} should have calling_plans[].name property
   if (spec.paths['/phone/users/{userId}']) {
     spec.paths['/phone/users/{userId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['calling_plans']['items']['properties']['name'] = {

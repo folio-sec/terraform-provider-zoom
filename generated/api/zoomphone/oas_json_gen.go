@@ -25567,9 +25567,15 @@ func (s *GetAExternalContactOK) encodeFields(e *jx.Encoder) {
 			s.AutoCallRecorded.Encode(e)
 		}
 	}
+	{
+		if s.RoutingPath.Set {
+			e.FieldStart("routing_path")
+			s.RoutingPath.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfGetAExternalContactOK = [8]string{
+var jsonFieldsNameOfGetAExternalContactOK = [9]string{
 	0: "description",
 	1: "email",
 	2: "extension_number",
@@ -25578,6 +25584,7 @@ var jsonFieldsNameOfGetAExternalContactOK = [8]string{
 	5: "name",
 	6: "phone_numbers",
 	7: "auto_call_recorded",
+	8: "routing_path",
 }
 
 // Decode decodes GetAExternalContactOK from json.
@@ -25676,6 +25683,16 @@ func (s *GetAExternalContactOK) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"auto_call_recorded\"")
+			}
+		case "routing_path":
+			if err := func() error {
+				s.RoutingPath.Reset()
+				if err := s.RoutingPath.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"routing_path\"")
 			}
 		default:
 			return d.Skip()
