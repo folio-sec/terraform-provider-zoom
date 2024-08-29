@@ -18160,6 +18160,11 @@
                       "type": "boolean",
                       "description": "Whether to allow the automatic call recording.",
                       "example": true
+                    },
+                    "routing_path": {
+                      "type": "string",
+                      "description": "The external contact's SIP group, to define the call routing path. This is for customers that use SIP trunking.",
+                      "example": "PSTN"
                     }
                   }
                 }

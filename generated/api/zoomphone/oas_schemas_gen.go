@@ -10776,6 +10776,9 @@ type GetAExternalContactOK struct {
 	PhoneNumbers []string `json:"phone_numbers"`
 	// Whether to allow the automatic call recording.
 	AutoCallRecorded OptBool `json:"auto_call_recorded"`
+	// The external contact's SIP group, to define the call routing path. This is for customers that use
+	// SIP trunking.
+	RoutingPath OptString `json:"routing_path"`
 }
 
 // GetDescription returns the value of Description.
@@ -10818,6 +10821,11 @@ func (s *GetAExternalContactOK) GetAutoCallRecorded() OptBool {
 	return s.AutoCallRecorded
 }
 
+// GetRoutingPath returns the value of RoutingPath.
+func (s *GetAExternalContactOK) GetRoutingPath() OptString {
+	return s.RoutingPath
+}
+
 // SetDescription sets the value of Description.
 func (s *GetAExternalContactOK) SetDescription(val OptString) {
 	s.Description = val
@@ -10856,6 +10864,11 @@ func (s *GetAExternalContactOK) SetPhoneNumbers(val []string) {
 // SetAutoCallRecorded sets the value of AutoCallRecorded.
 func (s *GetAExternalContactOK) SetAutoCallRecorded(val OptBool) {
 	s.AutoCallRecorded = val
+}
+
+// SetRoutingPath sets the value of RoutingPath.
+func (s *GetAExternalContactOK) SetRoutingPath(val OptString) {
+	s.RoutingPath = val
 }
 
 type GetASharedLineGroupOK struct {
