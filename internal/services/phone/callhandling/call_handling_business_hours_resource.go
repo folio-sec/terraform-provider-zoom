@@ -373,9 +373,9 @@ This resource requires the ` + strings.Join([]string{
 						Optional: true,
 						MarkdownDescription: `The wrap up time in seconds. Specify the duration before the next queue call is routed to a member in call queue:
   - This is only required for the call_handling sub-setting.
-  - Allowed: 10┃15┃20┃25┃30┃35┃40┃45┃50┃55┃60┃120┃180┃240┃300`,
+  - Allowed: 0┃10┃15┃20┃25┃30┃35┃40┃45┃50┃55┃60┃120┃180┃240┃300`,
 						Validators: []validator.Int32{
-							int32validator.OneOf(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 120, 180, 240, 300),
+							int32validator.OneOf(0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 120, 180, 240, 300),
 						},
 					},
 				},

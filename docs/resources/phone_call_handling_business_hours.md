@@ -238,7 +238,7 @@ Optional:
 - `voicemail_greeting_id` (String) The voicemail greeting prompt ID. It's required when `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail). Required only for `call_handling` subsettings of `Call Queue`, `Auto Receptionist` or `User`.
 - `wrap_up_time` (Number) The wrap up time in seconds. Specify the duration before the next queue call is routed to a member in call queue:
   - This is only required for the call_handling sub-setting.
-  - Allowed: 10┃15┃20┃25┃30┃35┃40┃45┃50┃55┃60┃120┃180┃240┃300
+  - Allowed: 0┃10┃15┃20┃25┃30┃35┃40┃45┃50┃55┃60┃120┃180┃240┃300
 
 <a id="nestedatt--call_handling--call_distribution"></a>
 ### Nested Schema for `call_handling.call_distribution`
