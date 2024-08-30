@@ -182,8 +182,8 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 		autoReceptionistID:  ret.autoReceptionistID,
 		costCenter:          plan.CostCenter,
 		department:          plan.Department,
-		extensionNumber:     ret.extensionNumber,
-		name:                ret.name,
+		extensionNumber:     plan.ExtensionNumber,
+		name:                plan.Name,
 		timezone:            plan.Timezone,
 		audioPromptLanguage: plan.AudioPromptLanguage,
 	})

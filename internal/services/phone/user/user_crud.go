@@ -56,7 +56,7 @@ func (c *crud) list(ctx context.Context, dto listQueryDto) (*listDto, error) {
 					}
 				}),
 				email:           util.FromOptString(item.Email),
-				extensionID:     util.FromOptString(item.Email),
+				extensionID:     util.FromOptString(item.ExtensionID),
 				extensionNumber: util.FromOptInt64(item.ExtensionNumber),
 				userID:          util.FromOptString(item.ID),
 				name:            util.FromOptString(item.Name),
