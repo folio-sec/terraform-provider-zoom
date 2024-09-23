@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - id: tagpr
-        uses: Songmu/tagpr@f8320f3fc9fd558f7565c0481d224bded9f5f06e # v1
+        uses: Songmu/tagpr@591c6e0c988bccee7dda02bce1af7a3b2dc47065 # v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   goreleaser:
