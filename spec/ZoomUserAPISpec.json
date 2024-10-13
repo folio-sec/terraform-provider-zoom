@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Zoom User API",
-    "description": "Zoom User Open APIs",
+    "description": "The User APIs allow developers to programatically access data related to users, groups, and contact groups.",
     "termsOfService": "https://zoom.us/docs/en-us/zoom_api_license_and_tou.html",
     "contact": {
       "name": "Zoom Developers",
@@ -573,9 +573,22 @@
           "Contact Groups"
         ],
         "summary": "Add contact group members",
-        "description": "Use this API to add members to a [contact group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management).\n\n**Prerequisite**: Pro or higher account.  \n \n\n**Scopes:** `contact_group:write:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`",
+        "description": "Use this API to add members to a [contact group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management).\n\n**Prerequisite**: Pro or higher account.  \n \n\n**Scopes:** `contact_group:write:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`",
         "operationId": "contactGroupMemberAdd",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "The contact group ID.\nRetrieve by calling the List contact groups API.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "dir.JquKVDGlQ9K6S0QVWGcysw"
+            }
+          }
+        ],
         "requestBody": {
+          "description": "Add contact group members",
           "content": {
             "application/json": {
               "schema": {
@@ -583,6 +596,7 @@
                 "properties": {
                   "group_members": {
                     "type": "array",
+                    "description": "Group members array",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -611,17 +625,18 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "object",
                   "properties": {
                     "member_ids": {
                       "type": "array",
+                      "description": "Member ids array",
                       "items": {
                         "type": "string",
                         "description": "The member ID of the member that is added successfully.",
                         "example": "KT6h5SfCSm6YNjZo7i8few"
                       }
                     }
-                  },
-                  "type": "object"
+                  }
                 }
               }
             }
@@ -646,31 +661,30 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "contact_group:write:admin"
           ]
-        },
-        "parameters": [
-          {
-            "name": "groupId",
-            "in": "path",
-            "description": "The group ID.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "A4ql1FjgL913r"
-            }
-          }
-        ]
+        }
       },
       "delete": {
         "tags": [
           "Contact Groups"
         ],
         "summary": "Remove members in a contact group",
-        "description": "Use this API to remove members in a [contact group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-).\n\n**Prerequisite**: Pro or higher account.  \n \n\n**Scopes:** `contact_group:write:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`",
+        "description": "Removes members in a [contact group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-).\n\n**Prerequisite**: Pro or higher account.  \n \n\n**Scopes:** `contact_group:write:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`",
         "operationId": "contactGroupMemberRemove",
         "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "The contact group ID.\nRetrieve by calling the List contact groups API.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "dir.JquKVDGlQ9K6S0QVWGcysw"
+            }
+          },
           {
             "name": "member_ids",
             "in": "query",
@@ -679,16 +693,6 @@
             "schema": {
               "type": "string",
               "example": "n22T5G6bQDCugVm1V59TAQ"
-            }
-          },
-          {
-            "name": "groupId",
-            "in": "path",
-            "description": "The group ID.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "A4ql1FjgL913r"
             }
           }
         ],
@@ -716,6 +720,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "contact_group:write:admin"
           ]
@@ -7696,7 +7701,7 @@
             "description": "The number of records returned within a single API call.",
             "required": false,
             "schema": {
-              "maximum": 300,
+              "maximum": 2000,
               "type": "integer",
               "example": 30,
               "default": 30
@@ -7778,7 +7783,7 @@
                       "default": 1
                     },
                     "page_size": {
-                      "maximum": 300,
+                      "maximum": 2000,
                       "type": "integer",
                       "description": "The number of records returned within a single API call.",
                       "example": 30,
@@ -7790,6 +7795,7 @@
                       "example": 8482
                     },
                     "users": {
+                      "maxItems": 2000,
                       "type": "array",
                       "description": "The information about the users.",
                       "items": {
@@ -8268,6 +8274,7 @@
                     "example": "1"
                   },
                   "users": {
+                    "maxItems": 30,
                     "type": "array",
                     "description": "The users' info you want to update.",
                     "items": {
@@ -8300,6 +8307,7 @@
                   "type": "object",
                   "properties": {
                     "success_user_ids": {
+                      "maxItems": 30,
                       "type": "array",
                       "description": "The IDs of users for whom the feature was updated successfully",
                       "items": {
@@ -8308,12 +8316,14 @@
                       }
                     },
                     "fail_details": {
+                      "maxItems": 30,
                       "type": "array",
                       "description": "The details why these users' feature was not updated successfully.",
                       "items": {
                         "type": "object",
                         "properties": {
                           "user_ids": {
+                            "maxItems": 30,
                             "type": "array",
                             "description": "The IDs of users for whom the feature was not updated successfully.",
                             "items": {
@@ -8436,7 +8446,7 @@
           "Users"
         ],
         "summary": "Get user summary",
-        "description": "Use this API to get a summary of users, including the number and types of users in the account.\n\n \n\n**Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`\n\n**Granular Scopes:** `user:read:summary:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Gets a summary of users, including the number and types of users in the account.\n\n \n\n**Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`\n\n**Granular Scopes:** `user:read:summary:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
         "operationId": "userSummary",
         "responses": {
           "200": {
@@ -9217,6 +9227,7 @@
                     "example": "Example, Inc."
                   },
                   "custom_attributes": {
+                    "maxItems": 5,
                     "type": "array",
                     "description": "The user's assigned custom attributes.",
                     "items": {
@@ -9305,6 +9316,7 @@
                     "deprecated": true
                   },
                   "phone_numbers": {
+                    "maxItems": 3,
                     "type": "array",
                     "description": "The information about the user's assigned phone numbers.",
                     "items": {
@@ -9556,7 +9568,7 @@
           "Users"
         ],
         "summary": "Add assistants",
-        "description": "Assign assistants to a user. In the request body, provide either the user's ID or the user's email address. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAssistants are the users to whom the current user has assigned [scheduling privilege](https://support.zoom.us/hc/en-us/articles/201362803-Scheduling-Privilege). Assistants can schedule meetings on behalf of the current user, and can also manage and act as an alternative host for all meetings if the admin has enabled the [co-host option](https://zoom.us/account/setting) on the account.\n\n**Prerequisites:** \n* The user as well as the assistant must have Licensed or an On-prem license.\n* Assistants must be under the current user's account, or the assistants' account must be in the same organization as the current user's account.\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:write:assistant`,`user:write:assistant:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Assign assistants to a user. In the request body, provide either the user's ID or the user's email address. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAssistants are the users to whom the current user has assigned [scheduling privilege](https://support.zoom.us/hc/en-us/articles/201362803-Scheduling-Privilege). Assistants can schedule meetings on behalf of the current user, and can also manage and act as an alternative host for all meetings if the admin has enabled the [co-host option](https://zoom.us/account/setting) on the account.\n\n**Prerequisites:** \n* The user as well as the assistant must have Licensed or an On-prem license.\n* Assistants must be under the current user's account, or the assistants' account must be in the same organization as the current user's account.\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:write:assistant`,`user:write:assistant:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
         "operationId": "userAssistantCreate",
         "parameters": [
           {
@@ -9578,6 +9590,7 @@
                 "type": "object",
                 "properties": {
                   "assistants": {
+                    "maxItems": 30,
                     "type": "array",
                     "description": "List of user's assistants.",
                     "items": {
@@ -9594,8 +9607,7 @@
                           "example": "KDcuGIm1QgePTO8WbOqwIQ"
                         }
                       }
-                    },
-                    "maxItems": 30
+                    }
                   }
                 },
                 "description": "List of user's assistants."
@@ -11337,6 +11349,7 @@
                               "example": true
                             },
                             "zoom_events_unlimited_capacities": {
+                              "maxItems": 9,
                               "type": "array",
                               "description": "The capacity list of user's Zoom Events Unlimited plan - `100`, `500`, `1000`, `3000`, `5000`, `10000`, `20000`, `30000`, or `50000`. The first entry is always the largest.",
                               "example": [
@@ -11354,6 +11367,7 @@
                               "example": true
                             },
                             "zoom_sessions_unlimited_capacities": {
+                              "maxItems": 9,
                               "type": "array",
                               "description": "The capacity list of user's Zoom Sessions Unlimited plan - `100`, `500`, `1000`, `3000`, `5000`, `10000`, `20000`, `30000`, or `50000`. The first entry is always the largest.",
                               "example": [
@@ -13197,6 +13211,7 @@
                             "example": true
                           },
                           "zoom_events_unlimited_capacities": {
+                            "maxItems": 9,
                             "type": "array",
                             "description": "The capacity list of user's Zoom Events Unlimited plan: `100`, `500`, `1000`, `3000`, `5000`, `10000`, `20000`, `30000`, or `50000`.",
                             "example": [
@@ -13214,6 +13229,7 @@
                             "example": true
                           },
                           "zoom_sessions_unlimited_capacities": {
+                            "maxItems": 9,
                             "type": "array",
                             "description": "The capacity list of user's Zoom Sessions Unlimited plan: `100`, `500`, `1000`, `3000`, `5000`, `10000`, `20000`, `30000`, or `50000`.",
                             "example": [
@@ -14998,7 +15014,7 @@
           "Users"
         ],
         "summary": "Get a user's token",
-        "description": "Get a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter. \n\n \n\n**Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`,`user_profile`\n\n**Granular Scopes:** `user:read:token`,`user:read:token:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Gets a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter. \n\n \n\n**Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`,`user_profile`\n\n**Granular Scopes:** `user:read:token`,`user:read:token:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "userToken",
         "parameters": [
           {
@@ -15099,7 +15115,7 @@
           "Users"
         ],
         "summary": "Revoke a user's SSO token",
-        "description": "Revoke a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAfter calling this API, the SSO user will be logged out of their current Zoom session.\n\n\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:delete:token`,`user:delete:token:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Revokes a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAfter calling this API, the SSO user will be logged out of their current Zoom session.\n\n\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:delete:token`,`user:delete:token:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "userSSOTokenDelete",
         "parameters": [
           {

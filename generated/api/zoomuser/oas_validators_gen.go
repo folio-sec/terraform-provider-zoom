@@ -10,6 +10,95 @@ import (
 	"github.com/ogen-go/ogen/validate"
 )
 
+func (s *BulkUpdateFeatureCreated) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    30,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.SuccessUserIds)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "success_user_ids",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    30,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.FailDetails)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		var failures []validate.FieldError
+		for i, elem := range s.FailDetails {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "fail_details",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *BulkUpdateFeatureCreatedFailDetailsItem) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    30,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.UserIds)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "user_ids",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
 func (s *BulkUpdateFeatureReq) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -19,6 +108,14 @@ func (s *BulkUpdateFeatureReq) Validate() error {
 	if err := func() error {
 		if s.Users == nil {
 			return errors.New("nil is invalid value")
+		}
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    30,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.Users)); err != nil {
+			return errors.Wrap(err, "array")
 		}
 		return nil
 	}(); err != nil {
@@ -1362,6 +1459,24 @@ func (s *UserSettingsOK0) Validate() error {
 		})
 	}
 	if err := func() error {
+		if value, ok := s.Feature.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "feature",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		if value, ok := s.Recording.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
@@ -1533,6 +1648,50 @@ func (s *UserSettingsOK0AudioConferencingTollFreeAndFeeBasedTollCallNumbersItem)
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "number",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UserSettingsOK0Feature) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    9,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.ZoomEventsUnlimitedCapacities)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "zoom_events_unlimited_capacities",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    9,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.ZoomSessionsUnlimitedCapacities)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "zoom_sessions_unlimited_capacities",
 			Error: err,
 		})
 	}
@@ -1760,6 +1919,24 @@ func (s *UserSettingsUpdateReq0) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
+		if value, ok := s.Feature.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "feature",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		if value, ok := s.Recording.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
@@ -1792,6 +1969,50 @@ func (s *UserSettingsUpdateReq0) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "telephony",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *UserSettingsUpdateReq0Feature) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    9,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.ZoomEventsUnlimitedCapacities)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "zoom_events_unlimited_capacities",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    9,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.ZoomSessionsUnlimitedCapacities)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "zoom_sessions_unlimited_capacities",
 			Error: err,
 		})
 	}
@@ -2024,6 +2245,22 @@ func (s *UserUpdateReq) Validate() error {
 		})
 	}
 	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    5,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.CustomAttributes)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "custom_attributes",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		if value, ok := s.FirstName.Get(); ok {
 			if err := func() error {
 				if err := (validate.String{
@@ -2180,6 +2417,22 @@ func (s *UserUpdateReq) Validate() error {
 		})
 	}
 	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    3,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.PhoneNumbers)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "phone_numbers",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		if value, ok := s.Pmi.Get(); ok {
 			if err := func() error {
 				if err := (validate.Int{
@@ -2277,7 +2530,7 @@ func (s *UsersOK) Validate() error {
 					MinSet:        false,
 					Min:           0,
 					MaxSet:        true,
-					Max:           300,
+					Max:           2000,
 					MinExclusive:  false,
 					MaxExclusive:  false,
 					MultipleOfSet: false,
@@ -2298,6 +2551,14 @@ func (s *UsersOK) Validate() error {
 		})
 	}
 	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    2000,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.Users)); err != nil {
+			return errors.Wrap(err, "array")
+		}
 		var failures []validate.FieldError
 		for i, elem := range s.Users {
 			if err := func() error {

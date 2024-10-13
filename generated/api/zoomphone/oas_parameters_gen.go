@@ -774,7 +774,7 @@ type GetACommonAreaParams struct {
 
 // GetADeviceParams is parameters of getADevice operation.
 type GetADeviceParams struct {
-	// Unique Identifier of the device.
+	// The unique Identifier of the device.
 	DeviceId string
 }
 
@@ -991,6 +991,16 @@ type GetMonitoringGroupByIdParams struct {
 	MonitoringGroupId string
 }
 
+// GetNumberCampaignOptStatusParams is parameters of getNumberCampaignOptStatus operation.
+type GetNumberCampaignOptStatusParams struct {
+	// The SMS campaign ID.
+	SmsCampaignId string
+	// Thw end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
+	ConsumerPhoneNumber string
+	// The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.
+	ZoomPhoneUserNumbers []string
+}
+
 // GetPSOperationLogsParams is parameters of getPSOperationLogs operation.
 type GetPSOperationLogsParams struct {
 	// The start time and date in **yyyy-mm-dd**format. The date range defined by the `from` and `to`
@@ -1038,7 +1048,7 @@ type GetPhoneRecordingsParams struct {
 	// same format as the `from` parameter.
 	To OptDate
 	// The owner type.
-	// The allowed values are `null`, `user`, `sharedOfice`, or `callQueue`.
+	// The allowed values are `null`, `user`, `sharedOffice`, or `callQueue`.
 	// The default value is `null`.  If the value is `null`, it returns all owner types.
 	OwnerType OptString
 	// The recording type. The allowed values are `null`, `OnDemand`, or `Automatic`. The default value
@@ -2584,6 +2594,12 @@ type UpdateLocationParams struct {
 type UpdateMonitoringGroupParams struct {
 	// Monitoring group ID.
 	MonitoringGroupId string
+}
+
+// UpdateNumberCampaignOptStatusParams is parameters of updateNumberCampaignOptStatus operation.
+type UpdateNumberCampaignOptStatusParams struct {
+	// The SMS campaign ID.
+	SmsCampaignId string
 }
 
 // UpdatePhoneNumberDetailsParams is parameters of updatePhoneNumberDetails operation.

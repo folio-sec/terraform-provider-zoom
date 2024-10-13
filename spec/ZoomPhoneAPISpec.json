@@ -13358,7 +13358,7 @@
           "Common Areas"
         ],
         "summary": "Get common area settings",
-        "description": "Use this API to get common area settings.\n\n**Note**: For use by customers who opted for `Common Area Optimization`  \n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_common_area_settings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Returns common area settings.\n\n**Note**: For customers who opted for `Common Area Optimization`.  \n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_common_area_settings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "getCommonAreaSettings",
         "parameters": [
           {
@@ -13386,39 +13386,54 @@
                         "properties": {
                           "id": {
                             "type": "string",
-                            "description": "Desk phone ID.",
+                            "description": "The desk phone ID.",
                             "example": "Aky1xpSLSc2PR0XOtj9XWQ"
                           },
                           "display_name": {
                             "type": "string",
-                            "description": "Desk phone display name.",
+                            "description": "The desk phone display name.",
                             "example": "analog_ta"
                           },
                           "device_type": {
                             "type": "string",
-                            "description": "Desk phone device type.",
+                            "description": "The desk phone device type.",
                             "example": "Poly obi504"
                           },
                           "status": {
                             "type": "string",
-                            "description": "Desk phone status.",
+                            "description": "The desk phone status.",
                             "example": "offline"
+                          },
+                          "mac_address": {
+                            "type": "string",
+                            "description": "The MAC address or serial number of the device.",
+                            "example": "203a07240534"
                           },
                           "hot_desking": {
                             "type": "object",
                             "properties": {
                               "status": {
                                 "type": "string",
-                                "description": "Allow hot desking feature to the current device: letting the guest user sign in to the desk phone. You can't use the desk phone until the guest user signs out. \nOptions include:\n* `unsupported` \n* `on` \n* `off`",
+                                "description": "This field allows the hot desking feature to the current device: letting the guest user sign in to the desk phone. You can't use the desk phone until the guest user signs out. \nOptions include:\n* `unsupported` \n* `on` \n* `off`",
                                 "example": "off"
                               }
                             }
+                          },
+                          "private_ip": {
+                            "type": "string",
+                            "description": "The private IP of the registered device.",
+                            "example": "192.168.10.13"
+                          },
+                          "public_ip": {
+                            "type": "string",
+                            "description": "The public IP of the registered device.",
+                            "example": "220.148.231.126"
                           }
                         }
                       }
                     }
                   },
-                  "description": "Common area setting"
+                  "description": "The common area setting."
                 }
               }
             }
@@ -13444,6 +13459,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -27051,13 +27067,13 @@
           "Phone Devices"
         ],
         "summary": "Get device details",
-        "description": "Gets detailed information about a specific [desk phone device](https://support.zoom.us/hc/en-us/articles/360021119092).\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:device:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Returns detailed information about a specific [desk phone device](https://support.zoom.us/hc/en-us/articles/360021119092).\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:device:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "getADevice",
         "parameters": [
           {
             "name": "deviceId",
             "in": "path",
-            "description": "Unique Identifier of the device.",
+            "description": "The unique Identifier of the device.",
             "required": true,
             "schema": {
               "type": "string",
@@ -27078,13 +27094,13 @@
                       "properties": {
                         "extension_number": {
                           "type": "integer",
-                          "description": "Extension number of the Zoom Phone used by the `user` or `commonArea`.",
+                          "description": "The extension number of the Zoom Phone the `user` or `commonArea` uses.",
                           "format": "int64",
                           "example": 123
                         },
                         "id": {
                           "type": "string",
-                          "description": "ID of the user or commonArea to whom the device has been assigned.",
+                          "description": "The ID of the user or common area to whom the device has been assigned.",
                           "example": "i242djsgrg"
                         },
                         "name": {
@@ -27094,11 +27110,11 @@
                         },
                         "extension_type": {
                           "type": "string",
-                          "description": "Type of the assignee. Available only if the device is assigned.",
+                          "description": "The type of the assignee. It's available only if the device is assigned.",
                           "example": "user"
                         }
                       },
-                      "description": "User to whom the device has been assigned."
+                      "description": "The user to whom the device has been assigned."
                     },
                     "assignees": {
                       "type": "array",
@@ -27107,28 +27123,28 @@
                         "properties": {
                           "extension_number": {
                             "type": "integer",
-                            "description": "Extension number of the Zoom Phone used by the `user` or `commonArea`.",
+                            "description": "The extension number of the Zoom Phone the `user` or `commonArea` uses.",
                             "format": "int64",
                             "example": 123
                           },
                           "id": {
                             "type": "string",
-                            "description": "ID of the user or commonArea to whom the device has been assigned.",
+                            "description": "The ID of the user or common area to whom the device has been assigned.",
                             "example": "i242djsgrg"
                           },
                           "name": {
                             "type": "string",
-                            "description": "Name.",
+                            "description": "The name.",
                             "example": "Pooja"
                           },
                           "extension_type": {
                             "type": "string",
-                            "description": "Type of the assignee. Available only if the device is assigned.",
+                            "description": "The type of the assignee. It's available only if the device is assigned.",
                             "example": "user"
                           },
                           "extension_id": {
                             "type": "string",
-                            "description": "Extension ID of the `user` or `common area`.",
+                            "description": "The extension ID of the `user` or `common area`.",
                             "example": "bdkfdler"
                           }
                         }
@@ -27136,22 +27152,22 @@
                     },
                     "device_type": {
                       "type": "string",
-                      "description": "Includes manufacturer name and the model name.",
+                      "description": "This field includes the manufacturer name and the model name.",
                       "example": "Ribbon EdgeMarc302"
                     },
                     "display_name": {
                       "type": "string",
-                      "description": "Display name of the device.",
+                      "description": "The display name of the device.",
                       "example": "Pooja's Phone"
                     },
                     "id": {
                       "type": "string",
-                      "description": "Device ID - Unique identifier of the Device.",
+                      "description": "The unique identifier of the device.",
                       "example": "1234324"
                     },
                     "mac_address": {
                       "type": "string",
-                      "description": "MAC address or serial number of the device.",
+                      "description": "The MAC address or serial number of the device.",
                       "example": "203a07240534"
                     },
                     "provision": {
@@ -27159,23 +27175,23 @@
                       "properties": {
                         "sip_accounts": {
                           "type": "array",
-                          "description": "SIP Account details registered during the device provisioning process. This object will only be returned if manual provisioning was used for the device.  ",
+                          "description": "The SIP Account details registered during the device provisioning process. This object will only be returned if manual provisioning was used for the device.  ",
                           "items": {
                             "type": "object",
                             "properties": {
                               "authorization_id": {
                                 "type": "string",
-                                "description": "Authorization ID of the SIP account provided in the provisioning process.",
+                                "description": "The authorization ID of the SIP account provided in the provisioning process.",
                                 "example": "123123"
                               },
                               "outbound_proxy": {
                                 "type": "string",
-                                "description": "Outbound proxy provided in the provisioning process.",
+                                "description": "The outbound proxy provided in the provisioning process.",
                                 "example": "123123"
                               },
                               "password": {
                                 "type": "string",
-                                "description": "Password entered during the  provisioning process. ",
+                                "description": "The password entered during the provisioning process. ",
                                 "example": "1123"
                               },
                               "secondary_outbound_proxy": {
@@ -27188,7 +27204,7 @@
                                 "properties": {
                                   "alias": {
                                     "type": "string",
-                                    "description": "Alias.",
+                                    "description": "The alias.",
                                     "example": "additional information"
                                   },
                                   "line_subscription": {
@@ -27196,18 +27212,18 @@
                                     "properties": {
                                       "display_name": {
                                         "type": "string",
-                                        "description": "Display name.",
+                                        "description": "The display name.",
                                         "example": "Pooja"
                                       },
                                       "extension_number": {
                                         "type": "integer",
-                                        "description": "Extension number.",
+                                        "description": "The extension number.",
                                         "format": "int64",
                                         "example": 123123
                                       },
                                       "phone_number": {
                                         "type": "string",
-                                        "description": "Phone number.",
+                                        "description": "The phone number.",
                                         "example": "12059535689"
                                       }
                                     },
@@ -27215,20 +27231,20 @@
                                   },
                                   "outbound_caller_id": {
                                     "type": "string",
-                                    "description": "Outbound caller ID.",
+                                    "description": "The outbound caller ID.",
                                     "example": "+123123123"
                                   }
                                 },
-                                "description": "Return additional provisioning information with generic device SIP credentials."
+                                "description": "This field returns additional provisioning information with generic device SIP credentials."
                               },
                               "sip_domain": {
                                 "type": "string",
-                                "description": "SIP Domain provided in the provisioning process.  \n  \n ",
+                                "description": "The SIP domain provided in the provisioning process.  \n  \n ",
                                 "example": "123.zoom.us"
                               },
                               "user_name": {
                                 "type": "string",
-                                "description": "User name of the SIP account provided in the provisioning process.",
+                                "description": "The user name of the SIP account provided in the provisioning process.",
                                 "example": "123123"
                               }
                             }
@@ -27236,16 +27252,16 @@
                         },
                         "type": {
                           "type": "string",
-                          "description": "[Provisioning type](https://support.zoom.us/hc/en-us/articles/360033223411). The value can be one of the following:\n\n* `ztp` : Zero touch provisioning.\n* `assisted`: Assisted provisioning.\n* `manual`: Manual provisioning. \n\n",
+                          "description": "The [provisioning type](https://support.zoom.us/hc/en-us/articles/360033223411). The value can be one of the following:\n\n* `ztp` : Zero touch provisioning.\n* `assisted`: Assisted provisioning.\n* `manual`: Manual provisioning. \n\n",
                           "example": "manual"
                         },
                         "url": {
                           "type": "string",
-                          "description": "Provisioning URL. This field will only be returned for devices that were provisioned via `assisted` provisioning type.",
+                          "description": "The provisioning URL. This field will only be returned for devices that were provisioned via `assisted` provisioning type.",
                           "example": "wwww.example.com"
                         }
                       },
-                      "description": "Provisioning information of a device."
+                      "description": "The provisioning information of a device."
                     },
                     "site": {
                       "type": "object",
@@ -27257,20 +27273,56 @@
                         },
                         "name": {
                           "type": "string",
-                          "description": "Name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).",
+                          "description": "The name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).",
                           "example": "Main Site"
                         }
                       }
                     },
                     "status": {
                       "type": "string",
-                      "description": "Status of the device. The value is either `online` or `offline`.",
+                      "description": "The status of the device. The value is either `online` or `offline`.",
                       "example": "offline"
                     },
                     "provision_template_id": {
                       "type": "string",
-                      "description": "Provision template id. Supported only by some devices. Empty string represents 'No value set'",
+                      "description": "The provision template ID. Supported only by some devices. Empty string represents 'No value set'",
                       "example": "Ke5Ghevvoo001hr"
+                    },
+                    "private_ip": {
+                      "type": "string",
+                      "description": "The private IP of the registered device",
+                      "example": "192.168.10.13"
+                    },
+                    "public_ip": {
+                      "type": "string",
+                      "description": "The public IP of the registered device",
+                      "example": "220.148.231.126"
+                    },
+                    "policy": {
+                      "type": "object",
+                      "properties": {
+                        "call_control": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string",
+                              "description": "This field enables the call control feature to the current device. It configures the desk phone devices to enable call control, which allows users to perform desk phone's call control actions from the Zoom desktop client, including making and accepting calls. \nOptions include: \n* `unsupported` \n* `on` \n* `off`",
+                              "example": "off"
+                            }
+                          }
+                        },
+                        "hot_desking": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string",
+                              "description": "This field enables the hot desking feature to the current device. It lets the guest user sign in to the desk phone. You can't use the desk phone until the guest user signs out. \nOptions include:\n* `unsupported` \n* `on` \n* `off`",
+                              "example": "off"
+                            }
+                          }
+                        }
+                      },
+                      "description": "The device policy."
                     }
                   }
                 }
@@ -27298,6 +27350,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -31114,7 +31167,7 @@
           {
             "name": "owner_type",
             "in": "query",
-            "description": "The owner type. \n\nThe allowed values are `null`, `user`, `sharedOfice`, or `callQueue`. \n\nThe default value is `null`.  If the value is `null`, it returns all owner types.",
+            "description": "The owner type. \n\nThe allowed values are `null`, `user`, `sharedOffice`, or `callQueue`. \n\nThe default value is `null`.  If the value is `null`, it returns all owner types.",
             "required": false,
             "schema": {
               "type": "string",
@@ -34919,6 +34972,222 @@
           ],
           "x-granular-scopes": [
             "phone:write:sms_campaign_number:admin"
+          ]
+        }
+      }
+    },
+    "/phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status": {
+      "get": {
+        "tags": [
+          "SMS Campaign"
+        ],
+        "summary": "List opt statuses of phone numbers assigned to SMS campaign",
+        "description": "Returns the opt statuses of phone numbers that are assigned to SMS the campaign.\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
+        "operationId": "getNumberCampaignOptStatus",
+        "parameters": [
+          {
+            "name": "smsCampaignId",
+            "in": "path",
+            "description": "The SMS campaign ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "C-_2Vkm3BsRoqxybJbP9HqFA"
+            }
+          },
+          {
+            "name": "consumer_phone_number",
+            "in": "query",
+            "description": "Thw end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "15043449240"
+            }
+          },
+          {
+            "name": "zoom_phone_user_numbers",
+            "in": "query",
+            "description": "The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.",
+            "required": true,
+            "schema": {
+              "maxItems": 10,
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "12094436304"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of opt statuses for each pair of sender's phone number and receiver's phone number.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "phone_number_campaign_opt_statuses"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "phone_number_campaign_opt_statuses": {
+                      "maxItems": 10,
+                      "uniqueItems": false,
+                      "type": "array",
+                      "description": "The list of opt statuses for each number pair.",
+                      "items": {
+                        "required": [
+                          "consumer_phone_number",
+                          "opt_status",
+                          "zoom_phone_user_number"
+                        ],
+                        "type": "object",
+                        "properties": {
+                          "consumer_phone_number": {
+                            "type": "string",
+                            "description": "The end user's phone number in E164 format that sends the Opt-in or Opt-out keyword to the Zoom Phone number.",
+                            "example": "+15043449240"
+                          },
+                          "zoom_phone_user_number": {
+                            "type": "string",
+                            "description": "The Zoom user's phone number in E164 format that receives the Opt-in or Opt-out keyword from the end user.",
+                            "example": "+12094436304"
+                          },
+                          "opt_status": {
+                            "type": "string",
+                            "description": "The opt status.",
+                            "example": "opt_out"
+                          }
+                        },
+                        "description": "The opt status per a number pair."
+                      }
+                    }
+                  },
+                  "description": "The list of opt statuses."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:sms_campaign_number_opt_status:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:sms_campaign_number_opt_status:admin"
+          ]
+        }
+      },
+      "patch": {
+        "tags": [
+          "SMS Campaign"
+        ],
+        "summary": "Update opt statuses of phone numbers assigned to SMS campaign",
+        "description": "Updates opt statuses of phone numbers that are assigned to the SMS campaign.\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
+        "operationId": "updateNumberCampaignOptStatus",
+        "parameters": [
+          {
+            "name": "smsCampaignId",
+            "in": "path",
+            "description": "The SMS campaign ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "C-_2Vkm3BsRoqxybJbP9HqFA"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "This field updates opt statuses of phone numbers that are assigned to the SMS campaign.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "consumer_phone_number",
+                  "opt_status",
+                  "zoom_phone_user_numbers"
+                ],
+                "type": "object",
+                "properties": {
+                  "consumer_phone_number": {
+                    "type": "string",
+                    "description": "The end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.",
+                    "example": "15043449240"
+                  },
+                  "zoom_phone_user_numbers": {
+                    "maxItems": 10,
+                    "uniqueItems": false,
+                    "type": "array",
+                    "description": "The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.",
+                    "items": {
+                      "type": "string",
+                      "example": "12094436304"
+                    }
+                  },
+                  "opt_status": {
+                    "type": "string",
+                    "description": "The opt status: either `opt_in` or `opt_out`.",
+                    "example": "opt_out"
+                  }
+                },
+                "description": "The request payload to update the opt statuses for phone numbers that are assigned to the SMS campaign."
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Update opt status for each pair of sender's phone number and receiver's phone number."
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:write:admin",
+              "phone:update:sms_campaign_number_opt_status:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:write:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:update:sms_campaign_number_opt_status:admin"
           ]
         }
       }
@@ -45982,7 +46251,7 @@
           "Users"
         ],
         "summary": "Get a user's profile settings",
-        "description": "Gets the Zoom Phone [profile settings](https://support.zoom.us/hc/en-us/articles/360021325712-Configuring-Settings) of a user. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**Scopes:** `phone:read:admin`,`phone:read`\n\n**Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Returns the Zoom Phone [profile settings](https://support.zoom.us/hc/en-us/articles/360021325712-Configuring-Settings) of a user. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**Scopes:** `phone:read`,`phone:read:admin`\n\n**Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "phoneUserSettings",
         "parameters": [
           {
@@ -46024,7 +46293,7 @@
                       "properties": {
                         "code": {
                           "type": "string",
-                          "description": "Two lettered country [code](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries).",
+                          "description": "The two lettered country [code](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries).",
                           "example": "US"
                         },
                         "country_code": {
@@ -46056,18 +46325,18 @@
                               },
                               "extension_id": {
                                 "type": "string",
-                                "description": "The extension ID.",
+                                "description": "The extension's ID.",
                                 "example": "CcrEGgmeQem1uyJsuIRKwA"
                               },
                               "extension_number": {
                                 "type": "integer",
-                                "description": "The extension number.",
+                                "description": "The extension's number.",
                                 "format": "int64",
                                 "example": 1000123477
                               },
                               "extension_type": {
                                 "type": "string",
-                                "description": "The extension type: `user` or `commonArea`.",
+                                "description": "The extension's type: `user` or `commonArea`.",
                                 "example": "user"
                               },
                               "id": {
@@ -46153,6 +46422,21 @@
                                 "type": "string",
                                 "description": "The status of the device: `online` or `offline`.",
                                 "example": "online"
+                              },
+                              "mac_address": {
+                                "type": "string",
+                                "description": "The MAC address or serial number of the device.",
+                                "example": "203a07240534"
+                              },
+                              "private_ip": {
+                                "type": "string",
+                                "description": "The private IP of the registered device.",
+                                "example": "192.168.10.13"
+                              },
+                              "public_ip": {
+                                "type": "string",
+                                "description": "The public IP of the registered device.",
+                                "example": "220.148.231.126"
                               }
                             }
                           }
@@ -46169,7 +46453,7 @@
                         },
                         "phone_screen_lock": {
                           "type": "boolean",
-                          "description": "After enabling this option, you can lock your desk phone screen. PIN Code is required to unlock your phone. This feature is not supported on some devices. See [Supported Device Types](https://support.zoom.us/hc/en-us/articles/360029698771) for more information.",
+                          "description": "After enabling this option, you can lock your desk phone screen. A PIN code is required to unlock your phone. This feature is not supported on some devices. See [Supported Device Types](https://support.zoom.us/hc/en-us/articles/360029698771) for more information.",
                           "example": true
                         },
                         "pin_code": {
@@ -46214,12 +46498,12 @@
                           },
                           "name": {
                             "type": "string",
-                            "description": "The outbound caller name.",
+                            "description": "The outbound caller's name.",
                             "example": "Outbound caller name."
                           },
                           "number": {
                             "type": "string",
-                            "description": "The outbound caller number.",
+                            "description": "The outbound caller's number.",
                             "example": "+2097392651"
                           }
                         }
@@ -46274,22 +46558,22 @@
                             "properties": {
                               "extension_id": {
                                 "type": "string",
-                                "description": "The extension ID.",
+                                "description": "The extension's ID.",
                                 "example": "52OdSKGSSS-EOyJwQncFvA"
                               },
                               "extension_number": {
                                 "type": "string",
-                                "description": "The extension number.",
+                                "description": "The extension's number.",
                                 "example": "1000001004"
                               },
                               "extension_type": {
                                 "type": "string",
-                                "description": "The extension type: `user` or `commonArea`.",
+                                "description": "The extension's type: `user` or `commonArea`.",
                                 "example": "user"
                               },
                               "display_name": {
                                 "type": "string",
-                                "description": "The display name.",
+                                "description": "The display's name.",
                                 "example": "test name"
                               },
                               "status": {
@@ -46315,12 +46599,12 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "description": "The device ID.",
+                              "description": "The device's ID.",
                               "example": "JHwOJZ_PRICfVhQlL0x_ww"
                             },
                             "name": {
                               "type": "string",
-                              "description": "The device name.",
+                              "description": "The device's name.",
                               "example": "Sita's Phone"
                             }
                           },
@@ -46426,8 +46710,8 @@
         "security": [
           {
             "openapi_oauth": [
-              "phone:read:admin",
               "phone:read",
+              "phone:read:admin",
               "phone:read:user_setting:admin",
               "phone:read:user_setting"
             ],
@@ -46437,8 +46721,8 @@
         "x-extensions": {
           "x-permissions": [],
           "x-macro-scopes": [
-            "phone:read:admin",
-            "phone:read"
+            "phone:read",
+            "phone:read:admin"
           ],
           "x-granular-scopes": [
             "phone:read:user_setting:admin",
@@ -50363,6 +50647,8 @@
               "phone:read:list_sms_campaigns:admin": "phone:read:list_sms_campaigns:admin",
               "phone:read:sms_campaign:admin": "phone:read:sms_campaign:admin",
               "phone:write:sms_campaign_number:admin": "phone:write:sms_campaign_number:admin",
+              "phone:read:sms_campaign_number_opt_status:admin": "phone:read:sms_campaign_number_opt_status:admin",
+              "phone:update:sms_campaign_number_opt_status:admin": "phone:update:sms_campaign_number_opt_status:admin",
               "phone:delete:sms_campaign_number:admin": "phone:delete:sms_campaign_number:admin",
               "phone:write:setting_template:admin": "phone:write:setting_template:admin",
               "phone:read:list_setting_templates:admin": "phone:read:list_setting_templates:admin",

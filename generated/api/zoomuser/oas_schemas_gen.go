@@ -387,6 +387,7 @@ func (s *ContactGroupCreateReqGroupMembersItem) SetID(val OptString) {
 type ContactGroupDeleteNoContent struct{}
 
 type ContactGroupMemberAddCreated struct {
+	// Member ids array.
 	MemberIds []string `json:"member_ids"`
 }
 
@@ -401,6 +402,7 @@ func (s *ContactGroupMemberAddCreated) SetMemberIds(val []string) {
 }
 
 type ContactGroupMemberAddReq struct {
+	// Group members array.
 	GroupMembers []ContactGroupMemberAddReqGroupMembersItem `json:"group_members"`
 }
 

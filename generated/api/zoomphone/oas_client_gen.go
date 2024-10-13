@@ -1789,7 +1789,7 @@ type Invoker interface {
 	GetACommonArea(ctx context.Context, params GetACommonAreaParams) (*GetACommonAreaOK, error)
 	// GetADevice invokes getADevice operation.
 	//
-	// Gets detailed information about a specific [desk phone device](https://support.zoom.
+	// Returns detailed information about a specific [desk phone device](https://support.zoom.
 	// us/hc/en-us/articles/360021119092).
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
@@ -1797,7 +1797,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/devices/{deviceId}
 	GetADevice(ctx context.Context, params GetADeviceParams) (*GetADeviceOK, error)
@@ -2046,15 +2046,15 @@ type Invoker interface {
 	GetCommonAreaOutboundCallingCountriesAndRegions(ctx context.Context, params GetCommonAreaOutboundCallingCountriesAndRegionsParams) (*GetCommonAreaOutboundCallingCountriesAndRegionsOK, error)
 	// GetCommonAreaSettings invokes getCommonAreaSettings operation.
 	//
-	// Use this API to get common area settings.
-	// **Note**: For use by customers who opted for `Common Area Optimization`
+	// Returns common area settings.
+	// **Note**: For customers who opted for `Common Area Optimization`.
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_common_area_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/common_areas/{commonAreaId}/settings
 	GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (*GetCommonAreaSettingsOK, error)
@@ -2138,6 +2138,16 @@ type Invoker interface {
 	//
 	// GET /phone/monitoring_groups/{monitoringGroupId}
 	GetMonitoringGroupById(ctx context.Context, params GetMonitoringGroupByIdParams) (*GetMonitoringGroupByIdOK, error)
+	// GetNumberCampaignOptStatus invokes getNumberCampaignOptStatus operation.
+	//
+	// Returns the opt statuses of phone numbers that are assigned to SMS the campaign.
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// GET /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+	GetNumberCampaignOptStatus(ctx context.Context, params GetNumberCampaignOptStatusParams) (*GetNumberCampaignOptStatusOK, error)
 	// GetPSOperationLogs invokes getPSOperationLogs operation.
 	//
 	// Retrieves the phone system operation logs report.
@@ -3325,17 +3335,17 @@ type Invoker interface {
 	PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (*PhoneUserRecordingsOK, error)
 	// PhoneUserSettings invokes phoneUserSettings operation.
 	//
-	// Gets the Zoom Phone [profile settings](https://support.zoom.
+	// Returns the Zoom Phone [profile settings](https://support.zoom.
 	// us/hc/en-us/articles/360021325712-Configuring-Settings) of a user. For user-level apps, pass [the
 	// `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of
 	// the `userId` parameter.
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
+	// **Scopes:** `phone:read`,`phone:read:admin`
 	// **Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/users/{userId}/settings
 	PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error)
@@ -4096,6 +4106,16 @@ type Invoker interface {
 	//
 	// PATCH /phone/monitoring_groups/{monitoringGroupId}
 	UpdateMonitoringGroup(ctx context.Context, request OptUpdateMonitoringGroupReq, params UpdateMonitoringGroupParams) error
+	// UpdateNumberCampaignOptStatus invokes updateNumberCampaignOptStatus operation.
+	//
+	// Updates opt statuses of phone numbers that are assigned to the SMS campaign.
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// PATCH /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+	UpdateNumberCampaignOptStatus(ctx context.Context, request OptUpdateNumberCampaignOptStatusReq, params UpdateNumberCampaignOptStatusParams) error
 	// UpdatePeeringPhoneNumbers invokes updatePeeringPhoneNumbers operation.
 	//
 	// Updates phone numbers to Zoom through the Provider Exchange.
@@ -22771,7 +22791,7 @@ func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaPa
 
 // GetADevice invokes getADevice operation.
 //
-// Gets detailed information about a specific [desk phone device](https://support.zoom.
+// Returns detailed information about a specific [desk phone device](https://support.zoom.
 // us/hc/en-us/articles/360021119092).
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
@@ -22779,7 +22799,7 @@ func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaPa
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/devices/{deviceId}
 func (c *Client) GetADevice(ctx context.Context, params GetADeviceParams) (*GetADeviceOK, error) {
@@ -25594,15 +25614,15 @@ func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context
 
 // GetCommonAreaSettings invokes getCommonAreaSettings operation.
 //
-// Use this API to get common area settings.
-// **Note**: For use by customers who opted for `Common Area Optimization`
+// Returns common area settings.
+// **Note**: For customers who opted for `Common Area Optimization`.
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_common_area_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/common_areas/{commonAreaId}/settings
 func (c *Client) GetCommonAreaSettings(ctx context.Context, params GetCommonAreaSettingsParams) (*GetCommonAreaSettingsOK, error) {
@@ -26598,6 +26618,186 @@ func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonit
 
 	stage = "DecodeResponse"
 	result, err := decodeGetMonitoringGroupByIdResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// GetNumberCampaignOptStatus invokes getNumberCampaignOptStatus operation.
+//
+// Returns the opt statuses of phone numbers that are assigned to SMS the campaign.
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// GET /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+func (c *Client) GetNumberCampaignOptStatus(ctx context.Context, params GetNumberCampaignOptStatusParams) (*GetNumberCampaignOptStatusOK, error) {
+	res, err := c.sendGetNumberCampaignOptStatus(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendGetNumberCampaignOptStatus(ctx context.Context, params GetNumberCampaignOptStatusParams) (res *GetNumberCampaignOptStatusOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("getNumberCampaignOptStatus"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "GetNumberCampaignOptStatus",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/sms_campaigns/"
+	{
+		// Encode "smsCampaignId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "smsCampaignId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.SmsCampaignId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/phone_numbers/opt_status"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "consumer_phone_number" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "consumer_phone_number",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.ConsumerPhoneNumber))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "zoom_phone_user_numbers" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "zoom_phone_user_numbers",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeArray(func(e uri.Encoder) error {
+				for i, item := range params.ZoomPhoneUserNumbers {
+					if err := func() error {
+						return e.EncodeValue(conv.StringToString(item))
+					}(); err != nil {
+						return errors.Wrapf(err, "[%d]", i)
+					}
+				}
+				return nil
+			})
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "GetNumberCampaignOptStatus", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "GetNumberCampaignOptStatus", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeGetNumberCampaignOptStatusResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -42142,17 +42342,17 @@ func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRe
 
 // PhoneUserSettings invokes phoneUserSettings operation.
 //
-// Gets the Zoom Phone [profile settings](https://support.zoom.
+// Returns the Zoom Phone [profile settings](https://support.zoom.
 // us/hc/en-us/articles/360021325712-Configuring-Settings) of a user. For user-level apps, pass [the
 // `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of
 // the `userId` parameter.
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
+// **Scopes:** `phone:read`,`phone:read:admin`
 // **Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/users/{userId}/settings
 func (c *Client) PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error) {
@@ -50570,6 +50770,148 @@ func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdat
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateMonitoringGroupResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateNumberCampaignOptStatus invokes updateNumberCampaignOptStatus operation.
+//
+// Updates opt statuses of phone numbers that are assigned to the SMS campaign.
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// PATCH /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+func (c *Client) UpdateNumberCampaignOptStatus(ctx context.Context, request OptUpdateNumberCampaignOptStatusReq, params UpdateNumberCampaignOptStatusParams) error {
+	_, err := c.sendUpdateNumberCampaignOptStatus(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendUpdateNumberCampaignOptStatus(ctx context.Context, request OptUpdateNumberCampaignOptStatusReq, params UpdateNumberCampaignOptStatusParams) (res *UpdateNumberCampaignOptStatusNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateNumberCampaignOptStatus"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateNumberCampaignOptStatus",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/sms_campaigns/"
+	{
+		// Encode "smsCampaignId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "smsCampaignId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.SmsCampaignId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/phone_numbers/opt_status"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateNumberCampaignOptStatusRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "UpdateNumberCampaignOptStatus", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "UpdateNumberCampaignOptStatus", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateNumberCampaignOptStatusResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}

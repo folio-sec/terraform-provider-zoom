@@ -20,18 +20,20 @@ type ContactGroupDeleteParams struct {
 
 // ContactGroupMemberAddParams is parameters of contactGroupMemberAdd operation.
 type ContactGroupMemberAddParams struct {
-	// The group ID.
+	// The contact group ID.
+	// Retrieve by calling the List contact groups API.
 	GroupId string
 }
 
 // ContactGroupMemberRemoveParams is parameters of contactGroupMemberRemove operation.
 type ContactGroupMemberRemoveParams struct {
+	// The contact group ID.
+	// Retrieve by calling the List contact groups API.
+	GroupId string
 	// The member's ID in a contact group. Use commas (,) to separate a maximum of 20 ids.
 	// Can be retrieved by calling the [**List contact
 	// groups**](/docs/api-reference/zoom-api/methods#operation/contactGroupMembers) API.
 	MemberIds string
-	// The group ID.
-	GroupId string
 }
 
 // ContactGroupMembersParams is parameters of contactGroupMembers operation.

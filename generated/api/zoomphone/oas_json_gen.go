@@ -24560,19 +24560,40 @@ func (s *GetADeviceOK) encodeFields(e *jx.Encoder) {
 			s.ProvisionTemplateID.Encode(e)
 		}
 	}
+	{
+		if s.PrivateIP.Set {
+			e.FieldStart("private_ip")
+			s.PrivateIP.Encode(e)
+		}
+	}
+	{
+		if s.PublicIP.Set {
+			e.FieldStart("public_ip")
+			s.PublicIP.Encode(e)
+		}
+	}
+	{
+		if s.Policy.Set {
+			e.FieldStart("policy")
+			s.Policy.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfGetADeviceOK = [10]string{
-	0: "assignee",
-	1: "assignees",
-	2: "device_type",
-	3: "display_name",
-	4: "id",
-	5: "mac_address",
-	6: "provision",
-	7: "site",
-	8: "status",
-	9: "provision_template_id",
+var jsonFieldsNameOfGetADeviceOK = [13]string{
+	0:  "assignee",
+	1:  "assignees",
+	2:  "device_type",
+	3:  "display_name",
+	4:  "id",
+	5:  "mac_address",
+	6:  "provision",
+	7:  "site",
+	8:  "status",
+	9:  "provision_template_id",
+	10: "private_ip",
+	11: "public_ip",
+	12: "policy",
 }
 
 // Decode decodes GetADeviceOK from json.
@@ -24689,6 +24710,36 @@ func (s *GetADeviceOK) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"provision_template_id\"")
+			}
+		case "private_ip":
+			if err := func() error {
+				s.PrivateIP.Reset()
+				if err := s.PrivateIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"private_ip\"")
+			}
+		case "public_ip":
+			if err := func() error {
+				s.PublicIP.Reset()
+				if err := s.PublicIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"public_ip\"")
+			}
+		case "policy":
+			if err := func() error {
+				s.Policy.Reset()
+				if err := s.Policy.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"policy\"")
 			}
 		default:
 			return d.Skip()
@@ -24955,6 +25006,212 @@ func (s *GetADeviceOKAssigneesItem) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *GetADeviceOKAssigneesItem) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetADeviceOKPolicy) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetADeviceOKPolicy) encodeFields(e *jx.Encoder) {
+	{
+		if s.CallControl.Set {
+			e.FieldStart("call_control")
+			s.CallControl.Encode(e)
+		}
+	}
+	{
+		if s.HotDesking.Set {
+			e.FieldStart("hot_desking")
+			s.HotDesking.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetADeviceOKPolicy = [2]string{
+	0: "call_control",
+	1: "hot_desking",
+}
+
+// Decode decodes GetADeviceOKPolicy from json.
+func (s *GetADeviceOKPolicy) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetADeviceOKPolicy to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "call_control":
+			if err := func() error {
+				s.CallControl.Reset()
+				if err := s.CallControl.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"call_control\"")
+			}
+		case "hot_desking":
+			if err := func() error {
+				s.HotDesking.Reset()
+				if err := s.HotDesking.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hot_desking\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetADeviceOKPolicy")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetADeviceOKPolicy) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetADeviceOKPolicy) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetADeviceOKPolicyCallControl) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetADeviceOKPolicyCallControl) encodeFields(e *jx.Encoder) {
+	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetADeviceOKPolicyCallControl = [1]string{
+	0: "status",
+}
+
+// Decode decodes GetADeviceOKPolicyCallControl from json.
+func (s *GetADeviceOKPolicyCallControl) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetADeviceOKPolicyCallControl to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetADeviceOKPolicyCallControl")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetADeviceOKPolicyCallControl) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetADeviceOKPolicyCallControl) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetADeviceOKPolicyHotDesking) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetADeviceOKPolicyHotDesking) encodeFields(e *jx.Encoder) {
+	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfGetADeviceOKPolicyHotDesking = [1]string{
+	0: "status",
+}
+
+// Decode decodes GetADeviceOKPolicyHotDesking from json.
+func (s *GetADeviceOKPolicyHotDesking) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetADeviceOKPolicyHotDesking to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetADeviceOKPolicyHotDesking")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetADeviceOKPolicyHotDesking) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetADeviceOKPolicyHotDesking) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -47088,19 +47345,40 @@ func (s *GetCommonAreaSettingsOKDeskPhonesItem) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.MACAddress.Set {
+			e.FieldStart("mac_address")
+			s.MACAddress.Encode(e)
+		}
+	}
+	{
 		if s.HotDesking.Set {
 			e.FieldStart("hot_desking")
 			s.HotDesking.Encode(e)
 		}
 	}
+	{
+		if s.PrivateIP.Set {
+			e.FieldStart("private_ip")
+			s.PrivateIP.Encode(e)
+		}
+	}
+	{
+		if s.PublicIP.Set {
+			e.FieldStart("public_ip")
+			s.PublicIP.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfGetCommonAreaSettingsOKDeskPhonesItem = [5]string{
+var jsonFieldsNameOfGetCommonAreaSettingsOKDeskPhonesItem = [8]string{
 	0: "id",
 	1: "display_name",
 	2: "device_type",
 	3: "status",
-	4: "hot_desking",
+	4: "mac_address",
+	5: "hot_desking",
+	6: "private_ip",
+	7: "public_ip",
 }
 
 // Decode decodes GetCommonAreaSettingsOKDeskPhonesItem from json.
@@ -47151,6 +47429,16 @@ func (s *GetCommonAreaSettingsOKDeskPhonesItem) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"status\"")
 			}
+		case "mac_address":
+			if err := func() error {
+				s.MACAddress.Reset()
+				if err := s.MACAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mac_address\"")
+			}
 		case "hot_desking":
 			if err := func() error {
 				s.HotDesking.Reset()
@@ -47160,6 +47448,26 @@ func (s *GetCommonAreaSettingsOKDeskPhonesItem) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"hot_desking\"")
+			}
+		case "private_ip":
+			if err := func() error {
+				s.PrivateIP.Reset()
+				if err := s.PrivateIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"private_ip\"")
+			}
+		case "public_ip":
+			if err := func() error {
+				s.PublicIP.Reset()
+				if err := s.PublicIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"public_ip\"")
 			}
 		default:
 			return d.Skip()
@@ -55979,6 +56287,242 @@ func (s *GetMonitoringGroupByIdOKSite) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *GetMonitoringGroupByIdOKSite) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetNumberCampaignOptStatusOK) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetNumberCampaignOptStatusOK) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("phone_number_campaign_opt_statuses")
+		e.ArrStart()
+		for _, elem := range s.PhoneNumberCampaignOptStatuses {
+			elem.Encode(e)
+		}
+		e.ArrEnd()
+	}
+}
+
+var jsonFieldsNameOfGetNumberCampaignOptStatusOK = [1]string{
+	0: "phone_number_campaign_opt_statuses",
+}
+
+// Decode decodes GetNumberCampaignOptStatusOK from json.
+func (s *GetNumberCampaignOptStatusOK) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetNumberCampaignOptStatusOK to nil")
+	}
+	var requiredBitSet [1]uint8
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "phone_number_campaign_opt_statuses":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				s.PhoneNumberCampaignOptStatuses = make([]GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.PhoneNumberCampaignOptStatuses = append(s.PhoneNumberCampaignOptStatuses, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"phone_number_campaign_opt_statuses\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetNumberCampaignOptStatusOK")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000001,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfGetNumberCampaignOptStatusOK) {
+					name = jsonFieldsNameOfGetNumberCampaignOptStatusOK[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetNumberCampaignOptStatusOK) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetNumberCampaignOptStatusOK) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("consumer_phone_number")
+		e.Str(s.ConsumerPhoneNumber)
+	}
+	{
+		e.FieldStart("zoom_phone_user_number")
+		e.Str(s.ZoomPhoneUserNumber)
+	}
+	{
+		e.FieldStart("opt_status")
+		e.Str(s.OptStatus)
+	}
+}
+
+var jsonFieldsNameOfGetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem = [3]string{
+	0: "consumer_phone_number",
+	1: "zoom_phone_user_number",
+	2: "opt_status",
+}
+
+// Decode decodes GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem from json.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem to nil")
+	}
+	var requiredBitSet [1]uint8
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "consumer_phone_number":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				v, err := d.Str()
+				s.ConsumerPhoneNumber = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"consumer_phone_number\"")
+			}
+		case "zoom_phone_user_number":
+			requiredBitSet[0] |= 1 << 1
+			if err := func() error {
+				v, err := d.Str()
+				s.ZoomPhoneUserNumber = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"zoom_phone_user_number\"")
+			}
+		case "opt_status":
+			requiredBitSet[0] |= 1 << 2
+			if err := func() error {
+				v, err := d.Str()
+				s.OptStatus = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"opt_status\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000111,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfGetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) {
+					name = jsonFieldsNameOfGetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -104736,6 +105280,105 @@ func (s *OptGetADeviceOKAssignee) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes GetADeviceOKPolicy as json.
+func (o OptGetADeviceOKPolicy) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetADeviceOKPolicy from json.
+func (o *OptGetADeviceOKPolicy) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetADeviceOKPolicy to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetADeviceOKPolicy) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetADeviceOKPolicy) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes GetADeviceOKPolicyCallControl as json.
+func (o OptGetADeviceOKPolicyCallControl) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetADeviceOKPolicyCallControl from json.
+func (o *OptGetADeviceOKPolicyCallControl) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetADeviceOKPolicyCallControl to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetADeviceOKPolicyCallControl) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetADeviceOKPolicyCallControl) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes GetADeviceOKPolicyHotDesking as json.
+func (o OptGetADeviceOKPolicyHotDesking) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes GetADeviceOKPolicyHotDesking from json.
+func (o *OptGetADeviceOKPolicyHotDesking) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptGetADeviceOKPolicyHotDesking to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptGetADeviceOKPolicyHotDesking) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptGetADeviceOKPolicyHotDesking) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes GetADeviceOKProvision as json.
 func (o OptGetADeviceOKProvision) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -120019,6 +120662,39 @@ func (s OptUpdateMonitoringGroupReq) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptUpdateMonitoringGroupReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes UpdateNumberCampaignOptStatusReq as json.
+func (o OptUpdateNumberCampaignOptStatusReq) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UpdateNumberCampaignOptStatusReq from json.
+func (o *OptUpdateNumberCampaignOptStatusReq) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUpdateNumberCampaignOptStatusReq to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUpdateNumberCampaignOptStatusReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUpdateNumberCampaignOptStatusReq) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -136482,14 +137158,35 @@ func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) encodeFields(e *jx.Encoder) {
 			s.Status.Encode(e)
 		}
 	}
+	{
+		if s.MACAddress.Set {
+			e.FieldStart("mac_address")
+			s.MACAddress.Encode(e)
+		}
+	}
+	{
+		if s.PrivateIP.Set {
+			e.FieldStart("private_ip")
+			s.PrivateIP.Encode(e)
+		}
+	}
+	{
+		if s.PublicIP.Set {
+			e.FieldStart("public_ip")
+			s.PublicIP.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfPhoneUserSettingsOKDeskPhoneDevicesItem = [5]string{
+var jsonFieldsNameOfPhoneUserSettingsOKDeskPhoneDevicesItem = [8]string{
 	0: "device_type",
 	1: "display_name",
 	2: "id",
 	3: "policy",
 	4: "status",
+	5: "mac_address",
+	6: "private_ip",
+	7: "public_ip",
 }
 
 // Decode decodes PhoneUserSettingsOKDeskPhoneDevicesItem from json.
@@ -136549,6 +137246,36 @@ func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"status\"")
+			}
+		case "mac_address":
+			if err := func() error {
+				s.MACAddress.Reset()
+				if err := s.MACAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mac_address\"")
+			}
+		case "private_ip":
+			if err := func() error {
+				s.PrivateIP.Reset()
+				if err := s.PrivateIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"private_ip\"")
+			}
+		case "public_ip":
+			if err := func() error {
+				s.PublicIP.Reset()
+				if err := s.PublicIP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"public_ip\"")
 			}
 		default:
 			return d.Skip()
@@ -148173,6 +148900,148 @@ func (s *UpdateMonitoringGroupReq) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UpdateMonitoringGroupReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UpdateNumberCampaignOptStatusReq) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UpdateNumberCampaignOptStatusReq) encodeFields(e *jx.Encoder) {
+	{
+		e.FieldStart("consumer_phone_number")
+		e.Str(s.ConsumerPhoneNumber)
+	}
+	{
+		e.FieldStart("zoom_phone_user_numbers")
+		e.ArrStart()
+		for _, elem := range s.ZoomPhoneUserNumbers {
+			e.Str(elem)
+		}
+		e.ArrEnd()
+	}
+	{
+		e.FieldStart("opt_status")
+		e.Str(s.OptStatus)
+	}
+}
+
+var jsonFieldsNameOfUpdateNumberCampaignOptStatusReq = [3]string{
+	0: "consumer_phone_number",
+	1: "zoom_phone_user_numbers",
+	2: "opt_status",
+}
+
+// Decode decodes UpdateNumberCampaignOptStatusReq from json.
+func (s *UpdateNumberCampaignOptStatusReq) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UpdateNumberCampaignOptStatusReq to nil")
+	}
+	var requiredBitSet [1]uint8
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "consumer_phone_number":
+			requiredBitSet[0] |= 1 << 0
+			if err := func() error {
+				v, err := d.Str()
+				s.ConsumerPhoneNumber = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"consumer_phone_number\"")
+			}
+		case "zoom_phone_user_numbers":
+			requiredBitSet[0] |= 1 << 1
+			if err := func() error {
+				s.ZoomPhoneUserNumbers = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.ZoomPhoneUserNumbers = append(s.ZoomPhoneUserNumbers, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"zoom_phone_user_numbers\"")
+			}
+		case "opt_status":
+			requiredBitSet[0] |= 1 << 2
+			if err := func() error {
+				v, err := d.Str()
+				s.OptStatus = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"opt_status\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UpdateNumberCampaignOptStatusReq")
+	}
+	// Validate required fields.
+	var failures []validate.FieldError
+	for i, mask := range [1]uint8{
+		0b00000111,
+	} {
+		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
+			// Mask only required fields and check equality to mask using XOR.
+			//
+			// If XOR result is not zero, result is not equal to expected, so some fields are missed.
+			// Bits of fields which would be set are actually bits of missed fields.
+			missed := bits.OnesCount8(result)
+			for bitN := 0; bitN < missed; bitN++ {
+				bitIdx := bits.TrailingZeros8(result)
+				fieldIdx := i*8 + bitIdx
+				var name string
+				if fieldIdx < len(jsonFieldsNameOfUpdateNumberCampaignOptStatusReq) {
+					name = jsonFieldsNameOfUpdateNumberCampaignOptStatusReq[fieldIdx]
+				} else {
+					name = strconv.Itoa(fieldIdx)
+				}
+				failures = append(failures, validate.FieldError{
+					Name:  name,
+					Error: validate.ErrFieldRequired,
+				})
+				// Reset bit.
+				result &^= 1 << bitIdx
+			}
+		}
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UpdateNumberCampaignOptStatusReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UpdateNumberCampaignOptStatusReq) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

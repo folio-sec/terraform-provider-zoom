@@ -75,18 +75,18 @@ type Invoker interface {
 	// **Prerequisite**: Pro or higher account.
 	// **Scopes:** `contact_group:write:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Heavy`.
+	// `HEAVY`.
 	//
 	// POST /contacts/groups/{groupId}/members
 	ContactGroupMemberAdd(ctx context.Context, request OptContactGroupMemberAddReq, params ContactGroupMemberAddParams) (*ContactGroupMemberAddCreated, error)
 	// ContactGroupMemberRemove invokes contactGroupMemberRemove operation.
 	//
-	// Use this API to remove members in a [contact group](https://support.zoom.
+	// Removes members in a [contact group](https://support.zoom.
 	// us/hc/en-us/articles/204519819-Group-Management-).
 	// **Prerequisite**: Pro or higher account.
 	// **Scopes:** `contact_group:write:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Heavy`.
+	// `HEAVY`.
 	//
 	// DELETE /contacts/groups/{groupId}/members
 	ContactGroupMemberRemove(ctx context.Context, params ContactGroupMemberRemoveParams) error
@@ -577,7 +577,7 @@ type Invoker interface {
 	// **Scopes:** `user:write:admin`,`user:write`
 	// **Granular Scopes:** `user:write:assistant`,`user:write:assistant:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// POST /users/{userId}/assistants
 	UserAssistantCreate(ctx context.Context, request OptUserAssistantCreateReq, params UserAssistantCreateParams) (*UserAssistantCreateCreated, error)
@@ -768,13 +768,13 @@ type Invoker interface {
 	UserPictureDelete(ctx context.Context, params UserPictureDeleteParams) error
 	// UserSSOTokenDelete invokes userSSOTokenDelete operation.
 	//
-	// Revoke a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.
+	// Revokes a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.
 	// us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.
 	// After calling this API, the SSO user will be logged out of their current Zoom session.
 	// **Scopes:** `user:write:admin`,`user:write`
 	// **Granular Scopes:** `user:delete:token`,`user:delete:token:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /users/{userId}/token
 	UserSSOTokenDelete(ctx context.Context, params UserSSOTokenDeleteParams) error
@@ -864,23 +864,23 @@ type Invoker interface {
 	UserStatus(ctx context.Context, request OptUserStatusReq, params UserStatusParams) error
 	// UserSummary invokes userSummary operation.
 	//
-	// Use this API to get a summary of users, including the number and types of users in the account.
+	// Gets a summary of users, including the number and types of users in the account.
 	// **Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`
 	// **Granular Scopes:** `user:read:summary:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /users/summary
 	UserSummary(ctx context.Context) (*UserSummaryOK, error)
 	// UserToken invokes userToken operation.
 	//
-	// Get a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me`
+	// Gets a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me`
 	// value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the
 	// `userId` parameter.
 	// **Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`,`user_profile`
 	// **Granular Scopes:** `user:read:token`,`user:read:token:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /users/{userId}/token
 	UserToken(ctx context.Context, params UserTokenParams) (*UserTokenOK, error)
@@ -1516,7 +1516,7 @@ func (c *Client) sendContactGroupDelete(ctx context.Context, params ContactGroup
 // **Prerequisite**: Pro or higher account.
 // **Scopes:** `contact_group:write:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Heavy`.
+// `HEAVY`.
 //
 // POST /contacts/groups/{groupId}/members
 func (c *Client) ContactGroupMemberAdd(ctx context.Context, request OptContactGroupMemberAddReq, params ContactGroupMemberAddParams) (*ContactGroupMemberAddCreated, error) {
@@ -1654,12 +1654,12 @@ func (c *Client) sendContactGroupMemberAdd(ctx context.Context, request OptConta
 
 // ContactGroupMemberRemove invokes contactGroupMemberRemove operation.
 //
-// Use this API to remove members in a [contact group](https://support.zoom.
+// Removes members in a [contact group](https://support.zoom.
 // us/hc/en-us/articles/204519819-Group-Management-).
 // **Prerequisite**: Pro or higher account.
 // **Scopes:** `contact_group:write:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Heavy`.
+// `HEAVY`.
 //
 // DELETE /contacts/groups/{groupId}/members
 func (c *Client) ContactGroupMemberRemove(ctx context.Context, params ContactGroupMemberRemoveParams) error {
@@ -6898,7 +6898,7 @@ func (c *Client) sendUser(ctx context.Context, params UserParams) (res *UserOK, 
 // **Scopes:** `user:write:admin`,`user:write`
 // **Granular Scopes:** `user:write:assistant`,`user:write:assistant:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // POST /users/{userId}/assistants
 func (c *Client) UserAssistantCreate(ctx context.Context, request OptUserAssistantCreateReq, params UserAssistantCreateParams) (*UserAssistantCreateCreated, error) {
@@ -8772,13 +8772,13 @@ func (c *Client) sendUserPictureDelete(ctx context.Context, params UserPictureDe
 
 // UserSSOTokenDelete invokes userSSOTokenDelete operation.
 //
-// Revoke a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.
+// Revokes a user's SSO token. For user-level apps, pass [the `me` value](https://developers.zoom.
 // us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.
 // After calling this API, the SSO user will be logged out of their current Zoom session.
 // **Scopes:** `user:write:admin`,`user:write`
 // **Granular Scopes:** `user:delete:token`,`user:delete:token:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /users/{userId}/token
 func (c *Client) UserSSOTokenDelete(ctx context.Context, params UserSSOTokenDeleteParams) error {
@@ -9871,11 +9871,11 @@ func (c *Client) sendUserStatus(ctx context.Context, request OptUserStatusReq, p
 
 // UserSummary invokes userSummary operation.
 //
-// Use this API to get a summary of users, including the number and types of users in the account.
+// Gets a summary of users, including the number and types of users in the account.
 // **Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`
 // **Granular Scopes:** `user:read:summary:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /users/summary
 func (c *Client) UserSummary(ctx context.Context) (*UserSummaryOK, error) {
@@ -9991,13 +9991,13 @@ func (c *Client) sendUserSummary(ctx context.Context) (res *UserSummaryOK, err e
 
 // UserToken invokes userToken operation.
 //
-// Get a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me`
+// Gets a user's Zoom token or Zoom Access Key (ZAK). For user-level apps, pass [the `me`
 // value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the
 // `userId` parameter.
 // **Scopes:** `user:read`,`user:write`,`user:read:admin`,`user:write:admin`,`user_profile`
 // **Granular Scopes:** `user:read:token`,`user:read:token:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /users/{userId}/token
 func (c *Client) UserToken(ctx context.Context, params UserTokenParams) (*UserTokenOK, error) {

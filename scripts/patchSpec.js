@@ -358,37 +358,6 @@ function phonePatch(spec) {
 }
 
 function userPatch(spec) {
-  // The path name and parameter name do not exist,
-  // so the path parameter is matched to the path name.
-  [
-    'post',
-    'delete',
-  ].forEach((method) => {
-    const path = '/contacts/groups/{groupId}/members';
-    if (!spec.paths[path]) {
-      return;
-    }
-
-    const parameters = spec.paths[path][method].parameters ?? [];
-
-    spec.paths[path][method] = {
-      ...spec.paths[path][method],
-      parameters: [
-        ...parameters,
-        {
-          name: "groupId",
-          in: "path",
-          description: "The group ID.",
-          required: true,
-          schema: {
-            type: "string",
-            example: "A4ql1FjgL913r"
-          },
-        },
-      ]
-    }
-  });
-
   // OpenAPI integer type is not supported maxLength/minLength
   if (spec.paths['/users/{userId}']) {
     const pmi = spec.paths['/users/{userId}'].patch.requestBody.content['application/json'].schema.properties.pmi;

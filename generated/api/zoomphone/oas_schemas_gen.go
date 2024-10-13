@@ -10284,24 +10284,30 @@ func (s *GetACommonAreaOKSite) SetName(val OptString) {
 }
 
 type GetADeviceOK struct {
-	// User to whom the device has been assigned.
+	// The user to whom the device has been assigned.
 	Assignee  OptGetADeviceOKAssignee     `json:"assignee"`
 	Assignees []GetADeviceOKAssigneesItem `json:"assignees"`
-	// Includes manufacturer name and the model name.
+	// This field includes the manufacturer name and the model name.
 	DeviceType OptString `json:"device_type"`
-	// Display name of the device.
+	// The display name of the device.
 	DisplayName OptString `json:"display_name"`
-	// Device ID - Unique identifier of the Device.
+	// The unique identifier of the device.
 	ID OptString `json:"id"`
-	// MAC address or serial number of the device.
+	// The MAC address or serial number of the device.
 	MACAddress OptString `json:"mac_address"`
-	// Provisioning information of a device.
+	// The provisioning information of a device.
 	Provision OptGetADeviceOKProvision `json:"provision"`
 	Site      OptGetADeviceOKSite      `json:"site"`
-	// Status of the device. The value is either `online` or `offline`.
+	// The status of the device. The value is either `online` or `offline`.
 	Status OptString `json:"status"`
-	// Provision template id. Supported only by some devices. Empty string represents 'No value set'.
+	// The provision template ID. Supported only by some devices. Empty string represents 'No value set'.
 	ProvisionTemplateID OptString `json:"provision_template_id"`
+	// The private IP of the registered device.
+	PrivateIP OptString `json:"private_ip"`
+	// The public IP of the registered device.
+	PublicIP OptString `json:"public_ip"`
+	// The device policy.
+	Policy OptGetADeviceOKPolicy `json:"policy"`
 }
 
 // GetAssignee returns the value of Assignee.
@@ -10354,6 +10360,21 @@ func (s *GetADeviceOK) GetProvisionTemplateID() OptString {
 	return s.ProvisionTemplateID
 }
 
+// GetPrivateIP returns the value of PrivateIP.
+func (s *GetADeviceOK) GetPrivateIP() OptString {
+	return s.PrivateIP
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *GetADeviceOK) GetPublicIP() OptString {
+	return s.PublicIP
+}
+
+// GetPolicy returns the value of Policy.
+func (s *GetADeviceOK) GetPolicy() OptGetADeviceOKPolicy {
+	return s.Policy
+}
+
 // SetAssignee sets the value of Assignee.
 func (s *GetADeviceOK) SetAssignee(val OptGetADeviceOKAssignee) {
 	s.Assignee = val
@@ -10404,15 +10425,30 @@ func (s *GetADeviceOK) SetProvisionTemplateID(val OptString) {
 	s.ProvisionTemplateID = val
 }
 
-// User to whom the device has been assigned.
+// SetPrivateIP sets the value of PrivateIP.
+func (s *GetADeviceOK) SetPrivateIP(val OptString) {
+	s.PrivateIP = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *GetADeviceOK) SetPublicIP(val OptString) {
+	s.PublicIP = val
+}
+
+// SetPolicy sets the value of Policy.
+func (s *GetADeviceOK) SetPolicy(val OptGetADeviceOKPolicy) {
+	s.Policy = val
+}
+
+// The user to whom the device has been assigned.
 type GetADeviceOKAssignee struct {
-	// Extension number of the Zoom Phone used by the `user` or `commonArea`.
+	// The extension number of the Zoom Phone the `user` or `commonArea` uses.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// ID of the user or commonArea to whom the device has been assigned.
+	// The ID of the user or common area to whom the device has been assigned.
 	ID OptString `json:"id"`
 	// Name.
 	Name OptString `json:"name"`
-	// Type of the assignee. Available only if the device is assigned.
+	// The type of the assignee. It's available only if the device is assigned.
 	ExtensionType OptString `json:"extension_type"`
 }
 
@@ -10457,15 +10493,15 @@ func (s *GetADeviceOKAssignee) SetExtensionType(val OptString) {
 }
 
 type GetADeviceOKAssigneesItem struct {
-	// Extension number of the Zoom Phone used by the `user` or `commonArea`.
+	// The extension number of the Zoom Phone the `user` or `commonArea` uses.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// ID of the user or commonArea to whom the device has been assigned.
+	// The ID of the user or common area to whom the device has been assigned.
 	ID OptString `json:"id"`
-	// Name.
+	// The name.
 	Name OptString `json:"name"`
-	// Type of the assignee. Available only if the device is assigned.
+	// The type of the assignee. It's available only if the device is assigned.
 	ExtensionType OptString `json:"extension_type"`
-	// Extension ID of the `user` or `common area`.
+	// The extension ID of the `user` or `common area`.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -10519,18 +10555,85 @@ func (s *GetADeviceOKAssigneesItem) SetExtensionID(val OptString) {
 	s.ExtensionID = val
 }
 
-// Provisioning information of a device.
+// The device policy.
+type GetADeviceOKPolicy struct {
+	CallControl OptGetADeviceOKPolicyCallControl `json:"call_control"`
+	HotDesking  OptGetADeviceOKPolicyHotDesking  `json:"hot_desking"`
+}
+
+// GetCallControl returns the value of CallControl.
+func (s *GetADeviceOKPolicy) GetCallControl() OptGetADeviceOKPolicyCallControl {
+	return s.CallControl
+}
+
+// GetHotDesking returns the value of HotDesking.
+func (s *GetADeviceOKPolicy) GetHotDesking() OptGetADeviceOKPolicyHotDesking {
+	return s.HotDesking
+}
+
+// SetCallControl sets the value of CallControl.
+func (s *GetADeviceOKPolicy) SetCallControl(val OptGetADeviceOKPolicyCallControl) {
+	s.CallControl = val
+}
+
+// SetHotDesking sets the value of HotDesking.
+func (s *GetADeviceOKPolicy) SetHotDesking(val OptGetADeviceOKPolicyHotDesking) {
+	s.HotDesking = val
+}
+
+type GetADeviceOKPolicyCallControl struct {
+	// This field enables the call control feature to the current device. It configures the desk phone
+	// devices to enable call control, which allows users to perform desk phone's call control actions
+	// from the Zoom desktop client, including making and accepting calls.
+	// Options include:
+	// * `unsupported`
+	// * `on`
+	// * `off`.
+	Status OptString `json:"status"`
+}
+
+// GetStatus returns the value of Status.
+func (s *GetADeviceOKPolicyCallControl) GetStatus() OptString {
+	return s.Status
+}
+
+// SetStatus sets the value of Status.
+func (s *GetADeviceOKPolicyCallControl) SetStatus(val OptString) {
+	s.Status = val
+}
+
+type GetADeviceOKPolicyHotDesking struct {
+	// This field enables the hot desking feature to the current device. It lets the guest user sign in
+	// to the desk phone. You can't use the desk phone until the guest user signs out.
+	// Options include:
+	// * `unsupported`
+	// * `on`
+	// * `off`.
+	Status OptString `json:"status"`
+}
+
+// GetStatus returns the value of Status.
+func (s *GetADeviceOKPolicyHotDesking) GetStatus() OptString {
+	return s.Status
+}
+
+// SetStatus sets the value of Status.
+func (s *GetADeviceOKPolicyHotDesking) SetStatus(val OptString) {
+	s.Status = val
+}
+
+// The provisioning information of a device.
 type GetADeviceOKProvision struct {
-	// SIP Account details registered during the device provisioning process. This object will only be
-	// returned if manual provisioning was used for the device.
+	// The SIP Account details registered during the device provisioning process. This object will only
+	// be returned if manual provisioning was used for the device.
 	SipAccounts []GetADeviceOKProvisionSipAccountsItem `json:"sip_accounts"`
-	// [Provisioning type](https://support.zoom.us/hc/en-us/articles/360033223411). The value can be one
-	// of the following:
+	// The [provisioning type](https://support.zoom.us/hc/en-us/articles/360033223411). The value can be
+	// one of the following:
 	// * `ztp` : Zero touch provisioning.
 	// * `assisted`: Assisted provisioning.
 	// * `manual`: Manual provisioning.
 	Type OptString `json:"type"`
-	// Provisioning URL. This field will only be returned for devices that were provisioned via
+	// The provisioning URL. This field will only be returned for devices that were provisioned via
 	// `assisted` provisioning type.
 	URL OptString `json:"url"`
 }
@@ -10566,19 +10669,19 @@ func (s *GetADeviceOKProvision) SetURL(val OptString) {
 }
 
 type GetADeviceOKProvisionSipAccountsItem struct {
-	// Authorization ID of the SIP account provided in the provisioning process.
+	// The authorization ID of the SIP account provided in the provisioning process.
 	AuthorizationID OptString `json:"authorization_id"`
-	// Outbound proxy provided in the provisioning process.
+	// The outbound proxy provided in the provisioning process.
 	OutboundProxy OptString `json:"outbound_proxy"`
-	// Password entered during the  provisioning process.
+	// The password entered during the provisioning process.
 	Password OptString `json:"password"`
 	// The secondary outbound proxy provided in the provisioning process.
 	SecondaryOutboundProxy OptString `json:"secondary_outbound_proxy"`
-	// Return additional provisioning information with generic device SIP credentials.
+	// This field returns additional provisioning information with generic device SIP credentials.
 	SharedLine OptGetADeviceOKProvisionSipAccountsItemSharedLine `json:"shared_line"`
-	// SIP Domain provided in the provisioning process.
+	// The SIP domain provided in the provisioning process.
 	SipDomain OptString `json:"sip_domain"`
-	// User name of the SIP account provided in the provisioning process.
+	// The user name of the SIP account provided in the provisioning process.
 	UserName OptString `json:"user_name"`
 }
 
@@ -10652,13 +10755,13 @@ func (s *GetADeviceOKProvisionSipAccountsItem) SetUserName(val OptString) {
 	s.UserName = val
 }
 
-// Return additional provisioning information with generic device SIP credentials.
+// This field returns additional provisioning information with generic device SIP credentials.
 type GetADeviceOKProvisionSipAccountsItemSharedLine struct {
-	// Alias.
+	// The alias.
 	Alias OptString `json:"alias"`
 	// Line subscription.
 	LineSubscription OptGetADeviceOKProvisionSipAccountsItemSharedLineLineSubscription `json:"line_subscription"`
-	// Outbound caller ID.
+	// The outbound caller ID.
 	OutboundCallerID OptString `json:"outbound_caller_id"`
 }
 
@@ -10694,11 +10797,11 @@ func (s *GetADeviceOKProvisionSipAccountsItemSharedLine) SetOutboundCallerID(val
 
 // Line subscription.
 type GetADeviceOKProvisionSipAccountsItemSharedLineLineSubscription struct {
-	// Display name.
+	// The display name.
 	DisplayName OptString `json:"display_name"`
-	// Extension number.
+	// The extension number.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Phone number.
+	// The phone number.
 	PhoneNumber OptString `json:"phone_number"`
 }
 
@@ -10735,7 +10838,7 @@ func (s *GetADeviceOKProvisionSipAccountsItemSharedLineLineSubscription) SetPhon
 type GetADeviceOKSite struct {
 	// The [site](https://support.zoom.us/hc/en-us/articles/360020809672) of the phone user.
 	ID OptString `json:"id"`
-	// Name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).
+	// The name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).
 	Name OptString `json:"name"`
 }
 
@@ -22414,7 +22517,7 @@ func (s *GetCommonAreaOutboundCallingCountriesAndRegionsOKCountriesRegionsItem) 
 	s.EnabledCarrier = val
 }
 
-// Common area setting.
+// The common area setting.
 type GetCommonAreaSettingsOK struct {
 	DeskPhones []GetCommonAreaSettingsOKDeskPhonesItem `json:"desk_phones"`
 }
@@ -22430,15 +22533,21 @@ func (s *GetCommonAreaSettingsOK) SetDeskPhones(val []GetCommonAreaSettingsOKDes
 }
 
 type GetCommonAreaSettingsOKDeskPhonesItem struct {
-	// Desk phone ID.
+	// The desk phone ID.
 	ID OptString `json:"id"`
-	// Desk phone display name.
+	// The desk phone display name.
 	DisplayName OptString `json:"display_name"`
-	// Desk phone device type.
+	// The desk phone device type.
 	DeviceType OptString `json:"device_type"`
-	// Desk phone status.
-	Status     OptString                                          `json:"status"`
+	// The desk phone status.
+	Status OptString `json:"status"`
+	// The MAC address or serial number of the device.
+	MACAddress OptString                                          `json:"mac_address"`
 	HotDesking OptGetCommonAreaSettingsOKDeskPhonesItemHotDesking `json:"hot_desking"`
+	// The private IP of the registered device.
+	PrivateIP OptString `json:"private_ip"`
+	// The public IP of the registered device.
+	PublicIP OptString `json:"public_ip"`
 }
 
 // GetID returns the value of ID.
@@ -22461,9 +22570,24 @@ func (s *GetCommonAreaSettingsOKDeskPhonesItem) GetStatus() OptString {
 	return s.Status
 }
 
+// GetMACAddress returns the value of MACAddress.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) GetMACAddress() OptString {
+	return s.MACAddress
+}
+
 // GetHotDesking returns the value of HotDesking.
 func (s *GetCommonAreaSettingsOKDeskPhonesItem) GetHotDesking() OptGetCommonAreaSettingsOKDeskPhonesItemHotDesking {
 	return s.HotDesking
+}
+
+// GetPrivateIP returns the value of PrivateIP.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) GetPrivateIP() OptString {
+	return s.PrivateIP
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) GetPublicIP() OptString {
+	return s.PublicIP
 }
 
 // SetID sets the value of ID.
@@ -22486,14 +22610,29 @@ func (s *GetCommonAreaSettingsOKDeskPhonesItem) SetStatus(val OptString) {
 	s.Status = val
 }
 
+// SetMACAddress sets the value of MACAddress.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) SetMACAddress(val OptString) {
+	s.MACAddress = val
+}
+
 // SetHotDesking sets the value of HotDesking.
 func (s *GetCommonAreaSettingsOKDeskPhonesItem) SetHotDesking(val OptGetCommonAreaSettingsOKDeskPhonesItemHotDesking) {
 	s.HotDesking = val
 }
 
+// SetPrivateIP sets the value of PrivateIP.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) SetPrivateIP(val OptString) {
+	s.PrivateIP = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *GetCommonAreaSettingsOKDeskPhonesItem) SetPublicIP(val OptString) {
+	s.PublicIP = val
+}
+
 type GetCommonAreaSettingsOKDeskPhonesItemHotDesking struct {
-	// Allow hot desking feature to the current device: letting the guest user sign in to the desk phone.
-	// You can't use the desk phone until the guest user signs out.
+	// This field allows the hot desking feature to the current device: letting the guest user sign in to
+	// the desk phone. You can't use the desk phone until the guest user signs out.
 	// Options include:
 	// * `unsupported`
 	// * `on`
@@ -27039,6 +27178,64 @@ func (s *GetMonitoringGroupByIdOKSite) SetID(val OptString) {
 // SetName sets the value of Name.
 func (s *GetMonitoringGroupByIdOKSite) SetName(val OptString) {
 	s.Name = val
+}
+
+// The list of opt statuses.
+type GetNumberCampaignOptStatusOK struct {
+	// The list of opt statuses for each number pair.
+	PhoneNumberCampaignOptStatuses []GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem `json:"phone_number_campaign_opt_statuses"`
+}
+
+// GetPhoneNumberCampaignOptStatuses returns the value of PhoneNumberCampaignOptStatuses.
+func (s *GetNumberCampaignOptStatusOK) GetPhoneNumberCampaignOptStatuses() []GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem {
+	return s.PhoneNumberCampaignOptStatuses
+}
+
+// SetPhoneNumberCampaignOptStatuses sets the value of PhoneNumberCampaignOptStatuses.
+func (s *GetNumberCampaignOptStatusOK) SetPhoneNumberCampaignOptStatuses(val []GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) {
+	s.PhoneNumberCampaignOptStatuses = val
+}
+
+// The opt status per a number pair.
+type GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem struct {
+	// The end user's phone number in E164 format that sends the Opt-in or Opt-out keyword to the Zoom
+	// Phone number.
+	ConsumerPhoneNumber string `json:"consumer_phone_number"`
+	// The Zoom user's phone number in E164 format that receives the Opt-in or Opt-out keyword from the
+	// end user.
+	ZoomPhoneUserNumber string `json:"zoom_phone_user_number"`
+	// The opt status.
+	OptStatus string `json:"opt_status"`
+}
+
+// GetConsumerPhoneNumber returns the value of ConsumerPhoneNumber.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) GetConsumerPhoneNumber() string {
+	return s.ConsumerPhoneNumber
+}
+
+// GetZoomPhoneUserNumber returns the value of ZoomPhoneUserNumber.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) GetZoomPhoneUserNumber() string {
+	return s.ZoomPhoneUserNumber
+}
+
+// GetOptStatus returns the value of OptStatus.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) GetOptStatus() string {
+	return s.OptStatus
+}
+
+// SetConsumerPhoneNumber sets the value of ConsumerPhoneNumber.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) SetConsumerPhoneNumber(val string) {
+	s.ConsumerPhoneNumber = val
+}
+
+// SetZoomPhoneUserNumber sets the value of ZoomPhoneUserNumber.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) SetZoomPhoneUserNumber(val string) {
+	s.ZoomPhoneUserNumber = val
+}
+
+// SetOptStatus sets the value of OptStatus.
+func (s *GetNumberCampaignOptStatusOKPhoneNumberCampaignOptStatusesItem) SetOptStatus(val string) {
+	s.OptStatus = val
 }
 
 // Merged schema.
@@ -52924,6 +53121,144 @@ func (o OptGetADeviceOKAssignee) Or(d GetADeviceOKAssignee) GetADeviceOKAssignee
 	return d
 }
 
+// NewOptGetADeviceOKPolicy returns new OptGetADeviceOKPolicy with value set to v.
+func NewOptGetADeviceOKPolicy(v GetADeviceOKPolicy) OptGetADeviceOKPolicy {
+	return OptGetADeviceOKPolicy{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetADeviceOKPolicy is optional GetADeviceOKPolicy.
+type OptGetADeviceOKPolicy struct {
+	Value GetADeviceOKPolicy
+	Set   bool
+}
+
+// IsSet returns true if OptGetADeviceOKPolicy was set.
+func (o OptGetADeviceOKPolicy) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetADeviceOKPolicy) Reset() {
+	var v GetADeviceOKPolicy
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetADeviceOKPolicy) SetTo(v GetADeviceOKPolicy) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetADeviceOKPolicy) Get() (v GetADeviceOKPolicy, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetADeviceOKPolicy) Or(d GetADeviceOKPolicy) GetADeviceOKPolicy {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetADeviceOKPolicyCallControl returns new OptGetADeviceOKPolicyCallControl with value set to v.
+func NewOptGetADeviceOKPolicyCallControl(v GetADeviceOKPolicyCallControl) OptGetADeviceOKPolicyCallControl {
+	return OptGetADeviceOKPolicyCallControl{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetADeviceOKPolicyCallControl is optional GetADeviceOKPolicyCallControl.
+type OptGetADeviceOKPolicyCallControl struct {
+	Value GetADeviceOKPolicyCallControl
+	Set   bool
+}
+
+// IsSet returns true if OptGetADeviceOKPolicyCallControl was set.
+func (o OptGetADeviceOKPolicyCallControl) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetADeviceOKPolicyCallControl) Reset() {
+	var v GetADeviceOKPolicyCallControl
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetADeviceOKPolicyCallControl) SetTo(v GetADeviceOKPolicyCallControl) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetADeviceOKPolicyCallControl) Get() (v GetADeviceOKPolicyCallControl, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetADeviceOKPolicyCallControl) Or(d GetADeviceOKPolicyCallControl) GetADeviceOKPolicyCallControl {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetADeviceOKPolicyHotDesking returns new OptGetADeviceOKPolicyHotDesking with value set to v.
+func NewOptGetADeviceOKPolicyHotDesking(v GetADeviceOKPolicyHotDesking) OptGetADeviceOKPolicyHotDesking {
+	return OptGetADeviceOKPolicyHotDesking{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetADeviceOKPolicyHotDesking is optional GetADeviceOKPolicyHotDesking.
+type OptGetADeviceOKPolicyHotDesking struct {
+	Value GetADeviceOKPolicyHotDesking
+	Set   bool
+}
+
+// IsSet returns true if OptGetADeviceOKPolicyHotDesking was set.
+func (o OptGetADeviceOKPolicyHotDesking) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetADeviceOKPolicyHotDesking) Reset() {
+	var v GetADeviceOKPolicyHotDesking
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetADeviceOKPolicyHotDesking) SetTo(v GetADeviceOKPolicyHotDesking) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetADeviceOKPolicyHotDesking) Get() (v GetADeviceOKPolicyHotDesking, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetADeviceOKPolicyHotDesking) Or(d GetADeviceOKPolicyHotDesking) GetADeviceOKPolicyHotDesking {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetADeviceOKProvision returns new OptGetADeviceOKProvision with value set to v.
 func NewOptGetADeviceOKProvision(v GetADeviceOKProvision) OptGetADeviceOKProvision {
 	return OptGetADeviceOKProvision{
@@ -74332,6 +74667,52 @@ func (o OptUpdateMonitoringGroupReq) Or(d UpdateMonitoringGroupReq) UpdateMonito
 	return d
 }
 
+// NewOptUpdateNumberCampaignOptStatusReq returns new OptUpdateNumberCampaignOptStatusReq with value set to v.
+func NewOptUpdateNumberCampaignOptStatusReq(v UpdateNumberCampaignOptStatusReq) OptUpdateNumberCampaignOptStatusReq {
+	return OptUpdateNumberCampaignOptStatusReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateNumberCampaignOptStatusReq is optional UpdateNumberCampaignOptStatusReq.
+type OptUpdateNumberCampaignOptStatusReq struct {
+	Value UpdateNumberCampaignOptStatusReq
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateNumberCampaignOptStatusReq was set.
+func (o OptUpdateNumberCampaignOptStatusReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateNumberCampaignOptStatusReq) Reset() {
+	var v UpdateNumberCampaignOptStatusReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateNumberCampaignOptStatusReq) SetTo(v UpdateNumberCampaignOptStatusReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateNumberCampaignOptStatusReq) Get() (v UpdateNumberCampaignOptStatusReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateNumberCampaignOptStatusReq) Or(d UpdateNumberCampaignOptStatusReq) UpdateNumberCampaignOptStatusReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdatePeeringPhoneNumbersReq returns new OptUpdatePeeringPhoneNumbersReq with value set to v.
 func NewOptUpdatePeeringPhoneNumbersReq(v UpdatePeeringPhoneNumbersReq) OptUpdatePeeringPhoneNumbersReq {
 	return OptUpdatePeeringPhoneNumbersReq{
@@ -87645,7 +88026,7 @@ func (s *PhoneUserSettingsOKAutoCallRecordingAccessMembersItem) SetSharedID(val 
 
 // The site's country.
 type PhoneUserSettingsOKCountry struct {
-	// Two lettered country [code](https://marketplace.zoom.
+	// The two lettered country [code](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/abbreviation-lists#countries).
 	Code OptString `json:"code"`
 	// The country's calling code.
@@ -87740,11 +88121,11 @@ func (s *PhoneUserSettingsOKDelegation) SetLocked(val OptBool) {
 type PhoneUserSettingsOKDelegationAssistantsItem struct {
 	// The display name.
 	DisplayName OptString `json:"display_name"`
-	// The extension ID.
+	// The extension's ID.
 	ExtensionID OptString `json:"extension_id"`
-	// The extension number.
+	// The extension's number.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// The extension type: `user` or `commonArea`.
+	// The extension's type: `user` or `commonArea`.
 	ExtensionType OptString `json:"extension_type"`
 	// The user or common area ID.
 	ID OptString `json:"id"`
@@ -87805,7 +88186,7 @@ type PhoneUserSettingsOKDeskPhone struct {
 	// The information about the desk phones.
 	Devices       []PhoneUserSettingsOKDeskPhoneDevicesItem    `json:"devices"`
 	KeysPositions OptPhoneUserSettingsOKDeskPhoneKeysPositions `json:"keys_positions"`
-	// After enabling this option, you can lock your desk phone screen. PIN Code is required to unlock
+	// After enabling this option, you can lock your desk phone screen. A PIN code is required to unlock
 	// your phone. This feature is not supported on some devices. See [Supported Device
 	// Types](https://support.zoom.us/hc/en-us/articles/360029698771) for more information.
 	PhoneScreenLock OptBool `json:"phone_screen_lock"`
@@ -87864,6 +88245,12 @@ type PhoneUserSettingsOKDeskPhoneDevicesItem struct {
 	Policy OptPhoneUserSettingsOKDeskPhoneDevicesItemPolicy `json:"policy"`
 	// The status of the device: `online` or `offline`.
 	Status OptString `json:"status"`
+	// The MAC address or serial number of the device.
+	MACAddress OptString `json:"mac_address"`
+	// The private IP of the registered device.
+	PrivateIP OptString `json:"private_ip"`
+	// The public IP of the registered device.
+	PublicIP OptString `json:"public_ip"`
 }
 
 // GetDeviceType returns the value of DeviceType.
@@ -87891,6 +88278,21 @@ func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) GetStatus() OptString {
 	return s.Status
 }
 
+// GetMACAddress returns the value of MACAddress.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) GetMACAddress() OptString {
+	return s.MACAddress
+}
+
+// GetPrivateIP returns the value of PrivateIP.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) GetPrivateIP() OptString {
+	return s.PrivateIP
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) GetPublicIP() OptString {
+	return s.PublicIP
+}
+
 // SetDeviceType sets the value of DeviceType.
 func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetDeviceType(val OptString) {
 	s.DeviceType = val
@@ -87914,6 +88316,21 @@ func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetPolicy(val OptPhoneUserSett
 // SetStatus sets the value of Status.
 func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetStatus(val OptString) {
 	s.Status = val
+}
+
+// SetMACAddress sets the value of MACAddress.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetMACAddress(val OptString) {
+	s.MACAddress = val
+}
+
+// SetPrivateIP sets the value of PrivateIP.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetPrivateIP(val OptString) {
+	s.PrivateIP = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *PhoneUserSettingsOKDeskPhoneDevicesItem) SetPublicIP(val OptString) {
+	s.PublicIP = val
 }
 
 // The device policy.
@@ -88026,13 +88443,13 @@ func (s *PhoneUserSettingsOKIntercom) SetDevice(val OptPhoneUserSettingsOKInterc
 }
 
 type PhoneUserSettingsOKIntercomAudioIntercomsItem struct {
-	// The extension ID.
+	// The extension's ID.
 	ExtensionID OptString `json:"extension_id"`
-	// The extension number.
+	// The extension's number.
 	ExtensionNumber OptString `json:"extension_number"`
-	// The extension type: `user` or `commonArea`.
+	// The extension's type: `user` or `commonArea`.
 	ExtensionType OptString `json:"extension_type"`
-	// The display name.
+	// The display's name.
 	DisplayName OptString `json:"display_name"`
 	// The status of the extension: `active` or `pending`.
 	Status OptString `json:"status"`
@@ -88114,9 +88531,9 @@ func (s *PhoneUserSettingsOKIntercomAudioIntercomsItem) SetDeviceStatus(val OptS
 
 // The selected default device to which all your intercom calls will be routed.
 type PhoneUserSettingsOKIntercomDevice struct {
-	// The device ID.
+	// The device's ID.
 	ID OptString `json:"id"`
-	// The device name.
+	// The device's name.
 	Name OptString `json:"name"`
 }
 
@@ -88160,9 +88577,9 @@ type PhoneUserSettingsOKOutboundCallerIdsItem struct {
 	// Whether the outbound caller ID is the default or not. If `true`, the outbound caller ID is the
 	// default caller ID.
 	IsDefault OptBool `json:"is_default"`
-	// The outbound caller name.
+	// The outbound caller's name.
 	Name OptString `json:"name"`
-	// The outbound caller number.
+	// The outbound caller's number.
 	Number OptString `json:"number"`
 }
 
@@ -93385,6 +93802,50 @@ func (s *UpdateMonitoringGroupReq) SetPrompt(val OptBool) {
 // SetSiteID sets the value of SiteID.
 func (s *UpdateMonitoringGroupReq) SetSiteID(val OptString) {
 	s.SiteID = val
+}
+
+// UpdateNumberCampaignOptStatusNoContent is response for UpdateNumberCampaignOptStatus operation.
+type UpdateNumberCampaignOptStatusNoContent struct{}
+
+// The request payload to update the opt statuses for phone numbers that are assigned to the SMS
+// campaign.
+type UpdateNumberCampaignOptStatusReq struct {
+	// The end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
+	ConsumerPhoneNumber string `json:"consumer_phone_number"`
+	// The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.
+	ZoomPhoneUserNumbers []string `json:"zoom_phone_user_numbers"`
+	// The opt status: either `opt_in` or `opt_out`.
+	OptStatus string `json:"opt_status"`
+}
+
+// GetConsumerPhoneNumber returns the value of ConsumerPhoneNumber.
+func (s *UpdateNumberCampaignOptStatusReq) GetConsumerPhoneNumber() string {
+	return s.ConsumerPhoneNumber
+}
+
+// GetZoomPhoneUserNumbers returns the value of ZoomPhoneUserNumbers.
+func (s *UpdateNumberCampaignOptStatusReq) GetZoomPhoneUserNumbers() []string {
+	return s.ZoomPhoneUserNumbers
+}
+
+// GetOptStatus returns the value of OptStatus.
+func (s *UpdateNumberCampaignOptStatusReq) GetOptStatus() string {
+	return s.OptStatus
+}
+
+// SetConsumerPhoneNumber sets the value of ConsumerPhoneNumber.
+func (s *UpdateNumberCampaignOptStatusReq) SetConsumerPhoneNumber(val string) {
+	s.ConsumerPhoneNumber = val
+}
+
+// SetZoomPhoneUserNumbers sets the value of ZoomPhoneUserNumbers.
+func (s *UpdateNumberCampaignOptStatusReq) SetZoomPhoneUserNumbers(val []string) {
+	s.ZoomPhoneUserNumbers = val
+}
+
+// SetOptStatus sets the value of OptStatus.
+func (s *UpdateNumberCampaignOptStatusReq) SetOptStatus(val string) {
+	s.OptStatus = val
 }
 
 type UpdatePeeringPhoneNumbersOK struct {
