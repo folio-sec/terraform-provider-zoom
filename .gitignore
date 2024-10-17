@@ -29,6 +29,8 @@ dist/
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfstate.*.backup
+.terraform.lock.hcl
+.terraform/
 
 tmp/
 __debug_bin*
