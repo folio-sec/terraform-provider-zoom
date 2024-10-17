@@ -18,6 +18,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueue"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemember"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumber"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuepolicy"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/externalcontact"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
@@ -217,6 +218,7 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		callqueue.NewPhoneCallQueueResource,
 		callqueuemember.NewPhoneCallQueueMembersResource,
 		callqueuephonenumber.NewPhoneCallQueuePhoneNumbersResource,
+		callqueuepolicy.NewPhoneCallQueuePolicyVoiceMailResource,
 		externalcontact.NewPhoneExternalContactResource,
 		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
 		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
