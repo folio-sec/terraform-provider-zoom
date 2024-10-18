@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectdefault"
@@ -21,10 +22,11 @@ import (
 )
 
 var (
-	_                 resource.Resource              = &tfResource{}
-	_                 resource.ResourceWithConfigure = &tfResource{}
-	allKeys                                          = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "#"}
-	keyActionDisabled                                = int32(-1)
+	_                 resource.Resource                = &tfResource{}
+	_                 resource.ResourceWithConfigure   = &tfResource{}
+	_                 resource.ResourceWithImportState = &tfResource{}
+	allKeys                                            = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "#"}
+	keyActionDisabled                                  = int32(-1)
 )
 
 func NewPhoneAutoReceptionistIvrResource() resource.Resource {
@@ -561,4 +563,8 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		"hours_types":          state.HoursType.ValueString(),
 		"holiday_id":           state.HolidayID.ValueString(),
 	})
+}
+
+func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("auto_receptionist_id"), req, resp)
 }
