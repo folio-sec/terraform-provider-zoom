@@ -43,7 +43,7 @@ func (c *crud) read(ctx context.Context, userID types.String) (*readDto, error) 
 }
 
 func (c *crud) create(ctx context.Context, dto createDto) (*createdDto, error) {
-	_, err := c.client.AssignCallingPlan(ctx, zoomphone.NewOptAssignCallingPlanReq(zoomphone.AssignCallingPlanReq{
+	err := c.client.AssignCallingPlan(ctx, zoomphone.NewOptAssignCallingPlanReq(zoomphone.AssignCallingPlanReq{
 		CallingPlans: lo.Map(dto.callingPlans, func(v createDtoCallingPlan, _ int) zoomphone.AssignCallingPlanReqCallingPlansItem {
 			return zoomphone.AssignCallingPlanReqCallingPlansItem{
 				Type:             util.ToPhoneOptInt(v.callingPlanType),

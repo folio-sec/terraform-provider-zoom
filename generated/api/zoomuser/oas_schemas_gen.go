@@ -27055,6 +27055,8 @@ type UserSettingsOK0Feature struct {
 	ZoomMailCalendar OptBool `json:"zoom_mail_calendar"`
 	// Whether the user has a Zoom Compliance Management license.
 	ZoomComplianceManagement OptBool `json:"zoom_compliance_management"`
+	// Whether the user has a Zoom Docs license.
+	ZoomDocs OptBool `json:"zoom_docs"`
 }
 
 // GetCnMeeting returns the value of CnMeeting.
@@ -27207,6 +27209,11 @@ func (s *UserSettingsOK0Feature) GetZoomComplianceManagement() OptBool {
 	return s.ZoomComplianceManagement
 }
 
+// GetZoomDocs returns the value of ZoomDocs.
+func (s *UserSettingsOK0Feature) GetZoomDocs() OptBool {
+	return s.ZoomDocs
+}
+
 // SetCnMeeting sets the value of CnMeeting.
 func (s *UserSettingsOK0Feature) SetCnMeeting(val OptBool) {
 	s.CnMeeting = val
@@ -27355,6 +27362,11 @@ func (s *UserSettingsOK0Feature) SetZoomMailCalendar(val OptBool) {
 // SetZoomComplianceManagement sets the value of ZoomComplianceManagement.
 func (s *UserSettingsOK0Feature) SetZoomComplianceManagement(val OptBool) {
 	s.ZoomComplianceManagement = val
+}
+
+// SetZoomDocs sets the value of ZoomDocs.
+func (s *UserSettingsOK0Feature) SetZoomDocs(val OptBool) {
+	s.ZoomDocs = val
 }
 
 type UserSettingsOK0InMeeting struct {
@@ -31340,6 +31352,8 @@ type UserSettingsUpdateReq0Feature struct {
 	ZoomMailCalendar OptBool `json:"zoom_mail_calendar"`
 	// Whether the user has a Zoom Compliance Management license.
 	ZoomComplianceManagement OptBool `json:"zoom_compliance_management"`
+	// Whether the user has a Zoom Docs license.
+	ZoomDocs OptBool `json:"zoom_docs"`
 }
 
 // GetConcurrentMeeting returns the value of ConcurrentMeeting.
@@ -31482,6 +31496,11 @@ func (s *UserSettingsUpdateReq0Feature) GetZoomComplianceManagement() OptBool {
 	return s.ZoomComplianceManagement
 }
 
+// GetZoomDocs returns the value of ZoomDocs.
+func (s *UserSettingsUpdateReq0Feature) GetZoomDocs() OptBool {
+	return s.ZoomDocs
+}
+
 // SetConcurrentMeeting sets the value of ConcurrentMeeting.
 func (s *UserSettingsUpdateReq0Feature) SetConcurrentMeeting(val OptString) {
 	s.ConcurrentMeeting = val
@@ -31620,6 +31639,11 @@ func (s *UserSettingsUpdateReq0Feature) SetZoomMailCalendar(val OptBool) {
 // SetZoomComplianceManagement sets the value of ZoomComplianceManagement.
 func (s *UserSettingsUpdateReq0Feature) SetZoomComplianceManagement(val OptBool) {
 	s.ZoomComplianceManagement = val
+}
+
+// SetZoomDocs sets the value of ZoomDocs.
+func (s *UserSettingsUpdateReq0Feature) SetZoomDocs(val OptBool) {
+	s.ZoomDocs = val
 }
 
 type UserSettingsUpdateReq0InMeeting struct {
@@ -34837,6 +34861,7 @@ func (s *UserSettingsUpdateReq3MeetingSecurityWaitingRoomSettings) SetWhiteliste
 	s.WhitelistedDomainsForWaitingRoom = val
 }
 
+// UserStatusOK is response for UserStatus operation.
 type UserStatusOK struct{}
 
 // The action.

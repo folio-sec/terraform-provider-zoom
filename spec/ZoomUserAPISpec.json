@@ -8072,7 +8072,7 @@
                           "zoom_one_type": {
                             "type": "integer",
                             "description": "The Zoom Workplace plan option.  \n `16` - Zoom Workplace Business Plus with US/CA Unlimited.  \n `32` - Zoom Workplace Business Plus with UK/IR Unlimited.  \n `64` - Zoom Workplace Business Plus with AU/NZ Unlimited.  \n `128` - Zoom Workplace Business Plus with Japan Unlimited.  \n `33554432` - Zoom Workplace Business Plus with Global Select.  \n `134217728` - Zoom Workplace Enterprise Premier with US/CA Unlimited.  \n `1073741824` - Zoom Workplace Enterprise Premier with AU/NZ Unlimited.  \n `536870912` - Zoom Workplace Enterprise Premier with UK/IR Unlimited.  \n `268435456` - Zoom Workplace Enterprise Premier with Japan Unlimited.  \n `4398046511104` - Zoom Workplace Pro Plus with US/CA Unlimited.  \n   \n The Zoom One plan option for Gov accounts:  \n `16` - Zoom One Business Plus. \n \n The Zoom One plan option for Education accounts:  \n `18014398509481984` - Zoom One for Education School and Campus.  \n `72057594037927936` - Zoom One for Education Enterprise Essentials.  \n `576460752303423488` - Zoom One for Education Enterprise Student.  \n `144115188075855872` - Zoom One for Education Enterprise Plus.  \n `137438953472` - Zoom One for Education School and Campus Plus with US/CA Unlimited.  \n `1099511627776` -Zoom One for Education School and Campus Plus with AU/NZ Unlimited.  \n `549755813888` - Zoom One for Education School and Campus Plus with UK/IR Unlimited.  \n `274877906944` - Zoom One for Education School and Campus Plus with Japan Unlimited.  \n `2199023255552` - Zoom One for Education School and Campus Plus with Global Select.  \n `4294967296` - Zoom One for Education Enterprise Premier with US/CA Unlimited.  \n `34359738368` - Zoom One for Education Enterprise Premier with AU/NZ Unlimited.  \n `17179869184` -Zoom One for Education Enterprise Premier with UK/IR Unlimited.  \n `8589934592` - Zoom One for Education Enterprise Premier with with Japan Unlimited.  \n `68719476736` - Zoom One for Education Enterprise Premier with Global Select.",
-                            "example": 16
+                            "example": 64
                           }
                         },
                         "description": "Information about the user's features."
@@ -8986,7 +8986,7 @@
                         "zoom_one_type": {
                           "type": "integer",
                           "description": "The user's Zoom Workplace plan option.  \n `4` - Zoom Workplace Enterprise.  \n `8` - Zoom Workplace Enterprise Plus.  \n `16` - Zoom Workplace Business Plus with US/CA Unlimited.  \n `32` - Zoom Workplace Business Plus with UK/IR Unlimited.  \n `64` - Zoom Workplace Business Plus with AU/NZ Unlimited.  \n `128` - Zoom Workplace Business Plus with Japan Unlimited.  \n `33554432` - Zoom Workplace Business Plus with Global Select.  \n `134217728` - Zoom Workplace Enterprise Premier with US/CA Unlimited.  \n `1073741824` - Zoom Workplace Enterprise Premier with AU/NZ Unlimited.  \n `536870912` - Zoom Workplace Enterprise Premier with UK/IR Unlimited.  \n `268435456` - Zoom Workplace Enterprise Premier with Japan Unlimited.  \n `4398046511104` - Zoom Workplace Pro Plus with US/CA Unlimited.\n\n The Zoom One plan option for Govermnemt accounts.  \n `4` - Zoom One Enterprise.  \n `8` - Zoom One Enterprise Plus.  \n `16` - Zoom One Business Plus. \n\n The Zoom One plan option for Education accounts.  \n `18014398509481984` - Zoom One for Education School and Campus.  \n `72057594037927936` - Zoom One for Education Enterprise Essentials.  \n `576460752303423488` - Zoom One for Education Enterprise Student. \n `144115188075855872` - Zoom One for Education Enterprise Plus.  \n `137438953472` - Zoom One for Education School and Campus Plus with US/CA Unlimited.  \n `1099511627776` - Zoom One for Education School and Campus Plus with AU/NZ Unlimited.  \n `549755813888` - Zoom One for Education School and Campus Plus with UK/IR Unlimited.  \n `274877906944` - Zoom One for Education School and Campus Plus with Japan Unlimited.  \n `2199023255552` - Zoom One for Education School and Campus Plus with Global Select.  \n `4294967296` - Zoom One for Education Enterprise Premier with US/CA Unlimited.  \n `34359738368` - Zoom One for Education Enterprise Premier with AU/NZ Unlimited.  \n `17179869184` -Zoom One for Education Enterprise Premier with UK/IR Unlimited.  \n `8589934592` - Zoom One for Education Enterprise Premier with with Japan Unlimited.  \n `68719476736` - Zoom One for Education Enterprise Premier with Global Select.",
-                          "example": 4
+                          "example": 64
                         }
                       }
                     }
@@ -9122,6 +9122,46 @@
             "name": "transfer_whiteboard",
             "in": "query",
             "description": "When deleting a user, whether to transfer all their [Zoom Whiteboard](https://support.zoom.us/hc/en-us/articles/4410916881421) data to another user.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          {
+            "name": "transfer_clipfiles",
+            "in": "query",
+            "description": "Transfer clip files.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          {
+            "name": "transfer_notes",
+            "in": "query",
+            "description": "Transfer notes.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          {
+            "name": "transfer_visitors",
+            "in": "query",
+            "description": "Transfer visitors.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          {
+            "name": "transfer_docs",
+            "in": "query",
+            "description": "Transfer docs.",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -9392,7 +9432,7 @@
                   "zoom_one_type": {
                     "type": "integer",
                     "description": "The Zoom Workplace plan option. \n `0` - Turn off Zoom Workplace license.  \n `16` - Zoom Workplace Business Plus with US/CA Unlimited.  \n `32` - Zoom Workplace Business Plus with UK/IR Unlimited.  \n `64` - Zoom Workplace Business Plus with AU/NZ Unlimited.  \n `128` - Zoom Workplace Business Plus with Japan Unlimited.  \n `33554432` - Zoom Workplace Business Plus with Global Select.  \n `134217728` - Zoom Workplace Enterprise Premier with US/CA Unlimited.  \n `1073741824` - Zoom Workplace Enterprise Premier with AU/NZ Unlimited.  \n `536870912` - Zoom Workplace Enterprise Premier with UK/IR Unlimited.  \n `268435456` - Zoom Workplace Enterprise Premier with Japan Unlimited.  \n `4398046511104` - Zoom Workplace Pro Plus with US/CA Unlimited.\n \nThe Zoom One plan option for Gov accounts:  \n `0` - Turn off Zoom One license.  \n `16` - Zoom One Business Plus. \n \n The Zoom One plan option for Education accounts:  \n `0` - Turn off Zoom One license.  \n `18014398509481984` - Zoom One for Education School and Campus.  \n `72057594037927936` - Zoom One for Education Enterprise Essentials.  \n `576460752303423488` - Zoom One for Education Enterprise Student.  \n `144115188075855872` - Zoom One for Education Enterprise Plus.  \n `137438953472` - Zoom One for Education School and Campus Plus with US/CA Unlimited.  \n `1099511627776` -Zoom One for Education School and Campus Plus with AU/NZ Unlimited.  \n `549755813888` - Zoom One for Education School and Campus Plus with UK/IR Unlimited.  \n `274877906944` - Zoom One for Education School and Campus Plus with Japan Unlimited.  \n `2199023255552` - Zoom One for Education School and Campus Plus with Global Select.  \n `4294967296` - Zoom One for Education Enterprise Premier with US/CA Unlimited.  \n `34359738368` - Zoom One for Education Enterprise Premier with AU/NZ Unlimited.  \n `17179869184` -Zoom One for Education Enterprise Premier with UK/IR Unlimited.  \n `8589934592` - Zoom One for Education Enterprise Premier with with Japan Unlimited.  \n `68719476736` - Zoom One for Education Enterprise Premier with Global Select.",
-                    "example": 16
+                    "example": 64
                   },
                   "plan_united_type": {
                     "type": "string",
@@ -11460,6 +11500,11 @@
                               "type": "boolean",
                               "description": "Whether the user has a Zoom Compliance Management license.",
                               "example": false
+                            },
+                            "zoom_docs": {
+                              "type": "boolean",
+                              "description": "Whether the user has a Zoom Docs license.",
+                              "example": false
                             }
                           }
                         },
@@ -13322,6 +13367,11 @@
                             "type": "boolean",
                             "description": "Whether the user has a Zoom Compliance Management license.",
                             "example": false
+                          },
+                          "zoom_docs": {
+                            "type": "boolean",
+                            "description": "Whether the user has a Zoom Docs license.",
+                            "example": false
                           }
                         }
                       },
@@ -14919,7 +14969,7 @@
           "Users"
         ],
         "summary": "Update user status",
-        "description": "[Deactivate](https://support.zoom.us/hc/en-us/articles/115005269946-Remove-User-from-your-Account#h_6a9bc1c3-d739-4945-b1f2-00b3b88fb5cc) an active user or to [reactivate](https://support.zoom.us/hc/en-us/articles/115005269946-Remove-User-from-your-Account#h_16319724-d120-4be6-af5d-31582d134ea0) a deactivated user. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAn account owner or admins can deactivate as well as activate a user in a Zoom account. Deactivating a user removes all licenses associated with a user, and prevents the deactivated user from logging into their Zoom account. A deactivated user can be reactivated. Reactivating a user grants the user access to log in to their Zoom account.\n\n\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:update:presence_status`,`user:update:presence_status:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "[Deactivate](https://support.zoom.us/hc/en-us/articles/115005269946-Remove-User-from-your-Account#h_6a9bc1c3-d739-4945-b1f2-00b3b88fb5cc) an active user or to [reactivate](https://support.zoom.us/hc/en-us/articles/115005269946-Remove-User-from-your-Account#h_16319724-d120-4be6-af5d-31582d134ea0) a deactivated user. For user-level apps, pass [the `me` value](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#the-me-keyword) instead of the `userId` parameter.\n\nAn account owner or admins can deactivate as well as activate a user in a Zoom account. Deactivating a user removes all licenses associated with a user, and prevents the deactivated user from logging into their Zoom account. A deactivated user can be reactivated. Reactivating a user grants the user access to log in to their Zoom account.\n\n\n\n**Scopes:** `user:write:admin`,`user:write`\n\n**Granular Scopes:** `user:update:status`,`user:update:status:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "userStatus",
         "parameters": [
           {
@@ -14961,15 +15011,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
+            "description": "OK"
           },
           "default": {
             "description": "For ogen convenient errors",
@@ -14987,8 +15029,8 @@
             "openapi_oauth": [
               "user:write:admin",
               "user:write",
-              "user:update:presence_status",
-              "user:update:presence_status:admin"
+              "user:update:status",
+              "user:update:status:admin"
             ],
             "openapi_authorization": []
           }
@@ -15002,8 +15044,8 @@
             "user:write"
           ],
           "x-granular-scopes": [
-            "user:update:presence_status",
-            "user:update:presence_status:admin"
+            "user:update:status",
+            "user:update:status:admin"
           ]
         }
       }
@@ -15267,6 +15309,8 @@
               "user:delete:virtual_background_files:admin": "user:delete:virtual_background_files:admin",
               "user:write:virtual_background_files": "user:write:virtual_background_files",
               "user:write:virtual_background_files:admin": "user:write:virtual_background_files:admin",
+              "user:update:status": "user:update:status",
+              "user:update:status:admin": "user:update:status:admin",
               "user:read:token": "user:read:token",
               "user:read:token:admin": "user:read:token:admin",
               "user:delete:token": "user:delete:token",

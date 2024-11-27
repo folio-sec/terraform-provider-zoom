@@ -40147,9 +40147,15 @@ func (s *UserSettingsOK0Feature) encodeFields(e *jx.Encoder) {
 			s.ZoomComplianceManagement.Encode(e)
 		}
 	}
+	{
+		if s.ZoomDocs.Set {
+			e.FieldStart("zoom_docs")
+			s.ZoomDocs.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfUserSettingsOK0Feature = [30]string{
+var jsonFieldsNameOfUserSettingsOK0Feature = [31]string{
 	0:  "cn_meeting",
 	1:  "concurrent_meeting",
 	2:  "in_meeting",
@@ -40180,6 +40186,7 @@ var jsonFieldsNameOfUserSettingsOK0Feature = [30]string{
 	27: "zoom_clips_plus",
 	28: "zoom_mail_calendar",
 	29: "zoom_compliance_management",
+	30: "zoom_docs",
 }
 
 // Decode decodes UserSettingsOK0Feature from json.
@@ -40507,6 +40514,16 @@ func (s *UserSettingsOK0Feature) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"zoom_compliance_management\"")
+			}
+		case "zoom_docs":
+			if err := func() error {
+				s.ZoomDocs.Reset()
+				if err := s.ZoomDocs.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"zoom_docs\"")
 			}
 		default:
 			return d.Skip()
@@ -47833,9 +47850,15 @@ func (s *UserSettingsUpdateReq0Feature) encodeFields(e *jx.Encoder) {
 			s.ZoomComplianceManagement.Encode(e)
 		}
 	}
+	{
+		if s.ZoomDocs.Set {
+			e.FieldStart("zoom_docs")
+			s.ZoomDocs.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfUserSettingsUpdateReq0Feature = [28]string{
+var jsonFieldsNameOfUserSettingsUpdateReq0Feature = [29]string{
 	0:  "concurrent_meeting",
 	1:  "large_meeting",
 	2:  "large_meeting_capacity",
@@ -47864,6 +47887,7 @@ var jsonFieldsNameOfUserSettingsUpdateReq0Feature = [28]string{
 	25: "zoom_clips_plus",
 	26: "zoom_mail_calendar",
 	27: "zoom_compliance_management",
+	28: "zoom_docs",
 }
 
 // Decode decodes UserSettingsUpdateReq0Feature from json.
@@ -48171,6 +48195,16 @@ func (s *UserSettingsUpdateReq0Feature) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"zoom_compliance_management\"")
+			}
+		case "zoom_docs":
+			if err := func() error {
+				s.ZoomDocs.Reset()
+				if err := s.ZoomDocs.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"zoom_docs\"")
 			}
 		default:
 			return d.Skip()
@@ -53825,50 +53859,6 @@ func (s *UserSettingsUpdateReq3MeetingSecurityWaitingRoomSettings) MarshalJSON()
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UserSettingsUpdateReq3MeetingSecurityWaitingRoomSettings) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode implements json.Marshaler.
-func (s *UserStatusOK) Encode(e *jx.Encoder) {
-	e.ObjStart()
-	s.encodeFields(e)
-	e.ObjEnd()
-}
-
-// encodeFields encodes fields.
-func (s *UserStatusOK) encodeFields(e *jx.Encoder) {
-}
-
-var jsonFieldsNameOfUserStatusOK = [0]string{}
-
-// Decode decodes UserStatusOK from json.
-func (s *UserStatusOK) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode UserStatusOK to nil")
-	}
-
-	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		switch string(k) {
-		default:
-			return d.Skip()
-		}
-	}); err != nil {
-		return errors.Wrap(err, "decode UserStatusOK")
-	}
-
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *UserStatusOK) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *UserStatusOK) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

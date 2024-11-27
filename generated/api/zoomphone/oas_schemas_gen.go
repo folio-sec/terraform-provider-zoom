@@ -733,12 +733,12 @@ func (s *AccountCallLogsOK) SetTotalRecords(val OptInt) {
 }
 
 type AccountCallLogsOKCallLogsItem struct {
-	// GMT date and time at which the inbound call was answered. The value of this field is in
+	// The GMT date and time at which the inbound call was answered. The value of this field is in
 	// `yyyy-MM-dd'T'HH:mm:ss'Z'` format.
 	AnswerStartTime OptDateTime `json:"answer_start_time"`
 	// The call end time in GMT `date-time` format.
 	CallEndTime OptString `json:"call_end_time"`
-	// Unique identifier of the phone call.
+	// The unique identifier of the phone call.
 	CallID OptString `json:"call_id"`
 	// The type of call:
 	// * `voip` (Voice over IP)
@@ -747,50 +747,50 @@ type AccountCallLogsOKCallLogsItem struct {
 	// * `international`
 	// * `contactCenter`.
 	CallType OptString `json:"call_type"`
-	// Country calling code.
+	// The country calling code.
 	CalleeCountryCode OptString `json:"callee_country_code"`
-	// ISO alpha2 country code.
+	// The ISO alpha2 country code.
 	CalleeCountryIsoCode OptString `json:"callee_country_iso_code"`
-	// Callee's DID (direct inward dial) number in e164 format.
+	// The callee's DID (direct inward dial) number in e164 format.
 	CalleeDidNumber OptString `json:"callee_did_number"`
-	// Contact name of callee.
+	// The contact name of the callee.
 	CalleeName OptString `json:"callee_name"`
-	// Number of callee.
+	// The number of the callee.
 	CalleeNumber OptString `json:"callee_number"`
 	// The callee's number type:
 	// * `1` &mdash; Extension number.
 	// * `2` &mdash; Phone number.
 	// * `3` &mdash; Customized emergency number.
 	CalleeNumberType OptInt `json:"callee_number_type"`
-	// Indicates where the phone number comes from:
+	// Ths field indicates where the phone number comes from:
 	// * `internal` &mdash; ZP native.
 	// * `external` &mdash; BYOC or Provider Exchange.
 	// * `byop` &mdash; Premise peering.
 	// Not available when `callee_number_type = 1`.
 	CalleeNumberSource OptString `json:"callee_number_source"`
-	// Country calling code.
+	// The country calling code.
 	CallerCountryCode OptString `json:"caller_country_code"`
-	// ISO alpha2 country code.
+	// The ISO alpha2 country code.
 	CallerCountryIsoCode OptString `json:"caller_country_iso_code"`
-	// Caller's DID (direct inward dial) number in e164 format.
+	// The caller's DID (direct inward dial) number in e164 format.
 	CallerDidNumber OptString `json:"caller_did_number"`
-	// Contact name of caller.
+	// The contact name of the caller.
 	CallerName OptString `json:"caller_name"`
-	// Number of caller.
+	// The number of the caller.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
 	// * `1` &mdash; Extension number.
 	// * `2` &mdash; Phone number.
 	CallerNumberType OptInt `json:"caller_number_type"`
-	// Indicates where the phone number comes from:
+	// This field indicates where the phone number comes from:
 	// * `internal` &mdash; ZP native.
 	// * `external` &mdash; BYOC or Provider Exchange.
 	// * `byop` &mdash; Premise peering.
 	// Not available when `caller_number_type = 1`.
 	CallerNumberSource OptString `json:"caller_number_source"`
-	// Billing reference ID (for peering phone numbers).
+	// The billing reference ID (for peering phone numbers).
 	CallerBillingReferenceID OptString `json:"caller_billing_reference_id"`
-	// Billing charge for the call.
+	// The billing charge for the call.
 	Charge OptString `json:"charge"`
 	// Client code.
 	ClientCode OptString `json:"client_code"`
@@ -1833,7 +1833,12 @@ type AccountVoiceMailsOKVoiceMailsItemOwner struct {
 	ID OptString `json:"id"`
 	// The name of the owner.
 	Name OptString `json:"name"`
-	// The owner type.
+	// The owner's type, can be `user`, `callQueue`, `sharedLineGroup`, `autoReceptionist`, or
+	// `sharedOffice`(deprecated and to be replaced by `commonArea`. During the transition period, if
+	// `sharedOffice` is provided as the `owner_type` parameter, `sharedOffice` is returned as a response.
+	//  Conversely, if `commonArea` is provided, `commonArea` will be returned. If `null` is provided,
+	// `sharedOffice` will be returned temporarily, but it will be replaced by `commonArea` after the
+	// transition period).
 	Type OptString `json:"type"`
 	// This field indicates the status of extension. * `inactive` * `deleted`.
 	ExtensionStatus OptString `json:"extension_status"`
@@ -2618,7 +2623,7 @@ func (s *AddAnumberToBlockedListReq) SetStatus(val OptString) {
 }
 
 type AddAudioItemCreated struct {
-	// Audio item list.
+	// The audio item list.
 	Audios []AddAudioItemCreatedAudiosItem `json:"audios"`
 }
 
@@ -2633,9 +2638,9 @@ func (s *AddAudioItemCreated) SetAudios(val []AddAudioItemCreatedAudiosItem) {
 }
 
 type AddAudioItemCreatedAudiosItem struct {
-	// Unique identifier of the audio item.
+	// The unique identifier of the audio item.
 	AudioID OptString `json:"audio_id"`
-	// Name of the audio item.
+	// The name of the audio item.
 	Name OptString `json:"name"`
 }
 
@@ -2674,11 +2679,12 @@ func (s *AddAudioItemReq) SetAttachments(val []AddAudioItemReqAttachmentsItem) {
 }
 
 type AddAudioItemReqAttachmentsItem struct {
-	// Format of attachments. Supported formats: audio/mpeg, audio/wav.
+	// The format of the attachments. Supported formats: audio/mpeg, audio/wav.
 	AudioType OptString `json:"audio_type"`
-	// ASCII string to send [Base64 encoded](https://en.wikipedia.org/wiki/Base64) attachments as text.
+	// The ASCII string to send [Base64 encoded](https://en.wikipedia.org/wiki/Base64) attachments as
+	// text.
 	Base64Encoding OptString `json:"base64_encoding"`
-	// Audio file name.
+	// The audio file name.
 	Name OptString `json:"name"`
 }
 
@@ -3190,6 +3196,24 @@ func NewPostCallHandlingSettingsHolidayAddCallHandlingReq(v PostCallHandlingSett
 	return s
 }
 
+// AddClientCodeToCallHistoryNoContent is response for AddClientCodeToCallHistory operation.
+type AddClientCodeToCallHistoryNoContent struct{}
+
+type AddClientCodeToCallHistoryReq struct {
+	// The client code (3 to 16 digit number) to mark the call log.
+	ClientCode string `json:"client_code"`
+}
+
+// GetClientCode returns the value of ClientCode.
+func (s *AddClientCodeToCallHistoryReq) GetClientCode() string {
+	return s.ClientCode
+}
+
+// SetClientCode sets the value of ClientCode.
+func (s *AddClientCodeToCallHistoryReq) SetClientCode(val string) {
+	s.ClientCode = val
+}
+
 // AddClientCodeToCallLogNoContent is response for AddClientCodeToCallLog operation.
 type AddClientCodeToCallLogNoContent struct{}
 
@@ -3209,9 +3233,9 @@ func (s *AddClientCodeToCallLogReq) SetClientCode(val string) {
 }
 
 type AddCommonAreaCreated struct {
-	// Display name of the common area.
+	// The display name of the common area.
 	DisplayName OptString `json:"display_name"`
-	// Common area ID or common area extension ID.
+	// The common area ID or common area extension ID.
 	ID OptString `json:"id"`
 }
 
@@ -3334,21 +3358,27 @@ func (s *AddCommonAreaOutboundCallingExceptionRuleReqExceptionRule) SetCountry(v
 
 type AddCommonAreaReq struct {
 	CallingPlans []AddCommonAreaReqCallingPlansItem `json:"calling_plans"`
-	// Two-lettered country [code](https://marketplace.zoom.
+	// The two-lettered country [code](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/abbreviation-lists#countries).
 	CountryIsoCode OptString `json:"country_iso_code"`
-	// Display name of the common area. Enter at least 3 characters.
+	// The display name of the common area. Enter at least three characters.
 	DisplayName string `json:"display_name"`
-	// Extension number assigned to the common area. If the site code is enabled, provide the short
+	// The extension number assigned to the common area. If the site code is enabled, provide the short
 	// extension number instead.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672). This can
-	// be retrieved from the [List Phone Sites](https://marketplace.zoom.
+	// The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672). You
+	// can retrieve the identifier from the [List Phone Sites](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
 	SiteID OptString `json:"site_id"`
-	// [Timezone ID](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists)
-	// for the common area.
+	// The [timezone ID](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists) for the common area.
 	Timezone OptString `json:"timezone"`
+	// The unique identifier of the [Setting Template](https://support.zoom.
+	// com/hc/en/article?id=zm_kb&sysparm_article=KB0067442).
+	// You can retrieve the identifier from the [List setting templates](https://developers.zoom.
+	// us/docs/api/rest/reference/phone/methods/#operation/listSettingTemplates) API.
+	// The setting template must belong to the same site as the common area.
+	TemplateID OptString `json:"template_id"`
 }
 
 // GetCallingPlans returns the value of CallingPlans.
@@ -3381,6 +3411,11 @@ func (s *AddCommonAreaReq) GetTimezone() OptString {
 	return s.Timezone
 }
 
+// GetTemplateID returns the value of TemplateID.
+func (s *AddCommonAreaReq) GetTemplateID() OptString {
+	return s.TemplateID
+}
+
 // SetCallingPlans sets the value of CallingPlans.
 func (s *AddCommonAreaReq) SetCallingPlans(val []AddCommonAreaReqCallingPlansItem) {
 	s.CallingPlans = val
@@ -3411,8 +3446,13 @@ func (s *AddCommonAreaReq) SetTimezone(val OptString) {
 	s.Timezone = val
 }
 
+// SetTemplateID sets the value of TemplateID.
+func (s *AddCommonAreaReq) SetTemplateID(val OptString) {
+	s.TemplateID = val
+}
+
 type AddCommonAreaReqCallingPlansItem struct {
-	// Zoom Phone [calling plan number](https://marketplace.zoom.
+	// The Zoom Phone [calling plan number](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).
 	Type OptInt `json:"type"`
 }
@@ -4474,6 +4514,68 @@ func (s *AddLocationReq) SetMinimumMatchCriteria(val OptBool) {
 	s.MinimumMatchCriteria = val
 }
 
+// AddMembersToAPrivateDirectoryCreated is response for AddMembersToAPrivateDirectory operation.
+type AddMembersToAPrivateDirectoryCreated struct{}
+
+type AddMembersToAPrivateDirectoryReq struct {
+	// The unique identifier of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) that you would like to use for the
+	// private directory. You will only be able to add members that belong to this site to the private
+	// directory. This field is required only if the [multiple sites](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account.
+	SiteID  OptString                                     `json:"site_id"`
+	Members []AddMembersToAPrivateDirectoryReqMembersItem `json:"members"`
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *AddMembersToAPrivateDirectoryReq) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetMembers returns the value of Members.
+func (s *AddMembersToAPrivateDirectoryReq) GetMembers() []AddMembersToAPrivateDirectoryReqMembersItem {
+	return s.Members
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *AddMembersToAPrivateDirectoryReq) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetMembers sets the value of Members.
+func (s *AddMembersToAPrivateDirectoryReq) SetMembers(val []AddMembersToAPrivateDirectoryReqMembersItem) {
+	s.Members = val
+}
+
+type AddMembersToAPrivateDirectoryReqMembersItem struct {
+	// The member's extension ID.
+	ExtensionID string `json:"extension_id"`
+	// The value indicates who can have access to this member. The valid value is: * everybody *
+	// admins_only * nobody.
+	SearchableOnWebPortal string `json:"searchable_on_web_portal"`
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *AddMembersToAPrivateDirectoryReqMembersItem) GetExtensionID() string {
+	return s.ExtensionID
+}
+
+// GetSearchableOnWebPortal returns the value of SearchableOnWebPortal.
+func (s *AddMembersToAPrivateDirectoryReqMembersItem) GetSearchableOnWebPortal() string {
+	return s.SearchableOnWebPortal
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *AddMembersToAPrivateDirectoryReqMembersItem) SetExtensionID(val string) {
+	s.ExtensionID = val
+}
+
+// SetSearchableOnWebPortal sets the value of SearchableOnWebPortal.
+func (s *AddMembersToAPrivateDirectoryReqMembersItem) SetSearchableOnWebPortal(val string) {
+	s.SearchableOnWebPortal = val
+}
+
+// AddMembersToCallQueueCreated is response for AddMembersToCallQueue operation.
 type AddMembersToCallQueueCreated struct{}
 
 type AddMembersToCallQueueReq struct {
@@ -4494,9 +4596,9 @@ func (s *AddMembersToCallQueueReq) SetMembers(val OptAddMembersToCallQueueReqMem
 // A maximum of 10 members can be added at a time.
 type AddMembersToCallQueueReqMembers struct {
 	// **Optional**
-	// Unique identifier of the [Common Area](https://marketplace.zoom.
-	// us/docs/api-reference/phone/methods/#operation/listCommonAreas). This can be retrieved from the
-	// List Common Areas API.
+	// The unique identifier of the [Common Area](https://marketplace.zoom.
+	// us/docs/api-reference/phone/methods/#operation/listCommonAreas). You can retrieve it from the List
+	// Common Areas API.
 	CommonAreaIds []string                                   `json:"common_area_ids"`
 	Users         []AddMembersToCallQueueReqMembersUsersItem `json:"users"`
 }
@@ -4522,9 +4624,9 @@ func (s *AddMembersToCallQueueReqMembers) SetUsers(val []AddMembersToCallQueueRe
 }
 
 type AddMembersToCallQueueReqMembersUsersItem struct {
-	// Email address of the user.
+	// The email address of the user.
 	Email OptString `json:"email"`
-	// User ID: Unique identifier of the user.
+	// The user ID or the unique identifier of the user.
 	ID OptString `json:"id"`
 }
 
@@ -5745,6 +5847,9 @@ func (s *AddSiteSettingReqHolidaysItem) SetTo(val OptDateTime) {
 	s.To = val
 }
 
+// AddUserOutboundCallerNumbersCreated is response for AddUserOutboundCallerNumbers operation.
+type AddUserOutboundCallerNumbersCreated struct{}
+
 type AddUserOutboundCallerNumbersReq struct {
 	// The phone number IDs.
 	PhoneNumberIds []string `json:"phone_number_ids"`
@@ -5923,11 +6028,11 @@ func (s *AddUserSettingCreated) SetAdHocCallRecordingAccessMembers(val []AddUser
 
 // Merged schema.
 type AddUserSettingCreatedAdHocCallRecordingAccessMembersItem struct {
-	// The Zoom user ID to share the access permissions with.
+	// The Zoom user ID to share access permissions.
 	AccessUserID OptString `json:"access_user_id"`
-	// This field specifies whether the user has delete permissions. The default is **false**.
+	// Whether the user has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// This field specifies whether the user has download permissions. The default is **false**.
+	// Whether the user has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 	// The unique identifier of the shared sub-setting that the user can access.
 	SharedID OptString `json:"shared_id"`
@@ -5975,11 +6080,11 @@ func (s *AddUserSettingCreatedAdHocCallRecordingAccessMembersItem) SetSharedID(v
 
 // Merged schema.
 type AddUserSettingCreatedAutoCallRecordingAccessMembersItem struct {
-	// The Zoom user ID to share the access permissions with.
+	// The Zoom user ID to share access permissions.
 	AccessUserID OptString `json:"access_user_id"`
-	// This field specifies whether the user has delete permissions. The default is **false**.
+	// Whether the user has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// This field specifies whether the user has download permissions. The default is **false**.
+	// Whether the user has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 	// The unique identifier of the shared sub-setting that the user can access.
 	SharedID OptString `json:"shared_id"`
@@ -6251,8 +6356,9 @@ type AddUserSettingReq struct {
 	DelegationAssistantExtensionID OptString `json:"delegation_assistant_extension_id"`
 	// The device ID.
 	DeviceID OptString `json:"device_id"`
-	// This field updates the voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will completely
-	// deprecate this property in a future release. Use property `voicemail_access_members` instead.
+	// This field allows you to update the voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will
+	// completely deprecate this property in a future release. Use property `voicemail_access_members`
+	// instead.
 	VoiceMail OptAddUserSettingReqVoiceMail `json:"voice_mail"`
 	// The shared voicemail access member list.
 	VoicemailAccessMembers []AddUserSettingReqVoicemailAccessMembersItem `json:"voicemail_access_members"`
@@ -6323,11 +6429,11 @@ func (s *AddUserSettingReq) SetAdHocCallRecordingAccessMembers(val []AddUserSett
 }
 
 type AddUserSettingReqAdHocCallRecordingAccessMembersItem struct {
-	// The Zoom user ID to share the access permissions with.
+	// The Zoom user ID to share access permissions.
 	AccessUserID OptString `json:"access_user_id"`
-	// This field specifies whether the user has delete permissions. The default is **false**.
+	// Whether the user has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// This field specifies whether the user has download permissions. The default is **false**.
+	// Whether the user has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 }
 
@@ -6362,11 +6468,11 @@ func (s *AddUserSettingReqAdHocCallRecordingAccessMembersItem) SetAllowDownload(
 }
 
 type AddUserSettingReqAutoCallRecordingAccessMembersItem struct {
-	// The Zoom user ID to share the access permissions with.
+	// The Zoom user ID to share access permissions.
 	AccessUserID OptString `json:"access_user_id"`
-	// This field specifies whether the user has delete permissions. The default is **false**.
+	// Whether the user has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// This field specifies whether the user has download permissions. The default is **false**.
+	// Whether the user has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 }
 
@@ -6400,8 +6506,9 @@ func (s *AddUserSettingReqAutoCallRecordingAccessMembersItem) SetAllowDownload(v
 	s.AllowDownload = val
 }
 
-// This field updates the voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will completely
-// deprecate this property in a future release. Use property `voicemail_access_members` instead.
+// This field allows you to update the voicemail setting. &lt;b&gt;Deprecated:&lt;/b&gt; we will
+// completely deprecate this property in a future release. Use property `voicemail_access_members`
+// instead.
 type AddUserSettingReqVoiceMail struct {
 	// The Zoom user ID to share the voicemail access permissions with.
 	AccessUserID OptString `json:"access_user_id"`
@@ -6556,6 +6663,9 @@ func (s *AddUsersToDirectoryReq) SetExtensionIds(val []string) {
 	s.ExtensionIds = val
 }
 
+// AddZoomRoomCreated is response for AddZoomRoom operation.
+type AddZoomRoomCreated struct{}
+
 type AddZoomRoomReq struct {
 	// The Zoom Room ID.
 	ID OptString `json:"id"`
@@ -6596,8 +6706,8 @@ func (s *AddZoomRoomReq) SetCallingPlans(val []AddZoomRoomReqCallingPlansItem) {
 }
 
 type AddZoomRoomReqCallingPlansItem struct {
-	// The [Type](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of the calling plan.
+	// The [type](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of calling plan.
 	Type OptInt `json:"type"`
 }
 
@@ -6610,6 +6720,28 @@ func (s *AddZoomRoomReqCallingPlansItem) GetType() OptInt {
 func (s *AddZoomRoomReqCallingPlansItem) SetType(val OptInt) {
 	s.Type = val
 }
+
+// ApplyTemplatetoCommonAreasCreated is response for ApplyTemplatetoCommonAreas operation.
+type ApplyTemplatetoCommonAreasCreated struct{}
+
+type ApplyTemplatetoCommonAreasReq struct {
+	// The `common_area_ids` is an array. Each element is the unique identifier of the [Common
+	// Area](https://marketplace.zoom.us/docs/api-reference/phone/methods/#operation/listCommonAreas). It
+	// can be retrieved from the List Common Areas API.
+	CommonAreaIds []string `json:"common_area_ids"`
+}
+
+// GetCommonAreaIds returns the value of CommonAreaIds.
+func (s *ApplyTemplatetoCommonAreasReq) GetCommonAreaIds() []string {
+	return s.CommonAreaIds
+}
+
+// SetCommonAreaIds sets the value of CommonAreaIds.
+func (s *ApplyTemplatetoCommonAreasReq) SetCommonAreaIds(val []string) {
+	s.CommonAreaIds = val
+}
+
+type AssignCallingPlanCreated struct{}
 
 type AssignCallingPlanReq struct {
 	CallingPlans []AssignCallingPlanReqCallingPlansItem `json:"calling_plans"`
@@ -6627,9 +6759,9 @@ func (s *AssignCallingPlanReq) SetCallingPlans(val []AssignCallingPlanReqCalling
 
 type AssignCallingPlanReqCallingPlansItem struct {
 	// The [type](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of the calling plan.
+	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of calling plan.
 	Type OptInt `json:"type"`
-	// The billing account ID. If the user is located in India, the field is required.
+	// The billing account ID. If the user is located in India, this field is required.
 	BillingAccountID OptString `json:"billing_account_id"`
 }
 
@@ -6652,6 +6784,8 @@ func (s *AssignCallingPlanReqCallingPlansItem) SetType(val OptInt) {
 func (s *AssignCallingPlanReqCallingPlansItem) SetBillingAccountID(val OptString) {
 	s.BillingAccountID = val
 }
+
+type AssignCallingPlanToRoomCreated struct{}
 
 type AssignCallingPlanToRoomReq struct {
 	CallingPlans []AssignCallingPlanToRoomReqCallingPlansItem `json:"calling_plans"`
@@ -6804,7 +6938,7 @@ func (s *AssignCallingPlansToCommonAreaReqCallingPlansItem) SetBillingAccountID(
 }
 
 type AssignCampaignPhoneNumbersCreated struct {
-	// Assigned phone numbers.
+	// The assigned phone numbers.
 	PhoneNumbers []AssignCampaignPhoneNumbersCreatedPhoneNumbersItem `json:"phone_numbers"`
 }
 
@@ -6968,6 +7102,8 @@ func (s *AssignPhoneNumberReqPhoneNumbersItem) SetID(val OptString) {
 func (s *AssignPhoneNumberReqPhoneNumbersItem) SetNumber(val OptString) {
 	s.Number = val
 }
+
+type AssignPhoneNumberToZoomRoomCreated struct{}
 
 type AssignPhoneNumberToZoomRoomReq struct {
 	PhoneNumbers []AssignPhoneNumberToZoomRoomReqPhoneNumbersItem `json:"phone_numbers"`
@@ -7187,8 +7323,8 @@ func (s *AssignPhoneNumbersToCommonAreaReqPhoneNumbersItem) SetNumber(val OptStr
 type AssignPhoneToCallQueueCreated struct{}
 
 type AssignPhoneToCallQueueReq struct {
-	// Provide either the `id` or the `number` field. Only a max of 5 numbers can be assigned to a call
-	// queue at a time.
+	// This field provides either the `id` or the `number` field. Only a maximum of five numbers can be
+	// assigned to a call queue at a time.
 	PhoneNumbers []AssignPhoneToCallQueueReqPhoneNumbersItem `json:"phone_numbers"`
 }
 
@@ -7203,9 +7339,9 @@ func (s *AssignPhoneToCallQueueReq) SetPhoneNumbers(val []AssignPhoneToCallQueue
 }
 
 type AssignPhoneToCallQueueReqPhoneNumbersItem struct {
-	// Unique identifier of the phone number.
+	// The unique identifier of the phone number.
 	ID OptString `json:"id"`
-	// Phone number.
+	// The phone number.
 	Number OptString `json:"number"`
 }
 
@@ -7272,7 +7408,7 @@ func (s *BatchAddLocationsCreatedLocationsItem) SetLocationID(val OptString) {
 
 type BatchAddLocationsReq struct {
 	Locations []BatchAddLocationsReqLocationsItem `json:"locations"`
-	// The site's ID.
+	// The site ID.
 	SiteID OptString `json:"site_id"`
 }
 
@@ -7525,7 +7661,7 @@ func (s *BatchAddLocationsReqLocationsItemCompanyAddress) SetZip(val OptString) 
 }
 
 type BatchAddLocationsReqLocationsItemNetworkSwitchesItem struct {
-	// The location's assigned MAC address. It's required if the `network_switches` value is set.
+	// The location's assigned MAC address. Required if the `network_switches` value is set.
 	MACAddress OptString `json:"mac_address"`
 	// The location's port label. You **cannot** pass this parameter with the `port_prefix` and
 	// `port_range` parameter.
@@ -7533,10 +7669,10 @@ type BatchAddLocationsReqLocationsItemNetworkSwitchesItem struct {
 	// The location's port prefix. The prefix value **cannot** end with a digit.
 	// This parameter passes with the `port_range_from` and `port_range_to` parameters.
 	PortPrefix OptString `json:"port_prefix"`
-	// The location's port starting range number. It can be a non-negative integer value.
+	// The location's port starting range number. This can be a non-negative integer value.
 	// This value **must** be less than or equal to the `port_range_to` value.
 	PortRangeFrom OptString `json:"port_range_from"`
-	// The location's port ending range number. It can be a non-negative integer value.
+	// The location's port ending range number. This can be a non-negative integer value.
 	// This value **cannot** be less than the `port_range_from` value.
 	PortRangeTo OptString `json:"port_range_to"`
 }
@@ -8193,13 +8329,13 @@ func (s *CreateCRPhoneNumbersReqItem) SetStatus(val OptString) {
 }
 
 type CreateCallQueueCreated struct {
-	// Extension number assigned for the Call Queue.
+	// The extension number assigned for the call queue.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Unique identifier of the Call Queue.
+	// The unique identifier of the call queue.
 	ID OptString `json:"id"`
-	// Name of the Call Queue.
+	// The name of the call queue.
 	Name OptString `json:"name"`
-	// Status of the Call Queue.
+	// The status of the call queue.
 	// `active`: Call queue is enabled and active.
 	// `inactive`: Call queue is inactive. Inactive call queues cannot be called but will retain its
 	// settings and appear in the [Call Queues](https://zoom.us/pbx/page/telephone/groups#/groups) page.
@@ -8247,23 +8383,23 @@ func (s *CreateCallQueueCreated) SetStatus(val OptString) {
 }
 
 type CreateCallQueueReq struct {
-	// Cost center name.
+	// The cost center name.
 	CostCenter OptString `json:"cost_center"`
-	// Department name.
+	// The department name.
 	Department OptString `json:"department"`
-	// Description for the Call Queue.
+	// The description for the call queue.
 	Description OptString `json:"description"`
-	// Phone extension number for the site.
+	// The phone extension number for the site.
 	// If a site code has been [assigned](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_79ca9c8f-c97b-4486-aa59-d0d9d31a525b)
 	// to the site, provide the short extension number instead of the original extension number.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// A list of one or more phone users to be included in the call queue. Provide either users or common
-	// area(s). Provide at least one user in the users object.
+	// A list of one or more phone users to be included in the call queue. It provides either users or
+	// common area(s), or at least one user in the users object.
 	Members OptCreateCallQueueReqMembers `json:"members"`
-	// Name of the Call Queue.
+	// The name of the call queue.
 	Name string `json:"name"`
-	// Unique identifier of the site. Required only if [multiple sites](https://support.zoom.
+	// The unique identifier of the site. It's required only if [multiple sites](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) have been enabled. This can be
 	// retrieved from the [List Phone Sites](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
@@ -8340,15 +8476,17 @@ func (s *CreateCallQueueReq) SetSiteID(val OptString) {
 	s.SiteID = val
 }
 
-// A list of one or more phone users to be included in the call queue. Provide either users or common
-// area(s). Provide at least one user in the users object.
+// A list of one or more phone users to be included in the call queue. It provides either users or
+// common area(s), or at least one user in the users object.
 type CreateCallQueueReqMembers struct {
 	// **Optional**
-	// Unique identifier of the [Common Area](https://marketplace.zoom.
+	// The unique identifier of the [common area](https://marketplace.zoom.
 	// us/docs/api-reference/phone/methods/#operation/listCommonAreas). This can be retrieved from the
-	// List Common Areas API.
+	// [List Common Areas](https://developers.zoom.
+	// us/docs/api/rest/reference/phone/methods/#operation/listCommonAreas) API.
 	CommonAreaIds []string `json:"common_area_ids"`
-	// Users object. Provide either the id (userId) field or the email address of the user.
+	// The object of the user. It provides either the 'id' (userId) field or the 'email address' of the
+	// user.
 	Users []CreateCallQueueReqMembersUsersItem `json:"users"`
 }
 
@@ -8373,10 +8511,10 @@ func (s *CreateCallQueueReqMembers) SetUsers(val []CreateCallQueueReqMembersUser
 }
 
 type CreateCallQueueReqMembersUsersItem struct {
-	// Email address of the user. This can be retrieved from the [List Users](https://marketplace.zoom.
+	// The email address of the user. It can be retrieved from the [List users](https://marketplace.zoom.
 	// us/docs/api-reference/zoom-api/methods#operation/users) API.
 	Email OptString `json:"email"`
-	// User Id of the user. This can be retrieved from the [List Users](https://marketplace.zoom.
+	// The user ID. It can be retrieved from the [List users](https://marketplace.zoom.
 	// us/docs/api-reference/zoom-api/methods#operation/users) API.
 	ID OptString `json:"id"`
 }
@@ -8914,35 +9052,6 @@ func (s *DeletePeeringPhoneNumbersOKUnprocessedNumbersItem) SetPhoneNumber(val O
 	s.PhoneNumber = val
 }
 
-type DeletePeeringPhoneNumbersReq struct {
-	// The carrier's code. The `clientId` maps to a carrier peered with Zoom.
-	// This parameter is required if you do **not** use an OAuth token or the OAuth token does not
-	// contain the `clientId`.
-	CarrierCode OptInt `json:"carrier_code"`
-	// The information about the removed phone numbers. Maximum of 200.
-	PhoneNumbers []string `json:"phone_numbers"`
-}
-
-// GetCarrierCode returns the value of CarrierCode.
-func (s *DeletePeeringPhoneNumbersReq) GetCarrierCode() OptInt {
-	return s.CarrierCode
-}
-
-// GetPhoneNumbers returns the value of PhoneNumbers.
-func (s *DeletePeeringPhoneNumbersReq) GetPhoneNumbers() []string {
-	return s.PhoneNumbers
-}
-
-// SetCarrierCode sets the value of CarrierCode.
-func (s *DeletePeeringPhoneNumbersReq) SetCarrierCode(val OptInt) {
-	s.CarrierCode = val
-}
-
-// SetPhoneNumbers sets the value of PhoneNumbers.
-func (s *DeletePeeringPhoneNumbersReq) SetPhoneNumbers(val []string) {
-	s.PhoneNumbers = val
-}
-
 // DeletePhoneNumbersSLGNoContent is response for DeletePhoneNumbersSLG operation.
 type DeletePhoneNumbersSLGNoContent struct{}
 
@@ -8972,6 +9081,9 @@ type DeleteSiteSettingNoContent struct{}
 
 // DeleteUnassignedPhoneNumbersNoContent is response for DeleteUnassignedPhoneNumbers operation.
 type DeleteUnassignedPhoneNumbersNoContent struct{}
+
+// DeleteUserCallHistoryNoContent is response for DeleteUserCallHistory operation.
+type DeleteUserCallHistoryNoContent struct{}
 
 // DeleteUserOutboundCallerNumbersNoContent is response for DeleteUserOutboundCallerNumbers operation.
 type DeleteUserOutboundCallerNumbersNoContent struct{}
@@ -9271,25 +9383,63 @@ func (s *GetABlockedListOK) SetStatus(val OptString) {
 }
 
 type GetACallQueueOK struct {
-	// Cost center name.
+	// The name of the cost center.
 	CostCenter OptString `json:"cost_center"`
-	// Department name.
+	// The name of the department.
 	Department OptString `json:"department"`
-	// Extension ID.
+	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
-	// Extension number assigned to the Call Queue.
+	// The extension number assigned to the call queue.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Unique identifier of the Call Queue.
+	// The unique identifier of the call queue.
 	ID      OptString                 `json:"id"`
 	Members OptGetACallQueueOKMembers `json:"members"`
-	// Name of the Call Queue.
+	// The name of the call queue.
 	Name         OptString                         `json:"name"`
 	PhoneNumbers []GetACallQueueOKPhoneNumbersItem `json:"phone_numbers"`
 	Site         OptGetACallQueueOKSite            `json:"site"`
-	// Status of the Call Queue.
+	// The status of the call queue.
 	Status OptString `json:"status"`
 	// The call queue policy list.
 	Policy OptGetACallQueueOKPolicy `json:"policy"`
+	// [Timezone](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Call Queue.
+	Timezone OptString `json:"timezone"`
+	// The language for all default audio prompts for the Call Queue.
+	// * `en-US` : English (US)
+	// * `en-GB` : English (UK)
+	// * `es-US` : Spanish (US)
+	// * `fr-CA` : French (Canada)
+	// * `da-DK` : Danish (Denmark)
+	// * `de-DE` : German (Germany)
+	// * `es-ES` : Spanish (Spain)
+	// * `fr-FR` : French (France)
+	// * `it-IT` : Italian (Italy)
+	// * `nl-NL` : Dutch (Netherlands)
+	// * `pt-PT` : Portuguese (Portugal)
+	// * `ja` : Japanese
+	// * `ko-KR` : Korean (Korea)
+	// * `pt-BR` : Portuguese (Brazil)
+	// * `zh-CN` : Chinese (PRC).
+	AudioPromptLanguage OptString `json:"audio_prompt_language"`
+	// Where recording will be stored. Recording includes Phone recordings, voicemail, voicemail
+	// transcripts, and custom greeting prompts.
+	// * `US` : United States
+	// * `AU` : Australia
+	// * `CA` : Canada
+	// * `DE` : Germany
+	// * `IN` : India
+	// * `JP` : Japan
+	// * `SG` : Singapore
+	// * `BR` : Brazil
+	// * `CN` : China
+	// * `MX` : Mexico
+	// <b>Note:</b>
+	// * If the setting is locked at the Account level, it can't be updated.
+	RecordingStorageLocation OptString `json:"recording_storage_location"`
+	// The name of your own storage. Use your own storage provided by Oracle Cloud Infrastructure (OCI)
+	// to store Zoom Phone recordings, voicemails, and voicemail transcripts, and custom greeting prompts.
+	OwnStorageName OptString `json:"own_storage_name"`
 }
 
 // GetCostCenter returns the value of CostCenter.
@@ -9347,6 +9497,26 @@ func (s *GetACallQueueOK) GetPolicy() OptGetACallQueueOKPolicy {
 	return s.Policy
 }
 
+// GetTimezone returns the value of Timezone.
+func (s *GetACallQueueOK) GetTimezone() OptString {
+	return s.Timezone
+}
+
+// GetAudioPromptLanguage returns the value of AudioPromptLanguage.
+func (s *GetACallQueueOK) GetAudioPromptLanguage() OptString {
+	return s.AudioPromptLanguage
+}
+
+// GetRecordingStorageLocation returns the value of RecordingStorageLocation.
+func (s *GetACallQueueOK) GetRecordingStorageLocation() OptString {
+	return s.RecordingStorageLocation
+}
+
+// GetOwnStorageName returns the value of OwnStorageName.
+func (s *GetACallQueueOK) GetOwnStorageName() OptString {
+	return s.OwnStorageName
+}
+
 // SetCostCenter sets the value of CostCenter.
 func (s *GetACallQueueOK) SetCostCenter(val OptString) {
 	s.CostCenter = val
@@ -9402,6 +9572,26 @@ func (s *GetACallQueueOK) SetPolicy(val OptGetACallQueueOKPolicy) {
 	s.Policy = val
 }
 
+// SetTimezone sets the value of Timezone.
+func (s *GetACallQueueOK) SetTimezone(val OptString) {
+	s.Timezone = val
+}
+
+// SetAudioPromptLanguage sets the value of AudioPromptLanguage.
+func (s *GetACallQueueOK) SetAudioPromptLanguage(val OptString) {
+	s.AudioPromptLanguage = val
+}
+
+// SetRecordingStorageLocation sets the value of RecordingStorageLocation.
+func (s *GetACallQueueOK) SetRecordingStorageLocation(val OptString) {
+	s.RecordingStorageLocation = val
+}
+
+// SetOwnStorageName sets the value of OwnStorageName.
+func (s *GetACallQueueOK) SetOwnStorageName(val OptString) {
+	s.OwnStorageName = val
+}
+
 type GetACallQueueOKMembers struct {
 	Users       []GetACallQueueOKMembersUsersItem       `json:"users"`
 	CommonAreas []GetACallQueueOKMembersCommonAreasItem `json:"common_areas"`
@@ -9428,11 +9618,11 @@ func (s *GetACallQueueOKMembers) SetCommonAreas(val []GetACallQueueOKMembersComm
 }
 
 type GetACallQueueOKMembersCommonAreasItem struct {
-	// Unique identifier of the common area.
+	// The unique identifier of the common area.
 	ID OptString `json:"id"`
-	// Name of the common area.
+	// The name of the common area.
 	Name OptString `json:"name"`
-	// Extension ID of common area.
+	// The extension ID of common area.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -9467,18 +9657,18 @@ func (s *GetACallQueueOKMembersCommonAreasItem) SetExtensionID(val OptString) {
 }
 
 type GetACallQueueOKMembersUsersItem struct {
-	// User ID: Unique identifier of the user.
+	// The unique identifier of the user.
 	ID OptString `json:"id"`
-	// Level of the user. The value can be one of the following:
+	// The level of the user. The value can be one of the following:
 	// `manager`: A call queue manager has the privilege to change call queue settings, policy settings
 	// and manage recordings and voicemail inbox. There can only be one manager for each call queue.
 	// `user`: Regular user without the privileges of a manager.
 	Level OptString `json:"level"`
-	// Name of the user.
+	// The name of the user.
 	Name OptString `json:"name"`
-	// Determines whether the user can receive calls or not.
+	// Whether the user can receive calls or not.
 	ReceiveCall OptBool `json:"receive_call"`
-	// Extension ID of the user.
+	// The extension ID of the user.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -9533,11 +9723,11 @@ func (s *GetACallQueueOKMembersUsersItem) SetExtensionID(val OptString) {
 }
 
 type GetACallQueueOKPhoneNumbersItem struct {
-	// Unique identifier of the number.
+	// The unique identifier of the number.
 	ID OptString `json:"id"`
-	// Phone number.
+	// The phone number.
 	Number OptString `json:"number"`
-	// Source.
+	// The source.
 	Source OptString `json:"source"`
 }
 
@@ -9591,11 +9781,11 @@ func (s *GetACallQueueOKPolicy) SetVoicemailAccessMembers(val []GetACallQueueOKP
 type GetACallQueueOKPolicyVoicemailAccessMembersItem struct {
 	// The Zoom user ID or email to share or update the access permissions with.
 	AccessUserID OptString `json:"access_user_id"`
-	// Specifies whether the member has download permissions. The default is **false**.
+	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
-	// Specifies whether the member has delete permissions. The default is **false**.
+	// Whether the member has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// Specifies whether the member has the permission to share. The default is **false**.
+	// Whether the member has the permission to share. The default is **false**.
 	AllowSharing OptBool `json:"allow_sharing"`
 	// The shared voicemail ID.
 	SharedID OptString `json:"shared_id"`
@@ -9652,10 +9842,11 @@ func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetSharedID(val OptStr
 }
 
 type GetACallQueueOKSite struct {
-	// Unique identifier of the [site](https://support.zoom.
-	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the Call Queue is assigned.
+	// The unique identifier of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the call queue is assigned.
 	ID OptString `json:"id"`
-	// Name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites).
+	// The name of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites).
 	Name OptString `json:"name"`
 }
 
@@ -10998,10 +11189,53 @@ type GetASharedLineGroupOK struct {
 	Site OptGetASharedLineGroupOKSite `json:"site"`
 	// The status of the shared line group.
 	Status OptString `json:"status"`
-	// The timezone used for the business hours.
+	// The [timezone](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Shared Line Group.
 	Timezone OptString `json:"timezone"`
 	// The shared line group policy list.
 	Policy OptGetASharedLineGroupOKPolicy `json:"policy"`
+	// The cost center name.
+	CostCenter OptString `json:"cost_center"`
+	// The department name.
+	Department OptString `json:"department"`
+	// The language for all default audio prompts for the Shared Line Group.
+	// * `en-US` : English (US)
+	// * `en-GB` : English (UK)
+	// * `es-US` : Spanish (US)
+	// * `fr-CA` : French (Canada)
+	// * `da-DK` : Danish (Denmark)
+	// * `de-DE` : German (Germany)
+	// * `es-ES` : Spanish (Spain)
+	// * `fr-FR` : French (France)
+	// * `it-IT` : Italian (Italy)
+	// * `nl-NL` : Dutch (Netherlands)
+	// * `pt-PT` : Portuguese (Portugal)
+	// * `ja` : Japanese
+	// * `ko-KR` : Korean (Korea)
+	// * `pt-BR` : Portuguese (Brazil)
+	// * `zh-CN` : Chinese (PRC).
+	AudioPromptLanguage OptString `json:"audio_prompt_language"`
+	// Where the recording will be stored. Recording includes Phone recordings, voicemail, voicemail
+	// transcripts, and custom greeting prompts.
+	// * `US` : United States
+	// * `AU` : Australia
+	// * `CA` : Canada
+	// * `DE` : Germany
+	// * `IN` : India
+	// * `JP` : Japan
+	// * `SG` : Singapore
+	// * `BR` : Brazil
+	// * `CN` : China
+	// * `MX` : Mexico
+	// <b>Note:</b>
+	// * If the setting is locked at the Account level, it can't be updated.
+	RecordingStorageLocation OptString `json:"recording_storage_location"`
+	// The name of your own storage. Use your own storage provided by Oracle Cloud Infrastructure (OCI)
+	// to store Zoom Phone recordings, voicemails, and voicemail transcripts, and custom greeting prompts.
+	OwnStorageName OptString `json:"own_storage_name"`
+	// Whether to allow members to prevent others from picking up a held call, and listening, whispering,
+	// barging, or taking over a call if it's configured.
+	AllowPrivacy OptBool `json:"allow_privacy"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -11059,6 +11293,36 @@ func (s *GetASharedLineGroupOK) GetPolicy() OptGetASharedLineGroupOKPolicy {
 	return s.Policy
 }
 
+// GetCostCenter returns the value of CostCenter.
+func (s *GetASharedLineGroupOK) GetCostCenter() OptString {
+	return s.CostCenter
+}
+
+// GetDepartment returns the value of Department.
+func (s *GetASharedLineGroupOK) GetDepartment() OptString {
+	return s.Department
+}
+
+// GetAudioPromptLanguage returns the value of AudioPromptLanguage.
+func (s *GetASharedLineGroupOK) GetAudioPromptLanguage() OptString {
+	return s.AudioPromptLanguage
+}
+
+// GetRecordingStorageLocation returns the value of RecordingStorageLocation.
+func (s *GetASharedLineGroupOK) GetRecordingStorageLocation() OptString {
+	return s.RecordingStorageLocation
+}
+
+// GetOwnStorageName returns the value of OwnStorageName.
+func (s *GetASharedLineGroupOK) GetOwnStorageName() OptString {
+	return s.OwnStorageName
+}
+
+// GetAllowPrivacy returns the value of AllowPrivacy.
+func (s *GetASharedLineGroupOK) GetAllowPrivacy() OptBool {
+	return s.AllowPrivacy
+}
+
 // SetDisplayName sets the value of DisplayName.
 func (s *GetASharedLineGroupOK) SetDisplayName(val OptString) {
 	s.DisplayName = val
@@ -11112,6 +11376,36 @@ func (s *GetASharedLineGroupOK) SetTimezone(val OptString) {
 // SetPolicy sets the value of Policy.
 func (s *GetASharedLineGroupOK) SetPolicy(val OptGetASharedLineGroupOKPolicy) {
 	s.Policy = val
+}
+
+// SetCostCenter sets the value of CostCenter.
+func (s *GetASharedLineGroupOK) SetCostCenter(val OptString) {
+	s.CostCenter = val
+}
+
+// SetDepartment sets the value of Department.
+func (s *GetASharedLineGroupOK) SetDepartment(val OptString) {
+	s.Department = val
+}
+
+// SetAudioPromptLanguage sets the value of AudioPromptLanguage.
+func (s *GetASharedLineGroupOK) SetAudioPromptLanguage(val OptString) {
+	s.AudioPromptLanguage = val
+}
+
+// SetRecordingStorageLocation sets the value of RecordingStorageLocation.
+func (s *GetASharedLineGroupOK) SetRecordingStorageLocation(val OptString) {
+	s.RecordingStorageLocation = val
+}
+
+// SetOwnStorageName sets the value of OwnStorageName.
+func (s *GetASharedLineGroupOK) SetOwnStorageName(val OptString) {
+	s.OwnStorageName = val
+}
+
+// SetAllowPrivacy sets the value of AllowPrivacy.
+func (s *GetASharedLineGroupOK) SetAllowPrivacy(val OptBool) {
+	s.AllowPrivacy = val
 }
 
 // This field allows you to view current [members](https://support.zoom.
@@ -14890,18 +15184,18 @@ func (s *GetAudioItemOK) SetVoiceAccent(val OptString) {
 }
 
 type GetAutoReceptionistDetailOK struct {
-	// `nullable` Cost center name.
+	// `nullable` The cost center name.
 	CostCenter OptString `json:"cost_center"`
-	// `nullable` Department name.
+	// `nullable` The name of the department.
 	Department OptString `json:"department"`
-	// Extension ID.
+	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
-	// Extension number of the auto receptionist.
+	// The extension number of the auto receptionist.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Name of the auto receptionist.
+	// The name of the auto receptionist.
 	Name OptString `json:"name"`
 	// [Timezone](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the auto receptionist.
 	Timezone OptString `json:"timezone"`
 	// The language for all default audio prompts for the auto receptionist.
 	// * `en-US` : English (US)
@@ -14924,8 +15218,8 @@ type GetAutoReceptionistDetailOK struct {
 	HolidayHours []GetAutoReceptionistDetailOKHolidayHoursItem `json:"holiday_hours"`
 	PhoneNumbers []GetAutoReceptionistDetailOKPhoneNumbersItem `json:"phone_numbers"`
 	Site         OptGetAutoReceptionistDetailOKSite            `json:"site"`
-	// Determine where recording will be stored. Recording includes Phone recordings, voicemail,
-	// voicemail transcripts, and custom greeting prompts.
+	// Where the recording will be stored. Recording includes Phone recordings, voicemail, voicemail
+	// transcripts, and custom greeting prompts.
 	// * `US` : United States
 	// * `AU` : Australia
 	// * `CA` : Canada
@@ -15116,9 +15410,9 @@ func (s *GetAutoReceptionistDetailOKHolidayHoursItem) SetTo(val OptDateTime) {
 }
 
 type GetAutoReceptionistDetailOKPhoneNumbersItem struct {
-	// Unique identifier of the phone number.
+	// The unique identifier of the phone number.
 	ID OptString `json:"id"`
-	// Phone number.
+	// The phone number.
 	Number OptString `json:"number"`
 }
 
@@ -15143,11 +15437,11 @@ func (s *GetAutoReceptionistDetailOKPhoneNumbersItem) SetNumber(val OptString) {
 }
 
 type GetAutoReceptionistDetailOKSite struct {
-	// Unique identifier of the [site](https://support.zoom.
+	// The unique identifier of the [site](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) to which the common area desk phone is
 	// assigned.
 	ID OptString `json:"id"`
-	// Name of the site.
+	// The name of the site.
 	Name OptString `json:"name"`
 }
 
@@ -16224,8 +16518,12 @@ func (s *GetCallHandlingOKBusinessHoursItem) SetSubSettingType(val OptString) {
 
 // The business hours settings.
 type GetCallHandlingOKBusinessHoursItemSettings struct {
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// Whether to allow the callers to check voicemails over a phone. Required only when the
 	// `call_not_answer_action` setting is set to `1` (Forward to a voicemail).
+	//
+	// Deprecated: schema marks this property as deprecated.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// This field allows queue members to set their own business hours. It allows queue members' business
 	// hours to override the default hours of the call queue.
@@ -16243,6 +16541,8 @@ type GetCallHandlingOKBusinessHoursItemSettings struct {
 	CallDistribution OptGetCallHandlingOKBusinessHoursItemSettingsCallDistribution `json:"call_distribution"`
 	// The call forwarding settings. It returns only for the `call_forwarding` sub-setting.
 	CallForwardingSettings []GetCallHandlingOKBusinessHoursItemSettingsCallForwardingSettingsItem `json:"call_forwarding_settings"`
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// The action to take when a call is not answered:
 	// * `1` &mdash; Forward to a voicemail.
 	// * `2` &mdash; Forward to the user.
@@ -16257,9 +16557,15 @@ type GetCallHandlingOKBusinessHoursItemSettings struct {
 	// * `13` - Forward to message.
 	// * `14` - Forward to interactive voice response (IVR).
 	// Returned only for the `call_handling` sub-setting.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	CallNotAnswerAction OptInt `json:"call_not_answer_action"`
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// Whether to allow callers to reach an operator. Returns only when `call_not_answer_action` is set
 	// to `1` (Forward to a voicemail).
+	//
+	// Deprecated: schema marks this property as deprecated.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
 	// The custom hours settings. It returns only for the `custom_hours` sub-setting.
 	CustomHoursSettings []GetCallHandlingOKBusinessHoursItemSettingsCustomHoursSettingsItem `json:"custom_hours_settings"`
@@ -16326,17 +16632,18 @@ type GetCallHandlingOKBusinessHoursItemSettings struct {
 	// * `sequential`
 	// Returned only for the `call_handling` sub-setting.
 	RingMode OptString `json:"ring_mode"`
-	// The extension's forwarding or overflow information. It returns the response when
-	// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-	// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-	// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-	// to an external contact), or `10` (Forward to an external number).
+	// The extension's forwarding or overflow information when a call is not answered during Business
+	// Hours.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	Routing OptGetCallHandlingOKBusinessHoursItemSettingsRouting `json:"routing"`
-	// The extension's forwarding or overflow information. It returns the response when
-	// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-	// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-	// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-	// to an external contact), or `10` (Forward to an external number).
+	// The extension's forwarding or overflow information when the user is busy on another call during
+	// Business Hours.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	BusyRouting OptGetCallHandlingOKBusinessHoursItemSettingsBusyRouting `json:"busy_routing"`
 	// The type of custom hours:
 	// * `1` &mdash; 24 hours, 7 days a week.
@@ -16589,24 +16896,12 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsAudioWhileConnecting) SetName
 	s.Name = val
 }
 
-// The extension's forwarding or overflow information. It returns the response when
-// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-// to an external contact), or `10` (Forward to an external number).
+// The extension's forwarding or overflow information when the user is busy on another call during
+// Business Hours.
+// Applicable to the extension as shown below:
+// * `User`.
 type GetCallHandlingOKBusinessHoursItemSettingsBusyRouting struct {
-	// The extension's forwarding/overflow information. For `call_not_answered`:
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `11` &mdash; Disconnect.
-	// * `12` &mdash; Play a message, then disconnect.
-	// For `busy_on_another_call_action`:
+	// The action to take when the user is busy on another call during Business Hours:
 	// * `21` - Call waiting.
 	// * `22` - Play a busy signal.
 	// * `1` &mdash; Forward to a voicemail/videomail.
@@ -16619,47 +16914,91 @@ type GetCallHandlingOKBusinessHoursItemSettingsBusyRouting struct {
 	// * `10` - Forward to an external number.
 	// * `12` &mdash; Play a message, then disconnect.
 	Action OptInt `json:"action"`
-	// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-	// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-	// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-	// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+	// The information about the call forwarding target.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: when `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+	// Shared Line Group) or `9`(forward to an External Contact) for the user busy on another call, this
+	// field is used to display the extension to which the call will be forwarded. This scenario applies
+	// to `User`.
+	// * Secnario 2: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	ForwardTo OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo `json:"forward_to"`
-	// This field allows callers to reach an operator. It's the response returned when the
-	// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-	// voicemail) and `connect_to_operator` setting is set to `true`.
+	// The the operator to whom the call is being forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+	// and the `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	Operator OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator `json:"operator"`
-	// Whether to allow callers to reach an operator. It returns only for the `user` and `call_handling`
-	// subsetting. It displays when the `call_not_answer_action` setting or `busy_on_another_call_action`
-	// setting is set to `1` (Forward to a voicemail).
+	// Whether to allow callers to reach an operator.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
-	// Whether to allow the callers to check voicemails over a phone. It returns only for the `user` and
-	// `call_handling` subsetting options. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow the callers to check voicemails over a phone.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// The voicemail greeting audio prompt
-	// Returns only for the `user` and `call_handling` subsetting options. It displays when
-	// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+	// in the `busy_routing` section is set to `1` - Forward to a voicemail.
 	VoicemailGreeting OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail leaving instruction prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `busy_routing` section is set to `1` (Forward to a
+	// voicemail), and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
+	VoicemailLeavingInstruction OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction `json:"voicemail_leaving_instruction"`
+	// The message greeting prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `busy_routing` section is set to `12` (Play a message, then
+	// disconnect).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	MessageGreeting OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting `json:"message_greeting"`
 	// When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot;
 	// before the call connects. This field helps to ensure that missed calls do not reach to your
 	// personal voicemail. It returns for the `Forward to an external number` and `Forward to External
 	// Contacts` options.
 	RequirePress1BeforeConnecting OptBool `json:"require_press_1_before_connecting"`
+	// `Note: This field is invalid and part of incorrect documentation. It is only included in the
+	// `routing` section.`
 	// Whether to play the callee's voicemail greeting when the caller reaches the end of forwarding
 	// sequence. It displays when `call_not_answer_action` is set to `2` - Forward to the user, `4` -
 	// Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue,
 	// `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
 	// external number.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	OverflowPlayCalleeVoicemailGreeting OptBool `json:"overflow_play_callee_voicemail_greeting"`
-	// Whether to play the callee's voicemail greeting when the caller reaches end of forwarding sequence.
-	//  It displays when `busy_routing` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+	// and the `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	PlayCalleeVoicemailGreeting OptBool `json:"play_callee_voicemail_greeting"`
-	// Whether to play callee's voicemail greeting when caller reaches end of forwarding sequence. It
-	// displays when `busy_routing` action is set to `2` - Forward to the user, `4` - Forward to the
-	// common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward
-	// to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue) or `8`(Forward to a
+	// Shared Line Group).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	BusyPlayCalleeVoicemailGreeting OptBool `json:"busy_play_callee_voicemail_greeting"`
 }
 
@@ -16691,6 +17030,16 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) GetAllowCallersC
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) GetVoicemailGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetVoicemailLeavingInstruction returns the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) GetVoicemailLeavingInstruction() OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
+	return s.VoicemailLeavingInstruction
+}
+
+// GetMessageGreeting returns the value of MessageGreeting.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) GetMessageGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting {
+	return s.MessageGreeting
 }
 
 // GetRequirePress1BeforeConnecting returns the value of RequirePress1BeforeConnecting.
@@ -16743,6 +17092,16 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) SetVoicemailGree
 	s.VoicemailGreeting = val
 }
 
+// SetVoicemailLeavingInstruction sets the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) SetVoicemailLeavingInstruction(val OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) {
+	s.VoicemailLeavingInstruction = val
+}
+
+// SetMessageGreeting sets the value of MessageGreeting.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) SetMessageGreeting(val OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) {
+	s.MessageGreeting = val
+}
+
 // SetRequirePress1BeforeConnecting sets the value of RequirePress1BeforeConnecting.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) SetRequirePress1BeforeConnecting(val OptBool) {
 	s.RequirePress1BeforeConnecting = val
@@ -16763,10 +17122,18 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRouting) SetBusyPlayCalle
 	s.BusyPlayCalleeVoicemailGreeting = val
 }
 
-// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+// The information about the call forwarding target.
+// This field is only available in the following scenarios:
+// * Secnario 1: when `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+// Shared Line Group) or `9`(forward to an External Contact) for the user busy on another call, this
+// field is used to display the extension to which the call will be forwarded. This scenario applies
+// to `User`.
+// * Secnario 2: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+// number/External number) for the user busy on another call, this field is used to display the
+// specific Phone number/External number to which the call will be forwarded. This scenario applies
+// to `User`.
 type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -16783,12 +17150,23 @@ type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo struct {
 	ID OptString `json:"id"`
 	// The extension's phone number or forward to an external number, in [E.164 format](https://en.
 	// wikipedia.org/wiki/E.164) format.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	PhoneNumber OptString `json:"phone_number"`
 	// This field forwards to an external number description.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	Description OptString `json:"description"`
-	// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-	// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-	VoicemailGreeting *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail greeting prompt. It returns only when the `action` in the `busy_routing` section is
+	// set to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+	// sub-setting.
+	VoicemailGreeting OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -16827,7 +17205,7 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) GetDesc
 }
 
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
-func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) GetVoicemailGreeting() *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) GetVoicemailGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
 	return s.VoicemailGreeting
 }
 
@@ -16867,17 +17245,84 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) SetDesc
 }
 
 // SetVoicemailGreeting sets the value of VoicemailGreeting.
-func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) SetVoicemailGreeting(val *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) SetVoicemailGreeting(val OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
 	s.VoicemailGreeting = val
 }
 
-// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct{}
+// The voicemail greeting prompt. It returns only when the `action` in the `busy_routing` section is
+// set to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+// sub-setting.
+type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct {
+	// The voicemail greeting audio prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail greeting audio prompt name.
+	Name OptString `json:"name"`
+}
 
-// This field allows callers to reach an operator. It's the response returned when the
-// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-// voicemail) and `connect_to_operator` setting is set to `true`.
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The message greeting prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `busy_routing` section is set to `12` (Play a message, then
+// disconnect).
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting struct {
+	// The message greeting prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The message greeting prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The the operator to whom the call is being forwarded.
+// This field is only available in the following scenarios:
+// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+// and the `connect_to_operator` is `true`.
+// Applicable to the extension as shown below:
+// * `User`.
 type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -16946,9 +17391,8 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator) SetID(va
 }
 
 // The voicemail greeting audio prompt
-// Returns only for the `user` and `call_handling` subsetting options. It displays when
-// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-// voicemail.
+// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+// in the `busy_routing` section is set to `1` - Forward to a voicemail.
 type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting struct {
 	// The voicemail greeting audio prompt ID.
 	// Options: empty char - default.
@@ -16974,6 +17418,40 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting)
 
 // SetName sets the value of Name.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The voicemail leaving instruction prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `busy_routing` section is set to `1` (Forward to a
+// voicemail), and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+// Applicable to the extension as shown below:
+// * `User`.
+type GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction struct {
+	// The voicemail leaving instruction prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail leaving instruction prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetName(val OptString) {
 	s.Name = val
 }
 
@@ -17296,78 +17774,151 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsMusicOnHold) SetName(val OptS
 	s.Name = val
 }
 
-// The extension's forwarding or overflow information. It returns the response when
-// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-// to an external contact), or `10` (Forward to an external number).
+// The extension's forwarding or overflow information when a call is not answered during Business
+// Hours.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
 type GetCallHandlingOKBusinessHoursItemSettingsRouting struct {
-	// The extension's forwarding/overflow information. For `call_not_answered`:
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `11` &mdash; Disconnect.
-	// * `12` &mdash; Play a message, then disconnect.
-	// For `busy_on_another_call_action`:
-	// * `21` - Call waiting.
-	// * `22` - Play a busy signal.
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `12` &mdash; Play a message, then disconnect.
+	// The action to take when a call is not answered during Business Hours:
+	// * `1` &mdash; Forward to a Voicemail. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `2` &mdash; Forward to the User. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `3` &mdash; Forward to the Zoom Room. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `4` &mdash; Forward to the Common Area. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `5` &mdash; Forward to the Cisco/Polycom Room. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `6` &mdash; Forward to the Auto Receptionist. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `7` &mdash; Forward to a Call Queue. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `8` &mdash; Forward to a Shared Line Group. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `9` &mdash; Forward to an External Contact. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `10` - Forward to a Phone Number. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `11` &mdash; Disconnect. Applicable to `User`, `Call Queue`, or `Shared Line Group`.
+	// * `12` &mdash; Play a message, then disconnect. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`
+	// * `14` - Forward to an Interactive Voice Response (IVR). Applicable to `Auto Receptionist`.
+	// * `15` &mdash; Forward to a Partner Contact Center. Applicable to `Auto Receptionist`.
+	// * `18` &mdash; Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for
+	// Microsoft Teams. Applicable to `Call queue`, `Auto Receptionist`, or `Shared Line group`.
+	// * `19` &mdash; Forward to a Zoom Contact Center. Required Zoom Contact Center license. Applicable
+	// to `Call Queue`, `Auto Receptionist`, or `Shared Line Group`.
 	Action OptInt `json:"action"`
-	// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-	// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-	// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-	// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+	// The information about the call forwarding target.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `1` (Forward to voicemail) for
+	// unanswered calls, this field is used to display the specific extension to which voicemails are
+	// forwarded. This scenario applies to `Auto Receptionist` and `Call Queue`.
+	// * Secnario 2: when `action` in the `routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+	// Shared Line Group) or `9`(forward to an External Contact) for unanswered calls, this field is used
+	// to display the extension to which the call will be forwarded. This scenario applies to `User`,
+	// `Auto Receptionist`, `Call Queue` and `Shared Line Group`.
+	// * Secnario 3: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	// * Secnario 4: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	// * Secnario 5: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
+	// * Secnario 6: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
 	ForwardTo OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo `json:"forward_to"`
-	// This field allows callers to reach an operator. The response returned when the
-	// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-	// voicemail) and `connect_to_operator` setting is set to `true`.
+	// The the operator to whom the call is being forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	Operator OptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator `json:"operator"`
-	// Whether to allow callers to reach an operator. It returns only for the `user` and `call_handling`
-	// subsetting. It displays when the `call_not_answer_action` setting or `busy_on_another_call_action`
-	// setting is set to `1` (Forward to a voicemail).
+	// Whether to allow callers to reach an operator.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
-	// Whether to allow the callers to check voicemails over a phone. It returns only for the `user` and
-	// `call_handling` subsetting. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow the callers to check voicemails over a phone.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Shared Line Group`.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// The voicemail greeting audio prompt
-	// Returns only for the `user` and `call_handling` subsetting. It displays when
-	// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Returns only for the `user` and `call_handling` subsetting. It displays when the `action` in the
+	// `routing` section is set to `1` - Forward to a voicemail.
 	VoicemailGreeting OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail leaving instruction prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `routing` section is set to `1` (Forward to a voicemail),
+	// and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	VoicemailLeavingInstruction OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction `json:"voicemail_leaving_instruction"`
+	// The message greeting prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `routing` section is set to `12` (Play a message, then
+	// disconnect).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	MessageGreeting OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting `json:"message_greeting"`
 	// When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot;
 	// before the call connects. It helps to ensure that missed calls do not reach to your personal
 	// voicemail. It returns for the `Forward to an external number` and `Forward to External Contacts`
 	// options.
 	RequirePress1BeforeConnecting OptBool `json:"require_press_1_before_connecting"`
-	// Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding
-	// sequence. It displays when `call_not_answer_action` is set to `2` - Forward to the user, `4` -
-	// Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue,
-	// `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
-	// external number.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue) or `8`(Forward to a
+	// Shared Line Group).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	OverflowPlayCalleeVoicemailGreeting OptBool `json:"overflow_play_callee_voicemail_greeting"`
-	// Whether to play the callee's voicemail greeting when caller reaches end of forwarding sequence. It
-	// displays when `busy_routing` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	PlayCalleeVoicemailGreeting OptBool `json:"play_callee_voicemail_greeting"`
+	// `Note: This field is invalid and part of incorrect documentation. It is only included in
+	// `busy_routing` section.`
 	// Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding
 	// sequence. It displays when `busy_routing` action is set to `2` - Forward to the user, `4` -
 	// Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue,
 	// `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
 	// external number.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	BusyPlayCalleeVoicemailGreeting OptBool `json:"busy_play_callee_voicemail_greeting"`
 }
 
@@ -17399,6 +17950,16 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) GetAllowCallersCheck
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) GetVoicemailGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetVoicemailLeavingInstruction returns the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) GetVoicemailLeavingInstruction() OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction {
+	return s.VoicemailLeavingInstruction
+}
+
+// GetMessageGreeting returns the value of MessageGreeting.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) GetMessageGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting {
+	return s.MessageGreeting
 }
 
 // GetRequirePress1BeforeConnecting returns the value of RequirePress1BeforeConnecting.
@@ -17451,6 +18012,16 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) SetVoicemailGreeting
 	s.VoicemailGreeting = val
 }
 
+// SetVoicemailLeavingInstruction sets the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) SetVoicemailLeavingInstruction(val OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) {
+	s.VoicemailLeavingInstruction = val
+}
+
+// SetMessageGreeting sets the value of MessageGreeting.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) SetMessageGreeting(val OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) {
+	s.MessageGreeting = val
+}
+
 // SetRequirePress1BeforeConnecting sets the value of RequirePress1BeforeConnecting.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) SetRequirePress1BeforeConnecting(val OptBool) {
 	s.RequirePress1BeforeConnecting = val
@@ -17471,10 +18042,32 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRouting) SetBusyPlayCalleeVoi
 	s.BusyPlayCalleeVoicemailGreeting = val
 }
 
-// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+// The information about the call forwarding target.
+// This field is only available in the following scenarios:
+// * Secnario 1: When `action` in the `routing` section is set to `1` (Forward to voicemail) for
+// unanswered calls, this field is used to display the specific extension to which voicemails are
+// forwarded. This scenario applies to `Auto Receptionist` and `Call Queue`.
+// * Secnario 2: when `action` in the `routing` section is set to: `2`(Forward to the User),
+// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+// Shared Line Group) or `9`(forward to an External Contact) for unanswered calls, this field is used
+// to display the extension to which the call will be forwarded. This scenario applies to `User`,
+// `Auto Receptionist`, `Call Queue` and `Shared Line Group`.
+// * Secnario 3: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+// `Shared Line Group`.
+// * Secnario 4: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+// * Secnario 5: When `action` in the `routing` section is set to `10` (Forward to Phone
+// number/External number) for unanswered calls, this field is used to display the specific Phone
+// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+// Receptionist`, `Call Queue` and `Shared Line Group`.
+// * Secnario 6: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+// Queue` and `Shared Line Group`.
 type GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -17491,12 +18084,63 @@ type GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo struct {
 	ID OptString `json:"id"`
 	// The extension's phone number or forward to an external number, in [E.164 format](https://en.
 	// wikipedia.org/wiki/E.164) format.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
 	PhoneNumber OptString `json:"phone_number"`
 	// This field forwards to an external number description.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
 	Description OptString `json:"description"`
-	// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-	// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-	VoicemailGreeting *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail greeting prompt. It returns only when the `action` in the `routing` section is set
+	// to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+	// sub-setting.
+	VoicemailGreeting OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The Zoom Contact Center phone number to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	ZccPhoneNumber OptString `json:"zcc_phone_number"`
+	// The display name of the Zoom Contact Center phone number to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	ZccPhoneNumberDisplayName OptString `json:"zcc_phone_number_display_name"`
+	// The ID of the Partner Contact Center to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	PartnerContactCenterID OptString `json:"partner_contact_center_id"`
+	// The display name of the Partner Contact Center to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	PccPhoneNumberDisplayName OptString `json:"pcc_phone_number_display_name"`
+	// The ID of the Microsoft Teams Voice App to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
+	TeamsAppID OptString `json:"teams_app_id"`
+	// The display name of the Microsoft Teams Voice App to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
+	TeamsVoiceAppName OptString `json:"teams_voice_app_name"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -17535,8 +18179,38 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetDescript
 }
 
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
-func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetVoicemailGreeting() *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting {
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetVoicemailGreeting() OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetZccPhoneNumber returns the value of ZccPhoneNumber.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetZccPhoneNumber() OptString {
+	return s.ZccPhoneNumber
+}
+
+// GetZccPhoneNumberDisplayName returns the value of ZccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetZccPhoneNumberDisplayName() OptString {
+	return s.ZccPhoneNumberDisplayName
+}
+
+// GetPartnerContactCenterID returns the value of PartnerContactCenterID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetPartnerContactCenterID() OptString {
+	return s.PartnerContactCenterID
+}
+
+// GetPccPhoneNumberDisplayName returns the value of PccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetPccPhoneNumberDisplayName() OptString {
+	return s.PccPhoneNumberDisplayName
+}
+
+// GetTeamsAppID returns the value of TeamsAppID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetTeamsAppID() OptString {
+	return s.TeamsAppID
+}
+
+// GetTeamsVoiceAppName returns the value of TeamsVoiceAppName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) GetTeamsVoiceAppName() OptString {
+	return s.TeamsVoiceAppName
 }
 
 // SetDisplayName sets the value of DisplayName.
@@ -17575,17 +18249,116 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetDescript
 }
 
 // SetVoicemailGreeting sets the value of VoicemailGreeting.
-func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetVoicemailGreeting(val *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) {
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetVoicemailGreeting(val OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) {
 	s.VoicemailGreeting = val
 }
 
-// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-type GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting struct{}
+// SetZccPhoneNumber sets the value of ZccPhoneNumber.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetZccPhoneNumber(val OptString) {
+	s.ZccPhoneNumber = val
+}
 
-// This field allows callers to reach an operator. The response returned when the
-// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-// voicemail) and `connect_to_operator` setting is set to `true`.
+// SetZccPhoneNumberDisplayName sets the value of ZccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetZccPhoneNumberDisplayName(val OptString) {
+	s.ZccPhoneNumberDisplayName = val
+}
+
+// SetPartnerContactCenterID sets the value of PartnerContactCenterID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetPartnerContactCenterID(val OptString) {
+	s.PartnerContactCenterID = val
+}
+
+// SetPccPhoneNumberDisplayName sets the value of PccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetPccPhoneNumberDisplayName(val OptString) {
+	s.PccPhoneNumberDisplayName = val
+}
+
+// SetTeamsAppID sets the value of TeamsAppID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetTeamsAppID(val OptString) {
+	s.TeamsAppID = val
+}
+
+// SetTeamsVoiceAppName sets the value of TeamsVoiceAppName.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) SetTeamsVoiceAppName(val OptString) {
+	s.TeamsVoiceAppName = val
+}
+
+// The voicemail greeting prompt. It returns only when the `action` in the `routing` section is set
+// to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+// sub-setting.
+type GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting struct {
+	// The voicemail greeting audio prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail greeting audio prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The message greeting prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `routing` section is set to `12` (Play a message, then
+// disconnect).
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting struct {
+	// The message greeting prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The message greeting prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The the operator to whom the call is being forwarded.
+// This field is only available in the following scenarios:
+// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+// `connect_to_operator` is `true`.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Call Queue`
+// * `Shared Line Group`.
 type GetCallHandlingOKBusinessHoursItemSettingsRoutingOperator struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -17654,9 +18427,8 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingOperator) SetID(val Op
 }
 
 // The voicemail greeting audio prompt
-// Returns only for the `user` and `call_handling` subsetting. It displays when
-// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-// voicemail.
+// Returns only for the `user` and `call_handling` subsetting. It displays when the `action` in the
+// `routing` section is set to `1` - Forward to a voicemail.
 type GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting struct {
 	// The voicemail greeting audio prompt ID.
 	// Options: empty char - default.
@@ -17682,6 +18454,42 @@ func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting) Set
 
 // SetName sets the value of Name.
 func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The voicemail leaving instruction prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `routing` section is set to `1` (Forward to a voicemail),
+// and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction struct {
+	// The voicemail leaving instruction prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail leaving instruction prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) SetName(val OptString) {
 	s.Name = val
 }
 
@@ -17716,11 +18524,17 @@ func (s *GetCallHandlingOKClosedHoursItem) SetSubSettingType(val OptString) {
 
 // The closed hours settings.
 type GetCallHandlingOKClosedHoursItemSettings struct {
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// Whether to allow the callers to check voicemails over a phone. It's required only when the
 	// `call_not_answer_action` setting is set to `1` (Forward to a voicemail).
+	//
+	// Deprecated: schema marks this property as deprecated.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// The call forwarding settings. It returns only for the `call_forwarding` sub-setting options.
 	CallForwardingSettings []GetCallHandlingOKClosedHoursItemSettingsCallForwardingSettingsItem `json:"call_forwarding_settings"`
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// The action to take when a call is not answered:
 	// * `1` &mdash; Forward to a voicemail.
 	// * `2` &mdash; Forward to the user.
@@ -17735,9 +18549,15 @@ type GetCallHandlingOKClosedHoursItemSettings struct {
 	// * `13` - Forward to message.
 	// * `14` - Forward to interactive voice response (IVR).
 	// Returns only for the `call_handling` sub-setting option.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	CallNotAnswerAction OptInt `json:"call_not_answer_action"`
+	// `Note: This field is invalid and part of incorrect documentation. It is not included in the actual
+	// response.`
 	// Whether to allow callers to reach an operator. It returns only when the `call_not_answer_action`
 	// setting is set to `1` (Forward to a voicemail).
+	//
+	// Deprecated: schema marks this property as deprecated.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
 	// The maximum wait time, in seconds, for `simultaneous` ring mode or the ring duration for each
 	// device for `sequential` ring mode:
@@ -17763,17 +18583,17 @@ type GetCallHandlingOKClosedHoursItemSettings struct {
 	// * `sequential`
 	// Returns only for the `call_handling` sub-setting option.
 	RingMode OptString `json:"ring_mode"`
-	// The extension's forwarding or overflow information. It returns the response when
-	// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-	// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-	// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-	// to an external contact), or `10` (Forward to an external number).
+	// The extension's forwarding or overflow information when a call is not answered during Closed Hours.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	Routing OptGetCallHandlingOKClosedHoursItemSettingsRouting `json:"routing"`
-	// The extension's forwarding or overflow information. It returns the response when
-	// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-	// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-	// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-	// to an external contact), or `10` (Forward to an external number).
+	// The extension's forwarding or overflow information when the user is busy on another call during
+	// Closed Hours.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	BusyRouting OptGetCallHandlingOKClosedHoursItemSettingsBusyRouting `json:"busy_routing"`
 }
 
@@ -17867,24 +18687,12 @@ func (s *GetCallHandlingOKClosedHoursItemSettings) SetBusyRouting(val OptGetCall
 	s.BusyRouting = val
 }
 
-// The extension's forwarding or overflow information. It returns the response when
-// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-// to an external contact), or `10` (Forward to an external number).
+// The extension's forwarding or overflow information when the user is busy on another call during
+// Closed Hours.
+// Applicable to the extension as shown below:
+// * `User`.
 type GetCallHandlingOKClosedHoursItemSettingsBusyRouting struct {
-	// The extension's forwarding/overflow information. For `call_not_answered`:
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `11` &mdash; Disconnect.
-	// * `12` &mdash; Play a message, then disconnect.
-	// For `busy_on_another_call_action`:
+	// The action to take when the user is busy on another call during Closed Hours:
 	// * `21` - Call waiting.
 	// * `22` - Play a busy signal.
 	// * `1` &mdash; Forward to a voicemail/videomail.
@@ -17897,48 +18705,91 @@ type GetCallHandlingOKClosedHoursItemSettingsBusyRouting struct {
 	// * `10` - Forward to an external number.
 	// * `12` &mdash; Play a message, then disconnect.
 	Action OptInt `json:"action"`
-	// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-	// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-	// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-	// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+	// The information about the call forwarding target:
+	// This field is only available in the following scenarios:
+	// * Secnario 1: when `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+	// Shared Line Group) or `9`(forward to an External Contact) for the user busy on another call, this
+	// field is used to display the extension to which the call will be forwarded. This scenario applies
+	// to `User`.
+	// * Secnario 2: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	ForwardTo OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo `json:"forward_to"`
-	// This field allows callers to reach an operator. It's the response returned when the
-	// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-	// voicemail) and `connect_to_operator` setting is set to `true`.
+	// The the operator to whom the call is being forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+	// and the `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	Operator OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator `json:"operator"`
-	// Whether to allow callers to reach an operator. It returns only for the `user` and `call_handling`
-	// subsetting options. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow callers to reach an operator.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
-	// Whether to allow the callers to check voicemails over a phone. It returns only for the `user` and
-	// `call_handling` subsetting options. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow the callers to check voicemails over a phone.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// The voicemail greeting audio prompt
-	// Returns only for the `user` and `call_handling` subsetting options. It displays when
-	// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+	// in the `busy_routing` section is set to `1` - Forward to a voicemail.
 	VoicemailGreeting OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail leaving instruction prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `busy_routing` section is set to `1` (Forward to a
+	// voicemail), and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
+	VoicemailLeavingInstruction OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction `json:"voicemail_leaving_instruction"`
+	// The message greeting prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `busy_routing` section is set to `12` (Play a message, then
+	// disconnect).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	MessageGreeting OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting `json:"message_greeting"`
 	// When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot;
 	// before the call connects. This field helps to ensure that missed calls do not reach to your
 	// personal voicemail. Returned for the `Forward to an external number` and `Forward to External
 	// Contacts` options.
 	RequirePress1BeforeConnecting OptBool `json:"require_press_1_before_connecting"`
+	// `Note: This field is invalid and part of incorrect documentation. It is only included in the
+	// `routing` section.`
 	// Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding
 	// sequence. It displays when `call_not_answer_action` is set to `2` - Forward to the user, `4` -
 	// Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue,
 	// `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
 	// external number.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	OverflowPlayCalleeVoicemailGreeting OptBool `json:"overflow_play_callee_voicemail_greeting"`
-	// Whether to play the callee's voicemail greeting when caller reaches the end of the forwarding
-	// sequence. It displays when `busy_routing` action or `call_not_answer_action` is set to `1` -
-	// Forward to a voicemail.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+	// and the `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	PlayCalleeVoicemailGreeting OptBool `json:"play_callee_voicemail_greeting"`
-	// Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding
-	// sequence. It displays when `busy_routing` action is set to `2` - Forward to the user, `4` -
-	// Forward to the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue,
-	// `8` - Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
-	// external number.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue) or `8`(Forward to a
+	// Shared Line Group).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	BusyPlayCalleeVoicemailGreeting OptBool `json:"busy_play_callee_voicemail_greeting"`
 }
 
@@ -17970,6 +18821,16 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) GetAllowCallersChe
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
 func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) GetVoicemailGreeting() OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetVoicemailLeavingInstruction returns the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) GetVoicemailLeavingInstruction() OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
+	return s.VoicemailLeavingInstruction
+}
+
+// GetMessageGreeting returns the value of MessageGreeting.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) GetMessageGreeting() OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting {
+	return s.MessageGreeting
 }
 
 // GetRequirePress1BeforeConnecting returns the value of RequirePress1BeforeConnecting.
@@ -18022,6 +18883,16 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) SetVoicemailGreeti
 	s.VoicemailGreeting = val
 }
 
+// SetVoicemailLeavingInstruction sets the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) SetVoicemailLeavingInstruction(val OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) {
+	s.VoicemailLeavingInstruction = val
+}
+
+// SetMessageGreeting sets the value of MessageGreeting.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) SetMessageGreeting(val OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) {
+	s.MessageGreeting = val
+}
+
 // SetRequirePress1BeforeConnecting sets the value of RequirePress1BeforeConnecting.
 func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) SetRequirePress1BeforeConnecting(val OptBool) {
 	s.RequirePress1BeforeConnecting = val
@@ -18042,10 +18913,18 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRouting) SetBusyPlayCalleeV
 	s.BusyPlayCalleeVoicemailGreeting = val
 }
 
-// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+// The information about the call forwarding target:
+// This field is only available in the following scenarios:
+// * Secnario 1: when `action` in the `busy_routing` section is set to: `2`(Forward to the User),
+// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+// Shared Line Group) or `9`(forward to an External Contact) for the user busy on another call, this
+// field is used to display the extension to which the call will be forwarded. This scenario applies
+// to `User`.
+// * Secnario 2: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+// number/External number) for the user busy on another call, this field is used to display the
+// specific Phone number/External number to which the call will be forwarded. This scenario applies
+// to `User`.
 type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -18062,12 +18941,23 @@ type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo struct {
 	ID OptString `json:"id"`
 	// The extension's phone number or forward to an external number, in [E.164 format](https://en.
 	// wikipedia.org/wiki/E.164) format.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	PhoneNumber OptString `json:"phone_number"`
 	// This field forwards to an external number description.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `busy_routing` section is set to `10` (Forward to Phone
+	// number/External number) for the user busy on another call, this field is used to display the
+	// specific Phone number/External number to which the call will be forwarded. This scenario applies
+	// to `User`.
 	Description OptString `json:"description"`
-	// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-	// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-	VoicemailGreeting *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail greeting prompt. It returns only when the `action` in the `busy_routing` section is
+	// set to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+	// sub-setting.
+	VoicemailGreeting OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -18106,7 +18996,7 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) GetDescri
 }
 
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
-func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) GetVoicemailGreeting() *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) GetVoicemailGreeting() OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
 	return s.VoicemailGreeting
 }
 
@@ -18146,17 +19036,84 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) SetDescri
 }
 
 // SetVoicemailGreeting sets the value of VoicemailGreeting.
-func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) SetVoicemailGreeting(val *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) SetVoicemailGreeting(val OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
 	s.VoicemailGreeting = val
 }
 
-// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct{}
+// The voicemail greeting prompt. It returns only when the `action` in the `busy_routing` section is
+// set to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+// sub-setting.
+type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct {
+	// The voicemail greeting audio prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail greeting audio prompt name.
+	Name OptString `json:"name"`
+}
 
-// This field allows callers to reach an operator. It's the response returned when the
-// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-// voicemail) and `connect_to_operator` setting is set to `true`.
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The message greeting prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `busy_routing` section is set to `12` (Play a message, then
+// disconnect).
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting struct {
+	// The message greeting prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The message greeting prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The the operator to whom the call is being forwarded.
+// This field is only available in the following scenarios:
+// * Secnario 1: The `action` in the `busy_routing` section is set to `1` (Forward to a voicemail)
+// and the `connect_to_operator` is `true`.
+// Applicable to the extension as shown below:
+// * `User`.
 type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -18225,9 +19182,8 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator) SetID(val 
 }
 
 // The voicemail greeting audio prompt
-// Returns only for the `user` and `call_handling` subsetting options. It displays when
-// `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` - Forward to a
-// voicemail.
+// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+// in the `busy_routing` section is set to `1` - Forward to a voicemail.
 type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting struct {
 	// The voicemail greeting audio prompt ID.
 	// Options: empty char - default.
@@ -18253,6 +19209,40 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting) S
 
 // SetName sets the value of Name.
 func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The voicemail leaving instruction prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `busy_routing` section is set to `1` (Forward to a
+// voicemail), and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+// Applicable to the extension as shown below:
+// * `User`.
+type GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction struct {
+	// The voicemail leaving instruction prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail leaving instruction prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetName(val OptString) {
 	s.Name = val
 }
 
@@ -18369,76 +19359,149 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsCallForwardingSettingsItemExter
 	s.PhoneNumbers = val
 }
 
-// The extension's forwarding or overflow information. It returns the response when
-// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail),
-// `2` (Forward to the user), `4` (Forward to the common area), `6` (Forward to the auto
-// receptionist), `7` (Forward to a call queue), `8` (Forward to a shared line group), `9` (Forward
-// to an external contact), or `10` (Forward to an external number).
+// The extension's forwarding or overflow information when a call is not answered during Closed Hours.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
 type GetCallHandlingOKClosedHoursItemSettingsRouting struct {
-	// The extension's forwarding/overflow information. For `call_not_answered`:
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `11` &mdash; Disconnect.
-	// * `12` &mdash; Play a message, then disconnect.
-	// For `busy_on_another_call_action`:
-	// * `21` - Call waiting.
-	// * `22` - Play a busy signal.
-	// * `1` &mdash; Forward to a voicemail/videomail.
-	// * `2` - Forward to the user.
-	// * `4` - Forward to the common area.
-	// * `6` - Forward to the auto receptionist.
-	// * `7` - Forward to a call queue.
-	// * `8` - Forward to a shared line group.
-	// * `9` - Forward to an external contact.
-	// * `10` - Forward to an external number.
-	// * `12` &mdash; Play a message, then disconnect.
+	// The action to take when a call is not answered during Closed Hours:
+	// * `1` &mdash; Forward to a Voicemail. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `2` &mdash; Forward to the User. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `3` &mdash; Forward to the Zoom Room. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `4` &mdash; Forward to the Common Area. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `5` &mdash; Forward to the Cisco/Polycom Room. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `6` &mdash; Forward to the Auto Receptionist. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `7` &mdash; Forward to a Call Queue. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `8` &mdash; Forward to a Shared Line Group. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `9` &mdash; Forward to an External Contact. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `10` - Forward to a Phone Number. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `11` &mdash; Disconnect. Applicable to `User`, `Call Queue`, or `Shared Line Group`.
+	// * `12` &mdash; Play a message, then disconnect. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`
+	// * `14` - Forward to an Interactive Voice Response (IVR). Applicable to `Auto Receptionist`.
+	// * `15` &mdash; Forward to a Partner Contact Center. Applicable to `Auto Receptionist`.
+	// * `18` &mdash; Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for
+	// Microsoft Teams. Applicable to `Call queue`, `Auto Receptionist`, or `Shared Line group`.
+	// * `19` &mdash; Forward to a Zoom Contact Center. Required Zoom Contact Center license. Applicable
+	// to `Call Queue`, `Auto Receptionist`, or `Shared Line Group`.
 	Action OptInt `json:"action"`
-	// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-	// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-	// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-	// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+	// The information about the call forwarding target:
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `1` (Forward to voicemail) for
+	// unanswered calls, this field is used to display the specific extension to which voicemails are
+	// forwarded. This scenario applies to `Auto Receptionist` and `Call Queue`.
+	// * Secnario 2: when `action` in the `routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+	// Shared Line Group) or `9`(forward to an External Contact) for unanswered calls, this field is used
+	// to display the extension to which the call will be forwarded. This scenario applies to `User`,
+	// `Auto Receptionist`, `Call Queue` and `Shared Line Group`.
+	// * Secnario 3: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	// * Secnario 4: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	// * Secnario 5: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
+	// * Secnario 6: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
 	ForwardTo OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo `json:"forward_to"`
-	// This field allows callers to reach an operator. It's the response returned when the
-	// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-	// voicemail) and `connect_to_operator` setting is set to `true`.
+	// The the operator to whom the call is being forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	Operator OptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator `json:"operator"`
-	// Whether to allow callers to reach an operator. It returns only for the `user` and `call_handling`
-	// subsetting options. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow callers to reach an operator.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
-	// Whether to allow the callers to check voicemails over a phone. It returns only for the `user` and
-	// `call_handling` subsetting options. It displays when the `call_not_answer_action` setting or
-	// `busy_on_another_call_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow the callers to check voicemails over a phone.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Shared Line Group`.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// The voicemail greeting audio prompt
-	// Returns only for the `user` and `call_handling` subsetting options. It displays when
-	// `busy_on_another_call_action` action or `call_not_answer_action` set to `1` - Forward to a
-	// voicemail.
+	// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+	// in the `routing` section is set to `1` - Forward to a voicemail.
 	VoicemailGreeting OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail leaving instruction prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `routing` section is set to `1` (Forward to a voicemail),
+	// and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	VoicemailLeavingInstruction OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction `json:"voicemail_leaving_instruction"`
+	// The message greeting prompt.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The the `action` in the `routing` section is set to `12` (Play a message, then
+	// disconnect).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	MessageGreeting OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting `json:"message_greeting"`
 	// When a call is forwarded to a personal phone number, whether the user must press &quot;1&quot;
 	// before the call connects. This field helps to ensure that missed calls do not reach to your
 	// personal voicemail. It returns for the `Forward to an external number` and `Forward to External
 	// Contacts` options.
 	RequirePress1BeforeConnecting OptBool `json:"require_press_1_before_connecting"`
-	// Whether to play callee's voicemail greeting when caller reaches end of forwarding sequence. It
-	// displays when `call_not_answer_action` is set to `2` - Forward to the user, `4` - Forward to the
-	// common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward
-	// to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue) or `8`(Forward to a
+	// Shared Line Group).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	OverflowPlayCalleeVoicemailGreeting OptBool `json:"overflow_play_callee_voicemail_greeting"`
-	// Whether to play callee's voicemail greeting when caller reaches end of forwarding sequence. It
-	// displays when `busy_routing` action or `call_not_answer_action` is set to `1` - Forward to a
-	// voicemail.
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
+	// sequence.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// Applicable to the extension as shown below:
+	// * `User`.
 	PlayCalleeVoicemailGreeting OptBool `json:"play_callee_voicemail_greeting"`
+	// `Note: This field is invalid and part of incorrect documentation. It is only included in the
+	// `busy_routing` section.`
 	// Whether to play callee's voicemail greeting when caller reaches end of forwarding sequence. It
 	// displays when `busy_routing` action is set to `2` - Forward to the user, `4` - Forward to the
 	// common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` - Forward
 	// to a shared line group, `9` - Forward to an external contact, `10` - Forward to an external number.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	BusyPlayCalleeVoicemailGreeting OptBool `json:"busy_play_callee_voicemail_greeting"`
 }
 
@@ -18470,6 +19533,16 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) GetAllowCallersCheckVo
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
 func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) GetVoicemailGreeting() OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetVoicemailLeavingInstruction returns the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) GetVoicemailLeavingInstruction() OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction {
+	return s.VoicemailLeavingInstruction
+}
+
+// GetMessageGreeting returns the value of MessageGreeting.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) GetMessageGreeting() OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting {
+	return s.MessageGreeting
 }
 
 // GetRequirePress1BeforeConnecting returns the value of RequirePress1BeforeConnecting.
@@ -18522,6 +19595,16 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) SetVoicemailGreeting(v
 	s.VoicemailGreeting = val
 }
 
+// SetVoicemailLeavingInstruction sets the value of VoicemailLeavingInstruction.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) SetVoicemailLeavingInstruction(val OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) {
+	s.VoicemailLeavingInstruction = val
+}
+
+// SetMessageGreeting sets the value of MessageGreeting.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) SetMessageGreeting(val OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) {
+	s.MessageGreeting = val
+}
+
 // SetRequirePress1BeforeConnecting sets the value of RequirePress1BeforeConnecting.
 func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) SetRequirePress1BeforeConnecting(val OptBool) {
 	s.RequirePress1BeforeConnecting = val
@@ -18542,10 +19625,32 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRouting) SetBusyPlayCalleeVoice
 	s.BusyPlayCalleeVoicemailGreeting = val
 }
 
-// The extension's forwarding information. It returns the response when `call_not_answer_action` or
-// `busy_on_another_call_action` is set to `2` (Forward to the user), `4` (Forward to the common
-// area), `6` (Forward to the auto receptionist), `7` (Forward to a call queue), `8` (Forward to a
-// shared line group), `9` (Forward to an external contact), or `10` (Forward to an external number).
+// The information about the call forwarding target:
+// This field is only available in the following scenarios:
+// * Secnario 1: When `action` in the `routing` section is set to `1` (Forward to voicemail) for
+// unanswered calls, this field is used to display the specific extension to which voicemails are
+// forwarded. This scenario applies to `Auto Receptionist` and `Call Queue`.
+// * Secnario 2: when `action` in the `routing` section is set to: `2`(Forward to the User),
+// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+// Shared Line Group) or `9`(forward to an External Contact) for unanswered calls, this field is used
+// to display the extension to which the call will be forwarded. This scenario applies to `User`,
+// `Auto Receptionist`, `Call Queue` and `Shared Line Group`.
+// * Secnario 3: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+// `Shared Line Group`.
+// * Secnario 4: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+// * Secnario 5: When `action` in the `routing` section is set to `10` (Forward to Phone
+// number/External number) for unanswered calls, this field is used to display the specific Phone
+// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+// Receptionist`, `Call Queue` and `Shared Line Group`.
+// * Secnario 6: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+// Queue` and `Shared Line Group`.
 type GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo struct {
 	// The extension's name.
 	DisplayName OptString `json:"display_name"`
@@ -18562,12 +19667,63 @@ type GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo struct {
 	ID OptString `json:"id"`
 	// The extension's phone number or forward to an external number, in [E.164 format](https://en.
 	// wikipedia.org/wiki/E.164) format.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
 	PhoneNumber OptString `json:"phone_number"`
 	// This field forwards to an external number description.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `10` (Forward to Phone
+	// number/External number) for unanswered calls, this field is used to display the specific Phone
+	// number/External number to which the call will be forwarded. This scenario applies to `User`, `Auto
+	// Receptionist`, `Call Queue` and `Shared Line Group`.
 	Description OptString `json:"description"`
-	// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-	// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-	VoicemailGreeting *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The voicemail greeting prompt. It returns only when the `action` in the `routing` section is set
+	// to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+	// sub-setting.
+	VoicemailGreeting OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting `json:"voicemail_greeting"`
+	// The Zoom Contact Center phone number to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	ZccPhoneNumber OptString `json:"zcc_phone_number"`
+	// The display name of the Zoom Contact Center phone number to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `19` (Forward to a Zoom Contact
+	// Center) for unanswered calls, this field is used to display the specific Zoom Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call Queue` and
+	// `Shared Line Group`.
+	ZccPhoneNumberDisplayName OptString `json:"zcc_phone_number_display_name"`
+	// The ID of the Partner Contact Center to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	PartnerContactCenterID OptString `json:"partner_contact_center_id"`
+	// The display name of the Partner Contact Center to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `15` (Forward to a Partner Contact
+	// Center) for unanswered calls, this field is used to display the specific Partner Contact Center to
+	// which the call will be forwarded. This scenario applies to `Auto Receptionist`.
+	PccPhoneNumberDisplayName OptString `json:"pcc_phone_number_display_name"`
+	// The ID of the Microsoft Teams Voice App to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
+	TeamsAppID OptString `json:"teams_app_id"`
+	// The display name of the Microsoft Teams Voice App to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `action` in the `routing` section is set to `18` (Forward to Microsoft Teams
+	// Resource Account) for unanswered calls, this field is used to display the specific Microsoft Teams
+	// Voice App to which the call will be forwarded. This scenario applies to `Auto Receptionist`, `Call
+	// Queue` and `Shared Line Group`.
+	TeamsVoiceAppName OptString `json:"teams_voice_app_name"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -18606,8 +19762,38 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetDescriptio
 }
 
 // GetVoicemailGreeting returns the value of VoicemailGreeting.
-func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetVoicemailGreeting() *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting {
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetVoicemailGreeting() OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting {
 	return s.VoicemailGreeting
+}
+
+// GetZccPhoneNumber returns the value of ZccPhoneNumber.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetZccPhoneNumber() OptString {
+	return s.ZccPhoneNumber
+}
+
+// GetZccPhoneNumberDisplayName returns the value of ZccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetZccPhoneNumberDisplayName() OptString {
+	return s.ZccPhoneNumberDisplayName
+}
+
+// GetPartnerContactCenterID returns the value of PartnerContactCenterID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetPartnerContactCenterID() OptString {
+	return s.PartnerContactCenterID
+}
+
+// GetPccPhoneNumberDisplayName returns the value of PccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetPccPhoneNumberDisplayName() OptString {
+	return s.PccPhoneNumberDisplayName
+}
+
+// GetTeamsAppID returns the value of TeamsAppID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetTeamsAppID() OptString {
+	return s.TeamsAppID
+}
+
+// GetTeamsVoiceAppName returns the value of TeamsVoiceAppName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) GetTeamsVoiceAppName() OptString {
+	return s.TeamsVoiceAppName
 }
 
 // SetDisplayName sets the value of DisplayName.
@@ -18646,19 +19832,118 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetDescriptio
 }
 
 // SetVoicemailGreeting sets the value of VoicemailGreeting.
-func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetVoicemailGreeting(val *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) {
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetVoicemailGreeting(val OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) {
 	s.VoicemailGreeting = val
 }
 
-// The voicemail greeting prompt. It returns only when `call_not_answer_action` is set to `1`
-// (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling` sub-setting.
-type GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting struct{}
+// SetZccPhoneNumber sets the value of ZccPhoneNumber.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetZccPhoneNumber(val OptString) {
+	s.ZccPhoneNumber = val
+}
 
-// This field allows callers to reach an operator. It's the response returned when the
-// `call_not_answer_action` or `busy_on_another_call_action` setting is set to `1` (Forward to a
-// voicemail) and `connect_to_operator` setting is set to `true`.
+// SetZccPhoneNumberDisplayName sets the value of ZccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetZccPhoneNumberDisplayName(val OptString) {
+	s.ZccPhoneNumberDisplayName = val
+}
+
+// SetPartnerContactCenterID sets the value of PartnerContactCenterID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetPartnerContactCenterID(val OptString) {
+	s.PartnerContactCenterID = val
+}
+
+// SetPccPhoneNumberDisplayName sets the value of PccPhoneNumberDisplayName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetPccPhoneNumberDisplayName(val OptString) {
+	s.PccPhoneNumberDisplayName = val
+}
+
+// SetTeamsAppID sets the value of TeamsAppID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetTeamsAppID(val OptString) {
+	s.TeamsAppID = val
+}
+
+// SetTeamsVoiceAppName sets the value of TeamsVoiceAppName.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) SetTeamsVoiceAppName(val OptString) {
+	s.TeamsVoiceAppName = val
+}
+
+// The voicemail greeting prompt. It returns only when the `action` in the `routing` section is set
+// to `1` (Forward to a voicemail) for the `Call Queue` or `Auto Receptionist` `call_handling`
+// sub-setting.
+type GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting struct {
+	// The voicemail greeting audio prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail greeting audio prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The message greeting prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `routing` section is set to `12` (Play a message, then
+// disconnect).
+// Applicable to the extension as shown below:
+// * `User`
+// * `Auto Receptionist`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting struct {
+	// The message greeting prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The message greeting prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The the operator to whom the call is being forwarded.
+// This field is only available in the following scenarios:
+// * Secnario 1: The `action` in the `routing` section is set to `1` (Forward to a voicemail) and the
+// `connect_to_operator` is `true`.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Call Queue`
+// * `Shared Line Group`.
 type GetCallHandlingOKClosedHoursItemSettingsRoutingOperator struct {
-	// The extension's name.
+	// The extension name.
 	DisplayName OptString `json:"display_name"`
 	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
@@ -18725,9 +20010,8 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingOperator) SetID(val OptS
 }
 
 // The voicemail greeting audio prompt
-// Returns only for the `user` and `call_handling` subsetting options. It displays when
-// `busy_on_another_call_action` action or `call_not_answer_action` set to `1` - Forward to a
-// voicemail.
+// Returns only for the `user` and `call_handling` subsetting options. It displays when the `action`
+// in the `routing` section is set to `1` - Forward to a voicemail.
 type GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting struct {
 	// The voicemail greeting audio prompt ID.
 	// Options: empty char - default.
@@ -18753,6 +20037,42 @@ func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting) SetID
 
 // SetName sets the value of Name.
 func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting) SetName(val OptString) {
+	s.Name = val
+}
+
+// The voicemail leaving instruction prompt.
+// This field is only available in the following scenarios:
+// * Secnario 1: The the `action` in the `routing` section is set to `1` (Forward to a voicemail),
+// and either `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+// Applicable to the extension as shown below:
+// * `User`
+// * `Call Queue`
+// * `Shared Line Group`.
+type GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction struct {
+	// The voicemail leaving instruction prompt ID.
+	// Options: empty char - default.
+	ID OptString `json:"id"`
+	// The voicemail leaving instruction prompt name.
+	Name OptString `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) GetID() OptString {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) GetName() OptString {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) SetName(val OptString) {
 	s.Name = val
 }
 
@@ -19523,7 +20843,7 @@ type GetCallLogDetailsOK struct {
 	// * `inactive`
 	// * `deleted`.
 	CalleeStatus OptString `json:"callee_status"`
-	// The datetime the extension was deleted. Exists only when extension_status is `deleted`.
+	// The datetime the extension was deleted. It exists only when `extension_status` is `deleted`.
 	CalleeDeletedTime OptString `json:"callee_deleted_time"`
 	// The country calling code.
 	CallerCountryCode OptString `json:"caller_country_code"`
@@ -28325,7 +29645,8 @@ type GetPhoneRecordingsByCallIdOrCallLogIdOKOwner struct {
 	ID OptString `json:"id"`
 	// The name of the owner.
 	Name OptString `json:"name"`
-	// The owner's type.
+	// The owner's type, can be `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by
+	// `commonArea` after the transition period.).
 	Type OptString `json:"type"`
 	// This field indicates the status of extension.
 	// * `inactive`
@@ -28833,7 +30154,11 @@ type GetPhoneRecordingsOKRecordingsItemOwner struct {
 	ID OptString `json:"id"`
 	// The name of the owner.
 	Name OptString `json:"name"`
-	// The owner type: `user` or `call queue`.
+	// The owner's type, can be `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by
+	// `commonArea`. During the transition period, if `sharedOffice` is provided as the `owner_type`
+	// parameter, `sharedOffice` is returned as a response. Conversely, if `commonArea` is provided,
+	// `commonArea` will be returned. If `null` is provided, `sharedOffice` will be returned temporarily,
+	// but it will be replaced by `commonArea` after the transition period).
 	Type OptString `json:"type"`
 	// This field indicates the status of extension:
 	// * `inactive`
@@ -28928,286 +30253,6 @@ func (s *GetPhoneRecordingsOKRecordingsItemSite) SetID(val OptString) {
 // SetName sets the value of Name.
 func (s *GetPhoneRecordingsOKRecordingsItemSite) SetName(val OptString) {
 	s.Name = val
-}
-
-// The phone user voicemails.
-type GetPhoneUserVoiceMailsOK struct {
-	// The sync token for a backward (`BSync`) or forward (`ISync`) sync.
-	SyncToken OptString `json:"sync_token"`
-	// The voicemails.
-	VoiceMails []GetPhoneUserVoiceMailsOKVoiceMailsItem `json:"voice_mails"`
-}
-
-// GetSyncToken returns the value of SyncToken.
-func (s *GetPhoneUserVoiceMailsOK) GetSyncToken() OptString {
-	return s.SyncToken
-}
-
-// GetVoiceMails returns the value of VoiceMails.
-func (s *GetPhoneUserVoiceMailsOK) GetVoiceMails() []GetPhoneUserVoiceMailsOKVoiceMailsItem {
-	return s.VoiceMails
-}
-
-// SetSyncToken sets the value of SyncToken.
-func (s *GetPhoneUserVoiceMailsOK) SetSyncToken(val OptString) {
-	s.SyncToken = val
-}
-
-// SetVoiceMails sets the value of VoiceMails.
-func (s *GetPhoneUserVoiceMailsOK) SetVoiceMails(val []GetPhoneUserVoiceMailsOKVoiceMailsItem) {
-	s.VoiceMails = val
-}
-
-type GetPhoneUserVoiceMailsOKVoiceMailsItem struct {
-	// The call ID.
-	CallID OptString `json:"call_id"`
-	// The call log ID.
-	CallLogID OptString `json:"call_log_id"`
-	// The callee's user id.
-	CalleeUserID OptString `json:"callee_user_id"`
-	// The name of the callee.
-	CalleeName OptString `json:"callee_name"`
-	// The phone number of the callee.
-	CalleeNumber OptString `json:"callee_number"`
-	// The callee's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
-	// * `3` &mdash; Customized emergency number.
-	CalleeNumberType OptInt `json:"callee_number_type"`
-	// The caller's user id.
-	CallerUserID OptString `json:"caller_user_id"`
-	// The contact name of the caller.
-	CallerName OptString `json:"caller_name"`
-	// The phone number of the caller.
-	CallerNumber OptString `json:"caller_number"`
-	// The caller's number type:
-	// * `1` &mdash; Internal number.
-	// * `2` &mdash; External number.
-	CallerNumberType OptInt `json:"caller_number_type"`
-	// The start time and date of the voiemail.
-	DateTime OptString `json:"date_time"`
-	// The download URL for voicemail. For security purposes, you must provide an OAuth access token in
-	// the auth header to download the voicemail file using this url.
-	// Example request:
-	// ```
-	// curl --request GET \
-	// --url {download_url} \
-	// --header 'authorization: Bearer {access_token}' \
-	// --header 'content-type: application/json'
-	// ```.
-	DownloadURL OptString `json:"download_url"`
-	// The duration of voicemail in seconds.
-	Duration OptInt `json:"duration"`
-	// The voicemail ID.
-	ID OptString `json:"id"`
-	// The status of the voicemail: `read` or `unread`.
-	Status OptString `json:"status"`
-	// The current intent detection state of the voicemail:
-	// * `not_started` &mdash; AI detect was not started.
-	// * `processing` &mdash; processing.
-	// * `success` &mdash; success.
-	// * `ai_detection_failed` &mdash; failed, AI detection failed.
-	// * `unknown_reason_failed` &mdash; failed, unknown reason.
-	IntentDetectStatus OptString `json:"intent_detect_status"`
-	// The matched intents of the voicemail.
-	IntentResults []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem `json:"intent_results"`
-}
-
-// GetCallID returns the value of CallID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallID() OptString {
-	return s.CallID
-}
-
-// GetCallLogID returns the value of CallLogID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallLogID() OptString {
-	return s.CallLogID
-}
-
-// GetCalleeUserID returns the value of CalleeUserID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCalleeUserID() OptString {
-	return s.CalleeUserID
-}
-
-// GetCalleeName returns the value of CalleeName.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCalleeName() OptString {
-	return s.CalleeName
-}
-
-// GetCalleeNumber returns the value of CalleeNumber.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCalleeNumber() OptString {
-	return s.CalleeNumber
-}
-
-// GetCalleeNumberType returns the value of CalleeNumberType.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCalleeNumberType() OptInt {
-	return s.CalleeNumberType
-}
-
-// GetCallerUserID returns the value of CallerUserID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallerUserID() OptString {
-	return s.CallerUserID
-}
-
-// GetCallerName returns the value of CallerName.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallerName() OptString {
-	return s.CallerName
-}
-
-// GetCallerNumber returns the value of CallerNumber.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallerNumber() OptString {
-	return s.CallerNumber
-}
-
-// GetCallerNumberType returns the value of CallerNumberType.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetCallerNumberType() OptInt {
-	return s.CallerNumberType
-}
-
-// GetDateTime returns the value of DateTime.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetDateTime() OptString {
-	return s.DateTime
-}
-
-// GetDownloadURL returns the value of DownloadURL.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetDownloadURL() OptString {
-	return s.DownloadURL
-}
-
-// GetDuration returns the value of Duration.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetDuration() OptInt {
-	return s.Duration
-}
-
-// GetID returns the value of ID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetID() OptString {
-	return s.ID
-}
-
-// GetStatus returns the value of Status.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetStatus() OptString {
-	return s.Status
-}
-
-// GetIntentDetectStatus returns the value of IntentDetectStatus.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetIntentDetectStatus() OptString {
-	return s.IntentDetectStatus
-}
-
-// GetIntentResults returns the value of IntentResults.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) GetIntentResults() []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem {
-	return s.IntentResults
-}
-
-// SetCallID sets the value of CallID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallID(val OptString) {
-	s.CallID = val
-}
-
-// SetCallLogID sets the value of CallLogID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallLogID(val OptString) {
-	s.CallLogID = val
-}
-
-// SetCalleeUserID sets the value of CalleeUserID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCalleeUserID(val OptString) {
-	s.CalleeUserID = val
-}
-
-// SetCalleeName sets the value of CalleeName.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCalleeName(val OptString) {
-	s.CalleeName = val
-}
-
-// SetCalleeNumber sets the value of CalleeNumber.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCalleeNumber(val OptString) {
-	s.CalleeNumber = val
-}
-
-// SetCalleeNumberType sets the value of CalleeNumberType.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCalleeNumberType(val OptInt) {
-	s.CalleeNumberType = val
-}
-
-// SetCallerUserID sets the value of CallerUserID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallerUserID(val OptString) {
-	s.CallerUserID = val
-}
-
-// SetCallerName sets the value of CallerName.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallerName(val OptString) {
-	s.CallerName = val
-}
-
-// SetCallerNumber sets the value of CallerNumber.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallerNumber(val OptString) {
-	s.CallerNumber = val
-}
-
-// SetCallerNumberType sets the value of CallerNumberType.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetCallerNumberType(val OptInt) {
-	s.CallerNumberType = val
-}
-
-// SetDateTime sets the value of DateTime.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetDateTime(val OptString) {
-	s.DateTime = val
-}
-
-// SetDownloadURL sets the value of DownloadURL.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetDownloadURL(val OptString) {
-	s.DownloadURL = val
-}
-
-// SetDuration sets the value of Duration.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetDuration(val OptInt) {
-	s.Duration = val
-}
-
-// SetID sets the value of ID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetID(val OptString) {
-	s.ID = val
-}
-
-// SetStatus sets the value of Status.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetStatus(val OptString) {
-	s.Status = val
-}
-
-// SetIntentDetectStatus sets the value of IntentDetectStatus.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetIntentDetectStatus(val OptString) {
-	s.IntentDetectStatus = val
-}
-
-// SetIntentResults sets the value of IntentResults.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItem) SetIntentResults(val []GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) {
-	s.IntentResults = val
-}
-
-type GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem struct {
-	// The intent ID.
-	IntentID OptString `json:"intent_id"`
-	// The confidence score of the intent detected by the AI to this current voicemail.
-	ConfidenceScore OptFloat64 `json:"confidence_score"`
-}
-
-// GetIntentID returns the value of IntentID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) GetIntentID() OptString {
-	return s.IntentID
-}
-
-// GetConfidenceScore returns the value of ConfidenceScore.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) GetConfidenceScore() OptFloat64 {
-	return s.ConfidenceScore
-}
-
-// SetIntentID sets the value of IntentID.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) SetIntentID(val OptString) {
-	s.IntentID = val
-}
-
-// SetConfidenceScore sets the value of ConfidenceScore.
-func (s *GetPhoneUserVoiceMailsOKVoiceMailsItemIntentResultsItem) SetConfidenceScore(val OptFloat64) {
-	s.ConfidenceScore = val
 }
 
 type GetPortedNumbersDetailsOK struct {
@@ -34235,7 +35280,8 @@ type GetVoicemailDetailsByCallIdOrCallLogIdOK struct {
 	// The phone call ID.
 	CallID OptString `json:"call_id"`
 	// The call log ID.
-	CallLogID OptString `json:"call_log_id"`
+	CallLogID     OptString `json:"call_log_id"`
+	CallHistoryID OptString `json:"call_history_id"`
 	// The name of the callee.
 	CalleeName OptString `json:"callee_name"`
 	// The callee's phone number.
@@ -34283,6 +35329,11 @@ func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) GetCallID() OptString {
 // GetCallLogID returns the value of CallLogID.
 func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) GetCallLogID() OptString {
 	return s.CallLogID
+}
+
+// GetCallHistoryID returns the value of CallHistoryID.
+func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) GetCallHistoryID() OptString {
+	return s.CallHistoryID
 }
 
 // GetCalleeName returns the value of CalleeName.
@@ -34353,6 +35404,11 @@ func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) SetCallID(val OptString) {
 // SetCallLogID sets the value of CallLogID.
 func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) SetCallLogID(val OptString) {
 	s.CallLogID = val
+}
+
+// SetCallHistoryID sets the value of CallHistoryID.
+func (s *GetVoicemailDetailsByCallIdOrCallLogIdOK) SetCallHistoryID(val OptString) {
+	s.CallHistoryID = val
 }
 
 // SetCalleeName sets the value of CalleeName.
@@ -36861,7 +37917,7 @@ func (s *ListAlertSettingsWithPagingQueryOKAlertSettingsItemTargetsItem) SetTarg
 }
 
 type ListAudioItemsOK struct {
-	// Audio item list.
+	// The audio item list.
 	Audios []ListAudioItemsOKAudiosItem `json:"audios"`
 }
 
@@ -36876,9 +37932,9 @@ func (s *ListAudioItemsOK) SetAudios(val []ListAudioItemsOKAudiosItem) {
 }
 
 type ListAudioItemsOKAudiosItem struct {
-	// Unique identifier of the audio item.
+	// The unique identifier of the audio item.
 	AudioID OptString `json:"audio_id"`
-	// Name of the audio item.
+	// The name of the audio item.
 	Name OptString `json:"name"`
 }
 
@@ -38413,20 +39469,20 @@ func (s *ListCallingPlansOK) SetCallingPlans(val []ListCallingPlansOKCallingPlan
 }
 
 type ListCallingPlansOKCallingPlansItem struct {
-	// Total number of plan used.
+	// The total number of plan used.
 	Assigned OptInt `json:"assigned"`
-	// Remaining number of calling plans that can be assigned.
+	// The remaining number of calling plans that can be assigned.
 	Available OptInt `json:"available"`
-	// Name of the plan.
+	// The name of the plan.
 	Name OptString `json:"name"`
-	// Total number of plan subscriptions bought.
+	// The total number of plan subscriptions bought.
 	Subscribed OptInt `json:"subscribed"`
-	// Plan type. Refer to the Plan Number section [here](https://marketplace.zoom.
+	// The type of plan. Refer to the Plan Number section [here](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).
 	Type OptInt `json:"type"`
-	// Billing account ID. Displayed when the account is an Indian account.
+	// The billing account ID. It displays when the account is an Indian account.
 	BillingAccountID OptString `json:"billing_account_id"`
-	// Billing account name. Displayed when the account is an Indian account.
+	// The billing account name. It displays when the account is an Indian account.
 	BillingAccountName OptString `json:"billing_account_name"`
 }
 
@@ -42460,7 +43516,7 @@ func (s *ListPhonePlansOKPhoneNumbersItem) SetSubscribed(val OptInt) {
 }
 
 type ListPhoneRolesOK struct {
-	// Phone role list.
+	// The phone role list.
 	Roles []ListPhoneRolesOKRolesItem `json:"roles"`
 }
 
@@ -42475,17 +43531,17 @@ func (s *ListPhoneRolesOK) SetRoles(val []ListPhoneRolesOKRolesItem) {
 }
 
 type ListPhoneRolesOKRolesItem struct {
-	// Unique identifier of the [role](https://support.zoom.
+	// The unique identifier of the [role](https://support.zoom.
 	// us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management) assigned to the user.
 	ID OptString `json:"id"`
-	// User's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control)
-	// name.
+	// The user's [role](https://support.zoom.
+	// us/hc/en-us/articles/115001078646-Role-Based-Access-Control) name.
 	Name OptString `json:"name"`
-	// Role description.
+	// The role description.
 	Description OptString `json:"description"`
-	// Total members assigned to the role.
+	// The total members assigned to the role.
 	TotalMembers OptInt `json:"total_members"`
-	// Indicates whether the role is default or not.
+	// Whether the role is default or not.
 	IsDefault OptBool `json:"is_default"`
 }
 
@@ -43181,6 +44237,170 @@ func (s *ListPortedNumbersOKPortedNumbersItemReplacingNumbersItem) SetSourceNumb
 // SetTargetNumber sets the value of TargetNumber.
 func (s *ListPortedNumbersOKPortedNumbersItemReplacingNumbersItem) SetTargetNumber(val OptString) {
 	s.TargetNumber = val
+}
+
+type ListPrivateDirectoryMembersOK struct {
+	// The next page token paginates through large set of results.
+	NextPageToken OptString `json:"next_page_token"`
+	// The number of records returned within a single API call.
+	PageSize OptInt `json:"page_size"`
+	// The total number of records available across all pages.
+	TotalRecords            OptInt                                                     `json:"total_records"`
+	PrivateDirectoryMembers []ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem `json:"private_directory_members"`
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListPrivateDirectoryMembersOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListPrivateDirectoryMembersOK) GetPageSize() OptInt {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListPrivateDirectoryMembersOK) GetTotalRecords() OptInt {
+	return s.TotalRecords
+}
+
+// GetPrivateDirectoryMembers returns the value of PrivateDirectoryMembers.
+func (s *ListPrivateDirectoryMembersOK) GetPrivateDirectoryMembers() []ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem {
+	return s.PrivateDirectoryMembers
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListPrivateDirectoryMembersOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListPrivateDirectoryMembersOK) SetPageSize(val OptInt) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListPrivateDirectoryMembersOK) SetTotalRecords(val OptInt) {
+	s.TotalRecords = val
+}
+
+// SetPrivateDirectoryMembers sets the value of PrivateDirectoryMembers.
+func (s *ListPrivateDirectoryMembersOK) SetPrivateDirectoryMembers(val []ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) {
+	s.PrivateDirectoryMembers = val
+}
+
+type ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem struct {
+	// The member's extension ID.
+	ExtensionID string `json:"extension_id"`
+	// The member extension's type. The valid value is:
+	// * user
+	// * zoom_room
+	// * common_area
+	// * auto_receptionist
+	// * call_queue
+	// * shared_line_group.
+	ExtensionType string `json:"extension_type"`
+	// The member's extension number.
+	ExtensionNumber int `json:"extension_number"`
+	// The member's display name.
+	ExtensionDisplayName string `json:"extension_display_name"`
+	// The member's email address, this field should be returned when "extension_type" is user.
+	ExtensionEmail OptString `json:"extension_email"`
+	// The value indicates who is allowed to access to this member, valid value is:
+	// * everybody
+	// * admins_only
+	// * nobody.
+	SearchableOnWebPortal string `json:"searchable_on_web_portal"`
+	// The unique identifier of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) that you would like to use for the push
+	// to talk channel. You will only be able to add members that belong to this site to the push to talk
+	// channel. This field is required only if the [multiple sites](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account.
+	SiteID OptString `json:"site_id"`
+	// The name of the site to which the private directory belongs. This field is required only if the
+	// [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites)
+	// option has been enabled for the account.
+	SiteName OptString `json:"site_name"`
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetExtensionID() string {
+	return s.ExtensionID
+}
+
+// GetExtensionType returns the value of ExtensionType.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetExtensionType() string {
+	return s.ExtensionType
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetExtensionNumber() int {
+	return s.ExtensionNumber
+}
+
+// GetExtensionDisplayName returns the value of ExtensionDisplayName.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetExtensionDisplayName() string {
+	return s.ExtensionDisplayName
+}
+
+// GetExtensionEmail returns the value of ExtensionEmail.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetExtensionEmail() OptString {
+	return s.ExtensionEmail
+}
+
+// GetSearchableOnWebPortal returns the value of SearchableOnWebPortal.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetSearchableOnWebPortal() string {
+	return s.SearchableOnWebPortal
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetExtensionID(val string) {
+	s.ExtensionID = val
+}
+
+// SetExtensionType sets the value of ExtensionType.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetExtensionType(val string) {
+	s.ExtensionType = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetExtensionNumber(val int) {
+	s.ExtensionNumber = val
+}
+
+// SetExtensionDisplayName sets the value of ExtensionDisplayName.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetExtensionDisplayName(val string) {
+	s.ExtensionDisplayName = val
+}
+
+// SetExtensionEmail sets the value of ExtensionEmail.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetExtensionEmail(val OptString) {
+	s.ExtensionEmail = val
+}
+
+// SetSearchableOnWebPortal sets the value of SearchableOnWebPortal.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetSearchableOnWebPortal(val string) {
+	s.SearchableOnWebPortal = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListPrivateDirectoryMembersOKPrivateDirectoryMembersItem) SetSiteName(val OptString) {
+	s.SiteName = val
 }
 
 type ListRoleMembersOK struct {
@@ -44819,7 +46039,7 @@ func (s *ListUnassignedZoomRoomsOKRoomsItem) SetCostCenter(val OptString) {
 
 type ListUserCustomizeOutboundCallerNumbersOK struct {
 	CustomizeNumbers []ListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItem `json:"customize_numbers"`
-	// The next page token paginates through a large set of results. A next page token will be returned
+	// The next page token paginates through a large set of results. A next page token is returned
 	// whenever the set of available results exceeds the current page size. The expiration period for
 	// this token is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
@@ -49257,6 +50477,52 @@ func (o OptAddCallHandlingReq) Or(d AddCallHandlingReq) AddCallHandlingReq {
 	return d
 }
 
+// NewOptAddClientCodeToCallHistoryReq returns new OptAddClientCodeToCallHistoryReq with value set to v.
+func NewOptAddClientCodeToCallHistoryReq(v AddClientCodeToCallHistoryReq) OptAddClientCodeToCallHistoryReq {
+	return OptAddClientCodeToCallHistoryReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAddClientCodeToCallHistoryReq is optional AddClientCodeToCallHistoryReq.
+type OptAddClientCodeToCallHistoryReq struct {
+	Value AddClientCodeToCallHistoryReq
+	Set   bool
+}
+
+// IsSet returns true if OptAddClientCodeToCallHistoryReq was set.
+func (o OptAddClientCodeToCallHistoryReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAddClientCodeToCallHistoryReq) Reset() {
+	var v AddClientCodeToCallHistoryReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAddClientCodeToCallHistoryReq) SetTo(v AddClientCodeToCallHistoryReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAddClientCodeToCallHistoryReq) Get() (v AddClientCodeToCallHistoryReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAddClientCodeToCallHistoryReq) Or(d AddClientCodeToCallHistoryReq) AddClientCodeToCallHistoryReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptAddClientCodeToCallLogReq returns new OptAddClientCodeToCallLogReq with value set to v.
 func NewOptAddClientCodeToCallLogReq(v AddClientCodeToCallLogReq) OptAddClientCodeToCallLogReq {
 	return OptAddClientCodeToCallLogReq{
@@ -49987,6 +51253,52 @@ func (o OptAddLocationReq) Get() (v AddLocationReq, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptAddLocationReq) Or(d AddLocationReq) AddLocationReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAddMembersToAPrivateDirectoryReq returns new OptAddMembersToAPrivateDirectoryReq with value set to v.
+func NewOptAddMembersToAPrivateDirectoryReq(v AddMembersToAPrivateDirectoryReq) OptAddMembersToAPrivateDirectoryReq {
+	return OptAddMembersToAPrivateDirectoryReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAddMembersToAPrivateDirectoryReq is optional AddMembersToAPrivateDirectoryReq.
+type OptAddMembersToAPrivateDirectoryReq struct {
+	Value AddMembersToAPrivateDirectoryReq
+	Set   bool
+}
+
+// IsSet returns true if OptAddMembersToAPrivateDirectoryReq was set.
+func (o OptAddMembersToAPrivateDirectoryReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAddMembersToAPrivateDirectoryReq) Reset() {
+	var v AddMembersToAPrivateDirectoryReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAddMembersToAPrivateDirectoryReq) SetTo(v AddMembersToAPrivateDirectoryReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAddMembersToAPrivateDirectoryReq) Get() (v AddMembersToAPrivateDirectoryReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAddMembersToAPrivateDirectoryReq) Or(d AddMembersToAPrivateDirectoryReq) AddMembersToAPrivateDirectoryReq {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -51327,6 +52639,52 @@ func (o OptAddZoomRoomReq) Or(d AddZoomRoomReq) AddZoomRoomReq {
 	return d
 }
 
+// NewOptApplyTemplatetoCommonAreasReq returns new OptApplyTemplatetoCommonAreasReq with value set to v.
+func NewOptApplyTemplatetoCommonAreasReq(v ApplyTemplatetoCommonAreasReq) OptApplyTemplatetoCommonAreasReq {
+	return OptApplyTemplatetoCommonAreasReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptApplyTemplatetoCommonAreasReq is optional ApplyTemplatetoCommonAreasReq.
+type OptApplyTemplatetoCommonAreasReq struct {
+	Value ApplyTemplatetoCommonAreasReq
+	Set   bool
+}
+
+// IsSet returns true if OptApplyTemplatetoCommonAreasReq was set.
+func (o OptApplyTemplatetoCommonAreasReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptApplyTemplatetoCommonAreasReq) Reset() {
+	var v ApplyTemplatetoCommonAreasReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptApplyTemplatetoCommonAreasReq) SetTo(v ApplyTemplatetoCommonAreasReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptApplyTemplatetoCommonAreasReq) Get() (v ApplyTemplatetoCommonAreasReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptApplyTemplatetoCommonAreasReq) Or(d ApplyTemplatetoCommonAreasReq) ApplyTemplatetoCommonAreasReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptAssignCallingPlanReq returns new OptAssignCallingPlanReq with value set to v.
 func NewOptAssignCallingPlanReq(v AssignCallingPlanReq) OptAssignCallingPlanReq {
 	return OptAssignCallingPlanReq{
@@ -52517,52 +53875,6 @@ func (o OptDateTime) Get() (v time.Time, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptDateTime) Or(d time.Time) time.Time {
-	if v, ok := o.Get(); ok {
-		return v
-	}
-	return d
-}
-
-// NewOptDeletePeeringPhoneNumbersReq returns new OptDeletePeeringPhoneNumbersReq with value set to v.
-func NewOptDeletePeeringPhoneNumbersReq(v DeletePeeringPhoneNumbersReq) OptDeletePeeringPhoneNumbersReq {
-	return OptDeletePeeringPhoneNumbersReq{
-		Value: v,
-		Set:   true,
-	}
-}
-
-// OptDeletePeeringPhoneNumbersReq is optional DeletePeeringPhoneNumbersReq.
-type OptDeletePeeringPhoneNumbersReq struct {
-	Value DeletePeeringPhoneNumbersReq
-	Set   bool
-}
-
-// IsSet returns true if OptDeletePeeringPhoneNumbersReq was set.
-func (o OptDeletePeeringPhoneNumbersReq) IsSet() bool { return o.Set }
-
-// Reset unsets value.
-func (o *OptDeletePeeringPhoneNumbersReq) Reset() {
-	var v DeletePeeringPhoneNumbersReq
-	o.Value = v
-	o.Set = false
-}
-
-// SetTo sets value to v.
-func (o *OptDeletePeeringPhoneNumbersReq) SetTo(v DeletePeeringPhoneNumbersReq) {
-	o.Set = true
-	o.Value = v
-}
-
-// Get returns value and boolean that denotes whether value was set.
-func (o OptDeletePeeringPhoneNumbersReq) Get() (v DeletePeeringPhoneNumbersReq, ok bool) {
-	if !o.Set {
-		return v, false
-	}
-	return o.Value, true
-}
-
-// Or returns value if set, or given parameter if does not.
-func (o OptDeletePeeringPhoneNumbersReq) Or(d DeletePeeringPhoneNumbersReq) DeletePeeringPhoneNumbersReq {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -55973,6 +57285,102 @@ func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardTo) Or(d 
 	return d
 }
 
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting returns new OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting is optional GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting.
+type OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Get() (v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting returns new OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting is optional GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting.
+type OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) Get() (v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting) GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingMessageGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator returns new OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator with value set to v.
 func NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator) OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator {
 	return OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingOperator{
@@ -56061,6 +57469,54 @@ func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreetin
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting) GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction returns new OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction is optional GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction.
+type OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Get() (v GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Or(d GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetCallHandlingOKBusinessHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56345,6 +57801,102 @@ func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardTo) Or(d GetC
 	return d
 }
 
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting returns new OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting(v GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting is optional GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting.
+type OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) Get() (v GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting) GetCallHandlingOKBusinessHoursItemSettingsRoutingForwardToVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting returns new OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting(v GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting is optional GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting.
+type OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) Get() (v GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting) GetCallHandlingOKBusinessHoursItemSettingsRoutingMessageGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator returns new OptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator with value set to v.
 func NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator(v GetCallHandlingOKBusinessHoursItemSettingsRoutingOperator) OptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator {
 	return OptGetCallHandlingOKBusinessHoursItemSettingsRoutingOperator{
@@ -56433,6 +57985,54 @@ func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting) G
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting) Or(d GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting) GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction returns new OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction with value set to v.
+func NewOptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction(v GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction {
+	return OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction is optional GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction.
+type OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction struct {
+	Value GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) Reset() {
+	var v GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) SetTo(v GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) Get() (v GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) Or(d GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction) GetCallHandlingOKBusinessHoursItemSettingsRoutingVoicemailLeavingInstruction {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56577,6 +58177,102 @@ func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardTo) Or(d Ge
 	return d
 }
 
+// NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting returns new OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+	return OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting is optional GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting.
+type OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) SetTo(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Get() (v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting) GetCallHandlingOKClosedHoursItemSettingsBusyRoutingForwardToVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting returns new OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting {
+	return OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting is optional GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting.
+type OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) SetTo(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) Get() (v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting) GetCallHandlingOKClosedHoursItemSettingsBusyRoutingMessageGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator returns new OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator with value set to v.
 func NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator) OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator {
 	return OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingOperator{
@@ -56665,6 +58361,54 @@ func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting)
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting) GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction returns new OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
+	return OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction is optional GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction.
+type OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) SetTo(v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Get() (v GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) Or(d GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction) GetCallHandlingOKClosedHoursItemSettingsBusyRoutingVoicemailLeavingInstruction {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56811,6 +58555,100 @@ func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardTo) Or(d GetCal
 	return d
 }
 
+// NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting returns new OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting(v GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting {
+	return OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting is optional GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting.
+type OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) SetTo(v GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) Get() (v GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting) GetCallHandlingOKClosedHoursItemSettingsRoutingForwardToVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting returns new OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting(v GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting {
+	return OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting is optional GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting.
+type OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) SetTo(v GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) Get() (v GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting) GetCallHandlingOKClosedHoursItemSettingsRoutingMessageGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator returns new OptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator with value set to v.
 func NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator(v GetCallHandlingOKClosedHoursItemSettingsRoutingOperator) OptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator {
 	return OptGetCallHandlingOKClosedHoursItemSettingsRoutingOperator{
@@ -56899,6 +58737,54 @@ func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting) Get
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting) Or(d GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting) GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailGreeting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction returns new OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction with value set to v.
+func NewOptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction(v GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction {
+	return OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction is optional GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction.
+type OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction struct {
+	Value GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction
+	Set   bool
+}
+
+// IsSet returns true if OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) Reset() {
+	var v GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) SetTo(v GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) Get() (v GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) Or(d GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction) GetCallHandlingOKClosedHoursItemSettingsRoutingVoicemailLeavingInstruction {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -72873,6 +74759,52 @@ func (o OptUpdateADeviceReq) Or(d UpdateADeviceReq) UpdateADeviceReq {
 	return d
 }
 
+// NewOptUpdateAPrivateDirectoryMemberReq returns new OptUpdateAPrivateDirectoryMemberReq with value set to v.
+func NewOptUpdateAPrivateDirectoryMemberReq(v UpdateAPrivateDirectoryMemberReq) OptUpdateAPrivateDirectoryMemberReq {
+	return OptUpdateAPrivateDirectoryMemberReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateAPrivateDirectoryMemberReq is optional UpdateAPrivateDirectoryMemberReq.
+type OptUpdateAPrivateDirectoryMemberReq struct {
+	Value UpdateAPrivateDirectoryMemberReq
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateAPrivateDirectoryMemberReq was set.
+func (o OptUpdateAPrivateDirectoryMemberReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateAPrivateDirectoryMemberReq) Reset() {
+	var v UpdateAPrivateDirectoryMemberReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateAPrivateDirectoryMemberReq) SetTo(v UpdateAPrivateDirectoryMemberReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateAPrivateDirectoryMemberReq) Get() (v UpdateAPrivateDirectoryMemberReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateAPrivateDirectoryMemberReq) Or(d UpdateAPrivateDirectoryMemberReq) UpdateAPrivateDirectoryMemberReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateASharedLineGroupReq returns new OptUpdateASharedLineGroupReq with value set to v.
 func NewOptUpdateASharedLineGroupReq(v UpdateASharedLineGroupReq) OptUpdateASharedLineGroupReq {
 	return OptUpdateASharedLineGroupReq{
@@ -74017,6 +75949,52 @@ func (o OptUpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule) Get() (
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule) Or(d UpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule) UpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateCommonAreaPinCodeReq returns new OptUpdateCommonAreaPinCodeReq with value set to v.
+func NewOptUpdateCommonAreaPinCodeReq(v UpdateCommonAreaPinCodeReq) OptUpdateCommonAreaPinCodeReq {
+	return OptUpdateCommonAreaPinCodeReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateCommonAreaPinCodeReq is optional UpdateCommonAreaPinCodeReq.
+type OptUpdateCommonAreaPinCodeReq struct {
+	Value UpdateCommonAreaPinCodeReq
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateCommonAreaPinCodeReq was set.
+func (o OptUpdateCommonAreaPinCodeReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateCommonAreaPinCodeReq) Reset() {
+	var v UpdateCommonAreaPinCodeReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateCommonAreaPinCodeReq) SetTo(v UpdateCommonAreaPinCodeReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateCommonAreaPinCodeReq) Get() (v UpdateCommonAreaPinCodeReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateCommonAreaPinCodeReq) Or(d UpdateCommonAreaPinCodeReq) UpdateCommonAreaPinCodeReq {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -82784,8 +84762,14 @@ func (s *PatchCallHandlingSettingsCallHandling) SetSubSettingType(val OptString)
 }
 
 type PatchCallHandlingSettingsCallHandlingSettings struct {
-	// Whether to allow the callers to check voicemails over a phone. It's required only when the
-	// `call_not_answer_action` setting is set to `1` (Forward to a voicemail).
+	// Whether to allow the callers to check voicemails.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail).
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail).(Only
+	// applicable to the `User`)
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Shared Line Group`.
 	AllowCallersCheckVoicemail OptBool `json:"allow_callers_check_voicemail"`
 	// This field allows queue members to set their own business hours. This field allows queue members'
 	// business Hours to override the default hours of the call queue.
@@ -82802,18 +84786,35 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// This is only required for the `call_handling` sub-setting.
 	CallDistribution OptPatchCallHandlingSettingsCallHandlingSettingsCallDistribution `json:"call_distribution"`
 	// The action to take when a call is not answered:
-	// * `1` &mdash; Forward to a voicemail.
-	// * `2` &mdash; Forward to the user.
-	// * `4` &mdash; Forward to the common area.
-	// * `6` &mdash; Forward to the auto receptionist.
-	// * `7` &mdash; Forward to a call queue.
-	// * `8` &mdash; Forward to a shared line group.
-	// * `9` &mdash; Forward to an external contact.
-	// * `10` - Forward to a phone number.
-	// * `11` &mdash; Disconnect.
-	// * `12` &mdash; Play a message, then disconnect.
-	// * `13` - Forward to a message.
-	// * `14` - Forward to an interactive voice response (IVR).
+	// * `1` &mdash; Forward to a Voicemail. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `2` &mdash; Forward to the User. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `3` &mdash; Forward to the Zoom Room. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `4` &mdash; Forward to the Common Area. Applicable to `User`, `Call Queue`, `Auto Receptionist`,
+	// or `Shared Line Group`.
+	// * `5` &mdash; Forward to the Cisco/Polycom Room. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `6` &mdash; Forward to the Auto Receptionist. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `7` &mdash; Forward to a Call Queue. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `8` &mdash; Forward to a Shared Line Group. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `9` &mdash; Forward to an External Contact. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`.
+	// * `10` - Forward to a Phone Number. Applicable to `User`, `Call Queue`, `Auto Receptionist`, or
+	// `Shared Line Group`.
+	// * `11` &mdash; Disconnect. Applicable to `User`, `Call Queue`, or `Shared Line Group`.
+	// * `12` &mdash; Play a message, then disconnect. Applicable to `User`, `Call Queue`, `Auto
+	// Receptionist`, or `Shared Line Group`
+	// * `14` - Forward to an Interactive Voice Response (IVR). Applicable to `Auto Receptionist`.
+	// * `15` &mdash; Forward to a Partner Contact Center. Applicable to `Auto Receptionist`.
+	// * `18` &mdash; Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for
+	// Microsoft Teams. Applicable to `Call queue`, `Auto Receptionist`, or `Shared Line group`.
+	// * `19` &mdash; Forward to a Zoom Contact Center. Required Zoom Contact Center license. Applicable
+	// to `Call Queue`, `Auto Receptionist`, or `Shared Line Group`.
 	// This is only required for the `call_handling` sub-setting.
 	CallNotAnswerAction OptInt `json:"call_not_answer_action"`
 	// The action to take when the user is busy on another call:
@@ -82828,7 +84829,7 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// * `12` &mdash; Play a message, then disconnect.
 	// * `21` &mdash; Call waiting.
 	// * `22` &mdash; Play a busy signal.
-	// Only required for the `call_handling` sub-setting.
+	// Only required for the `call_handling` sub-setting and only the `User` supports it.
 	BusyOnAnotherCallAction OptInt `json:"busy_on_another_call_action"`
 	// When one is busy on another call, the receiver needs to press 1 before connecting the call for it
 	// to be forwarded to an external contact or a number. This option ensures that forwarded calls won't
@@ -82837,17 +84838,30 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// When a call is unanswered, press 1 before connecting the call to forward to an external contact or
 	// a number. This option ensures that forwarded calls won't reach the voicemail box for the external
 	// contact or a number.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `9`(Forward to an External Contact) or
+	// `10`(Forward to a Phone Number).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	UnAnsweredRequirePress1BeforeConnecting OptBool `json:"un_answered_require_press_1_before_connecting"`
-	// Whether to play the callee's voicemail greeting when the caller reaches the end of the forwarding
+	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
 	// sequence.
-	// It displays when `call_not_answer_action` is set to: `2` - Forward to the user, `4` - Forward to
-	// the common area, `6` - Forward to the auto receptionist, `7` - Forward to a call queue, `8` -
-	// Forward to a shared line group, `9` - Forward to an external contact, `10` - Forward to an
-	// external number.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` setting is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue) or `8`(Forward to a
+	// Shared Line Group).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	OverflowPlayCalleeVoicemailGreeting OptBool `json:"overflow_play_callee_voicemail_greeting"`
 	// Whether to play callee's voicemail greeting when the caller reaches the end of forwarding sequence.
-	//  It displays when `busy_on_another_call_action` action or `call_not_answer_action` is set to `1` -
-	// Forward to a voicemail.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.(Only applicable to the `User`)
+	// Applicable to the extension as shown below:
+	// * `User`.
 	PlayCalleeVoicemailGreeting OptBool `json:"play_callee_voicemail_greeting"`
 	// Whether to play callee's voicemail greeting when the caller reaches the end of the forwarding
 	// sequence.
@@ -82857,11 +84871,20 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// external number.
 	BusyPlayCalleeVoicemailGreeting OptBool `json:"busy_play_callee_voicemail_greeting"`
 	// The extension's phone number or forward to an external number in [E.164 format](https://en.
-	// wikipedia.org/wiki/E.164) format. It's required when `call_not_answer_action` action is set to
-	// `10` - Forward to an external number.
+	// wikipedia.org/wiki/E.164) format.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `10` (Forward to a Phone Number).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	PhoneNumber OptString `json:"phone_number"`
-	// (Optional) This field forwards to an external number description.
-	// Add this field when `call_not_answer_action` is set to `10` - Forward to an external number.
+	// This field describes the phone number to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `10` (Forward to a Phone Number).
+	// Applicable to the extension as shown below:
+	// * `User`.
 	Description OptString `json:"description"`
 	// The extension's phone number or forward to an external number in [E.164 format](https://en.
 	// wikipedia.org/wiki/E.164) format.
@@ -82870,12 +84893,26 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// This field forwards to an external number description (optional). It sets when
 	// `busy_on_another_call_action` action is set to `10` - Forward to an external number.
 	BusyDescription OptString `json:"busy_description"`
-	// Whether to allow callers to reach an operator. It's required only when the
-	// `call_not_answer_action` or `busy_on_another_call_action` is set to `1` (Forward to a voicemail).
+	// Whether to allow callers to reach an operator.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail).
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	ConnectToOperator OptBool `json:"connect_to_operator"`
-	// The forwarding extension ID that's required only when call_not_answer_action setting is set to: 2
-	// - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist. 7 -
-	// Forward to a call queue. 8 - Forward to a shared line group. or 9 - forward to an external contact.
+	// The forwarding extension ID:
+	// This field is only available in the following scenarios:
+	// * Secnario 1: When `call_not_answer_action` is set to `1` (Forward to voicemail) for unanswered
+	// calls, this field is used to set the specific extension to which voicemails are forwarded. This
+	// scenario applies to `Auto Receptionist` and `Call Queue`.
+	// * Secnario 2: when `call_not_answer_action` setting is set to: `2`(Forward to the User),
+	// `3`(Forward to the Zoom Room), `4`(Forward to the Common Area), `5`(Forward to the Cisco/Polycom
+	// Room), `6`(Forward to the Auto Receptionist), `7`(Forward to a Call Queue), `8`(Forward to a
+	// Shared Line Group) or `9`(forward to an External Contact) for unanswered calls, this field
+	// specifies the extension to which the call will be forwarded. This scenario applies to `User`,
+	// `Auto Receptionist`, `Call Queue` and `Shared Line Group`.
 	ForwardToExtensionID OptString `json:"forward_to_extension_id"`
 	// The forwarding extension ID that's required only when busy_on_another_call_action setting is set
 	// to: 2 - Forward to the user. 4 - Forward to the common area. 6 - Forward to the auto receptionist.
@@ -82933,9 +84970,16 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// Options: empty char - default and `0` - disable
 	// Only required for the `Call Queue` `call_handling` sub-setting.
 	MusicOnHoldID OptString `json:"music_on_hold_id"`
-	// The extension ID of the operator to whom the call is being forwarded. It's required only when
-	// `call_not_answer_action` is set to `1` (Forward to a voicemail) and `connect_to_operator` is set
-	// to `true`.
+	// The extension ID of the operator to whom the call is being forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail) and the
+	// `connect_to_operator` is `true`.(Only applicable to the `User`)
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	OperatorExtensionID OptString `json:"operator_extension_id"`
 	// This field receives calls while on a call. When enabled, call queue members can receive new
 	// incoming calls notification even on the call.
@@ -82945,10 +84989,62 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	// * `simultaneous`
 	// * `sequential`. For user business hours, `ring_mode` needs to be set with `max_wait_time`.
 	RingMode OptString `json:"ring_mode"`
-	// The voicemail greeting prompt ID. It's required when `call_not_answer_action` or
-	// `busy_on_another_call_action` is set to `1` (Forward to a voicemail).
-	// Required only for `call_handling` subsettings of `Call Queue`, `Auto Receptionist` or `User`.
+	// The voicemail greeting prompt ID.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail).
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail).(Only
+	// applicable to the `User`)
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
 	VoicemailGreetingID OptString `json:"voicemail_greeting_id"`
+	// The voicemail leaving instruction prompt ID.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `1` (Forward to a voicemail), and either
+	// `connect_to_operator` or `allow_callers_check_voicemail` is set to `true`.
+	// * Secnario 2: The `busy_on_another_call_action` is set to `1` (Forward to a voicemail).(Only
+	// applicable to the `User`), and either `connect_to_operator` or `allow_callers_check_voicemail` is
+	// set to `true`.
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	VoicemailLeavingInstructionID OptString `json:"voicemail_leaving_instruction_id"`
+	// The message greeting prompt ID.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `12` (Play a message, then disconnect).
+	// Applicable to the extension as shown below:
+	// * `User`
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	MessageGreetingID OptString `json:"message_greeting_id"`
+	// The Zoom Contact Center phone number, in [E.164 format](https://en.wikipedia.org/wiki/E.164)
+	// format, to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `19` (Forward to a Zoom Contact Center).
+	// Applicable to the extension as shown below:
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	ForwardToZccPhoneNumber OptString `json:"forward_to_zcc_phone_number"`
+	// The Partner Contact Center Setting ID to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `15` (Forward to a Partner Contact Center).
+	// Applicable to the extension as shown below:
+	// * `Auto Receptionist`.
+	ForwardToPartnerContactCenterID OptString `json:"forward_to_partner_contact_center_id"`
+	// The Microsoft Teams Voice App ID to which the call is forwarded.
+	// This field is only available in the following scenarios:
+	// * Secnario 1: The `call_not_answer_action` is set to `18` (Forward to Microsoft Teams Resource
+	// Account).
+	// Applicable to the extension as shown below:
+	// * `Auto Receptionist`
+	// * `Call Queue`
+	// * `Shared Line Group`.
+	ForwardToTeamsID OptString `json:"forward_to_teams_id"`
 	// The wrap up time in seconds.
 	// Specify the duration before the next queue call is routed to a member in call queue:
 	// * `0`
@@ -83103,6 +85199,31 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) GetVoicemailGreetingID()
 	return s.VoicemailGreetingID
 }
 
+// GetVoicemailLeavingInstructionID returns the value of VoicemailLeavingInstructionID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetVoicemailLeavingInstructionID() OptString {
+	return s.VoicemailLeavingInstructionID
+}
+
+// GetMessageGreetingID returns the value of MessageGreetingID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetMessageGreetingID() OptString {
+	return s.MessageGreetingID
+}
+
+// GetForwardToZccPhoneNumber returns the value of ForwardToZccPhoneNumber.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetForwardToZccPhoneNumber() OptString {
+	return s.ForwardToZccPhoneNumber
+}
+
+// GetForwardToPartnerContactCenterID returns the value of ForwardToPartnerContactCenterID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetForwardToPartnerContactCenterID() OptString {
+	return s.ForwardToPartnerContactCenterID
+}
+
+// GetForwardToTeamsID returns the value of ForwardToTeamsID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) GetForwardToTeamsID() OptString {
+	return s.ForwardToTeamsID
+}
+
 // GetWrapUpTime returns the value of WrapUpTime.
 func (s *PatchCallHandlingSettingsCallHandlingSettings) GetWrapUpTime() OptInt {
 	return s.WrapUpTime
@@ -83241,6 +85362,31 @@ func (s *PatchCallHandlingSettingsCallHandlingSettings) SetRingMode(val OptStrin
 // SetVoicemailGreetingID sets the value of VoicemailGreetingID.
 func (s *PatchCallHandlingSettingsCallHandlingSettings) SetVoicemailGreetingID(val OptString) {
 	s.VoicemailGreetingID = val
+}
+
+// SetVoicemailLeavingInstructionID sets the value of VoicemailLeavingInstructionID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetVoicemailLeavingInstructionID(val OptString) {
+	s.VoicemailLeavingInstructionID = val
+}
+
+// SetMessageGreetingID sets the value of MessageGreetingID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetMessageGreetingID(val OptString) {
+	s.MessageGreetingID = val
+}
+
+// SetForwardToZccPhoneNumber sets the value of ForwardToZccPhoneNumber.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetForwardToZccPhoneNumber(val OptString) {
+	s.ForwardToZccPhoneNumber = val
+}
+
+// SetForwardToPartnerContactCenterID sets the value of ForwardToPartnerContactCenterID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetForwardToPartnerContactCenterID(val OptString) {
+	s.ForwardToPartnerContactCenterID = val
+}
+
+// SetForwardToTeamsID sets the value of ForwardToTeamsID.
+func (s *PatchCallHandlingSettingsCallHandlingSettings) SetForwardToTeamsID(val OptString) {
+	s.ForwardToTeamsID = val
 }
 
 // SetWrapUpTime sets the value of WrapUpTime.
@@ -83544,8 +85690,14 @@ func (s *PatchCallHandlingSettingsHolidaySettings) SetTo(val OptDateTime) {
 	s.To = val
 }
 
+// PhoneDownloadRecordingFileOK is response for PhoneDownloadRecordingFile operation.
+type PhoneDownloadRecordingFileOK struct{}
+
 // PhoneDownloadRecordingTranscriptOK is response for PhoneDownloadRecordingTranscript operation.
 type PhoneDownloadRecordingTranscriptOK struct{}
+
+// PhoneDownloadVoicemailFileOK is response for PhoneDownloadVoicemailFile operation.
+type PhoneDownloadVoicemailFileOK struct{}
 
 // The Zoom account setting.
 type PhoneSettingOK struct {
@@ -83747,6 +85899,746 @@ func (s *PhoneSettingOKShowDeviceIPForCallLog) GetEnable() OptBool {
 // SetEnable sets the value of Enable.
 func (s *PhoneSettingOKShowDeviceIPForCallLog) SetEnable(val OptBool) {
 	s.Enable = val
+}
+
+type PhoneUserCallHistoryOK struct {
+	// The call logs.
+	CallLogs []PhoneUserCallHistoryOKCallLogsItem `json:"call_logs"`
+	// The start time and date of the log.
+	From OptString `json:"from"`
+	// The end time and date of the log.
+	To OptString `json:"to"`
+	// The next page token paginates through a large set of results. A next page token is returned
+	// whenever the set of available results exceeds the current page size. The expiration period for
+	// this token is 15 minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The total number of pages.
+	PageCount OptInt `json:"page_count"`
+	// The number of records returned within a single API call for each page.
+	PageSize OptInt `json:"page_size"`
+	// The total number of records returned.
+	TotalRecords OptInt `json:"total_records"`
+}
+
+// GetCallLogs returns the value of CallLogs.
+func (s *PhoneUserCallHistoryOK) GetCallLogs() []PhoneUserCallHistoryOKCallLogsItem {
+	return s.CallLogs
+}
+
+// GetFrom returns the value of From.
+func (s *PhoneUserCallHistoryOK) GetFrom() OptString {
+	return s.From
+}
+
+// GetTo returns the value of To.
+func (s *PhoneUserCallHistoryOK) GetTo() OptString {
+	return s.To
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *PhoneUserCallHistoryOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageCount returns the value of PageCount.
+func (s *PhoneUserCallHistoryOK) GetPageCount() OptInt {
+	return s.PageCount
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *PhoneUserCallHistoryOK) GetPageSize() OptInt {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *PhoneUserCallHistoryOK) GetTotalRecords() OptInt {
+	return s.TotalRecords
+}
+
+// SetCallLogs sets the value of CallLogs.
+func (s *PhoneUserCallHistoryOK) SetCallLogs(val []PhoneUserCallHistoryOKCallLogsItem) {
+	s.CallLogs = val
+}
+
+// SetFrom sets the value of From.
+func (s *PhoneUserCallHistoryOK) SetFrom(val OptString) {
+	s.From = val
+}
+
+// SetTo sets the value of To.
+func (s *PhoneUserCallHistoryOK) SetTo(val OptString) {
+	s.To = val
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *PhoneUserCallHistoryOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageCount sets the value of PageCount.
+func (s *PhoneUserCallHistoryOK) SetPageCount(val OptInt) {
+	s.PageCount = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *PhoneUserCallHistoryOK) SetPageSize(val OptInt) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *PhoneUserCallHistoryOK) SetTotalRecords(val OptInt) {
+	s.TotalRecords = val
+}
+
+type PhoneUserCallHistoryOKCallLogsItem struct {
+	// The ID of the call log.
+	ID OptString `json:"id"`
+	// The ID of the phone call.
+	CallID OptString `json:"call_id"`
+	// The primary group of which the user belongs.
+	GroupID OptString `json:"group_id"`
+	// The connect type of call.
+	ConnectType OptString `json:"connect_type"`
+	// The type of call.
+	CallType OptString `json:"call_type"`
+	// The direction of the call.
+	Direction OptString `json:"direction"`
+	// The caller's extension ID.
+	CallerExtID OptString `json:"caller_ext_id"`
+	// The name of the caller.
+	CallerName OptString `json:"caller_name"`
+	// The caller's email.
+	CallerEmail OptString `json:"caller_email"`
+	// Ther caller's employee ID.
+	CallerEmployeeID OptString `json:"caller_employee_id"`
+	// The caller's DID number in e164 format.
+	CallerDidNumber OptString `json:"caller_did_number"`
+	// The extension number of the caller.
+	CallerExtNumber OptString `json:"caller_ext_number"`
+	// The caller's extension type.
+	CallerExtType OptString `json:"caller_ext_type"`
+	// The caller's number type.
+	CallerNumberType OptString `json:"caller_number_type"`
+	// The caller's private IP.
+	CallerDevicePrivateIP OptString `json:"caller_device_private_ip"`
+	// The caller's public IP.
+	CallerDevicePublicIP OptString `json:"caller_device_public_ip"`
+	// The caller's device type.
+	CallerDeviceType OptString `json:"caller_device_type"`
+	// The caller's country ISO code.
+	CallerCountryIsoCode OptString `json:"caller_country_iso_code"`
+	// The caller's country code.
+	CallerCountryCode OptString `json:"caller_country_code"`
+	// The caller's site ID.
+	CallerSiteID OptString `json:"caller_site_id"`
+	// The caller's department.
+	CallerDepartment OptString `json:"caller_department"`
+	// The caller's cost center.
+	CallerCostCenter OptString `json:"caller_cost_center"`
+	// The callee's extension ID.
+	CalleeExtID OptString `json:"callee_ext_id"`
+	// The name of the callee.
+	CalleeName OptString `json:"callee_name"`
+	// The callee's DID number in e164 format.
+	CalleeDidNumber OptString `json:"callee_did_number"`
+	// The extension number of the callee.
+	CalleeExtNumber OptString `json:"callee_ext_number"`
+	// The callee's email.
+	CalleeEmail OptString `json:"callee_email"`
+	// Ther callee's employee id.
+	CalleeEmployeeID OptString `json:"callee_employee_id"`
+	// The callee's extension type.
+	CalleeExtType OptString `json:"callee_ext_type"`
+	// The callee's number type.
+	CalleeNumberType OptString `json:"callee_number_type"`
+	// The callee's private IP.
+	CalleeDevicePrivateIP OptString `json:"callee_device_private_ip"`
+	// The callee's public IP.
+	CalleeDevicePublicIP OptString `json:"callee_device_public_ip"`
+	// The callee's device type.
+	CalleeDeviceType OptString `json:"callee_device_type"`
+	// The callee's country ISO code.
+	CalleeCountryIsoCode OptString `json:"callee_country_iso_code"`
+	// The callee's country code.
+	CalleeCountryCode OptString `json:"callee_country_code"`
+	// The callee's site ID.
+	CalleeSiteID OptString `json:"callee_site_id"`
+	// The callee's department.
+	CalleeDepartment OptString `json:"callee_department"`
+	// The callee's cost center.
+	CalleeCostCenter OptString `json:"callee_cost_center"`
+	// The call start time in GMT `date-time` format.
+	StartTime OptString `json:"start_time"`
+	// The call answer time in GMT `date-time` format.
+	AnswerTime OptString `json:"answer_time"`
+	// The call end time in GMT `date-time` format.
+	EndTime OptString `json:"end_time"`
+	// An event within a call log.
+	Event OptString `json:"event"`
+	// The detail result of an event for a call log.
+	Result OptString `json:"result"`
+	// The reason of result of an event for a call log.
+	ResultReason OptString `json:"result_reason"`
+	// The operator extension number.
+	OperatorExtNumber OptString `json:"operator_ext_number"`
+	// The operator extension ID.
+	OperatorExtID OptString `json:"operator_ext_id"`
+	// The operator extension type.
+	OperatorExtType OptString `json:"operator_ext_type"`
+	// The operator's name.
+	OperatorName OptString `json:"operator_name"`
+	// The unique identifier of the call recording.
+	RecordingID OptString `json:"recording_id"`
+	// The type of call recording.
+	RecordingType OptString `json:"recording_type"`
+	// The ID of the call voicemail.
+	VoicemailID OptString `json:"voicemail_id"`
+	// The call talk time in seconds.
+	TalkTime OptInt `json:"talk_time"`
+	// The call hold time in seconds.
+	HoldTime OptInt `json:"hold_time"`
+	// The call wait time in seconds.
+	WaitTime OptInt `json:"wait_time"`
+}
+
+// GetID returns the value of ID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetID() OptString {
+	return s.ID
+}
+
+// GetCallID returns the value of CallID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallID() OptString {
+	return s.CallID
+}
+
+// GetGroupID returns the value of GroupID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetGroupID() OptString {
+	return s.GroupID
+}
+
+// GetConnectType returns the value of ConnectType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetConnectType() OptString {
+	return s.ConnectType
+}
+
+// GetCallType returns the value of CallType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallType() OptString {
+	return s.CallType
+}
+
+// GetDirection returns the value of Direction.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetDirection() OptString {
+	return s.Direction
+}
+
+// GetCallerExtID returns the value of CallerExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerExtID() OptString {
+	return s.CallerExtID
+}
+
+// GetCallerName returns the value of CallerName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerName() OptString {
+	return s.CallerName
+}
+
+// GetCallerEmail returns the value of CallerEmail.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerEmail() OptString {
+	return s.CallerEmail
+}
+
+// GetCallerEmployeeID returns the value of CallerEmployeeID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerEmployeeID() OptString {
+	return s.CallerEmployeeID
+}
+
+// GetCallerDidNumber returns the value of CallerDidNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerDidNumber() OptString {
+	return s.CallerDidNumber
+}
+
+// GetCallerExtNumber returns the value of CallerExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerExtNumber() OptString {
+	return s.CallerExtNumber
+}
+
+// GetCallerExtType returns the value of CallerExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerExtType() OptString {
+	return s.CallerExtType
+}
+
+// GetCallerNumberType returns the value of CallerNumberType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerNumberType() OptString {
+	return s.CallerNumberType
+}
+
+// GetCallerDevicePrivateIP returns the value of CallerDevicePrivateIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerDevicePrivateIP() OptString {
+	return s.CallerDevicePrivateIP
+}
+
+// GetCallerDevicePublicIP returns the value of CallerDevicePublicIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerDevicePublicIP() OptString {
+	return s.CallerDevicePublicIP
+}
+
+// GetCallerDeviceType returns the value of CallerDeviceType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerDeviceType() OptString {
+	return s.CallerDeviceType
+}
+
+// GetCallerCountryIsoCode returns the value of CallerCountryIsoCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerCountryIsoCode() OptString {
+	return s.CallerCountryIsoCode
+}
+
+// GetCallerCountryCode returns the value of CallerCountryCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerCountryCode() OptString {
+	return s.CallerCountryCode
+}
+
+// GetCallerSiteID returns the value of CallerSiteID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerSiteID() OptString {
+	return s.CallerSiteID
+}
+
+// GetCallerDepartment returns the value of CallerDepartment.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerDepartment() OptString {
+	return s.CallerDepartment
+}
+
+// GetCallerCostCenter returns the value of CallerCostCenter.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCallerCostCenter() OptString {
+	return s.CallerCostCenter
+}
+
+// GetCalleeExtID returns the value of CalleeExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeExtID() OptString {
+	return s.CalleeExtID
+}
+
+// GetCalleeName returns the value of CalleeName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeName() OptString {
+	return s.CalleeName
+}
+
+// GetCalleeDidNumber returns the value of CalleeDidNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeDidNumber() OptString {
+	return s.CalleeDidNumber
+}
+
+// GetCalleeExtNumber returns the value of CalleeExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeExtNumber() OptString {
+	return s.CalleeExtNumber
+}
+
+// GetCalleeEmail returns the value of CalleeEmail.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeEmail() OptString {
+	return s.CalleeEmail
+}
+
+// GetCalleeEmployeeID returns the value of CalleeEmployeeID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeEmployeeID() OptString {
+	return s.CalleeEmployeeID
+}
+
+// GetCalleeExtType returns the value of CalleeExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeExtType() OptString {
+	return s.CalleeExtType
+}
+
+// GetCalleeNumberType returns the value of CalleeNumberType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeNumberType() OptString {
+	return s.CalleeNumberType
+}
+
+// GetCalleeDevicePrivateIP returns the value of CalleeDevicePrivateIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeDevicePrivateIP() OptString {
+	return s.CalleeDevicePrivateIP
+}
+
+// GetCalleeDevicePublicIP returns the value of CalleeDevicePublicIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeDevicePublicIP() OptString {
+	return s.CalleeDevicePublicIP
+}
+
+// GetCalleeDeviceType returns the value of CalleeDeviceType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeDeviceType() OptString {
+	return s.CalleeDeviceType
+}
+
+// GetCalleeCountryIsoCode returns the value of CalleeCountryIsoCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeCountryIsoCode() OptString {
+	return s.CalleeCountryIsoCode
+}
+
+// GetCalleeCountryCode returns the value of CalleeCountryCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeCountryCode() OptString {
+	return s.CalleeCountryCode
+}
+
+// GetCalleeSiteID returns the value of CalleeSiteID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeSiteID() OptString {
+	return s.CalleeSiteID
+}
+
+// GetCalleeDepartment returns the value of CalleeDepartment.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeDepartment() OptString {
+	return s.CalleeDepartment
+}
+
+// GetCalleeCostCenter returns the value of CalleeCostCenter.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetCalleeCostCenter() OptString {
+	return s.CalleeCostCenter
+}
+
+// GetStartTime returns the value of StartTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetStartTime() OptString {
+	return s.StartTime
+}
+
+// GetAnswerTime returns the value of AnswerTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetAnswerTime() OptString {
+	return s.AnswerTime
+}
+
+// GetEndTime returns the value of EndTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetEndTime() OptString {
+	return s.EndTime
+}
+
+// GetEvent returns the value of Event.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetEvent() OptString {
+	return s.Event
+}
+
+// GetResult returns the value of Result.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetResult() OptString {
+	return s.Result
+}
+
+// GetResultReason returns the value of ResultReason.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetResultReason() OptString {
+	return s.ResultReason
+}
+
+// GetOperatorExtNumber returns the value of OperatorExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetOperatorExtNumber() OptString {
+	return s.OperatorExtNumber
+}
+
+// GetOperatorExtID returns the value of OperatorExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetOperatorExtID() OptString {
+	return s.OperatorExtID
+}
+
+// GetOperatorExtType returns the value of OperatorExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetOperatorExtType() OptString {
+	return s.OperatorExtType
+}
+
+// GetOperatorName returns the value of OperatorName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetOperatorName() OptString {
+	return s.OperatorName
+}
+
+// GetRecordingID returns the value of RecordingID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetRecordingID() OptString {
+	return s.RecordingID
+}
+
+// GetRecordingType returns the value of RecordingType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetRecordingType() OptString {
+	return s.RecordingType
+}
+
+// GetVoicemailID returns the value of VoicemailID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetVoicemailID() OptString {
+	return s.VoicemailID
+}
+
+// GetTalkTime returns the value of TalkTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetTalkTime() OptInt {
+	return s.TalkTime
+}
+
+// GetHoldTime returns the value of HoldTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetHoldTime() OptInt {
+	return s.HoldTime
+}
+
+// GetWaitTime returns the value of WaitTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) GetWaitTime() OptInt {
+	return s.WaitTime
+}
+
+// SetID sets the value of ID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetCallID sets the value of CallID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallID(val OptString) {
+	s.CallID = val
+}
+
+// SetGroupID sets the value of GroupID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetGroupID(val OptString) {
+	s.GroupID = val
+}
+
+// SetConnectType sets the value of ConnectType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetConnectType(val OptString) {
+	s.ConnectType = val
+}
+
+// SetCallType sets the value of CallType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallType(val OptString) {
+	s.CallType = val
+}
+
+// SetDirection sets the value of Direction.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetDirection(val OptString) {
+	s.Direction = val
+}
+
+// SetCallerExtID sets the value of CallerExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerExtID(val OptString) {
+	s.CallerExtID = val
+}
+
+// SetCallerName sets the value of CallerName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerName(val OptString) {
+	s.CallerName = val
+}
+
+// SetCallerEmail sets the value of CallerEmail.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerEmail(val OptString) {
+	s.CallerEmail = val
+}
+
+// SetCallerEmployeeID sets the value of CallerEmployeeID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerEmployeeID(val OptString) {
+	s.CallerEmployeeID = val
+}
+
+// SetCallerDidNumber sets the value of CallerDidNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerDidNumber(val OptString) {
+	s.CallerDidNumber = val
+}
+
+// SetCallerExtNumber sets the value of CallerExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerExtNumber(val OptString) {
+	s.CallerExtNumber = val
+}
+
+// SetCallerExtType sets the value of CallerExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerExtType(val OptString) {
+	s.CallerExtType = val
+}
+
+// SetCallerNumberType sets the value of CallerNumberType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerNumberType(val OptString) {
+	s.CallerNumberType = val
+}
+
+// SetCallerDevicePrivateIP sets the value of CallerDevicePrivateIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerDevicePrivateIP(val OptString) {
+	s.CallerDevicePrivateIP = val
+}
+
+// SetCallerDevicePublicIP sets the value of CallerDevicePublicIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerDevicePublicIP(val OptString) {
+	s.CallerDevicePublicIP = val
+}
+
+// SetCallerDeviceType sets the value of CallerDeviceType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerDeviceType(val OptString) {
+	s.CallerDeviceType = val
+}
+
+// SetCallerCountryIsoCode sets the value of CallerCountryIsoCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerCountryIsoCode(val OptString) {
+	s.CallerCountryIsoCode = val
+}
+
+// SetCallerCountryCode sets the value of CallerCountryCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerCountryCode(val OptString) {
+	s.CallerCountryCode = val
+}
+
+// SetCallerSiteID sets the value of CallerSiteID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerSiteID(val OptString) {
+	s.CallerSiteID = val
+}
+
+// SetCallerDepartment sets the value of CallerDepartment.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerDepartment(val OptString) {
+	s.CallerDepartment = val
+}
+
+// SetCallerCostCenter sets the value of CallerCostCenter.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCallerCostCenter(val OptString) {
+	s.CallerCostCenter = val
+}
+
+// SetCalleeExtID sets the value of CalleeExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeExtID(val OptString) {
+	s.CalleeExtID = val
+}
+
+// SetCalleeName sets the value of CalleeName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeName(val OptString) {
+	s.CalleeName = val
+}
+
+// SetCalleeDidNumber sets the value of CalleeDidNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeDidNumber(val OptString) {
+	s.CalleeDidNumber = val
+}
+
+// SetCalleeExtNumber sets the value of CalleeExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeExtNumber(val OptString) {
+	s.CalleeExtNumber = val
+}
+
+// SetCalleeEmail sets the value of CalleeEmail.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeEmail(val OptString) {
+	s.CalleeEmail = val
+}
+
+// SetCalleeEmployeeID sets the value of CalleeEmployeeID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeEmployeeID(val OptString) {
+	s.CalleeEmployeeID = val
+}
+
+// SetCalleeExtType sets the value of CalleeExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeExtType(val OptString) {
+	s.CalleeExtType = val
+}
+
+// SetCalleeNumberType sets the value of CalleeNumberType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeNumberType(val OptString) {
+	s.CalleeNumberType = val
+}
+
+// SetCalleeDevicePrivateIP sets the value of CalleeDevicePrivateIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeDevicePrivateIP(val OptString) {
+	s.CalleeDevicePrivateIP = val
+}
+
+// SetCalleeDevicePublicIP sets the value of CalleeDevicePublicIP.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeDevicePublicIP(val OptString) {
+	s.CalleeDevicePublicIP = val
+}
+
+// SetCalleeDeviceType sets the value of CalleeDeviceType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeDeviceType(val OptString) {
+	s.CalleeDeviceType = val
+}
+
+// SetCalleeCountryIsoCode sets the value of CalleeCountryIsoCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeCountryIsoCode(val OptString) {
+	s.CalleeCountryIsoCode = val
+}
+
+// SetCalleeCountryCode sets the value of CalleeCountryCode.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeCountryCode(val OptString) {
+	s.CalleeCountryCode = val
+}
+
+// SetCalleeSiteID sets the value of CalleeSiteID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeSiteID(val OptString) {
+	s.CalleeSiteID = val
+}
+
+// SetCalleeDepartment sets the value of CalleeDepartment.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeDepartment(val OptString) {
+	s.CalleeDepartment = val
+}
+
+// SetCalleeCostCenter sets the value of CalleeCostCenter.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetCalleeCostCenter(val OptString) {
+	s.CalleeCostCenter = val
+}
+
+// SetStartTime sets the value of StartTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetStartTime(val OptString) {
+	s.StartTime = val
+}
+
+// SetAnswerTime sets the value of AnswerTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetAnswerTime(val OptString) {
+	s.AnswerTime = val
+}
+
+// SetEndTime sets the value of EndTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetEndTime(val OptString) {
+	s.EndTime = val
+}
+
+// SetEvent sets the value of Event.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetEvent(val OptString) {
+	s.Event = val
+}
+
+// SetResult sets the value of Result.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetResult(val OptString) {
+	s.Result = val
+}
+
+// SetResultReason sets the value of ResultReason.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetResultReason(val OptString) {
+	s.ResultReason = val
+}
+
+// SetOperatorExtNumber sets the value of OperatorExtNumber.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetOperatorExtNumber(val OptString) {
+	s.OperatorExtNumber = val
+}
+
+// SetOperatorExtID sets the value of OperatorExtID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetOperatorExtID(val OptString) {
+	s.OperatorExtID = val
+}
+
+// SetOperatorExtType sets the value of OperatorExtType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetOperatorExtType(val OptString) {
+	s.OperatorExtType = val
+}
+
+// SetOperatorName sets the value of OperatorName.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetOperatorName(val OptString) {
+	s.OperatorName = val
+}
+
+// SetRecordingID sets the value of RecordingID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetRecordingID(val OptString) {
+	s.RecordingID = val
+}
+
+// SetRecordingType sets the value of RecordingType.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetRecordingType(val OptString) {
+	s.RecordingType = val
+}
+
+// SetVoicemailID sets the value of VoicemailID.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetVoicemailID(val OptString) {
+	s.VoicemailID = val
+}
+
+// SetTalkTime sets the value of TalkTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetTalkTime(val OptInt) {
+	s.TalkTime = val
+}
+
+// SetHoldTime sets the value of HoldTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetHoldTime(val OptInt) {
+	s.HoldTime = val
+}
+
+// SetWaitTime sets the value of WaitTime.
+func (s *PhoneUserCallHistoryOKCallLogsItem) SetWaitTime(val OptInt) {
+	s.WaitTime = val
 }
 
 // The phone user call logs.
@@ -87347,15 +90239,14 @@ func (s *PhoneUserOKPolicyZoomPhoneOnMobile) SetLockedBy(val OptString) {
 	s.LockedBy = val
 }
 
-// The phone user recordings.
 type PhoneUserRecordingsOK struct {
 	// The start time and date of the query.
 	From OptDate `json:"from"`
-	// The next page token paginates through a large set of results. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
-	// The total number of pages.
+	// Total number of pages.
 	PageCount OptInt `json:"page_count"`
 	// The number of records returned within a single API call for each page.
 	PageSize OptInt `json:"page_size"`
@@ -87442,6 +90333,8 @@ type PhoneUserRecordingsOKRecordingsItem struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
+	// The phone call history's unique ID.
+	CallHistoryID OptString `json:"call_history_id"`
 	// The contact name of callee.
 	CalleeName OptString `json:"callee_name"`
 	// The number of callee.
@@ -87453,7 +90346,7 @@ type PhoneUserRecordingsOKRecordingsItem struct {
 	CalleeNumberType OptInt `json:"callee_number_type"`
 	// The contact name of caller.
 	CallerName OptString `json:"caller_name"`
-	// The number of caller.
+	// Number of caller.
 	CallerNumber OptString `json:"caller_number"`
 	// The caller's number type:
 	// * `1` &mdash; Internal number.
@@ -87465,9 +90358,9 @@ type PhoneUserRecordingsOKRecordingsItem struct {
 	// The call-receiving user. The current recording must belong to the receiver and call queue for it
 	// to be available.
 	AcceptedBy OptPhoneUserRecordingsOKRecordingsItemAcceptedBy `json:"accepted_by"`
-	// The date and time when the record is received.
+	// The date and time at which the record is received.
 	DateTime OptString `json:"date_time"`
-	// Direction of the call. &quot;inbound&quot; | &quot;outbound&quot;.
+	// The direction of the call. &quot;inbound&quot; | &quot;outbound&quot;.
 	Direction OptString `json:"direction"`
 	// The download URL for the recording. For security purposes, you must provide an OAuth access token
 	// in the auth header to download the recording file using this url.
@@ -87481,10 +90374,12 @@ type PhoneUserRecordingsOKRecordingsItem struct {
 	DownloadURL OptString `json:"download_url"`
 	// The call recording's duration, in seconds.
 	Duration OptInt `json:"duration"`
-	// The ID of the recording.
+	// The ID of recording.
 	ID OptString `json:"id"`
-	// Download url for the recording transcript. For security purposes, you must provide an OAuth access
-	// token in the auth header to download the recording transcript file using this url.
+	// The meeting ID associated with the recording, if any.
+	MeetingUUID OptString `json:"meeting_uuid"`
+	// The download URL for the recording transcript. For security purposes, you must provide an OAuth
+	// access token in the auth header to download the recording transcript file using this url.
 	// Example request:
 	// ```
 	// curl --request GET \
@@ -87503,6 +90398,11 @@ func (s *PhoneUserRecordingsOKRecordingsItem) GetCallID() OptString {
 // GetCallLogID returns the value of CallLogID.
 func (s *PhoneUserRecordingsOKRecordingsItem) GetCallLogID() OptString {
 	return s.CallLogID
+}
+
+// GetCallHistoryID returns the value of CallHistoryID.
+func (s *PhoneUserRecordingsOKRecordingsItem) GetCallHistoryID() OptString {
+	return s.CallHistoryID
 }
 
 // GetCalleeName returns the value of CalleeName.
@@ -87570,6 +90470,11 @@ func (s *PhoneUserRecordingsOKRecordingsItem) GetID() OptString {
 	return s.ID
 }
 
+// GetMeetingUUID returns the value of MeetingUUID.
+func (s *PhoneUserRecordingsOKRecordingsItem) GetMeetingUUID() OptString {
+	return s.MeetingUUID
+}
+
 // GetTranscriptDownloadURL returns the value of TranscriptDownloadURL.
 func (s *PhoneUserRecordingsOKRecordingsItem) GetTranscriptDownloadURL() OptString {
 	return s.TranscriptDownloadURL
@@ -87583,6 +90488,11 @@ func (s *PhoneUserRecordingsOKRecordingsItem) SetCallID(val OptString) {
 // SetCallLogID sets the value of CallLogID.
 func (s *PhoneUserRecordingsOKRecordingsItem) SetCallLogID(val OptString) {
 	s.CallLogID = val
+}
+
+// SetCallHistoryID sets the value of CallHistoryID.
+func (s *PhoneUserRecordingsOKRecordingsItem) SetCallHistoryID(val OptString) {
+	s.CallHistoryID = val
 }
 
 // SetCalleeName sets the value of CalleeName.
@@ -87650,6 +90560,11 @@ func (s *PhoneUserRecordingsOKRecordingsItem) SetID(val OptString) {
 	s.ID = val
 }
 
+// SetMeetingUUID sets the value of MeetingUUID.
+func (s *PhoneUserRecordingsOKRecordingsItem) SetMeetingUUID(val OptString) {
+	s.MeetingUUID = val
+}
+
 // SetTranscriptDownloadURL sets the value of TranscriptDownloadURL.
 func (s *PhoneUserRecordingsOKRecordingsItem) SetTranscriptDownloadURL(val OptString) {
 	s.TranscriptDownloadURL = val
@@ -87658,9 +90573,9 @@ func (s *PhoneUserRecordingsOKRecordingsItem) SetTranscriptDownloadURL(val OptSt
 // The call-receiving user. The current recording must belong to the receiver and call queue for it
 // to be available.
 type PhoneUserRecordingsOKRecordingsItemAcceptedBy struct {
-	// The user name.
+	// The user's name.
 	Name OptString `json:"name"`
-	// The user extension number.
+	// The user's extension number.
 	ExtensionNumber OptString `json:"extension_number"`
 }
 
@@ -87687,9 +90602,9 @@ func (s *PhoneUserRecordingsOKRecordingsItemAcceptedBy) SetExtensionNumber(val O
 // The call-initiating user. The current recording must belong to the initiator and call queue for it
 // to be available.
 type PhoneUserRecordingsOKRecordingsItemOutgoingBy struct {
-	// The user name.
+	// The user's name.
 	Name OptString `json:"name"`
-	// The user extension number.
+	// The user's extension number.
 	ExtensionNumber OptString `json:"extension_number"`
 }
 
@@ -88667,9 +91582,9 @@ func (s *PhoneUserSettingsOKVoiceMailItem) SetSharedID(val OptString) {
 type PhoneUserVoiceMailsOK struct {
 	// The start date of the query.
 	From OptDate `json:"from"`
-	// The next page token paginates through a large set of results. A next page token is returned
-	// whenever the set of available results exceeds the current page size. The expiration period for
-	// this token is 15 minutes.
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
 	// The total number of pages.
 	PageCount OptInt `json:"page_count"`
@@ -88758,6 +91673,8 @@ type PhoneUserVoiceMailsOKVoiceMailsItem struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
+	// The phone call history's unique ID.
+	CallHistoryID OptString `json:"call_history_id"`
 	// The contact name of callee.
 	CalleeName OptString `json:"callee_name"`
 	// The number of the callee.
@@ -88803,6 +91720,11 @@ func (s *PhoneUserVoiceMailsOKVoiceMailsItem) GetCallID() OptString {
 // GetCallLogID returns the value of CallLogID.
 func (s *PhoneUserVoiceMailsOKVoiceMailsItem) GetCallLogID() OptString {
 	return s.CallLogID
+}
+
+// GetCallHistoryID returns the value of CallHistoryID.
+func (s *PhoneUserVoiceMailsOKVoiceMailsItem) GetCallHistoryID() OptString {
+	return s.CallHistoryID
 }
 
 // GetCalleeName returns the value of CalleeName.
@@ -88868,6 +91790,11 @@ func (s *PhoneUserVoiceMailsOKVoiceMailsItem) SetCallID(val OptString) {
 // SetCallLogID sets the value of CallLogID.
 func (s *PhoneUserVoiceMailsOKVoiceMailsItem) SetCallLogID(val OptString) {
 	s.CallLogID = val
+}
+
+// SetCallHistoryID sets the value of CallHistoryID.
+func (s *PhoneUserVoiceMailsOKVoiceMailsItem) SetCallHistoryID(val OptString) {
+	s.CallHistoryID = val
 }
 
 // SetCalleeName sets the value of CalleeName.
@@ -89065,6 +91992,9 @@ func (s *PostCallHandlingSettingsHolidaySettings) SetTo(val OptDateTime) {
 
 // RebootPhoneDeviceAccepted is response for RebootPhoneDevice operation.
 type RebootPhoneDeviceAccepted struct{}
+
+// RemoveAMemberFromAPrivateDirectoryNoContent is response for RemoveAMemberFromAPrivateDirectory operation.
+type RemoveAMemberFromAPrivateDirectoryNoContent struct{}
 
 // RemoveCQPolicySubSettingNoContent is response for RemoveCQPolicySubSetting operation.
 type RemoveCQPolicySubSettingNoContent struct{}
@@ -89319,7 +92249,7 @@ func (s *SmsByMessageIdOKSenderOwner) SetType(val OptString) {
 }
 
 type SmsByMessageIdOKToMembersItem struct {
-	// The participant name.
+	// The participant's name.
 	DisplayName OptString                             `json:"display_name"`
 	Owner       OptSmsByMessageIdOKToMembersItemOwner `json:"owner"`
 	// The receiver's phone number.
@@ -89388,8 +92318,9 @@ func (s *SmsByMessageIdOKToMembersItemOwner) SetType(val OptString) {
 }
 
 type SmsSessionDetailsOK struct {
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of the available result list exceeds the page size.
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
 	NextPageToken OptString `json:"next_page_token"`
 	// The size of the page.
 	PageSize     OptInt                                `json:"page_size"`
@@ -89430,9 +92361,9 @@ type SmsSessionDetailsOKSMSHistoriesItem struct {
 	Attachments []SmsSessionDetailsOKSMSHistoriesItemAttachmentsItem `json:"attachments"`
 	// The UTC time the message was created.
 	DateTime OptString `json:"date_time"`
-	// In or Out.
+	// Whether the direction is In or Out.
 	Direction OptString `json:"direction"`
-	// The SMS text contents.
+	// The contents of the SMS text.
 	Message OptString `json:"message"`
 	// The message ID.
 	MessageID OptString `json:"message_id"`
@@ -89592,10 +92523,10 @@ func (s *SmsSessionDetailsOKSMSHistoriesItemAttachmentsItem) SetType(val OptStri
 }
 
 type SmsSessionDetailsOKSMSHistoriesItemSender struct {
-	// Sender's name.
+	// The sender's name.
 	DisplayName OptString                                         `json:"display_name"`
 	Owner       OptSmsSessionDetailsOKSMSHistoriesItemSenderOwner `json:"owner"`
-	// Sender's phone number.
+	// The sender's phone number.
 	PhoneNumber string `json:"phone_number"`
 }
 
@@ -89661,10 +92592,10 @@ func (s *SmsSessionDetailsOKSMSHistoriesItemSenderOwner) SetType(val OptString) 
 }
 
 type SmsSessionDetailsOKSMSHistoriesItemToMembersItem struct {
-	// The participant name.
+	// The participant's name.
 	DisplayName OptString                                                `json:"display_name"`
 	Owner       OptSmsSessionDetailsOKSMSHistoriesItemToMembersItemOwner `json:"owner"`
-	// Receiver's phone number.
+	// The receiver's phone number.
 	PhoneNumber string `json:"phone_number"`
 }
 
@@ -89731,7 +92662,7 @@ func (s *SmsSessionDetailsOKSMSHistoriesItemToMembersItemOwner) SetType(val OptS
 
 type SmsSessionSyncOK struct {
 	SMSHistories []SmsSessionSyncOKSMSHistoriesItem `json:"sms_histories"`
-	// The time range for returned records. Used for locating where the next retrieval will begin.
+	// The time range for returned records. It's used for locating where the next retrieval will begin.
 	SyncToken OptString `json:"sync_token"`
 }
 
@@ -89862,11 +92793,11 @@ type SmsSessionSyncOKSMSHistoriesItemAttachmentsItem struct {
 	DownloadURL OptString `json:"download_url"`
 	// The media file ID.
 	ID OptString `json:"id"`
-	// The file name.
+	// The file's name.
 	Name OptString `json:"name"`
-	// The file size.
+	// The file's size.
 	Size OptInt `json:"size"`
-	// The file type: OTHER, PNG, GIF, JPG, AUDIO, VIDEO.
+	// The file's type: OTHER, PNG, GIF, JPG, AUDIO, VIDEO.
 	Type OptString `json:"type"`
 }
 
@@ -89921,10 +92852,10 @@ func (s *SmsSessionSyncOKSMSHistoriesItemAttachmentsItem) SetType(val OptString)
 }
 
 type SmsSessionSyncOKSMSHistoriesItemSender struct {
-	// Sender's name.
+	// The sender's name.
 	DisplayName OptString                                      `json:"display_name"`
 	Owner       OptSmsSessionSyncOKSMSHistoriesItemSenderOwner `json:"owner"`
-	// Sender's phone number.
+	// The sender's phone number.
 	PhoneNumber string `json:"phone_number"`
 }
 
@@ -89961,7 +92892,7 @@ func (s *SmsSessionSyncOKSMSHistoriesItemSender) SetPhoneNumber(val string) {
 type SmsSessionSyncOKSMSHistoriesItemSenderOwner struct {
 	// The owner ID.
 	ID OptString `json:"id"`
-	// The owner type:
+	// The owner's type:
 	// *`user`
 	// *`callQueue`
 	// *`autoReceptionist`
@@ -89990,10 +92921,10 @@ func (s *SmsSessionSyncOKSMSHistoriesItemSenderOwner) SetType(val OptString) {
 }
 
 type SmsSessionSyncOKSMSHistoriesItemToMembersItem struct {
-	// SMS recipient name.
+	// The SMS recipient's name.
 	DisplayName OptString                                             `json:"display_name"`
 	Owner       OptSmsSessionSyncOKSMSHistoriesItemToMembersItemOwner `json:"owner"`
-	// SMS recipient phone number.
+	// The SMS recipient phone number.
 	PhoneNumber string `json:"phone_number"`
 }
 
@@ -90086,6 +93017,696 @@ func (s *SyncPhoneDeviceReq) SetLevel(val int) {
 // SetSiteID sets the value of SiteID.
 func (s *SyncPhoneDeviceReq) SetSiteID(val OptString) {
 	s.SiteID = val
+}
+
+// The sync user call logs.
+type SyncUserCallHistoryOK struct {
+	CallLogs []SyncUserCallHistoryOKCallLogsItem `json:"call_logs"`
+	// The time range for returned records. Used for locating where the next retrieval will begin.
+	SyncToken OptString `json:"sync_token"`
+}
+
+// GetCallLogs returns the value of CallLogs.
+func (s *SyncUserCallHistoryOK) GetCallLogs() []SyncUserCallHistoryOKCallLogsItem {
+	return s.CallLogs
+}
+
+// GetSyncToken returns the value of SyncToken.
+func (s *SyncUserCallHistoryOK) GetSyncToken() OptString {
+	return s.SyncToken
+}
+
+// SetCallLogs sets the value of CallLogs.
+func (s *SyncUserCallHistoryOK) SetCallLogs(val []SyncUserCallHistoryOKCallLogsItem) {
+	s.CallLogs = val
+}
+
+// SetSyncToken sets the value of SyncToken.
+func (s *SyncUserCallHistoryOK) SetSyncToken(val OptString) {
+	s.SyncToken = val
+}
+
+type SyncUserCallHistoryOKCallLogsItem struct {
+	// The ID of the call log.
+	ID OptString `json:"id"`
+	// The ID of the phone call.
+	CallID OptString `json:"call_id"`
+	// The primary group of which the user belongs.
+	GroupID OptString `json:"group_id"`
+	// The connect type of call.
+	ConnectType OptString `json:"connect_type"`
+	// The type of call.
+	CallType OptString `json:"call_type"`
+	// The direction of the call.
+	Direction OptString `json:"direction"`
+	// The caller's extension ID.
+	CallerExtID OptString `json:"caller_ext_id"`
+	// The name of the caller.
+	CallerName OptString `json:"caller_name"`
+	// The caller's email.
+	CallerEmail OptString `json:"caller_email"`
+	// Ther caller's employee id.
+	CallerEmployeeID OptString `json:"caller_employee_id"`
+	// The caller's DID number in e164 format.
+	CallerDidNumber OptString `json:"caller_did_number"`
+	// The extension number of the caller.
+	CallerExtNumber OptString `json:"caller_ext_number"`
+	// The caller's extension type.
+	CallerExtType OptString `json:"caller_ext_type"`
+	// The caller's number type.
+	CallerNumberType OptString `json:"caller_number_type"`
+	// The caller's private IP.
+	CallerDevicePrivateIP OptString `json:"caller_device_private_ip"`
+	// The caller's public IP.
+	CallerDevicePublicIP OptString `json:"caller_device_public_ip"`
+	// The caller's device type.
+	CallerDeviceType OptString `json:"caller_device_type"`
+	// The caller's country ISO code.
+	CallerCountryIsoCode OptString `json:"caller_country_iso_code"`
+	// The caller's country code.
+	CallerCountryCode OptString `json:"caller_country_code"`
+	// The caller's site ID.
+	CallerSiteID OptString `json:"caller_site_id"`
+	// The caller's department.
+	CallerDepartment OptString `json:"caller_department"`
+	// The caller's cost center.
+	CallerCostCenter OptString `json:"caller_cost_center"`
+	// The callee's extension ID.
+	CalleeExtID OptString `json:"callee_ext_id"`
+	// The name of the callee.
+	CalleeName OptString `json:"callee_name"`
+	// The callee's DID number in e164 format.
+	CalleeDidNumber OptString `json:"callee_did_number"`
+	// The extension number of the callee.
+	CalleeExtNumber OptString `json:"callee_ext_number"`
+	// The callee's email.
+	CalleeEmail OptString `json:"callee_email"`
+	// Ther callee's employee id.
+	CalleeEmployeeID OptString `json:"callee_employee_id"`
+	// The callee's extension type.
+	CalleeExtType OptString `json:"callee_ext_type"`
+	// The callee's number type.
+	CalleeNumberType OptString `json:"callee_number_type"`
+	// The callee's private IP.
+	CalleeDevicePrivateIP OptString `json:"callee_device_private_ip"`
+	// The callee's public IP.
+	CalleeDevicePublicIP OptString `json:"callee_device_public_ip"`
+	// The callee's device type.
+	CalleeDeviceType OptString `json:"callee_device_type"`
+	// The callee's country ISO code.
+	CalleeCountryIsoCode OptString `json:"callee_country_iso_code"`
+	// The callee's country code.
+	CalleeCountryCode OptString `json:"callee_country_code"`
+	// The callee's site ID.
+	CalleeSiteID OptString `json:"callee_site_id"`
+	// The callee's department.
+	CalleeDepartment OptString `json:"callee_department"`
+	// The callee's cost center.
+	CalleeCostCenter OptString `json:"callee_cost_center"`
+	// The call start time in GMT `date-time` format.
+	StartTime OptString `json:"start_time"`
+	// The call answer time in GMT `date-time` format.
+	AnswerTime OptString `json:"answer_time"`
+	// The call end time in GMT `date-time` format.
+	EndTime OptString `json:"end_time"`
+	// An event within a call log.
+	Event OptString `json:"event"`
+	// The detail result of an event for a call log.
+	Result OptString `json:"result"`
+	// The reason of result of an event for a call log.
+	ResultReason OptString `json:"result_reason"`
+	// The operator extension number.
+	OperatorExtNumber OptString `json:"operator_ext_number"`
+	// The operator extension ID.
+	OperatorExtID OptString `json:"operator_ext_id"`
+	// The operator extension type.
+	OperatorExtType OptString `json:"operator_ext_type"`
+	// The operator's name.
+	OperatorName OptString `json:"operator_name"`
+	// The unique identifier of the call recording.
+	RecordingID OptString `json:"recording_id"`
+	// The type of call recording.
+	RecordingType OptString `json:"recording_type"`
+	// The ID of the call voicemail.
+	VoicemailID OptString `json:"voicemail_id"`
+	// The call talk time in seconds.
+	TalkTime OptInt `json:"talk_time"`
+	// The call hold time in seconds.
+	HoldTime OptInt `json:"hold_time"`
+	// The call wait time in seconds.
+	WaitTime OptInt `json:"wait_time"`
+	// The ai call summary ID.
+	AiCallSummaryID OptString `json:"ai_call_summary_id"`
+}
+
+// GetID returns the value of ID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetID() OptString {
+	return s.ID
+}
+
+// GetCallID returns the value of CallID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallID() OptString {
+	return s.CallID
+}
+
+// GetGroupID returns the value of GroupID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetGroupID() OptString {
+	return s.GroupID
+}
+
+// GetConnectType returns the value of ConnectType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetConnectType() OptString {
+	return s.ConnectType
+}
+
+// GetCallType returns the value of CallType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallType() OptString {
+	return s.CallType
+}
+
+// GetDirection returns the value of Direction.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetDirection() OptString {
+	return s.Direction
+}
+
+// GetCallerExtID returns the value of CallerExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerExtID() OptString {
+	return s.CallerExtID
+}
+
+// GetCallerName returns the value of CallerName.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerName() OptString {
+	return s.CallerName
+}
+
+// GetCallerEmail returns the value of CallerEmail.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerEmail() OptString {
+	return s.CallerEmail
+}
+
+// GetCallerEmployeeID returns the value of CallerEmployeeID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerEmployeeID() OptString {
+	return s.CallerEmployeeID
+}
+
+// GetCallerDidNumber returns the value of CallerDidNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerDidNumber() OptString {
+	return s.CallerDidNumber
+}
+
+// GetCallerExtNumber returns the value of CallerExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerExtNumber() OptString {
+	return s.CallerExtNumber
+}
+
+// GetCallerExtType returns the value of CallerExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerExtType() OptString {
+	return s.CallerExtType
+}
+
+// GetCallerNumberType returns the value of CallerNumberType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerNumberType() OptString {
+	return s.CallerNumberType
+}
+
+// GetCallerDevicePrivateIP returns the value of CallerDevicePrivateIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerDevicePrivateIP() OptString {
+	return s.CallerDevicePrivateIP
+}
+
+// GetCallerDevicePublicIP returns the value of CallerDevicePublicIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerDevicePublicIP() OptString {
+	return s.CallerDevicePublicIP
+}
+
+// GetCallerDeviceType returns the value of CallerDeviceType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerDeviceType() OptString {
+	return s.CallerDeviceType
+}
+
+// GetCallerCountryIsoCode returns the value of CallerCountryIsoCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerCountryIsoCode() OptString {
+	return s.CallerCountryIsoCode
+}
+
+// GetCallerCountryCode returns the value of CallerCountryCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerCountryCode() OptString {
+	return s.CallerCountryCode
+}
+
+// GetCallerSiteID returns the value of CallerSiteID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerSiteID() OptString {
+	return s.CallerSiteID
+}
+
+// GetCallerDepartment returns the value of CallerDepartment.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerDepartment() OptString {
+	return s.CallerDepartment
+}
+
+// GetCallerCostCenter returns the value of CallerCostCenter.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCallerCostCenter() OptString {
+	return s.CallerCostCenter
+}
+
+// GetCalleeExtID returns the value of CalleeExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeExtID() OptString {
+	return s.CalleeExtID
+}
+
+// GetCalleeName returns the value of CalleeName.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeName() OptString {
+	return s.CalleeName
+}
+
+// GetCalleeDidNumber returns the value of CalleeDidNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeDidNumber() OptString {
+	return s.CalleeDidNumber
+}
+
+// GetCalleeExtNumber returns the value of CalleeExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeExtNumber() OptString {
+	return s.CalleeExtNumber
+}
+
+// GetCalleeEmail returns the value of CalleeEmail.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeEmail() OptString {
+	return s.CalleeEmail
+}
+
+// GetCalleeEmployeeID returns the value of CalleeEmployeeID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeEmployeeID() OptString {
+	return s.CalleeEmployeeID
+}
+
+// GetCalleeExtType returns the value of CalleeExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeExtType() OptString {
+	return s.CalleeExtType
+}
+
+// GetCalleeNumberType returns the value of CalleeNumberType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeNumberType() OptString {
+	return s.CalleeNumberType
+}
+
+// GetCalleeDevicePrivateIP returns the value of CalleeDevicePrivateIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeDevicePrivateIP() OptString {
+	return s.CalleeDevicePrivateIP
+}
+
+// GetCalleeDevicePublicIP returns the value of CalleeDevicePublicIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeDevicePublicIP() OptString {
+	return s.CalleeDevicePublicIP
+}
+
+// GetCalleeDeviceType returns the value of CalleeDeviceType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeDeviceType() OptString {
+	return s.CalleeDeviceType
+}
+
+// GetCalleeCountryIsoCode returns the value of CalleeCountryIsoCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeCountryIsoCode() OptString {
+	return s.CalleeCountryIsoCode
+}
+
+// GetCalleeCountryCode returns the value of CalleeCountryCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeCountryCode() OptString {
+	return s.CalleeCountryCode
+}
+
+// GetCalleeSiteID returns the value of CalleeSiteID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeSiteID() OptString {
+	return s.CalleeSiteID
+}
+
+// GetCalleeDepartment returns the value of CalleeDepartment.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeDepartment() OptString {
+	return s.CalleeDepartment
+}
+
+// GetCalleeCostCenter returns the value of CalleeCostCenter.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetCalleeCostCenter() OptString {
+	return s.CalleeCostCenter
+}
+
+// GetStartTime returns the value of StartTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetStartTime() OptString {
+	return s.StartTime
+}
+
+// GetAnswerTime returns the value of AnswerTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetAnswerTime() OptString {
+	return s.AnswerTime
+}
+
+// GetEndTime returns the value of EndTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetEndTime() OptString {
+	return s.EndTime
+}
+
+// GetEvent returns the value of Event.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetEvent() OptString {
+	return s.Event
+}
+
+// GetResult returns the value of Result.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetResult() OptString {
+	return s.Result
+}
+
+// GetResultReason returns the value of ResultReason.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetResultReason() OptString {
+	return s.ResultReason
+}
+
+// GetOperatorExtNumber returns the value of OperatorExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetOperatorExtNumber() OptString {
+	return s.OperatorExtNumber
+}
+
+// GetOperatorExtID returns the value of OperatorExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetOperatorExtID() OptString {
+	return s.OperatorExtID
+}
+
+// GetOperatorExtType returns the value of OperatorExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetOperatorExtType() OptString {
+	return s.OperatorExtType
+}
+
+// GetOperatorName returns the value of OperatorName.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetOperatorName() OptString {
+	return s.OperatorName
+}
+
+// GetRecordingID returns the value of RecordingID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetRecordingID() OptString {
+	return s.RecordingID
+}
+
+// GetRecordingType returns the value of RecordingType.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetRecordingType() OptString {
+	return s.RecordingType
+}
+
+// GetVoicemailID returns the value of VoicemailID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetVoicemailID() OptString {
+	return s.VoicemailID
+}
+
+// GetTalkTime returns the value of TalkTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetTalkTime() OptInt {
+	return s.TalkTime
+}
+
+// GetHoldTime returns the value of HoldTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetHoldTime() OptInt {
+	return s.HoldTime
+}
+
+// GetWaitTime returns the value of WaitTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetWaitTime() OptInt {
+	return s.WaitTime
+}
+
+// GetAiCallSummaryID returns the value of AiCallSummaryID.
+func (s *SyncUserCallHistoryOKCallLogsItem) GetAiCallSummaryID() OptString {
+	return s.AiCallSummaryID
+}
+
+// SetID sets the value of ID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetCallID sets the value of CallID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallID(val OptString) {
+	s.CallID = val
+}
+
+// SetGroupID sets the value of GroupID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetGroupID(val OptString) {
+	s.GroupID = val
+}
+
+// SetConnectType sets the value of ConnectType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetConnectType(val OptString) {
+	s.ConnectType = val
+}
+
+// SetCallType sets the value of CallType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallType(val OptString) {
+	s.CallType = val
+}
+
+// SetDirection sets the value of Direction.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetDirection(val OptString) {
+	s.Direction = val
+}
+
+// SetCallerExtID sets the value of CallerExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerExtID(val OptString) {
+	s.CallerExtID = val
+}
+
+// SetCallerName sets the value of CallerName.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerName(val OptString) {
+	s.CallerName = val
+}
+
+// SetCallerEmail sets the value of CallerEmail.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerEmail(val OptString) {
+	s.CallerEmail = val
+}
+
+// SetCallerEmployeeID sets the value of CallerEmployeeID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerEmployeeID(val OptString) {
+	s.CallerEmployeeID = val
+}
+
+// SetCallerDidNumber sets the value of CallerDidNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerDidNumber(val OptString) {
+	s.CallerDidNumber = val
+}
+
+// SetCallerExtNumber sets the value of CallerExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerExtNumber(val OptString) {
+	s.CallerExtNumber = val
+}
+
+// SetCallerExtType sets the value of CallerExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerExtType(val OptString) {
+	s.CallerExtType = val
+}
+
+// SetCallerNumberType sets the value of CallerNumberType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerNumberType(val OptString) {
+	s.CallerNumberType = val
+}
+
+// SetCallerDevicePrivateIP sets the value of CallerDevicePrivateIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerDevicePrivateIP(val OptString) {
+	s.CallerDevicePrivateIP = val
+}
+
+// SetCallerDevicePublicIP sets the value of CallerDevicePublicIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerDevicePublicIP(val OptString) {
+	s.CallerDevicePublicIP = val
+}
+
+// SetCallerDeviceType sets the value of CallerDeviceType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerDeviceType(val OptString) {
+	s.CallerDeviceType = val
+}
+
+// SetCallerCountryIsoCode sets the value of CallerCountryIsoCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerCountryIsoCode(val OptString) {
+	s.CallerCountryIsoCode = val
+}
+
+// SetCallerCountryCode sets the value of CallerCountryCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerCountryCode(val OptString) {
+	s.CallerCountryCode = val
+}
+
+// SetCallerSiteID sets the value of CallerSiteID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerSiteID(val OptString) {
+	s.CallerSiteID = val
+}
+
+// SetCallerDepartment sets the value of CallerDepartment.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerDepartment(val OptString) {
+	s.CallerDepartment = val
+}
+
+// SetCallerCostCenter sets the value of CallerCostCenter.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCallerCostCenter(val OptString) {
+	s.CallerCostCenter = val
+}
+
+// SetCalleeExtID sets the value of CalleeExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeExtID(val OptString) {
+	s.CalleeExtID = val
+}
+
+// SetCalleeName sets the value of CalleeName.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeName(val OptString) {
+	s.CalleeName = val
+}
+
+// SetCalleeDidNumber sets the value of CalleeDidNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeDidNumber(val OptString) {
+	s.CalleeDidNumber = val
+}
+
+// SetCalleeExtNumber sets the value of CalleeExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeExtNumber(val OptString) {
+	s.CalleeExtNumber = val
+}
+
+// SetCalleeEmail sets the value of CalleeEmail.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeEmail(val OptString) {
+	s.CalleeEmail = val
+}
+
+// SetCalleeEmployeeID sets the value of CalleeEmployeeID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeEmployeeID(val OptString) {
+	s.CalleeEmployeeID = val
+}
+
+// SetCalleeExtType sets the value of CalleeExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeExtType(val OptString) {
+	s.CalleeExtType = val
+}
+
+// SetCalleeNumberType sets the value of CalleeNumberType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeNumberType(val OptString) {
+	s.CalleeNumberType = val
+}
+
+// SetCalleeDevicePrivateIP sets the value of CalleeDevicePrivateIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeDevicePrivateIP(val OptString) {
+	s.CalleeDevicePrivateIP = val
+}
+
+// SetCalleeDevicePublicIP sets the value of CalleeDevicePublicIP.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeDevicePublicIP(val OptString) {
+	s.CalleeDevicePublicIP = val
+}
+
+// SetCalleeDeviceType sets the value of CalleeDeviceType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeDeviceType(val OptString) {
+	s.CalleeDeviceType = val
+}
+
+// SetCalleeCountryIsoCode sets the value of CalleeCountryIsoCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeCountryIsoCode(val OptString) {
+	s.CalleeCountryIsoCode = val
+}
+
+// SetCalleeCountryCode sets the value of CalleeCountryCode.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeCountryCode(val OptString) {
+	s.CalleeCountryCode = val
+}
+
+// SetCalleeSiteID sets the value of CalleeSiteID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeSiteID(val OptString) {
+	s.CalleeSiteID = val
+}
+
+// SetCalleeDepartment sets the value of CalleeDepartment.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeDepartment(val OptString) {
+	s.CalleeDepartment = val
+}
+
+// SetCalleeCostCenter sets the value of CalleeCostCenter.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetCalleeCostCenter(val OptString) {
+	s.CalleeCostCenter = val
+}
+
+// SetStartTime sets the value of StartTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetStartTime(val OptString) {
+	s.StartTime = val
+}
+
+// SetAnswerTime sets the value of AnswerTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetAnswerTime(val OptString) {
+	s.AnswerTime = val
+}
+
+// SetEndTime sets the value of EndTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetEndTime(val OptString) {
+	s.EndTime = val
+}
+
+// SetEvent sets the value of Event.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetEvent(val OptString) {
+	s.Event = val
+}
+
+// SetResult sets the value of Result.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetResult(val OptString) {
+	s.Result = val
+}
+
+// SetResultReason sets the value of ResultReason.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetResultReason(val OptString) {
+	s.ResultReason = val
+}
+
+// SetOperatorExtNumber sets the value of OperatorExtNumber.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetOperatorExtNumber(val OptString) {
+	s.OperatorExtNumber = val
+}
+
+// SetOperatorExtID sets the value of OperatorExtID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetOperatorExtID(val OptString) {
+	s.OperatorExtID = val
+}
+
+// SetOperatorExtType sets the value of OperatorExtType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetOperatorExtType(val OptString) {
+	s.OperatorExtType = val
+}
+
+// SetOperatorName sets the value of OperatorName.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetOperatorName(val OptString) {
+	s.OperatorName = val
+}
+
+// SetRecordingID sets the value of RecordingID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetRecordingID(val OptString) {
+	s.RecordingID = val
+}
+
+// SetRecordingType sets the value of RecordingType.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetRecordingType(val OptString) {
+	s.RecordingType = val
+}
+
+// SetVoicemailID sets the value of VoicemailID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetVoicemailID(val OptString) {
+	s.VoicemailID = val
+}
+
+// SetTalkTime sets the value of TalkTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetTalkTime(val OptInt) {
+	s.TalkTime = val
+}
+
+// SetHoldTime sets the value of HoldTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetHoldTime(val OptInt) {
+	s.HoldTime = val
+}
+
+// SetWaitTime sets the value of WaitTime.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetWaitTime(val OptInt) {
+	s.WaitTime = val
+}
+
+// SetAiCallSummaryID sets the value of AiCallSummaryID.
+func (s *SyncUserCallHistoryOKCallLogsItem) SetAiCallSummaryID(val OptString) {
+	s.AiCallSummaryID = val
 }
 
 // The sync user call logs.
@@ -91004,6 +94625,42 @@ func (s *UpdateADeviceReq) SetProvisionTemplateID(val OptString) {
 	s.ProvisionTemplateID = val
 }
 
+// UpdateAPrivateDirectoryMemberNoContent is response for UpdateAPrivateDirectoryMember operation.
+type UpdateAPrivateDirectoryMemberNoContent struct{}
+
+type UpdateAPrivateDirectoryMemberReq struct {
+	// The unique identifier of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) that you would like to use for the
+	// private directory. This field is required only if the multiple sites option has been enabled for
+	// the account.
+	SiteID OptString `json:"site_id"`
+	// The value indicates who can access this member. The valid value is:
+	// * everybody
+	// * admins_only
+	// * nobody.
+	SearchableOnWebPortal string `json:"searchable_on_web_portal"`
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *UpdateAPrivateDirectoryMemberReq) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetSearchableOnWebPortal returns the value of SearchableOnWebPortal.
+func (s *UpdateAPrivateDirectoryMemberReq) GetSearchableOnWebPortal() string {
+	return s.SearchableOnWebPortal
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *UpdateAPrivateDirectoryMemberReq) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetSearchableOnWebPortal sets the value of SearchableOnWebPortal.
+func (s *UpdateAPrivateDirectoryMemberReq) SetSearchableOnWebPortal(val string) {
+	s.SearchableOnWebPortal = val
+}
+
 // UpdateASharedLineGroupNoContent is response for UpdateASharedLineGroup operation.
 type UpdateASharedLineGroupNoContent struct{}
 
@@ -91016,10 +94673,48 @@ type UpdateASharedLineGroupReq struct {
 	PrimaryNumber OptString `json:"primary_number"`
 	// The status of the shared line group.
 	Status OptString `json:"status"`
-	// The timezone for the business hours. A value should be provided from the IDs listed
-	// [here](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/abbreviation-lists#timezones).
+	// The [timezone](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Shared Line Group.
 	Timezone OptString `json:"timezone"`
+	// The cost center name.
+	CostCenter OptString `json:"cost_center"`
+	// The department name.
+	Department OptString `json:"department"`
+	// The language for all default audio prompts for the Shared Line Group.
+	// * `en-US` : English (US)
+	// * `en-GB` : English (UK)
+	// * `es-US` : Spanish (US)
+	// * `fr-CA` : French (Canada)
+	// * `da-DK` : Danish (Denmark)
+	// * `de-DE` : German (Germany)
+	// * `es-ES` : Spanish (Spain)
+	// * `fr-FR` : French (France)
+	// * `it-IT` : Italian (Italy)
+	// * `nl-NL` : Dutch (Netherlands)
+	// * `pt-PT` : Portuguese (Portugal)
+	// * `ja` : Japanese
+	// * `ko-KR` : Korean (Korea)
+	// * `pt-BR` : Portuguese (Brazil)
+	// * `zh-CN` : Chinese (PRC).
+	AudioPromptLanguage OptString `json:"audio_prompt_language"`
+	// Where the recording will be stored. Recording includes Phone recordings, voicemail, voicemail
+	// transcripts, and custom greeting prompts.
+	// * `US` : United States
+	// * `AU` : Australia
+	// * `CA` : Canada
+	// * `DE` : Germany
+	// * `IN` : India
+	// * `JP` : Japan
+	// * `SG` : Singapore
+	// * `BR` : Brazil
+	// * `CN` : China
+	// * `MX` : Mexico
+	// <b>Note:</b>
+	// * If the setting is locked at the Account level, it can't be updated.
+	RecordingStorageLocation OptString `json:"recording_storage_location"`
+	// Whether to allow members to prevent others from picking up a held call, and listening, whispering,
+	// barging, or taking over a call if it's configured.
+	AllowPrivacy OptBool `json:"allow_privacy"`
 }
 
 // GetDisplayName returns the value of DisplayName.
@@ -91047,6 +94742,31 @@ func (s *UpdateASharedLineGroupReq) GetTimezone() OptString {
 	return s.Timezone
 }
 
+// GetCostCenter returns the value of CostCenter.
+func (s *UpdateASharedLineGroupReq) GetCostCenter() OptString {
+	return s.CostCenter
+}
+
+// GetDepartment returns the value of Department.
+func (s *UpdateASharedLineGroupReq) GetDepartment() OptString {
+	return s.Department
+}
+
+// GetAudioPromptLanguage returns the value of AudioPromptLanguage.
+func (s *UpdateASharedLineGroupReq) GetAudioPromptLanguage() OptString {
+	return s.AudioPromptLanguage
+}
+
+// GetRecordingStorageLocation returns the value of RecordingStorageLocation.
+func (s *UpdateASharedLineGroupReq) GetRecordingStorageLocation() OptString {
+	return s.RecordingStorageLocation
+}
+
+// GetAllowPrivacy returns the value of AllowPrivacy.
+func (s *UpdateASharedLineGroupReq) GetAllowPrivacy() OptBool {
+	return s.AllowPrivacy
+}
+
 // SetDisplayName sets the value of DisplayName.
 func (s *UpdateASharedLineGroupReq) SetDisplayName(val OptString) {
 	s.DisplayName = val
@@ -91070,6 +94790,31 @@ func (s *UpdateASharedLineGroupReq) SetStatus(val OptString) {
 // SetTimezone sets the value of Timezone.
 func (s *UpdateASharedLineGroupReq) SetTimezone(val OptString) {
 	s.Timezone = val
+}
+
+// SetCostCenter sets the value of CostCenter.
+func (s *UpdateASharedLineGroupReq) SetCostCenter(val OptString) {
+	s.CostCenter = val
+}
+
+// SetDepartment sets the value of Department.
+func (s *UpdateASharedLineGroupReq) SetDepartment(val OptString) {
+	s.Department = val
+}
+
+// SetAudioPromptLanguage sets the value of AudioPromptLanguage.
+func (s *UpdateASharedLineGroupReq) SetAudioPromptLanguage(val OptString) {
+	s.AudioPromptLanguage = val
+}
+
+// SetRecordingStorageLocation sets the value of RecordingStorageLocation.
+func (s *UpdateASharedLineGroupReq) SetRecordingStorageLocation(val OptString) {
+	s.RecordingStorageLocation = val
+}
+
+// SetAllowPrivacy sets the value of AllowPrivacy.
+func (s *UpdateASharedLineGroupReq) SetAllowPrivacy(val OptBool) {
+	s.AllowPrivacy = val
 }
 
 // UpdateAccountLevelInboundBlockRuleNoContent is response for UpdateAccountLevelInboundBlockRule operation.
@@ -91998,16 +95743,16 @@ func (s *UpdateAutoReceptionistPolicyReqVoicemailTranscription) SetReset(val Opt
 }
 
 type UpdateAutoReceptionistReq struct {
-	// Cost center name.
+	// The cost center name.
 	CostCenter OptString `json:"cost_center"`
-	// Department name.
+	// The department name.
 	Department OptString `json:"department"`
-	// Extension number to be assigned to the auto receptionist. If site code is enabled, provide the
+	// The extension number to be assigned to the auto receptionist. If site code is enabled, provide the
 	// short extension number instead.
 	ExtensionNumber OptInt64 `json:"extension_number"`
 	// Display name of the auto receptionist.
 	Name OptString `json:"name"`
-	// The language for all default audio prompts for the auto receptionist.
+	// The language for all default audio prompts for the Auto Receptionist.
 	// * `en-US` : English (US)
 	// * `en-GB` : English (UK)
 	// * `es-US` : Spanish (US)
@@ -92024,11 +95769,11 @@ type UpdateAutoReceptionistReq struct {
 	// * `pt-BR` : Portuguese (Brazil)
 	// * `zh-CN` : Chinese (PRC).
 	AudioPromptLanguage OptString `json:"audio_prompt_language"`
-	// [Timezone](https://marketplace.zoom.
+	// The [timezone](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.
 	Timezone OptString `json:"timezone"`
-	// Determine where recording will be stored. Recording includes Phone recordings, voicemail,
-	// voicemail transcripts, and custom greeting prompts.
+	// Where the recording will be stored. The recording includes Phone recordings, voicemail, voicemail
+	// transcripts, and custom greeting prompts.
 	// * `US` : United States
 	// * `AU` : Australia
 	// * `CA` : Canada
@@ -92225,13 +95970,13 @@ func (s *UpdateCQPolicySubSettingReq) SetVoicemailAccessMembers(val []UpdateCQPo
 
 // Merged schema.
 type UpdateCQPolicySubSettingReqVoicemailAccessMembersItem struct {
-	// The Zoom user ID or email to share or update the access permissions with.
+	// The Zoom user ID or email of which to share or update the access permissions.
 	AccessUserID OptString `json:"access_user_id"`
-	// Specifies whether the member has download permissions. The default is **false**.
+	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
-	// Specifies whether the member has delete permissions. The default is **false**.
+	// Whether the member has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// Specifies whether the member has the permission to share. The default is **false**.
+	// Whether the member has the permission to share. The default is **false**.
 	AllowSharing OptBool `json:"allow_sharing"`
 	// The shared voicemail ID.
 	SharedID OptString `json:"shared_id"`
@@ -92418,29 +96163,61 @@ func NewPatchCallHandlingSettingsCallHandlingUpdateCallHandlingReq(v PatchCallHa
 type UpdateCallQueueNoContent struct{}
 
 type UpdateCallQueueReq struct {
-	// Cost center name.
+	// The cost center name.
 	CostCenter OptString `json:"cost_center"`
-	// Department name.
+	// The department name.
 	Department OptString `json:"department"`
-	// Description for the Call Queue.
+	// The description for the call queue.
 	Description OptString `json:"description"`
-	// Phone extension number for the site.
+	// The phone extension number for the site.
 	// If a site code has been [assigned](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_79ca9c8f-c97b-4486-aa59-d0d9d31a525b)
 	// to the site, provide the short extension number instead of the original extension number.
 	ExtensionNumber OptInt64 `json:"extension_number"`
-	// Name of the Call Queue.
+	// The name of the call queue.
 	Name OptString `json:"name"`
-	// Unique identifier of the [site](https://support.zoom.
-	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the Call Queue is assigned.
+	// The unique identifier of the [site](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the call queue is assigned.
 	SiteID OptString `json:"site_id"`
-	// Status of the Call Queue. Allowed values:
+	// The status of the call queue. Allowed values:
 	// `active`
 	// `inactive`.
 	Status OptString `json:"status"`
-	// [Timezone](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Call Queue.
+	// The [timezone](https://marketplace.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists#timezones) of the call queue.
 	Timezone OptString `json:"timezone"`
+	// The language for all default audio prompts for the Call Queue.
+	// * `en-US` : English (US)
+	// * `en-GB` : English (UK)
+	// * `es-US` : Spanish (US)
+	// * `fr-CA` : French (Canada)
+	// * `da-DK` : Danish (Denmark)
+	// * `de-DE` : German (Germany)
+	// * `es-ES` : Spanish (Spain)
+	// * `fr-FR` : French (France)
+	// * `it-IT` : Italian (Italy)
+	// * `nl-NL` : Dutch (Netherlands)
+	// * `pt-PT` : Portuguese (Portugal)
+	// * `ja` : Japanese
+	// * `ko-KR` : Korean (Korea)
+	// * `pt-BR` : Portuguese (Brazil)
+	// * `zh-CN` : Chinese (PRC).
+	AudioPromptLanguage OptString `json:"audio_prompt_language"`
+	// Where the recording will be stored. Recording includes phone recordings, voicemails, voicemail
+	// transcripts, and custom greeting prompts.
+	// * `US` : United States
+	// * `AU` : Australia
+	// * `CA` : Canada
+	// * `DE` : Germany
+	// * `IN` : India
+	// * `JP` : Japan
+	// * `SG` : Singapore
+	// * `BR` : Brazil
+	// * `CN` : China
+	// * `MX` : Mexico
+	// <b>Note:</b>
+	// * If the setting is locked at the Account Level, it can't be updated.
+	RecordingStorageLocation OptString `json:"recording_storage_location"`
 }
 
 // GetCostCenter returns the value of CostCenter.
@@ -92483,6 +96260,16 @@ func (s *UpdateCallQueueReq) GetTimezone() OptString {
 	return s.Timezone
 }
 
+// GetAudioPromptLanguage returns the value of AudioPromptLanguage.
+func (s *UpdateCallQueueReq) GetAudioPromptLanguage() OptString {
+	return s.AudioPromptLanguage
+}
+
+// GetRecordingStorageLocation returns the value of RecordingStorageLocation.
+func (s *UpdateCallQueueReq) GetRecordingStorageLocation() OptString {
+	return s.RecordingStorageLocation
+}
+
 // SetCostCenter sets the value of CostCenter.
 func (s *UpdateCallQueueReq) SetCostCenter(val OptString) {
 	s.CostCenter = val
@@ -92521,6 +96308,16 @@ func (s *UpdateCallQueueReq) SetStatus(val OptString) {
 // SetTimezone sets the value of Timezone.
 func (s *UpdateCallQueueReq) SetTimezone(val OptString) {
 	s.Timezone = val
+}
+
+// SetAudioPromptLanguage sets the value of AudioPromptLanguage.
+func (s *UpdateCallQueueReq) SetAudioPromptLanguage(val OptString) {
+	s.AudioPromptLanguage = val
+}
+
+// SetRecordingStorageLocation sets the value of RecordingStorageLocation.
+func (s *UpdateCallQueueReq) SetRecordingStorageLocation(val OptString) {
+	s.RecordingStorageLocation = val
 }
 
 // UpdateCallingPlanNoContent is response for UpdateCallingPlan operation.
@@ -92701,6 +96498,24 @@ func (s *UpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule) SetStatus
 // SetCountry sets the value of Country.
 func (s *UpdateCommonAreaOutboundCallingExceptionRuleReqExceptionRule) SetCountry(val string) {
 	s.Country = val
+}
+
+// UpdateCommonAreaPinCodeNoContent is response for UpdateCommonAreaPinCode operation.
+type UpdateCommonAreaPinCodeNoContent struct{}
+
+type UpdateCommonAreaPinCodeReq struct {
+	// The pin code to access voicemail, hot desking, unlock desk phones, and call authorized-required.
+	PinCode string `json:"pin_code"`
+}
+
+// GetPinCode returns the value of PinCode.
+func (s *UpdateCommonAreaPinCodeReq) GetPinCode() string {
+	return s.PinCode
+}
+
+// SetPinCode sets the value of PinCode.
+func (s *UpdateCommonAreaPinCodeReq) SetPinCode(val string) {
+	s.PinCode = val
 }
 
 type UpdateCommonAreaReq struct {
@@ -93895,7 +97710,7 @@ type UpdatePeeringPhoneNumbersReq struct {
 	// This parameter is required if you do **not** use an OAuth token or the OAuth token does not
 	// contain the `clientId`.
 	CarrierCode OptInt `json:"carrier_code"`
-	// Maximum of 200.
+	// A maximum of 200.
 	PhoneNumbers []UpdatePeeringPhoneNumbersReqPhoneNumbersItem `json:"phone_numbers"`
 }
 
@@ -102077,7 +105892,7 @@ type UpdateUserSettingsNoContent struct{}
 type UpdateUserSettingsReq struct {
 	// The user's area code.
 	AreaCode OptString `json:"area_code"`
-	// This audio prompt language code.
+	// The audio prompt language code.
 	// American English: `en-US`
 	// British English: `en-GB`
 	// Espa&ntilde;ol americano: `es-US`
@@ -102422,7 +106237,7 @@ func (s *UserSmsSessionOKSMSSessionsItem) SetSessionType(val OptString) {
 }
 
 type UserSmsSessionOKSMSSessionsItemParticipantsItem struct {
-	// The participant name.
+	// The participant's name.
 	DisplayName OptString                                               `json:"display_name"`
 	Owner       OptUserSmsSessionOKSMSSessionsItemParticipantsItemOwner `json:"owner"`
 	// The participant phone number.
