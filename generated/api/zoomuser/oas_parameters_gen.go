@@ -401,6 +401,14 @@ type UserDeleteParams struct {
 	// When deleting a user, whether to transfer all their [Zoom Whiteboard](https://support.zoom.
 	// us/hc/en-us/articles/4410916881421) data to another user.
 	TransferWhiteboard OptBool
+	// Transfer clip files.
+	TransferClipfiles OptBool
+	// Transfer notes.
+	TransferNotes OptBool
+	// Transfer visitors.
+	TransferVisitors OptBool
+	// Transfer docs.
+	TransferDocs OptBool
 }
 
 // UserEmailParams is parameters of userEmail operation.

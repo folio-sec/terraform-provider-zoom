@@ -65,7 +65,7 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone_sms:read:admin`,`phone_sms:read`
+	// **Scopes:** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
 	// **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
@@ -251,6 +251,18 @@ type Invoker interface {
 	//
 	// POST /phone/extension/{extensionId}/call_handling/settings/{settingType}
 	AddCallHandling(ctx context.Context, request OptAddCallHandlingReq, params AddCallHandlingParams) (AddCallHandlingCreated, error)
+	// AddClientCodeToCallHistory invokes addClientCodeToCallHistory operation.
+	//
+	// Adds a client code to a [call log](https://support.zoom.
+	// us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs
+	// with a client code. **Prerequisites:*** Business or Education account* Zoom Phone license
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:call_log:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// PATCH /phone/call_history/{callLogId}/client_code
+	AddClientCodeToCallHistory(ctx context.Context, request OptAddClientCodeToCallHistoryReq, params AddClientCodeToCallHistoryParams) error
 	// AddClientCodeToCallLog invokes addClientCodeToCallLog operation.
 	//
 	// Adds a client code to a [call log](https://support.zoom.
@@ -268,8 +280,8 @@ type Invoker interface {
 	AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) error
 	// AddCommonArea invokes addCommonArea operation.
 	//
-	// Use this API to add an instance of common area. Configure devices shared by users and deployed in
-	// shared spaces.
+	// Adds an instance of common area. You can configure devices shared by users and deployed in shared
+	// spaces.
 	// **Note**: For use by customers who opted for `Common Area Optimization`
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
@@ -277,7 +289,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/common_areas
 	AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (*AddCommonAreaCreated, error)
@@ -439,17 +451,28 @@ type Invoker interface {
 	//
 	// POST /phone/monitoring_groups/{monitoringGroupId}/monitor_members
 	AddMembers(ctx context.Context, request []string, params AddMembersParams) (jx.Raw, error)
+	// AddMembersToAPrivateDirectory invokes addMembersToAPrivateDirectory operation.
+	//
+	// Adds members to a [private directory](https://support.zoom.
+	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:write:private_directory_member:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// POST /phone/private_directory/members
+	AddMembersToAPrivateDirectory(ctx context.Context, request OptAddMembersToAPrivateDirectoryReq) error
 	// AddMembersToCallQueue invokes addMembersToCallQueue operation.
 	//
-	// Add phone users and/or [common areas](https://support.zoom.us/hc/articles/4481136653709) as
-	// members to a specific call queue.
+	// Adds phone users or [common areas](https://support.zoom.us/hc/articles/4481136653709) as members
+	// to a specific call queue.
 	// **Prerequisites:**
 	// * Pro or higher account plan.
 	// * Zoom Phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:call_queue_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/call_queues/{callQueueId}/members
 	AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) error
@@ -495,7 +518,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 	// **Granular Scopes:** `phone:write:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/peering/numbers
 	AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (*AddPeeringPhoneNumbersCreated, error)
@@ -659,10 +682,10 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:write:user_customized_number`,
 	// `phone:write:user_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/outbound_caller_id/customized_numbers
-	AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (jx.Raw, error)
+	AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) error
 	// AddUserOutboundCallingExceptionRule invokes AddUserOutboundCallingExceptionRule operation.
 	//
 	// Adds an user level outbound calling policy exception rule for the country region.
@@ -683,17 +706,17 @@ type Invoker interface {
 	// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 	// `userId` parameter.
 	// To see the shared access settings in the Zoom web portal, go to **Admin &gt; Phone System
-	// Management &gt; Users &amp; Rooms** . Click **Users** and select **User Policy**. Go to
+	// Management &gt; Users &amp; Rooms** . Choose **Users** and select **User Policy**. Go to
 	// **Voicemail, Automatic Call Recording and Ad Hoc Call Recording**.
 	// To view the delegation and intercom setting in your Zoom web portal, navigate to **Admin &gt;
-	// Phone System Management &gt; Users &amp; Rooms**. Click the **Users** tab and select **User
+	// Phone System Management &gt; Users &amp; Rooms**. Choose the **Users** tab and select **User
 	// Settings**
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// **Scopes:** `phone:write:admin`,`phone:write`
 	// **Granular Scopes:** `phone:write:shared_setting`,`phone:write:shared_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/settings/{settingType}
 	AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (*AddUserSettingCreated, error)
@@ -727,7 +750,7 @@ type Invoker interface {
 	AddUsersToDirectoryBySite(ctx context.Context, request OptAddUsersToDirectoryBySiteReq, params AddUsersToDirectoryBySiteParams) error
 	// AddZoomRoom invokes addZoomRoom operation.
 	//
-	// Use this API to associate a [Zoom Room](https://support.zoom.
+	// Associates a [Zoom Room](https://support.zoom.
 	// us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc) with a Zoom Phone
 	// license.
 	// **Prerequisites:**
@@ -736,10 +759,24 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:room:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/rooms
-	AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (jx.Raw, error)
+	AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) error
+	// ApplyTemplatetoCommonAreas invokes ApplyTemplatetoCommonAreas operation.
+	//
+	// Applies a template to common areas.  You can add up to 50 common areas at a time.
+	// **Note**: For use by customers who opted for `Common Area Optimization`
+	// **Prerequisites**
+	// * Pro or a higher account with Zoom Phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:write:apply_template_to_common_areas:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// POST /phone/common_areas/template_id/{templateId}
+	ApplyTemplatetoCommonAreas(ctx context.Context, request OptApplyTemplatetoCommonAreasReq, params ApplyTemplatetoCommonAreasParams) error
 	// AssignCallingPlan invokes assignCallingPlan operation.
 	//
 	// Assigns a [calling plan](https://marketplace.zoom.
@@ -750,30 +787,27 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
+	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:write:calling_plan`,`phone:write:calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/calling_plans
-	AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (jx.Raw, error)
+	AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) error
 	// AssignCallingPlanToRoom invokes assignCallingPlanToRoom operation.
 	//
-	// Use this API to assign [calling plans](https://marketplace.zoom.
+	// Assigns [calling plans](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) to a [Zoom
 	// Room](https://support.zoom.
 	// us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc). Up to 200 numbers at a
-	// time.
-	// **Prerequisites:**
-	// * A Business or Enterprise account
-	// * A Zoom Phone license
+	// time.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:room_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
 	// POST /phone/rooms/{roomId}/calling_plans
-	AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (jx.Raw, error)
+	AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) error
 	// AssignCallingPlansToCommonArea invokes assignCallingPlansToCommonArea operation.
 	//
 	// Use this API to assign calling plans to a common area.
@@ -790,7 +824,7 @@ type Invoker interface {
 	AssignCallingPlansToCommonArea(ctx context.Context, request OptAssignCallingPlansToCommonAreaReq, params AssignCallingPlansToCommonAreaParams) (*AssignCallingPlansToCommonAreaCreated, error)
 	// AssignCampaignPhoneNumbers invokes assignCampaignPhoneNumbers operation.
 	//
-	// Use this API to [assign a phone number to the SMS campaign](https://support.zoom.
+	// [Assigns a phone number to the SMS campaign](https://support.zoom.
 	// us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVQM1WMW5JD48YNY3J581B).
 	// **Prerequisites:**
 	// * A Business or Enterprise account
@@ -798,7 +832,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:sms_campaign_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/sms_campaigns/{smsCampaignId}/phone_numbers
 	AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (*AssignCampaignPhoneNumbersCreated, error)
@@ -806,31 +840,28 @@ type Invoker interface {
 	//
 	// Assigns a [phone number](https://support.zoom.
 	// us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom
-	// Phone.
-	// **Prerequisites:**
-	// * A Business or Enterprise account
-	// * A Zoom Phone license
+	// Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
 	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:write:user_number`,`phone:write:user_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/users/{userId}/phone_numbers
 	AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberCreated, error)
 	// AssignPhoneNumberToZoomRoom invokes assignPhoneNumberToZoomRoom operation.
 	//
-	// Use this API to [assign phone numbers to a Zoom Room](https://support.zoom.
-	// us/hc/en-us/articles/360025153711). Up to 200 numbers at a time.
+	// [Assigns phone numbers to a Zoom Room](https://support.zoom.us/hc/en-us/articles/360025153711). Up
+	// to 200 numbers at a time.
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:room_phone_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/rooms/{roomId}/phone_numbers
-	AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (jx.Raw, error)
+	AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) error
 	// AssignPhoneNumbersAutoReceptionist invokes assignPhoneNumbersAutoReceptionist operation.
 	//
 	// Assigns available phone numbers to an [auto receptionist](https://support.zoom.
@@ -879,31 +910,31 @@ type Invoker interface {
 	AssignPhoneNumbersToCommonArea(ctx context.Context, request OptAssignPhoneNumbersToCommonAreaReq, params AssignPhoneNumbersToCommonAreaParams) (*AssignPhoneNumbersToCommonAreaCreated, error)
 	// AssignPhoneToCallQueue invokes assignPhoneToCallQueue operation.
 	//
-	// After [buying phone number(s)](https://support.zoom.
-	// us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it,
-	// allowing callers to directly dial a number to reach a [call queue](https://support.zoom.
+	// Assigns numbers to a call queue. After [buying phone number(s)](https://support.zoom.
+	// us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it and
+	// allow callers to directly dial a number to reach a [call queue](https://support.zoom.
 	// us/hc/en-us/articles/360021524831-Managing-Call-Queues).
 	// **Prerequisites:**
-	// * Pro or higher account plan.
+	// - Pro or higher account plan
 	// * Account owner or admin permissions
-	// * Zoom Phone license
+	// - Zoom Phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/call_queues/{callQueueId}/phone_numbers
 	AssignPhoneToCallQueue(ctx context.Context, request OptAssignPhoneToCallQueueReq, params AssignPhoneToCallQueueParams) error
 	// BatchAddLocations invokes batchAddLocations operation.
 	//
-	// Batches the add emergency service locations.
+	// Adds emergency service locations in batch.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:batch_emergency_locations:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/batch_locations
 	BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (*BatchAddLocationsCreated, error)
@@ -918,7 +949,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:batch_users:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// POST /phone/users/batch
 	BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) ([]BatchAddUsersCreatedItem, error)
@@ -993,7 +1024,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:write:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /phone/call_queues
 	CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (*CreateCallQueueCreated, error)
@@ -1272,7 +1303,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
 	// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/users/{userId}/call_logs/{callLogId}
 	DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error
@@ -1473,9 +1504,9 @@ type Invoker interface {
 	DeleteOutboundCallerNumbers(ctx context.Context, params DeleteOutboundCallerNumbersParams) error
 	// DeletePeeringPhoneNumbers invokes deletePeeringPhoneNumbers operation.
 	//
-	// Removes phone numbers added to Zoom through the Provider Exchange.
+	// Removes phone numbers added to Zoom through the provider exchange.
 	// **Note**: Phone peering API and events are for partners who have completed the MoU to peer with
-	// Zoom. To become a peering provider/ carrier, submit your [request](https://docs.google.
+	// Zoom. To become a peering provider or carrier, submit your [request](https://docs.google.
 	// com/forms/d/e/1FAIpQLSewkY6ixVyKVNkWC-vgmejC16gigxsJWXji3dWzE3XlWtjsgg/viewform).
 	// **Prerequisites:**
 	// * A Business or Enterprise account
@@ -1483,10 +1514,10 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 	// **Granular Scopes:** `phone:delete:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/peering/numbers
-	DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (*DeletePeeringPhoneNumbersOK, error)
+	DeletePeeringPhoneNumbers(ctx context.Context, params DeletePeeringPhoneNumbersParams) (*DeletePeeringPhoneNumbersOK, error)
 	// DeletePhoneNumbersSLG invokes deletePhoneNumbersSLG operation.
 	//
 	// Unassigns all the phone numbers that have been assigned to the [shared line group](https://support.
@@ -1638,6 +1669,22 @@ type Invoker interface {
 	//
 	// DELETE /phone/numbers
 	DeleteUnassignedPhoneNumbers(ctx context.Context, params DeleteUnassignedPhoneNumbersParams) error
+	// DeleteUserCallHistory invokes deleteUserCallHistory operation.
+	//
+	// Deletes a user's [call history](https://support.zoom.
+	// us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs).
+	// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+	// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+	// **Prerequisites**
+	// * Belong to a Business or Enterprise account
+	// * Have a Zoom Phone license
+	// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+	// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// DELETE /phone/users/{userId}/call_history/{callLogId}
+	DeleteUserCallHistory(ctx context.Context, params DeleteUserCallHistoryParams) error
 	// DeleteUserOutboundCallerNumbers invokes deleteUserOutboundCallerNumbers operation.
 	//
 	// Removes the users' customized outbound caller ID phone numbers.
@@ -1758,10 +1805,9 @@ type Invoker interface {
 	GetABlockedList(ctx context.Context, params GetABlockedListParams) (*GetABlockedListOK, error)
 	// GetACallQueue invokes getACallQueue operation.
 	//
-	// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
-	// queues to route calls to various departments in your organization such as sales, engineering,
-	// billing, customer service etc.
-	// Use this API to get information on a specific Call Queue.
+	// Routes incoming calls to a group of users and returns information on a specific call queue.
+	// For instance, you can use call queues to route calls to various departments in your organization
+	// such as sales, engineering, billing, customer service, and so on.
 	// **Prerequisites:**
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
@@ -1769,7 +1815,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/call_queues/{callQueueId}
 	GetACallQueue(ctx context.Context, params GetACallQueueParams) (*GetACallQueueOK, error)
@@ -1816,10 +1862,10 @@ type Invoker interface {
 	GetAExternalContact(ctx context.Context, params GetAExternalContactParams) (*GetAExternalContactOK, error)
 	// GetASharedLineGroup invokes getASharedLineGroup operation.
 	//
-	// Lists all the shared line groups. A [shared line group](https://support.zoom.
-	// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-	// with a group of phone users or common areas. This gives members of the shared line group access to
-	// the group's direct phone number and voicemail.
+	// Returns a list of all the shared line groups.
+	// A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone
+	// admins to share a phone number and extension with a group of phone users or common areas. This
+	// gives members of the shared line group access to the group's direct phone number and voicemail.
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
@@ -1889,8 +1935,8 @@ type Invoker interface {
 	//
 	// Returns information on a specific auto receptionist.
 	// **Prerequisites:**
-	// * Pro or a higher account with Zoom Phone license.
-	// * Account owner or admin permissions.
+	// * Pro or a higher account with Zoom Phone license
+	// * Account owner or admin permissions
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:auto_receptionist:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -1928,8 +1974,8 @@ type Invoker interface {
 	GetAutoReceptionistsPolicy(ctx context.Context, params GetAutoReceptionistsPolicyParams) (*GetAutoReceptionistsPolicyOK, error)
 	// GetCallChargesUsageReport invokes GetCallChargesUsageReport operation.
 	//
-	// Retrieves the **Phone Call Charges Report**.
-	// The **Call charges usage report** allows account owners and admins to view monthly Zoom phone call
+	// Retrieves the Phone Call Charges Report.
+	// The Call charges usage report allows account owners and admins to view monthly Zoom phone call
 	// charges. Account owners and admins can also access this information when they log into their Zoom
 	// accounts and navigate to [Call Charges Usage Report](https://zoom.
 	// us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=1).
@@ -1945,13 +1991,16 @@ type Invoker interface {
 	GetCallChargesUsageReport(ctx context.Context, params GetCallChargesUsageReportParams) (*GetCallChargesUsageReportOK, error)
 	// GetCallHandling invokes getCallHandling operation.
 	//
-	// Returns information about a Zoom Phone's call handling settings. Call handling settings let you
-	// control how your system routes calls during business, closed, or holiday hours. For more
-	// information, read our [API guide](https://developers.zoom.us/docs/zoom-phone/call-handling/) or
-	// Zoom support article [Customizing call handling settings](https://support.zoom.
-	// us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).**Applicable to user, call
-	// queue, auto receptionist, or shared line group call handling at this time.** **Prerequisites:** *
-	// Pro or a higher account with Zoom Phone enabled
+	// Returns information about a Zoom Phone's call handling settings.
+	// Call handling settings let you control how your system routes calls during business, closed, or
+	// holiday hours. For more information, read our [API guide](https://developers.zoom.
+	// us/docs/zoom-phone/call-handling/) or Zoom support article [Customizing call handling
+	// settings](https://support.zoom.
+	// us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).
+	// **Applicable to user, call queue, auto receptionist, or shared line group call handling at this
+	// time.**
+	// **Prerequisites**
+	// * Pro or a higher account with Zoom Phone enabled
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_call_handling_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -2199,7 +2248,7 @@ type Invoker interface {
 	// Returns an account's [call recording](https://support.zoom.
 	// us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's
 	// `callId` or `callLogId`.
-	// **Note**: This  API returns the `file_url` in the JSON query results.
+	// **Note**: Returns the `file_url` in the JSON query results.
 	// **Prerequisites:**
 	// * A Pro or higher account with Zoom Phone license
 	// * Account owner or admin privileges
@@ -2210,21 +2259,6 @@ type Invoker interface {
 	//
 	// GET /phone/call_logs/{id}/recordings
 	GetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, params GetPhoneRecordingsByCallIdOrCallLogIdParams) (*GetPhoneRecordingsByCallIdOrCallLogIdOK, error)
-	// GetPhoneUserVoiceMails invokes GetPhoneUserVoiceMails operation.
-	//
-	// Retrieves a user's Zoom Phone voicemails in descending order. For user-level apps, pass [the `me`
-	// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
-	// `userId` parameter.
-	// **Prerequisites:**
-	// * A Business or Enterprise account
-	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
-	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `MEDIUM`.
-	//
-	// GET /phone/users/{userId}/voice_mails/sync
-	GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (*GetPhoneUserVoiceMailsOK, error)
 	// GetPortedNumbersDetails invokes getPortedNumbersDetails operation.
 	//
 	// Use this API to get details on the ported numbers by specifying `order_id`.
@@ -2372,10 +2406,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read:admin`,`phone_sms:read`
+	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/sms/sessions/sync
 	GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (*GetSmsSessionsOK, error)
@@ -2407,9 +2441,9 @@ type Invoker interface {
 	GetVoicemailDetails(ctx context.Context, params GetVoicemailDetailsParams) (*GetVoicemailDetailsOK, error)
 	// GetVoicemailDetailsByCallIdOrCallLogId invokes getVoicemailDetailsByCallIdOrCallLogId operation.
 	//
-	// Returns the detailed information on a voicemail associated with a call log ID. For user-level apps,
-	//  pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword)
-	// instead of the `userId` parameter.
+	// Returns the detailed information on a voicemail associated with a call log ID.
+	// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+	// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license
@@ -2544,8 +2578,9 @@ type Invoker interface {
 	ListAlertSettingsWithPagingQuery(ctx context.Context, params ListAlertSettingsWithPagingQueryParams) (*ListAlertSettingsWithPagingQueryOK, error)
 	// ListAudioItems invokes ListAudioItems operation.
 	//
-	// Returns personal audios. Only the admin or user can query your audios and directly pass the `me`
-	// value instead of the `userId` parameter.
+	// Returns personal audios.
+	// Only the admin or user can query your audios and directly pass the `me` value instead of the
+	// `userId` parameter.
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
@@ -2584,17 +2619,20 @@ type Invoker interface {
 	ListBYOCSIPTrunk(ctx context.Context, params ListBYOCSIPTrunkParams) (*ListBYOCSIPTrunkOK, error)
 	// ListBillingAccount invokes listBillingAccount operation.
 	//
-	// A Zoom account owner or a user with admin privileges can use this API to retrieve a list of
-	// billing accounts.
+	// Retrieves a list of available billing accounts for a Zoom account owner or a user with admin
+	// privileges.
+	// If the [multiple sites](https://support.zoom.
+	// us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account,
+	//  then `field(site_id)` is required.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_billing_accounts:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/billing_accounts
-	ListBillingAccount(ctx context.Context) (*ListBillingAccountOK, error)
+	ListBillingAccount(ctx context.Context, params ListBillingAccountParams) (*ListBillingAccountOK, error)
 	// ListBlockedList invokes listBlockedList operation.
 	//
 	// Returns all the blocked lists in an acccount. A Zoom account owner or a user with admin privilege
@@ -2642,7 +2680,7 @@ type Invoker interface {
 	ListCallLogsMetrics(ctx context.Context, params ListCallLogsMetricsParams) (*ListCallLogsMetricsOK, error)
 	// ListCallQueueMembers invokes listCallQueueMembers operation.
 	//
-	// Lists the call queue members.
+	// Returns a list of call queue members.
 	// **Prerequisites:**
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
@@ -2650,7 +2688,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_call_queue_members:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/call_queues/{callQueueId}/members
 	ListCallQueueMembers(ctx context.Context, params ListCallQueueMembersParams) (*ListCallQueueMembersOK, error)
@@ -2673,7 +2711,7 @@ type Invoker interface {
 	ListCallQueues(ctx context.Context, params ListCallQueuesParams) (*ListCallQueuesOK, error)
 	// ListCallingPlans invokes listCallingPlans operation.
 	//
-	// Use this API to return all of an account's Zoom Phone [calling plans](https://marketplace.zoom.
+	// Returns all of an account's Zoom Phone [calling plans](https://marketplace.zoom.
 	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).
 	// **Prerequisites:**
 	// * A Pro or a higher account
@@ -2681,13 +2719,13 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_calling_plans:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/calling_plans
 	ListCallingPlans(ctx context.Context) (*ListCallingPlansOK, error)
 	// ListCarrierPeeringPhoneNumbers invokes listCarrierPeeringPhoneNumbers operation.
 	//
-	// Returns phone numbers pushed by the carrier to different customers.
+	// Returns phone numbers that the carrier pushed to different customers.
 	// To become a peering provider/ carrier, submit your [request](https://docs.google.
 	// com/forms/d/e/1FAIpQLSewkY6ixVyKVNkWC-vgmejC16gigxsJWXji3dWzE3XlWtjsgg/viewform).
 	// **Prerequisites:**
@@ -2696,7 +2734,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
 	// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/carrier_peering/numbers
 	ListCarrierPeeringPhoneNumbers(ctx context.Context, params ListCarrierPeeringPhoneNumbersParams) (*ListCarrierPeeringPhoneNumbersOK, error)
@@ -2938,7 +2976,7 @@ type Invoker interface {
 	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
 	// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/peering/numbers
 	ListPeeringPhoneNumbers(ctx context.Context, params ListPeeringPhoneNumbersParams) (*ListPeeringPhoneNumbersOK, error)
@@ -2973,14 +3011,14 @@ type Invoker interface {
 	ListPhonePlans(ctx context.Context) (*ListPhonePlansOK, error)
 	// ListPhoneRoles invokes ListPhoneRoles operation.
 	//
-	// Use this API to get phone roles.
+	// Returns the phone roles.
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_roles:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/roles
 	ListPhoneRoles(ctx context.Context) (*ListPhoneRolesOK, error)
@@ -3026,6 +3064,17 @@ type Invoker interface {
 	//
 	// GET /phone/ported_numbers/orders
 	ListPortedNumbers(ctx context.Context, params ListPortedNumbersParams) (*ListPortedNumbersOK, error)
+	// ListPrivateDirectoryMembers invokes listPrivateDirectoryMembers operation.
+	//
+	// Returns the member list of a [private directory](https://support.zoom.
+	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:list_private_directory_members:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/private_directory/members
+	ListPrivateDirectoryMembers(ctx context.Context, params ListPrivateDirectoryMembersParams) (*ListPrivateDirectoryMembersOK, error)
 	// ListRoleMembers invokes ListRoleMembers operation.
 	//
 	// Use this API to get members (not) in a [role](https://support.zoom.
@@ -3153,11 +3202,8 @@ type Invoker interface {
 	ListTrackedLocations(ctx context.Context, params ListTrackedLocationsParams) (*ListTrackedLocationsOK, error)
 	// ListUnassignedZoomRooms invokes listUnassignedZoomRooms operation.
 	//
-	// Use this API to retrieve [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that
-	// are not assigned a Zoom Phone.
-	// **Prerequisites:**
-	// * A Pro or higher account plan
-	// * A Zoom Phone license
+	// Returns [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that are not assigned
+	// a Zoom Phone.**Prerequisites:** * A Pro or higher account plan * A Zoom Phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_rooms:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -3175,13 +3221,13 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:read:list_user_customized_number`,
 	// `phone:read:list_user_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /phone/users/{userId}/outbound_caller_id/customized_numbers
 	ListUserCustomizeOutboundCallerNumbers(ctx context.Context, params ListUserCustomizeOutboundCallerNumbersParams) (*ListUserCustomizeOutboundCallerNumbersOK, error)
 	// ListUserOutboundCallingExceptionRule invokes listUserOutboundCallingExceptionRule operation.
 	//
-	// Lists the user level outbound calling policy exception rules.
+	// Returns a list of the user level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
 	// **Scopes:** `phone:read:admin`
@@ -3259,6 +3305,19 @@ type Invoker interface {
 	//
 	// PATCH /phone/inbound_blocked/extension_rules/statistics/blocked_for_all
 	MarkPhoneNumberAsBlockedForAllExtensions(ctx context.Context, request OptMarkPhoneNumberAsBlockedForAllExtensionsReq) error
+	// PhoneDownloadRecordingFile invokes phoneDownloadRecordingFile operation.
+	//
+	// Downloads the phone recording.
+	// **Prerequisites:**
+	// * A Business or Enterprise account
+	// * A Zoom Phone license
+	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+	// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/recording/download/{fileId}
+	PhoneDownloadRecordingFile(ctx context.Context, params PhoneDownloadRecordingFileParams) error
 	// PhoneDownloadRecordingTranscript invokes phoneDownloadRecordingTranscript operation.
 	//
 	// Downloads the phone recording transcript.
@@ -3272,6 +3331,19 @@ type Invoker interface {
 	//
 	// GET /phone/recording_transcript/download/{recordingId}
 	PhoneDownloadRecordingTranscript(ctx context.Context, params PhoneDownloadRecordingTranscriptParams) error
+	// PhoneDownloadVoicemailFile invokes phoneDownloadVoicemailFile operation.
+	//
+	// Downloads the Zoom phone voicemail.
+	// **Prerequisites:**
+	// * A Business or Enterprise account
+	// * A Zoom Phone license
+	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+	// **Granular Scopes:** `phone:read:voicemail:admin`,`phone:read:voicemail`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/voice_mails/download/{fileId}
+	PhoneDownloadVoicemailFile(ctx context.Context, params PhoneDownloadVoicemailFileParams) error
 	// PhoneSetting invokes phoneSetting operation.
 	//
 	// Returns an account's settings.
@@ -3301,6 +3373,22 @@ type Invoker interface {
 	//
 	// GET /phone/users/{userId}
 	PhoneUser(ctx context.Context, params PhoneUserParams) (*PhoneUserOK, error)
+	// PhoneUserCallHistory invokes phoneUserCallHistory operation.
+	//
+	// Returns a user's [Zoom phone](https://support.zoom.
+	// us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call logs.
+	// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+	// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+	// **Prerequisites:**
+	// * A Business or Enterprise account
+	// * A Zoom Phone license
+	// **Scopes:** `phone:read:admin`,`phone_call_log:read`
+	// **Granular Scopes:** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `HEAVY`.
+	//
+	// GET /phone/users/{userId}/call_history
+	PhoneUserCallHistory(ctx context.Context, params PhoneUserCallHistoryParams) (*PhoneUserCallHistoryOK, error)
 	// PhoneUserCallLogs invokes phoneUserCallLogs operation.
 	//
 	// Returns a user's [Zoom phone](https://support.zoom.
@@ -3326,10 +3414,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone_recording:read:admin`,`phone_recording:read`,`phone:read`,`phone:read:admin`
+	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
 	// **Granular Scopes:** `phone:read:list_recordings`,`phone:read:list_recordings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/recordings
 	PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (*PhoneUserRecordingsOK, error)
@@ -3351,7 +3439,7 @@ type Invoker interface {
 	PhoneUserSettings(ctx context.Context, params PhoneUserSettingsParams) (*PhoneUserSettingsOK, error)
 	// PhoneUserVoiceMails invokes phoneUserVoiceMails operation.
 	//
-	// Gets a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
+	// Returns a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
 	// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 	// `userId` parameter.
 	// **Prerequisites:**
@@ -3378,6 +3466,17 @@ type Invoker interface {
 	//
 	// POST /phone/devices/{deviceId}/reboot
 	RebootPhoneDevice(ctx context.Context, params RebootPhoneDeviceParams) error
+	// RemoveAMemberFromAPrivateDirectory invokes removeAMemberFromAPrivateDirectory operation.
+	//
+	// Removes a member from a [private directory](https://support.zoom.
+	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:delete:private_directory_member:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// DELETE /phone/private_directory/members/{extensionId}
+	RemoveAMemberFromAPrivateDirectory(ctx context.Context, params RemoveAMemberFromAPrivateDirectoryParams) error
 	// RemoveCQPolicySubSetting invokes removeCQPolicySubSetting operation.
 	//
 	// Use this API to remove the policy sub-setting for a specific [call queue](https://support.zoom.
@@ -3465,7 +3564,7 @@ type Invoker interface {
 	RemoveZoomRoom(ctx context.Context, params RemoveZoomRoomParams) error
 	// SmsByMessageId invokes smsByMessageId operation.
 	//
-	// Gets details about a specific message in an SMS session.
+	// Returns details about a specific message in an SMS session.
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
@@ -3478,27 +3577,27 @@ type Invoker interface {
 	SmsByMessageId(ctx context.Context, params SmsByMessageIdParams) (*SmsByMessageIdOK, error)
 	// SmsSessionDetails invokes smsSessionDetails operation.
 	//
-	// Get details about an SMS session.
+	// Returns details about an SMS session.
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
 	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/sms/sessions/{sessionId}
 	SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (*SmsSessionDetailsOK, error)
 	// SmsSessionSync invokes smsSessionSync operation.
 	//
-	// Use this API to sync SMS messages in a session.
+	// Syncs SMS messages in a session.
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
 	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/sms/sessions/{sessionId}/sync
 	SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (*SmsSessionSyncOK, error)
@@ -3516,6 +3615,22 @@ type Invoker interface {
 	//
 	// POST /phone/devices/sync
 	SyncPhoneDevice(ctx context.Context, request OptSyncPhoneDeviceReq) error
+	// SyncUserCallHistory invokes syncUserCallHistory operation.
+	//
+	// Syncs a user's [Zoom phone](https://support.zoom.
+	// us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call history.
+	// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+	// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+	// **Prerequisites:**
+	// * A Business or Enterprise account
+	// * A Zoom Phone license
+	// **Scopes:** `phone:read:admin`,`phone:read`
+	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/users/{userId}/call_history/sync
+	SyncUserCallHistory(ctx context.Context, params SyncUserCallHistoryParams) (*SyncUserCallHistoryOK, error)
 	// SyncUserCallLogs invokes syncUserCallLogs operation.
 	//
 	// Syncs a user's [Zoom phone](https://support.zoom.
@@ -3699,7 +3814,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:delete:user_number`,`phone:delete:user_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/users/{userId}/phone_numbers/{phoneNumberId}
 	UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) error
@@ -3747,14 +3862,25 @@ type Invoker interface {
 	//
 	// PATCH /phone/devices/{deviceId}
 	UpdateADevice(ctx context.Context, request OptUpdateADeviceReq, params UpdateADeviceParams) error
+	// UpdateAPrivateDirectoryMember invokes updateAPrivateDirectoryMember operation.
+	//
+	// Updates a member of a [private directory](https://support.zoom.
+	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:private_directory_member:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// PATCH /phone/private_directory/members/{extensionId}
+	UpdateAPrivateDirectoryMember(ctx context.Context, request OptUpdateAPrivateDirectoryMemberReq, params UpdateAPrivateDirectoryMemberParams) error
 	// UpdateASharedLineGroup invokes updateASharedLineGroup operation.
 	//
-	// Updates the information about a shared line group.  A [shared line group](https://support.zoom.
-	// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-	// with a group of phone users or common areas. Members of the shared line group can access to the
-	// group's direct phone number and voicemail.
-	// **Prerequisites:**
-	// * Pro or higher account with Zoom Phone license.
+	// Updates the information about a shared line group.
+	// A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone
+	// admins to share a phone number and extension with a group of phone users or common areas. Members
+	// of the shared line group can access to the group's direct phone number and voicemail.
+	// **Prerequisites**
+	// * Pro or higher account with Zoom Phone license
 	// * Account owner or admin privileges
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:shared_line_group:admin`
@@ -3904,7 +4030,7 @@ type Invoker interface {
 	UpdateBlockedList(ctx context.Context, request OptUpdateBlockedListReq, params UpdateBlockedListParams) error
 	// UpdateCQPolicySubSetting invokes updateCQPolicySubSetting operation.
 	//
-	// Use this API to update the policy sub-setting for a specific [call queue](https://support.zoom.
+	// Updates the policy subsetting for a specific [call queue](https://support.zoom.
 	// us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this
 	// API to update shared access members.
 	// **Prerequisites:**
@@ -3913,7 +4039,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:call_queue_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/call_queues/{callQueueId}/policies/{policyType}
 	UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) error
@@ -3938,10 +4064,9 @@ type Invoker interface {
 	UpdateCallHandling(ctx context.Context, request OptUpdateCallHandlingReq, params UpdateCallHandlingParams) error
 	// UpdateCallQueue invokes updateCallQueue operation.
 	//
-	// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
-	// queues to route calls to various departments in your organization such as sales, engineering,
-	// billing, customer service etc.
-	// Use this API to update information of a specific Call Queue.
+	// Updates information of a specific call queue. Call queues allow you to route incoming calls to a
+	// group of users. For instance, you can use call queues to route calls to various departments in
+	// your organization such as sales, engineering, billing, customer service, and so on.
 	// **Prerequisites:**
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
@@ -3949,7 +4074,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/call_queues/{callQueueId}
 	UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) error
@@ -4009,6 +4134,21 @@ type Invoker interface {
 	//
 	// PATCH /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
 	UpdateCommonAreaOutboundCallingExceptionRule(ctx context.Context, request OptUpdateCommonAreaOutboundCallingExceptionRuleReq, params UpdateCommonAreaOutboundCallingExceptionRuleParams) error
+	// UpdateCommonAreaPinCode invokes UpdateCommonAreaPinCode operation.
+	//
+	// Updates the common area pin code.
+	// **Note**: For use by customers who opted for `Common Area Optimization`
+	// **Prerequisites**
+	// * Pro or a higher account with Zoom Phone license
+	// * Account owner or admin permissions, This depends on whether [The PIN cannot be viewed by the
+	// admin](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069783) is enabled.
+	// **Scopes:** `phone:write:admin`
+	// **Granular Scopes:** `phone:update:common_area:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `LIGHT`.
+	//
+	// PATCH /phone/common_areas/{commonAreaId}/pin_code
+	UpdateCommonAreaPinCode(ctx context.Context, request OptUpdateCommonAreaPinCodeReq, params UpdateCommonAreaPinCodeParams) error
 	// UpdateCommonAreaSetting invokes UpdateCommonAreaSetting operation.
 	//
 	// Use this API to update the common area setting according to the setting type, specifically for
@@ -4128,7 +4268,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 	// **Granular Scopes:** `phone:update:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/peering/numbers
 	UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (*UpdatePeeringPhoneNumbersOK, error)
@@ -4406,17 +4546,17 @@ type Invoker interface {
 	// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 	// `userId` parameter.
 	// To see the shared access settings in the Zoom web portal, go to **Admin &gt; Phone System
-	// Management &gt; Users &amp; Rooms** . Click **Users** and select **User Policy**. Go to
+	// Management &gt; Users &amp; Rooms** . Choose **Users** and select **User Policy**. Go to
 	// **Voicemail, Automatic Call Recording and Ad Hoc Call Recording**.
 	// To view the delegation and intercom setting in your Zoom web portal, navigate to **Admin &gt;
-	// Phone System Management &gt; Users &amp; Rooms**. Click the **Users** tab and select **User
+	// Phone System Management &gt; Users &amp; Rooms**. Choose the **Users** tab and select **User
 	// Settings**
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// **Scopes:** `phone:write:admin`,`phone:write`
 	// **Granular Scopes:** `phone:update:shared_setting`,`phone:update:shared_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/users/{userId}/settings/{settingType}
 	UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) error
@@ -4432,7 +4572,7 @@ type Invoker interface {
 	// **Scopes:** `phone:write`,`phone:write:admin`
 	// **Granular Scopes:** `phone:update:user_setting`,`phone:update:user_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /phone/users/{userId}/settings
 	UpdateUserSettings(ctx context.Context, request OptUpdateUserSettingsReq, params UpdateUserSettingsParams) error
@@ -5324,7 +5464,7 @@ func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogs
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone_sms:read:admin`,`phone_sms:read`
+// **Scopes:** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
 // **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
@@ -7365,6 +7505,150 @@ func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHand
 	return result, nil
 }
 
+// AddClientCodeToCallHistory invokes addClientCodeToCallHistory operation.
+//
+// Adds a client code to a [call log](https://support.zoom.
+// us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs
+// with a client code. **Prerequisites:*** Business or Education account* Zoom Phone license
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:call_log:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// PATCH /phone/call_history/{callLogId}/client_code
+func (c *Client) AddClientCodeToCallHistory(ctx context.Context, request OptAddClientCodeToCallHistoryReq, params AddClientCodeToCallHistoryParams) error {
+	_, err := c.sendAddClientCodeToCallHistory(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendAddClientCodeToCallHistory(ctx context.Context, request OptAddClientCodeToCallHistoryReq, params AddClientCodeToCallHistoryParams) (res *AddClientCodeToCallHistoryNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("addClientCodeToCallHistory"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/call_history/{callLogId}/client_code"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "AddClientCodeToCallHistory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/call_history/"
+	{
+		// Encode "callLogId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "callLogId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.CallLogId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/client_code"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeAddClientCodeToCallHistoryRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "AddClientCodeToCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "AddClientCodeToCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeAddClientCodeToCallHistoryResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // AddClientCodeToCallLog invokes addClientCodeToCallLog operation.
 //
 // Adds a client code to a [call log](https://support.zoom.
@@ -7514,8 +7798,8 @@ func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddC
 
 // AddCommonArea invokes addCommonArea operation.
 //
-// Use this API to add an instance of common area. Configure devices shared by users and deployed in
-// shared spaces.
+// Adds an instance of common area. You can configure devices shared by users and deployed in shared
+// spaces.
 // **Note**: For use by customers who opted for `Common Area Optimization`
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
@@ -7523,7 +7807,7 @@ func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddC
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/common_areas
 func (c *Client) AddCommonArea(ctx context.Context, request OptAddCommonAreaReq) (*AddCommonAreaCreated, error) {
@@ -9191,17 +9475,141 @@ func (c *Client) sendAddMembers(ctx context.Context, request []string, params Ad
 	return result, nil
 }
 
+// AddMembersToAPrivateDirectory invokes addMembersToAPrivateDirectory operation.
+//
+// Adds members to a [private directory](https://support.zoom.
+// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:write:private_directory_member:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// POST /phone/private_directory/members
+func (c *Client) AddMembersToAPrivateDirectory(ctx context.Context, request OptAddMembersToAPrivateDirectoryReq) error {
+	_, err := c.sendAddMembersToAPrivateDirectory(ctx, request)
+	return err
+}
+
+func (c *Client) sendAddMembersToAPrivateDirectory(ctx context.Context, request OptAddMembersToAPrivateDirectoryReq) (res *AddMembersToAPrivateDirectoryCreated, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("addMembersToAPrivateDirectory"),
+		semconv.HTTPRequestMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/phone/private_directory/members"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "AddMembersToAPrivateDirectory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/private_directory/members"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeAddMembersToAPrivateDirectoryRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "AddMembersToAPrivateDirectory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "AddMembersToAPrivateDirectory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeAddMembersToAPrivateDirectoryResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // AddMembersToCallQueue invokes addMembersToCallQueue operation.
 //
-// Add phone users and/or [common areas](https://support.zoom.us/hc/articles/4481136653709) as
-// members to a specific call queue.
+// Adds phone users or [common areas](https://support.zoom.us/hc/articles/4481136653709) as members
+// to a specific call queue.
 // **Prerequisites:**
 // * Pro or higher account plan.
 // * Zoom Phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:call_queue_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/call_queues/{callQueueId}/members
 func (c *Client) AddMembersToCallQueue(ctx context.Context, request OptAddMembersToCallQueueReq, params AddMembersToCallQueueParams) error {
@@ -9624,7 +10032,7 @@ func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAd
 // **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 // **Granular Scopes:** `phone:write:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/peering/numbers
 func (c *Client) AddPeeringPhoneNumbers(ctx context.Context, request OptAddPeeringPhoneNumbersReq) (*AddPeeringPhoneNumbersCreated, error) {
@@ -11199,15 +11607,15 @@ func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSetti
 // **Granular Scopes:** `phone:write:user_customized_number`,
 // `phone:write:user_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/users/{userId}/outbound_caller_id/customized_numbers
-func (c *Client) AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (jx.Raw, error) {
-	res, err := c.sendAddUserOutboundCallerNumbers(ctx, request, params)
-	return res, err
+func (c *Client) AddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) error {
+	_, err := c.sendAddUserOutboundCallerNumbers(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (res jx.Raw, err error) {
+func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request OptAddUserOutboundCallerNumbersReq, params AddUserOutboundCallerNumbersParams) (res *AddUserOutboundCallerNumbersCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addUserOutboundCallerNumbers"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -11487,17 +11895,17 @@ func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, re
 // value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 // `userId` parameter.
 // To see the shared access settings in the Zoom web portal, go to **Admin &gt; Phone System
-// Management &gt; Users &amp; Rooms** . Click **Users** and select **User Policy**. Go to
+// Management &gt; Users &amp; Rooms** . Choose **Users** and select **User Policy**. Go to
 // **Voicemail, Automatic Call Recording and Ad Hoc Call Recording**.
 // To view the delegation and intercom setting in your Zoom web portal, navigate to **Admin &gt;
-// Phone System Management &gt; Users &amp; Rooms**. Click the **Users** tab and select **User
+// Phone System Management &gt; Users &amp; Rooms**. Choose the **Users** tab and select **User
 // Settings**
 // **Prerequisites:**
 // * A Business or Enterprise account
 // **Scopes:** `phone:write:admin`,`phone:write`
 // **Granular Scopes:** `phone:write:shared_setting`,`phone:write:shared_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/users/{userId}/settings/{settingType}
 func (c *Client) AddUserSetting(ctx context.Context, request OptAddUserSettingReq, params AddUserSettingParams) (*AddUserSettingCreated, error) {
@@ -11926,7 +12334,7 @@ func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptA
 
 // AddZoomRoom invokes addZoomRoom operation.
 //
-// Use this API to associate a [Zoom Room](https://support.zoom.
+// Associates a [Zoom Room](https://support.zoom.
 // us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc) with a Zoom Phone
 // license.
 // **Prerequisites:**
@@ -11935,15 +12343,15 @@ func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptA
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:room:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/rooms
-func (c *Client) AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (jx.Raw, error) {
-	res, err := c.sendAddZoomRoom(ctx, request)
-	return res, err
+func (c *Client) AddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) error {
+	_, err := c.sendAddZoomRoom(ctx, request)
+	return err
 }
 
-func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (res jx.Raw, err error) {
+func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq) (res *AddZoomRoomCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("addZoomRoom"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -12052,6 +12460,151 @@ func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq)
 	return result, nil
 }
 
+// ApplyTemplatetoCommonAreas invokes ApplyTemplatetoCommonAreas operation.
+//
+// Applies a template to common areas.  You can add up to 50 common areas at a time.
+// **Note**: For use by customers who opted for `Common Area Optimization`
+// **Prerequisites**
+// * Pro or a higher account with Zoom Phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:write:apply_template_to_common_areas:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// POST /phone/common_areas/template_id/{templateId}
+func (c *Client) ApplyTemplatetoCommonAreas(ctx context.Context, request OptApplyTemplatetoCommonAreasReq, params ApplyTemplatetoCommonAreasParams) error {
+	_, err := c.sendApplyTemplatetoCommonAreas(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendApplyTemplatetoCommonAreas(ctx context.Context, request OptApplyTemplatetoCommonAreasReq, params ApplyTemplatetoCommonAreasParams) (res *ApplyTemplatetoCommonAreasCreated, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("ApplyTemplatetoCommonAreas"),
+		semconv.HTTPRequestMethodKey.String("POST"),
+		semconv.HTTPRouteKey.String("/phone/common_areas/template_id/{templateId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "ApplyTemplatetoCommonAreas",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/common_areas/template_id/"
+	{
+		// Encode "templateId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "templateId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.TemplateId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeApplyTemplatetoCommonAreasRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "ApplyTemplatetoCommonAreas", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "ApplyTemplatetoCommonAreas", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeApplyTemplatetoCommonAreasResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // AssignCallingPlan invokes assignCallingPlan operation.
 //
 // Assigns a [calling plan](https://marketplace.zoom.
@@ -12062,18 +12615,18 @@ func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq)
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
+// **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:write:calling_plan`,`phone:write:calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/users/{userId}/calling_plans
-func (c *Client) AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (jx.Raw, error) {
-	res, err := c.sendAssignCallingPlan(ctx, request, params)
-	return res, err
+func (c *Client) AssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) error {
+	_, err := c.sendAssignCallingPlan(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (res jx.Raw, err error) {
+func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCallingPlanReq, params AssignCallingPlanParams) (res *AssignCallingPlanCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlan"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -12203,26 +12756,23 @@ func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCal
 
 // AssignCallingPlanToRoom invokes assignCallingPlanToRoom operation.
 //
-// Use this API to assign [calling plans](https://marketplace.zoom.
+// Assigns [calling plans](https://marketplace.zoom.
 // us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) to a [Zoom
 // Room](https://support.zoom.
 // us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc). Up to 200 numbers at a
-// time.
-// **Prerequisites:**
-// * A Business or Enterprise account
-// * A Zoom Phone license
+// time.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:room_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
 // POST /phone/rooms/{roomId}/calling_plans
-func (c *Client) AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (jx.Raw, error) {
-	res, err := c.sendAssignCallingPlanToRoom(ctx, request, params)
-	return res, err
+func (c *Client) AssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) error {
+	_, err := c.sendAssignCallingPlanToRoom(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (res jx.Raw, err error) {
+func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAssignCallingPlanToRoomReq, params AssignCallingPlanToRoomParams) (res *AssignCallingPlanToRoomCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignCallingPlanToRoom"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -12498,7 +13048,7 @@ func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request
 
 // AssignCampaignPhoneNumbers invokes assignCampaignPhoneNumbers operation.
 //
-// Use this API to [assign a phone number to the SMS campaign](https://support.zoom.
+// [Assigns a phone number to the SMS campaign](https://support.zoom.
 // us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVQM1WMW5JD48YNY3J581B).
 // **Prerequisites:**
 // * A Business or Enterprise account
@@ -12506,7 +13056,7 @@ func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:sms_campaign_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/sms_campaigns/{smsCampaignId}/phone_numbers
 func (c *Client) AssignCampaignPhoneNumbers(ctx context.Context, request OptAssignCampaignPhoneNumbersReq, params AssignCampaignPhoneNumbersParams) (*AssignCampaignPhoneNumbersCreated, error) {
@@ -12646,14 +13196,11 @@ func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request Opt
 //
 // Assigns a [phone number](https://support.zoom.
 // us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom
-// Phone.
-// **Prerequisites:**
-// * A Business or Enterprise account
-// * A Zoom Phone license
+// Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
 // **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:write:user_number`,`phone:write:user_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/users/{userId}/phone_numbers
 func (c *Client) AssignPhoneNumber(ctx context.Context, request OptAssignPhoneNumberReq, params AssignPhoneNumberParams) (*AssignPhoneNumberCreated, error) {
@@ -12791,23 +13338,23 @@ func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPho
 
 // AssignPhoneNumberToZoomRoom invokes assignPhoneNumberToZoomRoom operation.
 //
-// Use this API to [assign phone numbers to a Zoom Room](https://support.zoom.
-// us/hc/en-us/articles/360025153711). Up to 200 numbers at a time.
+// [Assigns phone numbers to a Zoom Room](https://support.zoom.us/hc/en-us/articles/360025153711). Up
+// to 200 numbers at a time.
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:room_phone_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/rooms/{roomId}/phone_numbers
-func (c *Client) AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (jx.Raw, error) {
-	res, err := c.sendAssignPhoneNumberToZoomRoom(ctx, request, params)
-	return res, err
+func (c *Client) AssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) error {
+	_, err := c.sendAssignPhoneNumberToZoomRoom(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (res jx.Raw, err error) {
+func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request OptAssignPhoneNumberToZoomRoomReq, params AssignPhoneNumberToZoomRoomParams) (res *AssignPhoneNumberToZoomRoomCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("assignPhoneNumberToZoomRoom"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -13381,18 +13928,18 @@ func (c *Client) sendAssignPhoneNumbersToCommonArea(ctx context.Context, request
 
 // AssignPhoneToCallQueue invokes assignPhoneToCallQueue operation.
 //
-// After [buying phone number(s)](https://support.zoom.
-// us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it,
-// allowing callers to directly dial a number to reach a [call queue](https://support.zoom.
+// Assigns numbers to a call queue. After [buying phone number(s)](https://support.zoom.
+// us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it and
+// allow callers to directly dial a number to reach a [call queue](https://support.zoom.
 // us/hc/en-us/articles/360021524831-Managing-Call-Queues).
 // **Prerequisites:**
-// * Pro or higher account plan.
+// - Pro or higher account plan
 // * Account owner or admin permissions
-// * Zoom Phone license
+// - Zoom Phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/call_queues/{callQueueId}/phone_numbers
 func (c *Client) AssignPhoneToCallQueue(ctx context.Context, request OptAssignPhoneToCallQueueReq, params AssignPhoneToCallQueueParams) error {
@@ -13530,14 +14077,14 @@ func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssi
 
 // BatchAddLocations invokes batchAddLocations operation.
 //
-// Batches the add emergency service locations.
+// Adds emergency service locations in batch.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:batch_emergency_locations:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/batch_locations
 func (c *Client) BatchAddLocations(ctx context.Context, request OptBatchAddLocationsReq) (*BatchAddLocationsCreated, error) {
@@ -13665,7 +14212,7 @@ func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddL
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:batch_users:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // POST /phone/users/batch
 func (c *Client) BatchAddUsers(ctx context.Context, request OptBatchAddUsersReq) ([]BatchAddUsersCreatedItem, error) {
@@ -14343,7 +14890,7 @@ func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateC
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:write:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /phone/call_queues
 func (c *Client) CreateCallQueue(ctx context.Context, request OptCreateCallQueueReq) (*CreateCallQueueCreated, error) {
@@ -17134,7 +17681,7 @@ func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHa
 // **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
 // **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/users/{userId}/call_logs/{callLogId}
 func (c *Client) DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error {
@@ -19421,9 +19968,9 @@ func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params Del
 
 // DeletePeeringPhoneNumbers invokes deletePeeringPhoneNumbers operation.
 //
-// Removes phone numbers added to Zoom through the Provider Exchange.
+// Removes phone numbers added to Zoom through the provider exchange.
 // **Note**: Phone peering API and events are for partners who have completed the MoU to peer with
-// Zoom. To become a peering provider/ carrier, submit your [request](https://docs.google.
+// Zoom. To become a peering provider or carrier, submit your [request](https://docs.google.
 // com/forms/d/e/1FAIpQLSewkY6ixVyKVNkWC-vgmejC16gigxsJWXji3dWzE3XlWtjsgg/viewform).
 // **Prerequisites:**
 // * A Business or Enterprise account
@@ -19431,15 +19978,15 @@ func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params Del
 // **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 // **Granular Scopes:** `phone:delete:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/peering/numbers
-func (c *Client) DeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (*DeletePeeringPhoneNumbersOK, error) {
-	res, err := c.sendDeletePeeringPhoneNumbers(ctx, request)
+func (c *Client) DeletePeeringPhoneNumbers(ctx context.Context, params DeletePeeringPhoneNumbersParams) (*DeletePeeringPhoneNumbersOK, error) {
+	res, err := c.sendDeletePeeringPhoneNumbers(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptDeletePeeringPhoneNumbersReq) (res *DeletePeeringPhoneNumbersOK, err error) {
+func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, params DeletePeeringPhoneNumbersParams) (res *DeletePeeringPhoneNumbersOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("deletePeeringPhoneNumbers"),
 		semconv.HTTPRequestMethodKey.String("DELETE"),
@@ -19479,13 +20026,54 @@ func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, request OptD
 	pathParts[0] = "/phone/peering/numbers"
 	uri.AddPathParts(u, pathParts[:]...)
 
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "carrier_code" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "carrier_code",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.CarrierCode.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "phone_numbers" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "phone_numbers",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeArray(func(e uri.Encoder) error {
+				for i, item := range params.PhoneNumbers {
+					if err := func() error {
+						return e.EncodeValue(conv.StringToString(item))
+					}(); err != nil {
+						return errors.Wrapf(err, "[%d]", i)
+					}
+				}
+				return nil
+			})
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
 	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "DELETE", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
-	}
-	if err := encodeDeletePeeringPhoneNumbersRequest(request, r); err != nil {
-		return res, errors.Wrap(err, "encode request")
 	}
 
 	{
@@ -21160,6 +21748,169 @@ func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params De
 	return result, nil
 }
 
+// DeleteUserCallHistory invokes deleteUserCallHistory operation.
+//
+// Deletes a user's [call history](https://support.zoom.
+// us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs).
+// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+// **Prerequisites**
+// * Belong to a Business or Enterprise account
+// * Have a Zoom Phone license
+// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// DELETE /phone/users/{userId}/call_history/{callLogId}
+func (c *Client) DeleteUserCallHistory(ctx context.Context, params DeleteUserCallHistoryParams) error {
+	_, err := c.sendDeleteUserCallHistory(ctx, params)
+	return err
+}
+
+func (c *Client) sendDeleteUserCallHistory(ctx context.Context, params DeleteUserCallHistoryParams) (res *DeleteUserCallHistoryNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("deleteUserCallHistory"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_history/{callLogId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "DeleteUserCallHistory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [4]string
+	pathParts[0] = "/phone/users/"
+	{
+		// Encode "userId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "userId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.UserId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/call_history/"
+	{
+		// Encode "callLogId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "callLogId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.CallLogId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[3] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "DELETE", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "DeleteUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "DeleteUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeDeleteUserCallHistoryResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // DeleteUserOutboundCallerNumbers invokes deleteUserOutboundCallerNumbers operation.
 //
 // Removes the users' customized outbound caller ID phone numbers.
@@ -22504,10 +23255,9 @@ func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedList
 
 // GetACallQueue invokes getACallQueue operation.
 //
-// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
-// queues to route calls to various departments in your organization such as sales, engineering,
-// billing, customer service etc.
-// Use this API to get information on a specific Call Queue.
+// Routes incoming calls to a group of users and returns information on a specific call queue.
+// For instance, you can use call queues to route calls to various departments in your organization
+// such as sales, engineering, billing, customer service, and so on.
 // **Prerequisites:**
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
@@ -22515,7 +23265,7 @@ func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedList
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/call_queues/{callQueueId}
 func (c *Client) GetACallQueue(ctx context.Context, params GetACallQueueParams) (*GetACallQueueOK, error) {
@@ -23074,10 +23824,10 @@ func (c *Client) sendGetAExternalContact(ctx context.Context, params GetAExterna
 
 // GetASharedLineGroup invokes getASharedLineGroup operation.
 //
-// Lists all the shared line groups. A [shared line group](https://support.zoom.
-// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-// with a group of phone users or common areas. This gives members of the shared line group access to
-// the group's direct phone number and voicemail.
+// Returns a list of all the shared line groups.
+// A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone
+// admins to share a phone number and extension with a group of phone users or common areas. This
+// gives members of the shared line group access to the group's direct phone number and voicemail.
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
@@ -23807,8 +24557,8 @@ func (c *Client) sendGetAudioItem(ctx context.Context, params GetAudioItemParams
 //
 // Returns information on a specific auto receptionist.
 // **Prerequisites:**
-// * Pro or a higher account with Zoom Phone license.
-// * Account owner or admin permissions.
+// * Pro or a higher account with Zoom Phone license
+// * Account owner or admin permissions
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:auto_receptionist:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -24270,8 +25020,8 @@ func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetA
 
 // GetCallChargesUsageReport invokes GetCallChargesUsageReport operation.
 //
-// Retrieves the **Phone Call Charges Report**.
-// The **Call charges usage report** allows account owners and admins to view monthly Zoom phone call
+// Retrieves the Phone Call Charges Report.
+// The Call charges usage report allows account owners and admins to view monthly Zoom phone call
 // charges. Account owners and admins can also access this information when they log into their Zoom
 // accounts and navigate to [Call Charges Usage Report](https://zoom.
 // us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=1).
@@ -24503,13 +25253,16 @@ func (c *Client) sendGetCallChargesUsageReport(ctx context.Context, params GetCa
 
 // GetCallHandling invokes getCallHandling operation.
 //
-// Returns information about a Zoom Phone's call handling settings. Call handling settings let you
-// control how your system routes calls during business, closed, or holiday hours. For more
-// information, read our [API guide](https://developers.zoom.us/docs/zoom-phone/call-handling/) or
-// Zoom support article [Customizing call handling settings](https://support.zoom.
-// us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).**Applicable to user, call
-// queue, auto receptionist, or shared line group call handling at this time.** **Prerequisites:** *
-// Pro or a higher account with Zoom Phone enabled
+// Returns information about a Zoom Phone's call handling settings.
+// Call handling settings let you control how your system routes calls during business, closed, or
+// holiday hours. For more information, read our [API guide](https://developers.zoom.
+// us/docs/zoom-phone/call-handling/) or Zoom support article [Customizing call handling
+// settings](https://support.zoom.
+// us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).
+// **Applicable to user, call queue, auto receptionist, or shared line group call handling at this
+// time.**
+// **Prerequisites**
+// * Pro or a higher account with Zoom Phone enabled
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_call_handling_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -27450,7 +28203,7 @@ func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneReco
 // Returns an account's [call recording](https://support.zoom.
 // us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's
 // `callId` or `callLogId`.
-// **Note**: This  API returns the `file_url` in the JSON query results.
+// **Note**: Returns the `file_url` in the JSON query results.
 // **Prerequisites:**
 // * A Pro or higher account with Zoom Phone license
 // * Account owner or admin privileges
@@ -27583,202 +28336,6 @@ func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, 
 
 	stage = "DecodeResponse"
 	result, err := decodeGetPhoneRecordingsByCallIdOrCallLogIdResponse(resp)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// GetPhoneUserVoiceMails invokes GetPhoneUserVoiceMails operation.
-//
-// Retrieves a user's Zoom Phone voicemails in descending order. For user-level apps, pass [the `me`
-// value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
-// `userId` parameter.
-// **Prerequisites:**
-// * A Business or Enterprise account
-// * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
-// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `MEDIUM`.
-//
-// GET /phone/users/{userId}/voice_mails/sync
-func (c *Client) GetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (*GetPhoneUserVoiceMailsOK, error) {
-	res, err := c.sendGetPhoneUserVoiceMails(ctx, params)
-	return res, err
-}
-
-func (c *Client) sendGetPhoneUserVoiceMails(ctx context.Context, params GetPhoneUserVoiceMailsParams) (res *GetPhoneUserVoiceMailsOK, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("GetPhoneUserVoiceMails"),
-		semconv.HTTPRequestMethodKey.String("GET"),
-		semconv.HTTPRouteKey.String("/phone/users/{userId}/voice_mails/sync"),
-	}
-
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetPhoneUserVoiceMails",
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
-	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [3]string
-	pathParts[0] = "/phone/users/"
-	{
-		// Encode "userId" parameter.
-		e := uri.NewPathEncoder(uri.PathEncoderConfig{
-			Param:   "userId",
-			Style:   uri.PathStyleSimple,
-			Explode: false,
-		})
-		if err := func() error {
-			return e.EncodeValue(conv.StringToString(params.UserId))
-		}(); err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		encoded, err := e.Result()
-		if err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		pathParts[1] = encoded
-	}
-	pathParts[2] = "/voice_mails/sync"
-	uri.AddPathParts(u, pathParts[:]...)
-
-	stage = "EncodeQueryParams"
-	q := uri.NewQueryEncoder()
-	{
-		// Encode "sync_type" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "sync_type",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.SyncType.Get(); ok {
-				return e.EncodeValue(conv.StringToString(val))
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "sync_token" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "sync_token",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.SyncToken.Get(); ok {
-				return e.EncodeValue(conv.StringToString(val))
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "count" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "count",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.IntToString(params.Count))
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	u.RawQuery = q.Values().Encode()
-
-	stage = "EncodeRequest"
-	r, err := ht.NewRequest(ctx, "GET", u)
-	if err != nil {
-		return res, errors.Wrap(err, "create request")
-	}
-
-	{
-		type bitset = [1]uint8
-		var satisfied bitset
-		{
-			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetPhoneUserVoiceMails", r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 0
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
-			}
-		}
-		{
-			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetPhoneUserVoiceMails", r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 1
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
-			}
-		}
-
-		if ok := func() bool {
-		nextRequirement:
-			for _, requirement := range []bitset{
-				{0b00000011},
-			} {
-				for i, mask := range requirement {
-					if satisfied[i]&mask != mask {
-						continue nextRequirement
-					}
-				}
-				return true
-			}
-			return false
-		}(); !ok {
-			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
-		}
-	}
-
-	stage = "SendRequest"
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	defer resp.Body.Close()
-
-	stage = "DecodeResponse"
-	result, err := decodeGetPhoneUserVoiceMailsResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -29366,10 +29923,10 @@ func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSe
 // **Prerequisites:**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read:admin`,`phone_sms:read`
+// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 // **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/users/{userId}/sms/sessions/sync
 func (c *Client) GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (*GetSmsSessionsOK, error) {
@@ -29894,11 +30451,9 @@ func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemai
 
 // GetVoicemailDetailsByCallIdOrCallLogId invokes getVoicemailDetailsByCallIdOrCallLogId operation.
 //
-// Returns the detailed information on a voicemail associated with a call log ID. For user-level apps,
-//
-//	pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword)
-//
-// instead of the `userId` parameter.
+// Returns the detailed information on a voicemail associated with a call log ID.
+// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license
@@ -31816,8 +32371,9 @@ func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, param
 
 // ListAudioItems invokes ListAudioItems operation.
 //
-// Returns personal audios. Only the admin or user can query your audios and directly pass the `me`
-// value instead of the `userId` parameter.
+// Returns personal audios.
+// Only the admin or user can query your audios and directly pass the `me` value instead of the
+// `userId` parameter.
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
@@ -32281,22 +32837,27 @@ func (c *Client) sendListBYOCSIPTrunk(ctx context.Context, params ListBYOCSIPTru
 
 // ListBillingAccount invokes listBillingAccount operation.
 //
-// A Zoom account owner or a user with admin privileges can use this API to retrieve a list of
-// billing accounts.
+// Retrieves a list of available billing accounts for a Zoom account owner or a user with admin
+// privileges.
+// If the [multiple sites](https://support.zoom.
+// us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account,
+//
+//	then `field(site_id)` is required.
+//
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_billing_accounts:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/billing_accounts
-func (c *Client) ListBillingAccount(ctx context.Context) (*ListBillingAccountOK, error) {
-	res, err := c.sendListBillingAccount(ctx)
+func (c *Client) ListBillingAccount(ctx context.Context, params ListBillingAccountParams) (*ListBillingAccountOK, error) {
+	res, err := c.sendListBillingAccount(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendListBillingAccount(ctx context.Context) (res *ListBillingAccountOK, err error) {
+func (c *Client) sendListBillingAccount(ctx context.Context, params ListBillingAccountParams) (res *ListBillingAccountOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("listBillingAccount"),
 		semconv.HTTPRequestMethodKey.String("GET"),
@@ -32335,6 +32896,27 @@ func (c *Client) sendListBillingAccount(ctx context.Context) (res *ListBillingAc
 	var pathParts [1]string
 	pathParts[0] = "/phone/billing_accounts"
 	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
 
 	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
@@ -33012,7 +33594,7 @@ func (c *Client) sendListCallLogsMetrics(ctx context.Context, params ListCallLog
 
 // ListCallQueueMembers invokes listCallQueueMembers operation.
 //
-// Lists the call queue members.
+// Returns a list of call queue members.
 // **Prerequisites:**
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
@@ -33020,7 +33602,7 @@ func (c *Client) sendListCallLogsMetrics(ctx context.Context, params ListCallLog
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_call_queue_members:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/call_queues/{callQueueId}/members
 func (c *Client) ListCallQueueMembers(ctx context.Context, params ListCallQueueMembersParams) (*ListCallQueueMembersOK, error) {
@@ -33409,7 +33991,7 @@ func (c *Client) sendListCallQueues(ctx context.Context, params ListCallQueuesPa
 
 // ListCallingPlans invokes listCallingPlans operation.
 //
-// Use this API to return all of an account's Zoom Phone [calling plans](https://marketplace.zoom.
+// Returns all of an account's Zoom Phone [calling plans](https://marketplace.zoom.
 // us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).
 // **Prerequisites:**
 // * A Pro or a higher account
@@ -33417,7 +33999,7 @@ func (c *Client) sendListCallQueues(ctx context.Context, params ListCallQueuesPa
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_calling_plans:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/calling_plans
 func (c *Client) ListCallingPlans(ctx context.Context) (*ListCallingPlansOK, error) {
@@ -33533,7 +34115,7 @@ func (c *Client) sendListCallingPlans(ctx context.Context) (res *ListCallingPlan
 
 // ListCarrierPeeringPhoneNumbers invokes listCarrierPeeringPhoneNumbers operation.
 //
-// Returns phone numbers pushed by the carrier to different customers.
+// Returns phone numbers that the carrier pushed to different customers.
 // To become a peering provider/ carrier, submit your [request](https://docs.google.
 // com/forms/d/e/1FAIpQLSewkY6ixVyKVNkWC-vgmejC16gigxsJWXji3dWzE3XlWtjsgg/viewform).
 // **Prerequisites:**
@@ -33542,7 +34124,7 @@ func (c *Client) sendListCallingPlans(ctx context.Context) (res *ListCallingPlan
 // **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
 // **Granular Scopes:** `phone:read:list_peering_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/carrier_peering/numbers
 func (c *Client) ListCarrierPeeringPhoneNumbers(ctx context.Context, params ListCarrierPeeringPhoneNumbersParams) (*ListCarrierPeeringPhoneNumbersOK, error) {
@@ -36948,7 +37530,7 @@ func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCal
 // **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
 // **Granular Scopes:** `phone:read:list_peering_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/peering/numbers
 func (c *Client) ListPeeringPhoneNumbers(ctx context.Context, params ListPeeringPhoneNumbersParams) (*ListPeeringPhoneNumbersOK, error) {
@@ -37539,14 +38121,14 @@ func (c *Client) sendListPhonePlans(ctx context.Context) (res *ListPhonePlansOK,
 
 // ListPhoneRoles invokes ListPhoneRoles operation.
 //
-// Use this API to get phone roles.
+// Returns the phone roles.
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_roles:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/roles
 func (c *Client) ListPhoneRoles(ctx context.Context) (*ListPhoneRolesOK, error) {
@@ -38241,6 +38823,199 @@ func (c *Client) sendListPortedNumbers(ctx context.Context, params ListPortedNum
 
 	stage = "DecodeResponse"
 	result, err := decodeListPortedNumbersResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListPrivateDirectoryMembers invokes listPrivateDirectoryMembers operation.
+//
+// Returns the member list of a [private directory](https://support.zoom.
+// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:list_private_directory_members:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/private_directory/members
+func (c *Client) ListPrivateDirectoryMembers(ctx context.Context, params ListPrivateDirectoryMembersParams) (*ListPrivateDirectoryMembersOK, error) {
+	res, err := c.sendListPrivateDirectoryMembers(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListPrivateDirectoryMembers(ctx context.Context, params ListPrivateDirectoryMembersParams) (res *ListPrivateDirectoryMembersOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listPrivateDirectoryMembers"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/private_directory/members"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "ListPrivateDirectoryMembers",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/private_directory/members"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "ListPrivateDirectoryMembers", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "ListPrivateDirectoryMembers", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListPrivateDirectoryMembersResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -39917,11 +40692,8 @@ func (c *Client) sendListTrackedLocations(ctx context.Context, params ListTracke
 
 // ListUnassignedZoomRooms invokes listUnassignedZoomRooms operation.
 //
-// Use this API to retrieve [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that
-// are not assigned a Zoom Phone.
-// **Prerequisites:**
-// * A Pro or higher account plan
-// * A Zoom Phone license
+// Returns [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that are not assigned
+// a Zoom Phone.**Prerequisites:** * A Pro or higher account plan * A Zoom Phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_rooms:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
@@ -40070,7 +40842,7 @@ func (c *Client) sendListUnassignedZoomRooms(ctx context.Context, params ListUna
 // **Granular Scopes:** `phone:read:list_user_customized_number`,
 // `phone:read:list_user_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /phone/users/{userId}/outbound_caller_id/customized_numbers
 func (c *Client) ListUserCustomizeOutboundCallerNumbers(ctx context.Context, params ListUserCustomizeOutboundCallerNumbersParams) (*ListUserCustomizeOutboundCallerNumbersOK, error) {
@@ -40311,7 +41083,7 @@ func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context,
 
 // ListUserOutboundCallingExceptionRule invokes listUserOutboundCallingExceptionRule operation.
 //
-// Lists the user level outbound calling policy exception rules.
+// Returns a list of the user level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
 // **Scopes:** `phone:read:admin`
@@ -41447,6 +42219,147 @@ func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Contex
 	return result, nil
 }
 
+// PhoneDownloadRecordingFile invokes phoneDownloadRecordingFile operation.
+//
+// Downloads the phone recording.
+// **Prerequisites:**
+// * A Business or Enterprise account
+// * A Zoom Phone license
+// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/recording/download/{fileId}
+func (c *Client) PhoneDownloadRecordingFile(ctx context.Context, params PhoneDownloadRecordingFileParams) error {
+	_, err := c.sendPhoneDownloadRecordingFile(ctx, params)
+	return err
+}
+
+func (c *Client) sendPhoneDownloadRecordingFile(ctx context.Context, params PhoneDownloadRecordingFileParams) (res *PhoneDownloadRecordingFileOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("phoneDownloadRecordingFile"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/recording/download/{fileId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "PhoneDownloadRecordingFile",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/recording/download/"
+	{
+		// Encode "fileId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "fileId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.FileId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "PhoneDownloadRecordingFile", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "PhoneDownloadRecordingFile", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodePhoneDownloadRecordingFileResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // PhoneDownloadRecordingTranscript invokes phoneDownloadRecordingTranscript operation.
 //
 // Downloads the phone recording transcript.
@@ -41581,6 +42494,147 @@ func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, param
 
 	stage = "DecodeResponse"
 	result, err := decodePhoneDownloadRecordingTranscriptResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// PhoneDownloadVoicemailFile invokes phoneDownloadVoicemailFile operation.
+//
+// Downloads the Zoom phone voicemail.
+// **Prerequisites:**
+// * A Business or Enterprise account
+// * A Zoom Phone license
+// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+// **Granular Scopes:** `phone:read:voicemail:admin`,`phone:read:voicemail`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/voice_mails/download/{fileId}
+func (c *Client) PhoneDownloadVoicemailFile(ctx context.Context, params PhoneDownloadVoicemailFileParams) error {
+	_, err := c.sendPhoneDownloadVoicemailFile(ctx, params)
+	return err
+}
+
+func (c *Client) sendPhoneDownloadVoicemailFile(ctx context.Context, params PhoneDownloadVoicemailFileParams) (res *PhoneDownloadVoicemailFileOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("phoneDownloadVoicemailFile"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/voice_mails/download/{fileId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "PhoneDownloadVoicemailFile",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/voice_mails/download/"
+	{
+		// Encode "fileId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "fileId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.FileId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "PhoneDownloadVoicemailFile", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "PhoneDownloadVoicemailFile", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodePhoneDownloadVoicemailFileResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -41848,6 +42902,516 @@ func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res
 
 	stage = "DecodeResponse"
 	result, err := decodePhoneUserResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// PhoneUserCallHistory invokes phoneUserCallHistory operation.
+//
+// Returns a user's [Zoom phone](https://support.zoom.
+// us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call logs.
+// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+// **Prerequisites:**
+// * A Business or Enterprise account
+// * A Zoom Phone license
+// **Scopes:** `phone:read:admin`,`phone_call_log:read`
+// **Granular Scopes:** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `HEAVY`.
+//
+// GET /phone/users/{userId}/call_history
+func (c *Client) PhoneUserCallHistory(ctx context.Context, params PhoneUserCallHistoryParams) (*PhoneUserCallHistoryOK, error) {
+	res, err := c.sendPhoneUserCallHistory(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendPhoneUserCallHistory(ctx context.Context, params PhoneUserCallHistoryParams) (res *PhoneUserCallHistoryOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("phoneUserCallHistory"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_history"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "PhoneUserCallHistory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/users/"
+	{
+		// Encode "userId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "userId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.UserId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/call_history"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "from" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "from",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.From.Get(); ok {
+				return e.EncodeValue(conv.DateToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "to" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "to",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.To.Get(); ok {
+				return e.EncodeValue(conv.DateToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "directions" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "directions",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.Directions != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.Directions {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "connect_types" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "connect_types",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.ConnectTypes != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.ConnectTypes {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "number_types" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "number_types",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.NumberTypes != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.NumberTypes {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "call_types" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "call_types",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.CallTypes != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.CallTypes {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "extension_types" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "extension_types",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.ExtensionTypes != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.ExtensionTypes {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "call_results" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "call_results",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.CallResults != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.CallResults {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "group_ids" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "group_ids",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.GroupIds != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.GroupIds {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_ids" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_ids",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if params.SiteIds != nil {
+				return e.EncodeArray(func(e uri.Encoder) error {
+					for i, item := range params.SiteIds {
+						if err := func() error {
+							return e.EncodeValue(conv.StringToString(item))
+						}(); err != nil {
+							return errors.Wrapf(err, "[%d]", i)
+						}
+					}
+					return nil
+				})
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "department" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "department",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Department.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "cost_center" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "cost_center",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.CostCenter.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "time_type" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "time_type",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.TimeType.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "recording_status" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "recording_status",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.RecordingStatus.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "PhoneUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "PhoneUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodePhoneUserCallHistoryResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -42132,10 +43696,10 @@ func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCall
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone_recording:read:admin`,`phone_recording:read`,`phone:read`,`phone:read:admin`
+// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
 // **Granular Scopes:** `phone:read:list_recordings`,`phone:read:list_recordings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/users/{userId}/recordings
 func (c *Client) PhoneUserRecordings(ctx context.Context, params PhoneUserRecordingsParams) (*PhoneUserRecordingsOK, error) {
@@ -42487,7 +44051,7 @@ func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSett
 
 // PhoneUserVoiceMails invokes phoneUserVoiceMails operation.
 //
-// Gets a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
+// Returns a user's Zoom Phone voicemails. For user-level apps, pass [the `me`
 // value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 // `userId` parameter.
 // **Prerequisites:**
@@ -42871,6 +44435,166 @@ func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDe
 
 	stage = "DecodeResponse"
 	result, err := decodeRebootPhoneDeviceResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// RemoveAMemberFromAPrivateDirectory invokes removeAMemberFromAPrivateDirectory operation.
+//
+// Removes a member from a [private directory](https://support.zoom.
+// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:delete:private_directory_member:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// DELETE /phone/private_directory/members/{extensionId}
+func (c *Client) RemoveAMemberFromAPrivateDirectory(ctx context.Context, params RemoveAMemberFromAPrivateDirectoryParams) error {
+	_, err := c.sendRemoveAMemberFromAPrivateDirectory(ctx, params)
+	return err
+}
+
+func (c *Client) sendRemoveAMemberFromAPrivateDirectory(ctx context.Context, params RemoveAMemberFromAPrivateDirectoryParams) (res *RemoveAMemberFromAPrivateDirectoryNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("removeAMemberFromAPrivateDirectory"),
+		semconv.HTTPRequestMethodKey.String("DELETE"),
+		semconv.HTTPRouteKey.String("/phone/private_directory/members/{extensionId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "RemoveAMemberFromAPrivateDirectory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/private_directory/members/"
+	{
+		// Encode "extensionId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "extensionId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ExtensionId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "DELETE", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "RemoveAMemberFromAPrivateDirectory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "RemoveAMemberFromAPrivateDirectory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeRemoveAMemberFromAPrivateDirectoryResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -43903,7 +45627,7 @@ func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomPa
 
 // SmsByMessageId invokes smsByMessageId operation.
 //
-// Gets details about a specific message in an SMS session.
+// Returns details about a specific message in an SMS session.
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
@@ -44063,14 +45787,14 @@ func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdPa
 
 // SmsSessionDetails invokes smsSessionDetails operation.
 //
-// Get details about an SMS session.
+// Returns details about an SMS session.
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
 // **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 // **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/sms/sessions/{sessionId}
 func (c *Client) SmsSessionDetails(ctx context.Context, params SmsSessionDetailsParams) (*SmsSessionDetailsOK, error) {
@@ -44293,14 +46017,14 @@ func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDet
 
 // SmsSessionSync invokes smsSessionSync operation.
 //
-// Use this API to sync SMS messages in a session.
+// Syncs SMS messages in a session.
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
 // **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 // **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/sms/sessions/{sessionId}/sync
 func (c *Client) SmsSessionSync(ctx context.Context, params SmsSessionSyncParams) (*SmsSessionSyncOK, error) {
@@ -44608,6 +46332,206 @@ func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDe
 
 	stage = "DecodeResponse"
 	result, err := decodeSyncPhoneDeviceResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// SyncUserCallHistory invokes syncUserCallHistory operation.
+//
+// Syncs a user's [Zoom phone](https://support.zoom.
+// us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call history.
+// For user-level apps, pass [the `me` value](https://marketplace.zoom.
+// us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+// **Prerequisites:**
+// * A Business or Enterprise account
+// * A Zoom Phone license
+// **Scopes:** `phone:read:admin`,`phone:read`
+// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/users/{userId}/call_history/sync
+func (c *Client) SyncUserCallHistory(ctx context.Context, params SyncUserCallHistoryParams) (*SyncUserCallHistoryOK, error) {
+	res, err := c.sendSyncUserCallHistory(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendSyncUserCallHistory(ctx context.Context, params SyncUserCallHistoryParams) (res *SyncUserCallHistoryOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("syncUserCallHistory"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/users/{userId}/call_history/sync"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "SyncUserCallHistory",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/users/"
+	{
+		// Encode "userId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "userId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.UserId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/call_history/sync"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "sync_type" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "sync_type",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SyncType.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "count" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "count",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Count.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "sync_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "sync_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SyncToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "SyncUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "SyncUserCallHistory", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeSyncUserCallHistoryResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -46461,7 +48385,7 @@ func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params Una
 // **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:delete:user_number`,`phone:delete:user_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/users/{userId}/phone_numbers/{phoneNumberId}
 func (c *Client) UnassignPhoneNumber(ctx context.Context, params UnassignPhoneNumberParams) error {
@@ -47081,14 +49005,156 @@ func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADevice
 	return result, nil
 }
 
+// UpdateAPrivateDirectoryMember invokes updateAPrivateDirectoryMember operation.
+//
+// Updates a member of a [private directory](https://support.zoom.
+// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:private_directory_member:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// PATCH /phone/private_directory/members/{extensionId}
+func (c *Client) UpdateAPrivateDirectoryMember(ctx context.Context, request OptUpdateAPrivateDirectoryMemberReq, params UpdateAPrivateDirectoryMemberParams) error {
+	_, err := c.sendUpdateAPrivateDirectoryMember(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendUpdateAPrivateDirectoryMember(ctx context.Context, request OptUpdateAPrivateDirectoryMemberReq, params UpdateAPrivateDirectoryMemberParams) (res *UpdateAPrivateDirectoryMemberNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("updateAPrivateDirectoryMember"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/private_directory/members/{extensionId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateAPrivateDirectoryMember",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/phone/private_directory/members/"
+	{
+		// Encode "extensionId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "extensionId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ExtensionId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateAPrivateDirectoryMemberRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "UpdateAPrivateDirectoryMember", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "UpdateAPrivateDirectoryMember", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateAPrivateDirectoryMemberResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // UpdateASharedLineGroup invokes updateASharedLineGroup operation.
 //
-// Updates the information about a shared line group.  A [shared line group](https://support.zoom.
-// us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension
-// with a group of phone users or common areas. Members of the shared line group can access to the
-// group's direct phone number and voicemail.
-// **Prerequisites:**
-// * Pro or higher account with Zoom Phone license.
+// Updates the information about a shared line group.
+// A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone
+// admins to share a phone number and extension with a group of phone users or common areas. Members
+// of the shared line group can access to the group's direct phone number and voicemail.
+// **Prerequisites**
+// * Pro or higher account with Zoom Phone license
 // * Account owner or admin privileges
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:shared_line_group:admin`
@@ -48663,7 +50729,7 @@ func (c *Client) sendUpdateBlockedList(ctx context.Context, request OptUpdateBlo
 
 // UpdateCQPolicySubSetting invokes updateCQPolicySubSetting operation.
 //
-// Use this API to update the policy sub-setting for a specific [call queue](https://support.zoom.
+// Updates the policy subsetting for a specific [call queue](https://support.zoom.
 // us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this
 // API to update shared access members.
 // **Prerequisites:**
@@ -48672,7 +50738,7 @@ func (c *Client) sendUpdateBlockedList(ctx context.Context, request OptUpdateBlo
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:call_queue_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/call_queues/{callQueueId}/policies/{policyType}
 func (c *Client) UpdateCQPolicySubSetting(ctx context.Context, request OptUpdateCQPolicySubSettingReq, params UpdateCQPolicySubSettingParams) error {
@@ -48997,10 +51063,9 @@ func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCa
 
 // UpdateCallQueue invokes updateCallQueue operation.
 //
-// Call queues allow you to route incoming calls to a group of users. For instance, you can use call
-// queues to route calls to various departments in your organization such as sales, engineering,
-// billing, customer service etc.
-// Use this API to update information of a specific Call Queue.
+// Updates information of a specific call queue. Call queues allow you to route incoming calls to a
+// group of users. For instance, you can use call queues to route calls to various departments in
+// your organization such as sales, engineering, billing, customer service, and so on.
 // **Prerequisites:**
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
@@ -49008,7 +51073,7 @@ func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCa
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/call_queues/{callQueueId}
 func (c *Client) UpdateCallQueue(ctx context.Context, request OptUpdateCallQueueReq, params UpdateCallQueueParams) error {
@@ -49737,6 +51802,153 @@ func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Co
 
 	stage = "DecodeResponse"
 	result, err := decodeUpdateCommonAreaOutboundCallingExceptionRuleResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// UpdateCommonAreaPinCode invokes UpdateCommonAreaPinCode operation.
+//
+// Updates the common area pin code.
+// **Note**: For use by customers who opted for `Common Area Optimization`
+// **Prerequisites**
+// * Pro or a higher account with Zoom Phone license
+// * Account owner or admin permissions, This depends on whether [The PIN cannot be viewed by the
+// admin](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069783) is enabled.
+// **Scopes:** `phone:write:admin`
+// **Granular Scopes:** `phone:update:common_area:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `LIGHT`.
+//
+// PATCH /phone/common_areas/{commonAreaId}/pin_code
+func (c *Client) UpdateCommonAreaPinCode(ctx context.Context, request OptUpdateCommonAreaPinCodeReq, params UpdateCommonAreaPinCodeParams) error {
+	_, err := c.sendUpdateCommonAreaPinCode(ctx, request, params)
+	return err
+}
+
+func (c *Client) sendUpdateCommonAreaPinCode(ctx context.Context, request OptUpdateCommonAreaPinCodeReq, params UpdateCommonAreaPinCodeParams) (res *UpdateCommonAreaPinCodeNoContent, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("UpdateCommonAreaPinCode"),
+		semconv.HTTPRequestMethodKey.String("PATCH"),
+		semconv.HTTPRouteKey.String("/phone/common_areas/{commonAreaId}/pin_code"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateCommonAreaPinCode",
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [3]string
+	pathParts[0] = "/phone/common_areas/"
+	{
+		// Encode "commonAreaId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "commonAreaId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.CommonAreaId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/pin_code"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "PATCH", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeUpdateCommonAreaPinCodeRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, "UpdateCommonAreaPinCode", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, "UpdateCommonAreaPinCode", r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeUpdateCommonAreaPinCodeResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -50931,7 +53143,7 @@ func (c *Client) sendUpdateNumberCampaignOptStatus(ctx context.Context, request 
 // **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
 // **Granular Scopes:** `phone:update:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/peering/numbers
 func (c *Client) UpdatePeeringPhoneNumbers(ctx context.Context, request OptUpdatePeeringPhoneNumbersReq) (*UpdatePeeringPhoneNumbersOK, error) {
@@ -53893,17 +56105,17 @@ func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUse
 // value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the
 // `userId` parameter.
 // To see the shared access settings in the Zoom web portal, go to **Admin &gt; Phone System
-// Management &gt; Users &amp; Rooms** . Click **Users** and select **User Policy**. Go to
+// Management &gt; Users &amp; Rooms** . Choose **Users** and select **User Policy**. Go to
 // **Voicemail, Automatic Call Recording and Ad Hoc Call Recording**.
 // To view the delegation and intercom setting in your Zoom web portal, navigate to **Admin &gt;
-// Phone System Management &gt; Users &amp; Rooms**. Click the **Users** tab and select **User
+// Phone System Management &gt; Users &amp; Rooms**. Choose the **Users** tab and select **User
 // Settings**
 // **Prerequisites:**
 // * A Business or Enterprise account
 // **Scopes:** `phone:write:admin`,`phone:write`
 // **Granular Scopes:** `phone:update:shared_setting`,`phone:update:shared_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/users/{userId}/settings/{settingType}
 func (c *Client) UpdateUserSetting(ctx context.Context, request OptUpdateUserSettingReq, params UpdateUserSettingParams) error {
@@ -54069,7 +56281,7 @@ func (c *Client) sendUpdateUserSetting(ctx context.Context, request OptUpdateUse
 // **Scopes:** `phone:write`,`phone:write:admin`
 // **Granular Scopes:** `phone:update:user_setting`,`phone:update:user_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /phone/users/{userId}/settings
 func (c *Client) UpdateUserSettings(ctx context.Context, request OptUpdateUserSettingsReq, params UpdateUserSettingsParams) error {

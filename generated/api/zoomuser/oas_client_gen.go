@@ -856,9 +856,9 @@ type Invoker interface {
 	// from logging into their Zoom account. A deactivated user can be reactivated. Reactivating a user
 	// grants the user access to log in to their Zoom account.
 	// **Scopes:** `user:write:admin`,`user:write`
-	// **Granular Scopes:** `user:update:presence_status`,`user:update:presence_status:admin`
+	// **Granular Scopes:** `user:update:status`,`user:update:status:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PUT /users/{userId}/status
 	UserStatus(ctx context.Context, request OptUserStatusReq, params UserStatusParams) error
@@ -7829,6 +7829,74 @@ func (c *Client) sendUserDelete(ctx context.Context, params UserDeleteParams) (r
 			return res, errors.Wrap(err, "encode query")
 		}
 	}
+	{
+		// Encode "transfer_clipfiles" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "transfer_clipfiles",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.TransferClipfiles.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "transfer_notes" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "transfer_notes",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.TransferNotes.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "transfer_visitors" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "transfer_visitors",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.TransferVisitors.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "transfer_docs" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "transfer_docs",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.TransferDocs.Get(); ok {
+				return e.EncodeValue(conv.BoolToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
 	u.RawQuery = q.Values().Encode()
 
 	stage = "EncodeRequest"
@@ -9731,9 +9799,9 @@ func (c *Client) sendUserSettingsUpdate(ctx context.Context, request OptUserSett
 // from logging into their Zoom account. A deactivated user can be reactivated. Reactivating a user
 // grants the user access to log in to their Zoom account.
 // **Scopes:** `user:write:admin`,`user:write`
-// **Granular Scopes:** `user:update:presence_status`,`user:update:presence_status:admin`
+// **Granular Scopes:** `user:update:status`,`user:update:status:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PUT /users/{userId}/status
 func (c *Client) UserStatus(ctx context.Context, request OptUserStatusReq, params UserStatusParams) error {

@@ -231,6 +231,26 @@ func encodeAddCallHandlingRequest(
 	return nil
 }
 
+func encodeAddClientCodeToCallHistoryRequest(
+	req OptAddClientCodeToCallHistoryReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeAddClientCodeToCallLogRequest(
 	req OptAddClientCodeToCallLogReq,
 	r *http.Request,
@@ -484,6 +504,26 @@ func encodeAddMembersRequest(
 				e.Str(elem)
 			}
 			e.ArrEnd()
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeAddMembersToAPrivateDirectoryRequest(
+	req OptAddMembersToAPrivateDirectoryReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
 		}
 	}
 	encoded := e.Bytes()
@@ -891,6 +931,26 @@ func encodeAddZoomRoomRequest(
 	return nil
 }
 
+func encodeApplyTemplatetoCommonAreasRequest(
+	req OptApplyTemplatetoCommonAreasReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeAssignCallingPlanRequest(
 	req OptAssignCallingPlanReq,
 	r *http.Request,
@@ -1271,26 +1331,6 @@ func encodeCreatePhoneSiteRequest(
 	return nil
 }
 
-func encodeDeletePeeringPhoneNumbersRequest(
-	req OptDeletePeeringPhoneNumbersReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	if !req.Set {
-		// Keep request with empty body if value is not set.
-		return nil
-	}
-	e := new(jx.Encoder)
-	{
-		if req.Set {
-			req.Encode(e)
-		}
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
 func encodeDuplicatePhoneRoleRequest(
 	req OptDuplicatePhoneRoleReq,
 	r *http.Request,
@@ -1353,6 +1393,26 @@ func encodeSyncPhoneDeviceRequest(
 
 func encodeUpdateADeviceRequest(
 	req OptUpdateADeviceReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateAPrivateDirectoryMemberRequest(
+	req OptUpdateAPrivateDirectoryMemberReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -1713,6 +1773,26 @@ func encodeUpdateCommonAreaOutboundCallingCountriesOrRegionsRequest(
 
 func encodeUpdateCommonAreaOutboundCallingExceptionRuleRequest(
 	req OptUpdateCommonAreaOutboundCallingExceptionRuleReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	if !req.Set {
+		// Keep request with empty body if value is not set.
+		return nil
+	}
+	e := new(jx.Encoder)
+	{
+		if req.Set {
+			req.Encode(e)
+		}
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeUpdateCommonAreaPinCodeRequest(
+	req OptUpdateCommonAreaPinCodeReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
