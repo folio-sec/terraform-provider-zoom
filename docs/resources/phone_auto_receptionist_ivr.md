@@ -185,3 +185,12 @@ Read-Only:
 - `display_name` (String) The display name.
 - `extension_number` (String) The extension number.
 - `id` (String) The user, common area, Zoom Room, Cisco/Polycom room, auto receptionist, call queue, or shared line group ID.
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+# ${auto_reception_id}
+terraform import zoom_phone_auto_receptionist_ivr.example t6wyhAZRQXXX_Rv3jj3XXX
+```
