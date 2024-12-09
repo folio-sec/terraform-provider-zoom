@@ -2,7 +2,7 @@ module github.com/folio-sec/terraform-provider-zoom
 
 go 1.22.7
 
-toolchain go1.23.3
+toolchain go1.23.4
 
 require (
 	github.com/go-faster/errors v0.7.1
@@ -14,7 +14,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework-validators v0.15.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.35.0
-	github.com/ogen-go/ogen v1.8.0
+	github.com/ogen-go/ogen v1.8.1
 	github.com/samber/lo v1.47.0
 	go.opentelemetry.io/otel v1.32.0
 	go.opentelemetry.io/otel/metric v1.32.0
