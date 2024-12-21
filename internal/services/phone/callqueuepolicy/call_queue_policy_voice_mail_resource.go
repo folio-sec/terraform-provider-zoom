@@ -3,11 +3,10 @@ package callqueuepolicy
 import (
 	"context"
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-framework/path"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
-	"github.com/samber/lo"
 	"strings"
+
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/samber/lo"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -90,7 +89,6 @@ This resource requires the ` + strings.Join([]string{
 						"shared_id": schema.StringAttribute{
 							Computed:            true,
 							MarkdownDescription: "The number is limited to the minimum value of 10 or the number of allowed access members account setting.",
-							PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 						},
 					},
 				},
