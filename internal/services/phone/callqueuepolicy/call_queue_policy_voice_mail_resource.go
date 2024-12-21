@@ -88,7 +88,7 @@ This resource requires the ` + strings.Join([]string{
 						},
 						"shared_id": schema.StringAttribute{
 							Computed:            true,
-							MarkdownDescription: "The number is limited to the minimum value of 10 or the number of allowed access members account setting.",
+							MarkdownDescription: "The shared ID of the voicemail access member.",
 						},
 					},
 				},
