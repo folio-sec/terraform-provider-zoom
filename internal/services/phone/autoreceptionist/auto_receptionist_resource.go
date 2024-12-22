@@ -64,7 +64,6 @@ This resource requires the ` + strings.Join([]string{
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 				MarkdownDescription: "Auto receptionist ID. The unique identifier of the auto receptionist.",
 			},
 			"cost_center": schema.StringAttribute{

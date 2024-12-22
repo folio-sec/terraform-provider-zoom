@@ -408,9 +408,6 @@ This resource requires the ` + strings.Join([]string{
 								"id": schema.StringAttribute{
 									Computed:            true,
 									MarkdownDescription: "The call forwarding's ID.",
-									PlanModifiers: []planmodifier.String{
-										stringplanmodifier.UseStateForUnknown(),
-									},
 								},
 								"description": schema.StringAttribute{
 									Optional:            true,

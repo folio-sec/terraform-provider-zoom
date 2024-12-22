@@ -13,9 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectdefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -93,7 +91,6 @@ This resource requires the ` + strings.Join([]string{
 					"name": schema.StringAttribute{
 						Computed:            true,
 						MarkdownDescription: "The audio prompt file name.",
-						PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 					},
 				},
 				Default: objectdefault.StaticValue(
@@ -143,17 +140,14 @@ This resource requires the ` + strings.Join([]string{
 							"display_name": schema.StringAttribute{
 								Computed:            true,
 								MarkdownDescription: "The display name.",
-								PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 							},
 							"extension_number": schema.StringAttribute{
 								Computed:            true,
 								MarkdownDescription: "The extension number.",
-								PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 							},
 							"id": schema.StringAttribute{
 								Computed:            true,
 								MarkdownDescription: "The user, common area, Zoom Room, Cisco/Polycom room, auto receptionist, call queue, or shared line group ID.",
-								PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 							},
 						},
 					},
@@ -212,17 +206,14 @@ This resource requires the ` + strings.Join([]string{
 								"display_name": schema.StringAttribute{
 									Computed:            true,
 									MarkdownDescription: "The display name.",
-									PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 								},
 								"extension_number": schema.StringAttribute{
 									Computed:            true,
 									MarkdownDescription: "The extension number.",
-									PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 								},
 								"id": schema.StringAttribute{
 									Computed:            true,
 									MarkdownDescription: "The user, common area, Zoom Room, Cisco/Polycom room, auto receptionist, call queue, or shared line group ID.",
-									PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 								},
 							},
 						},
@@ -237,7 +228,6 @@ This resource requires the ` + strings.Join([]string{
 								"name": schema.StringAttribute{
 									Computed:            true,
 									MarkdownDescription: "The voicemail greeting file name.",
-									PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 								},
 							},
 						},

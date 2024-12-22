@@ -74,7 +74,6 @@ This resource requires the ` + strings.Join([]string{
 			"holiday_id": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The holiday's ID. It's required for the `holiday` sub-setting.",
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"holiday": schema.SingleNestedAttribute{
 				Required:            true,
