@@ -1010,14 +1010,14 @@ func (c *Client) sendBulkUpdateFeature(ctx context.Context, request OptBulkUpdat
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "BulkUpdateFeature",
+	ctx, span := c.cfg.Tracer.Start(ctx, BulkUpdateFeatureOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1052,7 +1052,7 @@ func (c *Client) sendBulkUpdateFeature(ctx context.Context, request OptBulkUpdat
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "BulkUpdateFeature", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, BulkUpdateFeatureOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1063,7 +1063,7 @@ func (c *Client) sendBulkUpdateFeature(ctx context.Context, request OptBulkUpdat
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "BulkUpdateFeature", r); {
+			switch err := c.securityOpenapiOAuth(ctx, BulkUpdateFeatureOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1134,14 +1134,14 @@ func (c *Client) sendContactGroup(ctx context.Context, params ContactGroupParams
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroup",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1191,7 +1191,7 @@ func (c *Client) sendContactGroup(ctx context.Context, params ContactGroupParams
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroup", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1202,7 +1202,7 @@ func (c *Client) sendContactGroup(ctx context.Context, params ContactGroupParams
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroup", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1273,14 +1273,14 @@ func (c *Client) sendContactGroupCreate(ctx context.Context, request OptContactG
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1315,7 +1315,7 @@ func (c *Client) sendContactGroupCreate(ctx context.Context, request OptContactG
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1326,7 +1326,7 @@ func (c *Client) sendContactGroupCreate(ctx context.Context, request OptContactG
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1397,14 +1397,14 @@ func (c *Client) sendContactGroupDelete(ctx context.Context, params ContactGroup
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1454,7 +1454,7 @@ func (c *Client) sendContactGroupDelete(ctx context.Context, params ContactGroup
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1465,7 +1465,7 @@ func (c *Client) sendContactGroupDelete(ctx context.Context, params ContactGroup
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1536,14 +1536,14 @@ func (c *Client) sendContactGroupMemberAdd(ctx context.Context, request OptConta
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupMemberAdd",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupMemberAddOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1597,7 +1597,7 @@ func (c *Client) sendContactGroupMemberAdd(ctx context.Context, request OptConta
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupMemberAdd", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupMemberAddOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1608,7 +1608,7 @@ func (c *Client) sendContactGroupMemberAdd(ctx context.Context, request OptConta
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupMemberAdd", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupMemberAddOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1679,14 +1679,14 @@ func (c *Client) sendContactGroupMemberRemove(ctx context.Context, params Contac
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupMemberRemove",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupMemberRemoveOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1755,7 +1755,7 @@ func (c *Client) sendContactGroupMemberRemove(ctx context.Context, params Contac
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupMemberRemove", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupMemberRemoveOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1766,7 +1766,7 @@ func (c *Client) sendContactGroupMemberRemove(ctx context.Context, params Contac
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupMemberRemove", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupMemberRemoveOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1837,14 +1837,14 @@ func (c *Client) sendContactGroupMembers(ctx context.Context, params ContactGrou
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupMembers",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupMembersOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -1933,7 +1933,7 @@ func (c *Client) sendContactGroupMembers(ctx context.Context, params ContactGrou
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupMembers", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupMembersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -1944,7 +1944,7 @@ func (c *Client) sendContactGroupMembers(ctx context.Context, params ContactGrou
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupMembers", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupMembersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2015,14 +2015,14 @@ func (c *Client) sendContactGroupUpdate(ctx context.Context, request OptContactG
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroupUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2075,7 +2075,7 @@ func (c *Client) sendContactGroupUpdate(ctx context.Context, request OptContactG
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroupUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2086,7 +2086,7 @@ func (c *Client) sendContactGroupUpdate(ctx context.Context, request OptContactG
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroupUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2157,14 +2157,14 @@ func (c *Client) sendContactGroups(ctx context.Context, params ContactGroupsPara
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ContactGroups",
+	ctx, span := c.cfg.Tracer.Start(ctx, ContactGroupsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2234,7 +2234,7 @@ func (c *Client) sendContactGroups(ctx context.Context, params ContactGroupsPara
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ContactGroups", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ContactGroupsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2245,7 +2245,7 @@ func (c *Client) sendContactGroups(ctx context.Context, params ContactGroupsPara
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ContactGroups", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ContactGroupsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2320,14 +2320,14 @@ func (c *Client) sendDelGroupVB(ctx context.Context, params DelGroupVBParams) (r
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "DelGroupVB",
+	ctx, span := c.cfg.Tracer.Start(ctx, DelGroupVBOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2399,7 +2399,7 @@ func (c *Client) sendDelGroupVB(ctx context.Context, params DelGroupVBParams) (r
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "DelGroupVB", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, DelGroupVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2410,7 +2410,7 @@ func (c *Client) sendDelGroupVB(ctx context.Context, params DelGroupVBParams) (r
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "DelGroupVB", r); {
+			switch err := c.securityOpenapiOAuth(ctx, DelGroupVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2487,14 +2487,14 @@ func (c *Client) sendDelUserVB(ctx context.Context, params DelUserVBParams) (res
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "DelUserVB",
+	ctx, span := c.cfg.Tracer.Start(ctx, DelUserVBOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2566,7 +2566,7 @@ func (c *Client) sendDelUserVB(ctx context.Context, params DelUserVBParams) (res
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "DelUserVB", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, DelUserVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2577,7 +2577,7 @@ func (c *Client) sendDelUserVB(ctx context.Context, params DelUserVBParams) (res
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "DelUserVB", r); {
+			switch err := c.securityOpenapiOAuth(ctx, DelUserVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2648,14 +2648,14 @@ func (c *Client) sendGetCollaborationDevice(ctx context.Context, params GetColla
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetCollaborationDevice",
+	ctx, span := c.cfg.Tracer.Start(ctx, GetCollaborationDeviceOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2724,7 +2724,7 @@ func (c *Client) sendGetCollaborationDevice(ctx context.Context, params GetColla
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetCollaborationDevice", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GetCollaborationDeviceOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2735,7 +2735,7 @@ func (c *Client) sendGetCollaborationDevice(ctx context.Context, params GetColla
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetCollaborationDevice", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GetCollaborationDeviceOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2811,14 +2811,14 @@ func (c *Client) sendGetGroupLockSettings(ctx context.Context, params GetGroupLo
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetGroupLockSettings",
+	ctx, span := c.cfg.Tracer.Start(ctx, GetGroupLockSettingsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -2890,7 +2890,7 @@ func (c *Client) sendGetGroupLockSettings(ctx context.Context, params GetGroupLo
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetGroupLockSettings", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GetGroupLockSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2901,7 +2901,7 @@ func (c *Client) sendGetGroupLockSettings(ctx context.Context, params GetGroupLo
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetGroupLockSettings", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GetGroupLockSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -2972,14 +2972,14 @@ func (c *Client) sendGetGroupSettings(ctx context.Context, params GetGroupSettin
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetGroupSettings",
+	ctx, span := c.cfg.Tracer.Start(ctx, GetGroupSettingsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3068,7 +3068,7 @@ func (c *Client) sendGetGroupSettings(ctx context.Context, params GetGroupSettin
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetGroupSettings", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GetGroupSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3079,7 +3079,7 @@ func (c *Client) sendGetGroupSettings(ctx context.Context, params GetGroupSettin
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetGroupSettings", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GetGroupSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3151,14 +3151,14 @@ func (c *Client) sendGetUserMeetingTemplates(ctx context.Context, params GetUser
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetUserMeetingTemplates",
+	ctx, span := c.cfg.Tracer.Start(ctx, GetUserMeetingTemplatesOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3227,7 +3227,7 @@ func (c *Client) sendGetUserMeetingTemplates(ctx context.Context, params GetUser
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetUserMeetingTemplates", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GetUserMeetingTemplatesOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3238,7 +3238,7 @@ func (c *Client) sendGetUserMeetingTemplates(ctx context.Context, params GetUser
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetUserMeetingTemplates", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GetUserMeetingTemplatesOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3324,14 +3324,14 @@ func (c *Client) sendGetUserPresenceStatus(ctx context.Context, params GetUserPr
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GetUserPresenceStatus",
+	ctx, span := c.cfg.Tracer.Start(ctx, GetUserPresenceStatusOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3382,7 +3382,7 @@ func (c *Client) sendGetUserPresenceStatus(ctx context.Context, params GetUserPr
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GetUserPresenceStatus", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GetUserPresenceStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3393,7 +3393,7 @@ func (c *Client) sendGetUserPresenceStatus(ctx context.Context, params GetUserPr
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GetUserPresenceStatus", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GetUserPresenceStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3465,14 +3465,14 @@ func (c *Client) sendGroup(ctx context.Context, params GroupParams) (res *GroupO
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "Group",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3522,7 +3522,7 @@ func (c *Client) sendGroup(ctx context.Context, params GroupParams) (res *GroupO
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "Group", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3533,7 +3533,7 @@ func (c *Client) sendGroup(ctx context.Context, params GroupParams) (res *GroupO
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "Group", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3606,14 +3606,14 @@ func (c *Client) sendGroupAdmins(ctx context.Context, params GroupAdminsParams) 
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupAdmins",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupAdminsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3702,7 +3702,7 @@ func (c *Client) sendGroupAdmins(ctx context.Context, params GroupAdminsParams) 
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupAdmins", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupAdminsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3713,7 +3713,7 @@ func (c *Client) sendGroupAdmins(ctx context.Context, params GroupAdminsParams) 
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupAdmins", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupAdminsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3786,14 +3786,14 @@ func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdmi
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupAdminsCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupAdminsCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -3847,7 +3847,7 @@ func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdmi
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupAdminsCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupAdminsCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3858,7 +3858,7 @@ func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdmi
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupAdminsCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupAdminsCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -3931,14 +3931,14 @@ func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDe
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupAdminsDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupAdminsDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4007,7 +4007,7 @@ func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDe
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupAdminsDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupAdminsDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4018,7 +4018,7 @@ func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDe
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupAdminsDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupAdminsDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4091,14 +4091,14 @@ func (c *Client) sendGroupChannels(ctx context.Context, params GroupChannelsPara
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupChannels",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupChannelsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4149,7 +4149,7 @@ func (c *Client) sendGroupChannels(ctx context.Context, params GroupChannelsPara
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupChannels", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupChannelsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4160,7 +4160,7 @@ func (c *Client) sendGroupChannels(ctx context.Context, params GroupChannelsPara
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupChannels", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupChannelsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4236,14 +4236,14 @@ func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq)
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4278,7 +4278,7 @@ func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq)
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4289,7 +4289,7 @@ func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq)
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4360,14 +4360,14 @@ func (c *Client) sendGroupDelete(ctx context.Context, params GroupDeleteParams) 
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4417,7 +4417,7 @@ func (c *Client) sendGroupDelete(ctx context.Context, params GroupDeleteParams) 
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4428,7 +4428,7 @@ func (c *Client) sendGroupDelete(ctx context.Context, params GroupDeleteParams) 
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4503,14 +4503,14 @@ func (c *Client) sendGroupLockedSettings(ctx context.Context, request OptGroupLo
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupLockedSettings",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupLockedSettingsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4585,7 +4585,7 @@ func (c *Client) sendGroupLockedSettings(ctx context.Context, request OptGroupLo
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupLockedSettings", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupLockedSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4596,7 +4596,7 @@ func (c *Client) sendGroupLockedSettings(ctx context.Context, request OptGroupLo
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupLockedSettings", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupLockedSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4668,14 +4668,14 @@ func (c *Client) sendGroupMembers(ctx context.Context, params GroupMembersParams
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupMembers",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupMembersOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4781,7 +4781,7 @@ func (c *Client) sendGroupMembers(ctx context.Context, params GroupMembersParams
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupMembers", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupMembersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4792,7 +4792,7 @@ func (c *Client) sendGroupMembers(ctx context.Context, params GroupMembersParams
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupMembers", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupMembersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4865,14 +4865,14 @@ func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMem
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupMembersCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupMembersCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -4926,7 +4926,7 @@ func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMem
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupMembersCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupMembersCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -4937,7 +4937,7 @@ func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMem
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupMembersCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupMembersCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5010,14 +5010,14 @@ func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembers
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupMembersDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupMembersDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5086,7 +5086,7 @@ func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembers
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupMembersDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupMembersDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5097,7 +5097,7 @@ func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembers
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupMembersDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupMembersDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5169,14 +5169,14 @@ func (c *Client) sendGroupSettingsRegistration(ctx context.Context, params Group
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupSettingsRegistration",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupSettingsRegistrationOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5248,7 +5248,7 @@ func (c *Client) sendGroupSettingsRegistration(ctx context.Context, params Group
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupSettingsRegistration", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupSettingsRegistrationOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5259,7 +5259,7 @@ func (c *Client) sendGroupSettingsRegistration(ctx context.Context, params Group
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupSettingsRegistration", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupSettingsRegistrationOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5335,14 +5335,14 @@ func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, reques
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupSettingsRegistrationUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupSettingsRegistrationUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5417,7 +5417,7 @@ func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, reques
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupSettingsRegistrationUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupSettingsRegistrationUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5428,7 +5428,7 @@ func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, reques
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupSettingsRegistrationUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupSettingsRegistrationUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5500,14 +5500,14 @@ func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq,
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "GroupUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5560,7 +5560,7 @@ func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq,
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "GroupUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5571,7 +5571,7 @@ func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq,
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "GroupUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5643,14 +5643,14 @@ func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "Groups",
+	ctx, span := c.cfg.Tracer.Start(ctx, GroupsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5682,7 +5682,7 @@ func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "Groups", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, GroupsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5693,7 +5693,7 @@ func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "Groups", r); {
+			switch err := c.securityOpenapiOAuth(ctx, GroupsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5765,14 +5765,14 @@ func (c *Client) sendListCollaborationDevices(ctx context.Context, params ListCo
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "ListCollaborationDevices",
+	ctx, span := c.cfg.Tracer.Start(ctx, ListCollaborationDevicesOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5823,7 +5823,7 @@ func (c *Client) sendListCollaborationDevices(ctx context.Context, params ListCo
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "ListCollaborationDevices", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, ListCollaborationDevicesOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5834,7 +5834,7 @@ func (c *Client) sendListCollaborationDevices(ctx context.Context, params ListCo
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "ListCollaborationDevices", r); {
+			switch err := c.securityOpenapiOAuth(ctx, ListCollaborationDevicesOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -5914,14 +5914,14 @@ func (c *Client) sendUpdateAGroupMember(ctx context.Context, request OptUpdateAG
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateAGroupMember",
+	ctx, span := c.cfg.Tracer.Start(ctx, UpdateAGroupMemberOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -5993,7 +5993,7 @@ func (c *Client) sendUpdateAGroupMember(ctx context.Context, request OptUpdateAG
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UpdateAGroupMember", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UpdateAGroupMemberOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6004,7 +6004,7 @@ func (c *Client) sendUpdateAGroupMember(ctx context.Context, request OptUpdateAG
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UpdateAGroupMember", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UpdateAGroupMemberOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6079,14 +6079,14 @@ func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateG
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UpdateGroupSettings",
+	ctx, span := c.cfg.Tracer.Start(ctx, UpdateGroupSettingsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6161,7 +6161,7 @@ func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateG
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UpdateGroupSettings", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UpdateGroupSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6172,7 +6172,7 @@ func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateG
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UpdateGroupSettings", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UpdateGroupSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6260,14 +6260,14 @@ func (c *Client) sendUpdatePresenceStatus(ctx context.Context, request OptUpdate
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UpdatePresenceStatus",
+	ctx, span := c.cfg.Tracer.Start(ctx, UpdatePresenceStatusOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6321,7 +6321,7 @@ func (c *Client) sendUpdatePresenceStatus(ctx context.Context, request OptUpdate
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UpdatePresenceStatus", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UpdatePresenceStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6332,7 +6332,7 @@ func (c *Client) sendUpdatePresenceStatus(ctx context.Context, request OptUpdate
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UpdatePresenceStatus", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UpdatePresenceStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6408,14 +6408,14 @@ func (c *Client) sendUploadGroupVB(ctx context.Context, request OptUploadGroupVB
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UploadGroupVB",
+	ctx, span := c.cfg.Tracer.Start(ctx, UploadGroupVBOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6469,7 +6469,7 @@ func (c *Client) sendUploadGroupVB(ctx context.Context, request OptUploadGroupVB
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UploadGroupVB", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UploadGroupVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6480,7 +6480,7 @@ func (c *Client) sendUploadGroupVB(ctx context.Context, request OptUploadGroupVB
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UploadGroupVB", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UploadGroupVBOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6564,14 +6564,14 @@ func (c *Client) sendUploadVBuser(ctx context.Context, request OptUploadVBuserRe
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UploadVBuser",
+	ctx, span := c.cfg.Tracer.Start(ctx, UploadVBuserOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6625,7 +6625,7 @@ func (c *Client) sendUploadVBuser(ctx context.Context, request OptUploadVBuserRe
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UploadVBuser", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UploadVBuserOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6636,7 +6636,7 @@ func (c *Client) sendUploadVBuser(ctx context.Context, request OptUploadVBuserRe
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UploadVBuser", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UploadVBuserOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6714,14 +6714,14 @@ func (c *Client) sendUser(ctx context.Context, params UserParams) (res *UserOK, 
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "User",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6826,7 +6826,7 @@ func (c *Client) sendUser(ctx context.Context, params UserParams) (res *UserOK, 
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "User", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6837,7 +6837,7 @@ func (c *Client) sendUser(ctx context.Context, params UserParams) (res *UserOK, 
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "User", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6918,14 +6918,14 @@ func (c *Client) sendUserAssistantCreate(ctx context.Context, request OptUserAss
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserAssistantCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserAssistantCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -6979,7 +6979,7 @@ func (c *Client) sendUserAssistantCreate(ctx context.Context, request OptUserAss
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserAssistantCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserAssistantCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -6990,7 +6990,7 @@ func (c *Client) sendUserAssistantCreate(ctx context.Context, request OptUserAss
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserAssistantCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserAssistantCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7069,14 +7069,14 @@ func (c *Client) sendUserAssistantDelete(ctx context.Context, params UserAssista
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserAssistantDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserAssistantDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -7145,7 +7145,7 @@ func (c *Client) sendUserAssistantDelete(ctx context.Context, params UserAssista
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserAssistantDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserAssistantDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7156,7 +7156,7 @@ func (c *Client) sendUserAssistantDelete(ctx context.Context, params UserAssista
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserAssistantDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserAssistantDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7234,14 +7234,14 @@ func (c *Client) sendUserAssistants(ctx context.Context, params UserAssistantsPa
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserAssistants",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserAssistantsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -7292,7 +7292,7 @@ func (c *Client) sendUserAssistants(ctx context.Context, params UserAssistantsPa
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserAssistants", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserAssistantsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7303,7 +7303,7 @@ func (c *Client) sendUserAssistants(ctx context.Context, params UserAssistantsPa
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserAssistants", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserAssistantsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7382,14 +7382,14 @@ func (c *Client) sendUserAssistantsDelete(ctx context.Context, params UserAssist
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserAssistantsDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserAssistantsDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -7440,7 +7440,7 @@ func (c *Client) sendUserAssistantsDelete(ctx context.Context, params UserAssist
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserAssistantsDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserAssistantsDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7451,7 +7451,7 @@ func (c *Client) sendUserAssistantsDelete(ctx context.Context, params UserAssist
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserAssistantsDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserAssistantsDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7527,14 +7527,14 @@ func (c *Client) sendUserCreate(ctx context.Context, request OptUserCreateReq) (
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserCreate",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserCreateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -7569,7 +7569,7 @@ func (c *Client) sendUserCreate(ctx context.Context, request OptUserCreateReq) (
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserCreate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7580,7 +7580,7 @@ func (c *Client) sendUserCreate(ctx context.Context, request OptUserCreateReq) (
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserCreate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserCreateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7662,14 +7662,14 @@ func (c *Client) sendUserDelete(ctx context.Context, params UserDeleteParams) (r
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -7910,7 +7910,7 @@ func (c *Client) sendUserDelete(ctx context.Context, params UserDeleteParams) (r
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7921,7 +7921,7 @@ func (c *Client) sendUserDelete(ctx context.Context, params UserDeleteParams) (r
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -7998,14 +7998,14 @@ func (c *Client) sendUserEmail(ctx context.Context, params UserEmailParams) (res
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserEmail",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserEmailOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8055,7 +8055,7 @@ func (c *Client) sendUserEmail(ctx context.Context, params UserEmailParams) (res
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserEmail", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserEmailOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8066,7 +8066,7 @@ func (c *Client) sendUserEmail(ctx context.Context, params UserEmailParams) (res
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserEmail", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserEmailOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8146,14 +8146,14 @@ func (c *Client) sendUserEmailUpdate(ctx context.Context, request OptUserEmailUp
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserEmailUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserEmailUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8207,7 +8207,7 @@ func (c *Client) sendUserEmailUpdate(ctx context.Context, request OptUserEmailUp
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserEmailUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserEmailUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8218,7 +8218,7 @@ func (c *Client) sendUserEmailUpdate(ctx context.Context, request OptUserEmailUp
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserEmailUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserEmailUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8295,14 +8295,14 @@ func (c *Client) sendUserPassword(ctx context.Context, request OptUserPasswordRe
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserPassword",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserPasswordOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8356,7 +8356,7 @@ func (c *Client) sendUserPassword(ctx context.Context, request OptUserPasswordRe
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserPassword", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserPasswordOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8367,7 +8367,7 @@ func (c *Client) sendUserPassword(ctx context.Context, request OptUserPasswordRe
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserPassword", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserPasswordOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8441,14 +8441,14 @@ func (c *Client) sendUserPermission(ctx context.Context, params UserPermissionPa
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserPermission",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserPermissionOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8499,7 +8499,7 @@ func (c *Client) sendUserPermission(ctx context.Context, params UserPermissionPa
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserPermission", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserPermissionOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8510,7 +8510,7 @@ func (c *Client) sendUserPermission(ctx context.Context, params UserPermissionPa
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserPermission", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserPermissionOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8583,14 +8583,14 @@ func (c *Client) sendUserPicture(ctx context.Context, request OptUserPictureReq,
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserPicture",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserPictureOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8644,7 +8644,7 @@ func (c *Client) sendUserPicture(ctx context.Context, request OptUserPictureReq,
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserPicture", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserPictureOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8655,7 +8655,7 @@ func (c *Client) sendUserPicture(ctx context.Context, request OptUserPictureReq,
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserPicture", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserPictureOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8725,14 +8725,14 @@ func (c *Client) sendUserPictureDelete(ctx context.Context, params UserPictureDe
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserPictureDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserPictureDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8783,7 +8783,7 @@ func (c *Client) sendUserPictureDelete(ctx context.Context, params UserPictureDe
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserPictureDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserPictureDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8794,7 +8794,7 @@ func (c *Client) sendUserPictureDelete(ctx context.Context, params UserPictureDe
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserPictureDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserPictureDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8866,14 +8866,14 @@ func (c *Client) sendUserSSOTokenDelete(ctx context.Context, params UserSSOToken
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSSOTokenDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSSOTokenDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -8924,7 +8924,7 @@ func (c *Client) sendUserSSOTokenDelete(ctx context.Context, params UserSSOToken
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSSOTokenDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSSOTokenDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -8935,7 +8935,7 @@ func (c *Client) sendUserSSOTokenDelete(ctx context.Context, params UserSSOToken
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSSOTokenDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSSOTokenDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9010,14 +9010,14 @@ func (c *Client) sendUserSchedulerDelete(ctx context.Context, params UserSchedul
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSchedulerDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSchedulerDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9086,7 +9086,7 @@ func (c *Client) sendUserSchedulerDelete(ctx context.Context, params UserSchedul
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSchedulerDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSchedulerDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9097,7 +9097,7 @@ func (c *Client) sendUserSchedulerDelete(ctx context.Context, params UserSchedul
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSchedulerDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSchedulerDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9174,14 +9174,14 @@ func (c *Client) sendUserSchedulers(ctx context.Context, params UserSchedulersPa
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSchedulers",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSchedulersOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9232,7 +9232,7 @@ func (c *Client) sendUserSchedulers(ctx context.Context, params UserSchedulersPa
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSchedulers", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSchedulersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9243,7 +9243,7 @@ func (c *Client) sendUserSchedulers(ctx context.Context, params UserSchedulersPa
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSchedulers", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSchedulersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9318,14 +9318,14 @@ func (c *Client) sendUserSchedulersDelete(ctx context.Context, params UserSchedu
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSchedulersDelete",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSchedulersDeleteOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9376,7 +9376,7 @@ func (c *Client) sendUserSchedulersDelete(ctx context.Context, params UserSchedu
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSchedulersDelete", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSchedulersDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9387,7 +9387,7 @@ func (c *Client) sendUserSchedulersDelete(ctx context.Context, params UserSchedu
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSchedulersDelete", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSchedulersDeleteOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9458,14 +9458,14 @@ func (c *Client) sendUserSettings(ctx context.Context, params UserSettingsParams
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSettings",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSettingsOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9571,7 +9571,7 @@ func (c *Client) sendUserSettings(ctx context.Context, params UserSettingsParams
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSettings", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9582,7 +9582,7 @@ func (c *Client) sendUserSettings(ctx context.Context, params UserSettingsParams
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSettings", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSettingsOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9653,14 +9653,14 @@ func (c *Client) sendUserSettingsUpdate(ctx context.Context, request OptUserSett
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSettingsUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSettingsUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9735,7 +9735,7 @@ func (c *Client) sendUserSettingsUpdate(ctx context.Context, request OptUserSett
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSettingsUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSettingsUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9746,7 +9746,7 @@ func (c *Client) sendUserSettingsUpdate(ctx context.Context, request OptUserSett
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSettingsUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSettingsUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9821,14 +9821,14 @@ func (c *Client) sendUserStatus(ctx context.Context, request OptUserStatusReq, p
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserStatus",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserStatusOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -9882,7 +9882,7 @@ func (c *Client) sendUserStatus(ctx context.Context, request OptUserStatusReq, p
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserStatus", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9893,7 +9893,7 @@ func (c *Client) sendUserStatus(ctx context.Context, request OptUserStatusReq, p
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserStatus", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserStatusOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -9963,14 +9963,14 @@ func (c *Client) sendUserSummary(ctx context.Context) (res *UserSummaryOK, err e
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserSummary",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserSummaryOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10002,7 +10002,7 @@ func (c *Client) sendUserSummary(ctx context.Context) (res *UserSummaryOK, err e
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserSummary", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserSummaryOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10013,7 +10013,7 @@ func (c *Client) sendUserSummary(ctx context.Context) (res *UserSummaryOK, err e
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserSummary", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserSummaryOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10085,14 +10085,14 @@ func (c *Client) sendUserToken(ctx context.Context, params UserTokenParams) (res
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserToken",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserTokenOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10181,7 +10181,7 @@ func (c *Client) sendUserToken(ctx context.Context, params UserTokenParams) (res
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserToken", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserTokenOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10192,7 +10192,7 @@ func (c *Client) sendUserToken(ctx context.Context, params UserTokenParams) (res
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserToken", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserTokenOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10265,14 +10265,14 @@ func (c *Client) sendUserUpdate(ctx context.Context, request OptUserUpdateReq, p
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserUpdate",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserUpdateOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10363,7 +10363,7 @@ func (c *Client) sendUserUpdate(ctx context.Context, request OptUserUpdateReq, p
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserUpdate", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10374,7 +10374,7 @@ func (c *Client) sendUserUpdate(ctx context.Context, request OptUserUpdateReq, p
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserUpdate", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserUpdateOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10445,14 +10445,14 @@ func (c *Client) sendUserVanityName(ctx context.Context, params UserVanityNamePa
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserVanityName",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserVanityNameOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10502,7 +10502,7 @@ func (c *Client) sendUserVanityName(ctx context.Context, params UserVanityNamePa
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserVanityName", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserVanityNameOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10513,7 +10513,7 @@ func (c *Client) sendUserVanityName(ctx context.Context, params UserVanityNamePa
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserVanityName", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserVanityNameOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10590,14 +10590,14 @@ func (c *Client) sendUserZak(ctx context.Context) (res *UserZakOK, err error) {
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "UserZak",
+	ctx, span := c.cfg.Tracer.Start(ctx, UserZakOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10629,7 +10629,7 @@ func (c *Client) sendUserZak(ctx context.Context) (res *UserZakOK, err error) {
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "UserZak", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UserZakOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10640,7 +10640,7 @@ func (c *Client) sendUserZak(ctx context.Context) (res *UserZakOK, err error) {
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "UserZak", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UserZakOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10710,14 +10710,14 @@ func (c *Client) sendUsers(ctx context.Context, params UsersParams) (res *UsersO
 	defer func() {
 		// Use floating point division here for higher precision (instead of Millisecond method).
 		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(float64(elapsedDuration)/float64(time.Millisecond)), metric.WithAttributes(otelAttrs...))
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
 	}()
 
 	// Increment request counter.
 	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
 
 	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, "Users",
+	ctx, span := c.cfg.Tracer.Start(ctx, UsersOperation,
 		trace.WithAttributes(otelAttrs...),
 		clientSpanKind,
 	)
@@ -10872,7 +10872,7 @@ func (c *Client) sendUsers(ctx context.Context, params UsersParams) (res *UsersO
 		var satisfied bitset
 		{
 			stage = "Security:OpenapiAuthorization"
-			switch err := c.securityOpenapiAuthorization(ctx, "Users", r); {
+			switch err := c.securityOpenapiAuthorization(ctx, UsersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 0
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
@@ -10883,7 +10883,7 @@ func (c *Client) sendUsers(ctx context.Context, params UsersParams) (res *UsersO
 		}
 		{
 			stage = "Security:OpenapiOAuth"
-			switch err := c.securityOpenapiOAuth(ctx, "Users", r); {
+			switch err := c.securityOpenapiOAuth(ctx, UsersOperation, r); {
 			case err == nil: // if NO error
 				satisfied[0] |= 1 << 1
 			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):

@@ -12,12 +12,12 @@ import (
 // SecuritySource is provider of security values (tokens, passwords, etc.).
 type SecuritySource interface {
 	// OpenapiAuthorization provides openapi_authorization security value.
-	OpenapiAuthorization(ctx context.Context, operationName string) (OpenapiAuthorization, error)
+	OpenapiAuthorization(ctx context.Context, operationName OperationName) (OpenapiAuthorization, error)
 	// OpenapiOAuth provides openapi_oauth security value.
-	OpenapiOAuth(ctx context.Context, operationName string) (OpenapiOAuth, error)
+	OpenapiOAuth(ctx context.Context, operationName OperationName) (OpenapiOAuth, error)
 }
 
-func (s *Client) securityOpenapiAuthorization(ctx context.Context, operationName string, req *http.Request) error {
+func (s *Client) securityOpenapiAuthorization(ctx context.Context, operationName OperationName, req *http.Request) error {
 	t, err := s.sec.OpenapiAuthorization(ctx, operationName)
 	if err != nil {
 		return errors.Wrap(err, "security source \"OpenapiAuthorization\"")
@@ -25,7 +25,7 @@ func (s *Client) securityOpenapiAuthorization(ctx context.Context, operationName
 	req.Header.Set("Authorization", t.APIKey)
 	return nil
 }
-func (s *Client) securityOpenapiOAuth(ctx context.Context, operationName string, req *http.Request) error {
+func (s *Client) securityOpenapiOAuth(ctx context.Context, operationName OperationName, req *http.Request) error {
 	t, err := s.sec.OpenapiOAuth(ctx, operationName)
 	if err != nil {
 		return errors.Wrap(err, "security source \"OpenapiOAuth\"")
