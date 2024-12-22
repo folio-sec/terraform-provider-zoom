@@ -61,6 +61,7 @@ For more information, read our [Call Handling API guide](https://developers.zoom
 This resource is depends on ` + "`zoom_phone_call_handling_business_hours`" + `. Please set business hours type = 2 (Custom hours).
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:call_handling_setting:admin`",

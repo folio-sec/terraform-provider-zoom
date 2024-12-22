@@ -49,6 +49,7 @@ func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, res
 		MarkdownDescription: `Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:auto_receptionist:admin`",

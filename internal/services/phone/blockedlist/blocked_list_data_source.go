@@ -52,6 +52,7 @@ Blocked numbers can be inbound (numbers will be blocked from calling in) and out
 Blocked callers will hear a generic message stating that the person they are calling is not available.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:blocked_list:admin`",

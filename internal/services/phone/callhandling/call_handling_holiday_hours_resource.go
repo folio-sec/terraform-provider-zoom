@@ -58,6 +58,7 @@ func (r *tfHolidayHoursResource) Schema(_ context.Context, _ resource.SchemaRequ
 For more information, read our [Call Handling API guide](https://developers.zoom.us/docs/zoom-phone/call-handling/) or Zoom support article [Customizing call handling settings](https://support.zoom.us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:call_handling_setting:admin`",

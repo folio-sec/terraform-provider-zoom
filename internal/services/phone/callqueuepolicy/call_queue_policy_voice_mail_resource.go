@@ -53,6 +53,7 @@ func (r *tfVoiceMailResource) Schema(_ context.Context, _ resource.SchemaRequest
 		MarkdownDescription: `The policy sub-setting for a specific call queue according to the voice_mail.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:call_queue:admin`",
