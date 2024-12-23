@@ -54,6 +54,7 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 		MarkdownDescription: `Assigns phone numbers to a shared line groups. These direct phone numbers will be shared among members of the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:shared_line_group:admin`",

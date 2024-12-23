@@ -49,6 +49,7 @@ func (d *tfDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, res
 		MarkdownDescription: `A list of all of an account's users who are assigned a Zoom Phone license.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:list_users:admin`",

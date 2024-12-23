@@ -3,11 +3,12 @@ package externalcontact
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"strings"
 
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -57,6 +58,7 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 		MarkdownDescription: `External contact's information.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:external_contact:admin`",

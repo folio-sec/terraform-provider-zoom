@@ -76,7 +76,6 @@ func (r *tfResource) Schema(ctx context.Context, _ resource.SchemaRequest, respo
 ## API Permissions
 
 The following API permissions are required in order to use this resource.
-
 This resource requires the ` + strings.Join([]string{
 			"`user:update:user:admin`",
 			"`phone:read:user:admin`",

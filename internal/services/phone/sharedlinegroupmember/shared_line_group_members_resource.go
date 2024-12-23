@@ -54,6 +54,7 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 		MarkdownDescription: `A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail. Note that a member can only be added to one shared line group.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:read:list_users:admin`",

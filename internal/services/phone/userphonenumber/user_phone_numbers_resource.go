@@ -52,6 +52,7 @@ func (r *tfResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *r
 		MarkdownDescription: `Assigns a [phone number](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom Phone.
 
 ## API Permissions
+
 The following API permissions are required in order to use this resource.
 This resource requires the ` + strings.Join([]string{
 			"`phone:write:user_number:admin`",
