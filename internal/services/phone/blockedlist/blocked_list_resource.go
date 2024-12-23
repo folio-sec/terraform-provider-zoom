@@ -70,7 +70,6 @@ This resource requires the ` + strings.Join([]string{
 			"id": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "Unique identifier of the blocked list.",
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"block_type": schema.StringAttribute{
 				Required: true,
@@ -119,7 +118,6 @@ This resource requires the ` + strings.Join([]string{
 				Default: stringdefault.StaticString("active"),
 				// PATCH blocked_list hasn't be provided yet, so we just do delete/create on update.
 				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
 					stringplanmodifier.RequiresReplace(),
 				},
 				Validators: []validator.String{

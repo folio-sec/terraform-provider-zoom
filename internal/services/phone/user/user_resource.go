@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -90,25 +89,16 @@ This resource requires the ` + strings.Join([]string{
 				MarkdownDescription: "The ID of the Zoom user.",
 			},
 			"cost_center": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Computed:            true,
 				MarkdownDescription: "The cost center name.",
 			},
 			"emergency_address_id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "The emergency address ID.",
 			},
 			"extension_id": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Computed:            true,
 				MarkdownDescription: "The extension ID.",
 			},
 			"extension_number": schema.Int64Attribute{
@@ -117,24 +107,15 @@ This resource requires the ` + strings.Join([]string{
 				Validators: []validator.Int64{
 					customvalidator.Int64GreaterThan(99),
 				},
-				PlanModifiers: []planmodifier.Int64{
-					int64planmodifier.UseStateForUnknown(),
-				},
 				MarkdownDescription: "The extension ID. Allowed more than 3 digits. Normally, the number of digits is limited to 6, but you might be increased by contacting support.",
 			},
 			"phone_user_id": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Computed:            true,
 				MarkdownDescription: "The ID of the Phone user.",
 			},
 			"site_id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672z) where the user should be moved or assigned.",
 			},
 			"template_id": schema.StringAttribute{
