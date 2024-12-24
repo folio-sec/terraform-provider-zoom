@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/folio-sec/terraform-provider-zoom/generated/api/zoomphone"
 	"github.com/folio-sec/terraform-provider-zoom/internal/util"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -92,6 +93,12 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 			}
 		})
 	}
+	// Due to the patch API specifications, an error occurs as 'voicemail_access_members cannot be empty' with using emtpy list.
+	// Therefore, if the slice is empty, the function returns nil without performing any actions.
+	if len(voicemailAccessMembers) == 0 {
+		return nil
+	}
+
 	err := c.client.UpdateCQPolicySubSetting(ctx, zoomphone.OptUpdateCQPolicySubSettingReq{
 		Value: zoomphone.UpdateCQPolicySubSettingReq{
 			VoicemailAccessMembers: voicemailAccessMembers,
