@@ -3218,7 +3218,7 @@ func (s *AddClientCodeToCallHistoryReq) SetClientCode(val string) {
 type AddClientCodeToCallLogNoContent struct{}
 
 type AddClientCodeToCallLogReq struct {
-	// The client code(3 to 16 digit number) to mark the call log.
+	// The client code (3 to 16 digit number) to mark the call log.
 	ClientCode string `json:"client_code"`
 }
 
@@ -16529,9 +16529,11 @@ type GetCallHandlingOKBusinessHoursItemSettings struct {
 	// hours to override the default hours of the call queue.
 	// Required for `Call Queue custom_hours` sub-setting.
 	AllowMembersToReset OptBool `json:"allow_members_to_reset"`
-	// The audio while connecting the prompt. This option can select the audio played for the inbound
-	// callers when they are waiting to be routed to the next available call queue member.
-	// empty char - default and `0` - disable
+	// Returns the audio played when the inbound callers are waiting to be routed to the next available
+	// call queue member.
+	// * empty char - default
+	// * `ring_tone` - "Ring Tone" option
+	// * `0` - disable
 	// Returned only for the `Call Queue` `call_handling` sub-setting.
 	AudioWhileConnecting OptGetCallHandlingOKBusinessHoursItemSettingsAudioWhileConnecting `json:"audio_while_connecting"`
 	// This option distributes incoming calls.
@@ -16862,9 +16864,11 @@ func (s *GetCallHandlingOKBusinessHoursItemSettings) SetWrapUpTime(val OptInt) {
 	s.WrapUpTime = val
 }
 
-// The audio while connecting the prompt. This option can select the audio played for the inbound
-// callers when they are waiting to be routed to the next available call queue member.
-// empty char - default and `0` - disable
+// Returns the audio played when the inbound callers are waiting to be routed to the next available
+// call queue member.
+// * empty char - default
+// * `ring_tone` - "Ring Tone" option
+// * `0` - disable
 // Returned only for the `Call Queue` `call_handling` sub-setting.
 type GetCallHandlingOKBusinessHoursItemSettingsAudioWhileConnecting struct {
 	// The audio-while-connecting prompt ID. If the audio was removed from the user's audio library, it's
@@ -37308,9 +37312,9 @@ func (s *ListAccountProvisionTemplateOKProvisionTemplatesItem) SetBoundDeviceCou
 }
 
 type ListAccountSMSCampaignsOK struct {
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of available results exceeds the current page size. The expiration
-	// period for this token is 15 minutes.).
+	// The next page token paginates through a large set of results. A next page token return whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
 	NextPageToken OptString `json:"next_page_token"`
 	// The number of records returned within a single API call.
 	PageSize     OptInt                                      `json:"page_size"`
@@ -43515,6 +43519,293 @@ func (s *ListPhonePlansOKPhoneNumbersItem) SetSubscribed(val OptInt) {
 	s.Subscribed = val
 }
 
+type ListPhoneRealtimelocationOK struct {
+	Records []ListPhoneRealtimelocationOKRecordsItem `json:"records"`
+	// The total number of records found for this query.
+	TotalRecords OptInt `json:"total_records"`
+	// The total number of records returned from a single API call.
+	PageSize OptInt `json:"page_size"`
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
+	NextPageToken OptString `json:"next_page_token"`
+}
+
+// GetRecords returns the value of Records.
+func (s *ListPhoneRealtimelocationOK) GetRecords() []ListPhoneRealtimelocationOKRecordsItem {
+	return s.Records
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListPhoneRealtimelocationOK) GetTotalRecords() OptInt {
+	return s.TotalRecords
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListPhoneRealtimelocationOK) GetPageSize() OptInt {
+	return s.PageSize
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListPhoneRealtimelocationOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// SetRecords sets the value of Records.
+func (s *ListPhoneRealtimelocationOK) SetRecords(val []ListPhoneRealtimelocationOKRecordsItem) {
+	s.Records = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListPhoneRealtimelocationOK) SetTotalRecords(val OptInt) {
+	s.TotalRecords = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListPhoneRealtimelocationOK) SetPageSize(val OptInt) {
+	s.PageSize = val
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListPhoneRealtimelocationOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+type ListPhoneRealtimelocationOKRecordsItem struct {
+	// The device ID.
+	DeviceID OptString `json:"device_id"`
+	// The device's name.
+	DeviceName OptString `json:"device_name"`
+	// The unique identifier of the site.
+	SiteID OptString `json:"site_id"`
+	// The site name.
+	SiteName OptString `json:"site_name"`
+	// The device's public IP address.
+	PublicIP OptString `json:"public_ip"`
+	// The device's subnet or private IP address.
+	PrivateIP OptString `json:"private_ip"`
+	// The BSSID (Basic Service Set Identifiers) of the wifi network which the device connected to.
+	Bssid OptString `json:"bssid"`
+	// The emergency location's address.
+	EmergencyAddress OptString `json:"emergency_address"`
+	// The MAC address or serial number of the device.
+	MACAddress OptString `json:"mac_address"`
+	// The location's name.
+	LocationName  OptString                                              `json:"location_name"`
+	NetworkSwitch OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch `json:"network_switch"`
+	// The type of location: `personal`, `company`, `unknown`.
+	LocationType OptString                                                `json:"location_type"`
+	AssignedInfo []ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem `json:"assigned_info"`
+}
+
+// GetDeviceID returns the value of DeviceID.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetDeviceID() OptString {
+	return s.DeviceID
+}
+
+// GetDeviceName returns the value of DeviceName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetDeviceName() OptString {
+	return s.DeviceName
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetPublicIP() OptString {
+	return s.PublicIP
+}
+
+// GetPrivateIP returns the value of PrivateIP.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetPrivateIP() OptString {
+	return s.PrivateIP
+}
+
+// GetBssid returns the value of Bssid.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetBssid() OptString {
+	return s.Bssid
+}
+
+// GetEmergencyAddress returns the value of EmergencyAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetEmergencyAddress() OptString {
+	return s.EmergencyAddress
+}
+
+// GetMACAddress returns the value of MACAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetMACAddress() OptString {
+	return s.MACAddress
+}
+
+// GetLocationName returns the value of LocationName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetLocationName() OptString {
+	return s.LocationName
+}
+
+// GetNetworkSwitch returns the value of NetworkSwitch.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetNetworkSwitch() OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch {
+	return s.NetworkSwitch
+}
+
+// GetLocationType returns the value of LocationType.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetLocationType() OptString {
+	return s.LocationType
+}
+
+// GetAssignedInfo returns the value of AssignedInfo.
+func (s *ListPhoneRealtimelocationOKRecordsItem) GetAssignedInfo() []ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem {
+	return s.AssignedInfo
+}
+
+// SetDeviceID sets the value of DeviceID.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetDeviceID(val OptString) {
+	s.DeviceID = val
+}
+
+// SetDeviceName sets the value of DeviceName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetDeviceName(val OptString) {
+	s.DeviceName = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetPublicIP(val OptString) {
+	s.PublicIP = val
+}
+
+// SetPrivateIP sets the value of PrivateIP.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetPrivateIP(val OptString) {
+	s.PrivateIP = val
+}
+
+// SetBssid sets the value of Bssid.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetBssid(val OptString) {
+	s.Bssid = val
+}
+
+// SetEmergencyAddress sets the value of EmergencyAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetEmergencyAddress(val OptString) {
+	s.EmergencyAddress = val
+}
+
+// SetMACAddress sets the value of MACAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetMACAddress(val OptString) {
+	s.MACAddress = val
+}
+
+// SetLocationName sets the value of LocationName.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetLocationName(val OptString) {
+	s.LocationName = val
+}
+
+// SetNetworkSwitch sets the value of NetworkSwitch.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetNetworkSwitch(val OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) {
+	s.NetworkSwitch = val
+}
+
+// SetLocationType sets the value of LocationType.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetLocationType(val OptString) {
+	s.LocationType = val
+}
+
+// SetAssignedInfo sets the value of AssignedInfo.
+func (s *ListPhoneRealtimelocationOKRecordsItem) SetAssignedInfo(val []ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) {
+	s.AssignedInfo = val
+}
+
+type ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem struct {
+	// The extension ID of the user's Zoom Phone.
+	ExtensionID OptString `json:"extension_id"`
+	// The extension number of the user's Zoom Phone.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The email of the user.
+	UserEmail OptString `json:"user_email"`
+	// The name of the user.
+	UserDisplayName OptString `json:"user_display_name"`
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) GetExtensionID() OptString {
+	return s.ExtensionID
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetUserEmail returns the value of UserEmail.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) GetUserEmail() OptString {
+	return s.UserEmail
+}
+
+// GetUserDisplayName returns the value of UserDisplayName.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) GetUserDisplayName() OptString {
+	return s.UserDisplayName
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) SetExtensionID(val OptString) {
+	s.ExtensionID = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetUserEmail sets the value of UserEmail.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) SetUserEmail(val OptString) {
+	s.UserEmail = val
+}
+
+// SetUserDisplayName sets the value of UserDisplayName.
+func (s *ListPhoneRealtimelocationOKRecordsItemAssignedInfoItem) SetUserDisplayName(val OptString) {
+	s.UserDisplayName = val
+}
+
+type ListPhoneRealtimelocationOKRecordsItemNetworkSwitch struct {
+	// The port of the network switch.
+	Port OptString `json:"port"`
+	// The MAC address or serial number of network switch.
+	MACAddress OptString `json:"mac_address"`
+}
+
+// GetPort returns the value of Port.
+func (s *ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) GetPort() OptString {
+	return s.Port
+}
+
+// GetMACAddress returns the value of MACAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) GetMACAddress() OptString {
+	return s.MACAddress
+}
+
+// SetPort sets the value of Port.
+func (s *ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) SetPort(val OptString) {
+	s.Port = val
+}
+
+// SetMACAddress sets the value of MACAddress.
+func (s *ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) SetMACAddress(val OptString) {
+	s.MACAddress = val
+}
+
 type ListPhoneRolesOK struct {
 	// The phone role list.
 	Roles []ListPhoneRolesOKRolesItem `json:"roles"`
@@ -46251,6 +46542,443 @@ func (s *ListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) SetNa
 	s.Name = val
 }
 
+type ListUserDefaultEmergencyAddressOK struct {
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The total number of records returned from a single API call.
+	PageSize OptFloat64 `json:"page_size"`
+	// The total number of records found for this query.
+	TotalRecords OptFloat64                                     `json:"total_records"`
+	Records      []ListUserDefaultEmergencyAddressOKRecordsItem `json:"records"`
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListUserDefaultEmergencyAddressOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListUserDefaultEmergencyAddressOK) GetPageSize() OptFloat64 {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListUserDefaultEmergencyAddressOK) GetTotalRecords() OptFloat64 {
+	return s.TotalRecords
+}
+
+// GetRecords returns the value of Records.
+func (s *ListUserDefaultEmergencyAddressOK) GetRecords() []ListUserDefaultEmergencyAddressOKRecordsItem {
+	return s.Records
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListUserDefaultEmergencyAddressOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListUserDefaultEmergencyAddressOK) SetPageSize(val OptFloat64) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListUserDefaultEmergencyAddressOK) SetTotalRecords(val OptFloat64) {
+	s.TotalRecords = val
+}
+
+// SetRecords sets the value of Records.
+func (s *ListUserDefaultEmergencyAddressOK) SetRecords(val []ListUserDefaultEmergencyAddressOKRecordsItem) {
+	s.Records = val
+}
+
+type ListUserDefaultEmergencyAddressOKRecordsItem struct {
+	// The user's email.
+	Email OptString `json:"email"`
+	// The user's name.
+	UserDisplayName OptString `json:"user_display_name"`
+	// The user's extension ID.
+	ExtensionID OptString `json:"extension_id"`
+	// The user's extension number.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The site's name.
+	SiteName OptString `json:"site_name"`
+	// The unique identifier of the site.
+	SiteID OptString `json:"site_id"`
+	// The status of **Default Emergency Address**.
+	Status OptString `json:"status"`
+}
+
+// GetEmail returns the value of Email.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetEmail() OptString {
+	return s.Email
+}
+
+// GetUserDisplayName returns the value of UserDisplayName.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetUserDisplayName() OptString {
+	return s.UserDisplayName
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetExtensionID() OptString {
+	return s.ExtensionID
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetStatus returns the value of Status.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) GetStatus() OptString {
+	return s.Status
+}
+
+// SetEmail sets the value of Email.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetUserDisplayName sets the value of UserDisplayName.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetUserDisplayName(val OptString) {
+	s.UserDisplayName = val
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetExtensionID(val OptString) {
+	s.ExtensionID = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetStatus sets the value of Status.
+func (s *ListUserDefaultEmergencyAddressOKRecordsItem) SetStatus(val OptString) {
+	s.Status = val
+}
+
+type ListUserDetectablePersonalLocationOK struct {
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The total number of records returned from a single API call.
+	PageSize OptFloat64 `json:"page_size"`
+	// The total number of records found for this query.
+	TotalRecords OptFloat64                                        `json:"total_records"`
+	Records      []ListUserDetectablePersonalLocationOKRecordsItem `json:"records"`
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListUserDetectablePersonalLocationOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListUserDetectablePersonalLocationOK) GetPageSize() OptFloat64 {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListUserDetectablePersonalLocationOK) GetTotalRecords() OptFloat64 {
+	return s.TotalRecords
+}
+
+// GetRecords returns the value of Records.
+func (s *ListUserDetectablePersonalLocationOK) GetRecords() []ListUserDetectablePersonalLocationOKRecordsItem {
+	return s.Records
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListUserDetectablePersonalLocationOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListUserDetectablePersonalLocationOK) SetPageSize(val OptFloat64) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListUserDetectablePersonalLocationOK) SetTotalRecords(val OptFloat64) {
+	s.TotalRecords = val
+}
+
+// SetRecords sets the value of Records.
+func (s *ListUserDetectablePersonalLocationOK) SetRecords(val []ListUserDetectablePersonalLocationOKRecordsItem) {
+	s.Records = val
+}
+
+type ListUserDetectablePersonalLocationOKRecordsItem struct {
+	// The user's email.
+	Email OptString `json:"email"`
+	// The user's name.
+	UserDisplayName OptString `json:"user_display_name"`
+	// The user's extension ID.
+	ExtensionID OptString `json:"extension_id"`
+	// The user's extension number.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The site's name.
+	SiteName OptString `json:"site_name"`
+	// The unique identifier of the site.
+	SiteID OptString `json:"site_id"`
+	// The status of **Detectable Personal Location**.
+	Status OptString `json:"status"`
+}
+
+// GetEmail returns the value of Email.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetEmail() OptString {
+	return s.Email
+}
+
+// GetUserDisplayName returns the value of UserDisplayName.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetUserDisplayName() OptString {
+	return s.UserDisplayName
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetExtensionID() OptString {
+	return s.ExtensionID
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetStatus returns the value of Status.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) GetStatus() OptString {
+	return s.Status
+}
+
+// SetEmail sets the value of Email.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetUserDisplayName sets the value of UserDisplayName.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetUserDisplayName(val OptString) {
+	s.UserDisplayName = val
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetExtensionID(val OptString) {
+	s.ExtensionID = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetStatus sets the value of Status.
+func (s *ListUserDetectablePersonalLocationOKRecordsItem) SetStatus(val OptString) {
+	s.Status = val
+}
+
+type ListUserNomadicEmergencyServicesOK struct {
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The total number of records returned from a single API call.
+	PageSize OptFloat64 `json:"page_size"`
+	// The total number of records found for this query.
+	TotalRecords OptFloat64                                      `json:"total_records"`
+	Records      []ListUserNomadicEmergencyServicesOKRecordsItem `json:"records"`
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListUserNomadicEmergencyServicesOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListUserNomadicEmergencyServicesOK) GetPageSize() OptFloat64 {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListUserNomadicEmergencyServicesOK) GetTotalRecords() OptFloat64 {
+	return s.TotalRecords
+}
+
+// GetRecords returns the value of Records.
+func (s *ListUserNomadicEmergencyServicesOK) GetRecords() []ListUserNomadicEmergencyServicesOKRecordsItem {
+	return s.Records
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListUserNomadicEmergencyServicesOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListUserNomadicEmergencyServicesOK) SetPageSize(val OptFloat64) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListUserNomadicEmergencyServicesOK) SetTotalRecords(val OptFloat64) {
+	s.TotalRecords = val
+}
+
+// SetRecords sets the value of Records.
+func (s *ListUserNomadicEmergencyServicesOK) SetRecords(val []ListUserNomadicEmergencyServicesOKRecordsItem) {
+	s.Records = val
+}
+
+type ListUserNomadicEmergencyServicesOKRecordsItem struct {
+	// The user's email.
+	Email OptString `json:"email"`
+	// The user's name.
+	UserDisplayName OptString `json:"user_display_name"`
+	// The user's extension ID.
+	ExtensionID OptString `json:"extension_id"`
+	// The user's extension number.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The site's name.
+	SiteName OptString `json:"site_name"`
+	// The unique identifier of the site.
+	SiteID OptString `json:"site_id"`
+	// The status of **Nomadic Emergency Services**.
+	Status OptString `json:"status"`
+	// The reason of disabling nomadic emergency services, only returned if service is disabled
+	// `1`: Nomadic Emergency Services is disabled
+	// `2`: Routing emergency calls to The Safety Team and PSAP is disabled
+	// `3`: The assigned number of this user is not a US/CA number
+	// `4`: Placing emergency calls to PSAP for extension-only users is disabled, or no US/CA numbers has
+	// been assigned to Emergency Number Pool.
+	// `5`: This user is only assigned with BYOC numbers and BYOC carriers were set to route the
+	// emergency calls, or for extension-only users, only BYOC numbers has been assigned to Emergency
+	// Number Pool and the BYOC carrier was set to route the emergency calls.
+	ReasonForDisabling OptInt32 `json:"reason_for_disabling"`
+}
+
+// GetEmail returns the value of Email.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetEmail() OptString {
+	return s.Email
+}
+
+// GetUserDisplayName returns the value of UserDisplayName.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetUserDisplayName() OptString {
+	return s.UserDisplayName
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetExtensionID() OptString {
+	return s.ExtensionID
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetStatus returns the value of Status.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetStatus() OptString {
+	return s.Status
+}
+
+// GetReasonForDisabling returns the value of ReasonForDisabling.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) GetReasonForDisabling() OptInt32 {
+	return s.ReasonForDisabling
+}
+
+// SetEmail sets the value of Email.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetUserDisplayName sets the value of UserDisplayName.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetUserDisplayName(val OptString) {
+	s.UserDisplayName = val
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetExtensionID(val OptString) {
+	s.ExtensionID = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetStatus sets the value of Status.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetStatus(val OptString) {
+	s.Status = val
+}
+
+// SetReasonForDisabling sets the value of ReasonForDisabling.
+func (s *ListUserNomadicEmergencyServicesOKRecordsItem) SetReasonForDisabling(val OptInt32) {
+	s.ReasonForDisabling = val
+}
+
 type ListUserOutboundCallingExceptionRuleOK struct {
 	ExceptionRules []ListUserOutboundCallingExceptionRuleOKExceptionRulesItem `json:"exception_rules"`
 	// The next page token paginates through a large set of results. A next page token returns whenever
@@ -46368,6 +47096,243 @@ func (s *ListUserOutboundCallingExceptionRuleOKExceptionRulesItem) SetComment(va
 // SetStatus sets the value of Status.
 func (s *ListUserOutboundCallingExceptionRuleOKExceptionRulesItem) SetStatus(val OptString) {
 	s.Status = val
+}
+
+type ListUserRealtimeLocationOK struct {
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The total number of records returned from a single API call.
+	PageSize OptFloat64 `json:"page_size"`
+	// The total number of records found for this query.
+	TotalRecords OptFloat64                              `json:"total_records"`
+	Records      []ListUserRealtimeLocationOKRecordsItem `json:"records"`
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListUserRealtimeLocationOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListUserRealtimeLocationOK) GetPageSize() OptFloat64 {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListUserRealtimeLocationOK) GetTotalRecords() OptFloat64 {
+	return s.TotalRecords
+}
+
+// GetRecords returns the value of Records.
+func (s *ListUserRealtimeLocationOK) GetRecords() []ListUserRealtimeLocationOKRecordsItem {
+	return s.Records
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListUserRealtimeLocationOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListUserRealtimeLocationOK) SetPageSize(val OptFloat64) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListUserRealtimeLocationOK) SetTotalRecords(val OptFloat64) {
+	s.TotalRecords = val
+}
+
+// SetRecords sets the value of Records.
+func (s *ListUserRealtimeLocationOK) SetRecords(val []ListUserRealtimeLocationOKRecordsItem) {
+	s.Records = val
+}
+
+type ListUserRealtimeLocationOKRecordsItem struct {
+	// The user's email.
+	Email OptString `json:"email"`
+	// The BSSID (Basic Service Set Identifiers) of the wifi network which the user is connected to.
+	Bssid OptString `json:"bssid"`
+	// The user's name.
+	UserDisplayName OptString `json:"user_display_name"`
+	// The user's extension ID.
+	ExtensionID OptString `json:"extension_id"`
+	// The user's extension number.
+	ExtensionNumber OptInt64 `json:"extension_number"`
+	// The site's name.
+	SiteName OptString `json:"site_name"`
+	// The unique identifier of the site.
+	SiteID OptString `json:"site_id"`
+	// The device's public IP address.
+	PublicIP OptString `json:"public_ip"`
+	// The device's subnet or private IP address.
+	PrivateIP OptString `json:"private_ip"`
+	// The emergency location's address.
+	EmergencyAddress OptString `json:"emergency_address"`
+	// The location's name.
+	LocationName  OptString                                             `json:"location_name"`
+	NetworkSwitch OptListUserRealtimeLocationOKRecordsItemNetworkSwitch `json:"network_switch"`
+	// The type of location: `company`, `personal`, `unknown`.
+	LocationType OptString `json:"location_type"`
+}
+
+// GetEmail returns the value of Email.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetEmail() OptString {
+	return s.Email
+}
+
+// GetBssid returns the value of Bssid.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetBssid() OptString {
+	return s.Bssid
+}
+
+// GetUserDisplayName returns the value of UserDisplayName.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetUserDisplayName() OptString {
+	return s.UserDisplayName
+}
+
+// GetExtensionID returns the value of ExtensionID.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetExtensionID() OptString {
+	return s.ExtensionID
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetExtensionNumber() OptInt64 {
+	return s.ExtensionNumber
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetPublicIP() OptString {
+	return s.PublicIP
+}
+
+// GetPrivateIP returns the value of PrivateIP.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetPrivateIP() OptString {
+	return s.PrivateIP
+}
+
+// GetEmergencyAddress returns the value of EmergencyAddress.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetEmergencyAddress() OptString {
+	return s.EmergencyAddress
+}
+
+// GetLocationName returns the value of LocationName.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetLocationName() OptString {
+	return s.LocationName
+}
+
+// GetNetworkSwitch returns the value of NetworkSwitch.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetNetworkSwitch() OptListUserRealtimeLocationOKRecordsItemNetworkSwitch {
+	return s.NetworkSwitch
+}
+
+// GetLocationType returns the value of LocationType.
+func (s *ListUserRealtimeLocationOKRecordsItem) GetLocationType() OptString {
+	return s.LocationType
+}
+
+// SetEmail sets the value of Email.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetEmail(val OptString) {
+	s.Email = val
+}
+
+// SetBssid sets the value of Bssid.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetBssid(val OptString) {
+	s.Bssid = val
+}
+
+// SetUserDisplayName sets the value of UserDisplayName.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetUserDisplayName(val OptString) {
+	s.UserDisplayName = val
+}
+
+// SetExtensionID sets the value of ExtensionID.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetExtensionID(val OptString) {
+	s.ExtensionID = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetExtensionNumber(val OptInt64) {
+	s.ExtensionNumber = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetPublicIP(val OptString) {
+	s.PublicIP = val
+}
+
+// SetPrivateIP sets the value of PrivateIP.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetPrivateIP(val OptString) {
+	s.PrivateIP = val
+}
+
+// SetEmergencyAddress sets the value of EmergencyAddress.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetEmergencyAddress(val OptString) {
+	s.EmergencyAddress = val
+}
+
+// SetLocationName sets the value of LocationName.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetLocationName(val OptString) {
+	s.LocationName = val
+}
+
+// SetNetworkSwitch sets the value of NetworkSwitch.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetNetworkSwitch(val OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) {
+	s.NetworkSwitch = val
+}
+
+// SetLocationType sets the value of LocationType.
+func (s *ListUserRealtimeLocationOKRecordsItem) SetLocationType(val OptString) {
+	s.LocationType = val
+}
+
+type ListUserRealtimeLocationOKRecordsItemNetworkSwitch struct {
+	// The port of the network switch.
+	Port OptString `json:"port"`
+	// The MAC address or serial number of network switch.
+	MACAddress OptString `json:"mac_address"`
+}
+
+// GetPort returns the value of Port.
+func (s *ListUserRealtimeLocationOKRecordsItemNetworkSwitch) GetPort() OptString {
+	return s.Port
+}
+
+// GetMACAddress returns the value of MACAddress.
+func (s *ListUserRealtimeLocationOKRecordsItemNetworkSwitch) GetMACAddress() OptString {
+	return s.MACAddress
+}
+
+// SetPort sets the value of Port.
+func (s *ListUserRealtimeLocationOKRecordsItemNetworkSwitch) SetPort(val OptString) {
+	s.Port = val
+}
+
+// SetMACAddress sets the value of MACAddress.
+func (s *ListUserRealtimeLocationOKRecordsItemNetworkSwitch) SetMACAddress(val OptString) {
+	s.MACAddress = val
 }
 
 type ListUsersFromDirectoryBySiteOK struct {
@@ -66731,6 +67696,52 @@ func (o OptInt) Or(d int) int {
 	return d
 }
 
+// NewOptInt32 returns new OptInt32 with value set to v.
+func NewOptInt32(v int32) OptInt32 {
+	return OptInt32{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptInt32 is optional int32.
+type OptInt32 struct {
+	Value int32
+	Set   bool
+}
+
+// IsSet returns true if OptInt32 was set.
+func (o OptInt32) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptInt32) Reset() {
+	var v int32
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptInt32) SetTo(v int32) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptInt32) Get() (v int32, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptInt32) Or(d int32) int32 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptInt64 returns new OptInt64 with value set to v.
 func NewOptInt64(v int64) OptInt64 {
 	return OptInt64{
@@ -67973,6 +68984,52 @@ func (o OptListPhoneDevicesOKDevicesItemSite) Or(d ListPhoneDevicesOKDevicesItem
 	return d
 }
 
+// NewOptListPhoneRealtimelocationOKRecordsItemNetworkSwitch returns new OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch with value set to v.
+func NewOptListPhoneRealtimelocationOKRecordsItemNetworkSwitch(v ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch {
+	return OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch is optional ListPhoneRealtimelocationOKRecordsItemNetworkSwitch.
+type OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch struct {
+	Value ListPhoneRealtimelocationOKRecordsItemNetworkSwitch
+	Set   bool
+}
+
+// IsSet returns true if OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch was set.
+func (o OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) Reset() {
+	var v ListPhoneRealtimelocationOKRecordsItemNetworkSwitch
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) SetTo(v ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) Get() (v ListPhoneRealtimelocationOKRecordsItemNetworkSwitch, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListPhoneRealtimelocationOKRecordsItemNetworkSwitch) Or(d ListPhoneRealtimelocationOKRecordsItemNetworkSwitch) ListPhoneRealtimelocationOKRecordsItemNetworkSwitch {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptListPhoneSitesOKSitesItemCountry returns new OptListPhoneSitesOKSitesItemCountry with value set to v.
 func NewOptListPhoneSitesOKSitesItemCountry(v ListPhoneSitesOKSitesItemCountry) OptListPhoneSitesOKSitesItemCountry {
 	return OptListPhoneSitesOKSitesItemCountry{
@@ -68615,6 +69672,52 @@ func (o OptListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) Get
 
 // Or returns value if set, or given parameter if does not.
 func (o OptListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) Or(d ListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) ListUserCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptListUserRealtimeLocationOKRecordsItemNetworkSwitch returns new OptListUserRealtimeLocationOKRecordsItemNetworkSwitch with value set to v.
+func NewOptListUserRealtimeLocationOKRecordsItemNetworkSwitch(v ListUserRealtimeLocationOKRecordsItemNetworkSwitch) OptListUserRealtimeLocationOKRecordsItemNetworkSwitch {
+	return OptListUserRealtimeLocationOKRecordsItemNetworkSwitch{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListUserRealtimeLocationOKRecordsItemNetworkSwitch is optional ListUserRealtimeLocationOKRecordsItemNetworkSwitch.
+type OptListUserRealtimeLocationOKRecordsItemNetworkSwitch struct {
+	Value ListUserRealtimeLocationOKRecordsItemNetworkSwitch
+	Set   bool
+}
+
+// IsSet returns true if OptListUserRealtimeLocationOKRecordsItemNetworkSwitch was set.
+func (o OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) Reset() {
+	var v ListUserRealtimeLocationOKRecordsItemNetworkSwitch
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) SetTo(v ListUserRealtimeLocationOKRecordsItemNetworkSwitch) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) Get() (v ListUserRealtimeLocationOKRecordsItemNetworkSwitch, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListUserRealtimeLocationOKRecordsItemNetworkSwitch) Or(d ListUserRealtimeLocationOKRecordsItemNetworkSwitch) ListUserRealtimeLocationOKRecordsItemNetworkSwitch {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -84777,7 +85880,10 @@ type PatchCallHandlingSettingsCallHandlingSettings struct {
 	AllowMembersToReset OptBool `json:"allow_members_to_reset"`
 	// The audio while connecting the prompt ID. This option can select the audio played for the inbound
 	// callers when they are waiting to be routed to the next available call queue member.
-	// Options: empty char - default and `0` - disable
+	// Options:
+	// * empty char - default
+	// * `ring_tone` - "Ring Tone" option
+	// * `0` - disable
 	// This is only required for the `Call Queue` `call_handling` sub-setting.
 	AudioWhileConnectingID OptString `json:"audio_while_connecting_id"`
 	// This option distributes incoming calls.

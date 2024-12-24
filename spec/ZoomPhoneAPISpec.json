@@ -5600,7 +5600,7 @@
                                     "example": "Default"
                                   }
                                 },
-                                "description": "The audio while connecting the prompt. This option can select the audio played for the inbound callers when they are waiting to be routed to the next available call queue member.\n\nempty char - default and `0` - disable \n\nReturned only for the `Call Queue` `call_handling` sub-setting."
+                                "description": "Returns the audio played when the inbound callers are waiting to be routed to the next available call queue member.\n\n* empty char - default\n* `ring_tone` - \"Ring Tone\" option\n* `0` - disable\n\nReturned only for the `Call Queue` `call_handling` sub-setting."
                               },
                               "call_distribution": {
                                 "type": "object",
@@ -7009,7 +7009,7 @@
           "Call Handling"
         ],
         "summary": "Add a call handling setting",
-        "description": "Adds Zoom Phone call handling subsettings for your phone system. Call handling settings allow you to control how your system routes calls during business, closed, or holiday hours. For more information, see our [API guide](https://marketplace.zoom.us/docs/guides/zoom-phone/call-handling/) or Zoom support article [Customizing call handling settings](https://support.zoom.us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).\n\n**Applicable to user, call queue, auto receptionist, or shared line group call handling at this time.** \n\n**Prerequisites:** \n* A Pro or a higher account with Zoom Phone enabled\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:call_handling_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
+        "description": "Adds Zoom Phone call handling subsettings for your phone system. Call handling settings allow you to control how your system routes calls during business, closed, or holiday hours. For more information, see our [API guide](https://developers.zoom.us/docs/api/phone/) or Zoom support article [Customizing call handling settings](https://support.zoom.us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).\n\n**Applicable to user, call queue, auto receptionist, or shared line group call handling at this time.** \n\n**Prerequisites:** \n* A Pro or a higher account with Zoom Phone enabled\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:write:call_handling_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "addCallHandling",
         "parameters": [
           {
@@ -9114,13 +9114,13 @@
           "Call Logs"
         ],
         "summary": "Add a client code to a call log",
-        "description": "Adds a client code to a [call log](https://support.zoom.us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs with a client code. \n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Adds a client code to a [call log](https://support.zoom.us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs with a client code. \n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n\n\n**Scopes:** `phone:write:admin`\n\n**Granular Scopes:** `phone:update:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "addClientCodeToCallLog",
         "parameters": [
           {
             "name": "callLogId",
             "in": "path",
-            "description": "Unique identifier of the call log.",
+            "description": "The unique identifier of the call log.",
             "required": true,
             "schema": {
               "type": "string",
@@ -9139,7 +9139,7 @@
                 "properties": {
                   "client_code": {
                     "type": "string",
-                    "description": "The client code(3 to 16 digit number) to mark the call log.",
+                    "description": "The client code (3 to 16 digit number) to mark the call log.",
                     "example": "123"
                   }
                 }
@@ -9162,6 +9162,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "openapi_oauth": [
@@ -9172,6 +9173,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:write:admin"
           ],
@@ -10694,6 +10696,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "openapi_oauth": [
@@ -11117,6 +11120,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "openapi_oauth": [
@@ -11186,6 +11190,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "openapi_oauth": [
@@ -16144,6 +16149,942 @@
           ],
           "x-granular-scopes": [
             "phone:read:call_log:admin"
+          ]
+        }
+      }
+    },
+    "/phone/metrics/emergency_services/default_emergency_address/users": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "List default emergency address users",
+        "description": "Returns the users who provide a default personal emergency address rather than a default site address or default account address.   \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:default_emergency_address:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
+        "operationId": "listUserDefaultEmergencyAddress",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of **Default Emergency Address**.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "set"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "description": "The site's ID.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NjHmTu16Qfe8yOiNJuekXA"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "The name, email, or extension number of the user.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "james"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of records returned within a single call.",
+            "required": false,
+            "schema": {
+              "maximum": 300,
+              "type": "integer",
+              "example": 30,
+              "default": 30
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "description": "The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximu  page number is 100.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200`   \n Locations returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string",
+                      "description": "The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "example": "6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2"
+                    },
+                    "page_size": {
+                      "type": "number",
+                      "description": "The total number of records returned from a single API call.",
+                      "example": 1
+                    },
+                    "total_records": {
+                      "type": "number",
+                      "description": "The total number of records found for this query.",
+                      "example": 6
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "description": "The user's email.",
+                            "example": "test.user@gmail.com"
+                          },
+                          "user_display_name": {
+                            "type": "string",
+                            "description": "The user's name.",
+                            "example": "James Lu"
+                          },
+                          "extension_id": {
+                            "type": "string",
+                            "description": "The user's extension ID.",
+                            "example": "VodZOCkyRM-wfOqr1xmuMQ"
+                          },
+                          "extension_number": {
+                            "type": "integer",
+                            "description": "The user's extension number.",
+                            "format": "int64",
+                            "example": 10010
+                          },
+                          "site_name": {
+                            "type": "string",
+                            "description": "The site's name.",
+                            "example": "Main Site"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "The unique identifier of the site.",
+                            "example": "oB18huSERjqbzrsyL2bD5w"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "The status of **Default Emergency Address**.",
+                            "example": "set"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:default_emergency_address:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:default_emergency_address:admin"
+          ]
+        }
+      }
+    },
+    "/phone/metrics/emergency_services/detectable_personal_location/users": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "List detectable personal location users",
+        "description": "Returns the users who created one or more detectable personal locations with associated network data. (Exclude users didn't enable Location Permission on client.) \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:detectable_personal_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
+        "operationId": "listUserDetectablePersonalLocation",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of **Detectable Personal Location**.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "set"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "description": "The site's ID.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NjHmTu16Qfe8yOiNJuekXA"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "The name, email, or extension number of the user.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "james"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of records returned within a single call.",
+            "required": false,
+            "schema": {
+              "maximum": 300,
+              "type": "integer",
+              "example": 30,
+              "default": 30
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximum page number is 100.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200`   \n Locations returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string",
+                      "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "example": "6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2"
+                    },
+                    "page_size": {
+                      "type": "number",
+                      "description": "The total number of records returned from a single API call.",
+                      "example": 1
+                    },
+                    "total_records": {
+                      "type": "number",
+                      "description": "The total number of records found for this query.",
+                      "example": 6
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "description": "The user's email.",
+                            "example": "test.user@gmail.com"
+                          },
+                          "user_display_name": {
+                            "type": "string",
+                            "description": "The user's name.",
+                            "example": "James Lu"
+                          },
+                          "extension_id": {
+                            "type": "string",
+                            "description": "The user's extension ID.",
+                            "example": "VodZOCkyRM-wfOqr1xmuMQ"
+                          },
+                          "extension_number": {
+                            "type": "integer",
+                            "description": "The user's extension number.",
+                            "format": "int64",
+                            "example": 10010
+                          },
+                          "site_name": {
+                            "type": "string",
+                            "description": "The site's name.",
+                            "example": "Main Site"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "The unique identifier of the site.",
+                            "example": "oB18huSERjqbzrsyL2bD5w"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "The status of **Detectable Personal Location**.",
+                            "example": "set"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:detectable_personal_location:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:detectable_personal_location:admin"
+          ]
+        }
+      }
+    },
+    "/phone/metrics/emergency_services/nomadic_emergency_services/users": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "List nomadic emergency services users",
+        "description": "Returns users who have been enabled for nomadic emergency services.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:nomadic_emergency_services:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
+        "operationId": "listUserNomadicEmergencyServices",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of **Nomadic Emergency Services is disabled**.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "enabled"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "description": "The site's ID.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NjHmTu16Qfe8yOiNJuekXA"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "The name, email, or extension number of the user.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "james"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of records returned within a single call.",
+            "required": false,
+            "schema": {
+              "maximum": 300,
+              "type": "integer",
+              "example": 30,
+              "default": 30
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the max page number is 100.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200`   \n Locations returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string",
+                      "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "example": "6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2"
+                    },
+                    "page_size": {
+                      "type": "number",
+                      "description": "The total number of records returned from a single API call.",
+                      "example": 1
+                    },
+                    "total_records": {
+                      "type": "number",
+                      "description": "The total number of records found for this query.",
+                      "example": 6
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "description": "The user's email.",
+                            "example": "test.user@gmail.com"
+                          },
+                          "user_display_name": {
+                            "type": "string",
+                            "description": "The user's name.",
+                            "example": "James Lu"
+                          },
+                          "extension_id": {
+                            "type": "string",
+                            "description": "The user's extension ID.",
+                            "example": "VodZOCkyRM-wfOqr1xmuMQ"
+                          },
+                          "extension_number": {
+                            "type": "integer",
+                            "description": "The user's extension number.",
+                            "format": "int64",
+                            "example": 10010
+                          },
+                          "site_name": {
+                            "type": "string",
+                            "description": "The site's name.",
+                            "example": "Main Site"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "The unique identifier of the site.",
+                            "example": "oB18huSERjqbzrsyL2bD5w"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "The status of **Nomadic Emergency Services**. ",
+                            "example": "enabled"
+                          },
+                          "reason_for_disabling": {
+                            "type": "integer",
+                            "description": "The reason of disabling nomadic emergency services, only returned if service is disabled\n`1`: Nomadic Emergency Services is disabled\n`2`: Routing emergency calls to The Safety Team and PSAP is disabled\n`3`: The assigned number of this user is not a US/CA number\n`4`: Placing emergency calls to PSAP for extension-only users is disabled, or no US/CA numbers has been assigned to Emergency Number Pool.\n`5`: This user is only assigned with BYOC numbers and BYOC carriers were set to route the emergency calls, or for extension-only users, only BYOC numbers has been assigned to Emergency Number Pool and the BYOC carrier was set to route the emergency calls.",
+                            "format": "int32",
+                            "example": 2
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:nomadic_emergency_services:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:nomadic_emergency_services:admin"
+          ]
+        }
+      }
+    },
+    "/phone/metrics/emergency_services/realtime_location/devices": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "List real time location for IP phones",
+        "description": "Returns currently detected location of IP phones.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:realtime_location_devices:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
+        "operationId": "listPhoneRealtimelocation",
+        "parameters": [
+          {
+            "name": "location_type",
+            "in": "query",
+            "description": "The location's type. ",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "personal"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "description": "The site's ID.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NjHmTu16Qfe8yOiNJuekXA"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "The device name or device MAC address.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Desk Phone"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of records returned within a single call.",
+            "required": false,
+            "schema": {
+              "maximum": 300,
+              "type": "integer",
+              "example": 30,
+              "default": 30
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "description": "The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximum page number is 100.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200`   \n Locations returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "device_id": {
+                            "type": "string",
+                            "description": "The device ID.",
+                            "example": "-tDdYIstSumpA0L13GztIQ"
+                          },
+                          "device_name": {
+                            "type": "string",
+                            "description": "The device's name.",
+                            "example": "Desk Phone"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "The unique identifier of the site.",
+                            "example": "NjHmTu16Qfe8yOiNJuekXA"
+                          },
+                          "site_name": {
+                            "type": "string",
+                            "description": "The site name.",
+                            "example": "HF site"
+                          },
+                          "public_ip": {
+                            "type": "string",
+                            "description": "The device's public IP address.",
+                            "example": "192.168.1.1"
+                          },
+                          "private_ip": {
+                            "type": "string",
+                            "description": "The device's subnet or private IP address.",
+                            "example": "192.168.1.1"
+                          },
+                          "bssid": {
+                            "type": "string",
+                            "description": "The BSSID (Basic Service Set Identifiers) of the wifi network which the device connected to",
+                            "example": "SA43YjfBTS6gJbUpfvIziQ"
+                          },
+                          "emergency_address": {
+                            "type": "string",
+                            "description": "The emergency location's address.",
+                            "example": "55 ALMADEN BLVD"
+                          },
+                          "mac_address": {
+                            "type": "string",
+                            "description": "The MAC address or serial number of the device.",
+                            "example": "543968a78ee7"
+                          },
+                          "location_name": {
+                            "type": "string",
+                            "description": "The location's name.",
+                            "example": "example location"
+                          },
+                          "network_switch": {
+                            "type": "object",
+                            "properties": {
+                              "port": {
+                                "type": "string",
+                                "description": "The port of the network switch.",
+                                "example": "2"
+                              },
+                              "mac_address": {
+                                "type": "string",
+                                "description": "The MAC address or serial number of network switch.",
+                                "example": "543968a78ee7"
+                              }
+                            }
+                          },
+                          "location_type": {
+                            "type": "string",
+                            "description": "The type of location: `personal`, `company`, `unknown`",
+                            "example": "personal"
+                          },
+                          "assigned_info": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "extension_id": {
+                                  "type": "string",
+                                  "description": "The extension ID of the user's Zoom Phone.",
+                                  "example": "IqoQmDRqS-aIoXqV_FZ88w"
+                                },
+                                "extension_number": {
+                                  "type": "integer",
+                                  "description": "The extension number of the user's Zoom Phone.",
+                                  "format": "int64",
+                                  "example": 10010
+                                },
+                                "user_email": {
+                                  "type": "string",
+                                  "description": "The email of the user.",
+                                  "example": "test.user@gmai.com"
+                                },
+                                "user_display_name": {
+                                  "type": "string",
+                                  "description": "The name of the user.",
+                                  "example": "James Lu"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "total_records": {
+                      "type": "integer",
+                      "description": "The total number of records found for this query.",
+                      "example": 1
+                    },
+                    "page_size": {
+                      "maximum": 300,
+                      "type": "integer",
+                      "description": "The total number of records returned from a single API call.",
+                      "example": 30,
+                      "default": 30
+                    },
+                    "next_page_token": {
+                      "type": "string",
+                      "description": "The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:realtime_location_devices:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:realtime_location_devices:admin"
+          ]
+        }
+      }
+    },
+    "/phone/metrics/emergency_services/realtime_location/users": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "List real time location for users",
+        "description": "Returns the user's currently detected location. (Excludes users who didn't enable location permission on the client.)  \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:realtime_location_users:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
+        "operationId": "listUserRealtimeLocation",
+        "parameters": [
+          {
+            "name": "location_type",
+            "in": "query",
+            "description": "The location's type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "personal"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "description": "The site's ID.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "NjHmTu16Qfe8yOiNJuekXA"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "The name, email or extension number of the user.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "james"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of records returned within a single call.",
+            "required": false,
+            "schema": {
+              "maximum": 300,
+              "type": "integer",
+              "example": 30,
+              "default": 30
+            }
+          },
+          {
+            "name": "next_page_token",
+            "in": "query",
+            "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the max page number is 100.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200`   \n Locations returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string",
+                      "description": "The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "example": "6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2"
+                    },
+                    "page_size": {
+                      "type": "number",
+                      "description": "The total number of records returned from a single API call.",
+                      "example": 1
+                    },
+                    "total_records": {
+                      "type": "number",
+                      "description": "The total number of records found for this query.",
+                      "example": 6
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string",
+                            "description": "The user's email",
+                            "example": "test.user@gmail.com"
+                          },
+                          "bssid": {
+                            "type": "string",
+                            "description": "The BSSID (Basic Service Set Identifiers) of the wifi network which the user is connected to.",
+                            "example": "d0:15:a6:1f:4f:35"
+                          },
+                          "user_display_name": {
+                            "type": "string",
+                            "description": "The user's name",
+                            "example": "James Lu"
+                          },
+                          "extension_id": {
+                            "type": "string",
+                            "description": "The user's extension ID.",
+                            "example": "VodZOCkyRM-wfOqr1xmuMQ"
+                          },
+                          "extension_number": {
+                            "type": "integer",
+                            "description": "The user's extension number.",
+                            "format": "int64",
+                            "example": 10010
+                          },
+                          "site_name": {
+                            "type": "string",
+                            "description": "The site's name.",
+                            "example": "Main Site"
+                          },
+                          "site_id": {
+                            "type": "string",
+                            "description": "The unique identifier of the site.",
+                            "example": "oB18huSERjqbzrsyL2bD5w"
+                          },
+                          "public_ip": {
+                            "type": "string",
+                            "description": "The device's public IP address.",
+                            "example": "66.172.49.116"
+                          },
+                          "private_ip": {
+                            "type": "string",
+                            "description": "The device's subnet or private IP address.",
+                            "example": "10.100.161.25"
+                          },
+                          "emergency_address": {
+                            "type": "string",
+                            "description": "The emergency location's address.",
+                            "example": "55 ALMADEN BLVD"
+                          },
+                          "location_name": {
+                            "type": "string",
+                            "description": "The location's name.",
+                            "example": "example location"
+                          },
+                          "network_switch": {
+                            "type": "object",
+                            "properties": {
+                              "port": {
+                                "type": "string",
+                                "description": "The port of the network switch.",
+                                "example": "2"
+                              },
+                              "mac_address": {
+                                "type": "string",
+                                "description": "The MAC address or serial number of network switch.",
+                                "example": "543968a78ee7"
+                              }
+                            }
+                          },
+                          "location_type": {
+                            "type": "string",
+                            "description": "The type of location: `company`, `personal`, `unknown`",
+                            "example": "unknown"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "For ogen convenient errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "openapi_oauth": [
+              "phone:read:admin",
+              "phone:read:realtime_location_users:admin"
+            ],
+            "openapi_authorization": []
+          }
+        ],
+        "x-extensions": {
+          "x-permissions": [],
+          "x-macro-scopes": [
+            "phone:read:admin"
+          ],
+          "x-granular-scopes": [
+            "phone:read:realtime_location_users:admin"
           ]
         }
       }
@@ -36672,7 +37613,7 @@
           "SMS Campaign"
         ],
         "summary": "List SMS campaigns",
-        "description": "Use this API to list all SMS campaigns in a Zoom account.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_sms_campaigns:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Returns a list of all SMS campaigns in a Zoom account.\n\n**Prerequisites** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**Scopes:** `phone:read:admin`\n\n**Granular Scopes:** `phone:read:list_sms_campaigns:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
         "operationId": "listAccountSMSCampaigns",
         "parameters": [
           {
@@ -36708,15 +37649,18 @@
                   "properties": {
                     "next_page_token": {
                       "type": "string",
-                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.)",
+                      "description": "The next page token paginates through a large set of results. A next page token return whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
                       "example": "bkOcmnm6mn6ioYAi10BcgRiEL38WzAo6jP2"
                     },
                     "page_size": {
+                      "maximum": 300,
                       "type": "integer",
                       "description": "The number of records returned within a single API call.",
-                      "example": 30
+                      "example": 30,
+                      "default": 30
                     },
                     "sms_campaigns": {
+                      "maxItems": 300,
                       "type": "array",
                       "items": {
                         "type": "object",
@@ -36786,6 +37730,7 @@
           }
         ],
         "x-extensions": {
+          "x-permissions": [],
           "x-macro-scopes": [
             "phone:read:admin"
           ],
@@ -37101,7 +38046,7 @@
           {
             "name": "consumer_phone_number",
             "in": "query",
-            "description": "Thw end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.",
+            "description": "The end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.",
             "required": true,
             "schema": {
               "type": "string",
@@ -52559,6 +53504,11 @@
               "phone:delete:common_area_setting:admin": "phone:delete:common_area_setting:admin",
               "phone:write:common_area_setting:admin": "phone:write:common_area_setting:admin",
               "phone:read:call_qos:admin": "phone:read:call_qos:admin",
+              "phone:read:default_emergency_address:admin": "phone:read:default_emergency_address:admin",
+              "phone:read:detectable_personal_location:admin": "phone:read:detectable_personal_location:admin",
+              "phone:read:nomadic_emergency_services:admin": "phone:read:nomadic_emergency_services:admin",
+              "phone:read:realtime_location_devices:admin": "phone:read:realtime_location_devices:admin",
+              "phone:read:realtime_location_users:admin": "phone:read:realtime_location_users:admin",
               "phone:read:list_tracked_locations:admin": "phone:read:list_tracked_locations:admin",
               "phone:update:device_line_keys": "phone:update:device_line_keys",
               "phone:update:device_line_keys:admin": "phone:update:device_line_keys:admin",
@@ -53082,7 +54032,7 @@
               },
               "audio_while_connecting_id": {
                 "type": "string",
-                "description": "The audio while connecting the prompt ID. This option can select the audio played for the inbound callers when they are waiting to be routed to the next available call queue member.\n\n Options: empty char - default and `0` - disable \n\nThis is only required for the `Call Queue` `call_handling` sub-setting.",
+                "description": "The audio while connecting the prompt ID. This option can select the audio played for the inbound callers when they are waiting to be routed to the next available call queue member.\n\nOptions:\n* empty char - default\n* `ring_tone` - \"Ring Tone\" option\n* `0` - disable\n\nThis is only required for the `Call Queue` `call_handling` sub-setting.",
                 "example": "qPwtDrrcSua8O0_n0bDRDg"
               },
               "call_distribution": {

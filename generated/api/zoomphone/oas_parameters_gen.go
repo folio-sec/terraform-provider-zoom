@@ -191,7 +191,7 @@ type AddClientCodeToCallHistoryParams struct {
 
 // AddClientCodeToCallLogParams is parameters of addClientCodeToCallLog operation.
 type AddClientCodeToCallLogParams struct {
-	// Unique identifier of the call log.
+	// The unique identifier of the call log.
 	CallLogId string
 }
 
@@ -1036,7 +1036,7 @@ type GetMonitoringGroupByIdParams struct {
 type GetNumberCampaignOptStatusParams struct {
 	// The SMS campaign ID.
 	SmsCampaignId string
-	// Thw end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
+	// The end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
 	ConsumerPhoneNumber string
 	// The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.
 	ZoomPhoneUserNumbers []string
@@ -1874,6 +1874,22 @@ type ListPhoneDevicesParams struct {
 	PageSize OptInt
 }
 
+// ListPhoneRealtimelocationParams is parameters of listPhoneRealtimelocation operation.
+type ListPhoneRealtimelocationParams struct {
+	// The location's type.
+	LocationType string
+	// The site's ID.
+	SiteID OptString
+	// The device name or device MAC address.
+	Keyword OptString
+	// The number of records returned within a single call.
+	PageSize OptInt
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes, and the maximum page number is 100.
+	NextPageToken OptString
+}
+
 // ListPhoneSitesParams is parameters of listPhoneSites operation.
 type ListPhoneSitesParams struct {
 	// The number of records returned within a single API call.
@@ -2086,6 +2102,54 @@ type ListUserCustomizeOutboundCallerNumbersParams struct {
 	NextPageToken OptString
 }
 
+// ListUserDefaultEmergencyAddressParams is parameters of listUserDefaultEmergencyAddress operation.
+type ListUserDefaultEmergencyAddressParams struct {
+	// The status of **Default Emergency Address**.
+	Status string
+	// The site's ID.
+	SiteID OptString
+	// The name, email, or extension number of the user.
+	Keyword OptString
+	// The number of records returned within a single call.
+	PageSize OptInt
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes, and the maximu  page number is 100.
+	NextPageToken OptString
+}
+
+// ListUserDetectablePersonalLocationParams is parameters of listUserDetectablePersonalLocation operation.
+type ListUserDetectablePersonalLocationParams struct {
+	// The status of **Detectable Personal Location**.
+	Status string
+	// The site's ID.
+	SiteID OptString
+	// The name, email, or extension number of the user.
+	Keyword OptString
+	// The number of records returned within a single call.
+	PageSize OptInt
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes, and the maximum page number is 100.
+	NextPageToken OptString
+}
+
+// ListUserNomadicEmergencyServicesParams is parameters of listUserNomadicEmergencyServices operation.
+type ListUserNomadicEmergencyServicesParams struct {
+	// The status of **Nomadic Emergency Services is disabled**.
+	Status string
+	// The site's ID.
+	SiteID OptString
+	// The name, email, or extension number of the user.
+	Keyword OptString
+	// The number of records returned within a single call.
+	PageSize OptInt
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes, and the max page number is 100.
+	NextPageToken OptString
+}
+
 // ListUserOutboundCallingExceptionRuleParams is parameters of listUserOutboundCallingExceptionRule operation.
 type ListUserOutboundCallingExceptionRuleParams struct {
 	// The ID of the user.
@@ -2105,6 +2169,22 @@ type ListUserOutboundCallingExceptionRuleParams struct {
 	NextPageToken OptString
 	// The number of records in a single API call.
 	PageSize OptInt
+}
+
+// ListUserRealtimeLocationParams is parameters of listUserRealtimeLocation operation.
+type ListUserRealtimeLocationParams struct {
+	// The location's type.
+	LocationType string
+	// The site's ID.
+	SiteID OptString
+	// The name, email or extension number of the user.
+	Keyword OptString
+	// The number of records returned within a single call.
+	PageSize OptInt
+	// The next page token paginates through a large set of results. It returns whenever the set of
+	// available results exceeds the current page size. The expiration period for this token is 15
+	// minutes, and the max page number is 100.
+	NextPageToken OptString
 }
 
 // ListUsersFromDirectoryParams is parameters of ListUsersFromDirectory operation.

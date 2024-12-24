@@ -1973,11 +1973,8 @@ func decodeGroupMembersCreateResponse(resp *http.Response) (res GroupMembersCrea
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupMembersDeleteResponse(resp *http.Response) (res GroupMembersDeleteRes, _ error) {
+func decodeGroupMembersDeleteResponse(resp *http.Response) (res *GroupMembersDeleteNoContent, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupMembersDeleteOK{}, nil
 	case 204:
 		// Code 204.
 		return &GroupMembersDeleteNoContent{}, nil

@@ -236,9 +236,8 @@ type Invoker interface {
 	//
 	// Adds Zoom Phone call handling subsettings for your phone system. Call handling settings allow you
 	// to control how your system routes calls during business, closed, or holiday hours. For more
-	// information, see our [API guide](https://marketplace.zoom.
-	// us/docs/guides/zoom-phone/call-handling/) or Zoom support article [Customizing call handling
-	// settings](https://support.zoom.
+	// information, see our [API guide](https://developers.zoom.us/docs/api/phone/) or Zoom support
+	// article [Customizing call handling settings](https://support.zoom.
 	// us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).
 	// **Applicable to user, call queue, auto receptionist, or shared line group call handling at this
 	// time.**
@@ -269,12 +268,14 @@ type Invoker interface {
 	// us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs
 	// with a client code.
 	// **Prerequisites:**
-	// * Business, or Education account
+	// * Business or Education account
 	// * Zoom Phone license
 	// **Scopes:** `phone:write:admin`
 	// **Granular Scopes:** `phone:update:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
+	//
+	// Deprecated: schema marks this operation as deprecated.
 	//
 	// PUT /phone/call_logs/{callLogId}/client_code
 	AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) error
@@ -1304,6 +1305,8 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
+	//
+	// Deprecated: schema marks this operation as deprecated.
 	//
 	// DELETE /phone/users/{userId}/call_logs/{callLogId}
 	DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error
@@ -2536,14 +2539,14 @@ type Invoker interface {
 	ListAccountProvisionTemplate(ctx context.Context, params ListAccountProvisionTemplateParams) (*ListAccountProvisionTemplateOK, error)
 	// ListAccountSMSCampaigns invokes listAccountSMSCampaigns operation.
 	//
-	// Use this API to list all SMS campaigns in a Zoom account.
-	// **Prerequisites:**
+	// Returns a list of all SMS campaigns in a Zoom account.
+	// **Prerequisites**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
 	// **Scopes:** `phone:read:admin`
 	// **Granular Scopes:** `phone:read:list_sms_campaigns:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /phone/sms_campaigns
 	ListAccountSMSCampaigns(ctx context.Context, params ListAccountSMSCampaignsParams) (*ListAccountSMSCampaignsOK, error)
@@ -3009,6 +3012,19 @@ type Invoker interface {
 	//
 	// GET /phone/plans
 	ListPhonePlans(ctx context.Context) (*ListPhonePlansOK, error)
+	// ListPhoneRealtimelocation invokes listPhoneRealtimelocation operation.
+	//
+	// Returns currently detected location of IP phones.
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:realtime_location_devices:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/metrics/emergency_services/realtime_location/devices
+	ListPhoneRealtimelocation(ctx context.Context, params ListPhoneRealtimelocationParams) (*ListPhoneRealtimelocationOK, error)
 	// ListPhoneRoles invokes ListPhoneRoles operation.
 	//
 	// Returns the phone roles.
@@ -3225,6 +3241,47 @@ type Invoker interface {
 	//
 	// GET /phone/users/{userId}/outbound_caller_id/customized_numbers
 	ListUserCustomizeOutboundCallerNumbers(ctx context.Context, params ListUserCustomizeOutboundCallerNumbersParams) (*ListUserCustomizeOutboundCallerNumbersOK, error)
+	// ListUserDefaultEmergencyAddress invokes listUserDefaultEmergencyAddress operation.
+	//
+	// Returns the users who provide a default personal emergency address rather than a default site
+	// address or default account address.
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:default_emergency_address:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/metrics/emergency_services/default_emergency_address/users
+	ListUserDefaultEmergencyAddress(ctx context.Context, params ListUserDefaultEmergencyAddressParams) (*ListUserDefaultEmergencyAddressOK, error)
+	// ListUserDetectablePersonalLocation invokes listUserDetectablePersonalLocation operation.
+	//
+	// Returns the users who created one or more detectable personal locations with associated network
+	// data. (Exclude users didn't enable Location Permission on client.)
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:detectable_personal_location:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/metrics/emergency_services/detectable_personal_location/users
+	ListUserDetectablePersonalLocation(ctx context.Context, params ListUserDetectablePersonalLocationParams) (*ListUserDetectablePersonalLocationOK, error)
+	// ListUserNomadicEmergencyServices invokes listUserNomadicEmergencyServices operation.
+	//
+	// Returns users who have been enabled for nomadic emergency services.
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:nomadic_emergency_services:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/metrics/emergency_services/nomadic_emergency_services/users
+	ListUserNomadicEmergencyServices(ctx context.Context, params ListUserNomadicEmergencyServicesParams) (*ListUserNomadicEmergencyServicesOK, error)
 	// ListUserOutboundCallingExceptionRule invokes listUserOutboundCallingExceptionRule operation.
 	//
 	// Returns a list of the user level outbound calling policy exception rules.
@@ -3237,6 +3294,20 @@ type Invoker interface {
 	//
 	// GET /phone/users/{userId}/outbound_calling/exception_rules
 	ListUserOutboundCallingExceptionRule(ctx context.Context, params ListUserOutboundCallingExceptionRuleParams) (*ListUserOutboundCallingExceptionRuleOK, error)
+	// ListUserRealtimeLocation invokes listUserRealtimeLocation operation.
+	//
+	// Returns the user's currently detected location. (Excludes users who didn't enable location
+	// permission on the client.)
+	// **Prerequisites:**
+	// * Pro or higher account plan with Zoom phone license
+	// * Account owner or admin permissions
+	// **Scopes:** `phone:read:admin`
+	// **Granular Scopes:** `phone:read:realtime_location_users:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/metrics/emergency_services/realtime_location/users
+	ListUserRealtimeLocation(ctx context.Context, params ListUserRealtimeLocationParams) (*ListUserRealtimeLocationOK, error)
 	// ListUsersFromDirectory invokes ListUsersFromDirectory operation.
 	//
 	// Use this API to get users that are in or not in a [directory](https://support.zoom.
@@ -3402,6 +3473,8 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
+	//
+	// Deprecated: schema marks this operation as deprecated.
 	//
 	// GET /phone/users/{userId}/call_logs
 	PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (*PhoneUserCallLogsOK, error)
@@ -3644,6 +3717,8 @@ type Invoker interface {
 	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
+	//
+	// Deprecated: schema marks this operation as deprecated.
 	//
 	// GET /phone/users/{userId}/call_logs/sync
 	SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (*SyncUserCallLogsOK, error)
@@ -7340,9 +7415,8 @@ func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQ
 //
 // Adds Zoom Phone call handling subsettings for your phone system. Call handling settings allow you
 // to control how your system routes calls during business, closed, or holiday hours. For more
-// information, see our [API guide](https://marketplace.zoom.
-// us/docs/guides/zoom-phone/call-handling/) or Zoom support article [Customizing call handling
-// settings](https://support.zoom.
+// information, see our [API guide](https://developers.zoom.us/docs/api/phone/) or Zoom support
+// article [Customizing call handling settings](https://support.zoom.
 // us/hc/en-us/articles/360059966372-Customizing-call-handling-settings).
 // **Applicable to user, call queue, auto receptionist, or shared line group call handling at this
 // time.**
@@ -7655,12 +7729,14 @@ func (c *Client) sendAddClientCodeToCallHistory(ctx context.Context, request Opt
 // us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs
 // with a client code.
 // **Prerequisites:**
-// * Business, or Education account
+// * Business or Education account
 // * Zoom Phone license
 // **Scopes:** `phone:write:admin`
 // **Granular Scopes:** `phone:update:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
+//
+// Deprecated: schema marks this operation as deprecated.
 //
 // PUT /phone/call_logs/{callLogId}/client_code
 func (c *Client) AddClientCodeToCallLog(ctx context.Context, request OptAddClientCodeToCallLogReq, params AddClientCodeToCallLogParams) error {
@@ -17682,6 +17758,8 @@ func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHa
 // **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
+//
+// Deprecated: schema marks this operation as deprecated.
 //
 // DELETE /phone/users/{userId}/call_logs/{callLogId}
 func (c *Client) DeleteCallLog(ctx context.Context, params DeleteCallLogParams) error {
@@ -31834,14 +31912,14 @@ func (c *Client) sendListAccountProvisionTemplate(ctx context.Context, params Li
 
 // ListAccountSMSCampaigns invokes listAccountSMSCampaigns operation.
 //
-// Use this API to list all SMS campaigns in a Zoom account.
-// **Prerequisites:**
+// Returns a list of all SMS campaigns in a Zoom account.
+// **Prerequisites**
 // * A Pro or higher account plan
 // * A Zoom Phone license
 // **Scopes:** `phone:read:admin`
 // **Granular Scopes:** `phone:read:list_sms_campaigns:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /phone/sms_campaigns
 func (c *Client) ListAccountSMSCampaigns(ctx context.Context, params ListAccountSMSCampaignsParams) (*ListAccountSMSCampaignsOK, error) {
@@ -38119,6 +38197,215 @@ func (c *Client) sendListPhonePlans(ctx context.Context) (res *ListPhonePlansOK,
 	return result, nil
 }
 
+// ListPhoneRealtimelocation invokes listPhoneRealtimelocation operation.
+//
+// Returns currently detected location of IP phones.
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:realtime_location_devices:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/metrics/emergency_services/realtime_location/devices
+func (c *Client) ListPhoneRealtimelocation(ctx context.Context, params ListPhoneRealtimelocationParams) (*ListPhoneRealtimelocationOK, error) {
+	res, err := c.sendListPhoneRealtimelocation(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListPhoneRealtimelocation(ctx context.Context, params ListPhoneRealtimelocationParams) (res *ListPhoneRealtimelocationOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listPhoneRealtimelocation"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/metrics/emergency_services/realtime_location/devices"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListPhoneRealtimelocationOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/metrics/emergency_services/realtime_location/devices"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "location_type" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "location_type",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.LocationType))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, ListPhoneRealtimelocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, ListPhoneRealtimelocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListPhoneRealtimelocationResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // ListPhoneRoles invokes ListPhoneRoles operation.
 //
 // Returns the phone roles.
@@ -41081,6 +41368,635 @@ func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context,
 	return result, nil
 }
 
+// ListUserDefaultEmergencyAddress invokes listUserDefaultEmergencyAddress operation.
+//
+// Returns the users who provide a default personal emergency address rather than a default site
+// address or default account address.
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:default_emergency_address:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/metrics/emergency_services/default_emergency_address/users
+func (c *Client) ListUserDefaultEmergencyAddress(ctx context.Context, params ListUserDefaultEmergencyAddressParams) (*ListUserDefaultEmergencyAddressOK, error) {
+	res, err := c.sendListUserDefaultEmergencyAddress(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListUserDefaultEmergencyAddress(ctx context.Context, params ListUserDefaultEmergencyAddressParams) (res *ListUserDefaultEmergencyAddressOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listUserDefaultEmergencyAddress"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/metrics/emergency_services/default_emergency_address/users"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListUserDefaultEmergencyAddressOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/metrics/emergency_services/default_emergency_address/users"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "status" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "status",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Status))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, ListUserDefaultEmergencyAddressOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, ListUserDefaultEmergencyAddressOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListUserDefaultEmergencyAddressResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListUserDetectablePersonalLocation invokes listUserDetectablePersonalLocation operation.
+//
+// Returns the users who created one or more detectable personal locations with associated network
+// data. (Exclude users didn't enable Location Permission on client.)
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:detectable_personal_location:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/metrics/emergency_services/detectable_personal_location/users
+func (c *Client) ListUserDetectablePersonalLocation(ctx context.Context, params ListUserDetectablePersonalLocationParams) (*ListUserDetectablePersonalLocationOK, error) {
+	res, err := c.sendListUserDetectablePersonalLocation(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListUserDetectablePersonalLocation(ctx context.Context, params ListUserDetectablePersonalLocationParams) (res *ListUserDetectablePersonalLocationOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listUserDetectablePersonalLocation"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/metrics/emergency_services/detectable_personal_location/users"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListUserDetectablePersonalLocationOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/metrics/emergency_services/detectable_personal_location/users"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "status" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "status",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Status))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, ListUserDetectablePersonalLocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, ListUserDetectablePersonalLocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListUserDetectablePersonalLocationResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListUserNomadicEmergencyServices invokes listUserNomadicEmergencyServices operation.
+//
+// Returns users who have been enabled for nomadic emergency services.
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:nomadic_emergency_services:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/metrics/emergency_services/nomadic_emergency_services/users
+func (c *Client) ListUserNomadicEmergencyServices(ctx context.Context, params ListUserNomadicEmergencyServicesParams) (*ListUserNomadicEmergencyServicesOK, error) {
+	res, err := c.sendListUserNomadicEmergencyServices(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListUserNomadicEmergencyServices(ctx context.Context, params ListUserNomadicEmergencyServicesParams) (res *ListUserNomadicEmergencyServicesOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listUserNomadicEmergencyServices"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/metrics/emergency_services/nomadic_emergency_services/users"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListUserNomadicEmergencyServicesOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/metrics/emergency_services/nomadic_emergency_services/users"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "status" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "status",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Status))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, ListUserNomadicEmergencyServicesOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, ListUserNomadicEmergencyServicesOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListUserNomadicEmergencyServicesResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // ListUserOutboundCallingExceptionRule invokes listUserOutboundCallingExceptionRule operation.
 //
 // Returns a list of the user level outbound calling policy exception rules.
@@ -41321,6 +42237,216 @@ func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, p
 
 	stage = "DecodeResponse"
 	result, err := decodeListUserOutboundCallingExceptionRuleResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// ListUserRealtimeLocation invokes listUserRealtimeLocation operation.
+//
+// Returns the user's currently detected location. (Excludes users who didn't enable location
+// permission on the client.)
+// **Prerequisites:**
+// * Pro or higher account plan with Zoom phone license
+// * Account owner or admin permissions
+// **Scopes:** `phone:read:admin`
+// **Granular Scopes:** `phone:read:realtime_location_users:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/metrics/emergency_services/realtime_location/users
+func (c *Client) ListUserRealtimeLocation(ctx context.Context, params ListUserRealtimeLocationParams) (*ListUserRealtimeLocationOK, error) {
+	res, err := c.sendListUserRealtimeLocation(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendListUserRealtimeLocation(ctx context.Context, params ListUserRealtimeLocationParams) (res *ListUserRealtimeLocationOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("listUserRealtimeLocation"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/metrics/emergency_services/realtime_location/users"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, ListUserRealtimeLocationOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/phone/metrics/emergency_services/realtime_location/users"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "location_type" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "location_type",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.LocationType))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "site_id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "site_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.SiteID.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "keyword" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "keyword",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Keyword.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, ListUserRealtimeLocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, ListUserRealtimeLocationOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeListUserRealtimeLocationResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -43432,6 +44558,8 @@ func (c *Client) sendPhoneUserCallHistory(ctx context.Context, params PhoneUserC
 // **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
+//
+// Deprecated: schema marks this operation as deprecated.
 //
 // GET /phone/users/{userId}/call_logs
 func (c *Client) PhoneUserCallLogs(ctx context.Context, params PhoneUserCallLogsParams) (*PhoneUserCallLogsOK, error) {
@@ -46552,6 +47680,8 @@ func (c *Client) sendSyncUserCallHistory(ctx context.Context, params SyncUserCal
 // **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
+//
+// Deprecated: schema marks this operation as deprecated.
 //
 // GET /phone/users/{userId}/call_logs/sync
 func (c *Client) SyncUserCallLogs(ctx context.Context, params SyncUserCallLogsParams) (*SyncUserCallLogsOK, error) {

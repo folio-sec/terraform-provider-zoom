@@ -9748,13 +9748,6 @@ func (s *GroupMembersCreateReqMembersItem) SetID(val OptString) {
 // GroupMembersDeleteNoContent is response for GroupMembersDelete operation.
 type GroupMembersDeleteNoContent struct{}
 
-func (*GroupMembersDeleteNoContent) groupMembersDeleteRes() {}
-
-// GroupMembersDeleteOK is response for GroupMembersDelete operation.
-type GroupMembersDeleteOK struct{}
-
-func (*GroupMembersDeleteOK) groupMembersDeleteRes() {}
-
 type GroupMembersOK struct {
 	Members []GroupMembersOKMembersItem `json:"members"`
 	// The next page token is used to paginate through large result sets. A next page token will be
@@ -35011,6 +35004,8 @@ type UserUpdateReq struct {
 	HostKey OptString `json:"host_key"`
 	// The user's job title.
 	JobTitle OptString `json:"job_title"`
+	// The user's cost center.
+	CostCenter OptString `json:"cost_center"`
 	// The user's language.
 	Language OptString `json:"language"`
 	// The user's last name. This value cannot contain more than five Chinese characters.
@@ -35163,6 +35158,11 @@ func (s *UserUpdateReq) GetJobTitle() OptString {
 	return s.JobTitle
 }
 
+// GetCostCenter returns the value of CostCenter.
+func (s *UserUpdateReq) GetCostCenter() OptString {
+	return s.CostCenter
+}
+
 // GetLanguage returns the value of Language.
 func (s *UserUpdateReq) GetLanguage() OptString {
 	return s.Language
@@ -35301,6 +35301,11 @@ func (s *UserUpdateReq) SetHostKey(val OptString) {
 // SetJobTitle sets the value of JobTitle.
 func (s *UserUpdateReq) SetJobTitle(val OptString) {
 	s.JobTitle = val
+}
+
+// SetCostCenter sets the value of CostCenter.
+func (s *UserUpdateReq) SetCostCenter(val OptString) {
+	s.CostCenter = val
 }
 
 // SetLanguage sets the value of Language.
