@@ -54249,6 +54249,12 @@ func (s *UserUpdateReq) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.CostCenter.Set {
+			e.FieldStart("cost_center")
+			s.CostCenter.Encode(e)
+		}
+	}
+	{
 		if s.Language.Set {
 			e.FieldStart("language")
 			s.Language.Encode(e)
@@ -54374,7 +54380,7 @@ func (s *UserUpdateReq) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfUserUpdateReq = [28]string{
+var jsonFieldsNameOfUserUpdateReq = [29]string{
 	0:  "cms_user_id",
 	1:  "company",
 	2:  "custom_attributes",
@@ -54383,26 +54389,27 @@ var jsonFieldsNameOfUserUpdateReq = [28]string{
 	5:  "group_id",
 	6:  "host_key",
 	7:  "job_title",
-	8:  "language",
-	9:  "last_name",
-	10: "location",
-	11: "manager",
-	12: "phone_country",
-	13: "phone_number",
-	14: "phone_numbers",
-	15: "pmi",
-	16: "pronouns",
-	17: "pronouns_option",
-	18: "timezone",
-	19: "type",
-	20: "use_pmi",
-	21: "vanity_name",
-	22: "display_name",
-	23: "zoom_one_type",
-	24: "plan_united_type",
-	25: "feature",
-	26: "about_me",
-	27: "linkedin_url",
+	8:  "cost_center",
+	9:  "language",
+	10: "last_name",
+	11: "location",
+	12: "manager",
+	13: "phone_country",
+	14: "phone_number",
+	15: "phone_numbers",
+	16: "pmi",
+	17: "pronouns",
+	18: "pronouns_option",
+	19: "timezone",
+	20: "type",
+	21: "use_pmi",
+	22: "vanity_name",
+	23: "display_name",
+	24: "zoom_one_type",
+	25: "plan_united_type",
+	26: "feature",
+	27: "about_me",
+	28: "linkedin_url",
 }
 
 // Decode decodes UserUpdateReq from json.
@@ -54500,6 +54507,16 @@ func (s *UserUpdateReq) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"job_title\"")
+			}
+		case "cost_center":
+			if err := func() error {
+				s.CostCenter.Reset()
+				if err := s.CostCenter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"cost_center\"")
 			}
 		case "language":
 			if err := func() error {

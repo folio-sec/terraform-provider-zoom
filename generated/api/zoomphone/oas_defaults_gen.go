@@ -139,6 +139,14 @@ func (s *ListAccountOutboundCallingExceptionRuleOK) setDefaults() {
 }
 
 // setDefaults set default value of fields.
+func (s *ListAccountSMSCampaignsOK) setDefaults() {
+	{
+		val := int(30)
+		s.PageSize.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
 func (s *ListBYOCSIPTrunkOK) setDefaults() {
 	{
 		val := int(30)
@@ -164,6 +172,14 @@ func (s *ListCommonAreaOutboundCallingExceptionRuleOK) setDefaults() {
 
 // setDefaults set default value of fields.
 func (s *ListExtensionLevelInboundBlockRulesOK) setDefaults() {
+	{
+		val := int(30)
+		s.PageSize.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *ListPhoneRealtimelocationOK) setDefaults() {
 	{
 		val := int(30)
 		s.PageSize.SetTo(val)

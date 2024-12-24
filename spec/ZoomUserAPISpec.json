@@ -3102,7 +3102,7 @@
           "Groups"
         ],
         "summary": "Delete a group member",
-        "description": "Use this API to remove a user from a [group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-) in an account.\n\n**Prerequisites:** \n* A Pro, Business, or Education account\n\n**Scopes:** `group:write:admin`\n\n**Granular Scopes:** `group:delete:member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "description": "Use this API to remove a user from a [group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-) in an account.\n\n**Prerequisites:** \n* A Pro, Business, or Education account\n\n**Scopes:** `group:write:admin`\n\n**Granular Scopes:** `group:delete:member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`",
         "operationId": "groupMembersDelete",
         "parameters": [
           {
@@ -3127,11 +3127,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Only available for paid account,{accountId}."
-          },
           "204": {
-            "description": "Group member deleted."
+            "description": "**HTTP Status Code:** `204` **No Content**   Group member deleted."
           },
           "default": {
             "description": "For ogen convenient errors",
@@ -3170,7 +3167,7 @@
           "Groups"
         ],
         "summary": "Update a group member",
-        "description": "Use this API to perform either of the following tasks: \n* Remove a group member from one group and move them to a different group. \n* Set a user's primary group. By default, the primary group is the first group that user is added to.\n\nIf a user is a member of multiple groups, you can [assign the user a primary group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-#h_d07c7dcd-4fd8-485a-b5fe-a322e8d21c09). The user will use the primary group's settings by default. However, if the user is a member of a group with locked settings, those group settings will remain locked to the user.\n\n**Prerequisites:** \n* A Pro or higher account\n\n**Scopes:** `group:write:admin`\n\n**Granular Scopes:** `group:update:member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "description": "Use this API to perform either of the following tasks: \n* Remove a group member from one group and move them to a different group. \n* Set a user's primary group. By default, the primary group is the first group that user is added to.\n\nIf a user is a member of multiple groups, you can [assign the user a primary group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-#h_d07c7dcd-4fd8-485a-b5fe-a322e8d21c09). The user will use the primary group's settings by default. However, if the user is a member of a group with locked settings, those group settings will remain locked to the user.\n\n**Prerequisites:** \n* A Pro or higher account\n\n**Scopes:** `group:write:admin`\n\n**Granular Scopes:** `group:update:member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`",
         "operationId": "updateAGroupMember",
         "parameters": [
           {
@@ -9319,6 +9316,11 @@
                     "type": "string",
                     "description": "The user's job title.",
                     "example": "Developer"
+                  },
+                  "cost_center": {
+                    "type": "string",
+                    "description": "The user's cost center.",
+                    "example": "cost center"
                   },
                   "language": {
                     "type": "string",

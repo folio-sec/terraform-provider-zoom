@@ -17,10 +17,6 @@ type GroupMembersCreateRes interface {
 	groupMembersCreateRes()
 }
 
-type GroupMembersDeleteRes interface {
-	groupMembersDeleteRes()
-}
-
 type GroupSettingsRegistrationUpdateRes interface {
 	groupSettingsRegistrationUpdateRes()
 }

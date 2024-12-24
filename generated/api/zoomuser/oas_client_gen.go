@@ -371,10 +371,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:delete:member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /groups/{groupId}/members/{memberId}
-	GroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) (GroupMembersDeleteRes, error)
+	GroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) error
 	// GroupSettingsRegistration invokes groupSettingsRegistration operation.
 	//
 	// Get webinar registration settings for a [group](https://support.zoom.
@@ -455,7 +455,7 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:update:member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// PATCH /groups/{groupId}/members/{memberId}
 	UpdateAGroupMember(ctx context.Context, request OptUpdateAGroupMemberReq, params UpdateAGroupMemberParams) error
@@ -4990,15 +4990,15 @@ func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMem
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:delete:member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /groups/{groupId}/members/{memberId}
-func (c *Client) GroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) (GroupMembersDeleteRes, error) {
-	res, err := c.sendGroupMembersDelete(ctx, params)
-	return res, err
+func (c *Client) GroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) error {
+	_, err := c.sendGroupMembersDelete(ctx, params)
+	return err
 }
 
-func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) (res GroupMembersDeleteRes, err error) {
+func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembersDeleteParams) (res *GroupMembersDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupMembersDelete"),
 		semconv.HTTPRequestMethodKey.String("DELETE"),
@@ -5894,7 +5894,7 @@ func (c *Client) sendListCollaborationDevices(ctx context.Context, params ListCo
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:update:member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // PATCH /groups/{groupId}/members/{memberId}
 func (c *Client) UpdateAGroupMember(ctx context.Context, request OptUpdateAGroupMemberReq, params UpdateAGroupMemberParams) error {
