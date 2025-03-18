@@ -166,10 +166,11 @@ type AddAudioItemParams struct {
 
 // AddCQPolicySubSettingParams is parameters of addCQPolicySubSetting operation.
 type AddCQPolicySubSettingParams struct {
-	// The call queue ID, retrievable the [List Call Queues](https://marketplace.zoom.
-	// us/docs/api-reference/phone/methods#tag/Call-Queues/operation/listCallQueues) API.
+	// The call queue ID that is retrievable the [List Call Queues](https://developers.zoom.
+	// us/docs/api/rest/reference/phone/methods/#operation/listCallQueues) API.
 	CallQueueId string
-	// The policy sub-setting item that you wish to add. Allowed values: `voice_mail`.
+	// This field corresponds to the policy sub-setting item you wish to add.
+	// Allowed values: `voice_mail`.
 	PolicyType string
 }
 
@@ -911,6 +912,12 @@ type GetCallChargesUsageReportParams struct {
 type GetCallHandlingParams struct {
 	// The extension ID.
 	ExtensionId string
+}
+
+// GetCallHistoryDetailParams is parameters of getCallHistoryDetail operation.
+type GetCallHistoryDetailParams struct {
+	// The ID of the call log.
+	CallLogId string
 }
 
 // GetCallLogDetailsParams is parameters of getCallLogDetails operation.
@@ -2053,6 +2060,20 @@ type ListSiteOutboundCallingExceptionRuleParams struct {
 	// is 15 minutes.
 	NextPageToken OptString
 	// The number of records in a single API call.
+	PageSize OptInt
+}
+
+// ListSmartphonesParams is parameters of ListSmartphones operation.
+type ListSmartphonesParams struct {
+	// The site of the assignee.
+	SiteID OptString
+	// The device name, common area, serial number, or IP address to filter the results.
+	Keyword OptString
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
+	NextPageToken OptString
+	// The number of records returned within a single API call.
 	PageSize OptInt
 }
 

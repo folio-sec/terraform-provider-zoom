@@ -59,6 +59,22 @@ func (s *CreatePhoneSiteReqShortExtension) setDefaults() {
 }
 
 // setDefaults set default value of fields.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) setDefaults() {
+	{
+		val := string("monday")
+		s.Weekday.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) setDefaults() {
+	{
+		val := string("monday")
+		s.Weekday.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
 func (s *GetASiteOKShortExtension) setDefaults() {
 	{
 		val := int(3)
@@ -103,6 +119,14 @@ func (s *GetSiteOutboundCallingCountriesAndRegionsOK) setDefaults() {
 	{
 		val := int(30)
 		s.PageSize.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *GetSiteSettingForTypeOKDeskPhoneGeneralSetting) setDefaults() {
+	{
+		val := string("account_setting")
+		s.SettingType.SetTo(val)
 	}
 }
 
@@ -263,9 +287,33 @@ func (s *UpdateGCPReqPlayIncomingCallsSound) setDefaults() {
 }
 
 // setDefaults set default value of fields.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) setDefaults() {
+	{
+		val := string("monday")
+		s.Weekday.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) setDefaults() {
+	{
+		val := string("monday")
+		s.Weekday.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
 func (s *UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout) setDefaults() {
 	{
 		val := string("hours")
 		s.Unit.SetTo(val)
+	}
+}
+
+// setDefaults set default value of fields.
+func (s *UpdateSiteSettingReqGeneralSetting) setDefaults() {
+	{
+		val := string("account_setting")
+		s.SettingType.SetTo(val)
 	}
 }

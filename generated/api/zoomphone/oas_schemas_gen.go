@@ -194,6 +194,8 @@ type AccountCallHistoryOKCallLogsItem struct {
 	// The callee's country code.
 	CalleeCountryCode OptString `json:"callee_country_code"`
 	// The client code for the call.
+	//
+	// Deprecated: schema marks this property as deprecated.
 	ClientCode OptString `json:"client_code"`
 	// The name of the department of which the user belongs.
 	Department OptString `json:"department"`
@@ -804,7 +806,7 @@ type AccountCallLogsOKCallLogsItem struct {
 	DevicePublicIP OptString `json:"device_public_ip"`
 	// Direction of the call. &quot;inbound&quot; | &quot;outbound&quot;.
 	Direction OptString `json:"direction"`
-	// Duration of the call in seconds.
+	// Duration of the billing call in seconds.
 	Duration OptInt `json:"duration"`
 	// Call Log ID.
 	ID    OptString                             `json:"id"`
@@ -2899,13 +2901,18 @@ func (s *AddCQPolicySubSettingCreated) SetVoicemailAccessMembers(val []AddCQPoli
 
 // Merged schema.
 type AddCQPolicySubSettingCreatedVoicemailAccessMembersItem struct {
-	// The Zoom user ID or email to share or update the access permissions with.
+	// The member's ID in the shared voicemail access list determines the sharing or updating of access
+	// permissions. It must be the unique identifier of the user, or unique identifier of the common area
+	// depending on the access user type.
 	AccessUserID OptString `json:"access_user_id"`
-	// Specifies whether the member has download permissions. The default is **false**.
+	// The extension type of the member to be added in the shared voicemail access member list. Allowed:
+	// user | commonArea.
+	AccessUserType OptString `json:"access_user_type"`
+	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
-	// Specifies whether the member has delete permissions. The default is **false**.
+	// Whether the member has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// Specifies whether the member has the permission to share. The default is **false**.
+	// Whether the member has the permission to share. The default is **false**.
 	AllowSharing OptBool `json:"allow_sharing"`
 	// The shared voicemail ID.
 	SharedID OptString `json:"shared_id"`
@@ -2914,6 +2921,11 @@ type AddCQPolicySubSettingCreatedVoicemailAccessMembersItem struct {
 // GetAccessUserID returns the value of AccessUserID.
 func (s *AddCQPolicySubSettingCreatedVoicemailAccessMembersItem) GetAccessUserID() OptString {
 	return s.AccessUserID
+}
+
+// GetAccessUserType returns the value of AccessUserType.
+func (s *AddCQPolicySubSettingCreatedVoicemailAccessMembersItem) GetAccessUserType() OptString {
+	return s.AccessUserType
 }
 
 // GetAllowDownload returns the value of AllowDownload.
@@ -2939,6 +2951,11 @@ func (s *AddCQPolicySubSettingCreatedVoicemailAccessMembersItem) GetSharedID() O
 // SetAccessUserID sets the value of AccessUserID.
 func (s *AddCQPolicySubSettingCreatedVoicemailAccessMembersItem) SetAccessUserID(val OptString) {
 	s.AccessUserID = val
+}
+
+// SetAccessUserType sets the value of AccessUserType.
+func (s *AddCQPolicySubSettingCreatedVoicemailAccessMembersItem) SetAccessUserType(val OptString) {
+	s.AccessUserType = val
 }
 
 // SetAllowDownload sets the value of AllowDownload.
@@ -2978,19 +2995,29 @@ func (s *AddCQPolicySubSettingReq) SetVoicemailAccessMembers(val []AddCQPolicySu
 }
 
 type AddCQPolicySubSettingReqVoicemailAccessMembersItem struct {
-	// The Zoom user ID or email to share or update the access permissions with.
+	// The member's ID in the shared voicemail access list determines the sharing or updating of access
+	// permissions. It must be the unique identifier of the user, or the unique identifier of the common
+	// area, depending on the access user type.
 	AccessUserID OptString `json:"access_user_id"`
-	// Specifies whether the member has download permissions. The default is **false**.
+	// The extension type of the member to be added in the shared voicemail access member list. The
+	// default type will be user if empty. Allowed: user | commonArea.
+	AccessUserType OptString `json:"access_user_type"`
+	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
-	// Specifies whether the member has delete permissions. The default is **false**.
+	// Whether the member has delete permissions. The default is **false**.
 	AllowDelete OptBool `json:"allow_delete"`
-	// Specifies whether the member has the permission to share. The default is **false**.
+	// Whether the member has the permission to share. The default is **false**.
 	AllowSharing OptBool `json:"allow_sharing"`
 }
 
 // GetAccessUserID returns the value of AccessUserID.
 func (s *AddCQPolicySubSettingReqVoicemailAccessMembersItem) GetAccessUserID() OptString {
 	return s.AccessUserID
+}
+
+// GetAccessUserType returns the value of AccessUserType.
+func (s *AddCQPolicySubSettingReqVoicemailAccessMembersItem) GetAccessUserType() OptString {
+	return s.AccessUserType
 }
 
 // GetAllowDownload returns the value of AllowDownload.
@@ -3011,6 +3038,11 @@ func (s *AddCQPolicySubSettingReqVoicemailAccessMembersItem) GetAllowSharing() O
 // SetAccessUserID sets the value of AccessUserID.
 func (s *AddCQPolicySubSettingReqVoicemailAccessMembersItem) SetAccessUserID(val OptString) {
 	s.AccessUserID = val
+}
+
+// SetAccessUserType sets the value of AccessUserType.
+func (s *AddCQPolicySubSettingReqVoicemailAccessMembersItem) SetAccessUserType(val OptString) {
+	s.AccessUserType = val
 }
 
 // SetAllowDownload sets the value of AllowDownload.
@@ -6741,6 +6773,7 @@ func (s *ApplyTemplatetoCommonAreasReq) SetCommonAreaIds(val []string) {
 	s.CommonAreaIds = val
 }
 
+// AssignCallingPlanCreated is response for AssignCallingPlan operation.
 type AssignCallingPlanCreated struct{}
 
 type AssignCallingPlanReq struct {
@@ -6758,8 +6791,7 @@ func (s *AssignCallingPlanReq) SetCallingPlans(val []AssignCallingPlanReqCalling
 }
 
 type AssignCallingPlanReqCallingPlansItem struct {
-	// The [type](https://marketplace.zoom.
-	// us/docs/api-reference/other-references/plans#zoom-phone-calling-plans) of calling plan.
+	// The [type](https://developers.zoom.us/docs/api/references/phone-calling-plans/) of calling plan.
 	Type OptInt `json:"type"`
 	// The billing account ID. If the user is located in India, this field is required.
 	BillingAccountID OptString `json:"billing_account_id"`
@@ -8683,6 +8715,16 @@ type CreatePhoneSiteReq struct {
 	SipZone OptCreatePhoneSiteReqSipZone `json:"sip_zone"`
 	// It requires the account to enable the `Force Calls out to the PSTN network` feature.
 	ForceOffNet OptCreatePhoneSiteReqForceOffNet `json:"force_off_net"`
+	// The India site’s state code. This field only applies to India based accounts.
+	IndiaStateCode OptString `json:"india_state_code"`
+	// The India site’s city. This field only applies to India based accounts.
+	IndiaCity OptString `json:"india_city"`
+	// The India site’s Short Distance Calling Area (sdca) Numbering Plan Area (npa). This field is
+	// linked to the “state_code“ field. This field only applies to India based accounts.
+	IndiaSdcaNpa OptString `json:"india_sdca_npa"`
+	// When select the Indian sip zone, then need to set the entity name. This field only applies to
+	// India based accounts.
+	IndiaEntityName OptString `json:"india_entity_name"`
 }
 
 // GetAutoReceptionistName returns the value of AutoReceptionistName.
@@ -8725,6 +8767,26 @@ func (s *CreatePhoneSiteReq) GetForceOffNet() OptCreatePhoneSiteReqForceOffNet {
 	return s.ForceOffNet
 }
 
+// GetIndiaStateCode returns the value of IndiaStateCode.
+func (s *CreatePhoneSiteReq) GetIndiaStateCode() OptString {
+	return s.IndiaStateCode
+}
+
+// GetIndiaCity returns the value of IndiaCity.
+func (s *CreatePhoneSiteReq) GetIndiaCity() OptString {
+	return s.IndiaCity
+}
+
+// GetIndiaSdcaNpa returns the value of IndiaSdcaNpa.
+func (s *CreatePhoneSiteReq) GetIndiaSdcaNpa() OptString {
+	return s.IndiaSdcaNpa
+}
+
+// GetIndiaEntityName returns the value of IndiaEntityName.
+func (s *CreatePhoneSiteReq) GetIndiaEntityName() OptString {
+	return s.IndiaEntityName
+}
+
 // SetAutoReceptionistName sets the value of AutoReceptionistName.
 func (s *CreatePhoneSiteReq) SetAutoReceptionistName(val string) {
 	s.AutoReceptionistName = val
@@ -8763,6 +8825,26 @@ func (s *CreatePhoneSiteReq) SetSipZone(val OptCreatePhoneSiteReqSipZone) {
 // SetForceOffNet sets the value of ForceOffNet.
 func (s *CreatePhoneSiteReq) SetForceOffNet(val OptCreatePhoneSiteReqForceOffNet) {
 	s.ForceOffNet = val
+}
+
+// SetIndiaStateCode sets the value of IndiaStateCode.
+func (s *CreatePhoneSiteReq) SetIndiaStateCode(val OptString) {
+	s.IndiaStateCode = val
+}
+
+// SetIndiaCity sets the value of IndiaCity.
+func (s *CreatePhoneSiteReq) SetIndiaCity(val OptString) {
+	s.IndiaCity = val
+}
+
+// SetIndiaSdcaNpa sets the value of IndiaSdcaNpa.
+func (s *CreatePhoneSiteReq) SetIndiaSdcaNpa(val OptString) {
+	s.IndiaSdcaNpa = val
+}
+
+// SetIndiaEntityName sets the value of IndiaEntityName.
+func (s *CreatePhoneSiteReq) SetIndiaEntityName(val OptString) {
+	s.IndiaEntityName = val
 }
 
 // The default emergency address. If the address provided is not an exact match, it uses the system
@@ -9267,6 +9349,101 @@ func (s *ErrorResponseStatusCode) SetStatusCode(val int) {
 // SetResponse sets the value of Response.
 func (s *ErrorResponseStatusCode) SetResponse(val ErrorResponse) {
 	s.Response = val
+}
+
+type GenerateactivationcodesforcommonareasCreated struct {
+	// The activation code information of the common areas.
+	CommonAreasActivationCodes []GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem `json:"common_areas_activation_codes"`
+}
+
+// GetCommonAreasActivationCodes returns the value of CommonAreasActivationCodes.
+func (s *GenerateactivationcodesforcommonareasCreated) GetCommonAreasActivationCodes() []GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem {
+	return s.CommonAreasActivationCodes
+}
+
+// SetCommonAreasActivationCodes sets the value of CommonAreasActivationCodes.
+func (s *GenerateactivationcodesforcommonareasCreated) SetCommonAreasActivationCodes(val []GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) {
+	s.CommonAreasActivationCodes = val
+}
+
+type GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem struct {
+	// The common area ID or common area extension ID.
+	CommonAreaID OptString `json:"common_area_id"`
+	// The display name of the common area.
+	DisplayName OptString `json:"display_name"`
+	// The extension number.
+	ExtensionNumber OptInt `json:"extension_number"`
+	// The activation code.
+	ActivationCode OptString `json:"activation_code"`
+	// The time when the activation code expires (format: 'yyyy-MM-ddThh:dd:ssZ').
+	ActivationCodeExpiration OptString `json:"activation_code_expiration"`
+}
+
+// GetCommonAreaID returns the value of CommonAreaID.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) GetCommonAreaID() OptString {
+	return s.CommonAreaID
+}
+
+// GetDisplayName returns the value of DisplayName.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) GetDisplayName() OptString {
+	return s.DisplayName
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) GetExtensionNumber() OptInt {
+	return s.ExtensionNumber
+}
+
+// GetActivationCode returns the value of ActivationCode.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) GetActivationCode() OptString {
+	return s.ActivationCode
+}
+
+// GetActivationCodeExpiration returns the value of ActivationCodeExpiration.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) GetActivationCodeExpiration() OptString {
+	return s.ActivationCodeExpiration
+}
+
+// SetCommonAreaID sets the value of CommonAreaID.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) SetCommonAreaID(val OptString) {
+	s.CommonAreaID = val
+}
+
+// SetDisplayName sets the value of DisplayName.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) SetDisplayName(val OptString) {
+	s.DisplayName = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) SetExtensionNumber(val OptInt) {
+	s.ExtensionNumber = val
+}
+
+// SetActivationCode sets the value of ActivationCode.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) SetActivationCode(val OptString) {
+	s.ActivationCode = val
+}
+
+// SetActivationCodeExpiration sets the value of ActivationCodeExpiration.
+func (s *GenerateactivationcodesforcommonareasCreatedCommonAreasActivationCodesItem) SetActivationCodeExpiration(val OptString) {
+	s.ActivationCodeExpiration = val
+}
+
+type GenerateactivationcodesforcommonareasReq struct {
+	// The `common_area_ids` is an array. Each element is the unique identifier of the common area. You
+	// can retrieve it from the [List Common Areas](https://developers.zoom.
+	// us/docs/api/phone/#tag/common-areas/GET/phone/common_areas/activation_codes) API.
+	CommonAreaIds []string `json:"common_area_ids"`
+}
+
+// GetCommonAreaIds returns the value of CommonAreaIds.
+func (s *GenerateactivationcodesforcommonareasReq) GetCommonAreaIds() []string {
+	return s.CommonAreaIds
+}
+
+// SetCommonAreaIds sets the value of CommonAreaIds.
+func (s *GenerateactivationcodesforcommonareasReq) SetCommonAreaIds(val []string) {
+	s.CommonAreaIds = val
 }
 
 type GetABillingAccountOK struct {
@@ -9779,8 +9956,13 @@ func (s *GetACallQueueOKPolicy) SetVoicemailAccessMembers(val []GetACallQueueOKP
 
 // Merged schema.
 type GetACallQueueOKPolicyVoicemailAccessMembersItem struct {
-	// The Zoom user ID or email to share or update the access permissions with.
+	// The member's ID in the shared voicemail access list determines the sharing or updating of access
+	// permissions. It must be the unique identifier of the user, or the unique identifier of the common
+	// area, depending on the access user type.
 	AccessUserID OptString `json:"access_user_id"`
+	// The extension type of a member in the shared voicemail access member list. Allowed: user |
+	// commonArea.
+	AccessUserType OptString `json:"access_user_type"`
 	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 	// Whether the member has delete permissions. The default is **false**.
@@ -9794,6 +9976,11 @@ type GetACallQueueOKPolicyVoicemailAccessMembersItem struct {
 // GetAccessUserID returns the value of AccessUserID.
 func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAccessUserID() OptString {
 	return s.AccessUserID
+}
+
+// GetAccessUserType returns the value of AccessUserType.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetAccessUserType() OptString {
+	return s.AccessUserType
 }
 
 // GetAllowDownload returns the value of AllowDownload.
@@ -9819,6 +10006,11 @@ func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) GetSharedID() OptStrin
 // SetAccessUserID sets the value of AccessUserID.
 func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAccessUserID(val OptString) {
 	s.AccessUserID = val
+}
+
+// SetAccessUserType sets the value of AccessUserType.
+func (s *GetACallQueueOKPolicyVoicemailAccessMembersItem) SetAccessUserType(val OptString) {
+	s.AccessUserType = val
 }
 
 // SetAllowDownload sets the value of AllowDownload.
@@ -11687,6 +11879,16 @@ type GetASiteOK struct {
 	// When you place an outbound call with a number as the caller ID, the caller ID name and the number
 	// display to the called party. The caller ID name can be up to 15 characters.
 	CallerIDName OptString `json:"caller_id_name"`
+	// The India site’s state code. This field only applies to India based accounts.
+	IndiaStateCode OptString `json:"india_state_code"`
+	// The India site’s city. This field only applies to India based accounts.
+	IndiaCity OptString `json:"india_city"`
+	// The India site’s Short Distance Calling Area (sdca) Numbering Plan Area (npa). This field is
+	// linked to the “state_code“ field. This field only applies to India based accounts.
+	IndiaSdcaNpa OptString `json:"india_sdca_npa"`
+	// When select the Indian sip zone, then need to set the entity name. This field only applies to
+	// India based accounts.
+	IndiaEntityName OptString `json:"india_entity_name"`
 }
 
 // GetCountry returns the value of Country.
@@ -11734,6 +11936,26 @@ func (s *GetASiteOK) GetCallerIDName() OptString {
 	return s.CallerIDName
 }
 
+// GetIndiaStateCode returns the value of IndiaStateCode.
+func (s *GetASiteOK) GetIndiaStateCode() OptString {
+	return s.IndiaStateCode
+}
+
+// GetIndiaCity returns the value of IndiaCity.
+func (s *GetASiteOK) GetIndiaCity() OptString {
+	return s.IndiaCity
+}
+
+// GetIndiaSdcaNpa returns the value of IndiaSdcaNpa.
+func (s *GetASiteOK) GetIndiaSdcaNpa() OptString {
+	return s.IndiaSdcaNpa
+}
+
+// GetIndiaEntityName returns the value of IndiaEntityName.
+func (s *GetASiteOK) GetIndiaEntityName() OptString {
+	return s.IndiaEntityName
+}
+
 // SetCountry sets the value of Country.
 func (s *GetASiteOK) SetCountry(val OptGetASiteOKCountry) {
 	s.Country = val
@@ -11777,6 +11999,26 @@ func (s *GetASiteOK) SetSipZone(val OptGetASiteOKSipZone) {
 // SetCallerIDName sets the value of CallerIDName.
 func (s *GetASiteOK) SetCallerIDName(val OptString) {
 	s.CallerIDName = val
+}
+
+// SetIndiaStateCode sets the value of IndiaStateCode.
+func (s *GetASiteOK) SetIndiaStateCode(val OptString) {
+	s.IndiaStateCode = val
+}
+
+// SetIndiaCity sets the value of IndiaCity.
+func (s *GetASiteOK) SetIndiaCity(val OptString) {
+	s.IndiaCity = val
+}
+
+// SetIndiaSdcaNpa sets the value of IndiaSdcaNpa.
+func (s *GetASiteOK) SetIndiaSdcaNpa(val OptString) {
+	s.IndiaSdcaNpa = val
+}
+
+// SetIndiaEntityName sets the value of IndiaEntityName.
+func (s *GetASiteOK) SetIndiaEntityName(val OptString) {
+	s.IndiaEntityName = val
 }
 
 // The country of the site.
@@ -11864,9 +12106,15 @@ func (s *GetASiteOKMainAutoReceptionist) SetName(val OptString) {
 // The [site policy setting](https://support.zoom.
 // us/hc/en-us/articles/360033511872-Changing-Zoom-Phone-policy-settings#h_af4d1935-9cb1-44d2-9a10-9bfba10d58a7).
 type GetASiteOKPolicy struct {
+	// Whether to allow the current extension to change the outbound caller ID when placing calls.
 	SelectOutboundCallerID OptGetASiteOKPolicySelectOutboundCallerID `json:"select_outbound_caller_id"`
-	PersonalAudioLibrary   OptGetASiteOKPolicyPersonalAudioLibrary   `json:"personal_audio_library"`
-	Voicemail              OptGetASiteOKPolicyVoicemail              `json:"voicemail"`
+	// Allows users to change their own Audio Library.
+	PersonalAudioLibrary OptGetASiteOKPolicyPersonalAudioLibrary `json:"personal_audio_library"`
+	// Allows users to access, share, download, and to delete voicemail and videomail.
+	Voicemail OptGetASiteOKPolicyVoicemail `json:"voicemail"`
+	// When this setting is enabled, voicemail and videomail transcriptions will be created and remain
+	// accessible even if the setting is later disabled. If the setting is disabled, new voicemail and
+	// videomail transcriptions will not be generated.
 	VoicemailTranscription OptGetASiteOKPolicyVoicemailTranscription `json:"voicemail_transcription"`
 	// Once enabled, users receive email notifications when there is a new voicemail from users, call
 	// queues, auto receptionists, or shared line groups. Users who disabled the shared voicemail
@@ -11879,11 +12127,19 @@ type GetASiteOKPolicy struct {
 	// voicemail policy uses the new policy framework.
 	SharedVoicemailNotificationByEmail OptGetASiteOKPolicySharedVoicemailNotificationByEmail `json:"shared_voicemail_notification_by_email"`
 	// Whether to allow extensions to place international calls outside of the calling plan.
-	InternationalCalling  OptGetASiteOKPolicyInternationalCalling  `json:"international_calling"`
-	ZoomPhoneOnMobile     OptGetASiteOKPolicyZoomPhoneOnMobile     `json:"zoom_phone_on_mobile"`
-	SMS                   OptGetASiteOKPolicySMS                   `json:"sms"`
-	ElevateToMeeting      OptGetASiteOKPolicyElevateToMeeting      `json:"elevate_to_meeting"`
-	HandOffToRoom         OptGetASiteOKPolicyHandOffToRoom         `json:"hand_off_to_room"`
+	InternationalCalling OptGetASiteOKPolicyInternationalCalling `json:"international_calling"`
+	// Allows user to use Zoom Phone on mobile clients (iOS, iPad OS and Android).
+	ZoomPhoneOnMobile OptGetASiteOKPolicyZoomPhoneOnMobile `json:"zoom_phone_on_mobile"`
+	// Allows users, call queues and auto receptionists to send and receive messages. You will still need
+	// to assign a valid calling plan and phone number to each user in order for them to send and receive
+	// messages. Do not enable this control if you intend to use SMS services with a third party SMS
+	// provider.
+	SMS OptGetASiteOKPolicySMS `json:"sms"`
+	// Allow users to elevate their phone calls to a meeting.
+	ElevateToMeeting OptGetASiteOKPolicyElevateToMeeting `json:"elevate_to_meeting"`
+	// Allow users to send a call to a Zoom Room.
+	HandOffToRoom OptGetASiteOKPolicyHandOffToRoom `json:"hand_off_to_room"`
+	// Allow user to switch from Zoom Phone to their native carrier.
 	MobileSwitchToCarrier OptGetASiteOKPolicyMobileSwitchToCarrier `json:"mobile_switch_to_carrier"`
 	// Whether the user can use [call delegation](https://support.zoom.
 	// us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).
@@ -11906,11 +12162,16 @@ type GetASiteOKPolicy struct {
 	CallQueueOptOutReason OptGetASiteOKPolicyCallQueueOptOutReason `json:"call_queue_opt_out_reason"`
 	// Whether to show the user who last transferred the call. Viewing preferences display on the
 	// incoming call panel. Selections made here do not affect the information shown in call logs.
-	ShowUserLastTransferredCall          OptBool                                                 `json:"show_user_last_transferred_call"`
+	ShowUserLastTransferredCall OptBool `json:"show_user_last_transferred_call"`
+	// Allow Zoom to automatically delete data after retention duration.
 	AutoDeleteDataAfterRetentionDuration OptGetASiteOKPolicyAutoDeleteDataAfterRetentionDuration `json:"auto_delete_data_after_retention_duration"`
-	CallPark                             OptGetASiteOKPolicyCallPark                             `json:"call_park"`
-	CallOverflow                         OptGetASiteOKPolicyCallOverflow                         `json:"call_overflow"`
-	CallTransferring                     OptGetASiteOKPolicyCallTransferring                     `json:"call_transferring"`
+	// Allow calls placed on hold to be resumed from another location using a retrieval code.
+	CallPark OptGetASiteOKPolicyCallPark `json:"call_park"`
+	// Allow users to forward their calls to other numbers when a call is not answered.
+	CallOverflow OptGetASiteOKPolicyCallOverflow `json:"call_overflow"`
+	// Allow user to warm or blind transfer their calls. This does not apply to warm transfer on IP
+	// Phones except for Yealink. Voicemail is transferable only to internal extensions.
+	CallTransferring OptGetASiteOKPolicyCallTransferring `json:"call_transferring"`
 	// Whether to allow hands-free peer-to-peer conversations. When you receive an intercom call, the
 	// phone beeps to notify the user of the incoming intercom call, and the user's phone automatically
 	// answers the intercom call.
@@ -11922,6 +12183,72 @@ type GetASiteOKPolicy struct {
 	BlockExternalCalls OptGetASiteOKPolicyBlockExternalCalls `json:"block_external_calls"`
 	// It requires the account to enable the `Force Calls out to the PSTN network` feature.
 	ForceOffNet OptGetASiteOKPolicyForceOffNet `json:"force_off_net"`
+	// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+	ExternalCallingOnZoomRoomCommonArea OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea `json:"external_calling_on_zoom_room_common_area"`
+	// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+	ZoomPhoneOnPwa OptGetASiteOKPolicyZoomPhoneOnPwa `json:"zoom_phone_on_pwa"`
+	// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+	SMSAutoReply OptGetASiteOKPolicySMSAutoReply `json:"sms_auto_reply"`
+	// This field allows users to edit call handling settings.Once disabled, users will not be able to
+	// edit their call handling settings on the web portal or enable call forwarding on the client.
+	AllowEndUserEditCallHandling OptGetASiteOKPolicyAllowEndUserEditCallHandling `json:"allow_end_user_edit_call_handling"`
+	// This field enables users to allow their callers to reach an operator.Once disabled, users will not
+	// be able to route their calls to an operator as part of the "When a call is not answered" setting.
+	AllowCallerReachOperator OptGetASiteOKPolicyAllowCallerReachOperator `json:"allow_caller_reach_operator"`
+	// This field allows users to forward their calls outside of their own site.Once disabled, users will
+	// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+	// own site.
+	ForwardCallOutsideOfSite OptGetASiteOKPolicyForwardCallOutsideOfSite `json:"forward_call_outside_of_site"`
+	// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+	// first before ringing the called number.
+	AllowMobileHomePhoneCallout OptGetASiteOKPolicyAllowMobileHomePhoneCallout `json:"allow_mobile_home_phone_callout"`
+	// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+	// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+	ObfuscateSensitiveDataDuringCall OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall `json:"obfuscate_sensitive_data_during_call"`
+	// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+	// to access text-to-speech or record audio files.
+	PreventUsersUploadAudioFiles OptGetASiteOKPolicyPreventUsersUploadAudioFiles `json:"prevent_users_upload_audio_files"`
+	// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+	// voicemail transcription policy enabled.
+	VoicemailTasks OptGetASiteOKPolicyVoicemailTasks `json:"voicemail_tasks"`
+	// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+	// need to have voicemail transcription policy enabled.
+	VoicemailIntentBasedPrioritization OptGetASiteOKPolicyVoicemailIntentBasedPrioritization `json:"voicemail_intent_based_prioritization"`
+	// This field allows users to summarize and extract tasks from English SMS conversations.
+	TeamSMSThreadSummary OptGetASiteOKPolicyTeamSMSThreadSummary `json:"team_sms_thread_summary"`
+	// Display a thumbs up/down survey at the end of each call. If participants respond with thumbs down,
+	// they can provide additional information about what went wrong.
+	DisplayCallFeedbackSurvey OptGetASiteOKPolicyDisplayCallFeedbackSurvey `json:"display_call_feedback_survey"`
+	// Whether to let users turn on live transcriptions for a call.
+	CallLiveTranscription OptGetASiteOKPolicyCallLiveTranscription `json:"call_live_transcription"`
+	// Whether to incoming direct external callers will be prompted to respond to a button to reach users,
+	//  callers who don't respond will be disconnected. Devices will not be able to receive any third
+	// party faxes.
+	CallScreening OptGetASiteOKPolicyCallScreening `json:"call_screening"`
+	// Whether to use pre-defined templates to help users compose messages. Power Pack license is
+	// required for this feature to work.
+	SMSTemplate OptGetASiteOKPolicySMSTemplate `json:"sms_template"`
+	// Whether to allow voicemail to be encrypted with keys which are not accessible to Zoom servers.
+	// These voicemails can be decrypted only by the intended user recipient. Shared line appearance,
+	// shared line group, call queue, or auto receptionist voicemail will not be encrypted, but can still
+	// be played. Email to voicemail, transcriptions, ability to check voicemails by dialing into the
+	// voicemail system, or web are not available when this feature is enabled. This policy requires a
+	// Power Pack license to be enabled. If the user does who inherits this policy does not have a Power
+	// Pack license, the policy will not be applied.
+	AdvancedEncryption OptGetASiteOKPolicyAdvancedEncryption `json:"advanced_encryption"`
+	// Whether to enable the line name template will be applied to all the desk phones on your account.
+	// Make sure there is enough space on the desk phone to display the line name.
+	CustomizeLineName OptGetASiteOKPolicyCustomizeLineName `json:"customize_line_name"`
+	// Whether to enable auto Opt-out from Call Queue after logging out from Zoom.
+	AutoOptOutInCallQueue OptGetASiteOKPolicyAutoOptOutInCallQueue `json:"auto_opt_out_in_call_queue"`
+	// Allows users to select if an incoming call notification would block their current activity.
+	IncomingCallNotification OptGetASiteOKPolicyIncomingCallNotification `json:"incoming_call_notification"`
+	// Allow users to generate a summary of a phone call. For users who enable Call summary during a call,
+	//  a summary will be automatically sent to them on the client and the web portal after the call has
+	// ended. It requires the account to enable the `Enable Phone Call Summary` feature.
+	CallSummary OptGetASiteOKPolicyCallSummary `json:"call_summary"`
+	// Defines how often and when to update firmware of the devices.
+	ScheduleFirmwareUpdate OptGetASiteOKPolicyScheduleFirmwareUpdate `json:"schedule_firmware_update"`
 }
 
 // GetSelectOutboundCallerID returns the value of SelectOutboundCallerID.
@@ -12064,6 +12391,116 @@ func (s *GetASiteOKPolicy) GetForceOffNet() OptGetASiteOKPolicyForceOffNet {
 	return s.ForceOffNet
 }
 
+// GetExternalCallingOnZoomRoomCommonArea returns the value of ExternalCallingOnZoomRoomCommonArea.
+func (s *GetASiteOKPolicy) GetExternalCallingOnZoomRoomCommonArea() OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea {
+	return s.ExternalCallingOnZoomRoomCommonArea
+}
+
+// GetZoomPhoneOnPwa returns the value of ZoomPhoneOnPwa.
+func (s *GetASiteOKPolicy) GetZoomPhoneOnPwa() OptGetASiteOKPolicyZoomPhoneOnPwa {
+	return s.ZoomPhoneOnPwa
+}
+
+// GetSMSAutoReply returns the value of SMSAutoReply.
+func (s *GetASiteOKPolicy) GetSMSAutoReply() OptGetASiteOKPolicySMSAutoReply {
+	return s.SMSAutoReply
+}
+
+// GetAllowEndUserEditCallHandling returns the value of AllowEndUserEditCallHandling.
+func (s *GetASiteOKPolicy) GetAllowEndUserEditCallHandling() OptGetASiteOKPolicyAllowEndUserEditCallHandling {
+	return s.AllowEndUserEditCallHandling
+}
+
+// GetAllowCallerReachOperator returns the value of AllowCallerReachOperator.
+func (s *GetASiteOKPolicy) GetAllowCallerReachOperator() OptGetASiteOKPolicyAllowCallerReachOperator {
+	return s.AllowCallerReachOperator
+}
+
+// GetForwardCallOutsideOfSite returns the value of ForwardCallOutsideOfSite.
+func (s *GetASiteOKPolicy) GetForwardCallOutsideOfSite() OptGetASiteOKPolicyForwardCallOutsideOfSite {
+	return s.ForwardCallOutsideOfSite
+}
+
+// GetAllowMobileHomePhoneCallout returns the value of AllowMobileHomePhoneCallout.
+func (s *GetASiteOKPolicy) GetAllowMobileHomePhoneCallout() OptGetASiteOKPolicyAllowMobileHomePhoneCallout {
+	return s.AllowMobileHomePhoneCallout
+}
+
+// GetObfuscateSensitiveDataDuringCall returns the value of ObfuscateSensitiveDataDuringCall.
+func (s *GetASiteOKPolicy) GetObfuscateSensitiveDataDuringCall() OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall {
+	return s.ObfuscateSensitiveDataDuringCall
+}
+
+// GetPreventUsersUploadAudioFiles returns the value of PreventUsersUploadAudioFiles.
+func (s *GetASiteOKPolicy) GetPreventUsersUploadAudioFiles() OptGetASiteOKPolicyPreventUsersUploadAudioFiles {
+	return s.PreventUsersUploadAudioFiles
+}
+
+// GetVoicemailTasks returns the value of VoicemailTasks.
+func (s *GetASiteOKPolicy) GetVoicemailTasks() OptGetASiteOKPolicyVoicemailTasks {
+	return s.VoicemailTasks
+}
+
+// GetVoicemailIntentBasedPrioritization returns the value of VoicemailIntentBasedPrioritization.
+func (s *GetASiteOKPolicy) GetVoicemailIntentBasedPrioritization() OptGetASiteOKPolicyVoicemailIntentBasedPrioritization {
+	return s.VoicemailIntentBasedPrioritization
+}
+
+// GetTeamSMSThreadSummary returns the value of TeamSMSThreadSummary.
+func (s *GetASiteOKPolicy) GetTeamSMSThreadSummary() OptGetASiteOKPolicyTeamSMSThreadSummary {
+	return s.TeamSMSThreadSummary
+}
+
+// GetDisplayCallFeedbackSurvey returns the value of DisplayCallFeedbackSurvey.
+func (s *GetASiteOKPolicy) GetDisplayCallFeedbackSurvey() OptGetASiteOKPolicyDisplayCallFeedbackSurvey {
+	return s.DisplayCallFeedbackSurvey
+}
+
+// GetCallLiveTranscription returns the value of CallLiveTranscription.
+func (s *GetASiteOKPolicy) GetCallLiveTranscription() OptGetASiteOKPolicyCallLiveTranscription {
+	return s.CallLiveTranscription
+}
+
+// GetCallScreening returns the value of CallScreening.
+func (s *GetASiteOKPolicy) GetCallScreening() OptGetASiteOKPolicyCallScreening {
+	return s.CallScreening
+}
+
+// GetSMSTemplate returns the value of SMSTemplate.
+func (s *GetASiteOKPolicy) GetSMSTemplate() OptGetASiteOKPolicySMSTemplate {
+	return s.SMSTemplate
+}
+
+// GetAdvancedEncryption returns the value of AdvancedEncryption.
+func (s *GetASiteOKPolicy) GetAdvancedEncryption() OptGetASiteOKPolicyAdvancedEncryption {
+	return s.AdvancedEncryption
+}
+
+// GetCustomizeLineName returns the value of CustomizeLineName.
+func (s *GetASiteOKPolicy) GetCustomizeLineName() OptGetASiteOKPolicyCustomizeLineName {
+	return s.CustomizeLineName
+}
+
+// GetAutoOptOutInCallQueue returns the value of AutoOptOutInCallQueue.
+func (s *GetASiteOKPolicy) GetAutoOptOutInCallQueue() OptGetASiteOKPolicyAutoOptOutInCallQueue {
+	return s.AutoOptOutInCallQueue
+}
+
+// GetIncomingCallNotification returns the value of IncomingCallNotification.
+func (s *GetASiteOKPolicy) GetIncomingCallNotification() OptGetASiteOKPolicyIncomingCallNotification {
+	return s.IncomingCallNotification
+}
+
+// GetCallSummary returns the value of CallSummary.
+func (s *GetASiteOKPolicy) GetCallSummary() OptGetASiteOKPolicyCallSummary {
+	return s.CallSummary
+}
+
+// GetScheduleFirmwareUpdate returns the value of ScheduleFirmwareUpdate.
+func (s *GetASiteOKPolicy) GetScheduleFirmwareUpdate() OptGetASiteOKPolicyScheduleFirmwareUpdate {
+	return s.ScheduleFirmwareUpdate
+}
+
 // SetSelectOutboundCallerID sets the value of SelectOutboundCallerID.
 func (s *GetASiteOKPolicy) SetSelectOutboundCallerID(val OptGetASiteOKPolicySelectOutboundCallerID) {
 	s.SelectOutboundCallerID = val
@@ -12204,6 +12641,116 @@ func (s *GetASiteOKPolicy) SetForceOffNet(val OptGetASiteOKPolicyForceOffNet) {
 	s.ForceOffNet = val
 }
 
+// SetExternalCallingOnZoomRoomCommonArea sets the value of ExternalCallingOnZoomRoomCommonArea.
+func (s *GetASiteOKPolicy) SetExternalCallingOnZoomRoomCommonArea(val OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) {
+	s.ExternalCallingOnZoomRoomCommonArea = val
+}
+
+// SetZoomPhoneOnPwa sets the value of ZoomPhoneOnPwa.
+func (s *GetASiteOKPolicy) SetZoomPhoneOnPwa(val OptGetASiteOKPolicyZoomPhoneOnPwa) {
+	s.ZoomPhoneOnPwa = val
+}
+
+// SetSMSAutoReply sets the value of SMSAutoReply.
+func (s *GetASiteOKPolicy) SetSMSAutoReply(val OptGetASiteOKPolicySMSAutoReply) {
+	s.SMSAutoReply = val
+}
+
+// SetAllowEndUserEditCallHandling sets the value of AllowEndUserEditCallHandling.
+func (s *GetASiteOKPolicy) SetAllowEndUserEditCallHandling(val OptGetASiteOKPolicyAllowEndUserEditCallHandling) {
+	s.AllowEndUserEditCallHandling = val
+}
+
+// SetAllowCallerReachOperator sets the value of AllowCallerReachOperator.
+func (s *GetASiteOKPolicy) SetAllowCallerReachOperator(val OptGetASiteOKPolicyAllowCallerReachOperator) {
+	s.AllowCallerReachOperator = val
+}
+
+// SetForwardCallOutsideOfSite sets the value of ForwardCallOutsideOfSite.
+func (s *GetASiteOKPolicy) SetForwardCallOutsideOfSite(val OptGetASiteOKPolicyForwardCallOutsideOfSite) {
+	s.ForwardCallOutsideOfSite = val
+}
+
+// SetAllowMobileHomePhoneCallout sets the value of AllowMobileHomePhoneCallout.
+func (s *GetASiteOKPolicy) SetAllowMobileHomePhoneCallout(val OptGetASiteOKPolicyAllowMobileHomePhoneCallout) {
+	s.AllowMobileHomePhoneCallout = val
+}
+
+// SetObfuscateSensitiveDataDuringCall sets the value of ObfuscateSensitiveDataDuringCall.
+func (s *GetASiteOKPolicy) SetObfuscateSensitiveDataDuringCall(val OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) {
+	s.ObfuscateSensitiveDataDuringCall = val
+}
+
+// SetPreventUsersUploadAudioFiles sets the value of PreventUsersUploadAudioFiles.
+func (s *GetASiteOKPolicy) SetPreventUsersUploadAudioFiles(val OptGetASiteOKPolicyPreventUsersUploadAudioFiles) {
+	s.PreventUsersUploadAudioFiles = val
+}
+
+// SetVoicemailTasks sets the value of VoicemailTasks.
+func (s *GetASiteOKPolicy) SetVoicemailTasks(val OptGetASiteOKPolicyVoicemailTasks) {
+	s.VoicemailTasks = val
+}
+
+// SetVoicemailIntentBasedPrioritization sets the value of VoicemailIntentBasedPrioritization.
+func (s *GetASiteOKPolicy) SetVoicemailIntentBasedPrioritization(val OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) {
+	s.VoicemailIntentBasedPrioritization = val
+}
+
+// SetTeamSMSThreadSummary sets the value of TeamSMSThreadSummary.
+func (s *GetASiteOKPolicy) SetTeamSMSThreadSummary(val OptGetASiteOKPolicyTeamSMSThreadSummary) {
+	s.TeamSMSThreadSummary = val
+}
+
+// SetDisplayCallFeedbackSurvey sets the value of DisplayCallFeedbackSurvey.
+func (s *GetASiteOKPolicy) SetDisplayCallFeedbackSurvey(val OptGetASiteOKPolicyDisplayCallFeedbackSurvey) {
+	s.DisplayCallFeedbackSurvey = val
+}
+
+// SetCallLiveTranscription sets the value of CallLiveTranscription.
+func (s *GetASiteOKPolicy) SetCallLiveTranscription(val OptGetASiteOKPolicyCallLiveTranscription) {
+	s.CallLiveTranscription = val
+}
+
+// SetCallScreening sets the value of CallScreening.
+func (s *GetASiteOKPolicy) SetCallScreening(val OptGetASiteOKPolicyCallScreening) {
+	s.CallScreening = val
+}
+
+// SetSMSTemplate sets the value of SMSTemplate.
+func (s *GetASiteOKPolicy) SetSMSTemplate(val OptGetASiteOKPolicySMSTemplate) {
+	s.SMSTemplate = val
+}
+
+// SetAdvancedEncryption sets the value of AdvancedEncryption.
+func (s *GetASiteOKPolicy) SetAdvancedEncryption(val OptGetASiteOKPolicyAdvancedEncryption) {
+	s.AdvancedEncryption = val
+}
+
+// SetCustomizeLineName sets the value of CustomizeLineName.
+func (s *GetASiteOKPolicy) SetCustomizeLineName(val OptGetASiteOKPolicyCustomizeLineName) {
+	s.CustomizeLineName = val
+}
+
+// SetAutoOptOutInCallQueue sets the value of AutoOptOutInCallQueue.
+func (s *GetASiteOKPolicy) SetAutoOptOutInCallQueue(val OptGetASiteOKPolicyAutoOptOutInCallQueue) {
+	s.AutoOptOutInCallQueue = val
+}
+
+// SetIncomingCallNotification sets the value of IncomingCallNotification.
+func (s *GetASiteOKPolicy) SetIncomingCallNotification(val OptGetASiteOKPolicyIncomingCallNotification) {
+	s.IncomingCallNotification = val
+}
+
+// SetCallSummary sets the value of CallSummary.
+func (s *GetASiteOKPolicy) SetCallSummary(val OptGetASiteOKPolicyCallSummary) {
+	s.CallSummary = val
+}
+
+// SetScheduleFirmwareUpdate sets the value of ScheduleFirmwareUpdate.
+func (s *GetASiteOKPolicy) SetScheduleFirmwareUpdate(val OptGetASiteOKPolicyScheduleFirmwareUpdate) {
+	s.ScheduleFirmwareUpdate = val
+}
+
 // A list of ad hoc call recording settings.
 type GetASiteOKPolicyAdHocCallRecording struct {
 	// Whether the current extension can record and save calls to the cloud.
@@ -12211,8 +12758,10 @@ type GetASiteOKPolicyAdHocCallRecording struct {
 	// Whether a prompt plays to call participants when the recording has started.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether the call recording transcription is enabled.
-	RecordingTranscription OptBool                                                    `json:"recording_transcription"`
-	PlayRecordingBeepTone  OptGetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	RecordingTranscription OptBool `json:"recording_transcription"`
+	// Whether to play the side tone beep for recorded users while recording. It displays only when ad
+	// hoc call recording policy uses the new framework.
+	PlayRecordingBeepTone OptGetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
 	// Which level of administrator prohibits the modification of the current settings.
@@ -12292,6 +12841,8 @@ func (s *GetASiteOKPolicyAdHocCallRecording) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Whether to play the side tone beep for recorded users while recording. It displays only when ad
+// hoc call recording policy uses the new framework.
 type GetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone struct {
 	// Whether to play the side tone beep for recorded users while recording. It displays only when ad
 	// hoc call recording policy uses the new framework.
@@ -12342,6 +12893,242 @@ func (s *GetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone) SetPlayBeepTim
 // SetPlayBeepMember sets the value of PlayBeepMember.
 func (s *GetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone) SetPlayBeepMember(val OptString) {
 	s.PlayBeepMember = val
+}
+
+// Whether to allow voicemail to be encrypted with keys which are not accessible to Zoom servers.
+// These voicemails can be decrypted only by the intended user recipient. Shared line appearance,
+// shared line group, call queue, or auto receptionist voicemail will not be encrypted, but can still
+// be played. Email to voicemail, transcriptions, ability to check voicemails by dialing into the
+// voicemail system, or web are not available when this feature is enabled. This policy requires a
+// Power Pack license to be enabled. If the user does who inherits this policy does not have a Power
+// Pack license, the policy will not be applied.
+type GetASiteOKPolicyAdvancedEncryption struct {
+	// Allows Voicemail to be encrypted with keys which are not accessible to Zoom servers.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// Whether to disable incoming unencrypted voicemail.
+	DisableIncomingUnencryptedVoicemail OptBool `json:"disable_incoming_unencrypted_voicemail"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyAdvancedEncryption) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyAdvancedEncryption) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyAdvancedEncryption) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyAdvancedEncryption) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetDisableIncomingUnencryptedVoicemail returns the value of DisableIncomingUnencryptedVoicemail.
+func (s *GetASiteOKPolicyAdvancedEncryption) GetDisableIncomingUnencryptedVoicemail() OptBool {
+	return s.DisableIncomingUnencryptedVoicemail
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyAdvancedEncryption) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyAdvancedEncryption) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyAdvancedEncryption) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyAdvancedEncryption) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetDisableIncomingUnencryptedVoicemail sets the value of DisableIncomingUnencryptedVoicemail.
+func (s *GetASiteOKPolicyAdvancedEncryption) SetDisableIncomingUnencryptedVoicemail(val OptBool) {
+	s.DisableIncomingUnencryptedVoicemail = val
+}
+
+// This field enables users to allow their callers to reach an operator.Once disabled, users will not
+// be able to route their calls to an operator as part of the "When a call is not answered" setting.
+type GetASiteOKPolicyAllowCallerReachOperator struct {
+	// This field enables users to allow their callers to reach an operator.Once disabled, users will not
+	// be able to route their calls to an operator as part of the "When a call is not answered" setting.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyAllowCallerReachOperator) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// This field allows users to edit call handling settings.Once disabled, users will not be able to
+// edit their call handling settings on the web portal or enable call forwarding on the client.
+type GetASiteOKPolicyAllowEndUserEditCallHandling struct {
+	// This field allows users to edit call handling settings.Once disabled, users will not be able to
+	// edit their call handling settings on the web portal or enable call forwarding on the client.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyAllowEndUserEditCallHandling) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+// first before ringing the called number.
+type GetASiteOKPolicyAllowMobileHomePhoneCallout struct {
+	// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+	// first before ringing the called number.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyAllowMobileHomePhoneCallout) SetModified(val OptBool) {
+	s.Modified = val
 }
 
 // Whether to allow hands-free peer-to-peer conversations. When you receive an intercom call, the
@@ -12454,9 +13241,15 @@ type GetASiteOKPolicyAutoCallRecording struct {
 	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether the call recording transcription is enabled.
-	RecordingTranscription    OptBool                                                       `json:"recording_transcription"`
-	PlayRecordingBeepTone     OptGetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
-	InboundAudioNotification  OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	RecordingTranscription OptBool `json:"recording_transcription"`
+	// Play the side tone beep for recorded users while recording. It displays only when auto call
+	// recording policy uses the new framework.
+	PlayRecordingBeepTone OptGetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	InboundAudioNotification OptGetASiteOKPolicyAutoCallRecordingInboundAudioNotification `json:"inbound_audio_notification"`
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
 	OutboundAudioNotification OptGetASiteOKPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
@@ -12590,6 +13383,8 @@ func (s *GetASiteOKPolicyAutoCallRecording) SetOutboundAudioNotification(val Opt
 	s.OutboundAudioNotification = val
 }
 
+// Whether a prompt plays to call participants when the recording has started for inbound call is
+// enabled.
 type GetASiteOKPolicyAutoCallRecordingInboundAudioNotification struct {
 	// Whether a prompt plays to call participants when the recording has started for inbound call is
 	// enabled.
@@ -12632,6 +13427,8 @@ func (s *GetASiteOKPolicyAutoCallRecordingInboundAudioNotification) SetRecording
 	s.RecordingExplicitConsent = val
 }
 
+// Whether a prompt plays to call participants when the recording has started for outbound call is
+// enabled.
 type GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification struct {
 	// Whether a prompt plays to call participants when the recording has started for outbound call is
 	// enabled.
@@ -12674,6 +13471,8 @@ func (s *GetASiteOKPolicyAutoCallRecordingOutboundAudioNotification) SetRecordin
 	s.RecordingExplicitConsent = val
 }
 
+// Play the side tone beep for recorded users while recording. It displays only when auto call
+// recording policy uses the new framework.
 type GetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone struct {
 	// Whether to play the side tone beep for recorded users while recording. It displays only when auto
 	// call recording policy uses the new framework.
@@ -12726,6 +13525,7 @@ func (s *GetASiteOKPolicyAutoCallRecordingPlayRecordingBeepTone) SetPlayBeepMemb
 	s.PlayBeepMember = val
 }
 
+// Allow Zoom to automatically delete data after retention duration.
 type GetASiteOKPolicyAutoDeleteDataAfterRetentionDuration struct {
 	// This field allows Zoom to automatically delete data after the retention duration has lapsed.
 	Enable OptBool `json:"enable"`
@@ -12735,8 +13535,9 @@ type GetASiteOKPolicyAutoDeleteDataAfterRetentionDuration struct {
 	// Whether the senior administrator allows users to modify the current settings.
 	Locked OptBool `json:"locked"`
 	// Which level of administrator prohibits the modification of the current settings.
-	LockedBy OptString                                                       `json:"locked_by"`
-	Items    []GetASiteOKPolicyAutoDeleteDataAfterRetentionDurationItemsItem `json:"items"`
+	LockedBy OptString `json:"locked_by"`
+	// Items.
+	Items []GetASiteOKPolicyAutoDeleteDataAfterRetentionDurationItemsItem `json:"items"`
 	// The delete policy.
 	// * 1 - soft delete
 	// * 2 - permanent delete.
@@ -12844,6 +13645,73 @@ func (s *GetASiteOKPolicyAutoDeleteDataAfterRetentionDurationItemsItem) SetTimeU
 	s.TimeUnit = val
 }
 
+// Whether to enable auto Opt-out from Call Queue after logging out from Zoom.
+type GetASiteOKPolicyAutoOptOutInCallQueue struct {
+	// Once enabled, when Call Queue members log out of Zoom (Except for desk phones and Zoom Phone
+	// appliances), they will be automatically Opted-out from the Call Queue as well.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// Once enabled, always ask the user if they want to opt-out from the Call Queue when they sign out
+	// of Zoom.
+	PromptBeforeOptOutCallQueue OptBool `json:"prompt_before_opt_out_call_queue"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetPromptBeforeOptOutCallQueue returns the value of PromptBeforeOptOutCallQueue.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) GetPromptBeforeOptOutCallQueue() OptBool {
+	return s.PromptBeforeOptOutCallQueue
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetPromptBeforeOptOutCallQueue sets the value of PromptBeforeOptOutCallQueue.
+func (s *GetASiteOKPolicyAutoOptOutInCallQueue) SetPromptBeforeOptOutCallQueue(val OptBool) {
+	s.PromptBeforeOptOutCallQueue = val
+}
+
 // Whether to calls without caller ID will be blocked.
 type GetASiteOKPolicyBlockCallsWithoutCallerID struct {
 	Enable OptBool `json:"enable"`
@@ -12906,16 +13774,20 @@ type GetASiteOKPolicyBlockExternalCalls struct {
 	LockedBy OptString `json:"locked_by"`
 	// Whether the current settings have been modified. If modified, they can be reset and display when
 	// using old or new policy framework.
-	Modified           OptBool `json:"modified"`
+	Modified OptBool `json:"modified"`
+	// Block external calls during business hours.
 	BlockBusinessHours OptBool `json:"block_business_hours"`
-	BlockClosedHours   OptBool `json:"block_closed_hours"`
-	BlockHolidayHours  OptBool `json:"block_holiday_hours"`
+	// Block external calls during closed hours.
+	BlockClosedHours OptBool `json:"block_closed_hours"`
+	// Block external calls during holiday hours.
+	BlockHolidayHours OptBool `json:"block_holiday_hours"`
 	// The action when a call is blocked. `9` - Disconnect, `0`- Forward to voicemail or videomail.
 	BlockCallAction OptInt `json:"block_call_action"`
 	// This setting applies only in the old policy framework. It applies changes to new extensions or all
 	// extensions. `1` - All extension, `0` - New extensions.
-	BlockCallChangeType OptInt                                             `json:"block_call_change_type"`
-	E2eEncryption       OptGetASiteOKPolicyBlockExternalCallsE2eEncryption `json:"e2e_encryption"`
+	BlockCallChangeType OptInt `json:"block_call_change_type"`
+	// Allow users to switch their calls to End-to-End Encryption.
+	E2eEncryption OptGetASiteOKPolicyBlockExternalCallsE2eEncryption `json:"e2e_encryption"`
 }
 
 // GetEnable returns the value of Enable.
@@ -13018,6 +13890,7 @@ func (s *GetASiteOKPolicyBlockExternalCalls) SetE2eEncryption(val OptGetASiteOKP
 	s.E2eEncryption = val
 }
 
+// Allow users to switch their calls to End-to-End Encryption.
 type GetASiteOKPolicyBlockExternalCallsE2eEncryption struct {
 	// Whether to allow users to switch their calls to `End-to-End Encryption`. If users have `Automatic
 	// Call Recording` turned on, they cannot use `End-to-End Encryption`.
@@ -13139,6 +14012,114 @@ func (s *GetASiteOKPolicyCallHandlingForwardingToOtherUsers) SetModified(val Opt
 	s.Modified = val
 }
 
+// Whether to let users turn on live transcriptions for a call.
+type GetASiteOKPolicyCallLiveTranscription struct {
+	// Enable let users turn on live transcriptions for a call.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified.
+	Modified OptBool `json:"modified"`
+	// Whether to play a prompt to call participants when the transcription has started.
+	TranscriptionStartPrompt OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt `json:"transcription_start_prompt"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCallLiveTranscription) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyCallLiveTranscription) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyCallLiveTranscription) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyCallLiveTranscription) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetTranscriptionStartPrompt returns the value of TranscriptionStartPrompt.
+func (s *GetASiteOKPolicyCallLiveTranscription) GetTranscriptionStartPrompt() OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt {
+	return s.TranscriptionStartPrompt
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCallLiveTranscription) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyCallLiveTranscription) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyCallLiveTranscription) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyCallLiveTranscription) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetTranscriptionStartPrompt sets the value of TranscriptionStartPrompt.
+func (s *GetASiteOKPolicyCallLiveTranscription) SetTranscriptionStartPrompt(val OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) {
+	s.TranscriptionStartPrompt = val
+}
+
+// Whether to play a prompt to call participants when the transcription has started.
+type GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt struct {
+	// Enable play a prompt to call participants when the transcription has started.
+	Enable OptBool `json:"enable"`
+	// The audio prompt file ID. If the audio was removed from the user's audio library, it will be
+	// marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio
+	// ID to get the audio information in [Get an audio item](https://marketplace.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	AudioID OptString `json:"audio_id"`
+	// The audio prompt file name.
+	AudioName OptString `json:"audio_name"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAudioID returns the value of AudioID.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetAudioID() OptString {
+	return s.AudioID
+}
+
+// GetAudioName returns the value of AudioName.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetAudioName() OptString {
+	return s.AudioName
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAudioID sets the value of AudioID.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetAudioID(val OptString) {
+	s.AudioID = val
+}
+
+// SetAudioName sets the value of AudioName.
+func (s *GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetAudioName(val OptString) {
+	s.AudioName = val
+}
+
+// Allow users to forward their calls to other numbers when a call is not answered.
 type GetASiteOKPolicyCallOverflow struct {
 	// `1` - Can forward to internal extensions and to external contacts
 	// `2` - Can forward only to internal extensions
@@ -13206,6 +14187,7 @@ func (s *GetASiteOKPolicyCallOverflow) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Allow calls placed on hold to be resumed from another location using a retrieval code.
 type GetASiteOKPolicyCallPark struct {
 	// The action when a parked call is not picked up.
 	// `100` - Ring back to parker
@@ -13397,7 +14379,8 @@ type GetASiteOKPolicyCallQueueOptOutReason struct {
 	LockedBy OptString `json:"locked_by"`
 	// Whether the current settings have been modified. If modified, they can be reset and display when
 	// using the new policy framework.
-	Modified                   OptBool                                                               `json:"modified"`
+	Modified OptBool `json:"modified"`
+	// Opt-out reasons list.
 	CallQueueOptOutReasonsList []GetASiteOKPolicyCallQueueOptOutReasonCallQueueOptOutReasonsListItem `json:"call_queue_opt_out_reasons_list"`
 }
 
@@ -13451,6 +14434,7 @@ func (s *GetASiteOKPolicyCallQueueOptOutReason) SetCallQueueOptOutReasonsList(va
 	s.CallQueueOptOutReasonsList = val
 }
 
+// Opt-out reason.
 type GetASiteOKPolicyCallQueueOptOutReasonCallQueueOptOutReasonsListItem struct {
 	Code OptString `json:"code"`
 	// The system default reason. It cannot be edited.
@@ -13542,6 +14526,204 @@ func (s *GetASiteOKPolicyCallQueuePickupCode) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Whether to incoming direct external callers will be prompted to respond to a button to reach users,
+//
+//	callers who don't respond will be disconnected. Devices will not be able to receive any third
+//
+// party faxes.
+type GetASiteOKPolicyCallScreening struct {
+	// Enable incoming direct external callers will be prompted to respond to a button to reach users,
+	// callers who don't respond will be disconnected. Devices will not be able to receive any third
+	// party faxes.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified.
+	Modified OptBool `json:"modified"`
+	// Whether exclude user and company contacts from call screening, calls will reach users as normal.
+	ExcludeUserCompanyContacts OptBool `json:"exclude_user_company_contacts"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCallScreening) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyCallScreening) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyCallScreening) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyCallScreening) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetExcludeUserCompanyContacts returns the value of ExcludeUserCompanyContacts.
+func (s *GetASiteOKPolicyCallScreening) GetExcludeUserCompanyContacts() OptBool {
+	return s.ExcludeUserCompanyContacts
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCallScreening) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyCallScreening) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyCallScreening) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyCallScreening) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetExcludeUserCompanyContacts sets the value of ExcludeUserCompanyContacts.
+func (s *GetASiteOKPolicyCallScreening) SetExcludeUserCompanyContacts(val OptBool) {
+	s.ExcludeUserCompanyContacts = val
+}
+
+// Allow users to generate a summary of a phone call. For users who enable Call summary during a call,
+//
+//	a summary will be automatically sent to them on the client and the web portal after the call has
+//
+// ended. It requires the account to enable the `Enable Phone Call Summary` feature.
+type GetASiteOKPolicyCallSummary struct {
+	// Allow users to generate a summary of a phone call. For users who enable Call summary during a call,
+	//  a summary will be automatically sent to them on the client and the web portal after the call has
+	// ended.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// Enable automatic call summary.
+	AutoCallSummary OptBool `json:"auto_call_summary"`
+	// Whether to play a prompt to call participant when call summary has started.
+	CallSummaryStartPrompt OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt `json:"call_summary_start_prompt"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCallSummary) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyCallSummary) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyCallSummary) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyCallSummary) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetAutoCallSummary returns the value of AutoCallSummary.
+func (s *GetASiteOKPolicyCallSummary) GetAutoCallSummary() OptBool {
+	return s.AutoCallSummary
+}
+
+// GetCallSummaryStartPrompt returns the value of CallSummaryStartPrompt.
+func (s *GetASiteOKPolicyCallSummary) GetCallSummaryStartPrompt() OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt {
+	return s.CallSummaryStartPrompt
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCallSummary) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyCallSummary) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyCallSummary) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyCallSummary) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetAutoCallSummary sets the value of AutoCallSummary.
+func (s *GetASiteOKPolicyCallSummary) SetAutoCallSummary(val OptBool) {
+	s.AutoCallSummary = val
+}
+
+// SetCallSummaryStartPrompt sets the value of CallSummaryStartPrompt.
+func (s *GetASiteOKPolicyCallSummary) SetCallSummaryStartPrompt(val OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) {
+	s.CallSummaryStartPrompt = val
+}
+
+// Whether to play a prompt to call participant when call summary has started.
+type GetASiteOKPolicyCallSummaryCallSummaryStartPrompt struct {
+	// Whether to play a prompt to call participant when call summary has started.
+	Enable OptBool `json:"enable"`
+	// The audio prompt file ID. If the audio was removed from the user's audio library, it will be
+	// marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio
+	// ID to get the audio information in [Get an audio item](https://marketplace.zoom.
+	// us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+	AudioID OptString `json:"audio_id"`
+	// The audio prompt file name.
+	AudioName OptString `json:"audio_name"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAudioID returns the value of AudioID.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) GetAudioID() OptString {
+	return s.AudioID
+}
+
+// GetAudioName returns the value of AudioName.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) GetAudioName() OptString {
+	return s.AudioName
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAudioID sets the value of AudioID.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) SetAudioID(val OptString) {
+	s.AudioID = val
+}
+
+// SetAudioName sets the value of AudioName.
+func (s *GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) SetAudioName(val OptString) {
+	s.AudioName = val
+}
+
+// Allow user to warm or blind transfer their calls. This does not apply to warm transfer on IP
+// Phones except for Yealink. Voicemail is transferable only to internal extensions.
 type GetASiteOKPolicyCallTransferring struct {
 	// 1-No restriction
 	// 2-Medium restriction (external numbers and external contacts not allowed)
@@ -13664,6 +14846,85 @@ func (s *GetASiteOKPolicyCheckVoicemailsOverPhone) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Whether to enable the line name template will be applied to all the desk phones on your account.
+// Make sure there is enough space on the desk phone to display the line name.
+type GetASiteOKPolicyCustomizeLineName struct {
+	// Enable the line name template will be applied to all the desk phones on your account. Make sure
+	// there is enough space on the desk phone to display the line name.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// The user line name.
+	UserLineName OptString `json:"user_line_name"`
+	// The common area line name.
+	CommonAreaLineName OptString `json:"common_area_line_name"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyCustomizeLineName) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyCustomizeLineName) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyCustomizeLineName) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyCustomizeLineName) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetUserLineName returns the value of UserLineName.
+func (s *GetASiteOKPolicyCustomizeLineName) GetUserLineName() OptString {
+	return s.UserLineName
+}
+
+// GetCommonAreaLineName returns the value of CommonAreaLineName.
+func (s *GetASiteOKPolicyCustomizeLineName) GetCommonAreaLineName() OptString {
+	return s.CommonAreaLineName
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyCustomizeLineName) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyCustomizeLineName) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyCustomizeLineName) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyCustomizeLineName) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetUserLineName sets the value of UserLineName.
+func (s *GetASiteOKPolicyCustomizeLineName) SetUserLineName(val OptString) {
+	s.UserLineName = val
+}
+
+// SetCommonAreaLineName sets the value of CommonAreaLineName.
+func (s *GetASiteOKPolicyCustomizeLineName) SetCommonAreaLineName(val OptString) {
+	s.CommonAreaLineName = val
+}
+
 // Whether the user can use [call delegation](https://support.zoom.
 // us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).
 type GetASiteOKPolicyDelegation struct {
@@ -13717,6 +14978,180 @@ func (s *GetASiteOKPolicyDelegation) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Display a thumbs up/down survey at the end of each call. If participants respond with thumbs down,
+// they can provide additional information about what went wrong.
+type GetASiteOKPolicyDisplayCallFeedbackSurvey struct {
+	// Whether to display a thumbs up or down survey at the end of each call. If participants respond
+	// with thumbs down, they can provide additional information about what went wrong.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+	// This field allows you to display feedback survey, `1` - display for every call, `2` - display when
+	// call quality issues are detected. Default `1`, if set with value `2`, need to set `feed_back_mos`
+	// or `feedback_duration`.
+	FeedbackType OptInt `json:"feedback_type"`
+	// The MOS score. Min: 1.0, Max: 3.0, format one decimal point.
+	FeedbackMos OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos `json:"feedback_mos"`
+	// The call duration, in seconds, 0-60.
+	FeedbackDuration OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration `json:"feedback_duration"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetFeedbackType returns the value of FeedbackType.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetFeedbackType() OptInt {
+	return s.FeedbackType
+}
+
+// GetFeedbackMos returns the value of FeedbackMos.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetFeedbackMos() OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos {
+	return s.FeedbackMos
+}
+
+// GetFeedbackDuration returns the value of FeedbackDuration.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) GetFeedbackDuration() OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	return s.FeedbackDuration
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetFeedbackType sets the value of FeedbackType.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetFeedbackType(val OptInt) {
+	s.FeedbackType = val
+}
+
+// SetFeedbackMos sets the value of FeedbackMos.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetFeedbackMos(val OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) {
+	s.FeedbackMos = val
+}
+
+// SetFeedbackDuration sets the value of FeedbackDuration.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurvey) SetFeedbackDuration(val OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) {
+	s.FeedbackDuration = val
+}
+
+// The call duration, in seconds, 0-60.
+type GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration struct {
+	// The display end-of-call experience feedback survey when call duration issues are detected.
+	Enable OptBool `json:"enable"`
+	// The minimum call duration.
+	Min OptInt `json:"min"`
+	// The maximum call duration.
+	Max OptInt `json:"max"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetMin returns the value of Min.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetMin() OptInt {
+	return s.Min
+}
+
+// GetMax returns the value of Max.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetMax() OptInt {
+	return s.Max
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetMin sets the value of Min.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetMin(val OptInt) {
+	s.Min = val
+}
+
+// SetMax sets the value of Max.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetMax(val OptInt) {
+	s.Max = val
+}
+
+// The MOS score. Min: 1.0, Max: 3.0, format one decimal point.
+type GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos struct {
+	// Whether to display end-of-call experience feedback survey when call mos score issues are detected.
+	Enable OptBool `json:"enable"`
+	// The minimum MOS score.
+	Min OptFloat64 `json:"min"`
+	// The maximum MOS score.
+	Max OptFloat64 `json:"max"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetMin returns the value of Min.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) GetMin() OptFloat64 {
+	return s.Min
+}
+
+// GetMax returns the value of Max.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) GetMax() OptFloat64 {
+	return s.Max
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetMin sets the value of Min.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) SetMin(val OptFloat64) {
+	s.Min = val
+}
+
+// SetMax sets the value of Max.
+func (s *GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) SetMax(val OptFloat64) {
+	s.Max = val
+}
+
+// Allow users to elevate their phone calls to a meeting.
 type GetASiteOKPolicyElevateToMeeting struct {
 	// Whether to allow users to elevate their phone calls to a meeting.
 	Enable OptBool `json:"enable"`
@@ -13769,6 +15204,59 @@ func (s *GetASiteOKPolicyElevateToMeeting) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+type GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea struct {
+	// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) SetModified(val OptBool) {
+	s.Modified = val
+}
+
 // It requires the account to enable the `Force Calls out to the PSTN network` feature.
 type GetASiteOKPolicyForceOffNet struct {
 	// By enabling Force Off-Net, calls from users or extensions between sites route through the PSTN
@@ -13800,6 +15288,64 @@ func (s *GetASiteOKPolicyForceOffNet) SetAllowExtensionOnlyUsersCallUsersOutside
 	s.AllowExtensionOnlyUsersCallUsersOutsideSite = val
 }
 
+// This field allows users to forward their calls outside of their own site.Once disabled, users will
+// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+// own site.
+type GetASiteOKPolicyForwardCallOutsideOfSite struct {
+	// This field allows users to forward their calls outside of their own site.Once disabled, users will
+	// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+	// own site.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyForwardCallOutsideOfSite) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// Allow users to send a call to a Zoom Room.
 type GetASiteOKPolicyHandOffToRoom struct {
 	// Whether to allow users to send a call to a Zoom Room.
 	Enable OptBool `json:"enable"`
@@ -13850,6 +15396,72 @@ func (s *GetASiteOKPolicyHandOffToRoom) SetLockedBy(val OptString) {
 // SetModified sets the value of Modified.
 func (s *GetASiteOKPolicyHandOffToRoom) SetModified(val OptBool) {
 	s.Modified = val
+}
+
+// Allows users to select if an incoming call notification would block their current activity.
+type GetASiteOKPolicyIncomingCallNotification struct {
+	// Allow users to select if an incoming call notification would block their current activity.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// The incoming call notification block type. `block_activity` means "Block my current activity",
+	// `continue_with_alert` means "Alert me but allow me to continue my current activity".
+	BlockType OptString `json:"block_type"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyIncomingCallNotification) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyIncomingCallNotification) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyIncomingCallNotification) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyIncomingCallNotification) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetBlockType returns the value of BlockType.
+func (s *GetASiteOKPolicyIncomingCallNotification) GetBlockType() OptString {
+	return s.BlockType
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyIncomingCallNotification) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyIncomingCallNotification) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyIncomingCallNotification) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyIncomingCallNotification) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetBlockType sets the value of BlockType.
+func (s *GetASiteOKPolicyIncomingCallNotification) SetBlockType(val OptString) {
+	s.BlockType = val
 }
 
 // Whether to allow extensions to place international calls outside of the calling plan.
@@ -13904,6 +15516,7 @@ func (s *GetASiteOKPolicyInternationalCalling) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Allow user to switch from Zoom Phone to their native carrier.
 type GetASiteOKPolicyMobileSwitchToCarrier struct {
 	// Whether to allow the user to switch from a Zoom Phone to their native carrier.
 	Enable OptBool `json:"enable"`
@@ -13956,6 +15569,62 @@ func (s *GetASiteOKPolicyMobileSwitchToCarrier) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+type GetASiteOKPolicyObfuscateSensitiveDataDuringCall struct {
+	// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+	// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyObfuscateSensitiveDataDuringCall) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// Allows users to change their own Audio Library.
 type GetASiteOKPolicyPersonalAudioLibrary struct {
 	// This field allows users to access, share, download, or delete voicemail or videomail.
 	Enable OptBool `json:"enable"`
@@ -14032,6 +15701,65 @@ func (s *GetASiteOKPolicyPersonalAudioLibrary) SetAllowVoicemailAndMessageGreeti
 	s.AllowVoicemailAndMessageGreetingCustomization = val
 }
 
+// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+// to access text-to-speech or record audio files.
+type GetASiteOKPolicyPreventUsersUploadAudioFiles struct {
+	// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+	// to access text-to-speech or record audio files.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyPreventUsersUploadAudioFiles) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// Allows users, call queues and auto receptionists to send and receive messages. You will still need
+// to assign a valid calling plan and phone number to each user in order for them to send and receive
+// messages. Do not enable this control if you intend to use SMS services with a third party SMS
+// provider.
 type GetASiteOKPolicySMS struct {
 	// Whether to allow users, call queues, and auto receptionists to send and receive messages. You need
 	// to assign a valid calling plan and phone number to each user for them to send and receive messages.
@@ -14111,6 +15839,550 @@ func (s *GetASiteOKPolicySMS) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+type GetASiteOKPolicySMSAutoReply struct {
+	// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicySMSAutoReply) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicySMSAutoReply) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicySMSAutoReply) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicySMSAutoReply) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicySMSAutoReply) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicySMSAutoReply) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicySMSAutoReply) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicySMSAutoReply) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// Whether to use pre-defined templates to help users compose messages. Power Pack license is
+// required for this feature to work.
+type GetASiteOKPolicySMSTemplate struct {
+	// Enable use pre-defined templates to help users compose messages. Power Pack license is required
+	// for this feature to work.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified.
+	Modified OptBool `json:"modified"`
+	// SMS template list.
+	SMSTemplateList []GetASiteOKPolicySMSTemplateSMSTemplateListItem `json:"sms_template_list"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicySMSTemplate) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicySMSTemplate) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicySMSTemplate) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicySMSTemplate) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetSMSTemplateList returns the value of SMSTemplateList.
+func (s *GetASiteOKPolicySMSTemplate) GetSMSTemplateList() []GetASiteOKPolicySMSTemplateSMSTemplateListItem {
+	return s.SMSTemplateList
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicySMSTemplate) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicySMSTemplate) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicySMSTemplate) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicySMSTemplate) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetSMSTemplateList sets the value of SMSTemplateList.
+func (s *GetASiteOKPolicySMSTemplate) SetSMSTemplateList(val []GetASiteOKPolicySMSTemplateSMSTemplateListItem) {
+	s.SMSTemplateList = val
+}
+
+type GetASiteOKPolicySMSTemplateSMSTemplateListItem struct {
+	// SMS template id.
+	SMSTemplateID OptString `json:"sms_template_id"`
+	// SMS template name.
+	Name OptString `json:"name"`
+	// SMS template description.
+	Description OptString `json:"description"`
+	// Text to Display. This text will be editable by users. Customer input fields may be added by using
+	// the buttons below. Customer information will be removed if not available.
+	Content OptString `json:"content"`
+	// Whether it is active.
+	Active OptBool `json:"active"`
+}
+
+// GetSMSTemplateID returns the value of SMSTemplateID.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) GetSMSTemplateID() OptString {
+	return s.SMSTemplateID
+}
+
+// GetName returns the value of Name.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) GetName() OptString {
+	return s.Name
+}
+
+// GetDescription returns the value of Description.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) GetDescription() OptString {
+	return s.Description
+}
+
+// GetContent returns the value of Content.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) GetContent() OptString {
+	return s.Content
+}
+
+// GetActive returns the value of Active.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) GetActive() OptBool {
+	return s.Active
+}
+
+// SetSMSTemplateID sets the value of SMSTemplateID.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) SetSMSTemplateID(val OptString) {
+	s.SMSTemplateID = val
+}
+
+// SetName sets the value of Name.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetDescription sets the value of Description.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) SetDescription(val OptString) {
+	s.Description = val
+}
+
+// SetContent sets the value of Content.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) SetContent(val OptString) {
+	s.Content = val
+}
+
+// SetActive sets the value of Active.
+func (s *GetASiteOKPolicySMSTemplateSMSTemplateListItem) SetActive(val OptBool) {
+	s.Active = val
+}
+
+// Defines how often and when to update firmware of the devices.
+type GetASiteOKPolicyScheduleFirmwareUpdate struct {
+	// Whether to define how often and when to update firmware of the devices.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator prohibits the modification of the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset(displayed when
+	// using old or new policy framework).
+	Modified OptBool `json:"modified"`
+	// The repeat type.
+	RepeatType OptString `json:"repeat_type"`
+	// The repeat setting.
+	RepeatSetting OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting `json:"repeat_setting"`
+	// The time period start time. 15 means 3 PM.
+	TimePeriodStart OptInt `json:"time_period_start"`
+	// The time period end time. 16 means 4 PM.
+	TimePeriodEnd OptInt `json:"time_period_end"`
+	// The [time zone list](https://developer.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists/#timezones) for supported time zones and
+	// their formats.
+	TimeZone OptString `json:"time_zone"`
+	// The end setting.
+	EndSetting OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting `json:"end_setting"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetModified() OptBool {
+	return s.Modified
+}
+
+// GetRepeatType returns the value of RepeatType.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetRepeatType() OptString {
+	return s.RepeatType
+}
+
+// GetRepeatSetting returns the value of RepeatSetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetRepeatSetting() OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	return s.RepeatSetting
+}
+
+// GetTimePeriodStart returns the value of TimePeriodStart.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetTimePeriodStart() OptInt {
+	return s.TimePeriodStart
+}
+
+// GetTimePeriodEnd returns the value of TimePeriodEnd.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetTimePeriodEnd() OptInt {
+	return s.TimePeriodEnd
+}
+
+// GetTimeZone returns the value of TimeZone.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetTimeZone() OptString {
+	return s.TimeZone
+}
+
+// GetEndSetting returns the value of EndSetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) GetEndSetting() OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting {
+	return s.EndSetting
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// SetRepeatType sets the value of RepeatType.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetRepeatType(val OptString) {
+	s.RepeatType = val
+}
+
+// SetRepeatSetting sets the value of RepeatSetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetRepeatSetting(val OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) {
+	s.RepeatSetting = val
+}
+
+// SetTimePeriodStart sets the value of TimePeriodStart.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetTimePeriodStart(val OptInt) {
+	s.TimePeriodStart = val
+}
+
+// SetTimePeriodEnd sets the value of TimePeriodEnd.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetTimePeriodEnd(val OptInt) {
+	s.TimePeriodEnd = val
+}
+
+// SetTimeZone sets the value of TimeZone.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetTimeZone(val OptString) {
+	s.TimeZone = val
+}
+
+// SetEndSetting sets the value of EndSetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdate) SetEndSetting(val OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) {
+	s.EndSetting = val
+}
+
+// The end setting.
+type GetASiteOKPolicyScheduleFirmwareUpdateEndSetting struct {
+	// Never ends.
+	NeverEnd OptBool `json:"never_end"`
+	// The end date in the format \"yyyy-MM-dd\". Only return when `never_end` is false.
+	EndDate OptDate `json:"end_date"`
+}
+
+// GetNeverEnd returns the value of NeverEnd.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) GetNeverEnd() OptBool {
+	return s.NeverEnd
+}
+
+// GetEndDate returns the value of EndDate.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) GetEndDate() OptDate {
+	return s.EndDate
+}
+
+// SetNeverEnd sets the value of NeverEnd.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) SetNeverEnd(val OptBool) {
+	s.NeverEnd = val
+}
+
+// SetEndDate sets the value of EndDate.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) SetEndDate(val OptDate) {
+	s.EndDate = val
+}
+
+// The repeat setting.
+// GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting represents sum type.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting struct {
+	Type                                                 GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType // switch on this field
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2
+}
+
+// GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType is oneOf type of GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType string
+
+// Possible values for GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType.
+const (
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType = "GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0"
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType = "GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1"
+	GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting GetASiteOKPolicyScheduleFirmwareUpdateRepeatSettingType = "GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2"
+)
+
+// IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 reports whether GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0() bool {
+	return s.Type == GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+}
+
+// IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 reports whether GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1() bool {
+	return s.Type == GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+}
+
+// IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 reports whether GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2() bool {
+	return s.Type == GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+}
+
+// SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 sets GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting to GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0) {
+	s.Type = GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 = v
+}
+
+// GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 returns GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 and true boolean if GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0, ok bool) {
+	if !s.IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0() {
+		return v, false
+	}
+	return s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0, true
+}
+
+// NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting returns new GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting from GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0.
+func NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	var s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0(v)
+	return s
+}
+
+// SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 sets GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting to GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1) {
+	s.Type = GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 = v
+}
+
+// GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 returns GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 and true boolean if GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1, ok bool) {
+	if !s.IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1() {
+		return v, false
+	}
+	return s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1, true
+}
+
+// NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting returns new GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting from GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1.
+func NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	var s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1(v)
+	return s
+}
+
+// SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 sets GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting to GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2) {
+	s.Type = GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 = v
+}
+
+// GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 returns GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 and true boolean if GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2.
+func (s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) GetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2, ok bool) {
+	if !s.IsGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2() {
+		return v, false
+	}
+	return s.GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2, true
+}
+
+// NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting returns new GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting from GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2.
+func NewGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	var s GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	s.SetGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2(v)
+	return s
+}
+
+// The weekly setting. It only returns when `repeat_type` is `weekly`.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0 struct {
+	// The weekly setting.
+	WeeklySetting OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting `json:"weekly_setting"`
+}
+
+// GetWeeklySetting returns the value of WeeklySetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0) GetWeeklySetting() OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	return s.WeeklySetting
+}
+
+// SetWeeklySetting sets the value of WeeklySetting.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0) SetWeeklySetting(val OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) {
+	s.WeeklySetting = val
+}
+
+// The weekly setting.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting struct {
+	// Weekday.
+	Weekday OptString `json:"weekday"`
+}
+
+// GetWeekday returns the value of Weekday.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) GetWeekday() OptString {
+	return s.Weekday
+}
+
+// SetWeekday sets the value of Weekday.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) SetWeekday(val OptString) {
+	s.Weekday = val
+}
+
+// Repeat by week and day.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1 struct {
+	// Repeat by week and day.
+	WeekAndDay OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay `json:"week_and_day"`
+}
+
+// GetWeekAndDay returns the value of WeekAndDay.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1) GetWeekAndDay() OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay {
+	return s.WeekAndDay
+}
+
+// SetWeekAndDay sets the value of WeekAndDay.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1) SetWeekAndDay(val OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) {
+	s.WeekAndDay = val
+}
+
+// Repeat by week and day.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay struct {
+	// Which week of the month to perform updates.
+	WeekOfMonth OptInt `json:"week_of_month"`
+	// The day of the selected week to perform updates.
+	Weekday OptString `json:"weekday"`
+}
+
+// GetWeekOfMonth returns the value of WeekOfMonth.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) GetWeekOfMonth() OptInt {
+	return s.WeekOfMonth
+}
+
+// GetWeekday returns the value of Weekday.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) GetWeekday() OptString {
+	return s.Weekday
+}
+
+// SetWeekOfMonth sets the value of WeekOfMonth.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) SetWeekOfMonth(val OptInt) {
+	s.WeekOfMonth = val
+}
+
+// SetWeekday sets the value of Weekday.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) SetWeekday(val OptString) {
+	s.Weekday = val
+}
+
+// Repeat by specific date.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2 struct {
+	// Repeat by specific date.
+	SpecificDate OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate `json:"specific_date"`
+}
+
+// GetSpecificDate returns the value of SpecificDate.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2) GetSpecificDate() OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate {
+	return s.SpecificDate
+}
+
+// SetSpecificDate sets the value of SpecificDate.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2) SetSpecificDate(val OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) {
+	s.SpecificDate = val
+}
+
+// Repeat by specific date.
+type GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate struct {
+	// The specific day of the month for updates. `0` means "Last day".
+	DayOfMonth OptInt `json:"day_of_month"`
+}
+
+// GetDayOfMonth returns the value of DayOfMonth.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) GetDayOfMonth() OptInt {
+	return s.DayOfMonth
+}
+
+// SetDayOfMonth sets the value of DayOfMonth.
+func (s *GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) SetDayOfMonth(val OptInt) {
+	s.DayOfMonth = val
+}
+
+// Whether to allow the current extension to change the outbound caller ID when placing calls.
 type GetASiteOKPolicySelectOutboundCallerID struct {
 	// Whether to allow the current extension to change the outbound caller ID when placing calls.
 	Enable OptBool `json:"enable"`
@@ -14232,6 +16504,60 @@ func (s *GetASiteOKPolicySharedVoicemailNotificationByEmail) SetModified(val Opt
 	s.Modified = val
 }
 
+// This field allows users to summarize and extract tasks from English SMS conversations.
+type GetASiteOKPolicyTeamSMSThreadSummary struct {
+	// This field allows users to summarize and extract tasks from English SMS conversations.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyTeamSMSThreadSummary) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// Allows users to access, share, download, and to delete voicemail and videomail.
 type GetASiteOKPolicyVoicemail struct {
 	// This setting allows users to delete their own voicemail. It displays only when using the new
 	// policy framework.
@@ -14319,6 +16645,61 @@ func (s *GetASiteOKPolicyVoicemail) SetLockedBy(val OptString) {
 
 // SetModified sets the value of Modified.
 func (s *GetASiteOKPolicyVoicemail) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+// need to have voicemail transcription policy enabled.
+type GetASiteOKPolicyVoicemailIntentBasedPrioritization struct {
+	// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+	// need to have voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyVoicemailIntentBasedPrioritization) SetModified(val OptBool) {
 	s.Modified = val
 }
 
@@ -14413,6 +16794,64 @@ func (s *GetASiteOKPolicyVoicemailNotificationByEmail) SetModified(val OptBool) 
 	s.Modified = val
 }
 
+// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+// voicemail transcription policy enabled.
+type GetASiteOKPolicyVoicemailTasks struct {
+	// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+	// voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyVoicemailTasks) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyVoicemailTasks) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyVoicemailTasks) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyVoicemailTasks) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyVoicemailTasks) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyVoicemailTasks) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyVoicemailTasks) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyVoicemailTasks) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// When this setting is enabled, voicemail and videomail transcriptions will be created and remain
+// accessible even if the setting is later disabled. If the setting is disabled, new voicemail and
+// videomail transcriptions will not be generated.
 type GetASiteOKPolicyVoicemailTranscription struct {
 	// Whether to allow users to access transcriptions of voicemails from the Zoom client, the Zoom web
 	// portal, and email notifications.
@@ -14466,6 +16905,7 @@ func (s *GetASiteOKPolicyVoicemailTranscription) SetModified(val OptBool) {
 	s.Modified = val
 }
 
+// Allows user to use Zoom Phone on mobile clients (iOS, iPad OS and Android).
 type GetASiteOKPolicyZoomPhoneOnMobile struct {
 	// This field allows calling and SMS/MMS functions on mobile.
 	AllowCallingSMSMms OptBool `json:"allow_calling_sms_mms"`
@@ -14527,6 +16967,59 @@ func (s *GetASiteOKPolicyZoomPhoneOnMobile) SetLockedBy(val OptString) {
 
 // SetModified sets the value of Modified.
 func (s *GetASiteOKPolicyZoomPhoneOnMobile) SetModified(val OptBool) {
+	s.Modified = val
+}
+
+// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+type GetASiteOKPolicyZoomPhoneOnPwa struct {
+	// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+	Enable OptBool `json:"enable"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Which level of administrator can prohibit users from modifying the current settings.
+	LockedBy OptString `json:"locked_by"`
+	// Whether the current settings have been modified. If modified, they can be reset and display when
+	// using the new policy framework.
+	Modified OptBool `json:"modified"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetLocked returns the value of Locked.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetLockedBy returns the value of LockedBy.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) GetLockedBy() OptString {
+	return s.LockedBy
+}
+
+// GetModified returns the value of Modified.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) GetModified() OptBool {
+	return s.Modified
+}
+
+// SetEnable sets the value of Enable.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetLockedBy sets the value of LockedBy.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) SetLockedBy(val OptString) {
+	s.LockedBy = val
+}
+
+// SetModified sets the value of Modified.
+func (s *GetASiteOKPolicyZoomPhoneOnPwa) SetModified(val OptBool) {
 	s.Modified = val
 }
 
@@ -20810,6 +23303,657 @@ func (s *GetCallHandlingOKHolidayHoursItemDetailsItemSettingsRoutingVoicemailGre
 // SetName sets the value of Name.
 func (s *GetCallHandlingOKHolidayHoursItemDetailsItemSettingsRoutingVoicemailGreeting) SetName(val OptString) {
 	s.Name = val
+}
+
+// The phone user call logs.
+type GetCallHistoryDetailOK struct {
+	// The ID of the call log.
+	ID OptString `json:"id"`
+	// The ID of the phone call.
+	CallID OptString `json:"call_id"`
+	// The connect type of call:
+	// * `internal`
+	// * `external`.
+	ConnectType OptString `json:"connect_type"`
+	// The type of call.
+	// * `general`
+	// * `emergency`.
+	CallType OptString `json:"call_type"`
+	// The direction of the call.
+	// * `inbound`
+	// * `outbound`.
+	Direction OptString `json:"direction"`
+	// The caller's extension ID.
+	CallerExtID OptString `json:"caller_ext_id"`
+	// The caller' name.
+	CallerName OptString `json:"caller_name"`
+	// The caller's email.
+	CallerEmail OptString `json:"caller_email"`
+	// The caller's DID number in e164 format.
+	CallerDidNumber OptString `json:"caller_did_number"`
+	// The caller's extension number .
+	CallerExtNumber OptString `json:"caller_ext_number"`
+	// The caller's extension type:
+	// * `user`
+	// * `call_queue`
+	// * `auto_receptionist`
+	// * `common_area`
+	// * `zoom_room`
+	// * `cisco_room`
+	// * `shared_line_group`
+	// * `group_call_pickup`
+	// * `external_contact`.
+	CallerExtType OptString `json:"caller_ext_type"`
+	// The caller's number type.
+	CallerNumberType OptString `json:"caller_number_type"`
+	// The caller's device type.
+	CallerDeviceType OptString `json:"caller_device_type"`
+	// The caller's country ISO code.
+	CallerCountryIsoCode OptString `json:"caller_country_iso_code"`
+	// The caller's country code.
+	CallerCountryCode OptString `json:"caller_country_code"`
+	// The callee's extension ID.
+	CalleeExtID OptString `json:"callee_ext_id"`
+	// The callee's name.
+	CalleeName OptString `json:"callee_name"`
+	// The callee's DID number in e164 format.
+	CalleeDidNumber OptString `json:"callee_did_number"`
+	// The callee's extension number.
+	CalleeExtNumber OptString `json:"callee_ext_number"`
+	// The callee's email.
+	CalleeEmail OptString `json:"callee_email"`
+	// The callee's extension type:
+	// * `user`
+	// * `call_queue`
+	// * `auto_receptionist`
+	// * `common_area`
+	// * `zoom_room`
+	// * `cisco_room`
+	// * `shared_line_group`
+	// * `group_call_pickup`
+	// * `external_contact`.
+	CalleeExtType OptString `json:"callee_ext_type"`
+	// The callee's number type.
+	CalleeNumberType OptString `json:"callee_number_type"`
+	// The callee's device type.
+	CalleeDeviceType OptString `json:"callee_device_type"`
+	// The callee's country ISO code.
+	CalleeCountryIsoCode OptString `json:"callee_country_iso_code"`
+	// The callee's country code.
+	CalleeCountryCode OptString `json:"callee_country_code"`
+	// The client code for the call.
+	ClientCode OptString `json:"client_code"`
+	// The name of the user's department.
+	Department OptString `json:"department"`
+	// The name of the cost center of which the user belongs.
+	CostCenter OptString `json:"cost_center"`
+	// The name of the site ID of which the user belongs.
+	SiteID OptString `json:"site_id"`
+	// The primary group of which the user belongs.
+	GroupID OptString `json:"group_id"`
+	// The site name of which the user belongs.
+	SiteName OptString `json:"site_name"`
+	// The call start time in GMT `date-time` format.
+	StartTime OptString `json:"start_time"`
+	// The call answer time in GMT `date-time` format.
+	AnswerTime OptString `json:"answer_time"`
+	// The call end time in GMT `date-time` format.
+	EndTime OptString `json:"end_time"`
+	// An event within a call log.
+	Event OptString `json:"event"`
+	// The detailed results of an event for a call log.
+	Result OptString `json:"result"`
+	// The cause or outcome of an event in a call log.
+	ResultReason OptString `json:"result_reason"`
+	// The private IP of which the user belongs.
+	DevicePrivateIP OptString `json:"device_private_ip"`
+	// The public IP of which the user belongs.
+	DevicePublicIP OptString `json:"device_public_ip"`
+	// The operator's extension number.
+	OperatorExtNumber OptString `json:"operator_ext_number"`
+	// The operator's extension ID.
+	OperatorExtID OptString `json:"operator_ext_id"`
+	// The operator's extension type.
+	OperatorExtType OptString `json:"operator_ext_type"`
+	// The operator's name.
+	OperatorName OptString `json:"operator_name"`
+	// The key value associated with a press or input event.
+	PressKey OptString `json:"press_key"`
+	// A sequential number to indicate the orders of events that starts from 0.
+	Segment OptInt `json:"segment"`
+	// Within one segment, a sequential number to indicate the orders of the events that start from 0.
+	Node   OptInt `json:"node"`
+	IsNode OptInt `json:"is_node"`
+	// The unique identifier of the call recording.
+	RecordingID OptString `json:"recording_id"`
+	// The type of call recording.
+	RecordingType OptString `json:"recording_type"`
+	// The call hold time in seconds.
+	HoldTime OptInt `json:"hold_time"`
+	// The call wait time in seconds.
+	WaitingTime OptInt `json:"waiting_time"`
+	// The ID of the call voicemail.
+	VoicemailID OptString `json:"voicemail_id"`
+}
+
+// GetID returns the value of ID.
+func (s *GetCallHistoryDetailOK) GetID() OptString {
+	return s.ID
+}
+
+// GetCallID returns the value of CallID.
+func (s *GetCallHistoryDetailOK) GetCallID() OptString {
+	return s.CallID
+}
+
+// GetConnectType returns the value of ConnectType.
+func (s *GetCallHistoryDetailOK) GetConnectType() OptString {
+	return s.ConnectType
+}
+
+// GetCallType returns the value of CallType.
+func (s *GetCallHistoryDetailOK) GetCallType() OptString {
+	return s.CallType
+}
+
+// GetDirection returns the value of Direction.
+func (s *GetCallHistoryDetailOK) GetDirection() OptString {
+	return s.Direction
+}
+
+// GetCallerExtID returns the value of CallerExtID.
+func (s *GetCallHistoryDetailOK) GetCallerExtID() OptString {
+	return s.CallerExtID
+}
+
+// GetCallerName returns the value of CallerName.
+func (s *GetCallHistoryDetailOK) GetCallerName() OptString {
+	return s.CallerName
+}
+
+// GetCallerEmail returns the value of CallerEmail.
+func (s *GetCallHistoryDetailOK) GetCallerEmail() OptString {
+	return s.CallerEmail
+}
+
+// GetCallerDidNumber returns the value of CallerDidNumber.
+func (s *GetCallHistoryDetailOK) GetCallerDidNumber() OptString {
+	return s.CallerDidNumber
+}
+
+// GetCallerExtNumber returns the value of CallerExtNumber.
+func (s *GetCallHistoryDetailOK) GetCallerExtNumber() OptString {
+	return s.CallerExtNumber
+}
+
+// GetCallerExtType returns the value of CallerExtType.
+func (s *GetCallHistoryDetailOK) GetCallerExtType() OptString {
+	return s.CallerExtType
+}
+
+// GetCallerNumberType returns the value of CallerNumberType.
+func (s *GetCallHistoryDetailOK) GetCallerNumberType() OptString {
+	return s.CallerNumberType
+}
+
+// GetCallerDeviceType returns the value of CallerDeviceType.
+func (s *GetCallHistoryDetailOK) GetCallerDeviceType() OptString {
+	return s.CallerDeviceType
+}
+
+// GetCallerCountryIsoCode returns the value of CallerCountryIsoCode.
+func (s *GetCallHistoryDetailOK) GetCallerCountryIsoCode() OptString {
+	return s.CallerCountryIsoCode
+}
+
+// GetCallerCountryCode returns the value of CallerCountryCode.
+func (s *GetCallHistoryDetailOK) GetCallerCountryCode() OptString {
+	return s.CallerCountryCode
+}
+
+// GetCalleeExtID returns the value of CalleeExtID.
+func (s *GetCallHistoryDetailOK) GetCalleeExtID() OptString {
+	return s.CalleeExtID
+}
+
+// GetCalleeName returns the value of CalleeName.
+func (s *GetCallHistoryDetailOK) GetCalleeName() OptString {
+	return s.CalleeName
+}
+
+// GetCalleeDidNumber returns the value of CalleeDidNumber.
+func (s *GetCallHistoryDetailOK) GetCalleeDidNumber() OptString {
+	return s.CalleeDidNumber
+}
+
+// GetCalleeExtNumber returns the value of CalleeExtNumber.
+func (s *GetCallHistoryDetailOK) GetCalleeExtNumber() OptString {
+	return s.CalleeExtNumber
+}
+
+// GetCalleeEmail returns the value of CalleeEmail.
+func (s *GetCallHistoryDetailOK) GetCalleeEmail() OptString {
+	return s.CalleeEmail
+}
+
+// GetCalleeExtType returns the value of CalleeExtType.
+func (s *GetCallHistoryDetailOK) GetCalleeExtType() OptString {
+	return s.CalleeExtType
+}
+
+// GetCalleeNumberType returns the value of CalleeNumberType.
+func (s *GetCallHistoryDetailOK) GetCalleeNumberType() OptString {
+	return s.CalleeNumberType
+}
+
+// GetCalleeDeviceType returns the value of CalleeDeviceType.
+func (s *GetCallHistoryDetailOK) GetCalleeDeviceType() OptString {
+	return s.CalleeDeviceType
+}
+
+// GetCalleeCountryIsoCode returns the value of CalleeCountryIsoCode.
+func (s *GetCallHistoryDetailOK) GetCalleeCountryIsoCode() OptString {
+	return s.CalleeCountryIsoCode
+}
+
+// GetCalleeCountryCode returns the value of CalleeCountryCode.
+func (s *GetCallHistoryDetailOK) GetCalleeCountryCode() OptString {
+	return s.CalleeCountryCode
+}
+
+// GetClientCode returns the value of ClientCode.
+func (s *GetCallHistoryDetailOK) GetClientCode() OptString {
+	return s.ClientCode
+}
+
+// GetDepartment returns the value of Department.
+func (s *GetCallHistoryDetailOK) GetDepartment() OptString {
+	return s.Department
+}
+
+// GetCostCenter returns the value of CostCenter.
+func (s *GetCallHistoryDetailOK) GetCostCenter() OptString {
+	return s.CostCenter
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *GetCallHistoryDetailOK) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetGroupID returns the value of GroupID.
+func (s *GetCallHistoryDetailOK) GetGroupID() OptString {
+	return s.GroupID
+}
+
+// GetSiteName returns the value of SiteName.
+func (s *GetCallHistoryDetailOK) GetSiteName() OptString {
+	return s.SiteName
+}
+
+// GetStartTime returns the value of StartTime.
+func (s *GetCallHistoryDetailOK) GetStartTime() OptString {
+	return s.StartTime
+}
+
+// GetAnswerTime returns the value of AnswerTime.
+func (s *GetCallHistoryDetailOK) GetAnswerTime() OptString {
+	return s.AnswerTime
+}
+
+// GetEndTime returns the value of EndTime.
+func (s *GetCallHistoryDetailOK) GetEndTime() OptString {
+	return s.EndTime
+}
+
+// GetEvent returns the value of Event.
+func (s *GetCallHistoryDetailOK) GetEvent() OptString {
+	return s.Event
+}
+
+// GetResult returns the value of Result.
+func (s *GetCallHistoryDetailOK) GetResult() OptString {
+	return s.Result
+}
+
+// GetResultReason returns the value of ResultReason.
+func (s *GetCallHistoryDetailOK) GetResultReason() OptString {
+	return s.ResultReason
+}
+
+// GetDevicePrivateIP returns the value of DevicePrivateIP.
+func (s *GetCallHistoryDetailOK) GetDevicePrivateIP() OptString {
+	return s.DevicePrivateIP
+}
+
+// GetDevicePublicIP returns the value of DevicePublicIP.
+func (s *GetCallHistoryDetailOK) GetDevicePublicIP() OptString {
+	return s.DevicePublicIP
+}
+
+// GetOperatorExtNumber returns the value of OperatorExtNumber.
+func (s *GetCallHistoryDetailOK) GetOperatorExtNumber() OptString {
+	return s.OperatorExtNumber
+}
+
+// GetOperatorExtID returns the value of OperatorExtID.
+func (s *GetCallHistoryDetailOK) GetOperatorExtID() OptString {
+	return s.OperatorExtID
+}
+
+// GetOperatorExtType returns the value of OperatorExtType.
+func (s *GetCallHistoryDetailOK) GetOperatorExtType() OptString {
+	return s.OperatorExtType
+}
+
+// GetOperatorName returns the value of OperatorName.
+func (s *GetCallHistoryDetailOK) GetOperatorName() OptString {
+	return s.OperatorName
+}
+
+// GetPressKey returns the value of PressKey.
+func (s *GetCallHistoryDetailOK) GetPressKey() OptString {
+	return s.PressKey
+}
+
+// GetSegment returns the value of Segment.
+func (s *GetCallHistoryDetailOK) GetSegment() OptInt {
+	return s.Segment
+}
+
+// GetNode returns the value of Node.
+func (s *GetCallHistoryDetailOK) GetNode() OptInt {
+	return s.Node
+}
+
+// GetIsNode returns the value of IsNode.
+func (s *GetCallHistoryDetailOK) GetIsNode() OptInt {
+	return s.IsNode
+}
+
+// GetRecordingID returns the value of RecordingID.
+func (s *GetCallHistoryDetailOK) GetRecordingID() OptString {
+	return s.RecordingID
+}
+
+// GetRecordingType returns the value of RecordingType.
+func (s *GetCallHistoryDetailOK) GetRecordingType() OptString {
+	return s.RecordingType
+}
+
+// GetHoldTime returns the value of HoldTime.
+func (s *GetCallHistoryDetailOK) GetHoldTime() OptInt {
+	return s.HoldTime
+}
+
+// GetWaitingTime returns the value of WaitingTime.
+func (s *GetCallHistoryDetailOK) GetWaitingTime() OptInt {
+	return s.WaitingTime
+}
+
+// GetVoicemailID returns the value of VoicemailID.
+func (s *GetCallHistoryDetailOK) GetVoicemailID() OptString {
+	return s.VoicemailID
+}
+
+// SetID sets the value of ID.
+func (s *GetCallHistoryDetailOK) SetID(val OptString) {
+	s.ID = val
+}
+
+// SetCallID sets the value of CallID.
+func (s *GetCallHistoryDetailOK) SetCallID(val OptString) {
+	s.CallID = val
+}
+
+// SetConnectType sets the value of ConnectType.
+func (s *GetCallHistoryDetailOK) SetConnectType(val OptString) {
+	s.ConnectType = val
+}
+
+// SetCallType sets the value of CallType.
+func (s *GetCallHistoryDetailOK) SetCallType(val OptString) {
+	s.CallType = val
+}
+
+// SetDirection sets the value of Direction.
+func (s *GetCallHistoryDetailOK) SetDirection(val OptString) {
+	s.Direction = val
+}
+
+// SetCallerExtID sets the value of CallerExtID.
+func (s *GetCallHistoryDetailOK) SetCallerExtID(val OptString) {
+	s.CallerExtID = val
+}
+
+// SetCallerName sets the value of CallerName.
+func (s *GetCallHistoryDetailOK) SetCallerName(val OptString) {
+	s.CallerName = val
+}
+
+// SetCallerEmail sets the value of CallerEmail.
+func (s *GetCallHistoryDetailOK) SetCallerEmail(val OptString) {
+	s.CallerEmail = val
+}
+
+// SetCallerDidNumber sets the value of CallerDidNumber.
+func (s *GetCallHistoryDetailOK) SetCallerDidNumber(val OptString) {
+	s.CallerDidNumber = val
+}
+
+// SetCallerExtNumber sets the value of CallerExtNumber.
+func (s *GetCallHistoryDetailOK) SetCallerExtNumber(val OptString) {
+	s.CallerExtNumber = val
+}
+
+// SetCallerExtType sets the value of CallerExtType.
+func (s *GetCallHistoryDetailOK) SetCallerExtType(val OptString) {
+	s.CallerExtType = val
+}
+
+// SetCallerNumberType sets the value of CallerNumberType.
+func (s *GetCallHistoryDetailOK) SetCallerNumberType(val OptString) {
+	s.CallerNumberType = val
+}
+
+// SetCallerDeviceType sets the value of CallerDeviceType.
+func (s *GetCallHistoryDetailOK) SetCallerDeviceType(val OptString) {
+	s.CallerDeviceType = val
+}
+
+// SetCallerCountryIsoCode sets the value of CallerCountryIsoCode.
+func (s *GetCallHistoryDetailOK) SetCallerCountryIsoCode(val OptString) {
+	s.CallerCountryIsoCode = val
+}
+
+// SetCallerCountryCode sets the value of CallerCountryCode.
+func (s *GetCallHistoryDetailOK) SetCallerCountryCode(val OptString) {
+	s.CallerCountryCode = val
+}
+
+// SetCalleeExtID sets the value of CalleeExtID.
+func (s *GetCallHistoryDetailOK) SetCalleeExtID(val OptString) {
+	s.CalleeExtID = val
+}
+
+// SetCalleeName sets the value of CalleeName.
+func (s *GetCallHistoryDetailOK) SetCalleeName(val OptString) {
+	s.CalleeName = val
+}
+
+// SetCalleeDidNumber sets the value of CalleeDidNumber.
+func (s *GetCallHistoryDetailOK) SetCalleeDidNumber(val OptString) {
+	s.CalleeDidNumber = val
+}
+
+// SetCalleeExtNumber sets the value of CalleeExtNumber.
+func (s *GetCallHistoryDetailOK) SetCalleeExtNumber(val OptString) {
+	s.CalleeExtNumber = val
+}
+
+// SetCalleeEmail sets the value of CalleeEmail.
+func (s *GetCallHistoryDetailOK) SetCalleeEmail(val OptString) {
+	s.CalleeEmail = val
+}
+
+// SetCalleeExtType sets the value of CalleeExtType.
+func (s *GetCallHistoryDetailOK) SetCalleeExtType(val OptString) {
+	s.CalleeExtType = val
+}
+
+// SetCalleeNumberType sets the value of CalleeNumberType.
+func (s *GetCallHistoryDetailOK) SetCalleeNumberType(val OptString) {
+	s.CalleeNumberType = val
+}
+
+// SetCalleeDeviceType sets the value of CalleeDeviceType.
+func (s *GetCallHistoryDetailOK) SetCalleeDeviceType(val OptString) {
+	s.CalleeDeviceType = val
+}
+
+// SetCalleeCountryIsoCode sets the value of CalleeCountryIsoCode.
+func (s *GetCallHistoryDetailOK) SetCalleeCountryIsoCode(val OptString) {
+	s.CalleeCountryIsoCode = val
+}
+
+// SetCalleeCountryCode sets the value of CalleeCountryCode.
+func (s *GetCallHistoryDetailOK) SetCalleeCountryCode(val OptString) {
+	s.CalleeCountryCode = val
+}
+
+// SetClientCode sets the value of ClientCode.
+func (s *GetCallHistoryDetailOK) SetClientCode(val OptString) {
+	s.ClientCode = val
+}
+
+// SetDepartment sets the value of Department.
+func (s *GetCallHistoryDetailOK) SetDepartment(val OptString) {
+	s.Department = val
+}
+
+// SetCostCenter sets the value of CostCenter.
+func (s *GetCallHistoryDetailOK) SetCostCenter(val OptString) {
+	s.CostCenter = val
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *GetCallHistoryDetailOK) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetGroupID sets the value of GroupID.
+func (s *GetCallHistoryDetailOK) SetGroupID(val OptString) {
+	s.GroupID = val
+}
+
+// SetSiteName sets the value of SiteName.
+func (s *GetCallHistoryDetailOK) SetSiteName(val OptString) {
+	s.SiteName = val
+}
+
+// SetStartTime sets the value of StartTime.
+func (s *GetCallHistoryDetailOK) SetStartTime(val OptString) {
+	s.StartTime = val
+}
+
+// SetAnswerTime sets the value of AnswerTime.
+func (s *GetCallHistoryDetailOK) SetAnswerTime(val OptString) {
+	s.AnswerTime = val
+}
+
+// SetEndTime sets the value of EndTime.
+func (s *GetCallHistoryDetailOK) SetEndTime(val OptString) {
+	s.EndTime = val
+}
+
+// SetEvent sets the value of Event.
+func (s *GetCallHistoryDetailOK) SetEvent(val OptString) {
+	s.Event = val
+}
+
+// SetResult sets the value of Result.
+func (s *GetCallHistoryDetailOK) SetResult(val OptString) {
+	s.Result = val
+}
+
+// SetResultReason sets the value of ResultReason.
+func (s *GetCallHistoryDetailOK) SetResultReason(val OptString) {
+	s.ResultReason = val
+}
+
+// SetDevicePrivateIP sets the value of DevicePrivateIP.
+func (s *GetCallHistoryDetailOK) SetDevicePrivateIP(val OptString) {
+	s.DevicePrivateIP = val
+}
+
+// SetDevicePublicIP sets the value of DevicePublicIP.
+func (s *GetCallHistoryDetailOK) SetDevicePublicIP(val OptString) {
+	s.DevicePublicIP = val
+}
+
+// SetOperatorExtNumber sets the value of OperatorExtNumber.
+func (s *GetCallHistoryDetailOK) SetOperatorExtNumber(val OptString) {
+	s.OperatorExtNumber = val
+}
+
+// SetOperatorExtID sets the value of OperatorExtID.
+func (s *GetCallHistoryDetailOK) SetOperatorExtID(val OptString) {
+	s.OperatorExtID = val
+}
+
+// SetOperatorExtType sets the value of OperatorExtType.
+func (s *GetCallHistoryDetailOK) SetOperatorExtType(val OptString) {
+	s.OperatorExtType = val
+}
+
+// SetOperatorName sets the value of OperatorName.
+func (s *GetCallHistoryDetailOK) SetOperatorName(val OptString) {
+	s.OperatorName = val
+}
+
+// SetPressKey sets the value of PressKey.
+func (s *GetCallHistoryDetailOK) SetPressKey(val OptString) {
+	s.PressKey = val
+}
+
+// SetSegment sets the value of Segment.
+func (s *GetCallHistoryDetailOK) SetSegment(val OptInt) {
+	s.Segment = val
+}
+
+// SetNode sets the value of Node.
+func (s *GetCallHistoryDetailOK) SetNode(val OptInt) {
+	s.Node = val
+}
+
+// SetIsNode sets the value of IsNode.
+func (s *GetCallHistoryDetailOK) SetIsNode(val OptInt) {
+	s.IsNode = val
+}
+
+// SetRecordingID sets the value of RecordingID.
+func (s *GetCallHistoryDetailOK) SetRecordingID(val OptString) {
+	s.RecordingID = val
+}
+
+// SetRecordingType sets the value of RecordingType.
+func (s *GetCallHistoryDetailOK) SetRecordingType(val OptString) {
+	s.RecordingType = val
+}
+
+// SetHoldTime sets the value of HoldTime.
+func (s *GetCallHistoryDetailOK) SetHoldTime(val OptInt) {
+	s.HoldTime = val
+}
+
+// SetWaitingTime sets the value of WaitingTime.
+func (s *GetCallHistoryDetailOK) SetWaitingTime(val OptInt) {
+	s.WaitingTime = val
+}
+
+// SetVoicemailID sets the value of VoicemailID.
+func (s *GetCallHistoryDetailOK) SetVoicemailID(val OptString) {
+	s.VoicemailID = val
 }
 
 type GetCallLogDetailsOK struct {
@@ -29267,6 +32411,8 @@ type GetPhoneRecordingsByCallIdOrCallLogIdOK struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
+	// The phone call history's unique ID.
+	CallHistoryID OptString `json:"call_history_id"`
 	// The callee's contact name.
 	CalleeName OptString `json:"callee_name"`
 	// The callee's phone number.
@@ -29351,6 +32497,11 @@ func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) GetCallID() OptString {
 // GetCallLogID returns the value of CallLogID.
 func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) GetCallLogID() OptString {
 	return s.CallLogID
+}
+
+// GetCallHistoryID returns the value of CallHistoryID.
+func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) GetCallHistoryID() OptString {
+	return s.CallHistoryID
 }
 
 // GetCalleeName returns the value of CalleeName.
@@ -29471,6 +32622,11 @@ func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) SetCallID(val OptString) {
 // SetCallLogID sets the value of CallLogID.
 func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) SetCallLogID(val OptString) {
 	s.CallLogID = val
+}
+
+// SetCallHistoryID sets the value of CallHistoryID.
+func (s *GetPhoneRecordingsByCallIdOrCallLogIdOK) SetCallHistoryID(val OptString) {
+	s.CallHistoryID = val
 }
 
 // SetCalleeName sets the value of CalleeName.
@@ -32887,19 +36043,20 @@ func (s *GetSiteOutboundCallingCountriesAndRegionsOKCountriesRegionsItem) SetEna
 }
 
 type GetSiteSettingForTypeOK struct {
-	// Location-based routing setting of the site.
+	// The location-based routing setting of the site.
 	LocationBasedRouting OptGetSiteSettingForTypeOKLocationBasedRouting `json:"location_based_routing"`
-	// Set the default business hours for all users, Zoom Rooms and Common Areas for the site.
+	// This field allows you to set the default business hours for all users, Zoom Rooms, and Common
+	// Areas for the site.
 	BusinessHours OptGetSiteSettingForTypeOKBusinessHours `json:"business_hours"`
-	// Set the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-	// Queues and Shared Line Groups for the site.
+	// This field allows you to set the default closed hours for all users, Zoom Rooms, Common Areas,
+	// Auto Receptionists, Call Queues, and Shared Line Groups for the site.
 	ClosedHours OptGetSiteSettingForTypeOKClosedHours `json:"closed_hours"`
-	// Set the default holiday hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-	// Queues and Shared Line Groups for the site.
+	// This field allows you to set the default holiday hours for all users, Zoom Rooms, Common Areas,
+	// Auto Receptionists, Call Queues, and Shared Line Groups for the site.
 	HolidayHours OptGetSiteSettingForTypeOKHolidayHours `json:"holiday_hours"`
-	// Upgrade devices from current site to use the SRTP with AES-256 bit encryption. After adding or
-	// removing a device type, devices of the corresponding type will get resynced. For more information,
-	// see [Zoom Phone Encryption](https://support.zoom.
+	// This field upgrades devices from the current site to use the SRTP with AES-256 bit encryption.
+	// After adding or removing a device type, devices of the corresponding type will get re-synced. For
+	// more information, see [Zoom Phone Encryption](https://support.zoom.
 	// us/hc/en-us/articles/360042578911#h_36a22ca1-89f1-4614-8d7e-3c6a957b261c).
 	Security OptGetSiteSettingForTypeOKSecurity `json:"security"`
 	// The outbound caller ID setting.
@@ -32910,7 +36067,7 @@ type GetSiteSettingForTypeOK struct {
 	DeskPhone OptGetSiteSettingForTypeOKDeskPhone `json:"desk_phone"`
 	// The dial by name directory setting.
 	DialByName OptGetSiteSettingForTypeOKDialByName `json:"dial_by_name"`
-	// Billing account setting.
+	// The billing account setting.
 	BillingAccount OptGetSiteSettingForTypeOKBillingAccount `json:"billing_account"`
 }
 
@@ -33016,7 +36173,7 @@ func (s *GetSiteSettingForTypeOK) SetBillingAccount(val OptGetSiteSettingForType
 
 // The audio prompt setting.
 type GetSiteSettingForTypeOKAudioPrompt struct {
-	// Audio prompt language code.
+	// The audio prompt language code.
 	// American English: `en-US`
 	// British English: `en-GB`
 	// Espa&ntilde;ol americano: `es-US`
@@ -33990,11 +37147,11 @@ func (s *GetSiteSettingForTypeOKAudioPromptMessageGreetingHolidayHours) SetName(
 	s.Name = val
 }
 
-// Billing account setting.
+// The billing account setting.
 type GetSiteSettingForTypeOKBillingAccount struct {
-	// Billing account ID.
+	// The billing account ID.
 	ID OptString `json:"id"`
-	// Billing account name.
+	// The billing account name.
 	Name OptString `json:"name"`
 }
 
@@ -34018,14 +37175,15 @@ func (s *GetSiteSettingForTypeOKBillingAccount) SetName(val OptString) {
 	s.Name = val
 }
 
-// Set the default business hours for all users, Zoom Rooms and Common Areas for the site.
+// This field allows you to set the default business hours for all users, Zoom Rooms, and Common
+// Areas for the site.
 type GetSiteSettingForTypeOKBusinessHours struct {
 	// Business Hour Type `1`- 24 hours a day, 7 days a week; `2`- Custom hours.
 	CustomHourType OptInt `json:"custom_hour_type"`
-	// The settings for custom business hours.
+	// The custom business hours settings.
 	CustomHours []GetSiteSettingForTypeOKBusinessHoursCustomHoursItem `json:"custom_hours"`
-	// Whether to set the default overflow for business hours for users, call queues, and shared line
-	// groups.
+	// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+	// Groups.
 	Overflow OptGetSiteSettingForTypeOKBusinessHoursOverflow `json:"overflow"`
 }
 
@@ -34060,9 +37218,9 @@ func (s *GetSiteSettingForTypeOKBusinessHours) SetOverflow(val OptGetSiteSetting
 }
 
 type GetSiteSettingForTypeOKBusinessHoursCustomHoursItem struct {
-	// The start time for custom hours in `HH:mm` format.
+	// The custom hours start time, and `HH:mm` format.
 	From OptString `json:"from"`
-	// The end time custom hours in `HH:mm` format.
+	// The custom hours end time, in `HH:mm` format.
 	To OptString `json:"to"`
 	// The type of custom hours:
 	// * `0` &mdash; Disabled.
@@ -34120,14 +37278,14 @@ func (s *GetSiteSettingForTypeOKBusinessHoursCustomHoursItem) SetWeekday(val Opt
 	s.Weekday = val
 }
 
-// Whether to set the default overflow for business hours for users, call queues, and shared line
-// groups.
+// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+// Groups.
 type GetSiteSettingForTypeOKBusinessHoursOverflow struct {
-	// Whether to allow callers to reach an operator.
+	// The option to allow callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
-	// This field enables the operator to allow callers to reach.
+	// The operator to allow callers to reach.
 	Operator OptGetSiteSettingForTypeOKBusinessHoursOverflowOperator `json:"operator"`
-	// Whether to allow callers to check voicemail.
+	// The option to allow callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -34161,7 +37319,7 @@ func (s *GetSiteSettingForTypeOKBusinessHoursOverflow) SetAllowCallerToCheckVoic
 	s.AllowCallerToCheckVoicemail = val
 }
 
-// This field enables the operator to allow callers to reach.
+// The operator to allow callers to reach.
 type GetSiteSettingForTypeOKBusinessHoursOverflowOperator struct {
 	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
@@ -34220,11 +37378,11 @@ func (s *GetSiteSettingForTypeOKBusinessHoursOverflowOperator) SetExtensionType(
 	s.ExtensionType = val
 }
 
-// Set the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-// Queues and Shared Line Groups for the site.
+// This field allows you to set the default closed hours for all users, Zoom Rooms, Common Areas,
+// Auto Receptionists, Call Queues, and Shared Line Groups for the site.
 type GetSiteSettingForTypeOKClosedHours struct {
-	// Whether to set the default overflow for business hours for users, call queues, and shared line
-	// groups.
+	// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+	// Groups.
 	Overflow OptGetSiteSettingForTypeOKClosedHoursOverflow `json:"overflow"`
 }
 
@@ -34238,14 +37396,14 @@ func (s *GetSiteSettingForTypeOKClosedHours) SetOverflow(val OptGetSiteSettingFo
 	s.Overflow = val
 }
 
-// Whether to set the default overflow for business hours for users, call queues, and shared line
-// groups.
+// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+// Groups.
 type GetSiteSettingForTypeOKClosedHoursOverflow struct {
-	// Whether to allow callers to reach an operator.
+	// The option to allow callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
-	// This field enables the operator to allow callers to reach.
+	// The operator to allow callers to reach.
 	Operator OptGetSiteSettingForTypeOKClosedHoursOverflowOperator `json:"operator"`
-	// Whether to allow callers to check voicemail.
+	// The option to allow callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -34279,7 +37437,7 @@ func (s *GetSiteSettingForTypeOKClosedHoursOverflow) SetAllowCallerToCheckVoicem
 	s.AllowCallerToCheckVoicemail = val
 }
 
-// This field enables the operator to allow callers to reach.
+// The operator to allow callers to reach.
 type GetSiteSettingForTypeOKClosedHoursOverflowOperator struct {
 	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
@@ -34342,6 +37500,10 @@ func (s *GetSiteSettingForTypeOKClosedHoursOverflowOperator) SetExtensionType(va
 type GetSiteSettingForTypeOKDeskPhone struct {
 	// The set duration after which users are signed out of hot desking devices.
 	HotDeskingSessionTimeout OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout `json:"hot_desking_session_timeout"`
+	// These general configurations of the desk phones in your account can be set globally, but some
+	// settings may not work for individual models. You need to manually reboot the desk phones to apply
+	// these changes.
+	GeneralSetting OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting `json:"general_setting"`
 }
 
 // GetHotDeskingSessionTimeout returns the value of HotDeskingSessionTimeout.
@@ -34349,15 +37511,56 @@ func (s *GetSiteSettingForTypeOKDeskPhone) GetHotDeskingSessionTimeout() OptGetS
 	return s.HotDeskingSessionTimeout
 }
 
+// GetGeneralSetting returns the value of GeneralSetting.
+func (s *GetSiteSettingForTypeOKDeskPhone) GetGeneralSetting() OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting {
+	return s.GeneralSetting
+}
+
 // SetHotDeskingSessionTimeout sets the value of HotDeskingSessionTimeout.
 func (s *GetSiteSettingForTypeOKDeskPhone) SetHotDeskingSessionTimeout(val OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) {
 	s.HotDeskingSessionTimeout = val
 }
 
+// SetGeneralSetting sets the value of GeneralSetting.
+func (s *GetSiteSettingForTypeOKDeskPhone) SetGeneralSetting(val OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) {
+	s.GeneralSetting = val
+}
+
+// These general configurations of the desk phones in your account can be set globally, but some
+// settings may not work for individual models. You need to manually reboot the desk phones to apply
+// these changes.
+type GetSiteSettingForTypeOKDeskPhoneGeneralSetting struct {
+	// The setting type. `account_setting` will use the configuration defined at the account level.
+	// `custom_setting` allows custom configurations to be defined specifically for this Site.
+	SettingType OptString `json:"setting_type"`
+	// Enables desk phone web interface. Only returns when `setting_type` is `custom_setting`.
+	WebInterface OptBool `json:"web_interface"`
+}
+
+// GetSettingType returns the value of SettingType.
+func (s *GetSiteSettingForTypeOKDeskPhoneGeneralSetting) GetSettingType() OptString {
+	return s.SettingType
+}
+
+// GetWebInterface returns the value of WebInterface.
+func (s *GetSiteSettingForTypeOKDeskPhoneGeneralSetting) GetWebInterface() OptBool {
+	return s.WebInterface
+}
+
+// SetSettingType sets the value of SettingType.
+func (s *GetSiteSettingForTypeOKDeskPhoneGeneralSetting) SetSettingType(val OptString) {
+	s.SettingType = val
+}
+
+// SetWebInterface sets the value of WebInterface.
+func (s *GetSiteSettingForTypeOKDeskPhoneGeneralSetting) SetWebInterface(val OptBool) {
+	s.WebInterface = val
+}
+
 // The set duration after which users are signed out of hot desking devices.
 type GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout struct {
 	Number int `json:"number"`
-	// `minutes` - available if the `number` values are: '5, 10, 15, 30'
+	// The `minutes` - available if the `number` values are: '5, 10, 15, 30'
 	// `hours` - not available if the `number` value is '30'.
 	Unit OptString `json:"unit"`
 }
@@ -34390,8 +37593,8 @@ type GetSiteSettingForTypeOKDialByName struct {
 	// Whether to inherit the dial by name directory maintained at the account level. This directory is
 	// read-only to sites.
 	Inherit OptBool `json:"inherit"`
-	// Search extensions by first or last name. Callers must enter at least 2 characters to perform a
-	// name search.
+	// The search extensions by first or last name. Callers must enter at least two characters to perform
+	// a name search.
 	Rule OptString `json:"rule"`
 }
 
@@ -34425,13 +37628,13 @@ func (s *GetSiteSettingForTypeOKDialByName) SetRule(val OptString) {
 	s.Rule = val
 }
 
-// Set the default holiday hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-// Queues and Shared Line Groups for the site.
+// This field allows you to set the default holiday hours for all users, Zoom Rooms, Common Areas,
+// Auto Receptionists, Call Queues, and Shared Line Groups for the site.
 type GetSiteSettingForTypeOKHolidayHours struct {
-	// The settings for holiday hours.
+	// The holiday hours settings.
 	Holidays []GetSiteSettingForTypeOKHolidayHoursHolidaysItem `json:"holidays"`
-	// Whether to set the default overflow for business hours for users, call queues, and shared line
-	// groups.
+	// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+	// Groups.
 	Overflow OptGetSiteSettingForTypeOKHolidayHoursOverflow `json:"overflow"`
 }
 
@@ -34506,14 +37709,14 @@ func (s *GetSiteSettingForTypeOKHolidayHoursHolidaysItem) SetTo(val OptDateTime)
 	s.To = val
 }
 
-// Whether to set the default overflow for business hours for users, call queues, and shared line
-// groups.
+// This field seta the default overflow for business hours for users, Call Queues, and Shared Line
+// Groups.
 type GetSiteSettingForTypeOKHolidayHoursOverflow struct {
-	// Whether to allow callers to reach an operator.
+	// The option to allow callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
-	// This field enables the operator to allow callers to reach.
+	// The operator to allow callers to reach.
 	Operator OptGetSiteSettingForTypeOKHolidayHoursOverflowOperator `json:"operator"`
-	// Whether to allow callers to check voicemail.
+	// The option to allow callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -34547,7 +37750,7 @@ func (s *GetSiteSettingForTypeOKHolidayHoursOverflow) SetAllowCallerToCheckVoice
 	s.AllowCallerToCheckVoicemail = val
 }
 
-// This field enables the operator to allow callers to reach.
+// The operator to allow callers to reach.
 type GetSiteSettingForTypeOKHolidayHoursOverflowOperator struct {
 	// The extension ID.
 	ExtensionID OptString `json:"extension_id"`
@@ -34606,13 +37809,14 @@ func (s *GetSiteSettingForTypeOKHolidayHoursOverflowOperator) SetExtensionType(v
 	s.ExtensionType = val
 }
 
-// Location-based routing setting of the site.
+// The location-based routing setting of the site.
 type GetSiteSettingForTypeOKLocationBasedRouting struct {
-	// When the policy is enabled, Zoom Phone calls will be subject to the policy options defined.
+	// When the policy is enabled, Zoom Phone calls are subject to the policy options defined.
 	Enable OptBool `json:"enable"`
-	// Place and receive PSTN (Public Switched Telephone Network) calls only when inside the locations.
+	// The place and receive PSTN (Public Switched Telephone Network) calls only when inside the
+	// locations.
 	PlaceReceivePstnCalls OptBool `json:"place_receive_pstn_calls"`
-	// Enable media offload for extensions to PSTN (Public Switched Telephone Network) calls.
+	// This field enables media offload for extensions to PSTN (Public Switched Telephone Network) calls.
 	EnableMediaOffLoadPstnCalls OptBool `json:"enable_media_off_load_pstn_calls"`
 }
 
@@ -34655,8 +37859,8 @@ type GetSiteSettingForTypeOKOutboundCallerID struct {
 	// When checked, share line group members will use the numbers as the outbound caller ID.
 	ShareLineGroupNumbers OptBool `json:"share_line_group_numbers"`
 	// When a call is made to an internal extension that uses the numbers associated with Auto
-	// Receptionist or Call Queue as the caller ID, the receiver will see an outbound caller ID selected
-	// by the caller.
+	// Receptionist or Call Queue as the caller ID, the receiver sees an outbound caller ID selected by
+	// the caller.
 	ShowOutboundCallerIDForInternalCall OptBool `json:"show_outbound_caller_id_for_internal_call"`
 }
 
@@ -34700,9 +37904,9 @@ func (s *GetSiteSettingForTypeOKOutboundCallerID) SetShowOutboundCallerIDForInte
 	s.ShowOutboundCallerIDForInternalCall = val
 }
 
-// Upgrade devices from current site to use the SRTP with AES-256 bit encryption. After adding or
-// removing a device type, devices of the corresponding type will get resynced. For more information,
-// see [Zoom Phone Encryption](https://support.zoom.
+// This field upgrades devices from the current site to use the SRTP with AES-256 bit encryption.
+// After adding or removing a device type, devices of the corresponding type will get re-synced. For
+// more information, see [Zoom Phone Encryption](https://support.zoom.
 // us/hc/en-us/articles/360042578911#h_36a22ca1-89f1-4614-8d7e-3c6a957b261c).
 type GetSiteSettingForTypeOKSecurity struct {
 	// The effective device types.
@@ -35539,6 +38743,8 @@ type GetVoicemailDetailsOK struct {
 	CallID OptString `json:"call_id"`
 	// The phone call log's unique ID.
 	CallLogID OptString `json:"call_log_id"`
+	// The phone call history's unique ID.
+	CallHistoryID OptString `json:"call_history_id"`
 	// The name of the callee.
 	CalleeName OptString `json:"callee_name"`
 	// The callee's phone number.
@@ -35603,6 +38809,11 @@ func (s *GetVoicemailDetailsOK) GetCallID() OptString {
 // GetCallLogID returns the value of CallLogID.
 func (s *GetVoicemailDetailsOK) GetCallLogID() OptString {
 	return s.CallLogID
+}
+
+// GetCallHistoryID returns the value of CallHistoryID.
+func (s *GetVoicemailDetailsOK) GetCallHistoryID() OptString {
+	return s.CallHistoryID
 }
 
 // GetCalleeName returns the value of CalleeName.
@@ -35703,6 +38914,11 @@ func (s *GetVoicemailDetailsOK) SetCallID(val OptString) {
 // SetCallLogID sets the value of CallLogID.
 func (s *GetVoicemailDetailsOK) SetCallLogID(val OptString) {
 	s.CallLogID = val
+}
+
+// SetCallHistoryID sets the value of CallHistoryID.
+func (s *GetVoicemailDetailsOK) SetCallHistoryID(val OptString) {
+	s.CallHistoryID = val
 }
 
 // SetCalleeName sets the value of CalleeName.
@@ -38779,7 +41995,7 @@ type ListCallLogsMetricsOKCallLogsItem struct {
 	DateTime OptString `json:"date_time"`
 	// The direction of the call. The value of this field can be either `internal` or `outbound`.
 	Direction OptString `json:"direction"`
-	// The duration of the call in seconds.
+	// The duration of the full call in seconds.
 	Duration OptInt `json:"duration"`
 	// The  Mean Opinion Score (MOS). Zoom uses MOS as the main measurement to report on voice quality.
 	// MOS measures voice quality on a scale of one to five. A score of 1 indicates unacceptable voice
@@ -45898,6 +49114,242 @@ func (s *ListSiteOutboundCallingExceptionRuleOKExceptionRulesItem) SetComment(va
 // SetStatus sets the value of Status.
 func (s *ListSiteOutboundCallingExceptionRuleOKExceptionRulesItem) SetStatus(val OptString) {
 	s.Status = val
+}
+
+type ListSmartphonesOK struct {
+	// The array of the smartphones.
+	Smartphones []ListSmartphonesOKSmartphonesItem `json:"smartphones"`
+	// The next page token paginates through a large set of results. A next page token returns whenever
+	// the set of available results exceeds the current page size. The expiration period for this token
+	// is 15 minutes.
+	NextPageToken OptString `json:"next_page_token"`
+	// The number of records returned with a single API call.
+	PageSize OptInt `json:"page_size"`
+	// The total number of records found for the query across all pages.
+	TotalRecords OptInt `json:"total_records"`
+}
+
+// GetSmartphones returns the value of Smartphones.
+func (s *ListSmartphonesOK) GetSmartphones() []ListSmartphonesOKSmartphonesItem {
+	return s.Smartphones
+}
+
+// GetNextPageToken returns the value of NextPageToken.
+func (s *ListSmartphonesOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
+// GetPageSize returns the value of PageSize.
+func (s *ListSmartphonesOK) GetPageSize() OptInt {
+	return s.PageSize
+}
+
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListSmartphonesOK) GetTotalRecords() OptInt {
+	return s.TotalRecords
+}
+
+// SetSmartphones sets the value of Smartphones.
+func (s *ListSmartphonesOK) SetSmartphones(val []ListSmartphonesOKSmartphonesItem) {
+	s.Smartphones = val
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *ListSmartphonesOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
+}
+
+// SetPageSize sets the value of PageSize.
+func (s *ListSmartphonesOK) SetPageSize(val OptInt) {
+	s.PageSize = val
+}
+
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListSmartphonesOK) SetTotalRecords(val OptInt) {
+	s.TotalRecords = val
+}
+
+type ListSmartphonesOKSmartphonesItem struct {
+	// The ID of the smartphone.
+	SmartphoneID OptString `json:"smartphone_id"`
+	// The name of the smartphone.
+	DeviceName OptString `json:"device_name"`
+	// The device type of the smartphone.
+	DeviceType OptString `json:"device_type"`
+	// The serial number of the smartphone.
+	SerialNumber OptString `json:"serial_number"`
+	// The public IPv4 or IPv6 of the smartphone.
+	PublicIP OptString `json:"public_ip"`
+	// The activation status of the smartphone.
+	// The values of this field can be `Activated`.
+	ActivationStatus OptString `json:"activation_status"`
+	// The time of smartphone activation. If this field is null, the date not available, else this field
+	// can format: 'yyyy-MM-ddThh:dd:ssZ'.
+	ActivationTime OptString `json:"activation_time"`
+	// The assignee of the smartphone.
+	Assignee OptListSmartphonesOKSmartphonesItemAssignee `json:"assignee"`
+	// The [site](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069716) of the
+	// smartphone.
+	Site OptListSmartphonesOKSmartphonesItemSite `json:"site"`
+}
+
+// GetSmartphoneID returns the value of SmartphoneID.
+func (s *ListSmartphonesOKSmartphonesItem) GetSmartphoneID() OptString {
+	return s.SmartphoneID
+}
+
+// GetDeviceName returns the value of DeviceName.
+func (s *ListSmartphonesOKSmartphonesItem) GetDeviceName() OptString {
+	return s.DeviceName
+}
+
+// GetDeviceType returns the value of DeviceType.
+func (s *ListSmartphonesOKSmartphonesItem) GetDeviceType() OptString {
+	return s.DeviceType
+}
+
+// GetSerialNumber returns the value of SerialNumber.
+func (s *ListSmartphonesOKSmartphonesItem) GetSerialNumber() OptString {
+	return s.SerialNumber
+}
+
+// GetPublicIP returns the value of PublicIP.
+func (s *ListSmartphonesOKSmartphonesItem) GetPublicIP() OptString {
+	return s.PublicIP
+}
+
+// GetActivationStatus returns the value of ActivationStatus.
+func (s *ListSmartphonesOKSmartphonesItem) GetActivationStatus() OptString {
+	return s.ActivationStatus
+}
+
+// GetActivationTime returns the value of ActivationTime.
+func (s *ListSmartphonesOKSmartphonesItem) GetActivationTime() OptString {
+	return s.ActivationTime
+}
+
+// GetAssignee returns the value of Assignee.
+func (s *ListSmartphonesOKSmartphonesItem) GetAssignee() OptListSmartphonesOKSmartphonesItemAssignee {
+	return s.Assignee
+}
+
+// GetSite returns the value of Site.
+func (s *ListSmartphonesOKSmartphonesItem) GetSite() OptListSmartphonesOKSmartphonesItemSite {
+	return s.Site
+}
+
+// SetSmartphoneID sets the value of SmartphoneID.
+func (s *ListSmartphonesOKSmartphonesItem) SetSmartphoneID(val OptString) {
+	s.SmartphoneID = val
+}
+
+// SetDeviceName sets the value of DeviceName.
+func (s *ListSmartphonesOKSmartphonesItem) SetDeviceName(val OptString) {
+	s.DeviceName = val
+}
+
+// SetDeviceType sets the value of DeviceType.
+func (s *ListSmartphonesOKSmartphonesItem) SetDeviceType(val OptString) {
+	s.DeviceType = val
+}
+
+// SetSerialNumber sets the value of SerialNumber.
+func (s *ListSmartphonesOKSmartphonesItem) SetSerialNumber(val OptString) {
+	s.SerialNumber = val
+}
+
+// SetPublicIP sets the value of PublicIP.
+func (s *ListSmartphonesOKSmartphonesItem) SetPublicIP(val OptString) {
+	s.PublicIP = val
+}
+
+// SetActivationStatus sets the value of ActivationStatus.
+func (s *ListSmartphonesOKSmartphonesItem) SetActivationStatus(val OptString) {
+	s.ActivationStatus = val
+}
+
+// SetActivationTime sets the value of ActivationTime.
+func (s *ListSmartphonesOKSmartphonesItem) SetActivationTime(val OptString) {
+	s.ActivationTime = val
+}
+
+// SetAssignee sets the value of Assignee.
+func (s *ListSmartphonesOKSmartphonesItem) SetAssignee(val OptListSmartphonesOKSmartphonesItemAssignee) {
+	s.Assignee = val
+}
+
+// SetSite sets the value of Site.
+func (s *ListSmartphonesOKSmartphonesItem) SetSite(val OptListSmartphonesOKSmartphonesItemSite) {
+	s.Site = val
+}
+
+// The assignee of the smartphone.
+type ListSmartphonesOKSmartphonesItemAssignee struct {
+	// The common area ID or common area extension ID.
+	CommonAreaID OptString `json:"common_area_id"`
+	// The display name of the common area.
+	Name OptString `json:"name"`
+	// The extension number of the common area.
+	ExtensionNumber OptInt `json:"extension_number"`
+}
+
+// GetCommonAreaID returns the value of CommonAreaID.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) GetCommonAreaID() OptString {
+	return s.CommonAreaID
+}
+
+// GetName returns the value of Name.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) GetName() OptString {
+	return s.Name
+}
+
+// GetExtensionNumber returns the value of ExtensionNumber.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) GetExtensionNumber() OptInt {
+	return s.ExtensionNumber
+}
+
+// SetCommonAreaID sets the value of CommonAreaID.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) SetCommonAreaID(val OptString) {
+	s.CommonAreaID = val
+}
+
+// SetName sets the value of Name.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetExtensionNumber sets the value of ExtensionNumber.
+func (s *ListSmartphonesOKSmartphonesItemAssignee) SetExtensionNumber(val OptInt) {
+	s.ExtensionNumber = val
+}
+
+// The [site](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069716) of the
+// smartphone.
+type ListSmartphonesOKSmartphonesItemSite struct {
+	// The ID of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).
+	SiteID OptString `json:"site_id"`
+	// The name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).
+	Name OptString `json:"name"`
+}
+
+// GetSiteID returns the value of SiteID.
+func (s *ListSmartphonesOKSmartphonesItemSite) GetSiteID() OptString {
+	return s.SiteID
+}
+
+// GetName returns the value of Name.
+func (s *ListSmartphonesOKSmartphonesItemSite) GetName() OptString {
+	return s.Name
+}
+
+// SetSiteID sets the value of SiteID.
+func (s *ListSmartphonesOKSmartphonesItemSite) SetSiteID(val OptString) {
+	s.SiteID = val
+}
+
+// SetName sets the value of Name.
+func (s *ListSmartphonesOKSmartphonesItemSite) SetName(val OptString) {
+	s.Name = val
 }
 
 type ListTrackedLocationsOK struct {
@@ -54938,6 +58390,52 @@ func (o OptFloat64) Or(d float64) float64 {
 	return d
 }
 
+// NewOptGenerateactivationcodesforcommonareasReq returns new OptGenerateactivationcodesforcommonareasReq with value set to v.
+func NewOptGenerateactivationcodesforcommonareasReq(v GenerateactivationcodesforcommonareasReq) OptGenerateactivationcodesforcommonareasReq {
+	return OptGenerateactivationcodesforcommonareasReq{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGenerateactivationcodesforcommonareasReq is optional GenerateactivationcodesforcommonareasReq.
+type OptGenerateactivationcodesforcommonareasReq struct {
+	Value GenerateactivationcodesforcommonareasReq
+	Set   bool
+}
+
+// IsSet returns true if OptGenerateactivationcodesforcommonareasReq was set.
+func (o OptGenerateactivationcodesforcommonareasReq) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGenerateactivationcodesforcommonareasReq) Reset() {
+	var v GenerateactivationcodesforcommonareasReq
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGenerateactivationcodesforcommonareasReq) SetTo(v GenerateactivationcodesforcommonareasReq) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGenerateactivationcodesforcommonareasReq) Get() (v GenerateactivationcodesforcommonareasReq, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGenerateactivationcodesforcommonareasReq) Or(d GenerateactivationcodesforcommonareasReq) GenerateactivationcodesforcommonareasReq {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetACallQueueOKMembers returns new OptGetACallQueueOKMembers with value set to v.
 func NewOptGetACallQueueOKMembers(v GetACallQueueOKMembers) OptGetACallQueueOKMembers {
 	return OptGetACallQueueOKMembers{
@@ -56088,6 +59586,190 @@ func (o OptGetASiteOKPolicyAdHocCallRecordingPlayRecordingBeepTone) Or(d GetASit
 	return d
 }
 
+// NewOptGetASiteOKPolicyAdvancedEncryption returns new OptGetASiteOKPolicyAdvancedEncryption with value set to v.
+func NewOptGetASiteOKPolicyAdvancedEncryption(v GetASiteOKPolicyAdvancedEncryption) OptGetASiteOKPolicyAdvancedEncryption {
+	return OptGetASiteOKPolicyAdvancedEncryption{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAdvancedEncryption is optional GetASiteOKPolicyAdvancedEncryption.
+type OptGetASiteOKPolicyAdvancedEncryption struct {
+	Value GetASiteOKPolicyAdvancedEncryption
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAdvancedEncryption was set.
+func (o OptGetASiteOKPolicyAdvancedEncryption) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAdvancedEncryption) Reset() {
+	var v GetASiteOKPolicyAdvancedEncryption
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAdvancedEncryption) SetTo(v GetASiteOKPolicyAdvancedEncryption) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAdvancedEncryption) Get() (v GetASiteOKPolicyAdvancedEncryption, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAdvancedEncryption) Or(d GetASiteOKPolicyAdvancedEncryption) GetASiteOKPolicyAdvancedEncryption {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyAllowCallerReachOperator returns new OptGetASiteOKPolicyAllowCallerReachOperator with value set to v.
+func NewOptGetASiteOKPolicyAllowCallerReachOperator(v GetASiteOKPolicyAllowCallerReachOperator) OptGetASiteOKPolicyAllowCallerReachOperator {
+	return OptGetASiteOKPolicyAllowCallerReachOperator{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAllowCallerReachOperator is optional GetASiteOKPolicyAllowCallerReachOperator.
+type OptGetASiteOKPolicyAllowCallerReachOperator struct {
+	Value GetASiteOKPolicyAllowCallerReachOperator
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAllowCallerReachOperator was set.
+func (o OptGetASiteOKPolicyAllowCallerReachOperator) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAllowCallerReachOperator) Reset() {
+	var v GetASiteOKPolicyAllowCallerReachOperator
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAllowCallerReachOperator) SetTo(v GetASiteOKPolicyAllowCallerReachOperator) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAllowCallerReachOperator) Get() (v GetASiteOKPolicyAllowCallerReachOperator, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAllowCallerReachOperator) Or(d GetASiteOKPolicyAllowCallerReachOperator) GetASiteOKPolicyAllowCallerReachOperator {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyAllowEndUserEditCallHandling returns new OptGetASiteOKPolicyAllowEndUserEditCallHandling with value set to v.
+func NewOptGetASiteOKPolicyAllowEndUserEditCallHandling(v GetASiteOKPolicyAllowEndUserEditCallHandling) OptGetASiteOKPolicyAllowEndUserEditCallHandling {
+	return OptGetASiteOKPolicyAllowEndUserEditCallHandling{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAllowEndUserEditCallHandling is optional GetASiteOKPolicyAllowEndUserEditCallHandling.
+type OptGetASiteOKPolicyAllowEndUserEditCallHandling struct {
+	Value GetASiteOKPolicyAllowEndUserEditCallHandling
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAllowEndUserEditCallHandling was set.
+func (o OptGetASiteOKPolicyAllowEndUserEditCallHandling) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAllowEndUserEditCallHandling) Reset() {
+	var v GetASiteOKPolicyAllowEndUserEditCallHandling
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAllowEndUserEditCallHandling) SetTo(v GetASiteOKPolicyAllowEndUserEditCallHandling) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAllowEndUserEditCallHandling) Get() (v GetASiteOKPolicyAllowEndUserEditCallHandling, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAllowEndUserEditCallHandling) Or(d GetASiteOKPolicyAllowEndUserEditCallHandling) GetASiteOKPolicyAllowEndUserEditCallHandling {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyAllowMobileHomePhoneCallout returns new OptGetASiteOKPolicyAllowMobileHomePhoneCallout with value set to v.
+func NewOptGetASiteOKPolicyAllowMobileHomePhoneCallout(v GetASiteOKPolicyAllowMobileHomePhoneCallout) OptGetASiteOKPolicyAllowMobileHomePhoneCallout {
+	return OptGetASiteOKPolicyAllowMobileHomePhoneCallout{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAllowMobileHomePhoneCallout is optional GetASiteOKPolicyAllowMobileHomePhoneCallout.
+type OptGetASiteOKPolicyAllowMobileHomePhoneCallout struct {
+	Value GetASiteOKPolicyAllowMobileHomePhoneCallout
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAllowMobileHomePhoneCallout was set.
+func (o OptGetASiteOKPolicyAllowMobileHomePhoneCallout) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAllowMobileHomePhoneCallout) Reset() {
+	var v GetASiteOKPolicyAllowMobileHomePhoneCallout
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAllowMobileHomePhoneCallout) SetTo(v GetASiteOKPolicyAllowMobileHomePhoneCallout) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAllowMobileHomePhoneCallout) Get() (v GetASiteOKPolicyAllowMobileHomePhoneCallout, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAllowMobileHomePhoneCallout) Or(d GetASiteOKPolicyAllowMobileHomePhoneCallout) GetASiteOKPolicyAllowMobileHomePhoneCallout {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyAudioIntercom returns new OptGetASiteOKPolicyAudioIntercom with value set to v.
 func NewOptGetASiteOKPolicyAudioIntercom(v GetASiteOKPolicyAudioIntercom) OptGetASiteOKPolicyAudioIntercom {
 	return OptGetASiteOKPolicyAudioIntercom{
@@ -56364,6 +60046,52 @@ func (o OptGetASiteOKPolicyAutoDeleteDataAfterRetentionDuration) Or(d GetASiteOK
 	return d
 }
 
+// NewOptGetASiteOKPolicyAutoOptOutInCallQueue returns new OptGetASiteOKPolicyAutoOptOutInCallQueue with value set to v.
+func NewOptGetASiteOKPolicyAutoOptOutInCallQueue(v GetASiteOKPolicyAutoOptOutInCallQueue) OptGetASiteOKPolicyAutoOptOutInCallQueue {
+	return OptGetASiteOKPolicyAutoOptOutInCallQueue{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyAutoOptOutInCallQueue is optional GetASiteOKPolicyAutoOptOutInCallQueue.
+type OptGetASiteOKPolicyAutoOptOutInCallQueue struct {
+	Value GetASiteOKPolicyAutoOptOutInCallQueue
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyAutoOptOutInCallQueue was set.
+func (o OptGetASiteOKPolicyAutoOptOutInCallQueue) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyAutoOptOutInCallQueue) Reset() {
+	var v GetASiteOKPolicyAutoOptOutInCallQueue
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyAutoOptOutInCallQueue) SetTo(v GetASiteOKPolicyAutoOptOutInCallQueue) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyAutoOptOutInCallQueue) Get() (v GetASiteOKPolicyAutoOptOutInCallQueue, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyAutoOptOutInCallQueue) Or(d GetASiteOKPolicyAutoOptOutInCallQueue) GetASiteOKPolicyAutoOptOutInCallQueue {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyBlockCallsWithoutCallerID returns new OptGetASiteOKPolicyBlockCallsWithoutCallerID with value set to v.
 func NewOptGetASiteOKPolicyBlockCallsWithoutCallerID(v GetASiteOKPolicyBlockCallsWithoutCallerID) OptGetASiteOKPolicyBlockCallsWithoutCallerID {
 	return OptGetASiteOKPolicyBlockCallsWithoutCallerID{
@@ -56542,6 +60270,98 @@ func (o OptGetASiteOKPolicyCallHandlingForwardingToOtherUsers) Get() (v GetASite
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyCallHandlingForwardingToOtherUsers) Or(d GetASiteOKPolicyCallHandlingForwardingToOtherUsers) GetASiteOKPolicyCallHandlingForwardingToOtherUsers {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyCallLiveTranscription returns new OptGetASiteOKPolicyCallLiveTranscription with value set to v.
+func NewOptGetASiteOKPolicyCallLiveTranscription(v GetASiteOKPolicyCallLiveTranscription) OptGetASiteOKPolicyCallLiveTranscription {
+	return OptGetASiteOKPolicyCallLiveTranscription{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCallLiveTranscription is optional GetASiteOKPolicyCallLiveTranscription.
+type OptGetASiteOKPolicyCallLiveTranscription struct {
+	Value GetASiteOKPolicyCallLiveTranscription
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCallLiveTranscription was set.
+func (o OptGetASiteOKPolicyCallLiveTranscription) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCallLiveTranscription) Reset() {
+	var v GetASiteOKPolicyCallLiveTranscription
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCallLiveTranscription) SetTo(v GetASiteOKPolicyCallLiveTranscription) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCallLiveTranscription) Get() (v GetASiteOKPolicyCallLiveTranscription, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCallLiveTranscription) Or(d GetASiteOKPolicyCallLiveTranscription) GetASiteOKPolicyCallLiveTranscription {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt returns new OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt with value set to v.
+func NewOptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt(v GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt {
+	return OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt is optional GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt.
+type OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt struct {
+	Value GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt was set.
+func (o OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) Reset() {
+	var v GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetTo(v GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) Get() (v GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) Or(d GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetASiteOKPolicyCallLiveTranscriptionTranscriptionStartPrompt {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56778,6 +60598,144 @@ func (o OptGetASiteOKPolicyCallQueuePickupCode) Or(d GetASiteOKPolicyCallQueuePi
 	return d
 }
 
+// NewOptGetASiteOKPolicyCallScreening returns new OptGetASiteOKPolicyCallScreening with value set to v.
+func NewOptGetASiteOKPolicyCallScreening(v GetASiteOKPolicyCallScreening) OptGetASiteOKPolicyCallScreening {
+	return OptGetASiteOKPolicyCallScreening{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCallScreening is optional GetASiteOKPolicyCallScreening.
+type OptGetASiteOKPolicyCallScreening struct {
+	Value GetASiteOKPolicyCallScreening
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCallScreening was set.
+func (o OptGetASiteOKPolicyCallScreening) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCallScreening) Reset() {
+	var v GetASiteOKPolicyCallScreening
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCallScreening) SetTo(v GetASiteOKPolicyCallScreening) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCallScreening) Get() (v GetASiteOKPolicyCallScreening, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCallScreening) Or(d GetASiteOKPolicyCallScreening) GetASiteOKPolicyCallScreening {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyCallSummary returns new OptGetASiteOKPolicyCallSummary with value set to v.
+func NewOptGetASiteOKPolicyCallSummary(v GetASiteOKPolicyCallSummary) OptGetASiteOKPolicyCallSummary {
+	return OptGetASiteOKPolicyCallSummary{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCallSummary is optional GetASiteOKPolicyCallSummary.
+type OptGetASiteOKPolicyCallSummary struct {
+	Value GetASiteOKPolicyCallSummary
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCallSummary was set.
+func (o OptGetASiteOKPolicyCallSummary) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCallSummary) Reset() {
+	var v GetASiteOKPolicyCallSummary
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCallSummary) SetTo(v GetASiteOKPolicyCallSummary) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCallSummary) Get() (v GetASiteOKPolicyCallSummary, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCallSummary) Or(d GetASiteOKPolicyCallSummary) GetASiteOKPolicyCallSummary {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt returns new OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt with value set to v.
+func NewOptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt(v GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt {
+	return OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt is optional GetASiteOKPolicyCallSummaryCallSummaryStartPrompt.
+type OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt struct {
+	Value GetASiteOKPolicyCallSummaryCallSummaryStartPrompt
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt was set.
+func (o OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) Reset() {
+	var v GetASiteOKPolicyCallSummaryCallSummaryStartPrompt
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) SetTo(v GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) Get() (v GetASiteOKPolicyCallSummaryCallSummaryStartPrompt, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCallSummaryCallSummaryStartPrompt) Or(d GetASiteOKPolicyCallSummaryCallSummaryStartPrompt) GetASiteOKPolicyCallSummaryCallSummaryStartPrompt {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyCallTransferring returns new OptGetASiteOKPolicyCallTransferring with value set to v.
 func NewOptGetASiteOKPolicyCallTransferring(v GetASiteOKPolicyCallTransferring) OptGetASiteOKPolicyCallTransferring {
 	return OptGetASiteOKPolicyCallTransferring{
@@ -56870,6 +60828,52 @@ func (o OptGetASiteOKPolicyCheckVoicemailsOverPhone) Or(d GetASiteOKPolicyCheckV
 	return d
 }
 
+// NewOptGetASiteOKPolicyCustomizeLineName returns new OptGetASiteOKPolicyCustomizeLineName with value set to v.
+func NewOptGetASiteOKPolicyCustomizeLineName(v GetASiteOKPolicyCustomizeLineName) OptGetASiteOKPolicyCustomizeLineName {
+	return OptGetASiteOKPolicyCustomizeLineName{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyCustomizeLineName is optional GetASiteOKPolicyCustomizeLineName.
+type OptGetASiteOKPolicyCustomizeLineName struct {
+	Value GetASiteOKPolicyCustomizeLineName
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyCustomizeLineName was set.
+func (o OptGetASiteOKPolicyCustomizeLineName) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyCustomizeLineName) Reset() {
+	var v GetASiteOKPolicyCustomizeLineName
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyCustomizeLineName) SetTo(v GetASiteOKPolicyCustomizeLineName) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyCustomizeLineName) Get() (v GetASiteOKPolicyCustomizeLineName, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyCustomizeLineName) Or(d GetASiteOKPolicyCustomizeLineName) GetASiteOKPolicyCustomizeLineName {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyDelegation returns new OptGetASiteOKPolicyDelegation with value set to v.
 func NewOptGetASiteOKPolicyDelegation(v GetASiteOKPolicyDelegation) OptGetASiteOKPolicyDelegation {
 	return OptGetASiteOKPolicyDelegation{
@@ -56910,6 +60914,144 @@ func (o OptGetASiteOKPolicyDelegation) Get() (v GetASiteOKPolicyDelegation, ok b
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyDelegation) Or(d GetASiteOKPolicyDelegation) GetASiteOKPolicyDelegation {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyDisplayCallFeedbackSurvey returns new OptGetASiteOKPolicyDisplayCallFeedbackSurvey with value set to v.
+func NewOptGetASiteOKPolicyDisplayCallFeedbackSurvey(v GetASiteOKPolicyDisplayCallFeedbackSurvey) OptGetASiteOKPolicyDisplayCallFeedbackSurvey {
+	return OptGetASiteOKPolicyDisplayCallFeedbackSurvey{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyDisplayCallFeedbackSurvey is optional GetASiteOKPolicyDisplayCallFeedbackSurvey.
+type OptGetASiteOKPolicyDisplayCallFeedbackSurvey struct {
+	Value GetASiteOKPolicyDisplayCallFeedbackSurvey
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyDisplayCallFeedbackSurvey was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurvey) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurvey) Reset() {
+	var v GetASiteOKPolicyDisplayCallFeedbackSurvey
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurvey) SetTo(v GetASiteOKPolicyDisplayCallFeedbackSurvey) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurvey) Get() (v GetASiteOKPolicyDisplayCallFeedbackSurvey, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurvey) Or(d GetASiteOKPolicyDisplayCallFeedbackSurvey) GetASiteOKPolicyDisplayCallFeedbackSurvey {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration returns new OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration with value set to v.
+func NewOptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration(v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	return OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration is optional GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration.
+type OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration struct {
+	Value GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) Reset() {
+	var v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetTo(v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) Get() (v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) Or(d GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos returns new OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos with value set to v.
+func NewOptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos(v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos {
+	return OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos is optional GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos.
+type OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos struct {
+	Value GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) Reset() {
+	var v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) SetTo(v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) Get() (v GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) Or(d GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos) GetASiteOKPolicyDisplayCallFeedbackSurveyFeedbackMos {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -56962,6 +61104,52 @@ func (o OptGetASiteOKPolicyElevateToMeeting) Or(d GetASiteOKPolicyElevateToMeeti
 	return d
 }
 
+// NewOptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea returns new OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea with value set to v.
+func NewOptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea(v GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea {
+	return OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea is optional GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea.
+type OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea struct {
+	Value GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea was set.
+func (o OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) Reset() {
+	var v GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) SetTo(v GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) Get() (v GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) Or(d GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea) GetASiteOKPolicyExternalCallingOnZoomRoomCommonArea {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyForceOffNet returns new OptGetASiteOKPolicyForceOffNet with value set to v.
 func NewOptGetASiteOKPolicyForceOffNet(v GetASiteOKPolicyForceOffNet) OptGetASiteOKPolicyForceOffNet {
 	return OptGetASiteOKPolicyForceOffNet{
@@ -57008,6 +61196,52 @@ func (o OptGetASiteOKPolicyForceOffNet) Or(d GetASiteOKPolicyForceOffNet) GetASi
 	return d
 }
 
+// NewOptGetASiteOKPolicyForwardCallOutsideOfSite returns new OptGetASiteOKPolicyForwardCallOutsideOfSite with value set to v.
+func NewOptGetASiteOKPolicyForwardCallOutsideOfSite(v GetASiteOKPolicyForwardCallOutsideOfSite) OptGetASiteOKPolicyForwardCallOutsideOfSite {
+	return OptGetASiteOKPolicyForwardCallOutsideOfSite{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyForwardCallOutsideOfSite is optional GetASiteOKPolicyForwardCallOutsideOfSite.
+type OptGetASiteOKPolicyForwardCallOutsideOfSite struct {
+	Value GetASiteOKPolicyForwardCallOutsideOfSite
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyForwardCallOutsideOfSite was set.
+func (o OptGetASiteOKPolicyForwardCallOutsideOfSite) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyForwardCallOutsideOfSite) Reset() {
+	var v GetASiteOKPolicyForwardCallOutsideOfSite
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyForwardCallOutsideOfSite) SetTo(v GetASiteOKPolicyForwardCallOutsideOfSite) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyForwardCallOutsideOfSite) Get() (v GetASiteOKPolicyForwardCallOutsideOfSite, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyForwardCallOutsideOfSite) Or(d GetASiteOKPolicyForwardCallOutsideOfSite) GetASiteOKPolicyForwardCallOutsideOfSite {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyHandOffToRoom returns new OptGetASiteOKPolicyHandOffToRoom with value set to v.
 func NewOptGetASiteOKPolicyHandOffToRoom(v GetASiteOKPolicyHandOffToRoom) OptGetASiteOKPolicyHandOffToRoom {
 	return OptGetASiteOKPolicyHandOffToRoom{
@@ -57048,6 +61282,52 @@ func (o OptGetASiteOKPolicyHandOffToRoom) Get() (v GetASiteOKPolicyHandOffToRoom
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyHandOffToRoom) Or(d GetASiteOKPolicyHandOffToRoom) GetASiteOKPolicyHandOffToRoom {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyIncomingCallNotification returns new OptGetASiteOKPolicyIncomingCallNotification with value set to v.
+func NewOptGetASiteOKPolicyIncomingCallNotification(v GetASiteOKPolicyIncomingCallNotification) OptGetASiteOKPolicyIncomingCallNotification {
+	return OptGetASiteOKPolicyIncomingCallNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyIncomingCallNotification is optional GetASiteOKPolicyIncomingCallNotification.
+type OptGetASiteOKPolicyIncomingCallNotification struct {
+	Value GetASiteOKPolicyIncomingCallNotification
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyIncomingCallNotification was set.
+func (o OptGetASiteOKPolicyIncomingCallNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyIncomingCallNotification) Reset() {
+	var v GetASiteOKPolicyIncomingCallNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyIncomingCallNotification) SetTo(v GetASiteOKPolicyIncomingCallNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyIncomingCallNotification) Get() (v GetASiteOKPolicyIncomingCallNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyIncomingCallNotification) Or(d GetASiteOKPolicyIncomingCallNotification) GetASiteOKPolicyIncomingCallNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -57146,6 +61426,52 @@ func (o OptGetASiteOKPolicyMobileSwitchToCarrier) Or(d GetASiteOKPolicyMobileSwi
 	return d
 }
 
+// NewOptGetASiteOKPolicyObfuscateSensitiveDataDuringCall returns new OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall with value set to v.
+func NewOptGetASiteOKPolicyObfuscateSensitiveDataDuringCall(v GetASiteOKPolicyObfuscateSensitiveDataDuringCall) OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall {
+	return OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall is optional GetASiteOKPolicyObfuscateSensitiveDataDuringCall.
+type OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall struct {
+	Value GetASiteOKPolicyObfuscateSensitiveDataDuringCall
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall was set.
+func (o OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) Reset() {
+	var v GetASiteOKPolicyObfuscateSensitiveDataDuringCall
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) SetTo(v GetASiteOKPolicyObfuscateSensitiveDataDuringCall) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) Get() (v GetASiteOKPolicyObfuscateSensitiveDataDuringCall, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyObfuscateSensitiveDataDuringCall) Or(d GetASiteOKPolicyObfuscateSensitiveDataDuringCall) GetASiteOKPolicyObfuscateSensitiveDataDuringCall {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyPersonalAudioLibrary returns new OptGetASiteOKPolicyPersonalAudioLibrary with value set to v.
 func NewOptGetASiteOKPolicyPersonalAudioLibrary(v GetASiteOKPolicyPersonalAudioLibrary) OptGetASiteOKPolicyPersonalAudioLibrary {
 	return OptGetASiteOKPolicyPersonalAudioLibrary{
@@ -57192,6 +61518,52 @@ func (o OptGetASiteOKPolicyPersonalAudioLibrary) Or(d GetASiteOKPolicyPersonalAu
 	return d
 }
 
+// NewOptGetASiteOKPolicyPreventUsersUploadAudioFiles returns new OptGetASiteOKPolicyPreventUsersUploadAudioFiles with value set to v.
+func NewOptGetASiteOKPolicyPreventUsersUploadAudioFiles(v GetASiteOKPolicyPreventUsersUploadAudioFiles) OptGetASiteOKPolicyPreventUsersUploadAudioFiles {
+	return OptGetASiteOKPolicyPreventUsersUploadAudioFiles{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyPreventUsersUploadAudioFiles is optional GetASiteOKPolicyPreventUsersUploadAudioFiles.
+type OptGetASiteOKPolicyPreventUsersUploadAudioFiles struct {
+	Value GetASiteOKPolicyPreventUsersUploadAudioFiles
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyPreventUsersUploadAudioFiles was set.
+func (o OptGetASiteOKPolicyPreventUsersUploadAudioFiles) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyPreventUsersUploadAudioFiles) Reset() {
+	var v GetASiteOKPolicyPreventUsersUploadAudioFiles
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyPreventUsersUploadAudioFiles) SetTo(v GetASiteOKPolicyPreventUsersUploadAudioFiles) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyPreventUsersUploadAudioFiles) Get() (v GetASiteOKPolicyPreventUsersUploadAudioFiles, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyPreventUsersUploadAudioFiles) Or(d GetASiteOKPolicyPreventUsersUploadAudioFiles) GetASiteOKPolicyPreventUsersUploadAudioFiles {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicySMS returns new OptGetASiteOKPolicySMS with value set to v.
 func NewOptGetASiteOKPolicySMS(v GetASiteOKPolicySMS) OptGetASiteOKPolicySMS {
 	return OptGetASiteOKPolicySMS{
@@ -57232,6 +61604,378 @@ func (o OptGetASiteOKPolicySMS) Get() (v GetASiteOKPolicySMS, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicySMS) Or(d GetASiteOKPolicySMS) GetASiteOKPolicySMS {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicySMSAutoReply returns new OptGetASiteOKPolicySMSAutoReply with value set to v.
+func NewOptGetASiteOKPolicySMSAutoReply(v GetASiteOKPolicySMSAutoReply) OptGetASiteOKPolicySMSAutoReply {
+	return OptGetASiteOKPolicySMSAutoReply{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicySMSAutoReply is optional GetASiteOKPolicySMSAutoReply.
+type OptGetASiteOKPolicySMSAutoReply struct {
+	Value GetASiteOKPolicySMSAutoReply
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicySMSAutoReply was set.
+func (o OptGetASiteOKPolicySMSAutoReply) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicySMSAutoReply) Reset() {
+	var v GetASiteOKPolicySMSAutoReply
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicySMSAutoReply) SetTo(v GetASiteOKPolicySMSAutoReply) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicySMSAutoReply) Get() (v GetASiteOKPolicySMSAutoReply, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicySMSAutoReply) Or(d GetASiteOKPolicySMSAutoReply) GetASiteOKPolicySMSAutoReply {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicySMSTemplate returns new OptGetASiteOKPolicySMSTemplate with value set to v.
+func NewOptGetASiteOKPolicySMSTemplate(v GetASiteOKPolicySMSTemplate) OptGetASiteOKPolicySMSTemplate {
+	return OptGetASiteOKPolicySMSTemplate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicySMSTemplate is optional GetASiteOKPolicySMSTemplate.
+type OptGetASiteOKPolicySMSTemplate struct {
+	Value GetASiteOKPolicySMSTemplate
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicySMSTemplate was set.
+func (o OptGetASiteOKPolicySMSTemplate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicySMSTemplate) Reset() {
+	var v GetASiteOKPolicySMSTemplate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicySMSTemplate) SetTo(v GetASiteOKPolicySMSTemplate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicySMSTemplate) Get() (v GetASiteOKPolicySMSTemplate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicySMSTemplate) Or(d GetASiteOKPolicySMSTemplate) GetASiteOKPolicySMSTemplate {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdate returns new OptGetASiteOKPolicyScheduleFirmwareUpdate with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdate(v GetASiteOKPolicyScheduleFirmwareUpdate) OptGetASiteOKPolicyScheduleFirmwareUpdate {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdate is optional GetASiteOKPolicyScheduleFirmwareUpdate.
+type OptGetASiteOKPolicyScheduleFirmwareUpdate struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdate
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdate was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdate) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdate) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdate) Get() (v GetASiteOKPolicyScheduleFirmwareUpdate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdate) Or(d GetASiteOKPolicyScheduleFirmwareUpdate) GetASiteOKPolicyScheduleFirmwareUpdate {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting returns new OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting(v GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting is optional GetASiteOKPolicyScheduleFirmwareUpdateEndSetting.
+type OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdateEndSetting
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdateEndSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) Get() (v GetASiteOKPolicyScheduleFirmwareUpdateEndSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateEndSetting) Or(d GetASiteOKPolicyScheduleFirmwareUpdateEndSetting) GetASiteOKPolicyScheduleFirmwareUpdateEndSetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting returns new OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting is optional GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting.
+type OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) Get() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) Or(d GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting returns new OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting is optional GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting.
+type OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Get() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Or(d GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay returns new OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay is optional GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay.
+type OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) Get() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) Or(d GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting1WeekAndDay {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate returns new OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate with value set to v.
+func NewOptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate {
+	return OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate is optional GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate.
+type OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate struct {
+	Value GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) Reset() {
+	var v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) SetTo(v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) Get() (v GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) Or(d GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate) GetASiteOKPolicyScheduleFirmwareUpdateRepeatSetting2SpecificDate {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -57330,6 +62074,52 @@ func (o OptGetASiteOKPolicySharedVoicemailNotificationByEmail) Or(d GetASiteOKPo
 	return d
 }
 
+// NewOptGetASiteOKPolicyTeamSMSThreadSummary returns new OptGetASiteOKPolicyTeamSMSThreadSummary with value set to v.
+func NewOptGetASiteOKPolicyTeamSMSThreadSummary(v GetASiteOKPolicyTeamSMSThreadSummary) OptGetASiteOKPolicyTeamSMSThreadSummary {
+	return OptGetASiteOKPolicyTeamSMSThreadSummary{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyTeamSMSThreadSummary is optional GetASiteOKPolicyTeamSMSThreadSummary.
+type OptGetASiteOKPolicyTeamSMSThreadSummary struct {
+	Value GetASiteOKPolicyTeamSMSThreadSummary
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyTeamSMSThreadSummary was set.
+func (o OptGetASiteOKPolicyTeamSMSThreadSummary) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyTeamSMSThreadSummary) Reset() {
+	var v GetASiteOKPolicyTeamSMSThreadSummary
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyTeamSMSThreadSummary) SetTo(v GetASiteOKPolicyTeamSMSThreadSummary) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyTeamSMSThreadSummary) Get() (v GetASiteOKPolicyTeamSMSThreadSummary, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyTeamSMSThreadSummary) Or(d GetASiteOKPolicyTeamSMSThreadSummary) GetASiteOKPolicyTeamSMSThreadSummary {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyVoicemail returns new OptGetASiteOKPolicyVoicemail with value set to v.
 func NewOptGetASiteOKPolicyVoicemail(v GetASiteOKPolicyVoicemail) OptGetASiteOKPolicyVoicemail {
 	return OptGetASiteOKPolicyVoicemail{
@@ -57376,6 +62166,52 @@ func (o OptGetASiteOKPolicyVoicemail) Or(d GetASiteOKPolicyVoicemail) GetASiteOK
 	return d
 }
 
+// NewOptGetASiteOKPolicyVoicemailIntentBasedPrioritization returns new OptGetASiteOKPolicyVoicemailIntentBasedPrioritization with value set to v.
+func NewOptGetASiteOKPolicyVoicemailIntentBasedPrioritization(v GetASiteOKPolicyVoicemailIntentBasedPrioritization) OptGetASiteOKPolicyVoicemailIntentBasedPrioritization {
+	return OptGetASiteOKPolicyVoicemailIntentBasedPrioritization{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyVoicemailIntentBasedPrioritization is optional GetASiteOKPolicyVoicemailIntentBasedPrioritization.
+type OptGetASiteOKPolicyVoicemailIntentBasedPrioritization struct {
+	Value GetASiteOKPolicyVoicemailIntentBasedPrioritization
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyVoicemailIntentBasedPrioritization was set.
+func (o OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) Reset() {
+	var v GetASiteOKPolicyVoicemailIntentBasedPrioritization
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) SetTo(v GetASiteOKPolicyVoicemailIntentBasedPrioritization) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) Get() (v GetASiteOKPolicyVoicemailIntentBasedPrioritization, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyVoicemailIntentBasedPrioritization) Or(d GetASiteOKPolicyVoicemailIntentBasedPrioritization) GetASiteOKPolicyVoicemailIntentBasedPrioritization {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetASiteOKPolicyVoicemailNotificationByEmail returns new OptGetASiteOKPolicyVoicemailNotificationByEmail with value set to v.
 func NewOptGetASiteOKPolicyVoicemailNotificationByEmail(v GetASiteOKPolicyVoicemailNotificationByEmail) OptGetASiteOKPolicyVoicemailNotificationByEmail {
 	return OptGetASiteOKPolicyVoicemailNotificationByEmail{
@@ -57416,6 +62252,52 @@ func (o OptGetASiteOKPolicyVoicemailNotificationByEmail) Get() (v GetASiteOKPoli
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyVoicemailNotificationByEmail) Or(d GetASiteOKPolicyVoicemailNotificationByEmail) GetASiteOKPolicyVoicemailNotificationByEmail {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyVoicemailTasks returns new OptGetASiteOKPolicyVoicemailTasks with value set to v.
+func NewOptGetASiteOKPolicyVoicemailTasks(v GetASiteOKPolicyVoicemailTasks) OptGetASiteOKPolicyVoicemailTasks {
+	return OptGetASiteOKPolicyVoicemailTasks{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyVoicemailTasks is optional GetASiteOKPolicyVoicemailTasks.
+type OptGetASiteOKPolicyVoicemailTasks struct {
+	Value GetASiteOKPolicyVoicemailTasks
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyVoicemailTasks was set.
+func (o OptGetASiteOKPolicyVoicemailTasks) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyVoicemailTasks) Reset() {
+	var v GetASiteOKPolicyVoicemailTasks
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyVoicemailTasks) SetTo(v GetASiteOKPolicyVoicemailTasks) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyVoicemailTasks) Get() (v GetASiteOKPolicyVoicemailTasks, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyVoicemailTasks) Or(d GetASiteOKPolicyVoicemailTasks) GetASiteOKPolicyVoicemailTasks {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -57508,6 +62390,52 @@ func (o OptGetASiteOKPolicyZoomPhoneOnMobile) Get() (v GetASiteOKPolicyZoomPhone
 
 // Or returns value if set, or given parameter if does not.
 func (o OptGetASiteOKPolicyZoomPhoneOnMobile) Or(d GetASiteOKPolicyZoomPhoneOnMobile) GetASiteOKPolicyZoomPhoneOnMobile {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptGetASiteOKPolicyZoomPhoneOnPwa returns new OptGetASiteOKPolicyZoomPhoneOnPwa with value set to v.
+func NewOptGetASiteOKPolicyZoomPhoneOnPwa(v GetASiteOKPolicyZoomPhoneOnPwa) OptGetASiteOKPolicyZoomPhoneOnPwa {
+	return OptGetASiteOKPolicyZoomPhoneOnPwa{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetASiteOKPolicyZoomPhoneOnPwa is optional GetASiteOKPolicyZoomPhoneOnPwa.
+type OptGetASiteOKPolicyZoomPhoneOnPwa struct {
+	Value GetASiteOKPolicyZoomPhoneOnPwa
+	Set   bool
+}
+
+// IsSet returns true if OptGetASiteOKPolicyZoomPhoneOnPwa was set.
+func (o OptGetASiteOKPolicyZoomPhoneOnPwa) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetASiteOKPolicyZoomPhoneOnPwa) Reset() {
+	var v GetASiteOKPolicyZoomPhoneOnPwa
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetASiteOKPolicyZoomPhoneOnPwa) SetTo(v GetASiteOKPolicyZoomPhoneOnPwa) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetASiteOKPolicyZoomPhoneOnPwa) Get() (v GetASiteOKPolicyZoomPhoneOnPwa, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetASiteOKPolicyZoomPhoneOnPwa) Or(d GetASiteOKPolicyZoomPhoneOnPwa) GetASiteOKPolicyZoomPhoneOnPwa {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -66684,6 +71612,52 @@ func (o OptGetSiteSettingForTypeOKDeskPhone) Or(d GetSiteSettingForTypeOKDeskPho
 	return d
 }
 
+// NewOptGetSiteSettingForTypeOKDeskPhoneGeneralSetting returns new OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting with value set to v.
+func NewOptGetSiteSettingForTypeOKDeskPhoneGeneralSetting(v GetSiteSettingForTypeOKDeskPhoneGeneralSetting) OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting {
+	return OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting is optional GetSiteSettingForTypeOKDeskPhoneGeneralSetting.
+type OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting struct {
+	Value GetSiteSettingForTypeOKDeskPhoneGeneralSetting
+	Set   bool
+}
+
+// IsSet returns true if OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting was set.
+func (o OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) Reset() {
+	var v GetSiteSettingForTypeOKDeskPhoneGeneralSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) SetTo(v GetSiteSettingForTypeOKDeskPhoneGeneralSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) Get() (v GetSiteSettingForTypeOKDeskPhoneGeneralSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptGetSiteSettingForTypeOKDeskPhoneGeneralSetting) Or(d GetSiteSettingForTypeOKDeskPhoneGeneralSetting) GetSiteSettingForTypeOKDeskPhoneGeneralSetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout returns new OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout with value set to v.
 func NewOptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout(v GetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout) OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout {
 	return OptGetSiteSettingForTypeOKDeskPhoneHotDeskingSessionTimeout{
@@ -69486,6 +74460,98 @@ func (o OptListSiteCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) Get
 
 // Or returns value if set, or given parameter if does not.
 func (o OptListSiteCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) Or(d ListSiteCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite) ListSiteCustomizeOutboundCallerNumbersOKCustomizeNumbersItemSite {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptListSmartphonesOKSmartphonesItemAssignee returns new OptListSmartphonesOKSmartphonesItemAssignee with value set to v.
+func NewOptListSmartphonesOKSmartphonesItemAssignee(v ListSmartphonesOKSmartphonesItemAssignee) OptListSmartphonesOKSmartphonesItemAssignee {
+	return OptListSmartphonesOKSmartphonesItemAssignee{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListSmartphonesOKSmartphonesItemAssignee is optional ListSmartphonesOKSmartphonesItemAssignee.
+type OptListSmartphonesOKSmartphonesItemAssignee struct {
+	Value ListSmartphonesOKSmartphonesItemAssignee
+	Set   bool
+}
+
+// IsSet returns true if OptListSmartphonesOKSmartphonesItemAssignee was set.
+func (o OptListSmartphonesOKSmartphonesItemAssignee) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptListSmartphonesOKSmartphonesItemAssignee) Reset() {
+	var v ListSmartphonesOKSmartphonesItemAssignee
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListSmartphonesOKSmartphonesItemAssignee) SetTo(v ListSmartphonesOKSmartphonesItemAssignee) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListSmartphonesOKSmartphonesItemAssignee) Get() (v ListSmartphonesOKSmartphonesItemAssignee, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListSmartphonesOKSmartphonesItemAssignee) Or(d ListSmartphonesOKSmartphonesItemAssignee) ListSmartphonesOKSmartphonesItemAssignee {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptListSmartphonesOKSmartphonesItemSite returns new OptListSmartphonesOKSmartphonesItemSite with value set to v.
+func NewOptListSmartphonesOKSmartphonesItemSite(v ListSmartphonesOKSmartphonesItemSite) OptListSmartphonesOKSmartphonesItemSite {
+	return OptListSmartphonesOKSmartphonesItemSite{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptListSmartphonesOKSmartphonesItemSite is optional ListSmartphonesOKSmartphonesItemSite.
+type OptListSmartphonesOKSmartphonesItemSite struct {
+	Value ListSmartphonesOKSmartphonesItemSite
+	Set   bool
+}
+
+// IsSet returns true if OptListSmartphonesOKSmartphonesItemSite was set.
+func (o OptListSmartphonesOKSmartphonesItemSite) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptListSmartphonesOKSmartphonesItemSite) Reset() {
+	var v ListSmartphonesOKSmartphonesItemSite
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptListSmartphonesOKSmartphonesItemSite) SetTo(v ListSmartphonesOKSmartphonesItemSite) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptListSmartphonesOKSmartphonesItemSite) Get() (v ListSmartphonesOKSmartphonesItemSite, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptListSmartphonesOKSmartphonesItemSite) Or(d ListSmartphonesOKSmartphonesItemSite) ListSmartphonesOKSmartphonesItemSite {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -79978,6 +85044,190 @@ func (o OptUpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone) Or
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyAdvancedEncryption returns new OptUpdateSiteDetailsReqPolicyAdvancedEncryption with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAdvancedEncryption(v UpdateSiteDetailsReqPolicyAdvancedEncryption) OptUpdateSiteDetailsReqPolicyAdvancedEncryption {
+	return OptUpdateSiteDetailsReqPolicyAdvancedEncryption{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAdvancedEncryption is optional UpdateSiteDetailsReqPolicyAdvancedEncryption.
+type OptUpdateSiteDetailsReqPolicyAdvancedEncryption struct {
+	Value UpdateSiteDetailsReqPolicyAdvancedEncryption
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAdvancedEncryption was set.
+func (o OptUpdateSiteDetailsReqPolicyAdvancedEncryption) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAdvancedEncryption) Reset() {
+	var v UpdateSiteDetailsReqPolicyAdvancedEncryption
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAdvancedEncryption) SetTo(v UpdateSiteDetailsReqPolicyAdvancedEncryption) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAdvancedEncryption) Get() (v UpdateSiteDetailsReqPolicyAdvancedEncryption, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAdvancedEncryption) Or(d UpdateSiteDetailsReqPolicyAdvancedEncryption) UpdateSiteDetailsReqPolicyAdvancedEncryption {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyAllowCallerReachOperator returns new OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAllowCallerReachOperator(v UpdateSiteDetailsReqPolicyAllowCallerReachOperator) OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator {
+	return OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator is optional UpdateSiteDetailsReqPolicyAllowCallerReachOperator.
+type OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator struct {
+	Value UpdateSiteDetailsReqPolicyAllowCallerReachOperator
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) Reset() {
+	var v UpdateSiteDetailsReqPolicyAllowCallerReachOperator
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) SetTo(v UpdateSiteDetailsReqPolicyAllowCallerReachOperator) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) Get() (v UpdateSiteDetailsReqPolicyAllowCallerReachOperator, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) Or(d UpdateSiteDetailsReqPolicyAllowCallerReachOperator) UpdateSiteDetailsReqPolicyAllowCallerReachOperator {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling returns new OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling(v UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling {
+	return OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling is optional UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling.
+type OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling struct {
+	Value UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) Reset() {
+	var v UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) SetTo(v UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) Get() (v UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) Or(d UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout returns new OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout(v UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout {
+	return OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout is optional UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout.
+type OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout struct {
+	Value UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) Reset() {
+	var v UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) SetTo(v UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) Get() (v UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) Or(d UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyAudioIntercom returns new OptUpdateSiteDetailsReqPolicyAudioIntercom with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyAudioIntercom(v UpdateSiteDetailsReqPolicyAudioIntercom) OptUpdateSiteDetailsReqPolicyAudioIntercom {
 	return OptUpdateSiteDetailsReqPolicyAudioIntercom{
@@ -80260,6 +85510,52 @@ func (o OptUpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDuration) Or(d 
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue returns new OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue(v UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue {
+	return OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue is optional UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue.
+type OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue struct {
+	Value UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) Reset() {
+	var v UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) SetTo(v UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) Get() (v UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) Or(d UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID returns new OptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID(v UpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID) OptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID {
 	return OptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID{
@@ -80438,6 +85734,100 @@ func (o OptUpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers) Get() (
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers) Or(d UpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers) UpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyCallLiveTranscription returns new OptUpdateSiteDetailsReqPolicyCallLiveTranscription with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCallLiveTranscription(v UpdateSiteDetailsReqPolicyCallLiveTranscription) OptUpdateSiteDetailsReqPolicyCallLiveTranscription {
+	return OptUpdateSiteDetailsReqPolicyCallLiveTranscription{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCallLiveTranscription is optional UpdateSiteDetailsReqPolicyCallLiveTranscription.
+type OptUpdateSiteDetailsReqPolicyCallLiveTranscription struct {
+	Value UpdateSiteDetailsReqPolicyCallLiveTranscription
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCallLiveTranscription was set.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscription) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCallLiveTranscription) Reset() {
+	var v UpdateSiteDetailsReqPolicyCallLiveTranscription
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCallLiveTranscription) SetTo(v UpdateSiteDetailsReqPolicyCallLiveTranscription) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscription) Get() (v UpdateSiteDetailsReqPolicyCallLiveTranscription, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscription) Or(d UpdateSiteDetailsReqPolicyCallLiveTranscription) UpdateSiteDetailsReqPolicyCallLiveTranscription {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt returns new OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt(v UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt {
+	return OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt is optional UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt.
+type OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt struct {
+	Value UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt was set.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) Reset() {
+	var v UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetTo(v UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) Get() (v UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) Or(d UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -80628,6 +86018,144 @@ func (o OptUpdateSiteDetailsReqPolicyCallQueuePickupCode) Or(d UpdateSiteDetails
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyCallScreening returns new OptUpdateSiteDetailsReqPolicyCallScreening with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCallScreening(v UpdateSiteDetailsReqPolicyCallScreening) OptUpdateSiteDetailsReqPolicyCallScreening {
+	return OptUpdateSiteDetailsReqPolicyCallScreening{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCallScreening is optional UpdateSiteDetailsReqPolicyCallScreening.
+type OptUpdateSiteDetailsReqPolicyCallScreening struct {
+	Value UpdateSiteDetailsReqPolicyCallScreening
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCallScreening was set.
+func (o OptUpdateSiteDetailsReqPolicyCallScreening) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCallScreening) Reset() {
+	var v UpdateSiteDetailsReqPolicyCallScreening
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCallScreening) SetTo(v UpdateSiteDetailsReqPolicyCallScreening) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCallScreening) Get() (v UpdateSiteDetailsReqPolicyCallScreening, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCallScreening) Or(d UpdateSiteDetailsReqPolicyCallScreening) UpdateSiteDetailsReqPolicyCallScreening {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyCallSummary returns new OptUpdateSiteDetailsReqPolicyCallSummary with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCallSummary(v UpdateSiteDetailsReqPolicyCallSummary) OptUpdateSiteDetailsReqPolicyCallSummary {
+	return OptUpdateSiteDetailsReqPolicyCallSummary{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCallSummary is optional UpdateSiteDetailsReqPolicyCallSummary.
+type OptUpdateSiteDetailsReqPolicyCallSummary struct {
+	Value UpdateSiteDetailsReqPolicyCallSummary
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCallSummary was set.
+func (o OptUpdateSiteDetailsReqPolicyCallSummary) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCallSummary) Reset() {
+	var v UpdateSiteDetailsReqPolicyCallSummary
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCallSummary) SetTo(v UpdateSiteDetailsReqPolicyCallSummary) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCallSummary) Get() (v UpdateSiteDetailsReqPolicyCallSummary, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCallSummary) Or(d UpdateSiteDetailsReqPolicyCallSummary) UpdateSiteDetailsReqPolicyCallSummary {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt returns new OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt(v UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt {
+	return OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt is optional UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt.
+type OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt struct {
+	Value UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt was set.
+func (o OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) Reset() {
+	var v UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) SetTo(v UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) Get() (v UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) Or(d UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyCallTransferring returns new OptUpdateSiteDetailsReqPolicyCallTransferring with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyCallTransferring(v UpdateSiteDetailsReqPolicyCallTransferring) OptUpdateSiteDetailsReqPolicyCallTransferring {
 	return OptUpdateSiteDetailsReqPolicyCallTransferring{
@@ -80720,6 +86248,52 @@ func (o OptUpdateSiteDetailsReqPolicyCheckVoicemailsOverPhone) Or(d UpdateSiteDe
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyCustomizeLineName returns new OptUpdateSiteDetailsReqPolicyCustomizeLineName with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyCustomizeLineName(v UpdateSiteDetailsReqPolicyCustomizeLineName) OptUpdateSiteDetailsReqPolicyCustomizeLineName {
+	return OptUpdateSiteDetailsReqPolicyCustomizeLineName{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyCustomizeLineName is optional UpdateSiteDetailsReqPolicyCustomizeLineName.
+type OptUpdateSiteDetailsReqPolicyCustomizeLineName struct {
+	Value UpdateSiteDetailsReqPolicyCustomizeLineName
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyCustomizeLineName was set.
+func (o OptUpdateSiteDetailsReqPolicyCustomizeLineName) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyCustomizeLineName) Reset() {
+	var v UpdateSiteDetailsReqPolicyCustomizeLineName
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyCustomizeLineName) SetTo(v UpdateSiteDetailsReqPolicyCustomizeLineName) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyCustomizeLineName) Get() (v UpdateSiteDetailsReqPolicyCustomizeLineName, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyCustomizeLineName) Or(d UpdateSiteDetailsReqPolicyCustomizeLineName) UpdateSiteDetailsReqPolicyCustomizeLineName {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyDelegation returns new OptUpdateSiteDetailsReqPolicyDelegation with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyDelegation(v UpdateSiteDetailsReqPolicyDelegation) OptUpdateSiteDetailsReqPolicyDelegation {
 	return OptUpdateSiteDetailsReqPolicyDelegation{
@@ -80760,6 +86334,146 @@ func (o OptUpdateSiteDetailsReqPolicyDelegation) Get() (v UpdateSiteDetailsReqPo
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyDelegation) Or(d UpdateSiteDetailsReqPolicyDelegation) UpdateSiteDetailsReqPolicyDelegation {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey returns new OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey {
+	return OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey is optional UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey.
+type OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey struct {
+	Value UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) Reset() {
+	var v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetTo(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) Get() (v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) Or(d UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration returns new OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	return OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration is optional UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration.
+type OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration struct {
+	Value UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) Reset() {
+	var v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetTo(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) Get() (v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) Or(d UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos returns new OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos {
+	return OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos is optional UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos.
+type OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos struct {
+	Value UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) Reset() {
+	var v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) SetTo(v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) Get() (v UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) Or(d UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -80812,6 +86526,52 @@ func (o OptUpdateSiteDetailsReqPolicyElevateToMeeting) Or(d UpdateSiteDetailsReq
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea returns new OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea(v UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea {
+	return OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea is optional UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea.
+type OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea struct {
+	Value UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea was set.
+func (o OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) Reset() {
+	var v UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) SetTo(v UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) Get() (v UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) Or(d UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyForceOffNet returns new OptUpdateSiteDetailsReqPolicyForceOffNet with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyForceOffNet(v UpdateSiteDetailsReqPolicyForceOffNet) OptUpdateSiteDetailsReqPolicyForceOffNet {
 	return OptUpdateSiteDetailsReqPolicyForceOffNet{
@@ -80858,6 +86618,52 @@ func (o OptUpdateSiteDetailsReqPolicyForceOffNet) Or(d UpdateSiteDetailsReqPolic
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite returns new OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite(v UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite {
+	return OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite is optional UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite.
+type OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite struct {
+	Value UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite was set.
+func (o OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) Reset() {
+	var v UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) SetTo(v UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) Get() (v UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) Or(d UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyHandOffToRoom returns new OptUpdateSiteDetailsReqPolicyHandOffToRoom with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyHandOffToRoom(v UpdateSiteDetailsReqPolicyHandOffToRoom) OptUpdateSiteDetailsReqPolicyHandOffToRoom {
 	return OptUpdateSiteDetailsReqPolicyHandOffToRoom{
@@ -80898,6 +86704,52 @@ func (o OptUpdateSiteDetailsReqPolicyHandOffToRoom) Get() (v UpdateSiteDetailsRe
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyHandOffToRoom) Or(d UpdateSiteDetailsReqPolicyHandOffToRoom) UpdateSiteDetailsReqPolicyHandOffToRoom {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyIncomingCallNotification returns new OptUpdateSiteDetailsReqPolicyIncomingCallNotification with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyIncomingCallNotification(v UpdateSiteDetailsReqPolicyIncomingCallNotification) OptUpdateSiteDetailsReqPolicyIncomingCallNotification {
+	return OptUpdateSiteDetailsReqPolicyIncomingCallNotification{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyIncomingCallNotification is optional UpdateSiteDetailsReqPolicyIncomingCallNotification.
+type OptUpdateSiteDetailsReqPolicyIncomingCallNotification struct {
+	Value UpdateSiteDetailsReqPolicyIncomingCallNotification
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyIncomingCallNotification was set.
+func (o OptUpdateSiteDetailsReqPolicyIncomingCallNotification) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyIncomingCallNotification) Reset() {
+	var v UpdateSiteDetailsReqPolicyIncomingCallNotification
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyIncomingCallNotification) SetTo(v UpdateSiteDetailsReqPolicyIncomingCallNotification) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyIncomingCallNotification) Get() (v UpdateSiteDetailsReqPolicyIncomingCallNotification, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyIncomingCallNotification) Or(d UpdateSiteDetailsReqPolicyIncomingCallNotification) UpdateSiteDetailsReqPolicyIncomingCallNotification {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -80996,6 +86848,52 @@ func (o OptUpdateSiteDetailsReqPolicyMobileSwitchToCarrier) Or(d UpdateSiteDetai
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall returns new OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall(v UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall {
+	return OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall is optional UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall.
+type OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall struct {
+	Value UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall was set.
+func (o OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) Reset() {
+	var v UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) SetTo(v UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) Get() (v UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) Or(d UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyPersonalAudioLibrary returns new OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyPersonalAudioLibrary(v UpdateSiteDetailsReqPolicyPersonalAudioLibrary) OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary {
 	return OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary{
@@ -81042,6 +86940,52 @@ func (o OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary) Or(d UpdateSiteDetail
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles returns new OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles(v UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles {
+	return OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles is optional UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles.
+type OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles struct {
+	Value UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles was set.
+func (o OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) Reset() {
+	var v UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) SetTo(v UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) Get() (v UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) Or(d UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicySMS returns new OptUpdateSiteDetailsReqPolicySMS with value set to v.
 func NewOptUpdateSiteDetailsReqPolicySMS(v UpdateSiteDetailsReqPolicySMS) OptUpdateSiteDetailsReqPolicySMS {
 	return OptUpdateSiteDetailsReqPolicySMS{
@@ -81082,6 +87026,428 @@ func (o OptUpdateSiteDetailsReqPolicySMS) Get() (v UpdateSiteDetailsReqPolicySMS
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicySMS) Or(d UpdateSiteDetailsReqPolicySMS) UpdateSiteDetailsReqPolicySMS {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicySMSAutoReply returns new OptUpdateSiteDetailsReqPolicySMSAutoReply with value set to v.
+func NewOptUpdateSiteDetailsReqPolicySMSAutoReply(v UpdateSiteDetailsReqPolicySMSAutoReply) OptUpdateSiteDetailsReqPolicySMSAutoReply {
+	return OptUpdateSiteDetailsReqPolicySMSAutoReply{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicySMSAutoReply is optional UpdateSiteDetailsReqPolicySMSAutoReply.
+type OptUpdateSiteDetailsReqPolicySMSAutoReply struct {
+	Value UpdateSiteDetailsReqPolicySMSAutoReply
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicySMSAutoReply was set.
+func (o OptUpdateSiteDetailsReqPolicySMSAutoReply) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicySMSAutoReply) Reset() {
+	var v UpdateSiteDetailsReqPolicySMSAutoReply
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicySMSAutoReply) SetTo(v UpdateSiteDetailsReqPolicySMSAutoReply) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicySMSAutoReply) Get() (v UpdateSiteDetailsReqPolicySMSAutoReply, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicySMSAutoReply) Or(d UpdateSiteDetailsReqPolicySMSAutoReply) UpdateSiteDetailsReqPolicySMSAutoReply {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicySMSTemplate returns new OptUpdateSiteDetailsReqPolicySMSTemplate with value set to v.
+func NewOptUpdateSiteDetailsReqPolicySMSTemplate(v UpdateSiteDetailsReqPolicySMSTemplate) OptUpdateSiteDetailsReqPolicySMSTemplate {
+	return OptUpdateSiteDetailsReqPolicySMSTemplate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicySMSTemplate is optional UpdateSiteDetailsReqPolicySMSTemplate.
+type OptUpdateSiteDetailsReqPolicySMSTemplate struct {
+	Value UpdateSiteDetailsReqPolicySMSTemplate
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicySMSTemplate was set.
+func (o OptUpdateSiteDetailsReqPolicySMSTemplate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicySMSTemplate) Reset() {
+	var v UpdateSiteDetailsReqPolicySMSTemplate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicySMSTemplate) SetTo(v UpdateSiteDetailsReqPolicySMSTemplate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicySMSTemplate) Get() (v UpdateSiteDetailsReqPolicySMSTemplate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicySMSTemplate) Or(d UpdateSiteDetailsReqPolicySMSTemplate) UpdateSiteDetailsReqPolicySMSTemplate {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate returns new OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate {
+	return OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate is optional UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate.
+type OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate struct {
+	Value UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) IsSet() bool {
+	return o.Set
+}
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) Reset() {
+	var v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) SetTo(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) Get() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) Or(d UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -81180,6 +87546,52 @@ func (o OptUpdateSiteDetailsReqPolicySharedVoicemailNotificationByEmail) Or(d Up
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary returns new OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary(v UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary {
+	return OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary is optional UpdateSiteDetailsReqPolicyTeamSMSThreadSummary.
+type OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary struct {
+	Value UpdateSiteDetailsReqPolicyTeamSMSThreadSummary
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary was set.
+func (o OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) Reset() {
+	var v UpdateSiteDetailsReqPolicyTeamSMSThreadSummary
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) SetTo(v UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) Get() (v UpdateSiteDetailsReqPolicyTeamSMSThreadSummary, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) Or(d UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) UpdateSiteDetailsReqPolicyTeamSMSThreadSummary {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyVoicemail returns new OptUpdateSiteDetailsReqPolicyVoicemail with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyVoicemail(v UpdateSiteDetailsReqPolicyVoicemail) OptUpdateSiteDetailsReqPolicyVoicemail {
 	return OptUpdateSiteDetailsReqPolicyVoicemail{
@@ -81226,6 +87638,52 @@ func (o OptUpdateSiteDetailsReqPolicyVoicemail) Or(d UpdateSiteDetailsReqPolicyV
 	return d
 }
 
+// NewOptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization returns new OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization(v UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization {
+	return OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization is optional UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization.
+type OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization struct {
+	Value UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization was set.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) Reset() {
+	var v UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) SetTo(v UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) Get() (v UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) Or(d UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail returns new OptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail with value set to v.
 func NewOptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail(v UpdateSiteDetailsReqPolicyVoicemailNotificationByEmail) OptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail {
 	return OptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail{
@@ -81266,6 +87724,52 @@ func (o OptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail) Get() (v Upda
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyVoicemailNotificationByEmail) Or(d UpdateSiteDetailsReqPolicyVoicemailNotificationByEmail) UpdateSiteDetailsReqPolicyVoicemailNotificationByEmail {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyVoicemailTasks returns new OptUpdateSiteDetailsReqPolicyVoicemailTasks with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyVoicemailTasks(v UpdateSiteDetailsReqPolicyVoicemailTasks) OptUpdateSiteDetailsReqPolicyVoicemailTasks {
+	return OptUpdateSiteDetailsReqPolicyVoicemailTasks{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyVoicemailTasks is optional UpdateSiteDetailsReqPolicyVoicemailTasks.
+type OptUpdateSiteDetailsReqPolicyVoicemailTasks struct {
+	Value UpdateSiteDetailsReqPolicyVoicemailTasks
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyVoicemailTasks was set.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailTasks) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyVoicemailTasks) Reset() {
+	var v UpdateSiteDetailsReqPolicyVoicemailTasks
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyVoicemailTasks) SetTo(v UpdateSiteDetailsReqPolicyVoicemailTasks) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailTasks) Get() (v UpdateSiteDetailsReqPolicyVoicemailTasks, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyVoicemailTasks) Or(d UpdateSiteDetailsReqPolicyVoicemailTasks) UpdateSiteDetailsReqPolicyVoicemailTasks {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -81358,6 +87862,52 @@ func (o OptUpdateSiteDetailsReqPolicyZoomPhoneOnMobile) Get() (v UpdateSiteDetai
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteDetailsReqPolicyZoomPhoneOnMobile) Or(d UpdateSiteDetailsReqPolicyZoomPhoneOnMobile) UpdateSiteDetailsReqPolicyZoomPhoneOnMobile {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa returns new OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa with value set to v.
+func NewOptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa(v UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa {
+	return OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa is optional UpdateSiteDetailsReqPolicyZoomPhoneOnPwa.
+type OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa struct {
+	Value UpdateSiteDetailsReqPolicyZoomPhoneOnPwa
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa was set.
+func (o OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) Reset() {
+	var v UpdateSiteDetailsReqPolicyZoomPhoneOnPwa
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) SetTo(v UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) Get() (v UpdateSiteDetailsReqPolicyZoomPhoneOnPwa, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) Or(d UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) UpdateSiteDetailsReqPolicyZoomPhoneOnPwa {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -83420,6 +89970,52 @@ func (o OptUpdateSiteSettingReqDialByName) Get() (v UpdateSiteSettingReqDialByNa
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUpdateSiteSettingReqDialByName) Or(d UpdateSiteSettingReqDialByName) UpdateSiteSettingReqDialByName {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUpdateSiteSettingReqGeneralSetting returns new OptUpdateSiteSettingReqGeneralSetting with value set to v.
+func NewOptUpdateSiteSettingReqGeneralSetting(v UpdateSiteSettingReqGeneralSetting) OptUpdateSiteSettingReqGeneralSetting {
+	return OptUpdateSiteSettingReqGeneralSetting{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUpdateSiteSettingReqGeneralSetting is optional UpdateSiteSettingReqGeneralSetting.
+type OptUpdateSiteSettingReqGeneralSetting struct {
+	Value UpdateSiteSettingReqGeneralSetting
+	Set   bool
+}
+
+// IsSet returns true if OptUpdateSiteSettingReqGeneralSetting was set.
+func (o OptUpdateSiteSettingReqGeneralSetting) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUpdateSiteSettingReqGeneralSetting) Reset() {
+	var v UpdateSiteSettingReqGeneralSetting
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUpdateSiteSettingReqGeneralSetting) SetTo(v UpdateSiteSettingReqGeneralSetting) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUpdateSiteSettingReqGeneralSetting) Get() (v UpdateSiteSettingReqGeneralSetting, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUpdateSiteSettingReqGeneralSetting) Or(d UpdateSiteSettingReqGeneralSetting) UpdateSiteSettingReqGeneralSetting {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -86799,8 +93395,8 @@ func (s *PatchCallHandlingSettingsHolidaySettings) SetTo(val OptDateTime) {
 // PhoneDownloadRecordingFileOK is response for PhoneDownloadRecordingFile operation.
 type PhoneDownloadRecordingFileOK struct{}
 
-// PhoneDownloadRecordingTranscriptOK is response for PhoneDownloadRecordingTranscript operation.
-type PhoneDownloadRecordingTranscriptOK struct{}
+// PhoneDownloadRecordingTranscriptFound is response for PhoneDownloadRecordingTranscript operation.
+type PhoneDownloadRecordingTranscriptFound struct{}
 
 // PhoneDownloadVoicemailFileOK is response for PhoneDownloadVoicemailFile operation.
 type PhoneDownloadVoicemailFileOK struct{}
@@ -97076,8 +103672,13 @@ func (s *UpdateCQPolicySubSettingReq) SetVoicemailAccessMembers(val []UpdateCQPo
 
 // Merged schema.
 type UpdateCQPolicySubSettingReqVoicemailAccessMembersItem struct {
-	// The Zoom user ID or email of which to share or update the access permissions.
+	// The member's ID or email in the shared voicemail access list determines the sharing or updating of
+	// access permissions. It must be the unique identifier of the user, or the unique identifier of the
+	// common area, depending on the access user type.
 	AccessUserID OptString `json:"access_user_id"`
+	// The extension type of the member to be added in the shared voicemail access member list. The
+	// default type will be user if empty. Allowed: user | commonArea.
+	AccessUserType OptString `json:"access_user_type"`
 	// Whether the member has download permissions. The default is **false**.
 	AllowDownload OptBool `json:"allow_download"`
 	// Whether the member has delete permissions. The default is **false**.
@@ -97091,6 +103692,11 @@ type UpdateCQPolicySubSettingReqVoicemailAccessMembersItem struct {
 // GetAccessUserID returns the value of AccessUserID.
 func (s *UpdateCQPolicySubSettingReqVoicemailAccessMembersItem) GetAccessUserID() OptString {
 	return s.AccessUserID
+}
+
+// GetAccessUserType returns the value of AccessUserType.
+func (s *UpdateCQPolicySubSettingReqVoicemailAccessMembersItem) GetAccessUserType() OptString {
+	return s.AccessUserType
 }
 
 // GetAllowDownload returns the value of AllowDownload.
@@ -97116,6 +103722,11 @@ func (s *UpdateCQPolicySubSettingReqVoicemailAccessMembersItem) GetSharedID() Op
 // SetAccessUserID sets the value of AccessUserID.
 func (s *UpdateCQPolicySubSettingReqVoicemailAccessMembersItem) SetAccessUserID(val OptString) {
 	s.AccessUserID = val
+}
+
+// SetAccessUserType sets the value of AccessUserType.
+func (s *UpdateCQPolicySubSettingReqVoicemailAccessMembersItem) SetAccessUserType(val OptString) {
+	s.AccessUserType = val
 }
 
 // SetAllowDownload sets the value of AllowDownload.
@@ -100970,9 +107581,15 @@ func (s *UpdateSiteDetailsReqDefaultEmergencyAddress) SetZip(val string) {
 // The [site policy setting](https://support.zoom.
 // us/hc/en-us/articles/360033511872-Changing-Zoom-Phone-policy-settings#h_af4d1935-9cb1-44d2-9a10-9bfba10d58a7).
 type UpdateSiteDetailsReqPolicy struct {
+	// Whether to allow the current extension to change the outbound caller ID when placing calls.
 	SelectOutboundCallerID OptUpdateSiteDetailsReqPolicySelectOutboundCallerID `json:"select_outbound_caller_id"`
-	PersonalAudioLibrary   OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary   `json:"personal_audio_library"`
-	Voicemail              OptUpdateSiteDetailsReqPolicyVoicemail              `json:"voicemail"`
+	// Allows users to change their own Audio Library.
+	PersonalAudioLibrary OptUpdateSiteDetailsReqPolicyPersonalAudioLibrary `json:"personal_audio_library"`
+	// Allows users to access, share, download, and to delete voicemail and videomail.
+	Voicemail OptUpdateSiteDetailsReqPolicyVoicemail `json:"voicemail"`
+	// When you enable this setting, the system creates voicemail and videomail transcriptions and keeps
+	// them accessible, even if you disable the setting later. When you disable the setting, the system
+	// stops generating new transcriptions.
 	VoicemailTranscription OptUpdateSiteDetailsReqPolicyVoicemailTranscription `json:"voicemail_transcription"`
 	// Once enabled, users receive email notifications when there is a new voicemail from users, call
 	// queues, auto receptionists, or shared line groups. Users who disabled the shared voicemail
@@ -100985,11 +107602,19 @@ type UpdateSiteDetailsReqPolicy struct {
 	// when the voicemail policy uses the new policy framework.
 	SharedVoicemailNotificationByEmail OptUpdateSiteDetailsReqPolicySharedVoicemailNotificationByEmail `json:"shared_voicemail_notification_by_email"`
 	// Whether to allow extensions to place international calls outside of the calling plan.
-	InternationalCalling  OptUpdateSiteDetailsReqPolicyInternationalCalling  `json:"international_calling"`
-	ZoomPhoneOnMobile     OptUpdateSiteDetailsReqPolicyZoomPhoneOnMobile     `json:"zoom_phone_on_mobile"`
-	SMS                   OptUpdateSiteDetailsReqPolicySMS                   `json:"sms"`
-	ElevateToMeeting      OptUpdateSiteDetailsReqPolicyElevateToMeeting      `json:"elevate_to_meeting"`
-	HandOffToRoom         OptUpdateSiteDetailsReqPolicyHandOffToRoom         `json:"hand_off_to_room"`
+	InternationalCalling OptUpdateSiteDetailsReqPolicyInternationalCalling `json:"international_calling"`
+	// Allows user to use Zoom Phone on mobile clients (iOS, iPad OS and Android).
+	ZoomPhoneOnMobile OptUpdateSiteDetailsReqPolicyZoomPhoneOnMobile `json:"zoom_phone_on_mobile"`
+	// Allows users, call queues and auto receptionists to send and receive messages. You will still need
+	// to assign a valid calling plan and phone number to each user in order for them to send and receive
+	// messages. Do not enable this control if you intend to use SMS services with a third party SMS
+	// provider.
+	SMS OptUpdateSiteDetailsReqPolicySMS `json:"sms"`
+	// Allows users to elevate their phone calls to a meeting.
+	ElevateToMeeting OptUpdateSiteDetailsReqPolicyElevateToMeeting `json:"elevate_to_meeting"`
+	// Allows users to send a call to a Zoom Room.
+	HandOffToRoom OptUpdateSiteDetailsReqPolicyHandOffToRoom `json:"hand_off_to_room"`
+	// Allows users to switch from Zoom Phone to their native carrier.
 	MobileSwitchToCarrier OptUpdateSiteDetailsReqPolicyMobileSwitchToCarrier `json:"mobile_switch_to_carrier"`
 	// Whether the user can use [call delegation](https://support.zoom.
 	// us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).
@@ -101012,22 +107637,93 @@ type UpdateSiteDetailsReqPolicy struct {
 	CallQueueOptOutReason OptUpdateSiteDetailsReqPolicyCallQueueOptOutReason `json:"call_queue_opt_out_reason"`
 	// Whether to show the user who last transferred the call. Viewing preferences display on the
 	// incoming call panel. Selections made here will not affect the information shown in call logs.
-	ShowUserLastTransferredCall          OptBool                                                           `json:"show_user_last_transferred_call"`
+	ShowUserLastTransferredCall OptBool `json:"show_user_last_transferred_call"`
+	// Allows Zoom to automatically delete data after retention duration.
 	AutoDeleteDataAfterRetentionDuration OptUpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDuration `json:"auto_delete_data_after_retention_duration"`
-	CallPark                             OptUpdateSiteDetailsReqPolicyCallPark                             `json:"call_park"`
-	CallOverflow                         OptUpdateSiteDetailsReqPolicyCallOverflow                         `json:"call_overflow"`
-	CallTransferring                     OptUpdateSiteDetailsReqPolicyCallTransferring                     `json:"call_transferring"`
+	// Allows calls placed on hold to be resumed from another location using a retrieval code.
+	CallPark OptUpdateSiteDetailsReqPolicyCallPark `json:"call_park"`
+	// Allows users to forward their calls to other numbers when a call is not answered.
+	CallOverflow OptUpdateSiteDetailsReqPolicyCallOverflow `json:"call_overflow"`
+	// Allows users to warm or blind transfer their calls. This does not apply to warm transfer on IP
+	// Phones except for Yealink. Voicemail is transferable only to internal extensions.
+	CallTransferring OptUpdateSiteDetailsReqPolicyCallTransferring `json:"call_transferring"`
 	// Whether to allow hands-free peer-to-peer conversations. When an intercom call is received, the
 	// phone beeps to notify the user of the incoming intercom call, and the user's phone automatically
 	// answers the intercom call.
 	AudioIntercom OptUpdateSiteDetailsReqPolicyAudioIntercom `json:"audio_intercom"`
-	// Whether to calls without a caller ID are blocked.
+	// Whether calls without a caller ID are blocked.
 	BlockCallsWithoutCallerID OptUpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID `json:"block_calls_without_caller_id"`
 	// The rules for blocking external calls during business, closed, and holiday hours. This feature is
 	// only available for User, Zoom Room, and Common Area.
 	BlockExternalCalls OptUpdateSiteDetailsReqPolicyBlockExternalCalls `json:"block_external_calls"`
-	// It requires the account to enable the `Force Calls out to the PSTN network` feature.
+	// It requires the account to enable the `Force Calls out to the PSTN network`feature.
 	ForceOffNet OptUpdateSiteDetailsReqPolicyForceOffNet `json:"force_off_net"`
+	// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+	ExternalCallingOnZoomRoomCommonArea OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea `json:"external_calling_on_zoom_room_common_area"`
+	// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+	ZoomPhoneOnPwa OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa `json:"zoom_phone_on_pwa"`
+	// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+	SMSAutoReply OptUpdateSiteDetailsReqPolicySMSAutoReply `json:"sms_auto_reply"`
+	// This field allows users to edit call handling settings. Once disabled, users will not be able to
+	// edit their call handling settings on the web portal or enable call forwarding on the client.
+	AllowEndUserEditCallHandling OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling `json:"allow_end_user_edit_call_handling"`
+	// This field enables users to allow their callers to reach an operator.Once disabled, users will not
+	// be able to route their calls to an operator as part of the "When a call is not answered" setting.
+	AllowCallerReachOperator OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator `json:"allow_caller_reach_operator"`
+	// This field allows users to forward their calls outside of their own site.Once disabled, users will
+	// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+	// own site.
+	ForwardCallOutsideOfSite OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite `json:"forward_call_outside_of_site"`
+	// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+	// first before ringing the called number.
+	AllowMobileHomePhoneCallout OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout `json:"allow_mobile_home_phone_callout"`
+	// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+	// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+	ObfuscateSensitiveDataDuringCall OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall `json:"obfuscate_sensitive_data_during_call"`
+	// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+	// to access text-to-speech or record audio files.
+	PreventUsersUploadAudioFiles OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles `json:"prevent_users_upload_audio_files"`
+	// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+	// voicemail transcription policy enabled.
+	VoicemailTasks OptUpdateSiteDetailsReqPolicyVoicemailTasks `json:"voicemail_tasks"`
+	// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+	// need to have voicemail transcription policy enabled.
+	VoicemailIntentBasedPrioritization OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization `json:"voicemail_intent_based_prioritization"`
+	// This field allows users to summarize and extract tasks from English SMS conversations.
+	TeamSMSThreadSummary OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary `json:"team_sms_thread_summary"`
+	// Whether a thumbs up or down survey displays at the end of each call. If participants respond with
+	// thumbs down, they can provide additional information about what went wrong.
+	DisplayCallFeedbackSurvey OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey `json:"display_call_feedback_survey"`
+	// Whether to let users turn on live transcriptions for a call.
+	CallLiveTranscription OptUpdateSiteDetailsReqPolicyCallLiveTranscription `json:"call_live_transcription"`
+	// Whether to incoming direct external callers will be prompted to respond to a button to reach users,
+	//  callers who don't respond will be disconnected. Devices will not be able to receive any third
+	// party faxes.
+	CallScreening OptUpdateSiteDetailsReqPolicyCallScreening `json:"call_screening"`
+	// Whether to use pre-defined templates to help users compose messages. Power Pack license is
+	// required for this feature to work.
+	SMSTemplate OptUpdateSiteDetailsReqPolicySMSTemplate `json:"sms_template"`
+	// Whether to allow voicemail to be encrypted with keys which are not accessible to Zoom servers.
+	// These voicemails can be decrypted only by the intended user recipient. Shared line appearance,
+	// shared line group, call queue, or auto receptionist voicemail will not be encrypted, but can still
+	// be played. Email to voicemail, transcriptions, ability to check voicemails by dialing into the
+	// voicemail system, or web are not available when this feature is enabled. This policy requires a
+	// Power Pack license to be enabled. If the user does who inherits this policy does not have a Power
+	// Pack license, the policy will not be applied.
+	AdvancedEncryption OptUpdateSiteDetailsReqPolicyAdvancedEncryption `json:"advanced_encryption"`
+	// Whether to enable the line name template will be applied to all the desk phones on your account.
+	// Make sure there is enough space on the desk phone to display the line name.
+	CustomizeLineName OptUpdateSiteDetailsReqPolicyCustomizeLineName `json:"customize_line_name"`
+	// Whether to enable auto Opt-out from Call Queue after logging out from Zoom.
+	AutoOptOutInCallQueue OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue `json:"auto_opt_out_in_call_queue"`
+	// Allows users to select if an incoming call notification would block their current activity.
+	IncomingCallNotification OptUpdateSiteDetailsReqPolicyIncomingCallNotification `json:"incoming_call_notification"`
+	// This setting allows users to generate a summary of a phone call. For users who enable call summary
+	// during a call, a summary will be automatically sent to them on the client and the web portal after
+	// the call has ended. It requires the account to enable the `Enable Phone Call Summary` feature.
+	CallSummary OptUpdateSiteDetailsReqPolicyCallSummary `json:"call_summary"`
+	// Defines how often and when to update the firmware of the devices.
+	ScheduleFirmwareUpdate OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate `json:"schedule_firmware_update"`
 }
 
 // GetSelectOutboundCallerID returns the value of SelectOutboundCallerID.
@@ -101170,6 +107866,116 @@ func (s *UpdateSiteDetailsReqPolicy) GetForceOffNet() OptUpdateSiteDetailsReqPol
 	return s.ForceOffNet
 }
 
+// GetExternalCallingOnZoomRoomCommonArea returns the value of ExternalCallingOnZoomRoomCommonArea.
+func (s *UpdateSiteDetailsReqPolicy) GetExternalCallingOnZoomRoomCommonArea() OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea {
+	return s.ExternalCallingOnZoomRoomCommonArea
+}
+
+// GetZoomPhoneOnPwa returns the value of ZoomPhoneOnPwa.
+func (s *UpdateSiteDetailsReqPolicy) GetZoomPhoneOnPwa() OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa {
+	return s.ZoomPhoneOnPwa
+}
+
+// GetSMSAutoReply returns the value of SMSAutoReply.
+func (s *UpdateSiteDetailsReqPolicy) GetSMSAutoReply() OptUpdateSiteDetailsReqPolicySMSAutoReply {
+	return s.SMSAutoReply
+}
+
+// GetAllowEndUserEditCallHandling returns the value of AllowEndUserEditCallHandling.
+func (s *UpdateSiteDetailsReqPolicy) GetAllowEndUserEditCallHandling() OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling {
+	return s.AllowEndUserEditCallHandling
+}
+
+// GetAllowCallerReachOperator returns the value of AllowCallerReachOperator.
+func (s *UpdateSiteDetailsReqPolicy) GetAllowCallerReachOperator() OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator {
+	return s.AllowCallerReachOperator
+}
+
+// GetForwardCallOutsideOfSite returns the value of ForwardCallOutsideOfSite.
+func (s *UpdateSiteDetailsReqPolicy) GetForwardCallOutsideOfSite() OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite {
+	return s.ForwardCallOutsideOfSite
+}
+
+// GetAllowMobileHomePhoneCallout returns the value of AllowMobileHomePhoneCallout.
+func (s *UpdateSiteDetailsReqPolicy) GetAllowMobileHomePhoneCallout() OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout {
+	return s.AllowMobileHomePhoneCallout
+}
+
+// GetObfuscateSensitiveDataDuringCall returns the value of ObfuscateSensitiveDataDuringCall.
+func (s *UpdateSiteDetailsReqPolicy) GetObfuscateSensitiveDataDuringCall() OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall {
+	return s.ObfuscateSensitiveDataDuringCall
+}
+
+// GetPreventUsersUploadAudioFiles returns the value of PreventUsersUploadAudioFiles.
+func (s *UpdateSiteDetailsReqPolicy) GetPreventUsersUploadAudioFiles() OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles {
+	return s.PreventUsersUploadAudioFiles
+}
+
+// GetVoicemailTasks returns the value of VoicemailTasks.
+func (s *UpdateSiteDetailsReqPolicy) GetVoicemailTasks() OptUpdateSiteDetailsReqPolicyVoicemailTasks {
+	return s.VoicemailTasks
+}
+
+// GetVoicemailIntentBasedPrioritization returns the value of VoicemailIntentBasedPrioritization.
+func (s *UpdateSiteDetailsReqPolicy) GetVoicemailIntentBasedPrioritization() OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization {
+	return s.VoicemailIntentBasedPrioritization
+}
+
+// GetTeamSMSThreadSummary returns the value of TeamSMSThreadSummary.
+func (s *UpdateSiteDetailsReqPolicy) GetTeamSMSThreadSummary() OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary {
+	return s.TeamSMSThreadSummary
+}
+
+// GetDisplayCallFeedbackSurvey returns the value of DisplayCallFeedbackSurvey.
+func (s *UpdateSiteDetailsReqPolicy) GetDisplayCallFeedbackSurvey() OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey {
+	return s.DisplayCallFeedbackSurvey
+}
+
+// GetCallLiveTranscription returns the value of CallLiveTranscription.
+func (s *UpdateSiteDetailsReqPolicy) GetCallLiveTranscription() OptUpdateSiteDetailsReqPolicyCallLiveTranscription {
+	return s.CallLiveTranscription
+}
+
+// GetCallScreening returns the value of CallScreening.
+func (s *UpdateSiteDetailsReqPolicy) GetCallScreening() OptUpdateSiteDetailsReqPolicyCallScreening {
+	return s.CallScreening
+}
+
+// GetSMSTemplate returns the value of SMSTemplate.
+func (s *UpdateSiteDetailsReqPolicy) GetSMSTemplate() OptUpdateSiteDetailsReqPolicySMSTemplate {
+	return s.SMSTemplate
+}
+
+// GetAdvancedEncryption returns the value of AdvancedEncryption.
+func (s *UpdateSiteDetailsReqPolicy) GetAdvancedEncryption() OptUpdateSiteDetailsReqPolicyAdvancedEncryption {
+	return s.AdvancedEncryption
+}
+
+// GetCustomizeLineName returns the value of CustomizeLineName.
+func (s *UpdateSiteDetailsReqPolicy) GetCustomizeLineName() OptUpdateSiteDetailsReqPolicyCustomizeLineName {
+	return s.CustomizeLineName
+}
+
+// GetAutoOptOutInCallQueue returns the value of AutoOptOutInCallQueue.
+func (s *UpdateSiteDetailsReqPolicy) GetAutoOptOutInCallQueue() OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue {
+	return s.AutoOptOutInCallQueue
+}
+
+// GetIncomingCallNotification returns the value of IncomingCallNotification.
+func (s *UpdateSiteDetailsReqPolicy) GetIncomingCallNotification() OptUpdateSiteDetailsReqPolicyIncomingCallNotification {
+	return s.IncomingCallNotification
+}
+
+// GetCallSummary returns the value of CallSummary.
+func (s *UpdateSiteDetailsReqPolicy) GetCallSummary() OptUpdateSiteDetailsReqPolicyCallSummary {
+	return s.CallSummary
+}
+
+// GetScheduleFirmwareUpdate returns the value of ScheduleFirmwareUpdate.
+func (s *UpdateSiteDetailsReqPolicy) GetScheduleFirmwareUpdate() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate {
+	return s.ScheduleFirmwareUpdate
+}
+
 // SetSelectOutboundCallerID sets the value of SelectOutboundCallerID.
 func (s *UpdateSiteDetailsReqPolicy) SetSelectOutboundCallerID(val OptUpdateSiteDetailsReqPolicySelectOutboundCallerID) {
 	s.SelectOutboundCallerID = val
@@ -101310,6 +108116,116 @@ func (s *UpdateSiteDetailsReqPolicy) SetForceOffNet(val OptUpdateSiteDetailsReqP
 	s.ForceOffNet = val
 }
 
+// SetExternalCallingOnZoomRoomCommonArea sets the value of ExternalCallingOnZoomRoomCommonArea.
+func (s *UpdateSiteDetailsReqPolicy) SetExternalCallingOnZoomRoomCommonArea(val OptUpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) {
+	s.ExternalCallingOnZoomRoomCommonArea = val
+}
+
+// SetZoomPhoneOnPwa sets the value of ZoomPhoneOnPwa.
+func (s *UpdateSiteDetailsReqPolicy) SetZoomPhoneOnPwa(val OptUpdateSiteDetailsReqPolicyZoomPhoneOnPwa) {
+	s.ZoomPhoneOnPwa = val
+}
+
+// SetSMSAutoReply sets the value of SMSAutoReply.
+func (s *UpdateSiteDetailsReqPolicy) SetSMSAutoReply(val OptUpdateSiteDetailsReqPolicySMSAutoReply) {
+	s.SMSAutoReply = val
+}
+
+// SetAllowEndUserEditCallHandling sets the value of AllowEndUserEditCallHandling.
+func (s *UpdateSiteDetailsReqPolicy) SetAllowEndUserEditCallHandling(val OptUpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) {
+	s.AllowEndUserEditCallHandling = val
+}
+
+// SetAllowCallerReachOperator sets the value of AllowCallerReachOperator.
+func (s *UpdateSiteDetailsReqPolicy) SetAllowCallerReachOperator(val OptUpdateSiteDetailsReqPolicyAllowCallerReachOperator) {
+	s.AllowCallerReachOperator = val
+}
+
+// SetForwardCallOutsideOfSite sets the value of ForwardCallOutsideOfSite.
+func (s *UpdateSiteDetailsReqPolicy) SetForwardCallOutsideOfSite(val OptUpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) {
+	s.ForwardCallOutsideOfSite = val
+}
+
+// SetAllowMobileHomePhoneCallout sets the value of AllowMobileHomePhoneCallout.
+func (s *UpdateSiteDetailsReqPolicy) SetAllowMobileHomePhoneCallout(val OptUpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) {
+	s.AllowMobileHomePhoneCallout = val
+}
+
+// SetObfuscateSensitiveDataDuringCall sets the value of ObfuscateSensitiveDataDuringCall.
+func (s *UpdateSiteDetailsReqPolicy) SetObfuscateSensitiveDataDuringCall(val OptUpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) {
+	s.ObfuscateSensitiveDataDuringCall = val
+}
+
+// SetPreventUsersUploadAudioFiles sets the value of PreventUsersUploadAudioFiles.
+func (s *UpdateSiteDetailsReqPolicy) SetPreventUsersUploadAudioFiles(val OptUpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) {
+	s.PreventUsersUploadAudioFiles = val
+}
+
+// SetVoicemailTasks sets the value of VoicemailTasks.
+func (s *UpdateSiteDetailsReqPolicy) SetVoicemailTasks(val OptUpdateSiteDetailsReqPolicyVoicemailTasks) {
+	s.VoicemailTasks = val
+}
+
+// SetVoicemailIntentBasedPrioritization sets the value of VoicemailIntentBasedPrioritization.
+func (s *UpdateSiteDetailsReqPolicy) SetVoicemailIntentBasedPrioritization(val OptUpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) {
+	s.VoicemailIntentBasedPrioritization = val
+}
+
+// SetTeamSMSThreadSummary sets the value of TeamSMSThreadSummary.
+func (s *UpdateSiteDetailsReqPolicy) SetTeamSMSThreadSummary(val OptUpdateSiteDetailsReqPolicyTeamSMSThreadSummary) {
+	s.TeamSMSThreadSummary = val
+}
+
+// SetDisplayCallFeedbackSurvey sets the value of DisplayCallFeedbackSurvey.
+func (s *UpdateSiteDetailsReqPolicy) SetDisplayCallFeedbackSurvey(val OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) {
+	s.DisplayCallFeedbackSurvey = val
+}
+
+// SetCallLiveTranscription sets the value of CallLiveTranscription.
+func (s *UpdateSiteDetailsReqPolicy) SetCallLiveTranscription(val OptUpdateSiteDetailsReqPolicyCallLiveTranscription) {
+	s.CallLiveTranscription = val
+}
+
+// SetCallScreening sets the value of CallScreening.
+func (s *UpdateSiteDetailsReqPolicy) SetCallScreening(val OptUpdateSiteDetailsReqPolicyCallScreening) {
+	s.CallScreening = val
+}
+
+// SetSMSTemplate sets the value of SMSTemplate.
+func (s *UpdateSiteDetailsReqPolicy) SetSMSTemplate(val OptUpdateSiteDetailsReqPolicySMSTemplate) {
+	s.SMSTemplate = val
+}
+
+// SetAdvancedEncryption sets the value of AdvancedEncryption.
+func (s *UpdateSiteDetailsReqPolicy) SetAdvancedEncryption(val OptUpdateSiteDetailsReqPolicyAdvancedEncryption) {
+	s.AdvancedEncryption = val
+}
+
+// SetCustomizeLineName sets the value of CustomizeLineName.
+func (s *UpdateSiteDetailsReqPolicy) SetCustomizeLineName(val OptUpdateSiteDetailsReqPolicyCustomizeLineName) {
+	s.CustomizeLineName = val
+}
+
+// SetAutoOptOutInCallQueue sets the value of AutoOptOutInCallQueue.
+func (s *UpdateSiteDetailsReqPolicy) SetAutoOptOutInCallQueue(val OptUpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) {
+	s.AutoOptOutInCallQueue = val
+}
+
+// SetIncomingCallNotification sets the value of IncomingCallNotification.
+func (s *UpdateSiteDetailsReqPolicy) SetIncomingCallNotification(val OptUpdateSiteDetailsReqPolicyIncomingCallNotification) {
+	s.IncomingCallNotification = val
+}
+
+// SetCallSummary sets the value of CallSummary.
+func (s *UpdateSiteDetailsReqPolicy) SetCallSummary(val OptUpdateSiteDetailsReqPolicyCallSummary) {
+	s.CallSummary = val
+}
+
+// SetScheduleFirmwareUpdate sets the value of ScheduleFirmwareUpdate.
+func (s *UpdateSiteDetailsReqPolicy) SetScheduleFirmwareUpdate(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) {
+	s.ScheduleFirmwareUpdate = val
+}
+
 // A list of ad hoc call recording settings.
 type UpdateSiteDetailsReqPolicyAdHocCallRecording struct {
 	// Whether the current extension can record and save calls to the cloud.
@@ -101322,8 +108238,9 @@ type UpdateSiteDetailsReqPolicyAdHocCallRecording struct {
 	// Whether a prompt plays to call participants when the recording has started.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether call recording transcription is enabled.
-	RecordingTranscription OptBool                                                              `json:"recording_transcription"`
-	PlayRecordingBeepTone  OptUpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	RecordingTranscription OptBool `json:"recording_transcription"`
+	// Whether to play the side tone beep for recorded users while recording.
+	PlayRecordingBeepTone OptUpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
 }
 
 // GetEnable returns the value of Enable.
@@ -101386,6 +108303,7 @@ func (s *UpdateSiteDetailsReqPolicyAdHocCallRecording) SetPlayRecordingBeepTone(
 	s.PlayRecordingBeepTone = val
 }
 
+// Whether to play the side tone beep for recorded users while recording.
 type UpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone struct {
 	// Whether to play a side tone beep for recorded users while recording. It displays only when ad hoc
 	// call recording policy uses the new framework.
@@ -101436,6 +108354,195 @@ func (s *UpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone) SetP
 // SetPlayBeepMember sets the value of PlayBeepMember.
 func (s *UpdateSiteDetailsReqPolicyAdHocCallRecordingPlayRecordingBeepTone) SetPlayBeepMember(val OptString) {
 	s.PlayBeepMember = val
+}
+
+// Whether to allow voicemail to be encrypted with keys which are not accessible to Zoom servers.
+// These voicemails can be decrypted only by the intended user recipient. Shared line appearance,
+// shared line group, call queue, or auto receptionist voicemail will not be encrypted, but can still
+// be played. Email to voicemail, transcriptions, ability to check voicemails by dialing into the
+// voicemail system, or web are not available when this feature is enabled. This policy requires a
+// Power Pack license to be enabled. If the user does who inherits this policy does not have a Power
+// Pack license, the policy will not be applied.
+type UpdateSiteDetailsReqPolicyAdvancedEncryption struct {
+	// Allows voicemail to be encrypted with keys which are not accessible to Zoom servers.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Whether to disable incoming unencrypted voicemail.
+	DisableIncomingUnencryptedVoicemail OptBool `json:"disable_incoming_unencrypted_voicemail"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetDisableIncomingUnencryptedVoicemail returns the value of DisableIncomingUnencryptedVoicemail.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) GetDisableIncomingUnencryptedVoicemail() OptBool {
+	return s.DisableIncomingUnencryptedVoicemail
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetDisableIncomingUnencryptedVoicemail sets the value of DisableIncomingUnencryptedVoicemail.
+func (s *UpdateSiteDetailsReqPolicyAdvancedEncryption) SetDisableIncomingUnencryptedVoicemail(val OptBool) {
+	s.DisableIncomingUnencryptedVoicemail = val
+}
+
+// This field enables users to allow their callers to reach an operator.Once disabled, users will not
+// be able to route their calls to an operator as part of the "When a call is not answered" setting.
+type UpdateSiteDetailsReqPolicyAllowCallerReachOperator struct {
+	// This field enables users to allow their callers to reach an operator .Once disabled, users will
+	// not be able to route their calls to an operator as part of the "When a call is not answered"
+	// setting.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowCallerReachOperator) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// This field allows users to edit call handling settings. Once disabled, users will not be able to
+// edit their call handling settings on the web portal or enable call forwarding on the client.
+type UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling struct {
+	// This field allows users to edit call handling settings. Once disabled, users will not be able to
+	// edit their call handling settings on the web portal or enable call forwarding on the client.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowEndUserEditCallHandling) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+// first before ringing the called number.
+type UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout struct {
+	// This field allows users to use mobile or home phone to place calls. Zoom app will call this device
+	// first before ringing the called number.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAllowMobileHomePhoneCallout) SetLocked(val OptBool) {
+	s.Locked = val
 }
 
 // Whether to allow hands-free peer-to-peer conversations. When an intercom call is received, the
@@ -101534,9 +108641,14 @@ type UpdateSiteDetailsReqPolicyAutoCallRecording struct {
 	// Deprecated: schema marks this property as deprecated.
 	RecordingStartPrompt OptBool `json:"recording_start_prompt"`
 	// Whether call recording transcription is enabled.
-	RecordingTranscription    OptBool                                                                 `json:"recording_transcription"`
-	PlayRecordingBeepTone     OptUpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone     `json:"play_recording_beep_tone"`
-	InboundAudioNotification  OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification  `json:"inbound_audio_notification"`
+	RecordingTranscription OptBool `json:"recording_transcription"`
+	// Whether to play the side tone beep for recorded users while recording.
+	PlayRecordingBeepTone OptUpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone `json:"play_recording_beep_tone"`
+	// Whether a prompt plays to call participants when the recording has started for inbound call is
+	// enabled.
+	InboundAudioNotification OptUpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification `json:"inbound_audio_notification"`
+	// Whether a prompt plays to call participants when the recording has started for outbound call is
+	// enabled.
 	OutboundAudioNotification OptUpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification `json:"outbound_audio_notification"`
 }
 
@@ -101660,6 +108772,8 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecording) SetOutboundAudioNotificati
 	s.OutboundAudioNotification = val
 }
 
+// Whether a prompt plays to call participants when the recording has started for inbound call is
+// enabled.
 type UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification struct {
 	// Whether a prompt plays to call participants when the recording has started for inbound call is
 	// enabled.
@@ -101702,6 +108816,8 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingInboundAudioNotification) Se
 	s.RecordingExplicitConsent = val
 }
 
+// Whether a prompt plays to call participants when the recording has started for outbound call is
+// enabled.
 type UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification struct {
 	// Whether a prompt plays to call participants when the recording has started for outbound call is
 	// enabled.
@@ -101744,6 +108860,7 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingOutboundAudioNotification) S
 	s.RecordingExplicitConsent = val
 }
 
+// Whether to play the side tone beep for recorded users while recording.
 type UpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone struct {
 	// Whether to play a side tone beep for recorded users while recording. It only displays when auto
 	// call recording policy uses the new framework.
@@ -101796,6 +108913,7 @@ func (s *UpdateSiteDetailsReqPolicyAutoCallRecordingPlayRecordingBeepTone) SetPl
 	s.PlayBeepMember = val
 }
 
+// Allows Zoom to automatically delete data after retention duration.
 type UpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDuration struct {
 	// This setting allows Zoom to automatically delete data after the retention duration has lapsed.
 	Enable OptBool `json:"enable"`
@@ -101803,8 +108921,9 @@ type UpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDuration struct {
 	// policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
-	Locked OptBool                                                                   `json:"locked"`
-	Items  []UpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDurationItemsItem `json:"items"`
+	Locked OptBool `json:"locked"`
+	// Items.
+	Items []UpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDurationItemsItem `json:"items"`
 	// The delete policy.
 	// * 1 - soft delete
 	// * 2 - permanent delete.
@@ -101902,7 +109021,62 @@ func (s *UpdateSiteDetailsReqPolicyAutoDeleteDataAfterRetentionDurationItemsItem
 	s.TimeUnit = val
 }
 
-// Whether to calls without a caller ID are blocked.
+// Whether to enable auto Opt-out from Call Queue after logging out from Zoom.
+type UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue struct {
+	// Once enabled, when Call Queue members log out of Zoom (Except for desk phones and Zoom Phone
+	// appliances), they will be automatically Opted-out from the Call Queue as well.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Once enabled, always ask the user if they want to opt-out from the Call Queue when they sign out
+	// of Zoom.
+	PromptBeforeOptOutCallQueue OptBool `json:"prompt_before_opt_out_call_queue"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetPromptBeforeOptOutCallQueue returns the value of PromptBeforeOptOutCallQueue.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) GetPromptBeforeOptOutCallQueue() OptBool {
+	return s.PromptBeforeOptOutCallQueue
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetPromptBeforeOptOutCallQueue sets the value of PromptBeforeOptOutCallQueue.
+func (s *UpdateSiteDetailsReqPolicyAutoOptOutInCallQueue) SetPromptBeforeOptOutCallQueue(val OptBool) {
+	s.PromptBeforeOptOutCallQueue = val
+}
+
+// Whether calls without a caller ID are blocked.
 type UpdateSiteDetailsReqPolicyBlockCallsWithoutCallerID struct {
 	Enable OptBool `json:"enable"`
 	// Whether the current settings use the phone account's settings if the current settings use the new
@@ -101950,16 +109124,20 @@ type UpdateSiteDetailsReqPolicyBlockExternalCalls struct {
 	// or new policy frameworks.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
-	Locked             OptBool `json:"locked"`
+	Locked OptBool `json:"locked"`
+	// The field blocks external calls during business hours.
 	BlockBusinessHours OptBool `json:"block_business_hours"`
-	BlockClosedHours   OptBool `json:"block_closed_hours"`
-	BlockHolidayHours  OptBool `json:"block_holiday_hours"`
+	// This field blocks external calls during closed hours.
+	BlockClosedHours OptBool `json:"block_closed_hours"`
+	// The field blocks external calls during holiday hours.
+	BlockHolidayHours OptBool `json:"block_holiday_hours"`
 	// The action when a call is blocked. 9-Disconnect, 0-Forward to voicemail/videomail.
 	BlockCallAction OptInt `json:"block_call_action"`
 	// This setting applies only in the old policy framework. It applies changes to new extensions or all
 	// extensions. `1` - All extension, `0` - New extensions.
-	BlockCallChangeType OptInt                                                       `json:"block_call_change_type"`
-	E2eEncryption       OptUpdateSiteDetailsReqPolicyBlockExternalCallsE2eEncryption `json:"e2e_encryption"`
+	BlockCallChangeType OptInt `json:"block_call_change_type"`
+	// Allows users to switch their calls to End-to-End Encryption.
+	E2eEncryption OptUpdateSiteDetailsReqPolicyBlockExternalCallsE2eEncryption `json:"e2e_encryption"`
 }
 
 // GetEnable returns the value of Enable.
@@ -102052,6 +109230,7 @@ func (s *UpdateSiteDetailsReqPolicyBlockExternalCalls) SetE2eEncryption(val OptU
 	s.E2eEncryption = val
 }
 
+// Allows users to switch their calls to End-to-End Encryption.
 type UpdateSiteDetailsReqPolicyBlockExternalCallsE2eEncryption struct {
 	// Whether to allow users to switch their calls to `End-to-End Encryption`. If users have `Automatic
 	// Call Recording` turned on, they cannot use `End-to-End Encryption`.
@@ -102161,6 +109340,88 @@ func (s *UpdateSiteDetailsReqPolicyCallHandlingForwardingToOtherUsers) SetLocked
 	s.Locked = val
 }
 
+// Whether to let users turn on live transcriptions for a call.
+type UpdateSiteDetailsReqPolicyCallLiveTranscription struct {
+	// This field enables users to turn on live transcriptions for a call.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Whether to play a prompt to call participants when the transcription has started.
+	TranscriptionStartPrompt OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt `json:"transcription_start_prompt"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetTranscriptionStartPrompt returns the value of TranscriptionStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) GetTranscriptionStartPrompt() OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt {
+	return s.TranscriptionStartPrompt
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetTranscriptionStartPrompt sets the value of TranscriptionStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscription) SetTranscriptionStartPrompt(val OptUpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) {
+	s.TranscriptionStartPrompt = val
+}
+
+// Whether to play a prompt to call participants when the transcription has started.
+type UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt struct {
+	// This setting enables play a prompt to call participants when the transcription has started.
+	Enable OptBool `json:"enable"`
+	// The unique identifier of the audio item. Only required when `transcription_start_prompt`is enable.
+	AudioID OptString `json:"audio_id"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAudioID returns the value of AudioID.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) GetAudioID() OptString {
+	return s.AudioID
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAudioID sets the value of AudioID.
+func (s *UpdateSiteDetailsReqPolicyCallLiveTranscriptionTranscriptionStartPrompt) SetAudioID(val OptString) {
+	s.AudioID = val
+}
+
+// Allows users to forward their calls to other numbers when a call is not answered.
 type UpdateSiteDetailsReqPolicyCallOverflow struct {
 	// `1` - Can forward to internal extensions and to external contacts
 	// `2` - Can forward only to internal extensions
@@ -102216,6 +109477,7 @@ func (s *UpdateSiteDetailsReqPolicyCallOverflow) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
+// Allows calls placed on hold to be resumed from another location using a retrieval code.
 type UpdateSiteDetailsReqPolicyCallPark struct {
 	// The action when a parked call is not picked up.
 	// `100` - Ring back to parker
@@ -102322,7 +109584,8 @@ type UpdateSiteDetailsReqPolicyCallQueueOptOutReason struct {
 	// policy framework.
 	Reset OptBool `json:"reset"`
 	// Whether the senior administrator allows users to modify the current settings.
-	Locked                     OptBool                                                                         `json:"locked"`
+	Locked OptBool `json:"locked"`
+	// The reason list.
 	CallQueueOptOutReasonsList []UpdateSiteDetailsReqPolicyCallQueueOptOutReasonCallQueueOptOutReasonsListItem `json:"call_queue_opt_out_reasons_list"`
 }
 
@@ -102366,7 +109629,9 @@ func (s *UpdateSiteDetailsReqPolicyCallQueueOptOutReason) SetCallQueueOptOutReas
 	s.CallQueueOptOutReasonsList = val
 }
 
+// Item.
 type UpdateSiteDetailsReqPolicyCallQueueOptOutReasonCallQueueOptOutReasonsListItem struct {
+	// The opt out code.
 	Code OptString `json:"code"`
 	// The reason for the system default. It cannot be edited.
 	System OptBool `json:"system"`
@@ -102445,6 +109710,164 @@ func (s *UpdateSiteDetailsReqPolicyCallQueuePickupCode) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
+// Whether to incoming direct external callers will be prompted to respond to a button to reach users,
+//
+//	callers who don't respond will be disconnected. Devices will not be able to receive any third
+//
+// party faxes.
+type UpdateSiteDetailsReqPolicyCallScreening struct {
+	// This setting enables incoming direct external callers will be prompted to respond to a button to
+	// reach users, callers who don't respond will be disconnected. Devices will not be able to receive
+	// any third party faxes.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// Whether exclude user and company contacts from call screening, calls will reach users as normal.
+	ExcludeUserCompanyContacts OptBool `json:"exclude_user_company_contacts"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetExcludeUserCompanyContacts returns the value of ExcludeUserCompanyContacts.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) GetExcludeUserCompanyContacts() OptBool {
+	return s.ExcludeUserCompanyContacts
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetExcludeUserCompanyContacts sets the value of ExcludeUserCompanyContacts.
+func (s *UpdateSiteDetailsReqPolicyCallScreening) SetExcludeUserCompanyContacts(val OptBool) {
+	s.ExcludeUserCompanyContacts = val
+}
+
+// This setting allows users to generate a summary of a phone call. For users who enable call summary
+// during a call, a summary will be automatically sent to them on the client and the web portal after
+// the call has ended. It requires the account to enable the `Enable Phone Call Summary` feature.
+type UpdateSiteDetailsReqPolicyCallSummary struct {
+	// Allows users to generate a summary of a phone call. For users who enable call summary during a
+	// call, a summary will be automatically sent to them on the client and the web portal after the call
+	// has ended.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// This setting enables an automatic call summary.
+	AutoCallSummary OptBool `json:"auto_call_summary"`
+	// Whether to play a prompt to call participant when call summary has started.
+	CallSummaryStartPrompt OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt `json:"call_summary_start_prompt"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetAutoCallSummary returns the value of AutoCallSummary.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) GetAutoCallSummary() OptBool {
+	return s.AutoCallSummary
+}
+
+// GetCallSummaryStartPrompt returns the value of CallSummaryStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) GetCallSummaryStartPrompt() OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt {
+	return s.CallSummaryStartPrompt
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetAutoCallSummary sets the value of AutoCallSummary.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) SetAutoCallSummary(val OptBool) {
+	s.AutoCallSummary = val
+}
+
+// SetCallSummaryStartPrompt sets the value of CallSummaryStartPrompt.
+func (s *UpdateSiteDetailsReqPolicyCallSummary) SetCallSummaryStartPrompt(val OptUpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) {
+	s.CallSummaryStartPrompt = val
+}
+
+// Whether to play a prompt to call participant when call summary has started.
+type UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt struct {
+	// Whether to play a prompt to call participant when call summary has started.
+	Enable OptBool `json:"enable"`
+	// The unique identifier of the audio item. Only required when you enable `call_summary_start_prompt`.
+	AudioID OptString `json:"audio_id"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAudioID returns the value of AudioID.
+func (s *UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) GetAudioID() OptString {
+	return s.AudioID
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAudioID sets the value of AudioID.
+func (s *UpdateSiteDetailsReqPolicyCallSummaryCallSummaryStartPrompt) SetAudioID(val OptString) {
+	s.AudioID = val
+}
+
+// Allows users to warm or blind transfer their calls. This does not apply to warm transfer on IP
+// Phones except for Yealink. Voicemail is transferable only to internal extensions.
 type UpdateSiteDetailsReqPolicyCallTransferring struct {
 	// 1-No restriction
 	// 2-Medium restriction (external numbers and external contacts not allowed)
@@ -102543,6 +109966,73 @@ func (s *UpdateSiteDetailsReqPolicyCheckVoicemailsOverPhone) SetLocked(val OptBo
 	s.Locked = val
 }
 
+// Whether to enable the line name template will be applied to all the desk phones on your account.
+// Make sure there is enough space on the desk phone to display the line name.
+type UpdateSiteDetailsReqPolicyCustomizeLineName struct {
+	// This setting enables the line name template to be applied to all the desk phones on your account.
+	// Make sure there is enough space on the desk phone to display the line name.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// The user line name.
+	UserLineName OptString `json:"user_line_name"`
+	// The common area line name.
+	CommonAreaLineName OptString `json:"common_area_line_name"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetUserLineName returns the value of UserLineName.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) GetUserLineName() OptString {
+	return s.UserLineName
+}
+
+// GetCommonAreaLineName returns the value of CommonAreaLineName.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) GetCommonAreaLineName() OptString {
+	return s.CommonAreaLineName
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetUserLineName sets the value of UserLineName.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) SetUserLineName(val OptString) {
+	s.UserLineName = val
+}
+
+// SetCommonAreaLineName sets the value of CommonAreaLineName.
+func (s *UpdateSiteDetailsReqPolicyCustomizeLineName) SetCommonAreaLineName(val OptString) {
+	s.CommonAreaLineName = val
+}
+
 // Whether the user can use [call delegation](https://support.zoom.
 // us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).
 type UpdateSiteDetailsReqPolicyDelegation struct {
@@ -102584,6 +110074,168 @@ func (s *UpdateSiteDetailsReqPolicyDelegation) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
+// Whether a thumbs up or down survey displays at the end of each call. If participants respond with
+// thumbs down, they can provide additional information about what went wrong.
+type UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey struct {
+	// Whether to display a thumbs up or down survey at the end of each call. If participants respond
+	// with thumbs down, they can provide additional information about what went wrong.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// This field allows you to display feedback survey, `1` - display for every call, `2` - display when
+	// call quality issues are detected. Default `1`, if set with value `2`, need to set `feed_back_mos`
+	// or `feedback_duration`.
+	FeedbackType OptInt `json:"feedback_type"`
+	// The MOS score. Minimum: 1.0. Maximum: 3.0. The format is one decimal point.
+	FeedbackMos OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos `json:"feedback_mos"`
+	// The call duration, in seconds, 0-60.
+	FeedbackDuration OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration `json:"feedback_duration"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetFeedbackType returns the value of FeedbackType.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetFeedbackType() OptInt {
+	return s.FeedbackType
+}
+
+// GetFeedbackMos returns the value of FeedbackMos.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetFeedbackMos() OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos {
+	return s.FeedbackMos
+}
+
+// GetFeedbackDuration returns the value of FeedbackDuration.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) GetFeedbackDuration() OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration {
+	return s.FeedbackDuration
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetFeedbackType sets the value of FeedbackType.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetFeedbackType(val OptInt) {
+	s.FeedbackType = val
+}
+
+// SetFeedbackMos sets the value of FeedbackMos.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetFeedbackMos(val OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) {
+	s.FeedbackMos = val
+}
+
+// SetFeedbackDuration sets the value of FeedbackDuration.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurvey) SetFeedbackDuration(val OptUpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) {
+	s.FeedbackDuration = val
+}
+
+// The call duration, in seconds, 0-60.
+type UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration struct {
+	// This field displays end-of-call experience feedback survey when call duration issues are detected.
+	Enable OptBool `json:"enable"`
+	// The minimum call duration.
+	Min OptInt `json:"min"`
+	// The maximum call duration.
+	Max OptInt `json:"max"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetMin returns the value of Min.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetMin() OptInt {
+	return s.Min
+}
+
+// GetMax returns the value of Max.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) GetMax() OptInt {
+	return s.Max
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetMin sets the value of Min.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetMin(val OptInt) {
+	s.Min = val
+}
+
+// SetMax sets the value of Max.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackDuration) SetMax(val OptInt) {
+	s.Max = val
+}
+
+// The MOS score. Minimum: 1.0. Maximum: 3.0. The format is one decimal point.
+type UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos struct {
+	// This field displays end-of-call experience feedback survey when call mos score issues are detected.
+	Enable OptBool `json:"enable"`
+	// The minimum MOS score.
+	Min OptFloat64 `json:"min"`
+	// The maximum MOS score.
+	Max OptFloat64 `json:"max"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetMin returns the value of Min.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) GetMin() OptFloat64 {
+	return s.Min
+}
+
+// GetMax returns the value of Max.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) GetMax() OptFloat64 {
+	return s.Max
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetMin sets the value of Min.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) SetMin(val OptFloat64) {
+	s.Min = val
+}
+
+// SetMax sets the value of Max.
+func (s *UpdateSiteDetailsReqPolicyDisplayCallFeedbackSurveyFeedbackMos) SetMax(val OptFloat64) {
+	s.Max = val
+}
+
+// Allows users to elevate their phone calls to a meeting.
 type UpdateSiteDetailsReqPolicyElevateToMeeting struct {
 	// Whether to allow users to elevate their phone calls to a meeting.
 	Enable OptBool `json:"enable"`
@@ -102624,7 +110276,48 @@ func (s *UpdateSiteDetailsReqPolicyElevateToMeeting) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
-// It requires the account to enable the `Force Calls out to the PSTN network` feature.
+// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+type UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea struct {
+	// This field allows Zoom Rooms to call external phone numbers based on the calling plans.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyExternalCallingOnZoomRoomCommonArea) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// It requires the account to enable the `Force Calls out to the PSTN network`feature.
 type UpdateSiteDetailsReqPolicyForceOffNet struct {
 	// By enabling Force Off-Net, calls from users or extensions between sites route through the PSTN
 	// network. Users in this site can only be allowed to be part of advanced functionality (eg. Auto
@@ -102655,6 +110348,52 @@ func (s *UpdateSiteDetailsReqPolicyForceOffNet) SetAllowExtensionOnlyUsersCallUs
 	s.AllowExtensionOnlyUsersCallUsersOutsideSite = val
 }
 
+// This field allows users to forward their calls outside of their own site.Once disabled, users will
+// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+// own site.
+type UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite struct {
+	// This field allows users to forward their calls outside of their own site.Once disabled, users will
+	// only be able to forward their calls to users, call queues, shared line groups, etc., within their
+	// own site.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyForwardCallOutsideOfSite) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// Allows users to send a call to a Zoom Room.
 type UpdateSiteDetailsReqPolicyHandOffToRoom struct {
 	// Whether to allow users to send a call to a Zoom Room.
 	Enable OptBool `json:"enable"`
@@ -102693,6 +110432,60 @@ func (s *UpdateSiteDetailsReqPolicyHandOffToRoom) SetReset(val OptBool) {
 // SetLocked sets the value of Locked.
 func (s *UpdateSiteDetailsReqPolicyHandOffToRoom) SetLocked(val OptBool) {
 	s.Locked = val
+}
+
+// Allows users to select if an incoming call notification would block their current activity.
+type UpdateSiteDetailsReqPolicyIncomingCallNotification struct {
+	// Allows users to select if an incoming call notification would block their current activity.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// The incoming call notification block type. `block_activity` means "Block my current activity",
+	// `continue_with_alert` means "Alert me but allow me to continue my current activity".
+	BlockType OptString `json:"block_type"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetBlockType returns the value of BlockType.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) GetBlockType() OptString {
+	return s.BlockType
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetBlockType sets the value of BlockType.
+func (s *UpdateSiteDetailsReqPolicyIncomingCallNotification) SetBlockType(val OptString) {
+	s.BlockType = val
 }
 
 // Whether to allow extensions to place international calls outside of the calling plan.
@@ -102735,6 +110528,7 @@ func (s *UpdateSiteDetailsReqPolicyInternationalCalling) SetLocked(val OptBool) 
 	s.Locked = val
 }
 
+// Allows users to switch from Zoom Phone to their native carrier.
 type UpdateSiteDetailsReqPolicyMobileSwitchToCarrier struct {
 	// Whether to allow the user to switch from a Zoom Phone to their native carrier.
 	Enable OptBool `json:"enable"`
@@ -102775,6 +110569,50 @@ func (s *UpdateSiteDetailsReqPolicyMobileSwitchToCarrier) SetLocked(val OptBool)
 	s.Locked = val
 }
 
+// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+type UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall struct {
+	// Once enabled, when a user on an active call presses a dial pad key on screen or number on the
+	// keyboard, the client DTMF tones will be muted and the numbers will be masked on the screen.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings, if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyObfuscateSensitiveDataDuringCall) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// Allows users to change their own Audio Library.
 type UpdateSiteDetailsReqPolicyPersonalAudioLibrary struct {
 	// This setting allows users to access, share, download, or delete voicemail or videomail.
 	Enable OptBool `json:"enable"`
@@ -102839,6 +110677,53 @@ func (s *UpdateSiteDetailsReqPolicyPersonalAudioLibrary) SetAllowVoicemailAndMes
 	s.AllowVoicemailAndMessageGreetingCustomization = val
 }
 
+// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+// to access text-to-speech or record audio files.
+type UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles struct {
+	// Once enabled, users will not be able to upload audios on the web portal. Users will be still able
+	// to access text-to-speech or record audio files.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyPreventUsersUploadAudioFiles) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// Allows users, call queues and auto receptionists to send and receive messages. You will still need
+// to assign a valid calling plan and phone number to each user in order for them to send and receive
+// messages. Do not enable this control if you intend to use SMS services with a third party SMS
+// provider.
 type UpdateSiteDetailsReqPolicySMS struct {
 	// Whether to allow users, call queues, and auto receptionists to send and receive messages. You need
 	// to assign a valid calling plan and phone number to each user for them to send and receive messages.
@@ -102906,6 +110791,523 @@ func (s *UpdateSiteDetailsReqPolicySMS) SetInternationalSMSCountries(val []strin
 	s.InternationalSMSCountries = val
 }
 
+// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+type UpdateSiteDetailsReqPolicySMSAutoReply struct {
+	// This field enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicySMSAutoReply) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// Whether to use pre-defined templates to help users compose messages. Power Pack license is
+// required for this feature to work.
+type UpdateSiteDetailsReqPolicySMSTemplate struct {
+	// This setting enables you to use pre-defined templates to help users compose messages. Power Pack
+	// license is required for this feature to work.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+	// The SMS template list.
+	SMSTemplateList []UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem `json:"sms_template_list"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) GetLocked() OptBool {
+	return s.Locked
+}
+
+// GetSMSTemplateList returns the value of SMSTemplateList.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) GetSMSTemplateList() []UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem {
+	return s.SMSTemplateList
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// SetSMSTemplateList sets the value of SMSTemplateList.
+func (s *UpdateSiteDetailsReqPolicySMSTemplate) SetSMSTemplateList(val []UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem) {
+	s.SMSTemplateList = val
+}
+
+type UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem struct {
+	// The SMS template ID.
+	SMSTemplateID string `json:"sms_template_id"`
+	// Whether it is active or not.
+	Active OptBool `json:"active"`
+}
+
+// GetSMSTemplateID returns the value of SMSTemplateID.
+func (s *UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem) GetSMSTemplateID() string {
+	return s.SMSTemplateID
+}
+
+// GetActive returns the value of Active.
+func (s *UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem) GetActive() OptBool {
+	return s.Active
+}
+
+// SetSMSTemplateID sets the value of SMSTemplateID.
+func (s *UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem) SetSMSTemplateID(val string) {
+	s.SMSTemplateID = val
+}
+
+// SetActive sets the value of Active.
+func (s *UpdateSiteDetailsReqPolicySMSTemplateSMSTemplateListItem) SetActive(val OptBool) {
+	s.Active = val
+}
+
+// Defines how often and when to update the firmware of the devices.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate struct {
+	// Whether to define how often and when to update firmware of the devices.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings when the current settings use the
+	// new policy framework.
+	Reset OptBool `json:"reset"`
+	// The repeat type.
+	RepeatType OptString `json:"repeat_type"`
+	// The repeat setting.
+	RepeatSetting OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting `json:"repeat_setting"`
+	// The time period start time. 15 means 3 PM.
+	TimePeriodStart OptInt `json:"time_period_start"`
+	// The time period end time. Example: 16 means 4 PM.
+	TimePeriodEnd OptInt `json:"time_period_end"`
+	// The [time zone list](https://developer.zoom.
+	// us/docs/api-reference/other-references/abbreviation-lists/#timezones) for supported time zones and
+	// their formats.
+	TimeZone OptString `json:"time_zone"`
+	// End setting.
+	EndSetting OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting `json:"end_setting"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetRepeatType returns the value of RepeatType.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetRepeatType() OptString {
+	return s.RepeatType
+}
+
+// GetRepeatSetting returns the value of RepeatSetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetRepeatSetting() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting {
+	return s.RepeatSetting
+}
+
+// GetTimePeriodStart returns the value of TimePeriodStart.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetTimePeriodStart() OptInt {
+	return s.TimePeriodStart
+}
+
+// GetTimePeriodEnd returns the value of TimePeriodEnd.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetTimePeriodEnd() OptInt {
+	return s.TimePeriodEnd
+}
+
+// GetTimeZone returns the value of TimeZone.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetTimeZone() OptString {
+	return s.TimeZone
+}
+
+// GetEndSetting returns the value of EndSetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) GetEndSetting() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting {
+	return s.EndSetting
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetRepeatType sets the value of RepeatType.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetRepeatType(val OptString) {
+	s.RepeatType = val
+}
+
+// SetRepeatSetting sets the value of RepeatSetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetRepeatSetting(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) {
+	s.RepeatSetting = val
+}
+
+// SetTimePeriodStart sets the value of TimePeriodStart.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetTimePeriodStart(val OptInt) {
+	s.TimePeriodStart = val
+}
+
+// SetTimePeriodEnd sets the value of TimePeriodEnd.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetTimePeriodEnd(val OptInt) {
+	s.TimePeriodEnd = val
+}
+
+// SetTimeZone sets the value of TimeZone.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetTimeZone(val OptString) {
+	s.TimeZone = val
+}
+
+// SetEndSetting sets the value of EndSetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdate) SetEndSetting(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) {
+	s.EndSetting = val
+}
+
+// End setting.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting struct {
+	// This field indicates the setting never ends.
+	NeverEnd OptBool `json:"never_end"`
+	// The end date in the following format: \"yyyy-MM-dd\". Only required when `never_end` is false.
+	EndDate OptDate `json:"end_date"`
+}
+
+// GetNeverEnd returns the value of NeverEnd.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) GetNeverEnd() OptBool {
+	return s.NeverEnd
+}
+
+// GetEndDate returns the value of EndDate.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) GetEndDate() OptDate {
+	return s.EndDate
+}
+
+// SetNeverEnd sets the value of NeverEnd.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) SetNeverEnd(val OptBool) {
+	s.NeverEnd = val
+}
+
+// SetEndDate sets the value of EndDate.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateEndSetting) SetEndDate(val OptDate) {
+	s.EndDate = val
+}
+
+// The repeat setting.
+// UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting represents sum type.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting struct {
+	Type                                                           UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType // switch on this field
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1
+}
+
+// UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType is oneOf type of UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType string
+
+// Possible values for UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType.
+const (
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType = "UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0"
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSettingType = "UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1"
+)
+
+// IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 reports whether UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0() bool {
+	return s.Type == UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+}
+
+// IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 reports whether UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1() bool {
+	return s.Type == UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+}
+
+// SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 sets UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting to UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0) {
+	s.Type = UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 = v
+}
+
+// GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 returns UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 and true boolean if UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0, ok bool) {
+	if !s.IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0() {
+		return v, false
+	}
+	return s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0, true
+}
+
+// NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting returns new UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting from UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0.
+func NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting {
+	var s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	s.SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0(v)
+	return s
+}
+
+// SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 sets UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting to UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1) {
+	s.Type = UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 = v
+}
+
+// GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 returns UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 and true boolean if UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting) GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1, ok bool) {
+	if !s.IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1() {
+		return v, false
+	}
+	return s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1, true
+}
+
+// NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting returns new UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting from UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1.
+func NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting {
+	var s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting
+	s.SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1(v)
+	return s
+}
+
+// The weekly setting. Only required when `repeat_type` is `weekly`.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0 struct {
+	// The weekly setting.
+	WeeklySetting OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting `json:"weekly_setting"`
+}
+
+// GetWeeklySetting returns the value of WeeklySetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0) GetWeeklySetting() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting {
+	return s.WeeklySetting
+}
+
+// SetWeeklySetting sets the value of WeeklySetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0) SetWeeklySetting(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) {
+	s.WeeklySetting = val
+}
+
+// The weekly setting.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting struct {
+	// Weekday.
+	Weekday OptString `json:"weekday"`
+}
+
+// GetWeekday returns the value of Weekday.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) GetWeekday() OptString {
+	return s.Weekday
+}
+
+// SetWeekday sets the value of Weekday.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting0WeeklySetting) SetWeekday(val OptString) {
+	s.Weekday = val
+}
+
+// The monthly setting. Only required when `repeat_type` is `monthly`.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1 struct {
+	// The monthly setting.
+	MonthlySetting OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting `json:"monthly_setting"`
+}
+
+// GetMonthlySetting returns the value of MonthlySetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1) GetMonthlySetting() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting {
+	return s.MonthlySetting
+}
+
+// SetMonthlySetting sets the value of MonthlySetting.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1) SetMonthlySetting(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) {
+	s.MonthlySetting = val
+}
+
+// The monthly setting.
+// UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting represents sum type.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting struct {
+	Type                                                                          UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType // switch on this field
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1
+}
+
+// UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType is oneOf type of UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType string
+
+// Possible values for UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType.
+const (
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType = "UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0"
+	UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySettingType = "UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1"
+)
+
+// IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 reports whether UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0() bool {
+	return s.Type == UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+}
+
+// IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 reports whether UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1() bool {
+	return s.Type == UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+}
+
+// SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 sets UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting to UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0) {
+	s.Type = UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 = v
+}
+
+// GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 returns UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 and true boolean if UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0, ok bool) {
+	if !s.IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0() {
+		return v, false
+	}
+	return s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0, true
+}
+
+// NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting returns new UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting from UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0.
+func NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting {
+	var s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	s.SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0(v)
+	return s
+}
+
+// SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 sets UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting to UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1) {
+	s.Type = UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 = v
+}
+
+// GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 returns UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 and true boolean if UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting is UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1.
+func (s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting) GetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1() (v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1, ok bool) {
+	if !s.IsUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1() {
+		return v, false
+	}
+	return s.UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1, true
+}
+
+// NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting returns new UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting from UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1.
+func NewUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting(v UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1) UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting {
+	var s UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting
+	s.SetUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1(v)
+	return s
+}
+
+// Repeats by week and day.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0 struct {
+	// Repeats by week and day.
+	WeekAndDay OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay `json:"week_and_day"`
+}
+
+// GetWeekAndDay returns the value of WeekAndDay.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0) GetWeekAndDay() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay {
+	return s.WeekAndDay
+}
+
+// SetWeekAndDay sets the value of WeekAndDay.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0) SetWeekAndDay(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) {
+	s.WeekAndDay = val
+}
+
+// Repeats by week and day.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay struct {
+	// Which week of the month to perform updates.
+	WeekOfMonth OptInt `json:"week_of_month"`
+	// The day of the selected week to perform updates.
+	Weekday OptString `json:"weekday"`
+}
+
+// GetWeekOfMonth returns the value of WeekOfMonth.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) GetWeekOfMonth() OptInt {
+	return s.WeekOfMonth
+}
+
+// GetWeekday returns the value of Weekday.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) GetWeekday() OptString {
+	return s.Weekday
+}
+
+// SetWeekOfMonth sets the value of WeekOfMonth.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) SetWeekOfMonth(val OptInt) {
+	s.WeekOfMonth = val
+}
+
+// SetWeekday sets the value of Weekday.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting0WeekAndDay) SetWeekday(val OptString) {
+	s.Weekday = val
+}
+
+// Repeats by specific date.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1 struct {
+	// Repeats by specific date.
+	SpecificDate OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate `json:"specific_date"`
+}
+
+// GetSpecificDate returns the value of SpecificDate.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1) GetSpecificDate() OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate {
+	return s.SpecificDate
+}
+
+// SetSpecificDate sets the value of SpecificDate.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1) SetSpecificDate(val OptUpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) {
+	s.SpecificDate = val
+}
+
+// Repeats by specific date.
+type UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate struct {
+	// The specific day of the month for updates. `0` means "Last day".
+	DayOfMonth OptInt `json:"day_of_month"`
+}
+
+// GetDayOfMonth returns the value of DayOfMonth.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) GetDayOfMonth() OptInt {
+	return s.DayOfMonth
+}
+
+// SetDayOfMonth sets the value of DayOfMonth.
+func (s *UpdateSiteDetailsReqPolicyScheduleFirmwareUpdateRepeatSetting1MonthlySetting1SpecificDate) SetDayOfMonth(val OptInt) {
+	s.DayOfMonth = val
+}
+
+// Whether to allow the current extension to change the outbound caller ID when placing calls.
 type UpdateSiteDetailsReqPolicySelectOutboundCallerID struct {
 	// Whether to allow the current extension to change the outbound caller ID when placing calls.
 	Enable OptBool `json:"enable"`
@@ -103001,6 +111403,48 @@ func (s *UpdateSiteDetailsReqPolicySharedVoicemailNotificationByEmail) SetLocked
 	s.Locked = val
 }
 
+// This field allows users to summarize and extract tasks from English SMS conversations.
+type UpdateSiteDetailsReqPolicyTeamSMSThreadSummary struct {
+	// This field allows users to summarize and extract tasks from English SMS conversations.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyTeamSMSThreadSummary) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// Allows users to access, share, download, and to delete voicemail and videomail.
 type UpdateSiteDetailsReqPolicyVoicemail struct {
 	// This setting allows users to delete their own voicemail. It displays only when using the new
 	// policy framework.
@@ -103076,6 +111520,49 @@ func (s *UpdateSiteDetailsReqPolicyVoicemail) SetReset(val OptBool) {
 
 // SetLocked sets the value of Locked.
 func (s *UpdateSiteDetailsReqPolicyVoicemail) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+// need to have voicemail transcription policy enabled.
+type UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization struct {
+	// This field allows users to prioritize urgent voicemails based on predefined priority topics. Users
+	// need to have voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyVoicemailIntentBasedPrioritization) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
@@ -103158,6 +111645,52 @@ func (s *UpdateSiteDetailsReqPolicyVoicemailNotificationByEmail) SetLocked(val O
 	s.Locked = val
 }
 
+// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+// voicemail transcription policy enabled.
+type UpdateSiteDetailsReqPolicyVoicemailTasks struct {
+	// This field allows users to extract tasks from English voicemail transcriptions. Users need to have
+	// voicemail transcription policy enabled.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyVoicemailTasks) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
+// When you enable this setting, the system creates voicemail and videomail transcriptions and keeps
+// them accessible, even if you disable the setting later. When you disable the setting, the system
+// stops generating new transcriptions.
 type UpdateSiteDetailsReqPolicyVoicemailTranscription struct {
 	// Whether to allow users to access transcriptions of voicemails from the Zoom client, Zoom web
 	// portal, and email notifications.
@@ -103199,6 +111732,7 @@ func (s *UpdateSiteDetailsReqPolicyVoicemailTranscription) SetLocked(val OptBool
 	s.Locked = val
 }
 
+// Allows user to use Zoom Phone on mobile clients (iOS, iPad OS and Android).
 type UpdateSiteDetailsReqPolicyZoomPhoneOnMobile struct {
 	// Whether to allow calling and SMS/MMS functions on mobile.
 	AllowCallingSMSMms OptBool `json:"allow_calling_sms_mms"`
@@ -103251,6 +111785,47 @@ func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnMobile) SetLocked(val OptBool) {
 	s.Locked = val
 }
 
+// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+type UpdateSiteDetailsReqPolicyZoomPhoneOnPwa struct {
+	// This field allows users to use Zoom Phone on Zoom Progressive Web App.
+	Enable OptBool `json:"enable"`
+	// Whether the current settings use the phone account's settings if the current settings use the new
+	// policy framework.
+	Reset OptBool `json:"reset"`
+	// Whether the senior administrator allows users to modify the current settings.
+	Locked OptBool `json:"locked"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetReset returns the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) GetReset() OptBool {
+	return s.Reset
+}
+
+// GetLocked returns the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) GetLocked() OptBool {
+	return s.Locked
+}
+
+// SetEnable sets the value of Enable.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetReset sets the value of Reset.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) SetReset(val OptBool) {
+	s.Reset = val
+}
+
+// SetLocked sets the value of Locked.
+func (s *UpdateSiteDetailsReqPolicyZoomPhoneOnPwa) SetLocked(val OptBool) {
+	s.Locked = val
+}
+
 // The short extension of the phone site.
 type UpdateSiteDetailsReqShortExtension struct {
 	// This setting specifies the length of short extension numbers for the site.
@@ -103280,6 +111855,7 @@ func (s *UpdateSiteDetailsReqShortExtension) SetRanges(val []UpdateSiteDetailsRe
 	s.Ranges = val
 }
 
+// Items.
 type UpdateSiteDetailsReqShortExtensionRangesItem struct {
 	// The short extension's starting range number, which can be a non-negative value. This value
 	// **must** be less than the `range_to` value.
@@ -103493,26 +112069,30 @@ func (s *UpdateSiteOutboundCallingExceptionRuleReqExceptionRule) SetCountry(val 
 type UpdateSiteSettingNoContent struct{}
 
 type UpdateSiteSettingReq struct {
-	// Location-based routing setting of the site. Used for `local_based_routing` setting type.
+	// The location-based routing setting of the site. It's used for `local_based_routing` setting type.
 	LocationBasedRouting OptUpdateSiteSettingReqLocationBasedRouting `json:"location_based_routing"`
-	// Set the default business hours for all users, Zoom Rooms and Common Areas for the site. Used for
-	// `business_hours` setting type.
+	// Sets the default business hours for all users, Zoom Rooms, and Common Areas for the site. It's
+	// used for the `business_hours` setting type.
 	BusinessHours OptUpdateSiteSettingReqBusinessHours `json:"business_hours"`
-	// Set the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
+	// Sets the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
 	// Queues and Shared Line Groups for the site. Used for `closed_hours` setting type.
 	ClosedHours OptUpdateSiteSettingReqClosedHours `json:"closed_hours"`
-	// Set the default holiday hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-	// Queues and Shared Line Groups for the site. Used for `holiday_hours` setting type.
+	// Sets the default holiday hours for all users, Zoom Rooms, common areas, auto receptionists, call
+	// queues and shared linegroups for the site. It's used for the `holiday_hours` setting type.
 	HolidayHours OptUpdateSiteSettingReqHolidayHours `json:"holiday_hours"`
-	// The outbound caller ID setting. Used for `outbound_caller_id` setting type.
+	// The outbound caller ID setting. It's used for the `outbound_caller_id` setting type.
 	OutboundCallerID OptUpdateSiteSettingReqOutboundCallerID `json:"outbound_caller_id"`
 	// The audio prompt setting. Used for `audio_prompt` setting type.
 	AudioPrompt OptUpdateSiteSettingReqAudioPrompt `json:"audio_prompt"`
 	// The desk phone setting.
 	DeskPhone OptUpdateSiteSettingReqDeskPhone `json:"desk_phone"`
+	// These general configurations of the desk phones in your account can be set globally, but some
+	// settings may not work for individual models. You need to manually reboot the desk phones to apply
+	// these changes.
+	GeneralSetting OptUpdateSiteSettingReqGeneralSetting `json:"general_setting"`
 	// The dial by name directory setting.
 	DialByName OptUpdateSiteSettingReqDialByName `json:"dial_by_name"`
-	// Billing account setting.
+	// The billing account setting.
 	BillingAccount OptUpdateSiteSettingReqBillingAccount `json:"billing_account"`
 }
 
@@ -103549,6 +112129,11 @@ func (s *UpdateSiteSettingReq) GetAudioPrompt() OptUpdateSiteSettingReqAudioProm
 // GetDeskPhone returns the value of DeskPhone.
 func (s *UpdateSiteSettingReq) GetDeskPhone() OptUpdateSiteSettingReqDeskPhone {
 	return s.DeskPhone
+}
+
+// GetGeneralSetting returns the value of GeneralSetting.
+func (s *UpdateSiteSettingReq) GetGeneralSetting() OptUpdateSiteSettingReqGeneralSetting {
+	return s.GeneralSetting
 }
 
 // GetDialByName returns the value of DialByName.
@@ -103596,6 +112181,11 @@ func (s *UpdateSiteSettingReq) SetDeskPhone(val OptUpdateSiteSettingReqDeskPhone
 	s.DeskPhone = val
 }
 
+// SetGeneralSetting sets the value of GeneralSetting.
+func (s *UpdateSiteSettingReq) SetGeneralSetting(val OptUpdateSiteSettingReqGeneralSetting) {
+	s.GeneralSetting = val
+}
+
 // SetDialByName sets the value of DialByName.
 func (s *UpdateSiteSettingReq) SetDialByName(val OptUpdateSiteSettingReqDialByName) {
 	s.DialByName = val
@@ -103608,7 +112198,7 @@ func (s *UpdateSiteSettingReq) SetBillingAccount(val OptUpdateSiteSettingReqBill
 
 // The audio prompt setting. Used for `audio_prompt` setting type.
 type UpdateSiteSettingReqAudioPrompt struct {
-	// Audio prompt language code.
+	// The audio prompt language code.
 	// American English: `en-US`
 	// British English: `en-GB`
 	// Espa&ntilde;ol americano: `es-US`
@@ -103625,13 +112215,19 @@ type UpdateSiteSettingReqAudioPrompt struct {
 	// Portugues brasil: `pt-BR`
 	// Chinese: `zh-CN`
 	// Taiwanese: `zh-TW`.
-	Language                                           OptString                                                                            `json:"language"`
-	GreetingLeaveVoicemailInstruction                  OptUpdateSiteSettingReqAudioPromptGreetingLeaveVoicemailInstruction                  `json:"greeting_leave_voicemail_instruction"`
-	GreetingMenuLeaveOrCheckVoicemail                  OptUpdateSiteSettingReqAudioPromptGreetingMenuLeaveOrCheckVoicemail                  `json:"greeting_menu_leave_or_check_voicemail"`
-	GreetingMenuConnectToOperatorOrLeaveVoicemail      OptUpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorOrLeaveVoicemail      `json:"greeting_menu_connect_to_operator_or_leave_voicemail"`
+	Language OptString `json:"language"`
+	// Audio prompt for `Greeting & Leave voicemail instruction`.
+	GreetingLeaveVoicemailInstruction OptUpdateSiteSettingReqAudioPromptGreetingLeaveVoicemailInstruction `json:"greeting_leave_voicemail_instruction"`
+	// The audio prompt for `Greeting & Menu: Leave or check voicemail`.
+	GreetingMenuLeaveOrCheckVoicemail OptUpdateSiteSettingReqAudioPromptGreetingMenuLeaveOrCheckVoicemail `json:"greeting_menu_leave_or_check_voicemail"`
+	// The audio prompt for `Greeting & Menu: Connect to operator or leave voicemail`.
+	GreetingMenuConnectToOperatorOrLeaveVoicemail OptUpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorOrLeaveVoicemail `json:"greeting_menu_connect_to_operator_or_leave_voicemail"`
+	// Audio prompt for `Greeting & Menu: Connect to operator, leave or check voicemail`.
 	GreetingMenuConnectToOperatorLeaveOrCheckVoicemail OptUpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorLeaveOrCheckVoicemail `json:"greeting_menu_connect_to_operator_leave_or_check_voicemail"`
-	LeaveVoicemailIntroduction                         OptUpdateSiteSettingReqAudioPromptLeaveVoicemailIntroduction                         `json:"leave_voicemail_introduction"`
-	MessageGreeting                                    OptUpdateSiteSettingReqAudioPromptMessageGreeting                                    `json:"message_greeting"`
+	// The audio prompt for `Leave voicemail instruction`.
+	LeaveVoicemailIntroduction OptUpdateSiteSettingReqAudioPromptLeaveVoicemailIntroduction `json:"leave_voicemail_introduction"`
+	// The audio prompt for `Message Greeting`.
+	MessageGreeting OptUpdateSiteSettingReqAudioPromptMessageGreeting `json:"message_greeting"`
 	// The audio prompt setting for respective hours.
 	AudioWhileConnecting OptUpdateSiteSettingReqAudioPromptAudioWhileConnecting `json:"audio_while_connecting"`
 	// The audio prompt setting for respective hours.
@@ -103744,6 +112340,7 @@ func (s *UpdateSiteSettingReqAudioPromptAudioWhileConnecting) SetAudioID(val Opt
 	s.AudioID = val
 }
 
+// Audio prompt for `Greeting & Leave voicemail instruction`.
 type UpdateSiteSettingReqAudioPromptGreetingLeaveVoicemailInstruction struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptGreetingLeaveVoicemailInstructionBusinessHours `json:"business_hours"`
@@ -103831,6 +112428,7 @@ func (s *UpdateSiteSettingReqAudioPromptGreetingLeaveVoicemailInstructionHoliday
 	s.AudioID = val
 }
 
+// Audio prompt for `Greeting & Menu: Connect to operator, leave or check voicemail`.
 type UpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorLeaveOrCheckVoicemail struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorLeaveOrCheckVoicemailBusinessHours `json:"business_hours"`
@@ -103918,6 +112516,7 @@ func (s *UpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorLeaveOrChec
 	s.AudioID = val
 }
 
+// The audio prompt for `Greeting & Menu: Connect to operator or leave voicemail`.
 type UpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorOrLeaveVoicemail struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorOrLeaveVoicemailBusinessHours `json:"business_hours"`
@@ -104005,6 +112604,7 @@ func (s *UpdateSiteSettingReqAudioPromptGreetingMenuConnectToOperatorOrLeaveVoic
 	s.AudioID = val
 }
 
+// The audio prompt for `Greeting & Menu: Leave or check voicemail`.
 type UpdateSiteSettingReqAudioPromptGreetingMenuLeaveOrCheckVoicemail struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptGreetingMenuLeaveOrCheckVoicemailBusinessHours `json:"business_hours"`
@@ -104108,6 +112708,7 @@ func (s *UpdateSiteSettingReqAudioPromptHoldMusic) SetAudioID(val OptString) {
 	s.AudioID = val
 }
 
+// The audio prompt for `Leave voicemail instruction`.
 type UpdateSiteSettingReqAudioPromptLeaveVoicemailIntroduction struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptLeaveVoicemailIntroductionBusinessHours `json:"business_hours"`
@@ -104195,6 +112796,7 @@ func (s *UpdateSiteSettingReqAudioPromptLeaveVoicemailIntroductionHolidayHours) 
 	s.AudioID = val
 }
 
+// The audio prompt for `Message Greeting`.
 type UpdateSiteSettingReqAudioPromptMessageGreeting struct {
 	// The audio prompt setting for respective hours.
 	BusinessHours OptUpdateSiteSettingReqAudioPromptMessageGreetingBusinessHours `json:"business_hours"`
@@ -104282,9 +112884,9 @@ func (s *UpdateSiteSettingReqAudioPromptMessageGreetingHolidayHours) SetAudioID(
 	s.AudioID = val
 }
 
-// Billing account setting.
+// The billing account setting.
 type UpdateSiteSettingReqBillingAccount struct {
-	// Billing account ID.
+	// The billing account ID.
 	ID OptString `json:"id"`
 }
 
@@ -104298,14 +112900,14 @@ func (s *UpdateSiteSettingReqBillingAccount) SetID(val OptString) {
 	s.ID = val
 }
 
-// Set the default business hours for all users, Zoom Rooms and Common Areas for the site. Used for
-// `business_hours` setting type.
+// Sets the default business hours for all users, Zoom Rooms, and Common Areas for the site. It's
+// used for the `business_hours` setting type.
 type UpdateSiteSettingReqBusinessHours struct {
-	// Business Hour Type `1`- 24 hours a Day, 7 days a week, `2`- Custom hours.
+	// The business hour type `1`- 24 hours a Day, 7 days a week, `2`- Custom hours.
 	CustomHourType OptInt `json:"custom_hour_type"`
 	// The settings for custom business hours.
 	CustomHours []UpdateSiteSettingReqBusinessHoursCustomHoursItem `json:"custom_hours"`
-	// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+	// Sets the default overflow for business hours for users, call queues and shared line groups.
 	Overflow OptUpdateSiteSettingReqBusinessHoursOverflow `json:"overflow"`
 }
 
@@ -104400,13 +113002,13 @@ func (s *UpdateSiteSettingReqBusinessHoursCustomHoursItem) SetWeekday(val OptInt
 	s.Weekday = val
 }
 
-// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+// Sets the default overflow for business hours for users, call queues and shared line groups.
 type UpdateSiteSettingReqBusinessHoursOverflow struct {
-	// Option to allow callers to reach an operator.
+	// This setting allows callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
 	// The operator to allow callers to reach.
 	Operator OptUpdateSiteSettingReqBusinessHoursOverflowOperator `json:"operator"`
-	// Option to allow callers to check voicemail.
+	// This setting allows callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -104442,7 +113044,7 @@ func (s *UpdateSiteSettingReqBusinessHoursOverflow) SetAllowCallerToCheckVoicema
 
 // The operator to allow callers to reach.
 type UpdateSiteSettingReqBusinessHoursOverflowOperator struct {
-	// The extension id.
+	// The extension's ID.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -104456,10 +113058,10 @@ func (s *UpdateSiteSettingReqBusinessHoursOverflowOperator) SetExtensionID(val O
 	s.ExtensionID = val
 }
 
-// Set the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
+// Sets the default closed hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
 // Queues and Shared Line Groups for the site. Used for `closed_hours` setting type.
 type UpdateSiteSettingReqClosedHours struct {
-	// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+	// Sets the default overflow for business hours for users, Call Queues and Shared Line Groups.
 	Overflow OptUpdateSiteSettingReqClosedHoursOverflow `json:"overflow"`
 }
 
@@ -104473,13 +113075,13 @@ func (s *UpdateSiteSettingReqClosedHours) SetOverflow(val OptUpdateSiteSettingRe
 	s.Overflow = val
 }
 
-// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+// Sets the default overflow for business hours for users, Call Queues and Shared Line Groups.
 type UpdateSiteSettingReqClosedHoursOverflow struct {
-	// Option to allow callers to reach an operator.
+	// Allows callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
 	// The operator to allow callers to reach.
 	Operator OptUpdateSiteSettingReqClosedHoursOverflowOperator `json:"operator"`
-	// Option to allow callers to check voicemail.
+	// Allows callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -104515,7 +113117,7 @@ func (s *UpdateSiteSettingReqClosedHoursOverflow) SetAllowCallerToCheckVoicemail
 
 // The operator to allow callers to reach.
 type UpdateSiteSettingReqClosedHoursOverflowOperator struct {
-	// The extension id.
+	// The extension's ID.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -104547,8 +113149,9 @@ func (s *UpdateSiteSettingReqDeskPhone) SetHotDeskingSessionTimeout(val OptUpdat
 
 // The set duration after which users are signed out of hot desking devices.
 type UpdateSiteSettingReqDeskPhoneHotDeskingSessionTimeout struct {
+	// The number.
 	Number int `json:"number"`
-	// `minutes` - available if the `number` values are: '5, 10, 15, 30'
+	// `The `minutes`. This seeting is only available if the `number` values are: '5, 10, 15, 30'
 	// `hours` - not available if the `number` value is '30'.
 	Unit OptString `json:"unit"`
 }
@@ -104579,9 +113182,9 @@ type UpdateSiteSettingReqDialByName struct {
 	// English only.
 	Status OptBool `json:"status"`
 	// Whether to inherit the dial by name directory maintained at the account level. This directory is
-	// read-only to sites.
+	// `read-only` to sites.
 	Inherit OptBool `json:"inherit"`
-	// Search extensions by first or last name. Callers must enter at least 2 characters to perform a
+	// The search extensions by first or last name. Callers must enter at least 2 characters to perform a
 	// name search.
 	Rule OptString `json:"rule"`
 }
@@ -104616,12 +113219,44 @@ func (s *UpdateSiteSettingReqDialByName) SetRule(val OptString) {
 	s.Rule = val
 }
 
-// Set the default holiday hours for all users, Zoom Rooms, Common Areas, Auto Receptionists, Call
-// Queues and Shared Line Groups for the site. Used for `holiday_hours` setting type.
+// These general configurations of the desk phones in your account can be set globally, but some
+// settings may not work for individual models. You need to manually reboot the desk phones to apply
+// these changes.
+type UpdateSiteSettingReqGeneralSetting struct {
+	// The setting type. `account_setting` will use the configuration defined at the account level.
+	// `custom_setting` allows custom configurations to be defined specifically for this Site.
+	SettingType OptString `json:"setting_type"`
+	// This setting enables desk phone web interface. This field is only available when `setting_type` is
+	// `custom_setting`.
+	WebInterface OptBool `json:"web_interface"`
+}
+
+// GetSettingType returns the value of SettingType.
+func (s *UpdateSiteSettingReqGeneralSetting) GetSettingType() OptString {
+	return s.SettingType
+}
+
+// GetWebInterface returns the value of WebInterface.
+func (s *UpdateSiteSettingReqGeneralSetting) GetWebInterface() OptBool {
+	return s.WebInterface
+}
+
+// SetSettingType sets the value of SettingType.
+func (s *UpdateSiteSettingReqGeneralSetting) SetSettingType(val OptString) {
+	s.SettingType = val
+}
+
+// SetWebInterface sets the value of WebInterface.
+func (s *UpdateSiteSettingReqGeneralSetting) SetWebInterface(val OptBool) {
+	s.WebInterface = val
+}
+
+// Sets the default holiday hours for all users, Zoom Rooms, common areas, auto receptionists, call
+// queues and shared linegroups for the site. It's used for the `holiday_hours` setting type.
 type UpdateSiteSettingReqHolidayHours struct {
 	// The settings for holiday hours.
 	Holidays []UpdateSiteSettingReqHolidayHoursHolidaysItem `json:"holidays"`
-	// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+	// Sets the default overflow for business hours for users, call queues and shared line groups.
 	Overflow OptUpdateSiteSettingReqHolidayHoursOverflow `json:"overflow"`
 }
 
@@ -104646,7 +113281,7 @@ func (s *UpdateSiteSettingReqHolidayHours) SetOverflow(val OptUpdateSiteSettingR
 }
 
 type UpdateSiteSettingReqHolidayHoursHolidaysItem struct {
-	// The holiday ID.
+	// The holiday's ID.
 	HolidayID OptString `json:"holiday_id"`
 	// The name of the holiday.
 	Name OptString `json:"name"`
@@ -104696,13 +113331,13 @@ func (s *UpdateSiteSettingReqHolidayHoursHolidaysItem) SetTo(val OptDateTime) {
 	s.To = val
 }
 
-// Set the default overflow for business hours for users, Call Queues and Shared Line Groups.
+// Sets the default overflow for business hours for users, call queues and shared line groups.
 type UpdateSiteSettingReqHolidayHoursOverflow struct {
-	// Option to allow callers to reach an operator.
+	// Allows callers to reach an operator.
 	AllowCallerToReachOperator OptBool `json:"allow_caller_to_reach_operator"`
 	// The operator to allow callers to reach.
 	Operator OptUpdateSiteSettingReqHolidayHoursOverflowOperator `json:"operator"`
-	// Option to allow callers to check voicemail.
+	// Allows callers to check voicemail.
 	AllowCallerToCheckVoicemail OptBool `json:"allow_caller_to_check_voicemail"`
 }
 
@@ -104738,7 +113373,7 @@ func (s *UpdateSiteSettingReqHolidayHoursOverflow) SetAllowCallerToCheckVoicemai
 
 // The operator to allow callers to reach.
 type UpdateSiteSettingReqHolidayHoursOverflowOperator struct {
-	// The extension id.
+	// The extension's ID.
 	ExtensionID OptString `json:"extension_id"`
 }
 
@@ -104752,13 +113387,15 @@ func (s *UpdateSiteSettingReqHolidayHoursOverflowOperator) SetExtensionID(val Op
 	s.ExtensionID = val
 }
 
-// Location-based routing setting of the site. Used for `local_based_routing` setting type.
+// The location-based routing setting of the site. It's used for `local_based_routing` setting type.
 type UpdateSiteSettingReqLocationBasedRouting struct {
 	// When the policy is enabled, Zoom Phone calls will be subject to the policy options defined.
 	Enable OptBool `json:"enable"`
-	// Place and receive PSTN (Public Switched Telephone Network) calls only when inside the locations.
+	// This setting places and receives PSTN (Public Switched Telephone Network) calls only when inside
+	// the locations.
 	PlaceReceivePstnCalls OptBool `json:"place_receive_pstn_calls"`
-	// Enable media offload for extensions to PSTN (Public Switched Telephone Network) calls.
+	// This setting enables media offload for extensions to PSTN (Public Switched Telephone Network)
+	// calls.
 	EnableMediaOffLoadPstnCalls OptBool `json:"enable_media_off_load_pstn_calls"`
 }
 
@@ -104792,7 +113429,7 @@ func (s *UpdateSiteSettingReqLocationBasedRouting) SetEnableMediaOffLoadPstnCall
 	s.EnableMediaOffLoadPstnCalls = val
 }
 
-// The outbound caller ID setting. Used for `outbound_caller_id` setting type.
+// The outbound caller ID setting. It's used for the `outbound_caller_id` setting type.
 type UpdateSiteSettingReqOutboundCallerID struct {
 	// When checked, auto receptionists members will use the numbers as the outbound caller ID.
 	AutoReceptionistsNumbers OptBool `json:"auto_receptionists_numbers"`
