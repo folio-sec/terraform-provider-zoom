@@ -139,7 +139,52 @@ function enableConvenientErrorsPatch(spec) {
   };
 }
 
+// Because the oneOf nesting is not supported in ogen, the oneOf is set to flat.
+// This function recursively flattens all nested oneOf structures
+function flattenOneOf(obj) {
+  // Helper function to flatten oneOf arrays
+  function flattenOneOfArray(oneOfArray) {
+    // First, recursively process each item in the oneOf array
+    const processedArray = oneOfArray.map(item => flattenOneOf(item));
+
+    // Then flatten any nested oneOf arrays
+    return processedArray.flatMap(item => {
+      if (item && item.oneOf && Array.isArray(item.oneOf)) {
+        return item.oneOf;
+      }
+      return item;
+    });
+  }
+
+  if (!obj || typeof obj !== 'object') {
+    return obj;
+  }
+
+  // Handle arrays
+  if (Array.isArray(obj)) {
+    return obj.map(item => flattenOneOf(item));
+  }
+
+  // Process object properties
+  const result = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (key === 'oneOf' && Array.isArray(value)) {
+      // Flatten oneOf arrays by extracting nested oneOf arrays
+      result[key] = flattenOneOfArray(value);
+    } else if (typeof value === 'object' && value !== null) {
+      // Recursively process nested objects
+      result[key] = flattenOneOf(value);
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
 function phonePatch(spec) {
+  // Apply the flattening to the entire spec.paths object
+  spec.paths = flattenOneOf(spec.paths);
+
   /**
    * The oneOf atrribute of ogen is
    * - Unique per-object attributes
@@ -380,54 +425,9 @@ function userPatch(spec) {
     });
   }
 
-  // Because the oneOf nesting is not supported in ogen, the oneOf is set to flat.
-  spec.paths = Object.fromEntries(Object.entries(spec.paths).map(([path, pathValue]) => {
-    return [path, Object.fromEntries(Object.entries(pathValue).map(([method, methodValue]) => {
-      return [method, Object.fromEntries(Object.entries(methodValue).map(([methodKey, methodKeyValue]) => {
-        if (methodKey === 'requestBody') {
-          if (methodKeyValue.content && methodKeyValue.content['application/json'] && methodKeyValue.content['application/json'].schema) {
-            methodKeyValue.content['application/json'].schema = Object.fromEntries(Object.entries(methodKeyValue.content['application/json'].schema).map(([schemaKey, schemaValue]) => {
-              if (schemaKey !== 'oneOf') {
-                return [schemaKey, schemaValue];
-              }
 
-              return [schemaKey, schemaValue.flatMap((item) => {
-                if (!item.oneOf) {
-                  return item;
-                }
-
-                return item.oneOf;
-              })];
-            }));
-          }
-        }
-
-        if (methodKey === 'responses') {
-          methodKeyValue = Object.fromEntries(Object.entries(methodKeyValue).map(([status, statusValue]) => {
-            if (statusValue.content && statusValue.content['application/json'] && statusValue.content['application/json'].schema) {
-              statusValue.content['application/json'].schema = Object.fromEntries(Object.entries(statusValue.content['application/json'].schema).map(([schemaKey, schemaValue]) => {
-                if (schemaKey !== 'oneOf') {
-                  return [schemaKey, schemaValue];
-                }
-
-                return [schemaKey, schemaValue.flatMap((item) => {
-                  if (!item.oneOf) {
-                    return item;
-                  }
-
-                  return item.oneOf;
-                })];
-              }));
-            }
-
-            return [status, statusValue];
-          }));
-        }
-
-        return [methodKey, methodKeyValue];
-      }))];
-    }))];
-  }));
+  // Apply the flattening to the entire spec.paths object
+  spec.paths = flattenOneOf(spec.paths);
 }
 
 const buffers = [];
