@@ -11,10 +11,17 @@ type readDto struct {
 	name                types.String
 	timezone            types.String
 	audioPromptLanguage types.String
+	site                *readDtoSite
+}
+
+type readDtoSite struct {
+	id   types.String
+	name types.String
 }
 
 type createDto struct {
-	name types.String
+	name   types.String
+	siteID types.String
 }
 
 type createdDto struct {

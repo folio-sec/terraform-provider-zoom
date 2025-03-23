@@ -99,7 +99,7 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"site_id": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the Call Queue is assigned.",
+				MarkdownDescription: "The unique identifier of the site. It's required only if [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) have been enabled. This can be retrieved from the [List Phone Sites](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listPhoneSites) API.",
 			},
 			"status": schema.StringAttribute{
 				Optional: true,
