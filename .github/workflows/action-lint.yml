@@ -1,0 +1,52 @@
+name: action lint
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/*.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+      - uses: reviewdog/action-actionlint@db58217885f9a6570da9c71be4e40ec33fe44a1f # v1.65.0
+        with:
+          fail_level: warning
+          filter_mode: nofilter
+          level: error
+          reporter: github-pr-review
+  ghalint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - run: |
+          gh release download "v${GHALINT_VERSION}" \
+            --repo suzuki-shunsuke/ghalint \
+            --pattern 'ghalint_*_linux_amd64.tar.gz' \
+            --output '/tmp/ghalint.tar.gz'
+        shell: bash
+        env:
+          GHALINT_VERSION: 1.2.3
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - run: |
+          mkdir dist
+          tar -xvf ghalint.tar.gz -C ./dist/
+          sudo mv ./dist/ghalint /usr/local/bin
+          rm -rf ./dist ghalint.tar.gz
+        shell: bash
+        working-directory: /tmp
+      - run: ghalint run
