@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/samber/lo"
 )
 
 var (
@@ -87,19 +88,38 @@ This resource requires the ` + strings.Join([]string{
 				Computed:            true,
 				MarkdownDescription: `The language for all default audio prompts for the auto receptionist.`,
 			},
+			"site": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+						Computed:            true,
+						MarkdownDescription: "The target [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) in which the phone number was assigned. Sites allow you to organize the phone users in your organization. For example, you sites could be created based on different office locations.",
+					},
+					"name": schema.StringAttribute{
+						Computed:            true,
+						MarkdownDescription: "The name of the site where the phone number is assigned.",
+					},
+				},
+			},
 		},
 	}
 }
 
 type dataSourceModel struct {
-	ID                  types.String `tfsdk:"id"`
-	CostCenter          types.String `tfsdk:"cost_center"`
-	Department          types.String `tfsdk:"department"`
-	ExtensionID         types.String `tfsdk:"extension_id"`
-	ExtensionNumber     types.Int64  `tfsdk:"extension_number"`
-	Name                types.String `tfsdk:"name"`
-	Timezone            types.String `tfsdk:"timezone"`
-	AudioPromptLanguage types.String `tfsdk:"audio_prompt_language"`
+	ID                  types.String         `tfsdk:"id"`
+	CostCenter          types.String         `tfsdk:"cost_center"`
+	Department          types.String         `tfsdk:"department"`
+	ExtensionID         types.String         `tfsdk:"extension_id"`
+	ExtensionNumber     types.Int64          `tfsdk:"extension_number"`
+	Name                types.String         `tfsdk:"name"`
+	Timezone            types.String         `tfsdk:"timezone"`
+	AudioPromptLanguage types.String         `tfsdk:"audio_prompt_language"`
+	Site                *dataSourceModelSite `tfsdk:"site"`
+}
+
+type dataSourceModelSite struct {
+	ID   types.String `tfsdk:"id"`
+	Name types.String `tfsdk:"name"`
 }
 
 func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
@@ -128,6 +148,12 @@ func (d *tfDataSource) Read(ctx context.Context, req datasource.ReadRequest, res
 		Name:                dto.name,
 		Timezone:            dto.timezone,
 		AudioPromptLanguage: dto.audioPromptLanguage,
+		Site: lo.TernaryF(dto.site != nil, func() *dataSourceModelSite {
+			return &dataSourceModelSite{
+				ID:   dto.site.id,
+				Name: dto.site.name,
+			}
+		}, lo.Nil),
 	}
 	diags := resp.State.Set(ctx, &output)
 	resp.Diagnostics.Append(diags...)

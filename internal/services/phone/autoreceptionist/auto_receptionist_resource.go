@@ -103,6 +103,12 @@ This resource requires the ` + strings.Join([]string{
   - Allowed: en-US┃en-GB┃es-US┃fr-CA┃da-DK┃de-DE┃es-ES┃fr-FR┃it-IT┃nl-NL┃pt-PT┃ja┃ko-KR┃pt-BR┃zh-CN
 `,
 			},
+			"site_id": schema.StringAttribute{
+				Optional: true,
+				// update api doesn't support site_id, so replace on updating
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				MarkdownDescription: "Unique identifier of the site where the auto receptionist is to be assigned. This field is required only if you have [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) enabled.",
+			},
 		},
 	}
 }
@@ -116,6 +122,7 @@ type resourceModel struct {
 	Name                types.String `tfsdk:"name"`
 	Timezone            types.String `tfsdk:"timezone"`
 	AudioPromptLanguage types.String `tfsdk:"audio_prompt_language"`
+	SiteID              types.String `tfsdk:"site_id"`
 }
 
 func (r *tfResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -148,6 +155,11 @@ func (r *tfResource) read(ctx context.Context, autoReceptionistId types.String) 
 		return nil, nil // already deleted
 	}
 
+	siteID := types.StringNull()
+	if dto.site != nil {
+		siteID = dto.site.id
+	}
+
 	return &resourceModel{
 		ID:                  dto.autoReceptionistID,
 		CostCenter:          dto.costCenter,
@@ -157,6 +169,7 @@ func (r *tfResource) read(ctx context.Context, autoReceptionistId types.String) 
 		Name:                dto.name,
 		Timezone:            dto.timezone,
 		AudioPromptLanguage: dto.audioPromptLanguage,
+		SiteID:              siteID,
 	}, nil
 }
 
@@ -169,7 +182,8 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 	}
 
 	ret, err := r.crud.create(ctx, &createDto{
-		name: plan.Name,
+		name:   plan.Name,
+		siteID: plan.SiteID,
 	})
 	if err != nil {
 		resp.Diagnostics.AddError(

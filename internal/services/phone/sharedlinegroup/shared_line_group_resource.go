@@ -98,7 +98,7 @@ The primary number shares the same line as the extension number. This means if a
 			},
 			"site_id": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the shared line group is assigned.",
+				MarkdownDescription: "The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites) that you would like to use for the shared line group. You will only be able to add members that belong to this site to the shared line group. This field is required only if the [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account.",
 				// update api doesn't support site_id, so replace on updating
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},

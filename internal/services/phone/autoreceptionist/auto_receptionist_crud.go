@@ -34,6 +34,14 @@ func (c *crud) read(ctx context.Context, autoReceptionistID types.String) (*read
 		return nil, fmt.Errorf("unable to read phone auto receptionist: %v", err)
 	}
 
+	var site *readDtoSite
+	if detail.Site.IsSet() {
+		site = &readDtoSite{
+			id:   util.FromOptString(detail.Site.Value.ID),
+			name: util.FromOptString(detail.Site.Value.Name),
+		}
+	}
+
 	return &readDto{
 		autoReceptionistID:  autoReceptionistID,
 		costCenter:          util.FromOptString(detail.CostCenter),
@@ -43,13 +51,15 @@ func (c *crud) read(ctx context.Context, autoReceptionistID types.String) (*read
 		name:                util.FromOptString(detail.Name),
 		timezone:            util.FromOptString(detail.Timezone),
 		audioPromptLanguage: util.FromOptString(detail.AudioPromptLanguage),
+		site:                site,
 	}, nil
 }
 
 func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) {
 	res, err := c.client.AddAutoReceptionist(ctx, zoomphone.OptAddAutoReceptionistReq{
 		Value: zoomphone.AddAutoReceptionistReq{
-			Name: dto.name.ValueString(),
+			Name:   dto.name.ValueString(),
+			SiteID: util.ToPhoneOptString(dto.siteID),
 		},
 		Set: true,
 	})

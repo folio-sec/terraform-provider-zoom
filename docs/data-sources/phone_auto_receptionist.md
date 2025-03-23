@@ -45,4 +45,13 @@ output "example" {
 - `extension_id` (String) Extension ID.
 - `extension_number` (Number) Extension number of the auto receptionist.
 - `name` (String) Name of the auto receptionist.
+- `site` (Attributes) (see [below for nested schema](#nestedatt--site))
 - `timezone` (String) [Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.
+
+<a id="nestedatt--site"></a>
+### Nested Schema for `site`
+
+Read-Only:
+
+- `id` (String) The target [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) in which the phone number was assigned. Sites allow you to organize the phone users in your organization. For example, you sites could be created based on different office locations.
+- `name` (String) The name of the site where the phone number is assigned.
