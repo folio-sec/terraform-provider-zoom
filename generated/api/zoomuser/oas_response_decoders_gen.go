@@ -1384,11 +1384,8 @@ func decodeGroupAdminsResponse(resp *http.Response) (res *GroupAdminsOK, _ error
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupAdminsCreateResponse(resp *http.Response) (res GroupAdminsCreateRes, _ error) {
+func decodeGroupAdminsCreateResponse(resp *http.Response) (res *GroupAdminsCreateCreated, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupAdminsCreateOK{}, nil
 	case 201:
 		// Code 201.
 		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
@@ -1470,11 +1467,8 @@ func decodeGroupAdminsCreateResponse(resp *http.Response) (res GroupAdminsCreate
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupAdminsDeleteResponse(resp *http.Response) (res GroupAdminsDeleteRes, _ error) {
+func decodeGroupAdminsDeleteResponse(resp *http.Response) (res *GroupAdminsDeleteNoContent, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupAdminsDeleteOK{}, nil
 	case 204:
 		// Code 204.
 		return &GroupAdminsDeleteNoContent{}, nil
@@ -1616,11 +1610,8 @@ func decodeGroupChannelsResponse(resp *http.Response) (res *GroupChannelsOK, _ e
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupCreateResponse(resp *http.Response) (res GroupCreateRes, _ error) {
+func decodeGroupCreateResponse(resp *http.Response) (res *GroupCreateCreated, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupCreateOK{}, nil
 	case 201:
 		// Code 201.
 		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
@@ -1837,6 +1828,15 @@ func decodeGroupMembersResponse(resp *http.Response) (res *GroupMembersOK, _ err
 				}
 				return res, err
 			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
+			}
 			return &response, nil
 		default:
 			return res, validate.InvalidContentType(ct)
@@ -1887,11 +1887,8 @@ func decodeGroupMembersResponse(resp *http.Response) (res *GroupMembersOK, _ err
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupMembersCreateResponse(resp *http.Response) (res GroupMembersCreateRes, _ error) {
+func decodeGroupMembersCreateResponse(resp *http.Response) (res *GroupMembersCreateCreated, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupMembersCreateOK{}, nil
 	case 201:
 		// Code 201.
 		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
@@ -2107,11 +2104,8 @@ func decodeGroupSettingsRegistrationResponse(resp *http.Response) (res *GroupSet
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupSettingsRegistrationUpdateResponse(resp *http.Response) (res GroupSettingsRegistrationUpdateRes, _ error) {
+func decodeGroupSettingsRegistrationUpdateResponse(resp *http.Response) (res *GroupSettingsRegistrationUpdateNoContent, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupSettingsRegistrationUpdateOK{}, nil
 	case 204:
 		// Code 204.
 		return &GroupSettingsRegistrationUpdateNoContent{}, nil
@@ -2161,11 +2155,8 @@ func decodeGroupSettingsRegistrationUpdateResponse(resp *http.Response) (res Gro
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeGroupUpdateResponse(resp *http.Response) (res GroupUpdateRes, _ error) {
+func decodeGroupUpdateResponse(resp *http.Response) (res *GroupUpdateNoContent, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		return &GroupUpdateOK{}, nil
 	case 204:
 		// Code 204.
 		return &GroupUpdateNoContent{}, nil
@@ -2247,6 +2238,15 @@ func decodeGroupsResponse(resp *http.Response) (res *GroupsOK, _ error) {
 					Err:         err,
 				}
 				return res, err
+			}
+			// Validate response.
+			if err := func() error {
+				if err := response.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, errors.Wrap(err, "validate")
 			}
 			return &response, nil
 		default:
@@ -2432,43 +2432,11 @@ func decodeUpdateAGroupMemberResponse(resp *http.Response) (res *UpdateAGroupMem
 	return res, errors.Wrap(defRes, "error")
 }
 
-func decodeUpdateGroupSettingsResponse(resp *http.Response) (res *UpdateGroupSettingsOK, _ error) {
+func decodeUpdateGroupSettingsResponse(resp *http.Response) (res *UpdateGroupSettingsNoContent, _ error) {
 	switch resp.StatusCode {
-	case 200:
-		// Code 200.
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf, err := io.ReadAll(resp.Body)
-			if err != nil {
-				return res, err
-			}
-			d := jx.DecodeBytes(buf)
-
-			var response UpdateGroupSettingsOK
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				if err := d.Skip(); err != io.EOF {
-					return errors.New("unexpected trailing data")
-				}
-				return nil
-			}(); err != nil {
-				err = &ogenerrors.DecodeBodyError{
-					ContentType: ct,
-					Body:        buf,
-					Err:         err,
-				}
-				return res, err
-			}
-			return &response, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
+	case 204:
+		// Code 204.
+		return &UpdateGroupSettingsNoContent{}, nil
 	}
 	// Convenient error response.
 	defRes, err := func() (res *ErrorResponseStatusCode, err error) {

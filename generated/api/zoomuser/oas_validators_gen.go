@@ -475,6 +475,14 @@ func (s *GroupAdminsOK) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    300,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.Admins)); err != nil {
+			return errors.Wrap(err, "array")
+		}
 		var failures []validate.FieldError
 		for i, elem := range s.Admins {
 			if err := func() error {
@@ -585,6 +593,62 @@ func (s *GroupMembersCreateReq) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "members",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *GroupMembersOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    2000,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.Members)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "members",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *GroupsOK) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := (validate.Array{
+			MinLength:    0,
+			MinLengthSet: false,
+			MaxLength:    300,
+			MaxLengthSet: true,
+		}).ValidateLength(len(s.Groups)); err != nil {
+			return errors.Wrap(err, "array")
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "groups",
 			Error: err,
 		})
 	}

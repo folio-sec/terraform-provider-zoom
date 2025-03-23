@@ -7908,13 +7908,6 @@ func (s *GroupAdminsCreateCreated) SetIds(val OptString) {
 	s.Ids = val
 }
 
-func (*GroupAdminsCreateCreated) groupAdminsCreateRes() {}
-
-// GroupAdminsCreateOK is response for GroupAdminsCreate operation.
-type GroupAdminsCreateOK struct{}
-
-func (*GroupAdminsCreateOK) groupAdminsCreateRes() {}
-
 type GroupAdminsCreateReq struct {
 	// A list of the administrators to add to a group.
 	Admins []GroupAdminsCreateReqAdminsItem `json:"admins"`
@@ -7960,13 +7953,6 @@ func (s *GroupAdminsCreateReqAdminsItem) SetID(val OptString) {
 
 // GroupAdminsDeleteNoContent is response for GroupAdminsDelete operation.
 type GroupAdminsDeleteNoContent struct{}
-
-func (*GroupAdminsDeleteNoContent) groupAdminsDeleteRes() {}
-
-// GroupAdminsDeleteOK is response for GroupAdminsDelete operation.
-type GroupAdminsDeleteOK struct{}
-
-func (*GroupAdminsDeleteOK) groupAdminsDeleteRes() {}
 
 type GroupAdminsOK struct {
 	Admins []GroupAdminsOKAdminsItem `json:"admins"`
@@ -8151,13 +8137,6 @@ func (s *GroupCreateCreated) SetName(val OptString) {
 func (s *GroupCreateCreated) SetTotalMembers(val OptInt) {
 	s.TotalMembers = val
 }
-
-func (*GroupCreateCreated) groupCreateRes() {}
-
-// GroupCreateOK is response for GroupCreate operation.
-type GroupCreateOK struct{}
-
-func (*GroupCreateOK) groupCreateRes() {}
 
 type GroupCreateReq struct {
 	// The group's name.
@@ -9696,13 +9675,6 @@ func (s *GroupMembersCreateCreated) SetIds(val OptString) {
 	s.Ids = val
 }
 
-func (*GroupMembersCreateCreated) groupMembersCreateRes() {}
-
-// GroupMembersCreateOK is response for GroupMembersCreate operation.
-type GroupMembersCreateOK struct{}
-
-func (*GroupMembersCreateOK) groupMembersCreateRes() {}
-
 type GroupMembersCreateReq struct {
 	// List of Group members.
 	Members []GroupMembersCreateReqMembersItem `json:"members"`
@@ -9749,6 +9721,7 @@ func (s *GroupMembersCreateReqMembersItem) SetID(val OptString) {
 type GroupMembersDeleteNoContent struct{}
 
 type GroupMembersOK struct {
+	// List of a Group Members.
 	Members []GroupMembersOKMembersItem `json:"members"`
 	// The next page token is used to paginate through large result sets. A next page token will be
 	// returned whenever the set of available results exceeds the current page size. The expiration
@@ -10137,13 +10110,6 @@ func (s *GroupSettingsRegistrationOKQuestionsItem) SetSelected(val OptBool) {
 // GroupSettingsRegistrationUpdateNoContent is response for GroupSettingsRegistrationUpdate operation.
 type GroupSettingsRegistrationUpdateNoContent struct{}
 
-func (*GroupSettingsRegistrationUpdateNoContent) groupSettingsRegistrationUpdateRes() {}
-
-// GroupSettingsRegistrationUpdateOK is response for GroupSettingsRegistrationUpdate operation.
-type GroupSettingsRegistrationUpdateOK struct{}
-
-func (*GroupSettingsRegistrationUpdateOK) groupSettingsRegistrationUpdateRes() {}
-
 type GroupSettingsRegistrationUpdateReq struct {
 	// When participants submit registration, do something.
 	Options OptGroupSettingsRegistrationUpdateReqOptions `json:"options"`
@@ -10353,13 +10319,6 @@ func (s *GroupSettingsRegistrationUpdateReqQuestionsItem) SetSelected(val OptBoo
 // GroupUpdateNoContent is response for GroupUpdate operation.
 type GroupUpdateNoContent struct{}
 
-func (*GroupUpdateNoContent) groupUpdateRes() {}
-
-// GroupUpdateOK is response for GroupUpdate operation.
-type GroupUpdateOK struct{}
-
-func (*GroupUpdateOK) groupUpdateRes() {}
-
 type GroupUpdateReq struct {
 	// Group name. It must be unique to one account and less than 128 characters.
 	Name OptString `json:"name"`
@@ -10381,6 +10340,10 @@ type GroupsOK struct {
 	Groups []GroupsOKGroupsItem `json:"groups"`
 	// Total records.
 	TotalRecords OptInt `json:"total_records"`
+	// The next page token paginates through a large set results. A next page token returns whenever the
+	// set of available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
+	NextPageToken OptString `json:"next_page_token"`
 }
 
 // GetGroups returns the value of Groups.
@@ -10393,6 +10356,11 @@ func (s *GroupsOK) GetTotalRecords() OptInt {
 	return s.TotalRecords
 }
 
+// GetNextPageToken returns the value of NextPageToken.
+func (s *GroupsOK) GetNextPageToken() OptString {
+	return s.NextPageToken
+}
+
 // SetGroups sets the value of Groups.
 func (s *GroupsOK) SetGroups(val []GroupsOKGroupsItem) {
 	s.Groups = val
@@ -10401,6 +10369,11 @@ func (s *GroupsOK) SetGroups(val []GroupsOKGroupsItem) {
 // SetTotalRecords sets the value of TotalRecords.
 func (s *GroupsOK) SetTotalRecords(val OptInt) {
 	s.TotalRecords = val
+}
+
+// SetNextPageToken sets the value of NextPageToken.
+func (s *GroupsOK) SetNextPageToken(val OptString) {
+	s.NextPageToken = val
 }
 
 // Merged schema.
@@ -17638,6 +17611,52 @@ func (o OptUserSettingsOK0InMeeting) Or(d UserSettingsOK0InMeeting) UserSettings
 	return d
 }
 
+// NewOptUserSettingsOK0InMeetingAiCompanionQuestions returns new OptUserSettingsOK0InMeetingAiCompanionQuestions with value set to v.
+func NewOptUserSettingsOK0InMeetingAiCompanionQuestions(v UserSettingsOK0InMeetingAiCompanionQuestions) OptUserSettingsOK0InMeetingAiCompanionQuestions {
+	return OptUserSettingsOK0InMeetingAiCompanionQuestions{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUserSettingsOK0InMeetingAiCompanionQuestions is optional UserSettingsOK0InMeetingAiCompanionQuestions.
+type OptUserSettingsOK0InMeetingAiCompanionQuestions struct {
+	Value UserSettingsOK0InMeetingAiCompanionQuestions
+	Set   bool
+}
+
+// IsSet returns true if OptUserSettingsOK0InMeetingAiCompanionQuestions was set.
+func (o OptUserSettingsOK0InMeetingAiCompanionQuestions) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUserSettingsOK0InMeetingAiCompanionQuestions) Reset() {
+	var v UserSettingsOK0InMeetingAiCompanionQuestions
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUserSettingsOK0InMeetingAiCompanionQuestions) SetTo(v UserSettingsOK0InMeetingAiCompanionQuestions) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUserSettingsOK0InMeetingAiCompanionQuestions) Get() (v UserSettingsOK0InMeetingAiCompanionQuestions, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUserSettingsOK0InMeetingAiCompanionQuestions) Or(d UserSettingsOK0InMeetingAiCompanionQuestions) UserSettingsOK0InMeetingAiCompanionQuestions {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptUserSettingsOK0InMeetingClosedCaptioning returns new OptUserSettingsOK0InMeetingClosedCaptioning with value set to v.
 func NewOptUserSettingsOK0InMeetingClosedCaptioning(v UserSettingsOK0InMeetingClosedCaptioning) OptUserSettingsOK0InMeetingClosedCaptioning {
 	return OptUserSettingsOK0InMeetingClosedCaptioning{
@@ -17816,6 +17835,52 @@ func (o OptUserSettingsOK0InMeetingMeetingPolling) Get() (v UserSettingsOK0InMee
 
 // Or returns value if set, or given parameter if does not.
 func (o OptUserSettingsOK0InMeetingMeetingPolling) Or(d UserSettingsOK0InMeetingMeetingPolling) UserSettingsOK0InMeetingMeetingPolling {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion returns new OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion with value set to v.
+func NewOptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion(v UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion {
+	return OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion is optional UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion.
+type OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion struct {
+	Value UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion
+	Set   bool
+}
+
+// IsSet returns true if OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion was set.
+func (o OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Reset() {
+	var v UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) SetTo(v UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Get() (v UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Or(d UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -20529,7 +20594,8 @@ func (s *UpdateAGroupMemberReq) SetTargetGroupID(val OptString) {
 	s.TargetGroupID = val
 }
 
-type UpdateGroupSettingsOK struct{}
+// UpdateGroupSettingsNoContent is response for UpdateGroupSettings operation.
+type UpdateGroupSettingsNoContent struct{}
 
 // UpdateGroupSettingsReq represents sum type.
 type UpdateGroupSettingsReq struct {
@@ -25725,6 +25791,8 @@ type UserOK struct {
 	Jid        OptString `json:"jid"`
 	// The user's job title.
 	JobTitle OptString `json:"job_title"`
+	// The user's cost center.
+	CostCenter OptString `json:"cost_center"`
 	// Default language for the Zoom Web Portal.
 	Language OptString `json:"language"`
 	// Theser's location.
@@ -25964,6 +26032,11 @@ func (s *UserOK) GetJobTitle() OptString {
 	return s.JobTitle
 }
 
+// GetCostCenter returns the value of CostCenter.
+func (s *UserOK) GetCostCenter() OptString {
+	return s.CostCenter
+}
+
 // GetLanguage returns the value of Language.
 func (s *UserOK) GetLanguage() OptString {
 	return s.Language
@@ -26177,6 +26250,11 @@ func (s *UserOK) SetJid(val OptString) {
 // SetJobTitle sets the value of JobTitle.
 func (s *UserOK) SetJobTitle(val OptString) {
 	s.JobTitle = val
+}
+
+// SetCostCenter sets the value of CostCenter.
+func (s *UserOK) SetCostCenter(val OptString) {
+	s.CostCenter = val
 }
 
 // SetLanguage sets the value of Language.
@@ -27591,6 +27669,12 @@ type UserSettingsOK0InMeeting struct {
 	// This setting enables the [**Show Zoom windows during screen share**](https://support.zoom.
 	// us/hc/en-us/articles/360061383571-Showing-Zoom-windows-during-screen-share) feature.
 	AllowShowZoomWindows OptBool `json:"allow_show_zoom_windows"`
+	// As a host, you can generate a summary. Summaries are sent after the meeting has ended based on the
+	// share options.
+	MeetingSummaryWithAiCompanion OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion `json:"meeting_summary_with_ai_companion"`
+	// Allow hosts and invited participants to ask questions to AI Companion during a meeting. Questions
+	// are answered based on the conversation transcript.
+	AiCompanionQuestions OptUserSettingsOK0InMeetingAiCompanionQuestions `json:"ai_companion_questions"`
 }
 
 // GetAllowHostToEnableFocusMode returns the value of AllowHostToEnableFocusMode.
@@ -27943,6 +28027,16 @@ func (s *UserSettingsOK0InMeeting) GetAllowShowZoomWindows() OptBool {
 	return s.AllowShowZoomWindows
 }
 
+// GetMeetingSummaryWithAiCompanion returns the value of MeetingSummaryWithAiCompanion.
+func (s *UserSettingsOK0InMeeting) GetMeetingSummaryWithAiCompanion() OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion {
+	return s.MeetingSummaryWithAiCompanion
+}
+
+// GetAiCompanionQuestions returns the value of AiCompanionQuestions.
+func (s *UserSettingsOK0InMeeting) GetAiCompanionQuestions() OptUserSettingsOK0InMeetingAiCompanionQuestions {
+	return s.AiCompanionQuestions
+}
+
 // SetAllowHostToEnableFocusMode sets the value of AllowHostToEnableFocusMode.
 func (s *UserSettingsOK0InMeeting) SetAllowHostToEnableFocusMode(val OptBool) {
 	s.AllowHostToEnableFocusMode = val
@@ -28293,6 +28387,62 @@ func (s *UserSettingsOK0InMeeting) SetAllowShowZoomWindows(val OptBool) {
 	s.AllowShowZoomWindows = val
 }
 
+// SetMeetingSummaryWithAiCompanion sets the value of MeetingSummaryWithAiCompanion.
+func (s *UserSettingsOK0InMeeting) SetMeetingSummaryWithAiCompanion(val OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) {
+	s.MeetingSummaryWithAiCompanion = val
+}
+
+// SetAiCompanionQuestions sets the value of AiCompanionQuestions.
+func (s *UserSettingsOK0InMeeting) SetAiCompanionQuestions(val OptUserSettingsOK0InMeetingAiCompanionQuestions) {
+	s.AiCompanionQuestions = val
+}
+
+// Allow hosts and invited participants to ask questions to AI Companion during a meeting. Questions
+// are answered based on the conversation transcript.
+type UserSettingsOK0InMeetingAiCompanionQuestions struct {
+	// Whether to allow hosts and invited participants to ask questions to AI Companion during a meeting.
+	Enable OptBool `json:"enable"`
+	// Whether to automatically allow access when the meeting starts.
+	AutoEnable OptBool `json:"auto_enable"`
+	// Defines who can ask questions about this meeting's transcript.
+	// * `1` - All participants and invitees.
+	// * `2` - All participants only from when they join.
+	// * `3` - Only meeting host.
+	// * `4` - Participants and invitees in our organization.
+	// * `5` - Participants in our organization only from when they join.
+	WhoCanAskQuestions OptInt `json:"who_can_ask_questions"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAutoEnable returns the value of AutoEnable.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) GetAutoEnable() OptBool {
+	return s.AutoEnable
+}
+
+// GetWhoCanAskQuestions returns the value of WhoCanAskQuestions.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) GetWhoCanAskQuestions() OptInt {
+	return s.WhoCanAskQuestions
+}
+
+// SetEnable sets the value of Enable.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAutoEnable sets the value of AutoEnable.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) SetAutoEnable(val OptBool) {
+	s.AutoEnable = val
+}
+
+// SetWhoCanAskQuestions sets the value of WhoCanAskQuestions.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) SetWhoCanAskQuestions(val OptInt) {
+	s.WhoCanAskQuestions = val
+}
+
 // The information about the user's closed captioning settings.
 type UserSettingsOK0InMeetingClosedCaptioning struct {
 	// Whether to allow a live transcription service to transcribe meetings.
@@ -28583,6 +28733,51 @@ func (s *UserSettingsOK0InMeetingMeetingPolling) SetAllowHostToUploadImage(val O
 // SetEnable sets the value of Enable.
 func (s *UserSettingsOK0InMeetingMeetingPolling) SetEnable(val OptBool) {
 	s.Enable = val
+}
+
+// As a host, you can generate a summary. Summaries are sent after the meeting has ended based on the
+// share options.
+type UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion struct {
+	// Whether to allow hosts to generate a summary.
+	Enable OptBool `json:"enable"`
+	// Whether to turn on meeting summary automatically when meetings start.
+	AutoEnable OptBool `json:"auto_enable"`
+	// Defines who will receive a summary after this meeting.
+	// * `1` - Only meeting host.
+	// * `2` - Only meeting host, co-hosts, and alternative hosts.
+	// * `3` - Only meeting host and meeting invitees in our organization.
+	// * `4` - All meeting invitees including those outside of our organization.
+	WhoWillReceiveSummary OptInt `json:"who_will_receive_summary"`
+}
+
+// GetEnable returns the value of Enable.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) GetEnable() OptBool {
+	return s.Enable
+}
+
+// GetAutoEnable returns the value of AutoEnable.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) GetAutoEnable() OptBool {
+	return s.AutoEnable
+}
+
+// GetWhoWillReceiveSummary returns the value of WhoWillReceiveSummary.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) GetWhoWillReceiveSummary() OptInt {
+	return s.WhoWillReceiveSummary
+}
+
+// SetEnable sets the value of Enable.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) SetEnable(val OptBool) {
+	s.Enable = val
+}
+
+// SetAutoEnable sets the value of AutoEnable.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) SetAutoEnable(val OptBool) {
+	s.AutoEnable = val
+}
+
+// SetWhoWillReceiveSummary sets the value of WhoWillReceiveSummary.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) SetWhoWillReceiveSummary(val OptInt) {
+	s.WhoWillReceiveSummary = val
 }
 
 // This setting allows hosts to assign participants as sign language interpreters who can interpret
