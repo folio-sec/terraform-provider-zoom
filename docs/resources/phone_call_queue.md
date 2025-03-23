@@ -49,7 +49,7 @@ resource "zoom_phone_call_queue" "inactive" {
 - `cost_center` (String) Cost center name.
 - `department` (String) Department name.
 - `description` (String) Description for the Call Queue.
-- `site_id` (String) Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the Call Queue is assigned.
+- `site_id` (String) The unique identifier of the site. It's required only if [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) have been enabled. This can be retrieved from the [List Phone Sites](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
 - `status` (String) Status of the Call Queue.
   - Allowed: active┃inactive
 

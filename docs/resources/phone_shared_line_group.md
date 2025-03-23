@@ -43,7 +43,7 @@ resource "zoom_phone_shared_line_group" "inactive" {
 
 ### Optional
 
-- `site_id` (String) Unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) where the shared line group is assigned.
+- `site_id` (String) The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites) that you would like to use for the shared line group. You will only be able to add members that belong to this site to the shared line group. This field is required only if the [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites) option has been enabled for the account.
 - `status` (String) The status of the shared line group.
   - Allowed: active┃inactive
 

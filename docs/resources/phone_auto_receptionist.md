@@ -40,6 +40,7 @@ resource "zoom_phone_auto_receptionist" "example" {
 - `cost_center` (String) Cost center name.
 - `department` (String) Department name.
 - `extension_number` (Number) Extension number of the auto receptionist.
+- `site_id` (String) Unique identifier of the site where the auto receptionist is to be assigned. This field is required only if you have [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites) enabled.
 - `timezone` (String) [Timezone](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#timezones) of the Auto Receptionist.
 
 ### Read-Only
