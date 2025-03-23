@@ -20068,11 +20068,18 @@ func (s *GroupsOK) encodeFields(e *jx.Encoder) {
 			s.TotalRecords.Encode(e)
 		}
 	}
+	{
+		if s.NextPageToken.Set {
+			e.FieldStart("next_page_token")
+			s.NextPageToken.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfGroupsOK = [2]string{
+var jsonFieldsNameOfGroupsOK = [3]string{
 	0: "groups",
 	1: "total_records",
+	2: "next_page_token",
 }
 
 // Decode decodes GroupsOK from json.
@@ -20109,6 +20116,16 @@ func (s *GroupsOK) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"total_records\"")
+			}
+		case "next_page_token":
+			if err := func() error {
+				s.NextPageToken.Reset()
+				if err := s.NextPageToken.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"next_page_token\"")
 			}
 		default:
 			return d.Skip()
@@ -25413,6 +25430,39 @@ func (s *OptUserSettingsOK0InMeeting) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes UserSettingsOK0InMeetingAiCompanionQuestions as json.
+func (o OptUserSettingsOK0InMeetingAiCompanionQuestions) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UserSettingsOK0InMeetingAiCompanionQuestions from json.
+func (o *OptUserSettingsOK0InMeetingAiCompanionQuestions) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUserSettingsOK0InMeetingAiCompanionQuestions to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUserSettingsOK0InMeetingAiCompanionQuestions) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUserSettingsOK0InMeetingAiCompanionQuestions) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes UserSettingsOK0InMeetingClosedCaptioning as json.
 func (o OptUserSettingsOK0InMeetingClosedCaptioning) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -25541,6 +25591,39 @@ func (s OptUserSettingsOK0InMeetingMeetingPolling) MarshalJSON() ([]byte, error)
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptUserSettingsOK0InMeetingMeetingPolling) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion as json.
+func (o OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion from json.
+func (o *OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -27568,50 +27651,6 @@ func (s *UpdateAGroupMemberReq) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UpdateAGroupMemberReq) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode implements json.Marshaler.
-func (s *UpdateGroupSettingsOK) Encode(e *jx.Encoder) {
-	e.ObjStart()
-	s.encodeFields(e)
-	e.ObjEnd()
-}
-
-// encodeFields encodes fields.
-func (s *UpdateGroupSettingsOK) encodeFields(e *jx.Encoder) {
-}
-
-var jsonFieldsNameOfUpdateGroupSettingsOK = [0]string{}
-
-// Decode decodes UpdateGroupSettingsOK from json.
-func (s *UpdateGroupSettingsOK) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode UpdateGroupSettingsOK to nil")
-	}
-
-	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		switch string(k) {
-		default:
-			return d.Skip()
-		}
-	}); err != nil {
-		return errors.Wrap(err, "decode UpdateGroupSettingsOK")
-	}
-
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *UpdateGroupSettingsOK) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *UpdateGroupSettingsOK) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -37738,6 +37777,12 @@ func (s *UserOK) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.CostCenter.Set {
+			e.FieldStart("cost_center")
+			s.CostCenter.Encode(e)
+		}
+	}
+	{
 		if s.Language.Set {
 			e.FieldStart("language")
 			s.Language.Encode(e)
@@ -37855,7 +37900,7 @@ func (s *UserOK) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfUserOK = [43]string{
+var jsonFieldsNameOfUserOK = [44]string{
 	0:  "id",
 	1:  "created_at",
 	2:  "dept",
@@ -37881,24 +37926,25 @@ var jsonFieldsNameOfUserOK = [43]string{
 	22: "im_group_ids",
 	23: "jid",
 	24: "job_title",
-	25: "language",
-	26: "location",
-	27: "login_types",
-	28: "manager",
-	29: "personal_meeting_url",
-	30: "phone_country",
-	31: "phone_number",
-	32: "phone_numbers",
-	33: "pic_url",
-	34: "plan_united_type",
-	35: "pronouns",
-	36: "pronouns_option",
-	37: "role_id",
-	38: "status",
-	39: "vanity_url",
-	40: "verified",
-	41: "cluster",
-	42: "zoom_one_type",
+	25: "cost_center",
+	26: "language",
+	27: "location",
+	28: "login_types",
+	29: "manager",
+	30: "personal_meeting_url",
+	31: "phone_country",
+	32: "phone_number",
+	33: "phone_numbers",
+	34: "pic_url",
+	35: "plan_united_type",
+	36: "pronouns",
+	37: "pronouns_option",
+	38: "role_id",
+	39: "status",
+	40: "vanity_url",
+	41: "verified",
+	42: "cluster",
+	43: "zoom_one_type",
 }
 
 // Decode decodes UserOK from json.
@@ -38187,6 +38233,16 @@ func (s *UserOK) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"job_title\"")
+			}
+		case "cost_center":
+			if err := func() error {
+				s.CostCenter.Reset()
+				if err := s.CostCenter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"cost_center\"")
 			}
 		case "language":
 			if err := func() error {
@@ -40986,9 +41042,21 @@ func (s *UserSettingsOK0InMeeting) encodeFields(e *jx.Encoder) {
 			s.AllowShowZoomWindows.Encode(e)
 		}
 	}
+	{
+		if s.MeetingSummaryWithAiCompanion.Set {
+			e.FieldStart("meeting_summary_with_ai_companion")
+			s.MeetingSummaryWithAiCompanion.Encode(e)
+		}
+	}
+	{
+		if s.AiCompanionQuestions.Set {
+			e.FieldStart("ai_companion_questions")
+			s.AiCompanionQuestions.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfUserSettingsOK0InMeeting = [70]string{
+var jsonFieldsNameOfUserSettingsOK0InMeeting = [72]string{
 	0:  "allow_host_to_enable_focus_mode",
 	1:  "allow_users_to_delete_messages_in_meeting_chat",
 	2:  "allow_live_streaming",
@@ -41059,6 +41127,8 @@ var jsonFieldsNameOfUserSettingsOK0InMeeting = [70]string{
 	67: "workplace_by_facebook",
 	68: "transfer_meetings_between_devices",
 	69: "allow_show_zoom_windows",
+	70: "meeting_summary_with_ai_companion",
+	71: "ai_companion_questions",
 }
 
 // Decode decodes UserSettingsOK0InMeeting from json.
@@ -41788,6 +41858,26 @@ func (s *UserSettingsOK0InMeeting) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"allow_show_zoom_windows\"")
 			}
+		case "meeting_summary_with_ai_companion":
+			if err := func() error {
+				s.MeetingSummaryWithAiCompanion.Reset()
+				if err := s.MeetingSummaryWithAiCompanion.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"meeting_summary_with_ai_companion\"")
+			}
+		case "ai_companion_questions":
+			if err := func() error {
+				s.AiCompanionQuestions.Reset()
+				if err := s.AiCompanionQuestions.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"ai_companion_questions\"")
+			}
 		default:
 			return d.Skip()
 		}
@@ -41808,6 +41898,103 @@ func (s *UserSettingsOK0InMeeting) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UserSettingsOK0InMeeting) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) encodeFields(e *jx.Encoder) {
+	{
+		if s.Enable.Set {
+			e.FieldStart("enable")
+			s.Enable.Encode(e)
+		}
+	}
+	{
+		if s.AutoEnable.Set {
+			e.FieldStart("auto_enable")
+			s.AutoEnable.Encode(e)
+		}
+	}
+	{
+		if s.WhoCanAskQuestions.Set {
+			e.FieldStart("who_can_ask_questions")
+			s.WhoCanAskQuestions.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUserSettingsOK0InMeetingAiCompanionQuestions = [3]string{
+	0: "enable",
+	1: "auto_enable",
+	2: "who_can_ask_questions",
+}
+
+// Decode decodes UserSettingsOK0InMeetingAiCompanionQuestions from json.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UserSettingsOK0InMeetingAiCompanionQuestions to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "enable":
+			if err := func() error {
+				s.Enable.Reset()
+				if err := s.Enable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"enable\"")
+			}
+		case "auto_enable":
+			if err := func() error {
+				s.AutoEnable.Reset()
+				if err := s.AutoEnable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"auto_enable\"")
+			}
+		case "who_can_ask_questions":
+			if err := func() error {
+				s.WhoCanAskQuestions.Reset()
+				if err := s.WhoCanAskQuestions.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"who_can_ask_questions\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UserSettingsOK0InMeetingAiCompanionQuestions")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UserSettingsOK0InMeetingAiCompanionQuestions) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -42392,6 +42579,103 @@ func (s *UserSettingsOK0InMeetingMeetingPolling) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *UserSettingsOK0InMeetingMeetingPolling) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) encodeFields(e *jx.Encoder) {
+	{
+		if s.Enable.Set {
+			e.FieldStart("enable")
+			s.Enable.Encode(e)
+		}
+	}
+	{
+		if s.AutoEnable.Set {
+			e.FieldStart("auto_enable")
+			s.AutoEnable.Encode(e)
+		}
+	}
+	{
+		if s.WhoWillReceiveSummary.Set {
+			e.FieldStart("who_will_receive_summary")
+			s.WhoWillReceiveSummary.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfUserSettingsOK0InMeetingMeetingSummaryWithAiCompanion = [3]string{
+	0: "enable",
+	1: "auto_enable",
+	2: "who_will_receive_summary",
+}
+
+// Decode decodes UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion from json.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "enable":
+			if err := func() error {
+				s.Enable.Reset()
+				if err := s.Enable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"enable\"")
+			}
+		case "auto_enable":
+			if err := func() error {
+				s.AutoEnable.Reset()
+				if err := s.AutoEnable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"auto_enable\"")
+			}
+		case "who_will_receive_summary":
+			if err := func() error {
+				s.WhoWillReceiveSummary.Reset()
+				if err := s.WhoWillReceiveSummary.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"who_will_receive_summary\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *UserSettingsOK0InMeetingMeetingSummaryWithAiCompanion) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

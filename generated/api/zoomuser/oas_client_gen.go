@@ -244,7 +244,7 @@ type Invoker interface {
 	// **Scopes:** `group:read:admin`,`group:write:admin`
 	// **Granular Scopes:** `group:read:group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// GET /groups/{groupId}
 	Group(ctx context.Context, params GroupParams) (*GroupOK, error)
@@ -257,7 +257,7 @@ type Invoker interface {
 	// **Scopes:** `group:read:admin`,`group:write:admin`
 	// **Granular Scopes:** `group:read:administrator:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /groups/{groupId}/admins
 	GroupAdmins(ctx context.Context, params GroupAdminsParams) (*GroupAdminsOK, error)
@@ -270,10 +270,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:write:administrator:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// POST /groups/{groupId}/admins
-	GroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (GroupAdminsCreateRes, error)
+	GroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (*GroupAdminsCreateCreated, error)
 	// GroupAdminsDelete invokes groupAdminsDelete operation.
 	//
 	// Use this API to remove a [group](https://support.zoom.
@@ -283,10 +283,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:delete:administrator:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /groups/{groupId}/admins/{userId}
-	GroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) (GroupAdminsDeleteRes, error)
+	GroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) error
 	// GroupChannels invokes groupChannels operation.
 	//
 	// Returns a list of channels for a [group](https://support.zoom.
@@ -312,10 +312,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:write:group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// POST /groups
-	GroupCreate(ctx context.Context, request OptGroupCreateReq) (GroupCreateRes, error)
+	GroupCreate(ctx context.Context, request OptGroupCreateReq) (*GroupCreateCreated, error)
 	// GroupDelete invokes groupDelete operation.
 	//
 	// Delete an entire [group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-).
@@ -350,7 +350,7 @@ type Invoker interface {
 	// **Scopes:** `group:read:admin`,`group:write:admin`
 	// **Granular Scopes:** `group:read:list_members:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /groups/{groupId}/members
 	GroupMembers(ctx context.Context, params GroupMembersParams) (*GroupMembersOK, error)
@@ -363,10 +363,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:write:member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// POST /groups/{groupId}/members
-	GroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (GroupMembersCreateRes, error)
+	GroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (*GroupMembersCreateCreated, error)
 	// GroupMembersDelete invokes groupMembersDelete operation.
 	//
 	// Use this API to remove a user from a [group](https://support.zoom.
@@ -388,7 +388,7 @@ type Invoker interface {
 	// **Scopes:** `group:read:admin`,`group:write:admin`
 	// **Granular Scopes:** `group:read:registration_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /groups/{groupId}/settings/registration
 	GroupSettingsRegistration(ctx context.Context, params GroupSettingsRegistrationParams) (*GroupSettingsRegistrationOK, error)
@@ -404,10 +404,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:update:registration_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// PATCH /groups/{groupId}/settings/registration
-	GroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) (GroupSettingsRegistrationUpdateRes, error)
+	GroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) error
 	// GroupUpdate invokes groupUpdate operation.
 	//
 	// Update a [group](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-) under your
@@ -416,10 +416,10 @@ type Invoker interface {
 	// **Scopes:** `group:write:admin`
 	// **Granular Scopes:** `group:update:group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// PATCH /groups/{groupId}
-	GroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) (GroupUpdateRes, error)
+	GroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) error
 	// Groups invokes groups operation.
 	//
 	// List [groups](https://support.zoom.us/hc/en-us/articles/204519819-Group-Management-) under an
@@ -428,10 +428,10 @@ type Invoker interface {
 	// **Scopes:** `group:read:admin`,`group:write:admin`
 	// **Granular Scopes:** `group:read:list_groups:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Medium`.
+	// `MEDIUM`.
 	//
 	// GET /groups
-	Groups(ctx context.Context) (*GroupsOK, error)
+	Groups(ctx context.Context, params GroupsParams) (*GroupsOK, error)
 	// ListCollaborationDevices invokes listCollaborationDevices operation.
 	//
 	// List a user's collaboration devices. For user-level apps, pass [the `me` value](https://developers.
@@ -3445,7 +3445,7 @@ func (c *Client) sendGetUserPresenceStatus(ctx context.Context, params GetUserPr
 // **Scopes:** `group:read:admin`,`group:write:admin`
 // **Granular Scopes:** `group:read:group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // GET /groups/{groupId}
 func (c *Client) Group(ctx context.Context, params GroupParams) (*GroupOK, error) {
@@ -3586,7 +3586,7 @@ func (c *Client) sendGroup(ctx context.Context, params GroupParams) (res *GroupO
 // **Scopes:** `group:read:admin`,`group:write:admin`
 // **Granular Scopes:** `group:read:administrator:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /groups/{groupId}/admins
 func (c *Client) GroupAdmins(ctx context.Context, params GroupAdminsParams) (*GroupAdminsOK, error) {
@@ -3766,15 +3766,15 @@ func (c *Client) sendGroupAdmins(ctx context.Context, params GroupAdminsParams) 
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:write:administrator:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // POST /groups/{groupId}/admins
-func (c *Client) GroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (GroupAdminsCreateRes, error) {
+func (c *Client) GroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (*GroupAdminsCreateCreated, error) {
 	res, err := c.sendGroupAdminsCreate(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (res GroupAdminsCreateRes, err error) {
+func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdminsCreateReq, params GroupAdminsCreateParams) (res *GroupAdminsCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupAdminsCreate"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -3911,15 +3911,15 @@ func (c *Client) sendGroupAdminsCreate(ctx context.Context, request OptGroupAdmi
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:delete:administrator:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /groups/{groupId}/admins/{userId}
-func (c *Client) GroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) (GroupAdminsDeleteRes, error) {
-	res, err := c.sendGroupAdminsDelete(ctx, params)
-	return res, err
+func (c *Client) GroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) error {
+	_, err := c.sendGroupAdminsDelete(ctx, params)
+	return err
 }
 
-func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) (res GroupAdminsDeleteRes, err error) {
+func (c *Client) sendGroupAdminsDelete(ctx context.Context, params GroupAdminsDeleteParams) (res *GroupAdminsDeleteNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupAdminsDelete"),
 		semconv.HTTPRequestMethodKey.String("DELETE"),
@@ -4216,15 +4216,15 @@ func (c *Client) sendGroupChannels(ctx context.Context, params GroupChannelsPara
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:write:group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // POST /groups
-func (c *Client) GroupCreate(ctx context.Context, request OptGroupCreateReq) (GroupCreateRes, error) {
+func (c *Client) GroupCreate(ctx context.Context, request OptGroupCreateReq) (*GroupCreateCreated, error) {
 	res, err := c.sendGroupCreate(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq) (res GroupCreateRes, err error) {
+func (c *Client) sendGroupCreate(ctx context.Context, request OptGroupCreateReq) (res *GroupCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupCreate"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -4648,7 +4648,7 @@ func (c *Client) sendGroupLockedSettings(ctx context.Context, request OptGroupLo
 // **Scopes:** `group:read:admin`,`group:write:admin`
 // **Granular Scopes:** `group:read:list_members:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /groups/{groupId}/members
 func (c *Client) GroupMembers(ctx context.Context, params GroupMembersParams) (*GroupMembersOK, error) {
@@ -4845,15 +4845,15 @@ func (c *Client) sendGroupMembers(ctx context.Context, params GroupMembersParams
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:write:member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // POST /groups/{groupId}/members
-func (c *Client) GroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (GroupMembersCreateRes, error) {
+func (c *Client) GroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (*GroupMembersCreateCreated, error) {
 	res, err := c.sendGroupMembersCreate(ctx, request, params)
 	return res, err
 }
 
-func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (res GroupMembersCreateRes, err error) {
+func (c *Client) sendGroupMembersCreate(ctx context.Context, request OptGroupMembersCreateReq, params GroupMembersCreateParams) (res *GroupMembersCreateCreated, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupMembersCreate"),
 		semconv.HTTPRequestMethodKey.String("POST"),
@@ -5149,7 +5149,7 @@ func (c *Client) sendGroupMembersDelete(ctx context.Context, params GroupMembers
 // **Scopes:** `group:read:admin`,`group:write:admin`
 // **Granular Scopes:** `group:read:registration_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /groups/{groupId}/settings/registration
 func (c *Client) GroupSettingsRegistration(ctx context.Context, params GroupSettingsRegistrationParams) (*GroupSettingsRegistrationOK, error) {
@@ -5315,15 +5315,15 @@ func (c *Client) sendGroupSettingsRegistration(ctx context.Context, params Group
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:update:registration_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // PATCH /groups/{groupId}/settings/registration
-func (c *Client) GroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) (GroupSettingsRegistrationUpdateRes, error) {
-	res, err := c.sendGroupSettingsRegistrationUpdate(ctx, request, params)
-	return res, err
+func (c *Client) GroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) error {
+	_, err := c.sendGroupSettingsRegistrationUpdate(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) (res GroupSettingsRegistrationUpdateRes, err error) {
+func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, request OptGroupSettingsRegistrationUpdateReq, params GroupSettingsRegistrationUpdateParams) (res *GroupSettingsRegistrationUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupSettingsRegistrationUpdate"),
 		semconv.HTTPRequestMethodKey.String("PATCH"),
@@ -5480,15 +5480,15 @@ func (c *Client) sendGroupSettingsRegistrationUpdate(ctx context.Context, reques
 // **Scopes:** `group:write:admin`
 // **Granular Scopes:** `group:update:group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // PATCH /groups/{groupId}
-func (c *Client) GroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) (GroupUpdateRes, error) {
-	res, err := c.sendGroupUpdate(ctx, request, params)
-	return res, err
+func (c *Client) GroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) error {
+	_, err := c.sendGroupUpdate(ctx, request, params)
+	return err
 }
 
-func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) (res GroupUpdateRes, err error) {
+func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq, params GroupUpdateParams) (res *GroupUpdateNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groupUpdate"),
 		semconv.HTTPRequestMethodKey.String("PATCH"),
@@ -5623,15 +5623,15 @@ func (c *Client) sendGroupUpdate(ctx context.Context, request OptGroupUpdateReq,
 // **Scopes:** `group:read:admin`,`group:write:admin`
 // **Granular Scopes:** `group:read:list_groups:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Medium`.
+// `MEDIUM`.
 //
 // GET /groups
-func (c *Client) Groups(ctx context.Context) (*GroupsOK, error) {
-	res, err := c.sendGroups(ctx)
+func (c *Client) Groups(ctx context.Context, params GroupsParams) (*GroupsOK, error) {
+	res, err := c.sendGroups(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
+func (c *Client) sendGroups(ctx context.Context, params GroupsParams) (res *GroupsOK, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("groups"),
 		semconv.HTTPRequestMethodKey.String("GET"),
@@ -5670,6 +5670,44 @@ func (c *Client) sendGroups(ctx context.Context) (res *GroupsOK, err error) {
 	var pathParts [1]string
 	pathParts[0] = "/groups"
 	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeQueryParams"
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "page_size" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page_size",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.PageSize.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "next_page_token" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "next_page_token",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.NextPageToken.Get(); ok {
+				return e.EncodeValue(conv.StringToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
 
 	stage = "EncodeRequest"
 	r, err := ht.NewRequest(ctx, "GET", u)
@@ -6067,7 +6105,7 @@ func (c *Client) UpdateGroupSettings(ctx context.Context, request OptUpdateGroup
 	return err
 }
 
-func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateGroupSettingsReq, params UpdateGroupSettingsParams) (res *UpdateGroupSettingsOK, err error) {
+func (c *Client) sendUpdateGroupSettings(ctx context.Context, request OptUpdateGroupSettingsReq, params UpdateGroupSettingsParams) (res *UpdateGroupSettingsNoContent, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("updateGroupSettings"),
 		semconv.HTTPRequestMethodKey.String("PATCH"),

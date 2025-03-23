@@ -151,9 +151,8 @@ type GroupParams struct {
 
 // GroupAdminsParams is parameters of groupAdmins operation.
 type GroupAdminsParams struct {
-	// The group ID.
-	// Retrieve by calling the [**List groups**](/docs/api-reference/zoom-api/methods#operation/groups)
-	// API.
+	// The group ID.   Retrieve by calling the [**List
+	// groups**](/docs/api-reference/zoom-api/methods#operation/groups) API.
 	GroupId string
 	// The number of records returned within a single API call.
 	PageSize OptInt
@@ -251,6 +250,7 @@ type GroupSettingsRegistrationParams struct {
 
 // GroupSettingsRegistrationUpdateParams is parameters of groupSettingsRegistrationUpdate operation.
 type GroupSettingsRegistrationUpdateParams struct {
+	// The group ID. Retrieve by calling the List groups API.
 	GroupId string
 	// The registration type:
 	// * `webinar` &mdash; webinar.
@@ -263,6 +263,16 @@ type GroupUpdateParams struct {
 	// Retrieve by calling the [**List groups**](/docs/api-reference/zoom-api/methods#operation/groups)
 	// API.
 	GroupId string
+}
+
+// GroupsParams is parameters of groups operation.
+type GroupsParams struct {
+	// The number of records returned in a single API call. The maximum is 300.
+	PageSize OptInt
+	// The next page token paginates through a set of large results. A next page token is returned
+	// whenever the set of available results exceeds the current page size. The expiration period for
+	// this token is 15 minutes.
+	NextPageToken OptString
 }
 
 // ListCollaborationDevicesParams is parameters of listCollaborationDevices operation.

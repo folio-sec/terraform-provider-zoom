@@ -181,10 +181,12 @@ function flattenOneOf(obj) {
   return result;
 }
 
-function phonePatch(spec) {
+function flattenOneOfPatch(spec) {
   // Apply the flattening to the entire spec.paths object
   spec.paths = flattenOneOf(spec.paths);
+}
 
+function phonePatch(spec) {
   /**
    * The oneOf atrribute of ogen is
    * - Unique per-object attributes
@@ -411,23 +413,6 @@ function userPatch(spec) {
     delete pmi.maxLength
     delete pmi.minLength
   }
-
-  // The oneOf the same type of path parameter is invalid as OpenAPI
-  if (spec.paths['/groups/{groupId}/admins/{userId}']) {
-    const path = '/groups/{groupId}/admins/{userId}';
-    spec.paths[path].delete.parameters = spec.paths[path].delete.parameters.map((parameter) => {
-      if (parameter.name === 'userId') {
-        parameter.schema = {
-          ...parameter.schema.oneOf[0],
-        };
-      }
-      return parameter;
-    });
-  }
-
-
-  // Apply the flattening to the entire spec.paths object
-  spec.paths = flattenOneOf(spec.paths);
 }
 
 const buffers = [];
@@ -442,6 +427,7 @@ const buffers = [];
   const spec = JSON.parse(text);
 
   enableConvenientErrorsPatch(spec);
+  flattenOneOfPatch(spec);
   phonePatch(spec);
   userPatch(spec);
   recursionProcess(spec);
