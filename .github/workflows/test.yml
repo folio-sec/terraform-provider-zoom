@@ -19,8 +19,12 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5
         with:
           go-version-file: 'go.mod'
@@ -37,8 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
+    timeout-minutes: 5
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5
         with:
           go-version-file: 'go.mod'
@@ -54,8 +63,13 @@ jobs:
       matrix:
         terraform-version:
           - '1.5.*'
+    timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5
         with:
           go-version-file: 'go.mod'
@@ -75,6 +89,7 @@ jobs:
       - unit
       - acceptance
     timeout-minutes: 5
+    permissions: {}
     if: ${{ always() }}
     steps:
       - name: Success
