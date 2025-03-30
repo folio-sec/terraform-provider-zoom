@@ -33,6 +33,9 @@ jobs:
     permissions:
       contents: read
     steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
       - run: |
           gh release download "v${GHALINT_VERSION}" \
             --repo suzuki-shunsuke/ghalint \
@@ -43,10 +46,10 @@ jobs:
           GHALINT_VERSION: 1.2.3
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - run: |
+          cd /tmp
           mkdir dist
           tar -xvf ghalint.tar.gz -C ./dist/
           sudo mv ./dist/ghalint /usr/local/bin
           rm -rf ./dist ghalint.tar.gz
         shell: bash
-        working-directory: /tmp
       - run: ghalint run
