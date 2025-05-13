@@ -52,7 +52,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - run: go test -race -v -shffle on -cover ./...
+      - run:  make test TESTARGS="-cover ./..."
   acceptance:
     name: Acceptance Tests (Terraform ${{ matrix.terraform-version }})
     runs-on: ubuntu-latest
@@ -78,9 +78,7 @@ jobs:
         with:
           terraform_version: ${{ matrix.terraform-version }}
           terraform_wrapper: false
-      - run: go test -race -v -shuffle on -cover ./...
-        env:
-          TF_ACC: '1'
+      - run: make testacc TESTARGS="-cover ./..."
   summary:
     name: Summary
     runs-on: ubuntu-latest

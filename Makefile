@@ -1,4 +1,4 @@
-TEST?=$$(go list ./... |grep -v 'vendor')
+TEST?=$$(go list ./... | grep -v 'vendor' | grep -v 'examples')
 DEV      := folio-sec
 PROVIDER := zoom
 VERSION := v$(shell cat version)
@@ -40,7 +40,7 @@ lint:
 .PHONY: test
 test:
 	@go vet ./...
-	go test $(TEST) -race -v -shuffle on
+	go test $(TEST) -race -v $(TESTARGS) -shuffle on 
 
 test/%:
 	@go vet ./$(@:test/%=%)
@@ -48,7 +48,7 @@ test/%:
 
 .PHONY: testacc
 testacc:
-	TF_ACC=1 go test $(TEST) -race -v $(TESTARGS) -shuffle on -ldflags="-X=github.com/folio-sec/terraform-provider-zoom/version.ProviderVersion=acc"
+	TF_ACC=1 go test $(TEST) -race -v $(TESTARGS) -shuffle on
 
 .PHONY: generate
 generate:
