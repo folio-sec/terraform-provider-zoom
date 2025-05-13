@@ -402,6 +402,24 @@ function phonePatch(spec) {
       example: "JP Unlimited Calling Plan",
     };
   }
+
+  // GET /phone/sites should have sites[].level property
+  if (spec.paths['/phone/sites']) {
+    spec.paths['/phone/sites']['get']['responses']['200']['content']['application/json']['schema']['properties']['sites']['items']['properties']['level'] = {
+      type: "string",
+      description: "The level of the site.",
+      example: "main",
+    }
+  }
+  
+  // GET /phone/sites/{siteId} should have level property
+  if (spec.paths['/phone/sites/{siteId}']) {
+    spec.paths['/phone/sites/{siteId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['level'] = {
+      type: "string",
+      description: "The level of the site.",
+      example: "main",
+    }
+  }
 }
 
 function userPatch(spec) {

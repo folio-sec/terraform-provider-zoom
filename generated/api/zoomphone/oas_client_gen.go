@@ -39,8 +39,10 @@ type Invoker interface {
 	// * A Zoom Phone license
 	// * Account owner or a [role](https://support.zoom.
 	// us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management
-	// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -55,8 +57,10 @@ type Invoker interface {
 	// * A Zoom Phone license
 	// * Account owner or a [role](https://support.zoom.
 	// us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management
-	// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -70,8 +74,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -83,8 +89,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_voicemail:read:admin`
-	// **Granular Scopes:** `phone:read:list_voicemails:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_voicemail:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_voicemails:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -97,8 +105,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:carrier_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:carrier_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -111,8 +121,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:inbound_block_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:inbound_block_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -124,8 +136,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -137,8 +151,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:alert_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:alert_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -151,8 +167,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:write:audio`,`phone:write:audio:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:audio`,`phone:write:audio:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -169,8 +187,10 @@ type Invoker interface {
 	// available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:blocked_list:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -186,8 +206,10 @@ type Invoker interface {
 	// **Size and quantity limits for audio attachments:**
 	// * Up to 5 attachments
 	// * Each file size should be no more than 1MB
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:write:batch_audios`,`phone:write:batch_audios:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:batch_audios`,`phone:write:batch_audios:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -202,8 +224,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:auto_receptionist:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:auto_receptionist:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -215,8 +239,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:byo_carrier_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:byo_carrier_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -225,13 +251,15 @@ type Invoker interface {
 	// AddCQPolicySubSetting invokes addCQPolicySubSetting operation.
 	//
 	// Adds the policy subsetting for a specific [call queue](https://support.zoom.
-	// us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this
-	// API to set up shared access members.
+	// us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use set up
+	// shared access members.
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_queue_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_queue_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -248,8 +276,10 @@ type Invoker interface {
 	// time.**
 	// **Prerequisites:**
 	// * A Pro or a higher account with Zoom Phone enabled
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_handling_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_handling_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -263,8 +293,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -278,8 +310,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -295,8 +329,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -308,8 +344,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -323,8 +361,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -337,8 +377,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:emergency_address:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:emergency_address:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -355,8 +397,10 @@ type Invoker interface {
 	// * Account owner or admin permissions
 	// * [Supported device](https://support.zoom.
 	// us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:device_extension:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:device_extension:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -369,9 +413,10 @@ type Invoker interface {
 	// Common Area, Zoom Room or User.
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:write:extension_inbound_block_rule:admin`,
-	// `phone:write:extension_inbound_block_rule`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:extension_inbound_block_rule:admin`,`phone:write:extension_inbound_block_rule`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -383,8 +428,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:external_contact:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:external_contact:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -397,8 +444,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:firmware_update_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:firmware_update_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -412,8 +461,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_pickup_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_pickup_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -426,8 +477,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_pickup_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_pickup_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -439,8 +492,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:emergency_location:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:emergency_location:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -453,8 +508,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:monitoring_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:monitoring_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -464,8 +521,10 @@ type Invoker interface {
 	//
 	// Adds members to a [private directory](https://support.zoom.
 	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:private_directory_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:private_directory_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -478,8 +537,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan.
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_queue_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_queue_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -493,8 +554,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid Shared Line Group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:shared_line_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:shared_line_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -508,8 +571,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -524,8 +589,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-	// **Granular Scopes:** `phone:write:peering_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone_peering:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -543,8 +610,10 @@ type Invoker interface {
 	// * Account owner or admin permissions
 	// * [Supported device](https://support.zoom.
 	// us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -558,8 +627,10 @@ type Invoker interface {
 	// <br><br>**Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:auto_receptionist_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:auto_receptionist_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -572,8 +643,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:provision_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:provision_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -586,8 +659,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:role_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:role_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -603,8 +678,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:routing_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:routing_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -616,8 +693,10 @@ type Invoker interface {
 	// us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this
 	// API to set up shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone
 	// license.* Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:shared_line_group_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:shared_line_group_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -630,8 +709,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or enterprise Zoom account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:setting_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:setting_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -645,8 +726,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:site_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:site_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -658,8 +741,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -674,8 +759,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:site_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:site_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -687,9 +774,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:write:user_customized_number`,
-	// `phone:write:user_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:user_customized_number`,`phone:write:user_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -701,8 +789,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -722,8 +812,10 @@ type Invoker interface {
 	// Settings**
 	// **Prerequisites:**
 	// * A Business or Enterprise account
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:write:shared_setting`,`phone:write:shared_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:shared_setting`,`phone:write:shared_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -736,8 +828,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -750,8 +844,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -765,8 +861,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:room:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:room:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -779,8 +877,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:apply_template_to_common_areas:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:apply_template_to_common_areas:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -796,8 +896,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:write:calling_plan`,`phone:write:calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:calling_plan`,`phone:write:calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -810,8 +912,10 @@ type Invoker interface {
 	// Room](https://support.zoom.
 	// us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc). Up to 200 numbers at a
 	// time.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:room_calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:room_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -824,8 +928,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area_calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -838,8 +944,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:sms_campaign_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:sms_campaign_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -850,8 +958,10 @@ type Invoker interface {
 	// Assigns a [phone number](https://support.zoom.
 	// us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom
 	// Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:write:user_number`,`phone:write:user_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:user_number`,`phone:write:user_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -864,8 +974,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:room_phone_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:room_phone_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -880,8 +992,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:auto_receptionist_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:auto_receptionist_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -896,8 +1010,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid Shared Line Group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:shared_line_group_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:shared_line_group_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -910,8 +1026,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -927,8 +1045,10 @@ type Invoker interface {
 	// - Pro or higher account plan
 	// * Account owner or admin permissions
 	// - Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_queue_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -940,8 +1060,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:batch_emergency_locations:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:batch_emergency_locations:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -955,8 +1077,10 @@ type Invoker interface {
 	// us/docs/api-reference/zoom-api/methods#tag/Users/operation/users).
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:batch_users:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:batch_users:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -969,8 +1093,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:update:device_line_keys`,`phone:update:device_line_keys:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:device_line_keys`,`phone:update:device_line_keys:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -983,8 +1109,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:update:line_keys`,`phone:update:line_keys:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:line_keys`,`phone:update:line_keys:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -997,8 +1125,10 @@ type Invoker interface {
 	// with a group of phone users or common areas. This gives members of the shared line group access to
 	// the group's direct phone number and voicemail. **Prerequisites:**    * Pro or higher account with
 	// Zoom Phone license.* Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:shared_line_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1011,8 +1141,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:carrier_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:carrier_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1030,8 +1162,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:call_queue:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1043,8 +1177,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:monitoring_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:monitoring_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1058,8 +1194,10 @@ type Invoker interface {
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
 	// * Pro or a higher account with Zoom Phone enabled.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:site:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:site:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1072,8 +1210,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:role_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:role_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1088,8 +1228,10 @@ type Invoker interface {
 	// to dial those numbers).
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:blocked_list:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1105,8 +1247,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1120,8 +1264,10 @@ type Invoker interface {
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
 	// * Device must not have been assigned to a user.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1133,8 +1279,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:external_contact:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:external_contact:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1149,8 +1297,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid Shared Line Group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1164,8 +1314,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid shared line group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_group_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1179,8 +1331,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1192,8 +1346,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:inbound_block_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:inbound_block_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1206,8 +1362,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:extension_inbound_block_rule_stat:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:extension_inbound_block_rule_stat:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1219,8 +1377,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1232,8 +1392,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:alert_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:alert_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1245,8 +1407,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:delete:audio`,`phone:delete:audio:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:audio`,`phone:delete:audio:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1262,8 +1426,10 @@ type Invoker interface {
 	// routing options.
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:auto_receptionist:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:auto_receptionist:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1275,8 +1441,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:carrier_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:carrier_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1293,8 +1461,10 @@ type Invoker interface {
 	// time.**
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone enabled
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_handling_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_handling_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1309,8 +1479,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
-	// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_log`,`phone:delete:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1324,8 +1496,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-	// **Granular Scopes:** `phone:delete:call_recording`,`phone:delete:call_recording:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_recording`,`phone:delete:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1338,8 +1512,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1351,8 +1527,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1365,8 +1543,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:common_area_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:common_area_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1378,8 +1558,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:emergency_address:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:emergency_address:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -1391,8 +1573,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:device_extension:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:device_extension:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1405,9 +1589,10 @@ type Invoker interface {
 	// Line Group, Common Area, Zoom Room or User.
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:delete:extension_inbound_block_rule:admin`,
-	// `phone:delete:extension_inbound_block_rule`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:extension_inbound_block_rule:admin`,`phone:delete:extension_inbound_block_rule`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1420,8 +1605,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:firmware_update_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:firmware_update_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1434,8 +1621,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_pickup_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_pickup_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1448,8 +1637,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:delete:line_keys`,`phone:delete:line_keys:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:line_keys`,`phone:delete:line_keys:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1461,8 +1652,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:emergency_location:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:emergency_location:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1477,8 +1670,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid Shared Line Group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1491,8 +1686,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:monitoring_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:monitoring_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1506,8 +1703,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1522,8 +1721,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-	// **Granular Scopes:** `phone:delete:peering_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone_peering:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1537,8 +1738,10 @@ type Invoker interface {
 	// * Pro or higher account with Zoom Phone license.
 	// * A valid Shared Line Group
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_group_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1551,8 +1754,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:role:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:role:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1568,8 +1773,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * [Multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites)
 	// must be enabled.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:site:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:site:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1583,8 +1790,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:auto_receptionist_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:auto_receptionist_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1597,8 +1806,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:provision_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:provision_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1614,8 +1825,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:routing_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:routing_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1629,8 +1842,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:site_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:site_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1642,8 +1857,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1657,8 +1874,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:site_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:site_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1673,8 +1892,10 @@ type Invoker interface {
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// * The user must have been previously assigned a Zoom Phone number
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -1689,8 +1910,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Belong to a Business or Enterprise account
 	// * Have a Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
-	// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_log`,`phone:delete:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1702,9 +1925,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:delete:user_customized_number`,
-	// `phone:delete:user_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:user_customized_number`,`phone:delete:user_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1716,8 +1940,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1737,8 +1963,10 @@ type Invoker interface {
 	// Settings**
 	// **Prerequisites:**
 	// * A Business or Enterprise account
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:delete:shared_setting`,`phone:delete:shared_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_setting`,`phone:delete:shared_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1751,8 +1979,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1765,8 +1995,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1778,8 +2010,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:role:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:role:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1791,8 +2025,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// - Pro or a higher account with Zoom Phone license
 	// - Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`
 	// **Not supported in Gov cluster**.
@@ -1805,8 +2041,10 @@ type Invoker interface {
 	// billing account.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:billing_account:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:billing_account:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1821,8 +2059,10 @@ type Invoker interface {
 	// generic message stating that the person they are calling is not available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:blocked_list:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1837,8 +2077,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_queue:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1851,8 +2093,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1865,8 +2109,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1878,8 +2124,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:external_contact:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:external_contact:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1894,8 +2142,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:shared_line_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1909,8 +2159,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:site:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:site:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1922,8 +2174,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_outbound_calling_rules:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1936,8 +2190,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:alert_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:alert_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1949,8 +2205,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`
-	// **Granular Scopes:** `phone:read:audio`,`phone:read:audio:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:audio`,`phone:read:audio:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -1962,8 +2220,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:auto_receptionist:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:auto_receptionist:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -1976,8 +2236,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:auto_receptionist_ivr:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:auto_receptionist_ivr:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -1990,8 +2252,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:auto_receptionist_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:auto_receptionist_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2007,8 +2271,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Account must be enrollled in Pro or a higher plan
 	// * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_charges:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_charges:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -2026,8 +2292,10 @@ type Invoker interface {
 	// time.**
 	// **Prerequisites**
 	// * Pro or a higher account with Zoom Phone enabled
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_handling_settings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_handling_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2040,8 +2308,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone_call_log:read`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone_call_log:read`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2054,8 +2324,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2070,8 +2342,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_log:admin`.
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_log:admin`.
 	//
 	// GET /phone/metrics/call_logs/{call_id}
 	GetCallLogMetricsDetails(ctx context.Context, params GetCallLogMetricsDetailsParams) (*GetCallLogMetricsDetailsOK, error)
@@ -2082,8 +2356,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:call_log:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_log:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2096,8 +2372,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_qos:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_qos:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2112,8 +2390,10 @@ type Invoker interface {
 	// * [Automatic call recordings](https://support.zoom.
 	// us/hc/en-us/articles/360033511872#h_fcb297bb-14e8-4094-91ca-dc61e1a18734) must be enabled in the
 	// Policy Settings for call queues.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_queue_recordings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_queue_recordings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2125,8 +2405,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2139,8 +2421,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_common_area_settings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_common_area_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2152,8 +2436,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:emergency_address:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:emergency_address:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2166,8 +2452,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:firmware_update_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:firmware_update_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2180,8 +2468,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_pickup_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_pickup_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2192,8 +2482,10 @@ type Invoker interface {
 	// Returns group phone settings.
 	// **Prerequisites:**
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:group_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:group_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2205,8 +2497,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:emergency_location:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:emergency_location:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2219,8 +2513,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:monitoring_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:monitoring_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2229,8 +2525,10 @@ type Invoker interface {
 	// GetNumberCampaignOptStatus invokes getNumberCampaignOptStatus operation.
 	//
 	// Returns the opt statuses of phone numbers that are assigned to SMS the campaign.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_campaign_number_opt_status:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2247,8 +2545,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Account must be enrollled in Pro or a higher plan
 	// * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:operation_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:operation_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -2260,8 +2560,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2275,8 +2577,10 @@ type Invoker interface {
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:read:admin`,`phone_recording:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_recordings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_recording:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_recordings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2291,8 +2595,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account with Zoom Phone license
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-	// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_recording`,`phone:read:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2304,8 +2610,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom phone license
-	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-	// **Granular Scopes:** `phone:read:ported_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_peering:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:ported_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2318,8 +2626,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:provision_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:provision_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2332,8 +2642,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:role:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:role:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2346,8 +2658,10 @@ type Invoker interface {
 	// does not match a Zoom Phone user, and does not match a defined External Contact, these rules are
 	// tested next. If a dialed number does not match any rules, the call will be routed via the PSTN.
 	// **Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:routing_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:routing_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2359,8 +2673,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:sms_campaign:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_campaign:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2375,8 +2691,10 @@ type Invoker interface {
 	// us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=2).
 	//  **Prerequisites:**  * Account must be enrolled in Pro or a higher plan * Account must be enrolled
 	// in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:sms_charges:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_charges:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -2388,8 +2706,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:setting_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:setting_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2402,8 +2722,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:shared_line_group_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:shared_line_group_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2415,8 +2737,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2431,8 +2755,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:site_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:site_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2445,21 +2771,41 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
 	// GET /phone/users/{userId}/sms/sessions/sync
 	GetSmsSessions(ctx context.Context, params GetSmsSessionsParams) (*GetSmsSessionsOK, error)
+	// GetUserAICallSummary invokes getUserAICallSummary operation.
+	//
+	// Returns AI call summary details. For user-level apps, pass [the `me` value](https://marketplace.
+	// zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+	// **Prerequisites:**
+	// * A Business or Enterprise account
+	// * A Zoom Phone license
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:ai_call_summary`,`phone:read:ai_call_summary:admin`
+	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+	// `MEDIUM`.
+	//
+	// GET /phone/user/{userId}/ai_call_summary/{aiCallSummaryId}
+	GetUserAICallSummary(ctx context.Context, params GetUserAICallSummaryParams) (*GetUserAICallSummaryOK, error)
 	// GetUserOutboundCallingCountriesAndRegions invokes GetUserOutboundCallingCountriesAndRegions operation.
 	//
 	// Returns the user level outbound calling countries and regions.
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2471,8 +2817,10 @@ type Invoker interface {
 	// us/hc/en-us/articles/360021400211-Managing-voicemail-messages).
 	// **Prerequisites:**
 	// * Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
-	// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:voicemail`,`phone:read:voicemail:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2486,8 +2834,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-	// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:voicemail`,`phone:read:voicemail:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2500,8 +2850,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:room:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:room:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2513,8 +2865,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_inbound_block_rules:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_inbound_block_rules:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2527,8 +2881,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_extension_inbound_block_rules_stat:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_extension_inbound_block_rules_stat:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2539,8 +2895,10 @@ type Invoker interface {
 	// Lists the account level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_outbound_calling_rules:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2552,8 +2910,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2566,8 +2926,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_provision_templates:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_provision_templates:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2579,8 +2941,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_sms_campaigns:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sms_campaigns:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2593,8 +2957,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_common_area_activation_codes:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_common_area_activation_codes:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`
 	// **Not supported in Gov cluster**.
@@ -2608,8 +2974,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_alert_settings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_alert_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2623,8 +2991,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_audios`,`phone:read:list_audios:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_audios`,`phone:read:list_audios:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2636,8 +3006,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_auto_receptionists:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_auto_receptionists:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2649,8 +3021,10 @@ type Invoker interface {
 	// Initiation Protocol) trunks](https://zoom.us/docs/doc/Zoom-Bring%20Your%20Own%20Carrier.pdf).
 	// **Prerequisites:**
 	// * A Business or Enterprise account
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_sip_trunks:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sip_trunks:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2665,8 +3039,10 @@ type Invoker interface {
 	//  then `field(site_id)` is required.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_billing_accounts:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_billing_accounts:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2681,8 +3057,10 @@ type Invoker interface {
 	// calling is not available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_blocked_lists:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_blocked_lists:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2695,8 +3073,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_carrier_numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_carrier_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2712,8 +3092,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -2726,8 +3108,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_queue_members:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_queue_members:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2743,8 +3127,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_queues:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_queues:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2757,8 +3143,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or a higher account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_calling_plans:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_calling_plans:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2772,8 +3160,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-	// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_peering:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_peering_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2784,8 +3174,10 @@ type Invoker interface {
 	// Lists the common area level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2798,8 +3190,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2813,8 +3207,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2828,8 +3224,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:device_line_keys`,`phone:read:device_line_keys:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:device_line_keys`,`phone:read:device_line_keys:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -2841,8 +3239,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_emergency_addresses:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_emergency_addresses:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2855,8 +3255,10 @@ type Invoker interface {
 	// Area, Zoom Room, or User.
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:list_extension_inbound_block_rules:admin`,
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_extension_inbound_block_rules:admin`,
 	// `phone:read:list_extension_inbound_block_rules`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
@@ -2869,8 +3271,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_external_contacts:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_external_contacts:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2883,8 +3287,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_firmware_update_rules:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_firmware_update_rules:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2897,8 +3303,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_firmwares:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_firmwares:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2911,8 +3319,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_pickup_groups:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_pickup_groups:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2925,8 +3335,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:call_pickup_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_pickup_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2939,8 +3351,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:line_keys`,`phone:read:line_keys:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:line_keys`,`phone:read:line_keys:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -2954,8 +3368,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_emergency_locations:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_emergency_locations:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -2968,8 +3384,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_monitoring_group_members:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_monitoring_group_members:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -2982,8 +3400,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_monitoring_groups:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_monitoring_groups:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -2998,8 +3418,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -3014,8 +3436,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-	// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_peering:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_peering_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3028,8 +3452,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_devices:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_devices:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3043,8 +3469,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or a higher account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_calling_plans:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_calling_plans:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3056,8 +3484,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:realtime_location_devices:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:realtime_location_devices:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3069,8 +3499,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_roles:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_roles:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3085,8 +3517,10 @@ type Invoker interface {
 	// * Multiple Sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
 	// * Pro or a higher account with Zoom Phone enabled.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_sites:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sites:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3098,8 +3532,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_users:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_users:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3111,8 +3547,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-	// **Granular Scopes:** `phone:read:list_ported_numbers:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_peering:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_ported_numbers:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3122,8 +3560,10 @@ type Invoker interface {
 	//
 	// Returns the member list of a [private directory](https://support.zoom.
 	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_private_directory_members:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_private_directory_members:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3136,8 +3576,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:role_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:role_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3150,8 +3592,10 @@ type Invoker interface {
 	// number does not match a Zoom Phone user, and does not match a defined External Contact, these
 	// rules are tested next. If a dialed number does not match any rules, the call will be routed via
 	// the PSTN. **Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_routing_rules:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_routing_rules:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3163,8 +3607,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_setting_templates:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_setting_templates:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3177,8 +3623,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_shared_line_appearances:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_shared_line_appearances:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3193,8 +3641,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_shared_line_groups:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_shared_line_groups:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3206,8 +3656,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_sip_groups:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sip_groups:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3222,8 +3674,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_site_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_site_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3234,8 +3688,10 @@ type Invoker interface {
 	// Returns a list of site level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3248,8 +3704,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_devices:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_devices:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`
 	// **Not supported in Gov cluster**.
@@ -3262,8 +3720,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_tracked_locations:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_tracked_locations:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3273,8 +3733,10 @@ type Invoker interface {
 	//
 	// Returns [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that are not assigned
 	// a Zoom Phone.**Prerequisites:** * A Pro or higher account plan * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_rooms:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_rooms:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3286,9 +3748,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license.
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:list_user_customized_number`,
-	// `phone:read:list_user_customized_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_user_customized_number`,`phone:read:list_user_customized_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3301,8 +3764,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:default_emergency_address:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:default_emergency_address:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3315,8 +3780,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:detectable_personal_location:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:detectable_personal_location:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3328,8 +3795,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:nomadic_emergency_services:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:nomadic_emergency_services:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3340,8 +3809,10 @@ type Invoker interface {
 	// Returns a list of the user level outbound calling policy exception rules.
 	// **Prerequisite:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3354,8 +3825,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:realtime_location_users:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:realtime_location_users:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3368,8 +3841,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3382,8 +3857,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:directory:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:directory:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -3395,8 +3872,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_account_settings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_account_settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3407,8 +3886,10 @@ type Invoker interface {
 	// Retrieves a list of [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) under the
 	// account that has the Zoom Phone license assigned.**Prerequisites:** * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:list_rooms:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_rooms:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3422,8 +3903,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:inbound_blocked_for_all:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:inbound_blocked_for_all:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3435,8 +3918,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-	// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:call_recording`,`phone:read:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3448,8 +3933,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-	// **Granular Scopes:** `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3461,8 +3948,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-	// **Granular Scopes:** `phone:read:voicemail:admin`,`phone:read:voicemail`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:voicemail:admin`,`phone:read:voicemail`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3474,8 +3963,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`
-	// **Granular Scopes:** `phone:read:settings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:settings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3490,8 +3981,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`
-	// **Granular Scopes:** `phone:read:user`,`phone:read:user:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:user`,`phone:read:user:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3506,8 +3999,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone_call_log:read`
-	// **Granular Scopes:** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone_call_log:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `HEAVY`.
 	//
@@ -3522,8 +4017,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`
-	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3540,8 +4037,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-	// **Granular Scopes:** `phone:read:list_recordings`,`phone:read:list_recordings:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_recordings`,`phone:read:list_recordings:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3556,8 +4055,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`
-	// **Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:user_setting:admin`,`phone:read:user_setting`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3571,8 +4072,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-	// **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+	// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3585,8 +4088,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:reboot_device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:reboot_device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -3596,8 +4101,10 @@ type Invoker interface {
 	//
 	// Removes a member from a [private directory](https://support.zoom.
 	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:private_directory_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:private_directory_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3611,10 +4118,12 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-	// `Light`.
+	// `LIGHT`.
 	//
 	// DELETE /phone/call_queues/{callQueueId}/policies/{policyType}
 	RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) error
@@ -3625,8 +4134,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_pickup_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_pickup_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3639,8 +4150,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:monitoring_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3653,8 +4166,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:monitoring_group_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3666,8 +4181,10 @@ type Invoker interface {
 	// us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this
 	// API to remove shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone
 	// license.* Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:shared_line_group_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:shared_line_group_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3681,8 +4198,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:room:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:room:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3694,8 +4213,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:sms_message`,`phone:read:sms_message:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_message`,`phone:read:sms_message:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3707,8 +4228,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3720,8 +4243,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:sms_session`,`phone:read:sms_session:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3734,8 +4259,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:write:sync_device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:sync_device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Heavy`.
 	//
@@ -3750,8 +4277,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3766,8 +4295,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:read:admin`,`phone:read`
-	// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -3785,8 +4316,10 @@ type Invoker interface {
 	// * Pro or higher account palan
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3800,8 +4333,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:auto_receptionist_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3817,8 +4352,10 @@ type Invoker interface {
 	// * Pro or higher account palan
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3831,8 +4368,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan.
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3846,8 +4385,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:auto_receptionist_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3863,8 +4404,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3879,8 +4422,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:room_calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:room_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3893,8 +4438,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account with a Zoom Phone license
 	// * An account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:common_area_calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:common_area_calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3909,8 +4456,10 @@ type Invoker interface {
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// * The campaign must have been previously assigned a Zoom Phone number
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:sms_campaign_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:sms_campaign_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3923,8 +4472,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan.
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:call_queue_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:call_queue_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3939,8 +4490,10 @@ type Invoker interface {
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// * The user must have been previously assigned a Zoom Phone number
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:delete:user_number`,`phone:delete:user_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:user_number`,`phone:delete:user_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3956,8 +4509,10 @@ type Invoker interface {
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
 	// * The Zoom Room must have been previously assigned a Zoom Phone number
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:room_phone_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:room_phone_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3970,8 +4525,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or a higher account with a Zoom Phone license
 	// * An account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:delete:common_area_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:delete:common_area_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -3983,8 +4540,10 @@ type Invoker interface {
 	// us/hc/en-us/articles/360021119092).
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license* Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:device:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:device:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -3994,8 +4553,10 @@ type Invoker interface {
 	//
 	// Updates a member of a [private directory](https://support.zoom.
 	// com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:private_directory_member:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:private_directory_member:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4010,8 +4571,10 @@ type Invoker interface {
 	// **Prerequisites**
 	// * Pro or higher account with Zoom Phone license
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:shared_line_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:shared_line_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4023,8 +4586,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:inbound_block_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:inbound_block_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4035,8 +4600,10 @@ type Invoker interface {
 	// Updates the account level outbound calling policy country or region.
 	// **Prerequisite:**
 	// * Account must have a Pro or a higher plan with a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4048,8 +4615,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4061,8 +4630,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:patch:alert_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:patch:alert_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4074,8 +4645,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:update:audio`,`phone:update:audio:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:audio`,`phone:update:audio:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4088,8 +4661,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account
 	// * User must have a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-	// **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_recording`,`phone:update:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4105,8 +4680,10 @@ type Invoker interface {
 	// options.
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:auto_receptionist:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:auto_receptionist:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4119,8 +4696,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:auto_receptionist_ivr:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:auto_receptionist_ivr:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4133,8 +4712,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:auto_receptionist_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4149,8 +4730,10 @@ type Invoker interface {
 	// message stating that the person they are calling is not available.
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:blocked_list:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:blocked_list:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4164,8 +4747,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_queue_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_queue_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4183,8 +4768,10 @@ type Invoker interface {
 	// time.**
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone enabled
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_handling_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_handling_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4199,8 +4786,10 @@ type Invoker interface {
 	// * Pro, Business, or Education account
 	// * Account owner or admin permissions
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_queue:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_queue:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4216,8 +4805,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:update:calling_plan`,`phone:update:calling_plan:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:calling_plan`,`phone:update:calling_plan:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4230,8 +4821,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4242,8 +4835,10 @@ type Invoker interface {
 	// Updates the common area level outbound calling policy country or region.
 	// **Prerequisite:**
 	// * Account must have a Pro or a higher plan with a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4255,8 +4850,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:common_area_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4270,8 +4867,10 @@ type Invoker interface {
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions, This depends on whether [The PIN cannot be viewed by the
 	// admin](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069783) is enabled.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:common_area:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:common_area:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4285,8 +4884,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:common_area_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:common_area_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4299,8 +4900,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:emergency_address:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:emergency_address:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4312,8 +4915,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:external_contact:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:external_contact:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4326,8 +4931,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:firmware_update_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:firmware_update_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4340,8 +4947,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:call_pickup_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_pickup_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4353,8 +4962,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:emergency_location:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:emergency_location:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4367,8 +4978,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:monitoring_group:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:monitoring_group:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4377,8 +4990,10 @@ type Invoker interface {
 	// UpdateNumberCampaignOptStatus invokes updateNumberCampaignOptStatus operation.
 	//
 	// Updates opt statuses of phone numbers that are assigned to the SMS campaign.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:sms_campaign_number_opt_status:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4393,8 +5008,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-	// **Granular Scopes:** `phone:update:peering_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone_peering:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:peering_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4405,8 +5022,10 @@ type Invoker interface {
 	// Updates a Zoom Phone number's information.
 	// **Prerequisites:**
 	// * A Paid account
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4418,8 +5037,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:role:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:role:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4430,8 +5051,10 @@ type Invoker interface {
 	// Updates Zoom Phone [account settings](https://support.zoom.us/hc/en-us/articles/360025846692).
 	// **Prerequisites:**
 	// * A Business or Enterprise account
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:settings:admin`.
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:settings:admin`.
 	//
 	// PATCH /phone/settings
 	UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) error
@@ -4443,8 +5066,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:auto_receptionist_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4457,8 +5082,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:provision_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:provision_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4475,8 +5102,10 @@ type Invoker interface {
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
 	// * [Supported device](https://support.zoom.us/hc/en-us/articles/360029698771#note)
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:device_provision_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:device_provision_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4488,8 +5117,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * User must belong to a Business or Enterprise account.
 	// * User must have a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-	// **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:call_recording`,`phone:update:call_recording:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4505,8 +5136,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:routing_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:routing_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4520,8 +5153,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account with Zoom Phone license.
 	// * Account owner or admin privileges
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:shared_line_group_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4533,8 +5168,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:setting_template:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:setting_template:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4547,8 +5184,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or higher account plan with Zoom Phone License
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:shared_line_group_policy:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4561,8 +5200,10 @@ type Invoker interface {
 	// It allows you to organize Zoom Phone users in your organization.
 	// **Prerequisites**
 	// An account must have a Pro or a higher plan with Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:site:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:site:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4576,8 +5217,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:site_number:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:site_number:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Medium`.
 	//
@@ -4588,8 +5231,10 @@ type Invoker interface {
 	// Updates the site level outbound calling policy country or region.
 	// **Prerequisites:**
 	// * Account must have a Pro or a higher plan with a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4601,8 +5246,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license
 	// * Account owner or admin permissions
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:site_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4617,8 +5264,10 @@ type Invoker interface {
 	// * Account must have a Pro or a higher plan with Zoom Phone license.
 	// * Multiple sites must be [enabled](https://support.zoom.
 	// us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:site_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:site_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4629,8 +5278,10 @@ type Invoker interface {
 	// Updates the user level outbound calling policy country or region.
 	// **Prerequisite:**
 	// * Account must have a Pro or a higher plan with a Zoom Phone license.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4642,8 +5293,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Pro or a higher account with Zoom Phone license.
 	// * Account owner or admin permissions.
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:user_outbound_calling_rule:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4660,8 +5313,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:update:user`,`phone:update:user:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:user`,`phone:update:user:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4681,8 +5336,10 @@ type Invoker interface {
 	// Settings**
 	// **Prerequisites:**
 	// * A Business or Enterprise account
-	// **Scopes:** `phone:write:admin`,`phone:write`
-	// **Granular Scopes:** `phone:update:shared_setting`,`phone:update:shared_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:shared_setting`,`phone:update:shared_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4697,8 +5354,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write`,`phone:write:admin`
-	// **Granular Scopes:** `phone:update:user_setting`,`phone:update:user_setting:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:user_setting`,`phone:update:user_setting:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4712,8 +5371,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Business, or Education account
 	// * Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:batch_users:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:batch_users:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4726,8 +5387,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Business or Enterprise account
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
-	// **Granular Scopes:** `phone:update:voicemail`,`phone:update:voicemail:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:voicemail`,`phone:update:voicemail:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `LIGHT`.
 	//
@@ -4740,8 +5403,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * A Pro or higher account plan
 	// * A Zoom Phone license
-	// **Scopes:** `phone:write:admin`
-	// **Granular Scopes:** `phone:update:room:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:write:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:update:room:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `Light`.
 	//
@@ -4755,8 +5420,10 @@ type Invoker interface {
 	// **Prerequisites:**
 	// * Paid account
 	// * User-enabled Zoom phone
-	// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-	// **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+	// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+	// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+	// `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 	// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 	// `MEDIUM`.
 	//
@@ -4814,8 +5481,10 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 // * A Zoom Phone license
 // * Account owner or a [role](https://support.zoom.
 // us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management
-// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -5305,8 +5974,10 @@ func (c *Client) sendAccountCallHistory(ctx context.Context, params AccountCallH
 // * A Zoom Phone license
 // * Account owner or a [role](https://support.zoom.
 // us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management
-// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -5587,8 +6258,10 @@ func (c *Client) sendAccountCallLogs(ctx context.Context, params AccountCallLogs
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -5833,8 +6506,10 @@ func (c *Client) sendAccountSmsSession(ctx context.Context, params AccountSmsSes
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_voicemail:read:admin`
-// **Granular Scopes:** `phone:read:list_voicemails:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_voicemail:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_voicemails:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -6114,8 +6789,10 @@ func (c *Client) sendAccountVoiceMails(ctx context.Context, params AccountVoiceM
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:carrier_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:carrier_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -6241,8 +6918,10 @@ func (c *Client) sendActiveCRPhoneNumbers(ctx context.Context, request []string)
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:inbound_block_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:inbound_block_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -6367,8 +7046,10 @@ func (c *Client) sendAddAccountLevelInboundBlockRules(ctx context.Context, reque
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -6493,8 +7174,10 @@ func (c *Client) sendAddAccountOutboundCallingExceptionRule(ctx context.Context,
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:alert_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:alert_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -6620,8 +7303,10 @@ func (c *Client) sendAddAnAlertSetting(ctx context.Context, request OptAddAnAler
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:write:audio`,`phone:write:audio:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:audio`,`phone:write:audio:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -6770,8 +7455,10 @@ func (c *Client) sendAddAnAudio(ctx context.Context, request OptAddAnAudioReq, p
 // available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:blocked_list:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -6900,8 +7587,10 @@ func (c *Client) sendAddAnumberToBlockedList(ctx context.Context, request OptAdd
 // **Size and quantity limits for audio attachments:**
 // * Up to 5 attachments
 // * Each file size should be no more than 1MB
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:write:batch_audios`,`phone:write:batch_audios:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:batch_audios`,`phone:write:batch_audios:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -7048,8 +7737,10 @@ func (c *Client) sendAddAudioItem(ctx context.Context, request OptAddAudioItemRe
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:auto_receptionist:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:auto_receptionist:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -7174,8 +7865,10 @@ func (c *Client) sendAddAutoReceptionist(ctx context.Context, request OptAddAuto
 // **Prerequisites:**
 // * A Business or Enterprise plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:byo_carrier_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:byo_carrier_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -7297,13 +7990,15 @@ func (c *Client) sendAddBYOCNumber(ctx context.Context, request OptAddBYOCNumber
 // AddCQPolicySubSetting invokes addCQPolicySubSetting operation.
 //
 // Adds the policy subsetting for a specific [call queue](https://support.zoom.
-// us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this
-// API to set up shared access members.
+// us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use set up
+// shared access members.
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_queue_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_queue_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -7470,8 +8165,10 @@ func (c *Client) sendAddCQPolicySubSetting(ctx context.Context, request OptAddCQ
 // time.**
 // **Prerequisites:**
 // * A Pro or a higher account with Zoom Phone enabled
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_handling_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_handling_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -7635,8 +8332,10 @@ func (c *Client) sendAddCallHandling(ctx context.Context, request OptAddCallHand
 // **Prerequisites**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -7782,8 +8481,10 @@ func (c *Client) sendAddClientCodeToCallHistory(ctx context.Context, request Opt
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -7931,8 +8632,10 @@ func (c *Client) sendAddClientCodeToCallLog(ctx context.Context, request OptAddC
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -8057,8 +8760,10 @@ func (c *Client) sendAddCommonArea(ctx context.Context, request OptAddCommonArea
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -8204,8 +8909,10 @@ func (c *Client) sendAddCommonAreaOutboundCallingExceptionRule(ctx context.Conte
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -8368,8 +9075,10 @@ func (c *Client) sendAddCommonAreaSetting(ctx context.Context, request OptAddCom
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:emergency_address:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:emergency_address:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -8499,8 +9208,10 @@ func (c *Client) sendAddEmergencyAddress(ctx context.Context, request OptAddEmer
 // * Account owner or admin permissions
 // * [Supported device](https://support.zoom.
 // us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:device_extension:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:device_extension:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -8645,9 +9356,10 @@ func (c *Client) sendAddExtensionsToADevice(ctx context.Context, request OptAddE
 // Common Area, Zoom Room or User.
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:write:extension_inbound_block_rule:admin`,
-// `phone:write:extension_inbound_block_rule`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:extension_inbound_block_rule:admin`,`phone:write:extension_inbound_block_rule`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -8791,8 +9503,10 @@ func (c *Client) sendAddExtensiontLevelInboundBlockRules(ctx context.Context, re
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:external_contact:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:external_contact:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -8918,8 +9632,10 @@ func (c *Client) sendAddExternalContact(ctx context.Context, request OptAddExter
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:firmware_update_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:firmware_update_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -9046,8 +9762,10 @@ func (c *Client) sendAddFirmwareRule(ctx context.Context, request OptAddFirmware
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_pickup_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_pickup_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -9173,8 +9891,10 @@ func (c *Client) sendAddGCP(ctx context.Context, request OptAddGCPReq) (res *Add
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_pickup_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_pickup_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -9318,8 +10038,10 @@ func (c *Client) sendAddGCPMembers(ctx context.Context, request OptAddGCPMembers
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:emergency_location:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:emergency_location:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -9445,8 +10167,10 @@ func (c *Client) sendAddLocation(ctx context.Context, request OptAddLocationReq)
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:monitoring_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:monitoring_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -9606,8 +10330,10 @@ func (c *Client) sendAddMembers(ctx context.Context, request []string, params Ad
 //
 // Adds members to a [private directory](https://support.zoom.
 // com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:private_directory_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:private_directory_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -9733,8 +10459,10 @@ func (c *Client) sendAddMembersToAPrivateDirectory(ctx context.Context, request 
 // **Prerequisites:**
 // * Pro or higher account plan.
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_queue_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_queue_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -9880,8 +10608,10 @@ func (c *Client) sendAddMembersToCallQueue(ctx context.Context, request OptAddMe
 // * Pro or higher account with Zoom Phone license.
 // * A valid Shared Line Group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:shared_line_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:shared_line_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -10027,8 +10757,10 @@ func (c *Client) sendAddMembersToSharedLineGroup(ctx context.Context, request Op
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -10156,8 +10888,10 @@ func (c *Client) sendAddOutboundCallerNumbers(ctx context.Context, request OptAd
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-// **Granular Scopes:** `phone:write:peering_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone_peering:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -10288,8 +11022,10 @@ func (c *Client) sendAddPeeringPhoneNumbers(ctx context.Context, request OptAddP
 // * Account owner or admin permissions
 // * [Supported device](https://support.zoom.
 // us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -10416,8 +11152,10 @@ func (c *Client) sendAddPhoneDevice(ctx context.Context, request OptAddPhoneDevi
 // <br><br>**Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:auto_receptionist_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:auto_receptionist_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -10580,8 +11318,10 @@ func (c *Client) sendAddPolicy(ctx context.Context, request OptAddPolicyReq, par
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:provision_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:provision_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -10707,8 +11447,10 @@ func (c *Client) sendAddProvisionTemplate(ctx context.Context, request OptAddPro
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:role_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:role_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -10856,8 +11598,10 @@ func (c *Client) sendAddRoleMembers(ctx context.Context, request OptAddRoleMembe
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:routing_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:routing_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -10982,8 +11726,10 @@ func (c *Client) sendAddRoutingRule(ctx context.Context, request OptAddRoutingRu
 // us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this
 // API to set up shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone
 // license.* Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:shared_line_group_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:shared_line_group_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -11146,8 +11892,10 @@ func (c *Client) sendAddSLGPolicySubSetting(ctx context.Context, request OptAddS
 // **Prerequisites:**
 // * A Business or enterprise Zoom account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:setting_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:setting_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -11274,8 +12022,10 @@ func (c *Client) sendAddSettingTemplate(ctx context.Context, request OptAddSetti
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:site_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:site_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -11419,8 +12169,10 @@ func (c *Client) sendAddSiteOutboundCallerNumbers(ctx context.Context, request O
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -11567,8 +12319,10 @@ func (c *Client) sendAddSiteOutboundCallingExceptionRule(ctx context.Context, re
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:site_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:site_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -11730,9 +12484,10 @@ func (c *Client) sendAddSiteSetting(ctx context.Context, request OptAddSiteSetti
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:write:user_customized_number`,
-// `phone:write:user_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:user_customized_number`,`phone:write:user_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -11876,8 +12631,10 @@ func (c *Client) sendAddUserOutboundCallerNumbers(ctx context.Context, request O
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -12029,8 +12786,10 @@ func (c *Client) sendAddUserOutboundCallingExceptionRule(ctx context.Context, re
 // Settings**
 // **Prerequisites:**
 // * A Business or Enterprise account
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:write:shared_setting`,`phone:write:shared_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:shared_setting`,`phone:write:shared_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -12193,8 +12952,10 @@ func (c *Client) sendAddUserSetting(ctx context.Context, request OptAddUserSetti
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -12320,8 +13081,10 @@ func (c *Client) sendAddUsersToDirectory(ctx context.Context, request OptAddUser
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -12467,8 +13230,10 @@ func (c *Client) sendAddUsersToDirectoryBySite(ctx context.Context, request OptA
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:room:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:room:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -12594,8 +13359,10 @@ func (c *Client) sendAddZoomRoom(ctx context.Context, request OptAddZoomRoomReq)
 // **Prerequisites**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:apply_template_to_common_areas:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:apply_template_to_common_areas:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -12742,8 +13509,10 @@ func (c *Client) sendApplyTemplatetoCommonAreas(ctx context.Context, request Opt
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:write:calling_plan`,`phone:write:calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:calling_plan`,`phone:write:calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -12888,8 +13657,10 @@ func (c *Client) sendAssignCallingPlan(ctx context.Context, request OptAssignCal
 // Room](https://support.zoom.
 // us/hc/en-us/articles/360025153711#h_70c74c57-50d6-406b-a4fa-2f33d4bebdbc). Up to 200 numbers at a
 // time.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:room_calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:room_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -13034,8 +13805,10 @@ func (c *Client) sendAssignCallingPlanToRoom(ctx context.Context, request OptAss
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area_calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -13180,8 +13953,10 @@ func (c *Client) sendAssignCallingPlansToCommonArea(ctx context.Context, request
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:sms_campaign_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:sms_campaign_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -13324,8 +14099,10 @@ func (c *Client) sendAssignCampaignPhoneNumbers(ctx context.Context, request Opt
 // Assigns a [phone number](https://support.zoom.
 // us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom
 // Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:write:user_number`,`phone:write:user_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:user_number`,`phone:write:user_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -13470,8 +14247,10 @@ func (c *Client) sendAssignPhoneNumber(ctx context.Context, request OptAssignPho
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:room_phone_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:room_phone_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -13620,8 +14399,10 @@ func (c *Client) sendAssignPhoneNumberToZoomRoom(ctx context.Context, request Op
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:auto_receptionist_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:auto_receptionist_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -13768,8 +14549,10 @@ func (c *Client) sendAssignPhoneNumbersAutoReceptionist(ctx context.Context, req
 // * Pro or higher account with Zoom Phone license.
 // * A valid Shared Line Group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:shared_line_group_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:shared_line_group_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -13914,8 +14697,10 @@ func (c *Client) sendAssignPhoneNumbersSLG(ctx context.Context, request OptAssig
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -14063,8 +14848,10 @@ func (c *Client) sendAssignPhoneNumbersToCommonArea(ctx context.Context, request
 // - Pro or higher account plan
 // * Account owner or admin permissions
 // - Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_queue_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -14208,8 +14995,10 @@ func (c *Client) sendAssignPhoneToCallQueue(ctx context.Context, request OptAssi
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:batch_emergency_locations:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:batch_emergency_locations:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -14336,8 +15125,10 @@ func (c *Client) sendBatchAddLocations(ctx context.Context, request OptBatchAddL
 // us/docs/api-reference/zoom-api/methods#tag/Users/operation/users).
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:batch_users:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:batch_users:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -14463,8 +15254,10 @@ func (c *Client) sendBatchAddUsers(ctx context.Context, request OptBatchAddUsers
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:update:device_line_keys`,`phone:update:device_line_keys:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:device_line_keys`,`phone:update:device_line_keys:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -14609,8 +15402,10 @@ func (c *Client) sendBatchUpdateDeviceLineKeySetting(ctx context.Context, reques
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:update:line_keys`,`phone:update:line_keys:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:line_keys`,`phone:update:line_keys:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -14755,8 +15550,10 @@ func (c *Client) sendBatchUpdateLineKeySetting(ctx context.Context, request OptB
 // with a group of phone users or common areas. This gives members of the shared line group access to
 // the group's direct phone number and voicemail. **Prerequisites:**    * Pro or higher account with
 // Zoom Phone license.* Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:shared_line_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -14882,8 +15679,10 @@ func (c *Client) sendCreateASharedLineGroup(ctx context.Context, request OptCrea
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:carrier_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:carrier_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -15014,8 +15813,10 @@ func (c *Client) sendCreateCRPhoneNumbers(ctx context.Context, request []CreateC
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:call_queue:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -15140,8 +15941,10 @@ func (c *Client) sendCreateCallQueue(ctx context.Context, request OptCreateCallQ
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:monitoring_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:monitoring_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -15268,8 +16071,10 @@ func (c *Client) sendCreateMonitoringGroup(ctx context.Context, request OptCreat
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
 // * Pro or a higher account with Zoom Phone enabled.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:site:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:site:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -15395,8 +16200,10 @@ func (c *Client) sendCreatePhoneSite(ctx context.Context, request OptCreatePhone
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:role_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:role_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -15567,8 +16374,10 @@ func (c *Client) sendDelRoleMembers(ctx context.Context, params DelRoleMembersPa
 // to dial those numbers).
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:blocked_list:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -15712,8 +16521,10 @@ func (c *Client) sendDeleteABlockedList(ctx context.Context, params DeleteABlock
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -15855,8 +16666,10 @@ func (c *Client) sendDeleteACallQueue(ctx context.Context, params DeleteACallQue
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
 // * Device must not have been assigned to a user.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -15996,8 +16809,10 @@ func (c *Client) sendDeleteADevice(ctx context.Context, params DeleteADevicePara
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:external_contact:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:external_contact:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -16140,8 +16955,10 @@ func (c *Client) sendDeleteAExternalContact(ctx context.Context, params DeleteAE
 // * Pro or higher account with Zoom Phone license.
 // * A valid Shared Line Group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -16302,8 +17119,10 @@ func (c *Client) sendDeleteAMemberSLG(ctx context.Context, params DeleteAMemberS
 // * Pro or higher account with Zoom Phone license.
 // * A valid shared line group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_group_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -16464,8 +17283,10 @@ func (c *Client) sendDeleteAPhoneNumberSLG(ctx context.Context, params DeleteAPh
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -16605,8 +17426,10 @@ func (c *Client) sendDeleteASharedLineGroup(ctx context.Context, params DeleteAS
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:inbound_block_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:inbound_block_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -16749,8 +17572,10 @@ func (c *Client) sendDeleteAccountLevelInboundBlockRules(ctx context.Context, pa
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:extension_inbound_block_rule_stat:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:extension_inbound_block_rule_stat:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -16890,8 +17715,10 @@ func (c *Client) sendDeleteAccountLevelInboundBlockedStatistics(ctx context.Cont
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -17031,8 +17858,10 @@ func (c *Client) sendDeleteAccountOutboundCallingExceptionRule(ctx context.Conte
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:alert_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:alert_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -17172,8 +18001,10 @@ func (c *Client) sendDeleteAnAlertSetting(ctx context.Context, params DeleteAnAl
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:delete:audio`,`phone:delete:audio:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:audio`,`phone:delete:audio:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -17317,8 +18148,10 @@ func (c *Client) sendDeleteAudioItem(ctx context.Context, params DeleteAudioItem
 // routing options.
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:auto_receptionist:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:auto_receptionist:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -17458,8 +18291,10 @@ func (c *Client) sendDeleteAutoReceptionist(ctx context.Context, params DeleteAu
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:carrier_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:carrier_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -17604,8 +18439,10 @@ func (c *Client) sendDeleteCRPhoneNumber(ctx context.Context, params DeleteCRPho
 // time.**
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone enabled
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_handling_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_handling_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -17805,8 +18642,10 @@ func (c *Client) sendDeleteCallHandling(ctx context.Context, params DeleteCallHa
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
-// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_log`,`phone:delete:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -17967,8 +18806,10 @@ func (c *Client) sendDeleteCallLog(ctx context.Context, params DeleteCallLogPara
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-// **Granular Scopes:** `phone:delete:call_recording`,`phone:delete:call_recording:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_recording`,`phone:delete:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -18109,8 +18950,10 @@ func (c *Client) sendDeleteCallRecording(ctx context.Context, params DeleteCallR
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -18250,8 +19093,10 @@ func (c *Client) sendDeleteCommonArea(ctx context.Context, params DeleteCommonAr
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -18411,8 +19256,10 @@ func (c *Client) sendDeleteCommonAreaOutboundCallingExceptionRule(ctx context.Co
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:common_area_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:common_area_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -18589,8 +19436,10 @@ func (c *Client) sendDeleteCommonAreaSetting(ctx context.Context, params DeleteC
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:emergency_address:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:emergency_address:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -18730,8 +19579,10 @@ func (c *Client) sendDeleteEmergencyAddress(ctx context.Context, params DeleteEm
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:device_extension:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:device_extension:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -18891,9 +19742,10 @@ func (c *Client) sendDeleteExtensionFromADevice(ctx context.Context, params Dele
 // Line Group, Common Area, Zoom Room or User.
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:delete:extension_inbound_block_rule:admin`,
-// `phone:delete:extension_inbound_block_rule`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:extension_inbound_block_rule:admin`,`phone:delete:extension_inbound_block_rule`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -19053,8 +19905,10 @@ func (c *Client) sendDeleteExtensiontLevelInboundBlockRules(ctx context.Context,
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:firmware_update_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:firmware_update_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -19216,8 +20070,10 @@ func (c *Client) sendDeleteFirmwareUpdateRule(ctx context.Context, params Delete
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_pickup_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_pickup_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -19358,8 +20214,10 @@ func (c *Client) sendDeleteGCP(ctx context.Context, params DeleteGCPParams) (res
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:delete:line_keys`,`phone:delete:line_keys:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:line_keys`,`phone:delete:line_keys:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -19518,8 +20376,10 @@ func (c *Client) sendDeleteLineKey(ctx context.Context, params DeleteLineKeyPara
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:emergency_location:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:emergency_location:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -19662,8 +20522,10 @@ func (c *Client) sendDeleteLocation(ctx context.Context, params DeleteLocationPa
 // * Pro or higher account with Zoom Phone license.
 // * A valid Shared Line Group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -19805,8 +20667,10 @@ func (c *Client) sendDeleteMembersOfSLG(ctx context.Context, params DeleteMember
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:monitoring_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:monitoring_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -19948,8 +20812,10 @@ func (c *Client) sendDeleteMonitoringGroup(ctx context.Context, params DeleteMon
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -20104,8 +20970,10 @@ func (c *Client) sendDeleteOutboundCallerNumbers(ctx context.Context, params Del
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-// **Granular Scopes:** `phone:delete:peering_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone_peering:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -20273,8 +21141,10 @@ func (c *Client) sendDeletePeeringPhoneNumbers(ctx context.Context, params Delet
 // * Pro or higher account with Zoom Phone license.
 // * A valid Shared Line Group
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_group_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -20416,8 +21286,10 @@ func (c *Client) sendDeletePhoneNumbersSLG(ctx context.Context, params DeletePho
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:role:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:role:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -20561,8 +21433,10 @@ func (c *Client) sendDeletePhoneRole(ctx context.Context, params DeletePhoneRole
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * [Multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites)
 // must be enabled.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:site:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:site:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -20722,8 +21596,10 @@ func (c *Client) sendDeletePhoneSite(ctx context.Context, params DeletePhoneSite
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:auto_receptionist_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:auto_receptionist_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -20910,8 +21786,10 @@ func (c *Client) sendDeletePolicy(ctx context.Context, params DeletePolicyParams
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:provision_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:provision_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -21055,8 +21933,10 @@ func (c *Client) sendDeleteProvisionTemplate(ctx context.Context, params DeleteP
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:routing_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:routing_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -21198,8 +22078,10 @@ func (c *Client) sendDeleteRoutingRule(ctx context.Context, params DeleteRouting
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:site_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:site_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -21370,8 +22252,10 @@ func (c *Client) sendDeleteSiteOutboundCallerNumbers(ctx context.Context, params
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -21532,8 +22416,10 @@ func (c *Client) sendDeleteSiteOutboundCallingExceptionRule(ctx context.Context,
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:site_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:site_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -21733,8 +22619,10 @@ func (c *Client) sendDeleteSiteSetting(ctx context.Context, params DeleteSiteSet
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // * The user must have been previously assigned a Zoom Phone number
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -21886,8 +22774,10 @@ func (c *Client) sendDeleteUnassignedPhoneNumbers(ctx context.Context, params De
 // **Prerequisites**
 // * Belong to a Business or Enterprise account
 // * Have a Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
-// **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_log`,`phone:delete:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -22046,9 +22936,10 @@ func (c *Client) sendDeleteUserCallHistory(ctx context.Context, params DeleteUse
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:delete:user_customized_number`,
-// `phone:delete:user_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:user_customized_number`,`phone:delete:user_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -22219,8 +23110,10 @@ func (c *Client) sendDeleteUserOutboundCallerNumbers(ctx context.Context, params
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -22387,8 +23280,10 @@ func (c *Client) sendDeleteUserOutboundCallingExceptionRule(ctx context.Context,
 // Settings**
 // **Prerequisites:**
 // * A Business or Enterprise account
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:delete:shared_setting`,`phone:delete:shared_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_setting`,`phone:delete:shared_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -22620,8 +23515,10 @@ func (c *Client) sendDeleteUserSetting(ctx context.Context, params DeleteUserSet
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -22788,8 +23685,10 @@ func (c *Client) sendDeleteUsersFromDirectory(ctx context.Context, params Delete
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -22977,8 +23876,10 @@ func (c *Client) sendDeleteUsersFromDirectoryBySite(ctx context.Context, params 
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:role:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:role:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -23103,8 +24004,10 @@ func (c *Client) sendDuplicatePhoneRole(ctx context.Context, request OptDuplicat
 // **Prerequisites**
 // - Pro or a higher account with Zoom Phone license
 // - Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`
 // **Not supported in Gov cluster**.
@@ -23230,8 +24133,10 @@ func (c *Client) sendGenerateactivationcodesforcommonareas(ctx context.Context, 
 // billing account.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:billing_account:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:billing_account:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -23374,8 +24279,10 @@ func (c *Client) sendGetABillingAccount(ctx context.Context, params GetABillingA
 // generic message stating that the person they are calling is not available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:blocked_list:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -23518,8 +24425,10 @@ func (c *Client) sendGetABlockedList(ctx context.Context, params GetABlockedList
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_queue:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -23660,8 +24569,10 @@ func (c *Client) sendGetACallQueue(ctx context.Context, params GetACallQueuePara
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -23802,8 +24713,10 @@ func (c *Client) sendGetACommonArea(ctx context.Context, params GetACommonAreaPa
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -23943,8 +24856,10 @@ func (c *Client) sendGetADevice(ctx context.Context, params GetADeviceParams) (r
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:external_contact:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:external_contact:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -24087,8 +25002,10 @@ func (c *Client) sendGetAExternalContact(ctx context.Context, params GetAExterna
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:shared_line_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -24230,8 +25147,10 @@ func (c *Client) sendGetASharedLineGroup(ctx context.Context, params GetASharedL
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:site:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:site:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -24371,8 +25290,10 @@ func (c *Client) sendGetASite(ctx context.Context, params GetASiteParams) (res *
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_outbound_calling_rules:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -24533,8 +25454,10 @@ func (c *Client) sendGetAccountOutboundCallingCountriesAndRegions(ctx context.Co
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:alert_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:alert_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -24674,8 +25597,10 @@ func (c *Client) sendGetAlertSettingDetails(ctx context.Context, params GetAlert
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`
-// **Granular Scopes:** `phone:read:audio`,`phone:read:audio:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:audio`,`phone:read:audio:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -24815,8 +25740,10 @@ func (c *Client) sendGetAudioItem(ctx context.Context, params GetAudioItemParams
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:auto_receptionist:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:auto_receptionist:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -24957,8 +25884,10 @@ func (c *Client) sendGetAutoReceptionistDetail(ctx context.Context, params GetAu
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:auto_receptionist_ivr:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:auto_receptionist_ivr:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -25138,8 +26067,10 @@ func (c *Client) sendGetAutoReceptionistIVR(ctx context.Context, params GetAutoR
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:auto_receptionist_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:auto_receptionist_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -25284,8 +26215,10 @@ func (c *Client) sendGetAutoReceptionistsPolicy(ctx context.Context, params GetA
 // **Prerequisites:**
 // * Account must be enrollled in Pro or a higher plan
 // * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_charges:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_charges:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -25519,8 +26452,10 @@ func (c *Client) sendGetCallChargesUsageReport(ctx context.Context, params GetCa
 // time.**
 // **Prerequisites**
 // * Pro or a higher account with Zoom Phone enabled
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_handling_settings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_handling_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -25662,8 +26597,10 @@ func (c *Client) sendGetCallHandling(ctx context.Context, params GetCallHandling
 // **Prerequisites**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone_call_log:read`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone_call_log:read`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -25804,8 +26741,10 @@ func (c *Client) sendGetCallHistoryDetail(ctx context.Context, params GetCallHis
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -25948,8 +26887,10 @@ func (c *Client) sendGetCallLogDetails(ctx context.Context, params GetCallLogDet
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_log:admin`.
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_log:admin`.
 //
 // GET /phone/metrics/call_logs/{call_id}
 func (c *Client) GetCallLogMetricsDetails(ctx context.Context, params GetCallLogMetricsDetailsParams) (*GetCallLogMetricsDetailsOK, error) {
@@ -26088,8 +27029,10 @@ func (c *Client) sendGetCallLogMetricsDetails(ctx context.Context, params GetCal
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:call_log:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_log:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -26230,8 +27173,10 @@ func (c *Client) sendGetCallPath(ctx context.Context, params GetCallPathParams) 
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_qos:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_qos:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -26375,8 +27320,10 @@ func (c *Client) sendGetCallQoS(ctx context.Context, params GetCallQoSParams) (r
 // * [Automatic call recordings](https://support.zoom.
 // us/hc/en-us/articles/360033511872#h_fcb297bb-14e8-4094-91ca-dc61e1a18734) must be enabled in the
 // Policy Settings for call queues.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_queue_recordings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_queue_recordings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -26589,8 +27536,10 @@ func (c *Client) sendGetCallQueueRecordings(ctx context.Context, params GetCallQ
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -26770,8 +27719,10 @@ func (c *Client) sendGetCommonAreaOutboundCallingCountriesAndRegions(ctx context
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_common_area_settings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_common_area_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -26912,8 +27863,10 @@ func (c *Client) sendGetCommonAreaSettings(ctx context.Context, params GetCommon
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:emergency_address:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:emergency_address:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -27054,8 +28007,10 @@ func (c *Client) sendGetEmergencyAddress(ctx context.Context, params GetEmergenc
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:firmware_update_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:firmware_update_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -27196,8 +28151,10 @@ func (c *Client) sendGetFirmwareRuleDetail(ctx context.Context, params GetFirmwa
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_pickup_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_pickup_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -27336,8 +28293,10 @@ func (c *Client) sendGetGCP(ctx context.Context, params GetGCPParams) (res *GetG
 // Returns group phone settings.
 // **Prerequisites:**
 // * Account must have a Pro or a higher plan with Zoom Phone license.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:group_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:group_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -27499,8 +28458,10 @@ func (c *Client) sendGetGroupPhoneSettings(ctx context.Context, params GetGroupP
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:emergency_location:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:emergency_location:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -27641,8 +28602,10 @@ func (c *Client) sendGetLocation(ctx context.Context, params GetLocationParams) 
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:monitoring_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:monitoring_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -27779,8 +28742,10 @@ func (c *Client) sendGetMonitoringGroupById(ctx context.Context, params GetMonit
 // GetNumberCampaignOptStatus invokes getNumberCampaignOptStatus operation.
 //
 // Returns the opt statuses of phone numbers that are assigned to SMS the campaign.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_campaign_number_opt_status:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -27967,8 +28932,10 @@ func (c *Client) sendGetNumberCampaignOptStatus(ctx context.Context, params GetN
 // **Prerequisites:**
 // * Account must be enrollled in Pro or a higher plan
 // * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:operation_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:operation_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -28179,8 +29146,10 @@ func (c *Client) sendGetPSOperationLogs(ctx context.Context, params GetPSOperati
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -28322,8 +29291,10 @@ func (c *Client) sendGetPhoneNumberDetails(ctx context.Context, params GetPhoneN
 // * A Pro or higher account plan
 // * A Zoom Phone license
 // * Account owner or admin privileges
-// **Scopes:** `phone:read:admin`,`phone_recording:read:admin`
-// **Granular Scopes:** `phone:read:list_call_recordings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_recording:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_recordings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -28605,8 +29576,10 @@ func (c *Client) sendGetPhoneRecordings(ctx context.Context, params GetPhoneReco
 // **Prerequisites:**
 // * A Pro or higher account with Zoom Phone license
 // * Account owner or admin privileges
-// **Scopes:** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_recording`,`phone:read:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -28747,8 +29720,10 @@ func (c *Client) sendGetPhoneRecordingsByCallIdOrCallLogId(ctx context.Context, 
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom phone license
-// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-// **Granular Scopes:** `phone:read:ported_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_peering:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:ported_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -28889,8 +29864,10 @@ func (c *Client) sendGetPortedNumbersDetails(ctx context.Context, params GetPort
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:provision_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:provision_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -29031,8 +30008,10 @@ func (c *Client) sendGetProvisionTemplate(ctx context.Context, params GetProvisi
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:role:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:role:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -29173,8 +30152,10 @@ func (c *Client) sendGetRoleInformation(ctx context.Context, params GetRoleInfor
 // does not match a Zoom Phone user, and does not match a defined External Contact, these rules are
 // tested next. If a dialed number does not match any rules, the call will be routed via the PSTN.
 // **Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:routing_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:routing_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -29314,8 +30295,10 @@ func (c *Client) sendGetRoutingRule(ctx context.Context, params GetRoutingRulePa
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:sms_campaign:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_campaign:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -29460,8 +30443,10 @@ func (c *Client) sendGetSMSCampaign(ctx context.Context, params GetSMSCampaignPa
 //	**Prerequisites:**  * Account must be enrolled in Pro or a higher plan * Account must be enrolled
 //
 // in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:sms_charges:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_charges:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -29672,8 +30657,10 @@ func (c *Client) sendGetSMSChargesUsageReport(ctx context.Context, params GetSMS
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:setting_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:setting_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -29835,8 +30822,10 @@ func (c *Client) sendGetSettingTemplate(ctx context.Context, params GetSettingTe
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:shared_line_group_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:shared_line_group_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -29977,8 +30966,10 @@ func (c *Client) sendGetSharedLineGroupPolicy(ctx context.Context, params GetSha
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -30160,8 +31151,10 @@ func (c *Client) sendGetSiteOutboundCallingCountriesAndRegions(ctx context.Conte
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:site_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:site_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -30321,8 +31314,10 @@ func (c *Client) sendGetSiteSettingForType(ctx context.Context, params GetSiteSe
 // **Prerequisites:**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -30526,14 +31521,179 @@ func (c *Client) sendGetSmsSessions(ctx context.Context, params GetSmsSessionsPa
 	return result, nil
 }
 
+// GetUserAICallSummary invokes getUserAICallSummary operation.
+//
+// Returns AI call summary details. For user-level apps, pass [the `me` value](https://marketplace.
+// zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.
+// **Prerequisites:**
+// * A Business or Enterprise account
+// * A Zoom Phone license
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:ai_call_summary`,`phone:read:ai_call_summary:admin`
+// **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
+// `MEDIUM`.
+//
+// GET /phone/user/{userId}/ai_call_summary/{aiCallSummaryId}
+func (c *Client) GetUserAICallSummary(ctx context.Context, params GetUserAICallSummaryParams) (*GetUserAICallSummaryOK, error) {
+	res, err := c.sendGetUserAICallSummary(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendGetUserAICallSummary(ctx context.Context, params GetUserAICallSummaryParams) (res *GetUserAICallSummaryOK, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("getUserAICallSummary"),
+		semconv.HTTPRequestMethodKey.String("GET"),
+		semconv.HTTPRouteKey.String("/phone/user/{userId}/ai_call_summary/{aiCallSummaryId}"),
+	}
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, GetUserAICallSummaryOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [4]string
+	pathParts[0] = "/phone/user/"
+	{
+		// Encode "userId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "userId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.UserId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	pathParts[2] = "/ai_call_summary/"
+	{
+		// Encode "aiCallSummaryId" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "aiCallSummaryId",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.AiCallSummaryId))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[3] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:OpenapiAuthorization"
+			switch err := c.securityOpenapiAuthorization(ctx, GetUserAICallSummaryOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiAuthorization\"")
+			}
+		}
+		{
+			stage = "Security:OpenapiOAuth"
+			switch err := c.securityOpenapiOAuth(ctx, GetUserAICallSummaryOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 1
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"OpenapiOAuth\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000011},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	stage = "DecodeResponse"
+	result, err := decodeGetUserAICallSummaryResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // GetUserOutboundCallingCountriesAndRegions invokes GetUserOutboundCallingCountriesAndRegions operation.
 //
 // Returns the user level outbound calling countries and regions.
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -30712,8 +31872,10 @@ func (c *Client) sendGetUserOutboundCallingCountriesAndRegions(ctx context.Conte
 // us/hc/en-us/articles/360021400211-Managing-voicemail-messages).
 // **Prerequisites:**
 // * Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
-// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:voicemail`,`phone:read:voicemail:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -30855,8 +32017,10 @@ func (c *Client) sendGetVoicemailDetails(ctx context.Context, params GetVoicemai
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-// **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:voicemail`,`phone:read:voicemail:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -31017,8 +32181,10 @@ func (c *Client) sendGetVoicemailDetailsByCallIdOrCallLogId(ctx context.Context,
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:room:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:room:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -31158,8 +32324,10 @@ func (c *Client) sendGetZoomRoom(ctx context.Context, params GetZoomRoomParams) 
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_inbound_block_rules:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_inbound_block_rules:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -31388,8 +32556,10 @@ func (c *Client) sendListAccountLevelInboundBlockRules(ctx context.Context, para
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_extension_inbound_block_rules_stat:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_extension_inbound_block_rules_stat:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -31599,8 +32769,10 @@ func (c *Client) sendListAccountLevelInboundBlockedStatistics(ctx context.Contex
 // Lists the account level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_outbound_calling_rules:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -31828,8 +33000,10 @@ func (c *Client) sendListAccountOutboundCallingExceptionRule(ctx context.Context
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -32075,8 +33249,10 @@ func (c *Client) sendListAccountPhoneNumbers(ctx context.Context, params ListAcc
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_provision_templates:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_provision_templates:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -32236,8 +33412,10 @@ func (c *Client) sendListAccountProvisionTemplate(ctx context.Context, params Li
 // **Prerequisites**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_sms_campaigns:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sms_campaigns:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -32398,8 +33576,10 @@ func (c *Client) sendListAccountSMSCampaigns(ctx context.Context, params ListAcc
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_common_area_activation_codes:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_common_area_activation_codes:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`
 // **Not supported in Gov cluster**.
@@ -32561,8 +33741,10 @@ func (c *Client) sendListActivationCodes(ctx context.Context, params ListActivat
 // **Prerequisites**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_alert_settings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_alert_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -32775,8 +33957,10 @@ func (c *Client) sendListAlertSettingsWithPagingQuery(ctx context.Context, param
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`
-// **Granular Scopes:** `phone:read:list_audios`,`phone:read:list_audios:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_audios`,`phone:read:list_audios:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -32917,8 +34101,10 @@ func (c *Client) sendListAudioItems(ctx context.Context, params ListAudioItemsPa
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_auto_receptionists:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_auto_receptionists:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -33078,8 +34264,10 @@ func (c *Client) sendListAutoReceptionists(ctx context.Context, params ListAutoR
 // Initiation Protocol) trunks](https://zoom.us/docs/doc/Zoom-Bring%20Your%20Own%20Carrier.pdf).
 // **Prerequisites:**
 // * A Business or Enterprise account
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_sip_trunks:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sip_trunks:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -33244,8 +34432,10 @@ func (c *Client) sendListBYOCSIPTrunk(ctx context.Context, params ListBYOCSIPTru
 //
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_billing_accounts:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_billing_accounts:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -33391,8 +34581,10 @@ func (c *Client) sendListBillingAccount(ctx context.Context, params ListBillingA
 // calling is not available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_blocked_lists:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_blocked_lists:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -33553,8 +34745,10 @@ func (c *Client) sendListBlockedList(ctx context.Context, params ListBlockedList
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_carrier_numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_carrier_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -33769,8 +34963,10 @@ func (c *Client) sendListCRPhoneNumbers(ctx context.Context, params ListCRPhoneN
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -33999,8 +35195,10 @@ func (c *Client) sendListCallLogsMetrics(ctx context.Context, params ListCallLog
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_queue_members:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_queue_members:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -34183,8 +35381,10 @@ func (c *Client) sendListCallQueueMembers(ctx context.Context, params ListCallQu
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_queues:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_queues:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -34396,8 +35596,10 @@ func (c *Client) sendListCallQueues(ctx context.Context, params ListCallQueuesPa
 // **Prerequisites:**
 // * A Pro or a higher account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_calling_plans:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_calling_plans:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -34521,8 +35723,10 @@ func (c *Client) sendListCallingPlans(ctx context.Context) (res *ListCallingPlan
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_peering:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_peering_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -34698,8 +35902,10 @@ func (c *Client) sendListCarrierPeeringPhoneNumbers(ctx context.Context, params 
 // Lists the common area level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -34947,8 +36153,10 @@ func (c *Client) sendListCommonAreaOutboundCallingExceptionRule(ctx context.Cont
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -35110,8 +36318,10 @@ func (c *Client) sendListCommonAreas(ctx context.Context, params ListCommonAreas
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -35341,8 +36551,10 @@ func (c *Client) sendListCustomizeOutboundCallerNumbers(ctx context.Context, par
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:device_line_keys`,`phone:read:device_line_keys:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:device_line_keys`,`phone:read:device_line_keys:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -35483,8 +36695,10 @@ func (c *Client) sendListDeviceLineKeySetting(ctx context.Context, params ListDe
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_emergency_addresses:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_emergency_addresses:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -35730,8 +36944,10 @@ func (c *Client) sendListEmergencyAddresses(ctx context.Context, params ListEmer
 // Area, Zoom Room, or User.
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:list_extension_inbound_block_rules:admin`,
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_extension_inbound_block_rules:admin`,
 // `phone:read:list_extension_inbound_block_rules`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
@@ -35962,8 +37178,10 @@ func (c *Client) sendListExtensionLevelInboundBlockRules(ctx context.Context, pa
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_external_contacts:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_external_contacts:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -36124,8 +37342,10 @@ func (c *Client) sendListExternalContacts(ctx context.Context, params ListExtern
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_firmware_update_rules:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_firmware_update_rules:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -36303,8 +37523,10 @@ func (c *Client) sendListFirmwareRules(ctx context.Context, params ListFirmwareR
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_firmwares:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_firmwares:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -36465,8 +37687,10 @@ func (c *Client) sendListFirmwares(ctx context.Context, params ListFirmwaresPara
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_pickup_groups:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_pickup_groups:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -36644,8 +37868,10 @@ func (c *Client) sendListGCP(ctx context.Context, params ListGCPParams) (res *Li
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:call_pickup_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_pickup_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -36859,8 +38085,10 @@ func (c *Client) sendListGCPMembers(ctx context.Context, params ListGCPMembersPa
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:line_keys`,`phone:read:line_keys:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:line_keys`,`phone:read:line_keys:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -37003,8 +38231,10 @@ func (c *Client) sendListLineKeySetting(ctx context.Context, params ListLineKeyS
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_emergency_locations:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_emergency_locations:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -37182,8 +38412,10 @@ func (c *Client) sendListLocations(ctx context.Context, params ListLocationsPara
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_monitoring_group_members:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_monitoring_group_members:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -37377,8 +38609,10 @@ func (c *Client) sendListMembers(ctx context.Context, params ListMembersParams) 
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_monitoring_groups:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_monitoring_groups:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -37575,8 +38809,10 @@ func (c *Client) sendListMonitoringGroup(ctx context.Context, params ListMonitor
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -37927,8 +39163,10 @@ func (c *Client) sendListPastCallMetrics(ctx context.Context, params ListPastCal
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-// **Granular Scopes:** `phone:read:list_peering_numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_peering:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_peering_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -38123,8 +39361,10 @@ func (c *Client) sendListPeeringPhoneNumbers(ctx context.Context, params ListPee
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_devices:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_devices:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -38402,8 +39642,10 @@ func (c *Client) sendListPhoneDevices(ctx context.Context, params ListPhoneDevic
 // **Prerequisites:**
 // * A Pro or a higher account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_calling_plans:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_calling_plans:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -38525,8 +39767,10 @@ func (c *Client) sendListPhonePlans(ctx context.Context) (res *ListPhonePlansOK,
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:realtime_location_devices:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:realtime_location_devices:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -38734,8 +39978,10 @@ func (c *Client) sendListPhoneRealtimelocation(ctx context.Context, params ListP
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_roles:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_roles:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -38860,8 +40106,10 @@ func (c *Client) sendListPhoneRoles(ctx context.Context) (res *ListPhoneRolesOK,
 // * Multiple Sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
 // * Pro or a higher account with Zoom Phone enabled.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_sites:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sites:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -39021,8 +40269,10 @@ func (c *Client) sendListPhoneSites(ctx context.Context, params ListPhoneSitesPa
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_users:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_users:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -39284,8 +40534,10 @@ func (c *Client) sendListPhoneUsers(ctx context.Context, params ListPhoneUsersPa
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
-// **Granular Scopes:** `phone:read:list_ported_numbers:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_peering:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_ported_numbers:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -39443,8 +40695,10 @@ func (c *Client) sendListPortedNumbers(ctx context.Context, params ListPortedNum
 //
 // Returns the member list of a [private directory](https://support.zoom.
 // com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_private_directory_members:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_private_directory_members:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -39639,8 +40893,10 @@ func (c *Client) sendListPrivateDirectoryMembers(ctx context.Context, params Lis
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:role_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:role_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -39803,8 +41059,10 @@ func (c *Client) sendListRoleMembers(ctx context.Context, params ListRoleMembers
 // number does not match a Zoom Phone user, and does not match a defined External Contact, these
 // rules are tested next. If a dialed number does not match any rules, the call will be routed via
 // the PSTN. **Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_routing_rules:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_routing_rules:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -39947,8 +41205,10 @@ func (c *Client) sendListRoutingRule(ctx context.Context, params ListRoutingRule
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_setting_templates:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_setting_templates:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -40126,8 +41386,10 @@ func (c *Client) sendListSettingTemplates(ctx context.Context, params ListSettin
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license
 // * Account owner or admin privileges
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_shared_line_appearances:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_shared_line_appearances:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -40290,8 +41552,10 @@ func (c *Client) sendListSharedLineAppearances(ctx context.Context, params ListS
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_shared_line_groups:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_shared_line_groups:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -40451,8 +41715,10 @@ func (c *Client) sendListSharedLineGroups(ctx context.Context, params ListShared
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_sip_groups:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sip_groups:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -40615,8 +41881,10 @@ func (c *Client) sendListSipGroups(ctx context.Context, params ListSipGroupsPara
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_site_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_site_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -40862,8 +42130,10 @@ func (c *Client) sendListSiteCustomizeOutboundCallerNumbers(ctx context.Context,
 // Returns a list of site level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -41111,8 +42381,10 @@ func (c *Client) sendListSiteOutboundCallingExceptionRule(ctx context.Context, p
 // **Prerequisites**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_devices:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_devices:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`
 // **Not supported in Gov cluster**.
@@ -41307,8 +42579,10 @@ func (c *Client) sendListSmartphones(ctx context.Context, params ListSmartphones
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_tracked_locations:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_tracked_locations:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -41500,8 +42774,10 @@ func (c *Client) sendListTrackedLocations(ctx context.Context, params ListTracke
 //
 // Returns [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) that are not assigned
 // a Zoom Phone.**Prerequisites:** * A Pro or higher account plan * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_rooms:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_rooms:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -41644,9 +42920,10 @@ func (c *Client) sendListUnassignedZoomRooms(ctx context.Context, params ListUna
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license.
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:list_user_customized_number`,
-// `phone:read:list_user_customized_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_user_customized_number`,`phone:read:list_user_customized_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -41894,8 +43171,10 @@ func (c *Client) sendListUserCustomizeOutboundCallerNumbers(ctx context.Context,
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:default_emergency_address:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:default_emergency_address:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -42104,8 +43383,10 @@ func (c *Client) sendListUserDefaultEmergencyAddress(ctx context.Context, params
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:detectable_personal_location:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:detectable_personal_location:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -42313,8 +43594,10 @@ func (c *Client) sendListUserDetectablePersonalLocation(ctx context.Context, par
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:nomadic_emergency_services:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:nomadic_emergency_services:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -42521,8 +43804,10 @@ func (c *Client) sendListUserNomadicEmergencyServices(ctx context.Context, param
 // Returns a list of the user level outbound calling policy exception rules.
 // **Prerequisite:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -42770,8 +44055,10 @@ func (c *Client) sendListUserOutboundCallingExceptionRule(ctx context.Context, p
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:realtime_location_users:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:realtime_location_users:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -42980,8 +44267,10 @@ func (c *Client) sendListUserRealtimeLocation(ctx context.Context, params ListUs
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -43173,8 +44462,10 @@ func (c *Client) sendListUsersFromDirectory(ctx context.Context, params ListUser
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:directory:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:directory:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -43387,8 +44678,10 @@ func (c *Client) sendListUsersFromDirectoryBySite(ctx context.Context, params Li
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_account_settings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_account_settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -43530,8 +44823,10 @@ func (c *Client) sendListZoomPhoneAccountSettings(ctx context.Context, params Li
 // Retrieves a list of [Zoom Rooms](https://support.zoom.us/hc/en-us/articles/360025153711) under the
 // account that has the Zoom Phone license assigned.**Prerequisites:** * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:list_rooms:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_rooms:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -43744,8 +45039,10 @@ func (c *Client) sendListZoomRooms(ctx context.Context, params ListZoomRoomsPara
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:inbound_blocked_for_all:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:inbound_blocked_for_all:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -43870,8 +45167,10 @@ func (c *Client) sendMarkPhoneNumberAsBlockedForAllExtensions(ctx context.Contex
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-// **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:call_recording`,`phone:read:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -44011,8 +45310,10 @@ func (c *Client) sendPhoneDownloadRecordingFile(ctx context.Context, params Phon
 // **Prerequisites**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-// **Granular Scopes:** `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -44152,8 +45453,10 @@ func (c *Client) sendPhoneDownloadRecordingTranscript(ctx context.Context, param
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-// **Granular Scopes:** `phone:read:voicemail:admin`,`phone:read:voicemail`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:voicemail:admin`,`phone:read:voicemail`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -44293,8 +45596,10 @@ func (c *Client) sendPhoneDownloadVoicemailFile(ctx context.Context, params Phon
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`
-// **Granular Scopes:** `phone:read:settings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:settings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -44419,8 +45724,10 @@ func (c *Client) sendPhoneSetting(ctx context.Context) (res *PhoneSettingOK, err
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`
-// **Granular Scopes:** `phone:read:user`,`phone:read:user:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:user`,`phone:read:user:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -44563,8 +45870,10 @@ func (c *Client) sendPhoneUser(ctx context.Context, params PhoneUserParams) (res
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone_call_log:read`
-// **Granular Scopes:** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone_call_log:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `HEAVY`.
 //
@@ -45073,8 +46382,10 @@ func (c *Client) sendPhoneUserCallHistory(ctx context.Context, params PhoneUserC
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`
-// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -45343,8 +46654,10 @@ func (c *Client) sendPhoneUserCallLogs(ctx context.Context, params PhoneUserCall
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
-// **Granular Scopes:** `phone:read:list_recordings`,`phone:read:list_recordings:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_recordings`,`phone:read:list_recordings:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -45560,8 +46873,10 @@ func (c *Client) sendPhoneUserRecordings(ctx context.Context, params PhoneUserRe
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`
-// **Granular Scopes:** `phone:read:user_setting:admin`,`phone:read:user_setting`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:user_setting:admin`,`phone:read:user_setting`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -45704,8 +47019,10 @@ func (c *Client) sendPhoneUserSettings(ctx context.Context, params PhoneUserSett
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
-// **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,
+// `phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -45953,8 +47270,10 @@ func (c *Client) sendPhoneUserVoiceMails(ctx context.Context, params PhoneUserVo
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:reboot_device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:reboot_device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -46093,8 +47412,10 @@ func (c *Client) sendRebootPhoneDevice(ctx context.Context, params RebootPhoneDe
 //
 // Removes a member from a [private directory](https://support.zoom.
 // com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:private_directory_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:private_directory_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -46257,10 +47578,12 @@ func (c *Client) sendRemoveAMemberFromAPrivateDirectory(ctx context.Context, par
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
-// `Light`.
+// `LIGHT`.
 //
 // DELETE /phone/call_queues/{callQueueId}/policies/{policyType}
 func (c *Client) RemoveCQPolicySubSetting(ctx context.Context, params RemoveCQPolicySubSettingParams) error {
@@ -46445,8 +47768,10 @@ func (c *Client) sendRemoveCQPolicySubSetting(ctx context.Context, params Remove
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_pickup_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_pickup_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -46606,8 +47931,10 @@ func (c *Client) sendRemoveGCPMembers(ctx context.Context, params RemoveGCPMembe
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:monitoring_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -46788,8 +48115,10 @@ func (c *Client) sendRemoveMember(ctx context.Context, params RemoveMemberParams
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:monitoring_group_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -46948,8 +48277,10 @@ func (c *Client) sendRemoveMembers(ctx context.Context, params RemoveMembersPara
 // us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this
 // API to remove shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone
 // license.* Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:shared_line_group_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:shared_line_group_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -47137,8 +48468,10 @@ func (c *Client) sendRemoveSLGPolicySubSetting(ctx context.Context, params Remov
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:room:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:room:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -47278,8 +48611,10 @@ func (c *Client) sendRemoveZoomRoom(ctx context.Context, params RemoveZoomRoomPa
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:sms_message`,`phone:read:sms_message:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_message`,`phone:read:sms_message:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -47438,8 +48773,10 @@ func (c *Client) sendSmsByMessageId(ctx context.Context, params SmsByMessageIdPa
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -47668,8 +49005,10 @@ func (c *Client) sendSmsSessionDetails(ctx context.Context, params SmsSessionDet
 // **Prerequisites**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:sms_session`,`phone:read:sms_session:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -47866,8 +49205,10 @@ func (c *Client) sendSmsSessionSync(ctx context.Context, params SmsSessionSyncPa
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:write:sync_device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:sync_device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Heavy`.
 //
@@ -47995,8 +49336,10 @@ func (c *Client) sendSyncPhoneDevice(ctx context.Context, request OptSyncPhoneDe
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -48195,8 +49538,10 @@ func (c *Client) sendSyncUserCallHistory(ctx context.Context, params SyncUserCal
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:read:admin`,`phone:read`
-// **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
@@ -48398,8 +49743,10 @@ func (c *Client) sendSyncUserCallLogs(ctx context.Context, params SyncUserCallLo
 // * Pro or higher account palan
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -48560,8 +49907,10 @@ func (c *Client) sendUnAssignPhoneNumCallQueue(ctx context.Context, params UnAss
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:auto_receptionist_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -48724,8 +50073,10 @@ func (c *Client) sendUnassignAPhoneNumAutoReceptionist(ctx context.Context, para
 // * Pro or higher account palan
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -48867,8 +50218,10 @@ func (c *Client) sendUnassignAPhoneNumCallQueue(ctx context.Context, params Unas
 // **Prerequisites:**
 // * Pro or higher account plan.
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -49011,8 +50364,10 @@ func (c *Client) sendUnassignAllMembers(ctx context.Context, params UnassignAllM
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:auto_receptionist_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -49157,8 +50512,10 @@ func (c *Client) sendUnassignAllPhoneNumsAutoReceptionist(ctx context.Context, p
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:users_calling_plan`,`phone:delete:users_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -49341,8 +50698,10 @@ func (c *Client) sendUnassignCallingPlan(ctx context.Context, params UnassignCal
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:room_calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:room_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -49523,8 +50882,10 @@ func (c *Client) sendUnassignCallingPlanFromRoom(ctx context.Context, params Una
 // **Prerequisites:**
 // * A Pro or higher account with a Zoom Phone license
 // * An account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:common_area_calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:common_area_calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -49707,8 +51068,10 @@ func (c *Client) sendUnassignCallingPlansFromCommonArea(ctx context.Context, par
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // * The campaign must have been previously assigned a Zoom Phone number
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:sms_campaign_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:sms_campaign_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -49868,8 +51231,10 @@ func (c *Client) sendUnassignCampaignPhoneNumber(ctx context.Context, params Una
 // **Prerequisites:**
 // * Pro or higher account plan.
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:call_queue_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:call_queue_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -50031,8 +51396,10 @@ func (c *Client) sendUnassignMemberFromCallQueue(ctx context.Context, params Una
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // * The user must have been previously assigned a Zoom Phone number
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:delete:user_number`,`phone:delete:user_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:user_number`,`phone:delete:user_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -50195,8 +51562,10 @@ func (c *Client) sendUnassignPhoneNumber(ctx context.Context, params UnassignPho
 // * A Business or Enterprise account
 // * A Zoom Phone license
 // * The Zoom Room must have been previously assigned a Zoom Phone number
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:room_phone_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:room_phone_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -50356,8 +51725,10 @@ func (c *Client) sendUnassignPhoneNumberFromZoomRoom(ctx context.Context, params
 // **Prerequisites:**
 // * A Pro or a higher account with a Zoom Phone license
 // * An account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:delete:common_area_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:delete:common_area_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -50516,8 +51887,10 @@ func (c *Client) sendUnassignPhoneNumbersFromCommonArea(ctx context.Context, par
 // us/hc/en-us/articles/360021119092).
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license* Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:device:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:device:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -50658,8 +52031,10 @@ func (c *Client) sendUpdateADevice(ctx context.Context, request OptUpdateADevice
 //
 // Updates a member of a [private directory](https://support.zoom.
 // com/hc/en/article?id=zm_kb&sysparm_article=KB0063992).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:private_directory_member:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:private_directory_member:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -50805,8 +52180,10 @@ func (c *Client) sendUpdateAPrivateDirectoryMember(ctx context.Context, request 
 // **Prerequisites**
 // * Pro or higher account with Zoom Phone license
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:shared_line_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:shared_line_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -50949,8 +52326,10 @@ func (c *Client) sendUpdateASharedLineGroup(ctx context.Context, request OptUpda
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:inbound_block_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:inbound_block_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51092,8 +52471,10 @@ func (c *Client) sendUpdateAccountLevelInboundBlockRule(ctx context.Context, req
 // Updates the account level outbound calling policy country or region.
 // **Prerequisite:**
 // * Account must have a Pro or a higher plan with a Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51218,8 +52599,10 @@ func (c *Client) sendUpdateAccountOutboundCallingCountriesOrRegions(ctx context.
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51362,8 +52745,10 @@ func (c *Client) sendUpdateAccountOutboundCallingExceptionRule(ctx context.Conte
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:patch:alert_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:patch:alert_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51506,8 +52891,10 @@ func (c *Client) sendUpdateAnAlertSetting(ctx context.Context, request OptUpdate
 // **Prerequisites:**
 // * Business or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:update:audio`,`phone:update:audio:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:audio`,`phone:update:audio:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51651,8 +53038,10 @@ func (c *Client) sendUpdateAudioItem(ctx context.Context, request OptUpdateAudio
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account
 // * User must have a Zoom Phone license.
-// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-// **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_recording`,`phone:update:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51799,8 +53188,10 @@ func (c *Client) sendUpdateAutoDeleteField(ctx context.Context, request OptUpdat
 // options.
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:auto_receptionist:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:auto_receptionist:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -51944,8 +53335,10 @@ func (c *Client) sendUpdateAutoReceptionist(ctx context.Context, request OptUpda
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:auto_receptionist_ivr:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:auto_receptionist_ivr:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -52090,8 +53483,10 @@ func (c *Client) sendUpdateAutoReceptionistIVR(ctx context.Context, request OptU
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:auto_receptionist_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -52238,8 +53633,10 @@ func (c *Client) sendUpdateAutoReceptionistPolicy(ctx context.Context, request O
 // message stating that the person they are calling is not available.
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:blocked_list:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:blocked_list:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -52384,8 +53781,10 @@ func (c *Client) sendUpdateBlockedList(ctx context.Context, request OptUpdateBlo
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_queue_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_queue_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -52553,8 +53952,10 @@ func (c *Client) sendUpdateCQPolicySubSetting(ctx context.Context, request OptUp
 // time.**
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone enabled
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_handling_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_handling_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -52719,8 +54120,10 @@ func (c *Client) sendUpdateCallHandling(ctx context.Context, request OptUpdateCa
 // * Pro, Business, or Education account
 // * Account owner or admin permissions
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_queue:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_queue:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -52867,8 +54270,10 @@ func (c *Client) sendUpdateCallQueue(ctx context.Context, request OptUpdateCallQ
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:update:calling_plan`,`phone:update:calling_plan:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:calling_plan`,`phone:update:calling_plan:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -53013,8 +54418,10 @@ func (c *Client) sendUpdateCallingPlan(ctx context.Context, request OptUpdateCal
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -53156,8 +54563,10 @@ func (c *Client) sendUpdateCommonArea(ctx context.Context, request OptUpdateComm
 // Updates the common area level outbound calling policy country or region.
 // **Prerequisite:**
 // * Account must have a Pro or a higher plan with a Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -53301,8 +54710,10 @@ func (c *Client) sendUpdateCommonAreaOutboundCallingCountriesOrRegions(ctx conte
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:common_area_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -53466,8 +54877,10 @@ func (c *Client) sendUpdateCommonAreaOutboundCallingExceptionRule(ctx context.Co
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions, This depends on whether [The PIN cannot be viewed by the
 // admin](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069783) is enabled.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:common_area:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:common_area:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -53613,8 +55026,10 @@ func (c *Client) sendUpdateCommonAreaPinCode(ctx context.Context, request OptUpd
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:common_area_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:common_area_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -53777,8 +55192,10 @@ func (c *Client) sendUpdateCommonAreaSetting(ctx context.Context, request OptUpd
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:emergency_address:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:emergency_address:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -53921,8 +55338,10 @@ func (c *Client) sendUpdateEmergencyAddress(ctx context.Context, request OptUpda
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:external_contact:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:external_contact:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -54066,8 +55485,10 @@ func (c *Client) sendUpdateExternalContact(ctx context.Context, request OptUpdat
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:firmware_update_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:firmware_update_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -54211,8 +55632,10 @@ func (c *Client) sendUpdateFirmwareRule(ctx context.Context, request OptUpdateFi
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:call_pickup_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_pickup_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -54355,8 +55778,10 @@ func (c *Client) sendUpdateGCP(ctx context.Context, request OptUpdateGCPReq, par
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:emergency_location:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:emergency_location:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -54500,8 +55925,10 @@ func (c *Client) sendUpdateLocation(ctx context.Context, request OptUpdateLocati
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:monitoring_group:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:monitoring_group:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -54641,8 +56068,10 @@ func (c *Client) sendUpdateMonitoringGroup(ctx context.Context, request OptUpdat
 // UpdateNumberCampaignOptStatus invokes updateNumberCampaignOptStatus operation.
 //
 // Updates opt statuses of phone numbers that are assigned to the SMS campaign.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:sms_campaign_number_opt_status:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -54789,8 +56218,10 @@ func (c *Client) sendUpdateNumberCampaignOptStatus(ctx context.Context, request 
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone_peering:write:admin`
-// **Granular Scopes:** `phone:update:peering_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone_peering:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:peering_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -54914,8 +56345,10 @@ func (c *Client) sendUpdatePeeringPhoneNumbers(ctx context.Context, request OptU
 // Updates a Zoom Phone number's information.
 // **Prerequisites:**
 // * A Paid account
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -55058,8 +56491,10 @@ func (c *Client) sendUpdatePhoneNumberDetails(ctx context.Context, request OptUp
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:role:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:role:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -55201,8 +56636,10 @@ func (c *Client) sendUpdatePhoneRole(ctx context.Context, request OptUpdatePhone
 // Updates Zoom Phone [account settings](https://support.zoom.us/hc/en-us/articles/360025846692).
 // **Prerequisites:**
 // * A Business or Enterprise account
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:settings:admin`.
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:settings:admin`.
 //
 // PATCH /phone/settings
 func (c *Client) UpdatePhoneSettings(ctx context.Context, request OptUpdatePhoneSettingsReq) error {
@@ -55327,8 +56764,10 @@ func (c *Client) sendUpdatePhoneSettings(ctx context.Context, request OptUpdateP
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:auto_receptionist_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -55491,8 +56930,10 @@ func (c *Client) sendUpdatePolicy(ctx context.Context, request OptUpdatePolicyRe
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:provision_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:provision_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -55640,8 +57081,10 @@ func (c *Client) sendUpdateProvisionTemplate(ctx context.Context, request OptUpd
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
 // * [Supported device](https://support.zoom.us/hc/en-us/articles/360029698771#note)
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:device_provision_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:device_provision_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -55785,8 +57228,10 @@ func (c *Client) sendUpdateProvisionTemplateToDevice(ctx context.Context, reques
 // **Prerequisites:**
 // * User must belong to a Business or Enterprise account.
 // * User must have a Zoom Phone license.
-// **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
-// **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:call_recording`,`phone:update:call_recording:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -55934,8 +57379,10 @@ func (c *Client) sendUpdateRecordingStatus(ctx context.Context, request OptUpdat
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:routing_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:routing_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -56080,8 +57527,10 @@ func (c *Client) sendUpdateRoutingRule(ctx context.Context, request OptUpdateRou
 // **Prerequisites:**
 // * Pro or higher account with Zoom Phone license.
 // * Account owner or admin privileges
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:shared_line_group_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -56243,8 +57692,10 @@ func (c *Client) sendUpdateSLGPolicySubSetting(ctx context.Context, request OptU
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:setting_template:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:setting_template:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -56388,8 +57839,10 @@ func (c *Client) sendUpdateSettingTemplate(ctx context.Context, request OptUpdat
 // **Prerequisites:**
 // * Pro or higher account plan with Zoom Phone License
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:shared_line_group_policy:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -56534,8 +57987,10 @@ func (c *Client) sendUpdateSharedLineGroupPolicy(ctx context.Context, request Op
 // It allows you to organize Zoom Phone users in your organization.
 // **Prerequisites**
 // An account must have a Pro or a higher plan with Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:site:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:site:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -56680,8 +58135,10 @@ func (c *Client) sendUpdateSiteDetails(ctx context.Context, request OptUpdateSit
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:site_number:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:site_number:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Medium`.
 //
@@ -56823,8 +58280,10 @@ func (c *Client) sendUpdateSiteForUnassignedPhoneNumbers(ctx context.Context, re
 // Updates the site level outbound calling policy country or region.
 // **Prerequisites:**
 // * Account must have a Pro or a higher plan with a Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -56968,8 +58427,10 @@ func (c *Client) sendUpdateSiteOutboundCallingCountriesOrRegions(ctx context.Con
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license
 // * Account owner or admin permissions
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:site_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57134,8 +58595,10 @@ func (c *Client) sendUpdateSiteOutboundCallingExceptionRule(ctx context.Context,
 // * Account must have a Pro or a higher plan with Zoom Phone license.
 // * Multiple sites must be [enabled](https://support.zoom.
 // us/hc/en-us/articles/360020809672-Managing-Multiple-Sites#h_05c88e35-1593-491f-b1a8-b7139a75dc15).
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:site_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:site_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57296,8 +58759,10 @@ func (c *Client) sendUpdateSiteSetting(ctx context.Context, request OptUpdateSit
 // Updates the user level outbound calling policy country or region.
 // **Prerequisite:**
 // * Account must have a Pro or a higher plan with a Zoom Phone license.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57441,8 +58906,10 @@ func (c *Client) sendUpdateUserOutboundCallingCountriesOrRegions(ctx context.Con
 // **Prerequisites:**
 // * Pro or a higher account with Zoom Phone license.
 // * Account owner or admin permissions.
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:user_outbound_calling_rule:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57609,8 +59076,10 @@ func (c *Client) sendUpdateUserOutboundCallingExceptionRule(ctx context.Context,
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:update:user`,`phone:update:user:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:user`,`phone:update:user:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57761,8 +59230,10 @@ func (c *Client) sendUpdateUserProfile(ctx context.Context, request OptUpdateUse
 // Settings**
 // **Prerequisites:**
 // * A Business or Enterprise account
-// **Scopes:** `phone:write:admin`,`phone:write`
-// **Granular Scopes:** `phone:update:shared_setting`,`phone:update:shared_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:shared_setting`,`phone:update:shared_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -57927,8 +59398,10 @@ func (c *Client) sendUpdateUserSetting(ctx context.Context, request OptUpdateUse
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write`,`phone:write:admin`
-// **Granular Scopes:** `phone:update:user_setting`,`phone:update:user_setting:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:user_setting`,`phone:update:user_setting:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -58074,8 +59547,10 @@ func (c *Client) sendUpdateUserSettings(ctx context.Context, request OptUpdateUs
 // **Prerequisites:**
 // * Business, or Education account
 // * Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:batch_users:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:batch_users:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -58201,8 +59676,10 @@ func (c *Client) sendUpdateUsersPropertiesInBatch(ctx context.Context, request O
 // **Prerequisites:**
 // * A Business or Enterprise account
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
-// **Granular Scopes:** `phone:update:voicemail`,`phone:update:voicemail:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:voicemail`,`phone:update:voicemail:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `LIGHT`.
 //
@@ -58361,8 +59838,10 @@ func (c *Client) sendUpdateVoicemailReadStatus(ctx context.Context, params Updat
 // **Prerequisites:**
 // * A Pro or higher account plan
 // * A Zoom Phone license
-// **Scopes:** `phone:write:admin`
-// **Granular Scopes:** `phone:update:room:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:write:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:update:room:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `Light`.
 //
@@ -58507,8 +59986,10 @@ func (c *Client) sendUpdateZoomRoom(ctx context.Context, request OptUpdateZoomRo
 // **Prerequisites:**
 // * Paid account
 // * User-enabled Zoom phone
-// **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-// **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+// **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+// **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):**
+// `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 // **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):**
 // `MEDIUM`.
 //
