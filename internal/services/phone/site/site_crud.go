@@ -55,6 +55,7 @@ func (c *crud) read(ctx context.Context, siteID types.String) (*readDto, error) 
 			name: util.FromOptString(detail.SipZone.Value.Name),
 		},
 		callerIDName:    util.FromOptString(detail.CallerIDName),
+		level:           util.FromOptString(detail.Level),
 		indiaStateCode:  util.FromOptString(detail.IndiaStateCode),
 		indiaCity:       util.FromOptString(detail.IndiaCity),
 		indiaSdcaNpa:    util.FromOptString(detail.IndiaSdcaNpa),
@@ -72,6 +73,7 @@ func (c *crud) create(ctx context.Context, dto *createDto) (*createdDto, error) 
 				AddressLine2: util.ToPhoneOptString(dto.defaultEmergencyAddress.addressLine2),
 				City:         dto.defaultEmergencyAddress.city.ValueString(),
 				StateCode:    dto.defaultEmergencyAddress.stateCode.ValueString(),
+				Country:      dto.defaultEmergencyAddress.countryCode.ValueString(),
 				Zip:          dto.defaultEmergencyAddress.zip.ValueString(),
 			},
 			Name: dto.name.ValueString(),
@@ -120,13 +122,6 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 			}, func() zoomphone.OptUpdateSiteDetailsReqShortExtension {
 				return zoomphone.OptUpdateSiteDetailsReqShortExtension{}
 			}),
-			DefaultEmergencyAddress: zoomphone.NewOptUpdateSiteDetailsReqDefaultEmergencyAddress(zoomphone.UpdateSiteDetailsReqDefaultEmergencyAddress{
-				AddressLine1: dto.defaultEmergencyAddress.addressLine1.ValueString(),
-				AddressLine2: util.ToPhoneOptString(dto.defaultEmergencyAddress.addressLine2),
-				City:         dto.defaultEmergencyAddress.city.ValueString(),
-				StateCode:    dto.defaultEmergencyAddress.stateCode.ValueString(),
-				Zip:          dto.defaultEmergencyAddress.zip.ValueString(),
-			}),
 			SipZone: zoomphone.NewOptUpdateSiteDetailsReqSipZone(zoomphone.UpdateSiteDetailsReqSipZone{
 				ID: util.ToPhoneOptString(dto.sipZoneID),
 			}),
@@ -142,9 +137,10 @@ func (c *crud) update(ctx context.Context, dto *updateDto) error {
 	return nil
 }
 
-func (c *crud) delete(ctx context.Context, siteID types.String) error {
+func (c *crud) delete(ctx context.Context, siteID types.String, transferSiteID types.String) error {
 	err := c.client.DeletePhoneSite(ctx, zoomphone.DeletePhoneSiteParams{
-		SiteId: siteID.ValueString(),
+		SiteId:         siteID.ValueString(),
+		TransferSiteID: transferSiteID.ValueString(),
 	})
 	if err != nil {
 		var status *zoomphone.ErrorResponseStatusCode
@@ -159,33 +155,28 @@ func (c *crud) delete(ctx context.Context, siteID types.String) error {
 	return nil
 }
 
-func (c *crud) readDefaultEmergencyAddressBySiteID(ctx context.Context, siteID types.String) (*readDefaultEmergencyAddressDto, error) {
+func (c *crud) readMain(ctx context.Context) (*readDto, error) {
 	nextPageToken := zoomphone.OptString{}
 	for {
-		res, err := c.client.ListEmergencyAddresses(ctx, zoomphone.ListEmergencyAddressesParams{
-			SiteID:        util.ToPhoneOptString(siteID),
+		ret, err := c.client.ListPhoneSites(ctx, zoomphone.ListPhoneSitesParams{
 			NextPageToken: nextPageToken,
-			PageSize:      zoomphone.NewOptInt(300), // Max 300
+			PageSize:      zoomphone.NewOptInt(300), // max 300
 		})
 		if err != nil {
-			return nil, fmt.Errorf("error listing phone emergency address: %v", err)
+			return nil, fmt.Errorf("unable to read sites: %v", err)
 		}
-		for _, emergencyAddresses := range res.EmergencyAddresses {
-			if emergencyAddresses.IsDefault.IsSet() && emergencyAddresses.IsDefault.Value {
-				return &readDefaultEmergencyAddressDto{
-					addressLine1: util.FromOptString(emergencyAddresses.AddressLine1),
-					addressLine2: util.FromOptString(emergencyAddresses.AddressLine2),
-					city:         util.FromOptString(emergencyAddresses.City),
-					stateCode:    util.FromOptString(emergencyAddresses.StateCode),
-					zip:          util.FromOptString(emergencyAddresses.Zip),
-				}, nil
+
+		for _, site := range ret.Sites {
+			if site.Level.IsSet() && site.Level.Value == "main" {
+				return c.read(ctx, util.FromOptString(site.ID))
 			}
 		}
-		if res.NextPageToken.Value == "" {
+
+		if ret.NextPageToken.Value == "" {
 			break
 		}
-		nextPageToken = res.NextPageToken
+		nextPageToken = ret.NextPageToken
 	}
 
-	return nil, fmt.Errorf("default emergency address not found for site %s", siteID.ValueString())
+	return nil, fmt.Errorf("main site not found")
 }

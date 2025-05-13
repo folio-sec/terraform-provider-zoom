@@ -24,6 +24,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupmember"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroupphonenumber"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/site"
 	phoneuser "github.com/folio-sec/terraform-provider-zoom/internal/services/phone/user"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/usercallingplans"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/userphonenumber"
@@ -40,18 +41,19 @@ import (
 )
 
 // Ensure zoomProvider satisfies various provider interfaces.
-var _ provider.Provider = &zoomProvider{}
+var _ provider.Provider = &ZoomProvider{}
 
-type zoomProvider struct {
-	version string
+type ZoomProvider struct {
+	version      string
+	ProviderData *shared.ProviderData
 }
 
-func (p *zoomProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+func (p *ZoomProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "zoom"
 	resp.Version = p.version
 }
 
-func (p *zoomProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *ZoomProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: `The Zoom provider is used to interact with the resources.
 The provider needs to be configured with the proper credentials before it can be used.
@@ -83,7 +85,7 @@ The Zoom provider offers a flexible means of providing credentials for authentic
 	}
 }
 
-func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+func (p *ZoomProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
 	tflog.Info(ctx, "Configuring Zoom Phone API client")
 	var config zoomProviderModel
 	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
@@ -198,16 +200,16 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		return
 	}
 
-	providerData := &shared.ProviderData{
+	p.ProviderData = &shared.ProviderData{
 		PhoneClient: zoomPhoneClient,
 		UserClient:  zoomUserClient,
 	}
 
-	resp.DataSourceData = providerData
-	resp.ResourceData = providerData
+	resp.DataSourceData = p.ProviderData
+	resp.ResourceData = p.ProviderData
 }
 
-func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
+func (p *ZoomProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		autoreceptionist.NewPhoneAutoReceptionistResource,
 		autoreceptionistivr.NewPhoneAutoReceptionistIvrResource,
@@ -226,10 +228,11 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		phoneuser.NewPhoneUserResource,
 		usercallingplans.NewPhoneUserCallingPlansResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
+		site.NewPhoneSiteResource,
 	}
 }
 
-func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
+func (p *ZoomProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		autoreceptionist.NewPhoneAutoReceptionistDataSource,
 		blockedlist.NewPhoneBlockedListDataSource,
@@ -243,7 +246,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &zoomProvider{
+		return &ZoomProvider{
 			version: version,
 		}
 	}

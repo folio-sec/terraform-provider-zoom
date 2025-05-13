@@ -9,9 +9,12 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/provider/shared"
 	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectdefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -65,11 +68,13 @@ This resource requires the ` + strings.Join([]string{
 			"`phone:write:site:admin`",
 			"`phone:update:site:admin`",
 			"`phone:delete:site:admin`",
+			"`phone:read:list_sites:admin`",
 			"`phone:read:list_emergency_addresses:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 				MarkdownDescription: "The site ID is the unique identifier of the site.",
 			},
 			"name": schema.StringAttribute{
@@ -85,6 +90,7 @@ This resource requires the ` + strings.Join([]string{
 				Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
 						Computed:            true,
+						PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 						MarkdownDescription: "The auto receptionist ID.",
 					},
 					"name": schema.StringAttribute{
@@ -101,7 +107,8 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"default_emergency_address": schema.SingleNestedAttribute{
 				Required:            true,
-				MarkdownDescription: "The default [emergency address](https://support.zoom.us/hc/en-us/articles/360021062871-Setting-an-Emergency-Address). If the address provided is not an exact match, it uses the system generated corrected address.",
+				MarkdownDescription: "The default [emergency address](https://support.zoom.us/hc/en-us/articles/360021062871-Setting-an-Emergency-Address) at creation time. If the address provided is not an exact match, it uses the system generated corrected address.",
+				PlanModifiers:       []planmodifier.Object{objectplanmodifier.RequiresReplace()},
 				Attributes: map[string]schema.Attribute{
 					"address_line1": schema.StringAttribute{
 						Required:            true,
@@ -142,14 +149,16 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"short_extension": schema.SingleNestedAttribute{
 				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "The short extension of the phone site.",
 				Attributes: map[string]schema.Attribute{
 					"length": schema.Int32Attribute{
 						Optional: true,
+						Computed: true,
 						Validators: []validator.Int32{
 							int32validator.Between(1, 6),
 						},
-						MarkdownDescription: "This setting specifies the length of short extension numbers for the site. The value must be between 1 and 6.",
+						MarkdownDescription: "This setting specifies the length of short extension numbers for the site. The value must be between 1 and 6., Default is `3`.",
 					},
 					"ranges": schema.SetNestedAttribute{
 						Optional:            true,
@@ -174,10 +183,29 @@ This resource requires the ` + strings.Join([]string{
 						},
 					},
 				},
+				Default: objectdefault.StaticValue(
+					types.ObjectValueMust(
+						map[string]attr.Type{
+							"length": types.Int32Type,
+							"ranges": types.SetType{ElemType: types.ObjectType{AttrTypes: map[string]attr.Type{
+								"range_from": types.StringType,
+								"range_to":   types.StringType,
+							}}},
+						},
+						map[string]attr.Value{
+							"length": types.Int32Value(3),
+							"ranges": types.SetNull(types.ObjectType{AttrTypes: map[string]attr.Type{
+								"range_from": types.StringType,
+								"range_to":   types.StringType,
+							}}),
+						},
+					),
+				),
 			},
 			"sip_zone_id": schema.StringAttribute{
 				Optional:            true,
 				Computed:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 				MarkdownDescription: "The SIP zone ID. If the account enabled the Display Custom SIP Zone Options on Web Portal feature, then selecting a SIP zone nearest to your site might help reduce latency and improve call quality.",
 			},
 			"caller_id_name": schema.StringAttribute{
@@ -185,26 +213,29 @@ This resource requires the ` + strings.Join([]string{
 				Validators:          []validator.String{stringvalidator.LengthAtMost(15)},
 				MarkdownDescription: "When an outbound call uses a number as the caller ID, the caller ID name and the number display to the called party. The caller ID name can be up to 15 characters. The user can reset the caller ID name by setting it to empty string.",
 			},
+			"level": schema.StringAttribute{
+				Computed:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
+				MarkdownDescription: "The level of the site.",
+			},
 			"india_state_code": schema.StringAttribute{
 				Optional:            true,
-				Computed:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplaceIfConfigured()},
 				MarkdownDescription: "The India site's state code. This field only applies to India based accounts.",
 			},
 			"india_city": schema.StringAttribute{
 				Optional:            true,
-				Computed:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplaceIfConfigured()},
 				MarkdownDescription: "The India site's city. This field only applies to India based accounts.",
 			},
 			"india_sdca_npa": schema.StringAttribute{
 				Optional:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplaceIfConfigured()},
 				MarkdownDescription: "The India site's Short Distance Calling Area (sdca) Numbering Plan Area (npa). This field is linked to the 'state_code' field. This field only applies to India based accounts.",
 			},
 			"india_entity_name": schema.StringAttribute{
 				Optional:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplaceIfConfigured()},
 				MarkdownDescription: "When select the Indian sip zone, then need to set the entity name. This field only applies to India based accounts.",
 			},
 		},
@@ -212,19 +243,20 @@ This resource requires the ` + strings.Join([]string{
 }
 
 type resourceModel struct {
-	ID                       types.String                         `tfsdk:"id"`
-	Name                     types.String                         `tfsdk:"name"`
-	MainAutoReceptionist     resourceModelMainAutoReceptionist    `tfsdk:"main_auto_receptionist"`
-	SourceAutoReceptionistID types.String                         `tfsdk:"source_auto_receptionist_id"`
-	DefaultEmergencyAddress  resourceModelDefaultEmergencyAddress `tfsdk:"default_emergency_address"`
-	SiteCode                 types.Int32                          `tfsdk:"site_code"`
-	ShortExtension           *resourceModelShortExtension         `tfsdk:"short_extension"`
-	SipZoneID                types.String                         `tfsdk:"sip_zone_id"`
-	CallerIDName             types.String                         `tfsdk:"caller_id_name"`
-	IndiaStateCode           types.String                         `tfsdk:"india_state_code"`
-	IndiaCity                types.String                         `tfsdk:"india_city"`
-	IndiaSdcaNpa             types.String                         `tfsdk:"india_sdca_npa"`
-	IndiaEntityName          types.String                         `tfsdk:"india_entity_name"`
+	ID                       types.String                          `tfsdk:"id"`
+	Name                     types.String                          `tfsdk:"name"`
+	MainAutoReceptionist     *resourceModelMainAutoReceptionist    `tfsdk:"main_auto_receptionist"`
+	SourceAutoReceptionistID types.String                          `tfsdk:"source_auto_receptionist_id"`
+	DefaultEmergencyAddress  *resourceModelDefaultEmergencyAddress `tfsdk:"default_emergency_address"`
+	SiteCode                 types.Int32                           `tfsdk:"site_code"`
+	ShortExtension           *resourceModelShortExtension          `tfsdk:"short_extension"`
+	SipZoneID                types.String                          `tfsdk:"sip_zone_id"`
+	CallerIDName             types.String                          `tfsdk:"caller_id_name"`
+	Level                    types.String                          `tfsdk:"level"`
+	IndiaStateCode           types.String                          `tfsdk:"india_state_code"`
+	IndiaCity                types.String                          `tfsdk:"india_city"`
+	IndiaSdcaNpa             types.String                          `tfsdk:"india_sdca_npa"`
+	IndiaEntityName          types.String                          `tfsdk:"india_entity_name"`
 }
 
 type resourceModelMainAutoReceptionist struct {
@@ -242,8 +274,8 @@ type resourceModelDefaultEmergencyAddress struct {
 }
 
 type resourceModelShortExtension struct {
-	Length types.Int32                        `tfsdk:"length"`
-	Ranges []resourceModelShortExtensionRange `tfsdk:"ranges"`
+	Length types.Int32                         `tfsdk:"length"`
+	Ranges *[]resourceModelShortExtensionRange `tfsdk:"ranges"`
 }
 
 type resourceModelShortExtensionRange struct {
@@ -281,42 +313,52 @@ func (r *tfResource) read(ctx context.Context, plan resourceModel) (*resourceMod
 		return nil, nil // already deleted
 	}
 
-	emergencyAddress, err := r.crud.readDefaultEmergencyAddressBySiteID(ctx, plan.ID)
-	if err != nil {
-		return nil, fmt.Errorf("error read default emergency address: %v", err)
-	}
-
 	return &resourceModel{
 		ID:   dto.id,
 		Name: dto.name,
-		MainAutoReceptionist: resourceModelMainAutoReceptionist{
+		MainAutoReceptionist: &resourceModelMainAutoReceptionist{
 			ID:   dto.mainAutoReceptionist.id,
 			Name: dto.mainAutoReceptionist.name,
 		},
 		// SourceAutoReceptionistID is used only at the time of creation and cannot be read, so use the value of plan.
 		SourceAutoReceptionistID: plan.SourceAutoReceptionistID,
-		DefaultEmergencyAddress: resourceModelDefaultEmergencyAddress{
-			AddressLine1: emergencyAddress.addressLine1,
-			AddressLine2: emergencyAddress.addressLine2,
-			City:         emergencyAddress.city,
-			Country:      emergencyAddress.countryCode,
-			StateCode:    emergencyAddress.stateCode,
-			Zip:          emergencyAddress.zip,
-		},
+		// DefaultEmergencyAddress is used only at the time of creation and cannot be read, so use the value of plan.
+		DefaultEmergencyAddress: lo.TernaryF(plan.DefaultEmergencyAddress != nil, func() *resourceModelDefaultEmergencyAddress {
+			return &resourceModelDefaultEmergencyAddress{
+				AddressLine1: plan.DefaultEmergencyAddress.AddressLine1,
+				AddressLine2: plan.DefaultEmergencyAddress.AddressLine2,
+				City:         plan.DefaultEmergencyAddress.City,
+				Country:      plan.DefaultEmergencyAddress.Country,
+				StateCode:    plan.DefaultEmergencyAddress.StateCode,
+				Zip:          plan.DefaultEmergencyAddress.Zip,
+			}
+		}, lo.Nil),
 		SiteCode: dto.siteCode,
 		ShortExtension: lo.TernaryF(!dto.shortExtensionLength.IsNull(), func() *resourceModelShortExtension {
 			return &resourceModelShortExtension{
 				Length: dto.shortExtensionLength,
 				// Ranges are used only at the time of creation and update, and cannot be read, so use the value of plan.
-				Ranges: plan.ShortExtension.Ranges,
+				Ranges: lo.TernaryF(plan.ShortExtension != nil, func() *[]resourceModelShortExtensionRange {
+					return plan.ShortExtension.Ranges
+				}, lo.Nil),
 			}
-		}, lo.Nil),
+		}, func() *resourceModelShortExtension {
+			return &resourceModelShortExtension{
+				// The API response may not include the default value 3, so we explicitly set it to 3 when the value is null.
+				Length: types.Int32Value(3),
+				// Ranges are used only at the time of creation and update, and cannot be read, so use the value of plan.
+				Ranges: lo.TernaryF(plan.ShortExtension != nil, func() *[]resourceModelShortExtensionRange {
+					return plan.ShortExtension.Ranges
+				}, lo.Nil),
+			}
+		}),
 		SipZoneID:       dto.sipZone.id,
 		CallerIDName:    dto.callerIDName,
-		IndiaStateCode:  dto.indiaStateCode,
-		IndiaCity:       dto.indiaCity,
-		IndiaSdcaNpa:    dto.indiaSdcaNpa,
-		IndiaEntityName: dto.indiaEntityName,
+		Level:           dto.level,
+		IndiaStateCode:  lo.Ternary(dto.indiaStateCode.ValueString() != "", dto.indiaStateCode, types.StringNull()),
+		IndiaCity:       lo.Ternary(dto.indiaCity.ValueString() != "", dto.indiaCity, types.StringNull()),
+		IndiaSdcaNpa:    lo.Ternary(dto.indiaSdcaNpa.ValueString() != "", dto.indiaSdcaNpa, types.StringNull()),
+		IndiaEntityName: lo.Ternary(dto.indiaEntityName.ValueString() != "", dto.indiaEntityName, types.StringNull()),
 	}, nil
 }
 
@@ -336,6 +378,7 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 			addressLine2: plan.DefaultEmergencyAddress.AddressLine2,
 			city:         plan.DefaultEmergencyAddress.City,
 			stateCode:    plan.DefaultEmergencyAddress.StateCode,
+			countryCode:  plan.DefaultEmergencyAddress.Country,
 			zip:          plan.DefaultEmergencyAddress.Zip,
 		},
 		name: plan.Name,
@@ -367,25 +410,22 @@ func (r *tfResource) Create(ctx context.Context, req resource.CreateRequest, res
 		shortExtension: lo.TernaryF(plan.ShortExtension != nil, func() *updateDtoShortExtension {
 			return &updateDtoShortExtension{
 				length: plan.ShortExtension.Length,
-				ranges: lo.Map(plan.ShortExtension.Ranges, func(item resourceModelShortExtensionRange, _ int) updateDtoShortExtensionRange {
-					return updateDtoShortExtensionRange{
-						rangeFrom: item.RangeFrom,
-						rangeTo:   item.RangeTo,
-					}
+				ranges: lo.TernaryF(plan.ShortExtension.Ranges != nil, func() []updateDtoShortExtensionRange {
+					return lo.Map(*plan.ShortExtension.Ranges, func(item resourceModelShortExtensionRange, _ int) updateDtoShortExtensionRange {
+						return updateDtoShortExtensionRange{
+							rangeFrom: item.RangeFrom,
+							rangeTo:   item.RangeTo,
+						}
+					})
+				}, func() []updateDtoShortExtensionRange {
+					return []updateDtoShortExtensionRange{}
 				}),
 			}
 		}, lo.Nil),
-		defaultEmergencyAddress: updateDtoDefaultEmergencyAddress{
-			addressLine1: plan.DefaultEmergencyAddress.AddressLine1,
-			addressLine2: plan.DefaultEmergencyAddress.AddressLine2,
-			city:         plan.DefaultEmergencyAddress.City,
-			stateCode:    plan.DefaultEmergencyAddress.StateCode,
-			zip:          plan.DefaultEmergencyAddress.Zip,
-		},
 		sipZoneID:    plan.SipZoneID,
 		callerIDName: plan.CallerIDName,
 	}); err != nil {
-		_ = r.crud.delete(ctx, ret.id)
+		_ = r.delete(ctx, ret.id)
 		resp.Diagnostics.AddError(
 			"Error creating phone site on updating",
 			err.Error(),
@@ -414,8 +454,8 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		resp.Diagnostics.AddError(
-			"Error updating phone shared line group phone numbers on get plan",
-			"Error updating phone shared line group phone numbers",
+			"Error updating phone site on get plan",
+			"Error updating phone site",
 		)
 		return
 	}
@@ -427,21 +467,18 @@ func (r *tfResource) Update(ctx context.Context, req resource.UpdateRequest, res
 		shortExtension: lo.TernaryF(plan.ShortExtension != nil, func() *updateDtoShortExtension {
 			return &updateDtoShortExtension{
 				length: plan.ShortExtension.Length,
-				ranges: lo.Map(plan.ShortExtension.Ranges, func(item resourceModelShortExtensionRange, _ int) updateDtoShortExtensionRange {
-					return updateDtoShortExtensionRange{
-						rangeFrom: item.RangeFrom,
-						rangeTo:   item.RangeTo,
-					}
+				ranges: lo.TernaryF(plan.ShortExtension.Ranges != nil, func() []updateDtoShortExtensionRange {
+					return lo.Map(*plan.ShortExtension.Ranges, func(item resourceModelShortExtensionRange, _ int) updateDtoShortExtensionRange {
+						return updateDtoShortExtensionRange{
+							rangeFrom: item.RangeFrom,
+							rangeTo:   item.RangeTo,
+						}
+					})
+				}, func() []updateDtoShortExtensionRange {
+					return []updateDtoShortExtensionRange{}
 				}),
 			}
 		}, lo.Nil),
-		defaultEmergencyAddress: updateDtoDefaultEmergencyAddress{
-			addressLine1: plan.DefaultEmergencyAddress.AddressLine1,
-			addressLine2: plan.DefaultEmergencyAddress.AddressLine2,
-			city:         plan.DefaultEmergencyAddress.City,
-			stateCode:    plan.DefaultEmergencyAddress.StateCode,
-			zip:          plan.DefaultEmergencyAddress.Zip,
-		},
 		sipZoneID:    plan.SipZoneID,
 		callerIDName: plan.CallerIDName,
 	}); err != nil {
@@ -477,7 +514,7 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 		return
 	}
 
-	if err := r.crud.delete(ctx, state.ID); err != nil {
+	if err := r.delete(ctx, state.ID); err != nil {
 		resp.Diagnostics.AddError(
 			"Error deleting phone site",
 			fmt.Sprintf(
@@ -492,6 +529,14 @@ func (r *tfResource) Delete(ctx context.Context, req resource.DeleteRequest, res
 	tflog.Info(ctx, "deleted phone site", map[string]interface{}{
 		"site_id": state.ID.ValueString(),
 	})
+}
+
+func (r *tfResource) delete(ctx context.Context, siteId types.String) error {
+	mainSite, err := r.crud.readMain(ctx)
+	if err != nil {
+		return fmt.Errorf("error read phone main site: %v", err)
+	}
+	return r.crud.delete(ctx, siteId, mainSite.id)
 }
 
 func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {

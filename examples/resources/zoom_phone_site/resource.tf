@@ -8,9 +8,9 @@ resource "zoom_phone_site" "example" {
   default_emergency_address = {
     address_line1 = "123 Main St"
     address_line2 = "Suite 100"
-    city = "San Jose"
-    country = "US"
-    state_code = "CA"
-    zip = "95131"
+    city          = "San Jose"
+    country       = "US"
+    state_code    = "CA"
+    zip           = "95131"
   }
 }

@@ -21,17 +21,8 @@ type createDtoDefaultEmergencyAddress struct {
 	addressLine2 types.String
 	city         types.String
 	stateCode    types.String
+	countryCode  types.String
 	zip          types.String
-}
-
-type createDtoShortExtensionRange struct {
-	rangeFrom types.String
-	rangeTo   types.String
-}
-
-type createDtoForceOffNet struct {
-	enable                                      types.Bool
-	allowExtensionOnlyUsersCallUsersOutsideSite types.Bool
 }
 
 type createdDto struct {
@@ -40,13 +31,12 @@ type createdDto struct {
 }
 
 type updateDto struct {
-	id                      types.String
-	name                    types.String
-	siteCode                types.Int32
-	shortExtension          *updateDtoShortExtension
-	defaultEmergencyAddress updateDtoDefaultEmergencyAddress
-	sipZoneID               types.String
-	callerIDName            types.String
+	id             types.String
+	name           types.String
+	siteCode       types.Int32
+	shortExtension *updateDtoShortExtension
+	sipZoneID      types.String
+	callerIDName   types.String
 }
 
 type updateDtoShortExtension struct {
@@ -59,14 +49,6 @@ type updateDtoShortExtensionRange struct {
 	rangeTo   types.String
 }
 
-type updateDtoDefaultEmergencyAddress struct {
-	addressLine1 types.String
-	addressLine2 types.String
-	city         types.String
-	stateCode    types.String
-	zip          types.String
-}
-
 type readDto struct {
 	id                   types.String
 	country              readDtoCountry
@@ -76,6 +58,7 @@ type readDto struct {
 	siteCode             types.Int32
 	sipZone              readDtoSipZone
 	callerIDName         types.String
+	level                types.String
 	indiaStateCode       types.String
 	indiaCity            types.String
 	indiaSdcaNpa         types.String
@@ -97,13 +80,4 @@ type readDtoMainAutoReceptionist struct {
 type readDtoSipZone struct {
 	id   types.String
 	name types.String
-}
-
-type readDefaultEmergencyAddressDto struct {
-	addressLine1 types.String
-	addressLine2 types.String
-	city         types.String
-	countryCode  types.String
-	stateCode    types.String
-	zip          types.String
 }
