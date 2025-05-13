@@ -140,7 +140,7 @@ func (p *zoomProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 	ctx = tflog.SetField(ctx, "client_secret", clientSecret)
 	ctx = tflog.MaskFieldValuesWithFieldKeys(ctx, "client_secret")
 
-	tflog.Debug(ctx, "Creating Zoom Phone Master API client")
+	tflog.Debug(ctx, "Creating Zoom Phone API client")
 
 	retryClient := retryablehttp.NewClient().StandardClient()
 	zoomOAuthClient, err := zoomoauth.NewClient(zoomoauth.WithHTTPClient(retryClient))
@@ -220,9 +220,9 @@ func (p *zoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		callqueuephonenumber.NewPhoneCallQueuePhoneNumbersResource,
 		callqueuepolicy.NewPhoneCallQueuePolicyVoiceMailResource,
 		externalcontact.NewPhoneExternalContactResource,
-		sharedlinegroupgroup.NewPhoneSharedLineGroupResource,
-		sharedlinegroupgroupmembers.NewPhoneSharedLineGroupMembersResource,
-		sharedlinegroupgroupphonenumbers.NewPhoneSharedLineGroupPhoneNumbersResource,
+		sharedlinegroup.NewPhoneSharedLineGroupResource,
+		sharedlinegroupmember.NewPhoneSharedLineGroupMembersResource,
+		sharedlinegroupphonenumber.NewPhoneSharedLineGroupPhoneNumbersResource,
 		phoneuser.NewPhoneUserResource,
 		usercallingplans.NewPhoneUserCallingPlansResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
@@ -236,7 +236,7 @@ func (p *zoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		callqueue.NewPhoneCallQueueDataSource,
 		phonenumbers.NewPhonePhoneNumbersDataSource,
 		phoneuser.NewPhoneUsersDataSource,
-		sharedlinegroupgroup.NewPhoneSharedLineGroupDataSource,
+		sharedlinegroup.NewPhoneSharedLineGroupDataSource,
 		user.NewUsersDataSource,
 	}
 }
