@@ -79,6 +79,10 @@ jobs:
           terraform_version: ${{ matrix.terraform-version }}
           terraform_wrapper: false
       - run: make testacc TESTARGS="-cover ./..."
+        env:
+          ZOOM_ACCOUNT_ID: ${{ secrets.ZOOM_ACCOUNT_ID }}
+          ZOOM_CLIENT_ID: ${{ secrets.ZOOM_CLIENT_ID }}
+          ZOOM_CLIENT_SECRET: ${{ secrets.ZOOM_CLIENT_SECRET }}
   summary:
     name: Summary
     runs-on: ubuntu-latest
