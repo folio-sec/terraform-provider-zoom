@@ -52,7 +52,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - run:  make test TESTARGS="-cover ./..."
+      - run: make test TESTARGS="-cover ./..."
   acceptance:
     name: Acceptance Tests (Terraform ${{ matrix.terraform-version }})
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
       fail-fast: false
       matrix:
         terraform-version:
-          - '1.5.*'
+          - '1.11.*'
     timeout-minutes: 20
     permissions:
       contents: read
