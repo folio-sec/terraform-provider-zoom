@@ -11889,6 +11889,8 @@ type GetASiteOK struct {
 	// When select the Indian sip zone, then need to set the entity name. This field only applies to
 	// India based accounts.
 	IndiaEntityName OptString `json:"india_entity_name"`
+	// The level of the site.
+	Level OptString `json:"level"`
 }
 
 // GetCountry returns the value of Country.
@@ -11956,6 +11958,11 @@ func (s *GetASiteOK) GetIndiaEntityName() OptString {
 	return s.IndiaEntityName
 }
 
+// GetLevel returns the value of Level.
+func (s *GetASiteOK) GetLevel() OptString {
+	return s.Level
+}
+
 // SetCountry sets the value of Country.
 func (s *GetASiteOK) SetCountry(val OptGetASiteOKCountry) {
 	s.Country = val
@@ -12019,6 +12026,11 @@ func (s *GetASiteOK) SetIndiaSdcaNpa(val OptString) {
 // SetIndiaEntityName sets the value of IndiaEntityName.
 func (s *GetASiteOK) SetIndiaEntityName(val OptString) {
 	s.IndiaEntityName = val
+}
+
+// SetLevel sets the value of Level.
+func (s *GetASiteOK) SetLevel(val OptString) {
+	s.Level = val
 }
 
 // The country of the site.
@@ -38375,6 +38387,153 @@ func (s *GetSmsSessionsOKSMSSessionsItemParticipantsItemOwner) SetType(val OptSt
 	s.Type = val
 }
 
+type GetUserAICallSummaryOK struct {
+	// The ID of the AI call summary.
+	AiCallSummaryID OptString `json:"ai_call_summary_id"`
+	// The ID of the account.
+	AccountID OptString `json:"account_id"`
+	// The ID of the phone call.
+	CallID OptString `json:"call_id"`
+	// The owner's user ID.
+	UserID OptString `json:"user_id"`
+	// The call summary rate.
+	CallSummaryRate OptString `json:"call_summary_rate"`
+	// The transcription language ID.
+	TranscriptLanguage OptString `json:"transcript_language"`
+	// The recap of the call summary.
+	CallSummary OptString `json:"call_summary"`
+	// The next step in the call summary.
+	NextSteps OptString `json:"next_steps"`
+	// The detailed version of the call summary.
+	DetailedSummary OptString `json:"detailed_summary"`
+	// The created time in GMT `date-time` format.
+	CreatedTime OptString `json:"created_time"`
+	// The modified time in GMT `date-time` format.
+	ModifiedTime OptString `json:"modified_time"`
+	// The flag indicates if the call summary is modified.
+	Edited OptBool `json:"edited"`
+}
+
+// GetAiCallSummaryID returns the value of AiCallSummaryID.
+func (s *GetUserAICallSummaryOK) GetAiCallSummaryID() OptString {
+	return s.AiCallSummaryID
+}
+
+// GetAccountID returns the value of AccountID.
+func (s *GetUserAICallSummaryOK) GetAccountID() OptString {
+	return s.AccountID
+}
+
+// GetCallID returns the value of CallID.
+func (s *GetUserAICallSummaryOK) GetCallID() OptString {
+	return s.CallID
+}
+
+// GetUserID returns the value of UserID.
+func (s *GetUserAICallSummaryOK) GetUserID() OptString {
+	return s.UserID
+}
+
+// GetCallSummaryRate returns the value of CallSummaryRate.
+func (s *GetUserAICallSummaryOK) GetCallSummaryRate() OptString {
+	return s.CallSummaryRate
+}
+
+// GetTranscriptLanguage returns the value of TranscriptLanguage.
+func (s *GetUserAICallSummaryOK) GetTranscriptLanguage() OptString {
+	return s.TranscriptLanguage
+}
+
+// GetCallSummary returns the value of CallSummary.
+func (s *GetUserAICallSummaryOK) GetCallSummary() OptString {
+	return s.CallSummary
+}
+
+// GetNextSteps returns the value of NextSteps.
+func (s *GetUserAICallSummaryOK) GetNextSteps() OptString {
+	return s.NextSteps
+}
+
+// GetDetailedSummary returns the value of DetailedSummary.
+func (s *GetUserAICallSummaryOK) GetDetailedSummary() OptString {
+	return s.DetailedSummary
+}
+
+// GetCreatedTime returns the value of CreatedTime.
+func (s *GetUserAICallSummaryOK) GetCreatedTime() OptString {
+	return s.CreatedTime
+}
+
+// GetModifiedTime returns the value of ModifiedTime.
+func (s *GetUserAICallSummaryOK) GetModifiedTime() OptString {
+	return s.ModifiedTime
+}
+
+// GetEdited returns the value of Edited.
+func (s *GetUserAICallSummaryOK) GetEdited() OptBool {
+	return s.Edited
+}
+
+// SetAiCallSummaryID sets the value of AiCallSummaryID.
+func (s *GetUserAICallSummaryOK) SetAiCallSummaryID(val OptString) {
+	s.AiCallSummaryID = val
+}
+
+// SetAccountID sets the value of AccountID.
+func (s *GetUserAICallSummaryOK) SetAccountID(val OptString) {
+	s.AccountID = val
+}
+
+// SetCallID sets the value of CallID.
+func (s *GetUserAICallSummaryOK) SetCallID(val OptString) {
+	s.CallID = val
+}
+
+// SetUserID sets the value of UserID.
+func (s *GetUserAICallSummaryOK) SetUserID(val OptString) {
+	s.UserID = val
+}
+
+// SetCallSummaryRate sets the value of CallSummaryRate.
+func (s *GetUserAICallSummaryOK) SetCallSummaryRate(val OptString) {
+	s.CallSummaryRate = val
+}
+
+// SetTranscriptLanguage sets the value of TranscriptLanguage.
+func (s *GetUserAICallSummaryOK) SetTranscriptLanguage(val OptString) {
+	s.TranscriptLanguage = val
+}
+
+// SetCallSummary sets the value of CallSummary.
+func (s *GetUserAICallSummaryOK) SetCallSummary(val OptString) {
+	s.CallSummary = val
+}
+
+// SetNextSteps sets the value of NextSteps.
+func (s *GetUserAICallSummaryOK) SetNextSteps(val OptString) {
+	s.NextSteps = val
+}
+
+// SetDetailedSummary sets the value of DetailedSummary.
+func (s *GetUserAICallSummaryOK) SetDetailedSummary(val OptString) {
+	s.DetailedSummary = val
+}
+
+// SetCreatedTime sets the value of CreatedTime.
+func (s *GetUserAICallSummaryOK) SetCreatedTime(val OptString) {
+	s.CreatedTime = val
+}
+
+// SetModifiedTime sets the value of ModifiedTime.
+func (s *GetUserAICallSummaryOK) SetModifiedTime(val OptString) {
+	s.ModifiedTime = val
+}
+
+// SetEdited sets the value of Edited.
+func (s *GetUserAICallSummaryOK) SetEdited(val OptBool) {
+	s.Edited = val
+}
+
 type GetUserOutboundCallingCountriesAndRegionsOK struct {
 	CountriesRegions []GetUserOutboundCallingCountriesAndRegionsOKCountriesRegionsItem `json:"countries_regions"`
 	// The next page token paginates through large set of results. The next page token returns whenever
@@ -45022,6 +45181,8 @@ type ListLocationsOK struct {
 	NextPageToken OptString `json:"next_page_token"`
 	// The number of records returned with a single API call.
 	PageSize OptInt `json:"page_size"`
+	// The total number of records returned.
+	TotalRecords OptInt `json:"total_records"`
 }
 
 // GetLocations returns the value of Locations.
@@ -45039,6 +45200,11 @@ func (s *ListLocationsOK) GetPageSize() OptInt {
 	return s.PageSize
 }
 
+// GetTotalRecords returns the value of TotalRecords.
+func (s *ListLocationsOK) GetTotalRecords() OptInt {
+	return s.TotalRecords
+}
+
 // SetLocations sets the value of Locations.
 func (s *ListLocationsOK) SetLocations(val []ListLocationsOKLocationsItem) {
 	s.Locations = val
@@ -45054,6 +45220,11 @@ func (s *ListLocationsOK) SetPageSize(val OptInt) {
 	s.PageSize = val
 }
 
+// SetTotalRecords sets the value of TotalRecords.
+func (s *ListLocationsOK) SetTotalRecords(val OptInt) {
+	s.TotalRecords = val
+}
+
 type ListLocationsOKLocationsItem struct {
 	// The emergency service location's BSSID (Basic Service Set Identifier).
 	Bssid OptString `json:"bssid"`
@@ -45064,7 +45235,8 @@ type ListLocationsOKLocationsItem struct {
 	// The emergency service location's unique ID.
 	Identifier OptString `json:"identifier"`
 	// The emergency service location's name.
-	Name            OptString                                         `json:"name"`
+	Name OptString `json:"name"`
+	// The network switch information.
 	NetworkSwitches []ListLocationsOKLocationsItemNetworkSwitchesItem `json:"network_switches"`
 	// The parent location's ID.
 	ParentLocationID OptString `json:"parent_location_id"`
@@ -45075,7 +45247,8 @@ type ListLocationsOKLocationsItem struct {
 	// The emergency service location's SIP group information.
 	SipGroup OptListLocationsOKLocationsItemSipGroup `json:"sip_group"`
 	// The emergency service location's site information.
-	Site             OptListLocationsOKLocationsItemSite             `json:"site"`
+	Site OptListLocationsOKLocationsItemSite `json:"site"`
+	// The specific emergency address for the location.
 	EmergencyAddress OptListLocationsOKLocationsItemEmergencyAddress `json:"emergency_address"`
 	// If true, it requires a user's location match on both public and private IP address, or BSSID, or
 	// network switch; detecting only a public IP address is not enough to detect the location.
@@ -45240,7 +45413,10 @@ func (s *ListLocationsOKLocationsItemElin) SetPhoneNumberID(val OptString) {
 	s.PhoneNumberID = val
 }
 
+// The specific emergency address for the location.
 type ListLocationsOKLocationsItemEmergencyAddress struct {
+	// The emergency address ID.
+	ID OptString `json:"id"`
 	// The location's physical address.
 	AddressLine1 OptString `json:"address_line1"`
 	// The location's optional physical address information. For example, a suite number.
@@ -45256,6 +45432,11 @@ type ListLocationsOKLocationsItemEmergencyAddress struct {
 	// The location's VAT/NIF/CIF number. This number is used to get a new phone number online.
 	// **Note:** For Belgium, Netherlands, Portugal, Spain, and Switzerland, this field is required.
 	VatNumber OptString `json:"vat_number"`
+}
+
+// GetID returns the value of ID.
+func (s *ListLocationsOKLocationsItemEmergencyAddress) GetID() OptString {
+	return s.ID
 }
 
 // GetAddressLine1 returns the value of AddressLine1.
@@ -45291,6 +45472,11 @@ func (s *ListLocationsOKLocationsItemEmergencyAddress) GetZip() OptString {
 // GetVatNumber returns the value of VatNumber.
 func (s *ListLocationsOKLocationsItemEmergencyAddress) GetVatNumber() OptString {
 	return s.VatNumber
+}
+
+// SetID sets the value of ID.
+func (s *ListLocationsOKLocationsItemEmergencyAddress) SetID(val OptString) {
+	s.ID = val
 }
 
 // SetAddressLine1 sets the value of AddressLine1.
@@ -47166,6 +47352,8 @@ type ListPhoneSitesOKSitesItem struct {
 	Name OptString `json:"name"`
 	// The site code.
 	SiteCode OptInt `json:"site_code"`
+	// The level of the site.
+	Level OptString `json:"level"`
 }
 
 // GetCountry returns the value of Country.
@@ -47193,6 +47381,11 @@ func (s *ListPhoneSitesOKSitesItem) GetSiteCode() OptInt {
 	return s.SiteCode
 }
 
+// GetLevel returns the value of Level.
+func (s *ListPhoneSitesOKSitesItem) GetLevel() OptString {
+	return s.Level
+}
+
 // SetCountry sets the value of Country.
 func (s *ListPhoneSitesOKSitesItem) SetCountry(val OptListPhoneSitesOKSitesItemCountry) {
 	s.Country = val
@@ -47216,6 +47409,11 @@ func (s *ListPhoneSitesOKSitesItem) SetName(val OptString) {
 // SetSiteCode sets the value of SiteCode.
 func (s *ListPhoneSitesOKSitesItem) SetSiteCode(val OptInt) {
 	s.SiteCode = val
+}
+
+// SetLevel sets the value of Level.
+func (s *ListPhoneSitesOKSitesItem) SetLevel(val OptString) {
+	s.Level = val
 }
 
 // The country of the site.
@@ -98689,7 +98887,8 @@ type PhoneUserSettingsOKDelegation struct {
 	// Whether to allow members to prevent others from picking up a held call, and listening, whispering,
 	// barging, or taking over a call if it's configured.
 	Privacy OptBool `json:"privacy"`
-	// The delegation privileges. 1-Place Calls, 2-Answer Calls, 3- Pick Up Hold Calls.
+	// The delegation privileges. 1-Place Calls, 2-Answer Calls, 3-Pick Up Hold Calls, 4-Manage VIP
+	// Contacts, 5-Opt In/Out, 6-Join and Merge Calls, 7-Set Business Hours.
 	Privileges []int `json:"privileges"`
 	// Whether to allow users to access to the feature of delegation.
 	Locked OptBool `json:"locked"`
@@ -115315,7 +115514,8 @@ type UpdateUserSettingReqDelegation struct {
 	// Whether to allow members to prevent others from picking up a held call, and listening, whispering,
 	// barging, or taking over a call if it's configured.
 	Privacy OptBool `json:"privacy"`
-	// The delegation privileges. 1-Place Calls, 2-Answer Calls, 3- Pick Up Hold Calls.
+	// The delegation privileges. 1-Place Calls, 2-Answer Calls, 3-Pick Up Hold Calls, 4-Manage VIP
+	// Contacts, 5-Opt In/Out, 6-Join and Merge Calls, 7-Set Business Hours.
 	Privileges []int `json:"privileges"`
 	// Whether to allow users to access to the feature of delegation.
 	Locked OptBool `json:"locked"`

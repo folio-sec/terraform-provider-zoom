@@ -1,4 +1,4 @@
-package sharedlinegroupgroupphonenumbers
+package sharedlinegroupphonenumber
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 

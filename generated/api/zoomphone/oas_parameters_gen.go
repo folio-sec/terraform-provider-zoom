@@ -1238,6 +1238,14 @@ type GetSmsSessionsParams struct {
 	SessionType OptString
 }
 
+// GetUserAICallSummaryParams is parameters of getUserAICallSummary operation.
+type GetUserAICallSummaryParams struct {
+	// The owner's user ID.
+	UserId string
+	// The ID of the AI call summary.
+	AiCallSummaryId string
+}
+
 // GetUserOutboundCallingCountriesAndRegionsParams is parameters of GetUserOutboundCallingCountriesAndRegions operation.
 type GetUserOutboundCallingCountriesAndRegionsParams struct {
 	// The ID of the user.
@@ -1758,13 +1766,13 @@ type ListLineKeySettingParams struct {
 
 // ListLocationsParams is parameters of listLocations operation.
 type ListLocationsParams struct {
-	// The next page token is used to paginate through large result sets. A next page token will be
-	// returned whenever the set of available results exceeds the current page size. The expiration
-	// period for this token is 15 minutes.
+	// The next page token paginates through large result sets. A next page token returns whenever the
+	// set of available results exceeds the current page size. The expiration period for this token is 15
+	// minutes.
 	NextPageToken OptString
 	// The number of records returned within a single API call.
 	PageSize OptInt
-	// The unique identifier of the site. This can be retrieved from the [List Phone
+	// The unique identifier of the site. It can be retrieved from the [List Phone
 	// Sites](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
 	// **Note:** When the account has been enabled Multiple Sites, this field is required.
 	SiteID OptString

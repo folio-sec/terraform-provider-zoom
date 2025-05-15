@@ -1,4 +1,4 @@
-package sharedlinegroupgroup
+package sharedlinegroup
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 

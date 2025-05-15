@@ -52,7 +52,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - run: go test -race -v -shffle on -cover ./...
+      - run: make test TESTARGS="-cover ./..."
   acceptance:
     name: Acceptance Tests (Terraform ${{ matrix.terraform-version }})
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
       fail-fast: false
       matrix:
         terraform-version:
-          - '1.5.*'
+          - '1.11.*'
     timeout-minutes: 20
     permissions:
       contents: read
@@ -78,9 +78,11 @@ jobs:
         with:
           terraform_version: ${{ matrix.terraform-version }}
           terraform_wrapper: false
-      - run: go test -race -v -shuffle on -cover ./...
+      - run: make testacc TESTARGS="-cover ./..."
         env:
-          TF_ACC: '1'
+          ZOOM_ACCOUNT_ID: ${{ secrets.ZOOM_ACCOUNT_ID }}
+          ZOOM_CLIENT_ID: ${{ secrets.ZOOM_CLIENT_ID }}
+          ZOOM_CLIENT_SECRET: ${{ secrets.ZOOM_CLIENT_SECRET }}
   summary:
     name: Summary
     runs-on: ubuntu-latest

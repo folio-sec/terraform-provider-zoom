@@ -172,6 +172,7 @@ const (
 	GetSiteOutboundCallingCountriesAndRegionsOperation         OperationName = "GetSiteOutboundCallingCountriesAndRegions"
 	GetSiteSettingForTypeOperation                             OperationName = "GetSiteSettingForType"
 	GetSmsSessionsOperation                                    OperationName = "GetSmsSessions"
+	GetUserAICallSummaryOperation                              OperationName = "GetUserAICallSummary"
 	GetUserOutboundCallingCountriesAndRegionsOperation         OperationName = "GetUserOutboundCallingCountriesAndRegions"
 	GetVoicemailDetailsOperation                               OperationName = "GetVoicemailDetails"
 	GetVoicemailDetailsByCallIdOrCallLogIdOperation            OperationName = "GetVoicemailDetailsByCallIdOrCallLogId"

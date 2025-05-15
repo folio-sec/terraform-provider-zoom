@@ -1,4 +1,4 @@
-package sharedlinegroupgroupmembers
+package sharedlinegroupmember
 
 import (
 	"context"
