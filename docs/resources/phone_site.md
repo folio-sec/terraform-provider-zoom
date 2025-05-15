@@ -16,7 +16,7 @@ Manages a site within Zoom Phone.
 ## API Permissions
 
 The following API permissions are required in order to use this resource.
-This resource requires the `phone:read:site:admin`, `phone:write:site:admin`, `phone:update:site:admin`, `phone:delete:site:admin`, `phone:read:list_sites:admin`, `phone:read:list_emergency_addresses:admin`.
+This resource requires the `phone:read:site:admin`, `phone:write:site:admin`, `phone:update:site:admin`, `phone:delete:site:admin`, `phone:read:list_sites:admin`.
 
 ## Example Usage
 

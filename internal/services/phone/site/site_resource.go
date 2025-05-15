@@ -69,7 +69,6 @@ This resource requires the ` + strings.Join([]string{
 			"`phone:update:site:admin`",
 			"`phone:delete:site:admin`",
 			"`phone:read:list_sites:admin`",
-			"`phone:read:list_emergency_addresses:admin`",
 		}, ", ") + ".",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
