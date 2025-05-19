@@ -88,7 +88,10 @@ func (c *crud) list(ctx context.Context, dto listQueryDto) (*listDto, error) {
 	}
 
 	return &listDto{
-		users: users,
+		// Ensure uniqueness by using user ID, as duplicate data may occasionally be retrieved.
+		users: lo.UniqBy(users, func(item listDtoUser) string {
+			return item.userID.ValueString()
+		}),
 	}, nil
 }
 
