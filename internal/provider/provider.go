@@ -241,6 +241,7 @@ func (p *ZoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		phoneuser.NewPhoneUsersDataSource,
 		sharedlinegroup.NewPhoneSharedLineGroupDataSource,
 		user.NewUsersDataSource,
+		site.NewPhoneSiteDataSource,
 	}
 }
 
