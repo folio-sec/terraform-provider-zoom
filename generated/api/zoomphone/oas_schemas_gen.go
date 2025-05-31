@@ -3713,8 +3713,8 @@ func (s *AddEmergencyAddressCreated) SetZip(val OptString) {
 
 // The emergency address owner information for a user-level emergency address.
 type AddEmergencyAddressCreatedOwner struct {
-	// The emergency address owner extension number.
-	ExtensionNumber OptString `json:"extension_number"`
+	// The extension number of the emergency address owner .
+	ExtensionNumber OptInt64 `json:"extension_number"`
 	// The emergency address owner ID.
 	ID OptString `json:"id"`
 	// The emergency address owner name.
@@ -3722,7 +3722,7 @@ type AddEmergencyAddressCreatedOwner struct {
 }
 
 // GetExtensionNumber returns the value of ExtensionNumber.
-func (s *AddEmergencyAddressCreatedOwner) GetExtensionNumber() OptString {
+func (s *AddEmergencyAddressCreatedOwner) GetExtensionNumber() OptInt64 {
 	return s.ExtensionNumber
 }
 
@@ -3737,7 +3737,7 @@ func (s *AddEmergencyAddressCreatedOwner) GetName() OptString {
 }
 
 // SetExtensionNumber sets the value of ExtensionNumber.
-func (s *AddEmergencyAddressCreatedOwner) SetExtensionNumber(val OptString) {
+func (s *AddEmergencyAddressCreatedOwner) SetExtensionNumber(val OptInt64) {
 	s.ExtensionNumber = val
 }
 
@@ -54365,6 +54365,7 @@ func (s *MarkPhoneNumberAsBlockedForAllExtensionsReq) SetBlockedStatisticID(val 
 
 type OpenapiAuthorization struct {
 	APIKey string
+	Roles  []string
 }
 
 // GetAPIKey returns the value of APIKey.
@@ -54372,9 +54373,19 @@ func (s *OpenapiAuthorization) GetAPIKey() string {
 	return s.APIKey
 }
 
+// GetRoles returns the value of Roles.
+func (s *OpenapiAuthorization) GetRoles() []string {
+	return s.Roles
+}
+
 // SetAPIKey sets the value of APIKey.
 func (s *OpenapiAuthorization) SetAPIKey(val string) {
 	s.APIKey = val
+}
+
+// SetRoles sets the value of Roles.
+func (s *OpenapiAuthorization) SetRoles(val []string) {
+	s.Roles = val
 }
 
 type OpenapiOAuth struct {
