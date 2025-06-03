@@ -31,8 +31,8 @@ type dataSourceModel struct {
 	SiteID       types.String `tfsdk:"site_id"`
 	StateCode    types.String `tfsdk:"state_code"`
 	Zip          types.String `tfsdk:"zip"`
-	Status       types.String `tfsdk:"status"`
-	Level        types.String `tfsdk:"level"`
+	Status       types.Int32  `tfsdk:"status"`
+	Level        types.Int32  `tfsdk:"level"`
 	UserID       types.String `tfsdk:"user_id"`
 }
 
@@ -88,7 +88,7 @@ This data source requires the ` + strings.Join([]string{
 				Computed:            true,
 				MarkdownDescription: "The emergency address zip code.",
 			},
-			"status": schema.StringAttribute{
+			"status": schema.Int32Attribute{
 				Computed: true,
 				MarkdownDescription: "The emergency address verification status." + strings.Join([]string{
 					"",
@@ -100,7 +100,7 @@ This data source requires the ` + strings.Join([]string{
 					"- `6`: Verification failed.",
 				}, markdownSeparatorForList),
 			},
-			"level": schema.StringAttribute{
+			"level": schema.Int32Attribute{
 				Computed: true,
 				MarkdownDescription: "The emergency address owner level." + strings.Join([]string{
 					"",
@@ -158,8 +158,8 @@ func (d *DataSource) Read(ctx context.Context, req datasource.ReadRequest, resp 
 		SiteID:       result.site.ID,
 		StateCode:    result.stateCode,
 		Zip:          result.zip,
-		Status:       types.StringValue(fmt.Sprintf("%d", result.status.ValueInt32())),
-		Level:        types.StringValue(fmt.Sprintf("%d", result.level.ValueInt32())),
+		Status:       result.status,
+		Level:        result.level,
 	}
 
 	if !result.owner.ID.IsNull() {
