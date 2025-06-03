@@ -346,39 +346,49 @@ func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRe
 }
 
 func (r *tfResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
-	var plan, state resourceModel
+	var state resourceModel
 
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	// For delete operations, plan will be null
+	if req.Plan.Raw.IsNull() {
+		resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
 
-	if resp.Diagnostics.HasError() {
-		return
-	}
+		// Check if the resource is default and linked to a site
+		if !state.SiteID.IsNull() && !state.IsDefault.IsNull() && state.IsDefault.ValueBool() {
+			existing, err := r.crud.read(ctx, state.ID)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error reading phone emergency address",
+					fmt.Sprintf(
+						"Could not read phone emergency address %s, unexpected error: %s",
+						state.ID.ValueString(),
+						err.Error(),
+					),
+				)
+				return
+			}
 
-	// Check if this is a delete operation (plan is null) and the resource is default and linked to a site
-	if req.Plan.Raw.IsNull() && !state.SiteID.IsNull() && !state.IsDefault.IsNull() && state.IsDefault.ValueBool() {
-		existing, err := r.crud.read(ctx, state.ID)
-		if err != nil {
+			// If the resource is already deleted, allow the operation
+			if existing == nil {
+				return
+			}
+
 			resp.Diagnostics.AddError(
-				"Error reading phone emergency address",
-				fmt.Sprintf(
-					"Could not read phone emergency address %s, unexpected error: %s",
-					state.ID.ValueString(),
-					err.Error(),
-				),
+				"Cannot delete linked to a site and default emergency address",
+				"The emergency address is set as default and cannot be deleted. If this emergency address is linked to a site, it will be automatically deleted when the site itself is deleted.",
 			)
 			return
 		}
+		return
+	}
 
-		// If the resource is already deleted, allow the operation
-		if existing == nil {
-			return
-		}
-
-		resp.Diagnostics.AddError(
-			"Cannot delete linked to a site and default emergency address",
-			"The emergency address is set as default and cannot be deleted. If this emergency address is linked to a site, it will be automatically deleted when the site itself is deleted.",
-		)
+	// For non-delete operations, get both plan and state
+	var plan resourceModel
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	if resp.Diagnostics.HasError() {
 		return
 	}
 }
