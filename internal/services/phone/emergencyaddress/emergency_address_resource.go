@@ -22,7 +22,7 @@ import (
 var (
 	_ resource.Resource                = &tfResource{}
 	_ resource.ResourceWithImportState = &tfResource{}
-	_ resource.ResourceWithModifyPlan  = &tfResource{}
+	// _ resource.ResourceWithModifyPlan  = &tfResource{}
 )
 
 func NewEmergencyAddressResource() resource.Resource {
@@ -112,6 +112,7 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"is_default": schema.BoolAttribute{
 				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "Indicates whether the emergency address is default or not.",
 			},
 			"site_id": schema.StringAttribute{
@@ -136,11 +137,11 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"status": schema.Int32Attribute{
 				Computed: true,
-				Validators: []validator.Int32{
-					int32validator.Between(1, 6),
-				},
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
+				},
+				Validators: []validator.Int32{
+					int32validator.Between(1, 6),
 				},
 				MarkdownDescription: "The emergency address verification status." + strings.Join([]string{
 					"",
@@ -154,11 +155,11 @@ This resource requires the ` + strings.Join([]string{
 			},
 			"level": schema.Int32Attribute{
 				Computed: true,
-				Validators: []validator.Int32{
-					int32validator.Between(0, 2),
-				},
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
+				},
+				Validators: []validator.Int32{
+					int32validator.Between(0, 2),
 				},
 				MarkdownDescription: "The emergency address owner level." + strings.Join([]string{
 					"",
@@ -345,50 +346,56 @@ func (r *tfResource) ImportState(ctx context.Context, req resource.ImportStateRe
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
-func (r *tfResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
-	var state resourceModel
+// func (r *tfResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
+// 	// For delete operations, plan will be null
+// 	if req.Plan.Raw.IsNull() {
+// 		// Get the current state
+// 		var state resourceModel
+// 		resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+// 		if resp.Diagnostics.HasError() {
+// 			return
+// 		}
 
-	// For delete operations, plan will be null
-	if req.Plan.Raw.IsNull() {
-		resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-		if resp.Diagnostics.HasError() {
-			return
-		}
+// 		// If state is empty (no current resource), allow the operation
+// 		if state.ID.IsNull() {
+// 			return
+// 		}
 
-		// Check if the resource is default and linked to a site
-		if !state.SiteID.IsNull() && !state.IsDefault.IsNull() && state.IsDefault.ValueBool() {
-			existing, err := r.crud.read(ctx, state.ID)
-			if err != nil {
-				resp.Diagnostics.AddError(
-					"Error reading phone emergency address",
-					fmt.Sprintf(
-						"Could not read phone emergency address %s, unexpected error: %s",
-						state.ID.ValueString(),
-						err.Error(),
-					),
-				)
-				return
-			}
+// 		// Check if the resource is default and linked to a site
+// 		if !state.SiteID.IsNull() && !state.IsDefault.IsNull() && state.IsDefault.ValueBool() {
+// 			existing, err := r.crud.read(ctx, state.ID)
+// 			if err != nil {
+// 				resp.Diagnostics.AddError(
+// 					"Error reading phone emergency address",
+// 					fmt.Sprintf(
+// 						"Could not read phone emergency address %s, unexpected error: %s",
+// 						state.ID.ValueString(),
+// 						err.Error(),
+// 					),
+// 				)
+// 				return
+// 			}
 
-			// If the resource is already deleted, allow the operation
-			if existing == nil {
-				return
-			}
+// 			// If the resource is already deleted, allow the operation
+// 			if existing == nil {
+// 				return
+// 			}
 
-			resp.Diagnostics.AddError(
-				"Cannot delete linked to a site and default emergency address",
-				"The emergency address is set as default and cannot be deleted. If this emergency address is linked to a site, it will be automatically deleted when the site itself is deleted.",
-			)
-			return
-		}
-		return
-	}
+// 			resp.Diagnostics.AddError(
+// 				"Cannot delete linked to a site and default emergency address",
+// 				"The emergency address is set as default and cannot be deleted. If this emergency address is linked to a site, it will be automatically deleted when the site itself is deleted.",
+// 			)
+// 		}
+// 		return
+// 	}
 
-	// For non-delete operations, get both plan and state
-	var plan resourceModel
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
-}
+// 	// For non-delete operations
+// 	var plan, state resourceModel
+// 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
+// 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+// 	if resp.Diagnostics.HasError() {
+// 		return
+// 	}
+
+// 	// Add any additional plan modifications for non-delete operations here if needed
+// }
