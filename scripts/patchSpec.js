@@ -12,7 +12,7 @@ function upperFirst(str) {
 }
 
 function recursionProcess(response, prefix = '') {
-  for (let key in response){
+  for (let key in response) {
     if (key === "authorizationCode") {
       const url = "https://zoom.us/oauth/token";
       response[key].tokenUrl = url;
@@ -70,8 +70,8 @@ function recursionProcess(response, prefix = '') {
       continue
     }
 
-    if(Array.isArray(response[key])) {
-      response[key].forEach(function(item){
+    if (Array.isArray(response[key])) {
+      response[key].forEach(function (item) {
         recursionProcess(item, `${prefix} ${key}`);
       });
     } else {
@@ -220,8 +220,8 @@ function phonePatch(spec) {
     spec.components.schemas = {
       ...spec.components.schemas,
       ...Object.fromEntries(content.schema.oneOf.map((item) => {
-          const objectName = upperFirst(snakeToCamel(item.properties.sub_setting_type.example));
-          return [`${schemaObjectPrefix}${objectName}`, item];
+        const objectName = upperFirst(snakeToCamel(item.properties.sub_setting_type.example));
+        return [`${schemaObjectPrefix}${objectName}`, item];
       })),
     };
 
@@ -271,8 +271,8 @@ function phonePatch(spec) {
     }
 
     spec.paths[after] = {
-        ...(spec.paths[after] ? spec.paths[after] : {}),
-        ...spec.paths[before]
+      ...(spec.paths[after] ? spec.paths[after] : {}),
+      ...spec.paths[before]
     }
     delete spec.paths[before];
   });
@@ -340,14 +340,14 @@ function phonePatch(spec) {
   // POST /phone/users/{userId}/calling_plans return 201, not 200
   if (spec.paths['/phone/users/{userId}/calling_plans']) {
     spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['201'] =
-        spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['200']
+      spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['200']
     delete spec.paths['/phone/users/{userId}/calling_plans']['post']['responses']['200']
   }
 
   // POST /phone/users/{userId}/phone_numbers return 201, not 200
   if (spec.paths['/phone/users/{userId}/phone_numbers']) {
     spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['201'] =
-        spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['200']
+      spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['200']
     delete spec.paths['/phone/users/{userId}/phone_numbers']['post']['responses']['200']
   }
 
@@ -359,16 +359,16 @@ function phonePatch(spec) {
   // GET /phone/call_queues/{callQueueId}/members doesn't have page_size and next_page_token parameters
   if (spec.paths['/phone/call_queues/{callQueueId}/members']) {
     spec.paths['/phone/call_queues/{callQueueId}/members']['get']['parameters'] =
-        spec.paths['/phone/call_queues/{callQueueId}/members']['get']['parameters'].concat(
-            { "name": "page_size", "in": "query", "required": false, "schema": { "type": "integer" } },
-            { "name": "next_page_token", "in": "query", "required": false, "schema": { "type": "string" } },
-        )
+      spec.paths['/phone/call_queues/{callQueueId}/members']['get']['parameters'].concat(
+        { "name": "page_size", "in": "query", "required": false, "schema": { "type": "integer" } },
+        { "name": "next_page_token", "in": "query", "required": false, "schema": { "type": "string" } },
+      )
   }
 
   // POST /phone/call_queues/{callQueueId}/phone_numbers return 201, not 204
   if (spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']) {
     spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['201'] =
-        spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
+      spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
     delete spec.paths['/phone/call_queues/{callQueueId}/phone_numbers']['post']['responses']['204']
   }
 
@@ -411,13 +411,23 @@ function phonePatch(spec) {
       example: "main",
     }
   }
-  
+
   // GET /phone/sites/{siteId} should have level property
   if (spec.paths['/phone/sites/{siteId}']) {
     spec.paths['/phone/sites/{siteId}']['get']['responses']['200']['content']['application/json']['schema']['properties']['level'] = {
       type: "string",
       description: "The level of the site.",
       example: "main",
+    }
+  }
+
+  // POST /phone/emergency_addresses response owner.extension_number type should be integer
+  if (spec.paths['/phone/emergency_addresses']) {
+    spec.paths['/phone/emergency_addresses']['post']['responses']['201']['content']['application/json']['schema']['properties']['owner']['properties']['extension_number'] = {
+      type: "integer",
+      description: "The extension number of the emergency address owner .",
+      format: "int64",
+      example: 101002
     }
   }
 }

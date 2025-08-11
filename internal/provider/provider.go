@@ -19,6 +19,7 @@ import (
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuemember"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuephonenumber"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/callqueuepolicy"
+	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/emergencyaddress"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/externalcontact"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/phonenumbers"
 	"github.com/folio-sec/terraform-provider-zoom/internal/services/phone/sharedlinegroup"
@@ -229,6 +230,7 @@ func (p *ZoomProvider) Resources(_ context.Context) []func() resource.Resource {
 		usercallingplans.NewPhoneUserCallingPlansResource,
 		userphonenumber.NewPhoneUserPhoneNumbersResource,
 		site.NewPhoneSiteResource,
+		emergencyaddress.NewEmergencyAddressResource,
 	}
 }
 
@@ -242,6 +244,7 @@ func (p *ZoomProvider) DataSources(_ context.Context) []func() datasource.DataSo
 		sharedlinegroup.NewPhoneSharedLineGroupDataSource,
 		user.NewUsersDataSource,
 		site.NewPhoneSiteDataSource,
+		emergencyaddress.NewDataSource,
 	}
 }
 
