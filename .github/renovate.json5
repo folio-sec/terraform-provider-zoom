@@ -20,4 +20,5 @@
     labels: ["security"],
   },
   packageRules: [],
+  minimumReleaseAge: "7 days",
 }
