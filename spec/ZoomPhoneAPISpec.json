@@ -19474,9 +19474,10 @@
                       "type": "object",
                       "properties": {
                         "extension_number": {
-                          "type": "string",
-                          "description": "The emergency address owner extension number.",
-                          "example": "101002"
+                          "type": "integer",
+                          "description": "The extension number of the emergency address owner .",
+                          "format": "int64",
+                          "example": 101002
                         },
                         "id": {
                           "type": "string",

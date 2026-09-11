@@ -10508,6 +10508,7 @@ func (s *ListCollaborationDevicesOKCollaborationDevicesItem) SetStatus(val OptSt
 
 type OpenapiAuthorization struct {
 	APIKey string
+	Roles  []string
 }
 
 // GetAPIKey returns the value of APIKey.
@@ -10515,9 +10516,19 @@ func (s *OpenapiAuthorization) GetAPIKey() string {
 	return s.APIKey
 }
 
+// GetRoles returns the value of Roles.
+func (s *OpenapiAuthorization) GetRoles() []string {
+	return s.Roles
+}
+
 // SetAPIKey sets the value of APIKey.
 func (s *OpenapiAuthorization) SetAPIKey(val string) {
 	s.APIKey = val
+}
+
+// SetRoles sets the value of Roles.
+func (s *OpenapiAuthorization) SetRoles(val []string) {
+	s.Roles = val
 }
 
 type OpenapiOAuth struct {
