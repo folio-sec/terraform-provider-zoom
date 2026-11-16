@@ -1,24 +1,35 @@
 {
   extends: [
-    "config:best-practices",
-    "schedule:earlyMondays",
-    "group:allNonMajor",
+    'config:best-practices',
+    'schedule:earlyMondays',
+    'group:allNonMajor',
   ],
   automerge: true,
   platformAutomerge: true,
-  dependencyDashboard: false,
-  labels: ["dependencies"],
-  postUpdateOptions: ["gomodTidy", "gomodUpdateImportPaths"],
+  dependencyDashboard: {
+    enabled: false,
+  },
+  labels: [
+    'dependencies',
+  ],
+  postUpdateOptions: [
+    'gomodTidy',
+    'gomodUpdateImportPaths',
+  ],
   prHourlyLimit: 0,
   prConcurrentLimit: 5,
   lockFileMaintenance: {
     enabled: true,
-    schedule: ["before 3am on sunday"],
+    schedule: [
+      'before 3am on sunday',
+    ],
   },
   vulnerabilityAlerts: {
     enabled: true,
-    labels: ["security"],
+    labels: [
+      'security',
+    ],
   },
   packageRules: [],
-  minimumReleaseAge: "7 days",
+  minimumReleaseAge: '7 days',
 }
